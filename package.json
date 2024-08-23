@@ -1,0 +1,53 @@
+{
+  "name": "ui-kit-core",
+  "private": false,
+  "version": "1.1.0",
+  "files": [
+    "components"
+  ],
+  "main": "./components/index.js",
+  "module": "./components/index.js",
+  "types": "./components/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "dev": "vite",
+    "build": "tsc --p ./tsconfig-build.json && vite build",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "preview": "vite preview",
+    "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
+    "storybook": "storybook dev --no-open",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-modal": "3.16.1",
+    "ui-kit-core": "github:optimacros/ui-kit-core#topic-15-build-storybook"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "8.0.9",
+    "@storybook/addon-essentials": "8.0.9",
+    "@storybook/addon-interactions": "8.0.9",
+    "@storybook/addon-links": "8.0.9",
+    "@storybook/react": "8.0.9",
+    "@storybook/react-vite": "8.0.9",
+    "@types/react": "18.2.75",
+    "@types/react-dom": "18.2.24",
+    "@types/react-modal": "3.16.3",
+    "@typescript-eslint/parser": "7.6.0",
+    "@vitejs/plugin-react-swc": "3.6.0",
+    "eslint": "8.57.0",
+    "eslint-plugin-react": "7.34.1",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.6",
+    "eslint-plugin-storybook": "0.8.0",
+    "eslint-plugin-unused-imports": "3.1.0",
+    "storybook": "^8.0.9",
+    "typescript": "5.4.5",
+    "vite": "5.2.8",
+    "vite-plugin-dts": "3.8.1",
+    "vite-plugin-eslint": "1.8.1",
+    "vite-plugin-lib-inject-css": "2.0.1",
+    "vite-tsconfig-paths": "4.3.2"
+  }
+}
