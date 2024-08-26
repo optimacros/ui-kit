@@ -2,12 +2,10 @@
   "name": "ui-kit",
   "private": false,
   "version": "0.0.0",
-  "files": [
-    "components"
-  ],
-  "main": "./components/index.js",
-  "module": "./components/index.js",
-  "types": "./components/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "prepare": "npm run build",
     "dev": "vite",
