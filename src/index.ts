@@ -1,1 +1,1 @@
-export * from "ui-kit-core"
+export * from 'ui-kit-core'
