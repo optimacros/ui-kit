@@ -10,7 +10,6 @@ export default defineConfig({
         dts({
             include: ['./src/index.ts'],
             insertTypesEntry: true,
-            // outDir: ['.'],
         }),
     ],
     build: {
