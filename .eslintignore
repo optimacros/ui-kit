@@ -1,0 +1,9 @@
+.gitignore
+vite-env.d.ts
+package.json
+babel.config.js
+package-lock.json
+/node_modules
+build/*
+config-overrides.js
+src/react-app-env.d.ts

@@ -1,0 +1,71 @@
+variables:
+  runner: "ui-kit"
+  GIT_CLONE_PATH: "$CI_BUILDS_DIR/$CI_PROJECT_NAME/$CI_PIPELINE_ID/$CI_COMMIT_SHORT_SHA"
+  GIT_STRATEGY: fetch
+  GIT_FETCH_EXTRA_FLAGS: --tags --depth=1000
+  DEPLOY_HOSTNAME: $DEPLOY_HOSTNAME_storybook_optimacros_com
+  DEPLOY_USERNAME: $DEPLOY_USERNAME_storybook_optimacros_com
+
+workflow:
+  rules:
+    - if: ( $CI_COMMIT_REF_NAME == "main") # при ручком запуске из  webui
+      variables:
+        deploy: "true"
+    - if: ( $CI_PIPELINE_SOURCE == "merge_request_event") # При MR
+      variables:
+        pr: "true"
+    - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - nvm use && npm ci && npm run build-storybook
+    - mv storybook-static $CI_PROJECT_NAME
+    - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
+  tags:
+    - ${runner}
+
+# tests
+lint-test:
+  stage: test
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ${runner}
+  script:
+    - nvm use && npm run lint
+
+#deploy
+deploy:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - if: ($deploy == "true")
+      when: on_success
+    - if: ($pr == "true")
+      when: never
+    - if: ($deploy != "true" && $pr != "true")
+      when: manual
+      allow_failure: true
+  tags:
+    - ${runner}
+  before_script:
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
+    - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - echo "Deploying application..."
+    - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
+    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
+      rm -rf $CI_PROJECT_NAME &&
+      tar -xvf $CI_PROJECT_NAME.tar.gz &&
+      rm -rf $CI_PROJECT_NAME.tar.gz"
