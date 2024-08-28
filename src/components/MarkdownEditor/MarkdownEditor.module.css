@@ -1,0 +1,80 @@
+.MarkdownEditor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &_notResize {
+        & :global(.react-resizable-handle) {
+            display: none;
+        }
+    }
+    &_edit {
+        & .MarkdownEditorHtml {
+            display: none;
+        }
+    }
+    &_preview {
+        & .MarkdownEditorTextarea {
+            display: none;
+        }
+    }
+    &_split {
+        & .MarkdownEditorTextarea {
+            border-right: 1px solid var(--light-divider-color);
+        }
+    }
+}
+
+.MarkdownEditorTop {
+    height: 48px;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 2;
+}
+
+.TabHeaderContainer {
+    height: 100%;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.TabButton {
+    height: 48px;
+    &_Inner {
+        background-color: transparent;
+        padding: 0 12px 1px;
+    }
+    &_Content {
+        line-height: 46px;
+        font-size: 14px;
+    }
+    &__active {
+        & .TabButton_Inner {
+            padding: 0 12px 1px;
+        }
+    }
+}
+
+.MarkdownEditorContent {
+    display: flex;
+    width: 100% !important;
+    border: 1px solid var(--light-divider-color);
+    background: var(--body-bg);
+}
+
+.MarkdownEditorTextarea {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    padding: 10px;
+    outline: none;
+}
+
+.MarkdownEditorHtml {
+    background: var(--body-bg);
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    overflow: auto;
+}
