@@ -1,0 +1,42 @@
+.Element {
+  position: relative;
+
+  &_canDrop {
+    color: var(--primary-text-color) !important;
+    background: #eee !important;
+  }
+
+  &_hover_over {
+    background: var(--light-divider-color) !important;
+  }
+
+  &_hover_before::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: var(--primary-color);
+    top: -4px;
+    left: 0;
+  }
+
+  &_hover_after::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: var(--primary-color);
+    bottom: -4px;
+    left: 0;
+  }
+
+  &_hover_child::after {
+    content: "";
+    position: absolute;
+    height: 25px;
+    width: 2px;
+    background: var(--primary-color);
+    top: 0;
+    right: -3px;
+  }
+}

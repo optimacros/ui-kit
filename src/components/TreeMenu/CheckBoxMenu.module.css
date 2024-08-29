@@ -1,0 +1,45 @@
+.BaseMenu {
+    & .Element {
+        background: none;
+
+        &:hover {
+            background: none;
+            cursor: default;
+        }
+
+        &__selected,
+        &__selected:hover {
+            background: none;
+            color: #fff;
+        }
+    }
+}
+
+.CheckboxElement {
+    padding: 4px 8px;
+}
+
+.Checkbox {
+    margin: 0;
+
+    & > span {
+        cursor: pointer;
+    }
+}
+
+.check {
+    border-color: #c1c1c1;
+
+    &.checked {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+
+        &:after {
+            animation-duration: 0ms !important;
+        }
+    }
+}
+
+.text {
+    color: var(--secondary-text-color);
+}
