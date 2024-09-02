@@ -1,0 +1,8 @@
+.Tab {
+    width: 100%;
+    height: max-content;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}

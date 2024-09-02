@@ -1,0 +1,2606 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseMenuState #active first line render with selected element in first branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": true,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 6,
+                "index": 5,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  0,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 5,
+                "title": "element 1.1.2.1",
+              },
+            ],
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 7,
+        "index": 6,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 12,
+        "index": 7,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.3",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #active first line render with selected element in two branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 8,
+            "index": 6,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 7,
+            "title": "element 1.2.1",
+          },
+          Object {
+            "active": true,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 11,
+                "index": 8,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  0,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 10,
+                "title": "element 1.2.2.1",
+              },
+            ],
+            "entityLongId": 10,
+            "index": 7,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 7,
+            "title": "element 1.2.2",
+          },
+        ],
+        "entityLongId": 7,
+        "index": 5,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 12,
+        "index": 9,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.3",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #active first line render without selected element 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 7,
+        "index": 5,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 12,
+        "index": 6,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.3",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements open branch with activeFirstLine 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 9,
+                "index": 7,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 8,
+                "title": "element 1.2.1.1",
+              },
+            ],
+            "entityLongId": 8,
+            "index": 6,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 7,
+            "title": "element 1.2.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 10,
+            "index": 8,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 7,
+            "title": "element 1.2.2",
+          },
+        ],
+        "entityLongId": 7,
+        "index": 5,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 12,
+        "index": 9,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.3",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements open closed branch with activeFirstLine 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": true,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 7,
+        "index": 5,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 12,
+        "index": 6,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.3",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements open some branch and close total branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 6,
+        "index": 2,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements open some branch and close total branch v2 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements show all two branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": false,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 6,
+        "index": 5,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements show and hide first branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements to show the first branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 6,
+        "index": 2,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements with activeByDefault to hide the first branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements with activeByDefault to hide the last branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 3,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 7,
+            "index": 5,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 6,
+            "title": "element 1.2.1",
+          },
+        ],
+        "entityLongId": 6,
+        "index": 4,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements with activeByDefault to hide the last two branches 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 7,
+            "index": 3,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 6,
+            "title": "element 1.2.1",
+          },
+        ],
+        "entityLongId": 6,
+        "index": 2,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState #toggleElements with activeByDefault to hide the penultimate branch 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 7,
+            "index": 3,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 6,
+            "title": "element 1.2.1",
+          },
+        ],
+        "entityLongId": 6,
+        "index": 2,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState MenuState #elements 1`] = `
+Array [
+  Object {
+    "active": false,
+    "entityLongId": 1,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 2,
+    "parentEntityLongId": 1,
+    "title": "element 1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 3,
+    "parentEntityLongId": 2,
+    "title": "element 1.1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 4,
+    "parentEntityLongId": 3,
+    "title": "element 1.1.1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 5,
+    "parentEntityLongId": 2,
+    "title": "element 1.1.2",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 6,
+    "parentEntityLongId": 1,
+    "title": "element 1.2",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 7,
+    "parentEntityLongId": 6,
+    "title": "element 1.2.1",
+  },
+]
+`;
+
+exports[`BaseMenuState MenuState #onSelect 1`] = `
+Array [
+  Object {
+    "active": false,
+    "entityLongId": 1,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 2,
+    "parentEntityLongId": 1,
+    "title": "element 1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 3,
+    "parentEntityLongId": 2,
+    "title": "element 1.1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 4,
+    "parentEntityLongId": 3,
+    "title": "element 1.1.1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 5,
+    "parentEntityLongId": 2,
+    "title": "element 1.1.2",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 6,
+    "parentEntityLongId": 1,
+    "title": "element 1.2",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 7,
+    "parentEntityLongId": 6,
+    "title": "element 1.2.1",
+  },
+]
+`;
+
+exports[`BaseMenuState MenuState #onSelect 2`] = `
+Array [
+  Object {
+    "active": false,
+    "entityLongId": 1,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 2,
+    "parentEntityLongId": 1,
+    "title": "element 1.1",
+  },
+  Object {
+    "active": true,
+    "entityLongId": 3,
+    "parentEntityLongId": 2,
+    "title": "element 1.1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 4,
+    "parentEntityLongId": 3,
+    "title": "element 1.1.1.1",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 5,
+    "parentEntityLongId": 2,
+    "title": "element 1.1.2",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 6,
+    "parentEntityLongId": 1,
+    "title": "element 1.2",
+  },
+  Object {
+    "active": false,
+    "entityLongId": 7,
+    "parentEntityLongId": 6,
+    "title": "element 1.2.1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate plain list 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 0,
+    "index": 0,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 0",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 1,
+    "index": 1,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 2,
+    "index": 2,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 2",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 3,
+    "index": 3,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 3",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 4,
+    "index": 4,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 4",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 5,
+    "index": 5,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 5",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 6,
+    "index": 6,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 6",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 7,
+    "index": 7,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 7",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 8,
+    "index": 8,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 8",
+  },
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": false,
+    "entityLongId": 9,
+    "index": 9,
+    "isLast": false,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 9",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate tree list 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate tree list with isStatic flag 1`] = `
+Array [
+  Object {
+    "active": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 7,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 6,
+            "title": "element 1.2.1",
+          },
+        ],
+        "entityLongId": 6,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate treeMenuFour 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate treeMenuThree 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate treeMenuTwo 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": false,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": true,
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate with #activeByDefault tree list 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 7,
+            "index": 6,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 6,
+            "title": "element 1.2.1",
+          },
+        ],
+        "entityLongId": 6,
+        "index": 5,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate with #activeByDefault treeMenuFour 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate with #activeByDefault treeMenuThree 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  0,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              0,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": true,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;
+
+exports[`BaseMenuState simple generate with #activeByDefault treeMenuTwo 1`] = `
+Array [
+  Object {
+    "active": false,
+    "arrowActive": true,
+    "borderOffset": Array [
+      0,
+    ],
+    "children": Array [
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": Array [
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": Array [
+              Object {
+                "active": false,
+                "arrowActive": true,
+                "borderOffset": Array [
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "children": null,
+                "entityLongId": 4,
+                "index": 3,
+                "isLast": false,
+                "isMissingParent": false,
+                "nesting": Array [
+                  0,
+                  1,
+                  1,
+                  1,
+                ],
+                "offset": 3,
+                "parentEntityLongId": 3,
+                "title": "element 1.1.1.1",
+              },
+            ],
+            "entityLongId": 3,
+            "index": 2,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.1",
+          },
+          Object {
+            "active": false,
+            "arrowActive": true,
+            "borderOffset": Array [
+              0,
+              0,
+              0,
+            ],
+            "children": null,
+            "entityLongId": 5,
+            "index": 4,
+            "isLast": false,
+            "isMissingParent": false,
+            "nesting": Array [
+              0,
+              1,
+              1,
+            ],
+            "offset": 2,
+            "parentEntityLongId": 2,
+            "title": "element 1.1.2",
+          },
+        ],
+        "entityLongId": 2,
+        "index": 1,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.1",
+      },
+      Object {
+        "active": false,
+        "arrowActive": true,
+        "borderOffset": Array [
+          0,
+          0,
+        ],
+        "children": null,
+        "entityLongId": 6,
+        "index": 5,
+        "isLast": false,
+        "isMissingParent": false,
+        "nesting": Array [
+          0,
+          1,
+        ],
+        "offset": 1,
+        "parentEntityLongId": 1,
+        "title": "element 1.2",
+      },
+    ],
+    "entityLongId": 1,
+    "index": 0,
+    "isLast": true,
+    "isMissingParent": false,
+    "nesting": Array [
+      1,
+    ],
+    "offset": 0,
+    "parentEntityLongId": -1,
+    "title": "element 1",
+  },
+]
+`;

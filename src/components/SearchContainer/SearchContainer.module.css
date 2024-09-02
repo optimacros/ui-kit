@@ -1,0 +1,45 @@
+.SearchContainer {
+    min-width: 100%;
+    position: relative;
+    height: 36px;
+
+    & .CloseIcon,
+    .SearchIcon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        right: 0;
+        color: #c1c1c1;
+        cursor: pointer;
+        font-size: 20px;
+        height: 100%;
+        width: 36px;
+
+        &:hover {
+            color: var(--Button-gray-color);
+        }
+    }
+}
+
+.CloseIcon,
+.SearchIcon {
+    color: var(--Checkbox-color);
+    cursor: pointer;
+    font-size: 20px;
+    height: 100%;
+
+    &:hover {
+        color: var(--Button-gray-color);
+    }
+}
+
+.InputElement {
+    padding: 8px !important;
+    border: none;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--light-divider-color);
+}

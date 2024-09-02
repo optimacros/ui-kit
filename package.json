@@ -9,20 +9,30 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "npm run build",
     "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+		"lint:fix": "npm run lint -- --fix",
     "preview": "vite preview",
     "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
     "storybook": "storybook dev --no-open",
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "marked": "4.1.0",
+    "mobx": "6.9.0",
+    "mobx-react": "7.6.0",
     "react": "18.2.0",
+    "react-color": "2.19.3",
+    "react-dnd": "2.6.0",
+    "react-dnd-html5-backend": "2.6.0",
     "react-dom": "18.2.0",
     "react-modal": "3.16.1",
-    "ui-kit-core": "github:optimacros/ui-kit-core#1.0.3"
+    "react-range": "1.8.14",
+    "react-resizable": "3.0.5",
+    "react-transition-group": "4.0.1",
+    "tinycolor2": "1.6.0",
+    "ui-kit-core": "github:optimacros/ui-kit-core#1.0.7"
   },
   "devDependencies": {
     "@storybook/addon-actions": "8.0.9",
@@ -31,9 +41,15 @@
     "@storybook/addon-links": "8.0.9",
     "@storybook/react": "8.0.9",
     "@storybook/react-vite": "8.0.9",
+    "@types/marked": "6.0.0",
     "@types/react": "18.2.75",
+    "@types/react-color": "3.0.12",
+    "@types/react-dnd": "3.0.2",
     "@types/react-dom": "18.2.24",
     "@types/react-modal": "3.16.3",
+    "@types/react-resizable": "3.0.8",
+    "@types/react-transition-group": "4.4.11",
+    "@types/tinycolor2": "1.4.6",
     "@typescript-eslint/parser": "7.6.0",
     "@vitejs/plugin-react-swc": "3.6.0",
     "eslint": "8.57.0",

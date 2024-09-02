@@ -1,0 +1,180 @@
+@import '../../../themes/config.css';
+
+:root {
+    --base-height: 21px;
+    --tab-header-offset: 13px;
+    --tab-header-height: calc(23px + var(--tab-header-offset));
+    --main-tab-header-offset: 9px;
+    --main-tab-header-height: calc(var(--base-height) + var(--main-tab-header-offset));
+}
+
+.TabHeaderContainer {
+    display: flex;
+    width: 100%;
+    height: calc(var(--tab-header-height) + 1px);
+    max-width: 100%;
+    padding: var(--tab-header-offset) 0 0;
+    margin: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    flex-shrink: 0;
+    z-index: 1;
+
+    &_noScroller {
+        border-bottom: 1px solid #e8e8e8;
+    }
+}
+
+.TabHeaderContainerScroller {
+    display: flex;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    flex-grow: 1;
+    border-bottom: 1px solid var(--tab-header-button-border);
+
+    &:not(:first-child) {
+        margin-left: 5px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+.TabButton {
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: calc(var(--tab-header-height) + 1px - var(--tab-header-offset));
+    min-width: 39px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+
+    &_Inner {
+        height: 100%;
+        padding: 0 12px 1px;
+        border-bottom: 1px solid var(--tab-header-button-border);
+        background-clip: padding-box;
+        position: relative;
+    }
+
+    &_Content {
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        color: var(--tab-header-button-color);
+        font-size: 1.3rem;
+        line-height: 22px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    &__active {
+        & .TabButton_Inner {
+            padding: 0 12px;
+            border-bottom: 2px solid var(--tab-header-button-active-border);
+        }
+
+        & .TabButton_Content {
+            color: var(--tab-header-button-active-color);
+        }
+    }
+
+    &__disabled {
+        & .TabButton_Inner {
+            opacity: 0.5;
+        }
+    }
+
+    &:hover {
+        &:not(.TabButton__active):not(.TabButton__disabled) {
+            & .TabButton_Content {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    &:focus {
+        box-shadow: inset 0 0 4px 1px var(--tab-header-button-focus-border);
+    }
+}
+
+.Icon {
+    display: flex !important;
+    margin-right: 8px;
+    font-size: 14px;
+
+    > img {
+        max-width: 10px;
+        max-height: 10px;
+        display: block;
+    }
+}
+
+.Dropdown {
+    margin-left: 1px;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background: var(--tab-header-dropdown-bg);
+
+    &:hover {
+        background: var(--tab-header-dropdown-hover-bg);
+    }
+}
+
+.DropdownButton {
+    max-height: 100%;
+    width: 100%;
+    min-width: 0;
+    padding: 0 !important;
+    border-radius: 3px;
+    border: none !important;
+
+    & [data-react-toolbox="font-icon"] {
+        margin-top: -2px;
+    }
+}
+
+.DropdownButtonContainer {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.DropdownButtonElement {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 12px !important;
+    max-width: 200px;
+    min-width: 110px;
+
+    &_active {
+        background: var(--primary-color) !important;
+        color: #fff !important;
+
+        * {
+            color: #fff !important;
+        }
+    }
+
+    &_disabled {
+        opacity: .5;
+        pointer-events: none;
+        cursor: default;
+        background: none !important;
+    }
+}
+
+.MenuRootContainerClassName {
+    overflow: auto;
+    max-height: 80vh;
+}

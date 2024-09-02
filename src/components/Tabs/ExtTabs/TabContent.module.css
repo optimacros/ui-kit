@@ -1,0 +1,17 @@
+.TabContent {
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+
+    &_Inner {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        background: var(--tab-content-bg);
+    }
+}
