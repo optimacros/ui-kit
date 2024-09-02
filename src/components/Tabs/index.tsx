@@ -5,6 +5,10 @@ import { TabsContainer } from './ExtTabs'
 import type { TabsContainerProps } from './ExtTabs/TabsContainer'
 import type { TabProps } from './Tab'
 
+
+export * from './ExtTabs'
+export * from './Tab'
+
 interface Props extends Omit<TabsContainerProps, 'active'> {
     active?: number;
     onChange?: (index: number) => void;

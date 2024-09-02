@@ -2,8 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { ResizableBox } from 'react-resizable'
 import { marked } from 'marked'
-import Tab from '../Tabs/Tab'
-import TabHeader from '../Tabs/ExtTabs/TabHeader'
+import { Tab, TabHeader } from '../Tabs'
 
 import styles from './MarkdownEditor.module.css'
 

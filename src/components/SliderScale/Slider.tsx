@@ -4,7 +4,7 @@ import { round, range } from '../../utils/react-toolbox-utils/utils'
 import events from '../../utils/react-toolbox-utils/events'
 import { ProgressBar as InjectProgressBar } from '../ProgressBar'
 import { Input as ThemedInput } from 'ui-kit-core'
-import { mergeStyles } from '../../utils'
+import { mergeStyles } from 'ui-kit-core'
 
 import styles from './sliderTheme.module.css'
 

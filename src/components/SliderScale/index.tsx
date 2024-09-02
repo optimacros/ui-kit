@@ -1,5 +1,5 @@
 import React from 'react'
-import { mergeStyles } from '../../utils'
+import { mergeStyles } from 'ui-kit-core'
 import ThemedSlider, { SliderProps } from './Slider'
 
 import styles from './SliderScale.module.css'

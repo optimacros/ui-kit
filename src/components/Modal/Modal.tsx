@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import React, { Component } from 'react'
 import type BaseReactModal from 'react-modal'
+import { FontIcon } from 'ui-kit-core'
 
 import Draggable from './DraggableModalContainer'
 import ReactModal from './ReactModal'
-import { FontIcon } from '../FontIcon'
 
 import styles from './Modal.module.css'
 

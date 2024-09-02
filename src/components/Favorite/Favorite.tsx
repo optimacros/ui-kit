@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { FontIcon } from 'ui-kit-core'
-import { CheckBox as Checkbox } from 'ui-kit-core'
+import { FontIcon, CheckBox as Checkbox  } from 'ui-kit-core'
 
 import styles from './Favorite.module.css'
 

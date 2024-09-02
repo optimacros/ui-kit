@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 import { ResizableBox } from 'react-resizable'
 import { KEY_CODES } from '../../../constants'
-import { mergeStyles } from '../../../utils'
+import { mergeStyles } from 'ui-kit-core'
 import BaseMenu from './BaseMenu'
 import BaseMenuState from './BaseMenuState'
 

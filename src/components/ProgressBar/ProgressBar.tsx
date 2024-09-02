@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import prefixer from '../../utils/react-toolbox-utils/prefixer'
-import { mergeStyles } from '../../utils'
+import { mergeStyles } from 'ui-kit-core'
 
 import defaultTheme from './progressBarTheme.module.css'
 

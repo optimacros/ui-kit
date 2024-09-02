@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import { Button as BaseButton,  } from 'ui-kit-core'
+import { Button as BaseButton } from 'ui-kit-core'
 
 export interface SnackbarProps {
     action?: string;

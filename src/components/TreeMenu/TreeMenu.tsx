@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
-import { mergeStyles } from '../../utils'
+import { mergeStyles } from 'ui-kit-core'
 import { FontIcon } from 'ui-kit-core'
 import BaseMenu from './BaseMenu'
 import themeTreeMenu from './TreeMenu.module.css'

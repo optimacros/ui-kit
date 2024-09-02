@@ -2,7 +2,7 @@ import { ArgTypes, Meta, StoryObj } from "@storybook/react"
 
 import { Modal } from "./index"
 import { useState } from "react";
-import { FontIcon } from "../FontIcon";
+import { FontIcon } from "ui-kit-core";
 
 const argTypes: Partial<ArgTypes> = {
     isOpen: {

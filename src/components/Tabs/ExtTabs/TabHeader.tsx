@@ -6,11 +6,10 @@ import React, { Component } from 'react'
 
 import { TabHeaderState } from './TabHeaderState'
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer'
-import { Key } from '../../../types/KeyboardKeyList'
-import { mergeStyles } from '../../../utils/mergeStyle'
-import { ButtonMenu } from '../../ButtonMenu'
-import { Counter } from '../../Counter'
-import { Icon } from '../../Icon'
+import { mergeStyles, ButtonMenu, Icon, Counter } from 'ui-kit-core'
+
+//TODO: add types
+import { Key  } from 'ui-kit-core/components/helpers/KeyboardKeyList'
 import { MenuItem } from '../../Menu'
 import type { TabProps } from '../Tab'
 
