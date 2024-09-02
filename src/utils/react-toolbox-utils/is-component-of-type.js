@@ -35,5 +35,7 @@ export function defaultChecker(classType, reactElement) {
  * @param reactElement {ReactElement} - any React Element (not a real DOM node)
  */
 export default function isComponentOfType(classType, reactElement) {
-    return customChecker ? customChecker(classType, reactElement) : defaultChecker(classType, reactElement)
+    return customChecker
+        ? customChecker(classType, reactElement)
+        : defaultChecker(classType, reactElement)
 }

@@ -23,6 +23,7 @@ export function mergeStyles(original = {}, mixin = {}) {
     // also strip all functions injected by isomorphic-style-loader
     const result = Object.keys(original).reduce((acc, key) => {
         const value = original[key]
+
         if (typeof value !== 'function') {
             acc[key] = value
         }
@@ -42,7 +43,7 @@ export function mergeStyles(original = {}, mixin = {}) {
                 switch (typeof originalValue) {
                     case 'object': {
                         // exactly nested theme object - go recursive
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                        // eslint-disable-next-line
                         // @ts-ignore
                         result[key] = mergeStyles(originalValue, mixinValue)
                         break

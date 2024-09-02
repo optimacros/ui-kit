@@ -9,11 +9,14 @@ export const angleFromPositions = (cx, cy, ex, ey) => {
 export const angle360FromPositions = (cx, cy, ex, ey) => {
     const angle = angleFromPositions(cx, cy, ex, ey)
 
-    return angle < 0 ? 360 + angle : angle
+    return angle < 0
+        ? 360 + angle
+        : angle
 }
 
 export const range = (start = 0, stop = null, step = 1) => {
     let [_start, _stop] = [0, start]
+
     if (stop !== null) {
         // eslint-disable-next-line no-extra-semi
         ;[_start, _stop] = [start, stop]
@@ -46,9 +49,17 @@ export const getViewport = () => ({
 export const cloneObject = (object) => JSON.parse(JSON.stringify(object))
 
 export const inputTypeForPrototype = (prototype) => {
-    if (prototype === Date) return 'date'
-    if (prototype === Number) return 'number'
-    if (prototype === Boolean) return 'checkbox'
+    if (prototype === Date) {
+        return 'date'
+    }
+
+    if (prototype === Number) {
+        return 'number'
+    }
+
+    if (prototype === Boolean) {
+        return 'checkbox'
+    }
 
     return 'text'
 }
@@ -59,7 +70,9 @@ export const prepareValueForInput = (value, type) => {
     }
 
     if (type === 'checkbox') {
-        return value ? 'on' : ''
+        return value
+            ? 'on'
+            : ''
     }
 
     return value

@@ -1,5 +1,5 @@
-import hasOwnProperty from './hasOwnProperty'
 import { dateLocales } from './dateLocales'
+import hasOwnProperty from './hasOwnProperty'
 
 const time = {
     getDaysInMonth(d) {
@@ -19,37 +19,57 @@ const time = {
     },
 
     getTimeMode(d) {
-        return d.getHours() >= 12 ? 'pm' : 'am'
+        return d.getHours() >= 12
+            ? 'pm'
+            : 'am'
     },
 
     getFullMonth(d, locale = 'en') {
         const month = d.getMonth()
-        const l = (typeof locale === 'string' ? dateLocales[locale] : locale) || dateLocales.en
+        const l = (typeof locale === 'string'
+            ? dateLocales[locale]
+            : locale) || dateLocales.en
 
-        return hasOwnProperty(l, 'months') ? l.months[month] || 'Unknown' : 'Unknown'
+        return hasOwnProperty(l, 'months')
+            ? l.months[month] || 'Unknown'
+            : 'Unknown'
     },
 
     getShortMonth(d, locale = 'en') {
         const month = d.getMonth()
-        const l = (typeof locale === 'string' ? dateLocales[locale] : locale) || dateLocales.en
+        const l = (typeof locale === 'string'
+            ? dateLocales[locale]
+            : locale) || dateLocales.en
 
-        return hasOwnProperty(l, 'monthsShort') ? l.monthsShort[month] || 'Unknown' : 'Unknown'
+        return hasOwnProperty(l, 'monthsShort')
+            ? l.monthsShort[month] || 'Unknown'
+            : 'Unknown'
     },
 
     getFullDayOfWeek(day, locale = 'en') {
-        const l = (typeof locale === 'string' ? dateLocales[locale] : locale) || dateLocales.en
+        const l = (typeof locale === 'string'
+            ? dateLocales[locale]
+            : locale) || dateLocales.en
 
-        return hasOwnProperty(l, 'weekdays') ? l.weekdays[day] || 'Unknown' : 'Unknown'
+        return hasOwnProperty(l, 'weekdays')
+            ? l.weekdays[day] || 'Unknown'
+            : 'Unknown'
     },
 
     getShortDayOfWeek(day, locale = 'en') {
-        const l = (typeof locale === 'string' ? dateLocales[locale] : locale) || dateLocales.en
+        const l = (typeof locale === 'string'
+            ? dateLocales[locale]
+            : locale) || dateLocales.en
 
-        return hasOwnProperty(l, 'weekdaysShort') ? l.weekdaysShort[day] || 'Unknown' : 'Unknown'
+        return hasOwnProperty(l, 'weekdaysShort')
+            ? l.weekdaysShort[day] || 'Unknown'
+            : 'Unknown'
     },
 
     getDayOfWeekLetter(day, locale = 'en') {
-        const l = (typeof locale === 'string' ? dateLocales[locale] : locale) || dateLocales.en
+        const l = (typeof locale === 'string'
+            ? dateLocales[locale]
+            : locale) || dateLocales.en
 
         return hasOwnProperty(l, 'weekdaysLetter')
             ? l.weekdaysLetter[day] || this.getFullDayOfWeek(day, locale).charAt(0)
@@ -131,7 +151,9 @@ const time = {
         const newDate = this.clone(d)
         const hours = newDate.getHours()
 
-        newDate.setHours(hours - (hours > 12 ? -12 : 12))
+        newDate.setHours(hours - (hours > 12
+            ? -12
+            : 12))
 
         return newDate
     },
@@ -142,18 +164,31 @@ const time = {
 
         if (format === 'ampm') {
             const isAM = hours < 12
-            const additional = isAM ? ' am' : ' pm'
+            const additional = isAM
+                ? ' am'
+                : ' pm'
 
             hours %= 12
             hours = (hours || 12).toString()
-            if (mins.length < 2) mins = `0${mins}`
 
-            return hours + (mins === '00' ? '' : `:${mins}`) + additional
+            if (mins.length < 2) {
+                mins = `0${mins}`
+            }
+
+            return hours + (mins === '00'
+                ? ''
+                : `:${mins}`) + additional
         }
 
         hours = hours.toString()
-        if (hours.length < 2) hours = `0${hours}`
-        if (mins.length < 2) mins = `0${mins}`
+
+        if (hours.length < 2) {
+            hours = `0${hours}`
+        }
+
+        if (mins.length < 2) {
+            mins = `0${mins}`
+        }
 
         return `${hours}:${mins}`
     },
@@ -168,7 +203,9 @@ const time = {
         const diff1 = Math.abs(toTime - date1.getTime())
         const diff2 = Math.abs(toTime - date2.getTime())
 
-        return diff1 < diff2 ? date1 : date2
+        return diff1 < diff2
+            ? date1
+            : date2
     },
 
     formatDate(date, locale = 'en') {

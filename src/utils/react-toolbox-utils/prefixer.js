@@ -33,6 +33,7 @@ function prefixer(style, defaultValue = {}) {
     for (const property in style) {
         if ({}.hasOwnProperty.call(style, property)) {
             _style[property] = style[property]
+
             if (properties[property]) {
                 addPrefixesTo(_style, property, style[property])
             }
