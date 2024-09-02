@@ -4,4 +4,5 @@
     flex-direction: column;
     z-index: 1;
     flex-grow: 1;
+    height: fit-content;
 }

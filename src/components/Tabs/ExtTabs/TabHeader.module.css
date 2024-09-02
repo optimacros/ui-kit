@@ -1,10 +1,11 @@
+@import '../../../themes/config.css';
+
 :root {
     --base-height: 21px;
     --tab-header-offset: 13px;
     --tab-header-height: calc(23px + var(--tab-header-offset));
     --main-tab-header-offset: 9px;
     --main-tab-header-height: calc(var(--base-height) + var(--main-tab-header-offset));
-    --tab-inner-narrow-padding: 0 7px;
 }
 
 .TabHeaderContainer {
@@ -61,10 +62,6 @@
         border-bottom: 1px solid var(--tab-header-button-border);
         background-clip: padding-box;
         position: relative;
-
-        &_narrow {
-            padding: var(--tab-inner-narrow-padding)
-        }
     }
 
     &_Content {
@@ -83,10 +80,6 @@
         & .TabButton_Inner {
             padding: 0 12px;
             border-bottom: 2px solid var(--tab-header-button-active-border);
-
-            &_narrow {
-                padding: var(--tab-inner-narrow-padding)
-            }
         }
 
         & .TabButton_Content {
@@ -97,10 +90,6 @@
     &__disabled {
         & .TabButton_Inner {
             opacity: 0.5;
-
-            &_narrow {
-                padding: var(--tab-inner-narrow-padding)
-            }
         }
     }
 
@@ -122,25 +111,11 @@
     margin-right: 8px;
     font-size: 14px;
 
-    > svg {
+    > img {
         max-width: 10px;
         max-height: 10px;
         display: block;
     }
-}
-
-.TabButtonCounter {
-    display: inline-block;
-    background: var(--primary-color);
-    color: #fff;
-    border-radius: 3px;
-    margin-left: 5px;
-    min-width: 22px;
-    text-align: center;
-    font-size: 12px;
-    height: 17px;
-    line-height: 18px;
-    padding: 0 3px;
 }
 
 .Dropdown {
@@ -168,6 +143,12 @@
     }
 }
 
+.DropdownButtonContainer {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
 .DropdownButtonElement {
     display: flex;
     align-items: center;
@@ -175,10 +156,6 @@
     padding: 6px 12px !important;
     max-width: 200px;
     min-width: 110px;
-
-    &:hover {
-        background: var(--color-scale-gray-2);
-    }
 
     &_active {
         background: var(--primary-color) !important;

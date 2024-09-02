@@ -7,7 +7,7 @@ import BaseMenu from './BaseMenu'
 import themeTreeMenu from './TreeMenu.module.css'
 
 @observer
-export default class TreeMenu extends React.Component {
+export class TreeMenu extends React.Component {
     static propTypes = {
         elements: PropTypes.oneOfType([
             PropTypes.arrayOf(

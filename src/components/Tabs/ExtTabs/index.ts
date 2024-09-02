@@ -1,4 +1,3 @@
-export { default } from './TabsContainer'
-export { default as TabsContainer } from './TabsContainer'
-export { default as TabHeader } from './TabHeader'
-export { default as TabContent } from './TabContent'
+export { TabsContainer } from './TabsContainer'
+export { TabHeader } from './TabHeader'
+export { TabContent } from './TabContent'

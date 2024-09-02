@@ -1,47 +1,33 @@
-import _ from 'lodash'
+import { compact, findIndex, isArray } from 'lodash'
 import React from 'react'
-import ExtTabs from './ExtTabs'
 
-interface Props {
+import { TabsContainer } from './ExtTabs'
+import type { TabsContainerProps } from './ExtTabs/TabsContainer'
+import type { TabProps } from './Tab'
+
+interface Props extends Omit<TabsContainerProps, 'active'> {
     active?: number;
-    key?: number | string;
-    onChange?: (value: number) => void;
-    onTabSwitch?: () => void;
-    onTabPositionChange?: () => void;
-    children?: React.ReactNode;
+    onChange?: (index: number) => void;
 }
 
-interface State {
+type State = {
     activeTab: number;
 }
 
-export default class ThemedTabs extends React.Component<Props, State> {
+export class Tabs extends React.Component<React.PropsWithChildren<Props>, State> {
+    constructor(props: React.PropsWithChildren<Props>) {
+        super(props)
+
+        this.setCorrectActiveTab(this.props, this.state)
+    }
+
     state = {
-        activeTab: 0,
+        activeTab: this.props.active ?? 0,
     }
 
-    componentDidMount() {
-        this._setCorrectActiveTab(this.props, this.state)
-    }
-
-    componentDidUpdate(prevProps: Props) {
-        this._setTab(prevProps)
-    }
-
-    static getDerivedStateFromProps(props: Props, state: State) {
-        if (!_.isArray(props.children)) {
-            return false
-        }
-
-        const children = _.compact(props.children)
-        const currentTab = children[state.activeTab]
-
-        if (!currentTab || currentTab.props.disabled) {
-            if (!_.isArray(props.children)) {
-                return null
-            }
-
-            const activeTab = _.findIndex(children, (child) => child && !!child.props.disabled == false)
+    static getDerivedStateFromProps(props: React.PropsWithChildren<Props>, state: State): State | null {
+        if (currentTabIsDisabled(props, state)) {
+            const activeTab = getFirstNonDisabledTab(props) ?? 0
 
             return { activeTab }
         }
@@ -49,80 +35,70 @@ export default class ThemedTabs extends React.Component<Props, State> {
         return null
     }
 
-    render() {
-        const { children, ...otherProps } = this.props
+    render(): React.JSX.Element {
+        const {
+            children,
+            onChange,
+            ...otherProps
+        } = this.props
 
         return (
-            <ExtTabs
-                active={this.state.activeTab}
-                onTabSwitch={this._onTabSwitch}
+            <TabsContainer
                 {...otherProps}
+                active={this.state.activeTab}
+                onTabSwitch={this.onTabSwitch}
             >
                 {this.renderContent()}
-            </ExtTabs>
+            </TabsContainer>
         )
     }
 
-    renderContent() {
-        return this.getTabs()
+    renderContent(): React.ReactElement<TabProps>[] {
+        if (!isArray(this.props.children)) {
+            return [this.props.children]
+        }
+
+        return compact(this.props.children)
     }
 
-    _onTabSwitch = (index: number) => {
+    private onTabSwitch = (index: number): void => {
         if (this.props.onChange) {
             this.props.onChange(index)
         }
 
-        this._setActiveTab(index)
+        this.setActiveTab(index)
     }
 
-    _setTab(prevProps: Props) {
-        const { key } = this.props
+    private setCorrectActiveTab(props: React.PropsWithChildren<Props>, state: State): void {
+        if (currentTabIsDisabled(props, state)) {
+            const activeTab = getFirstNonDisabledTab(props) ?? 0
 
-        if (key && (key !== prevProps.key)) {
-            this.setState({
-                activeTab: 0,
-            })
+            this.setActiveTab(activeTab)
         }
     }
 
-    getTabs() {
-        if (!_.isArray(this.props.children)) {
-            return [this.props.children]
-        }
-
-        return _.compact(this.props.children)
-    }
-
-    _setCorrectActiveTab(props, state) {
-        if (this._currentTabIsDisabled(props, state)) {
-            const activeTab = this._getFirstNonDisabledTab(props)
-
-            this.setState({ activeTab })
-        }
-    }
-
-    _currentTabIsDisabled(props, state) {
-        if (!_.isArray(props.children)) {
-            return false
-        }
-
-        const children = _.compact(props.children)
-        const currentTab = children[state.activeTab]
-
-        return !currentTab || currentTab.props.disabled
-    }
-
-    _getFirstNonDisabledTab(props) {
-        if (!_.isArray(props.children)) {
-            return null
-        }
-
-        const children = _.compact(props.children)
-
-        return _.findIndex(children, (child) => child && !!child.props.disabled == false)
-    }
-
-    _setActiveTab(activeTab: number) {
+    private setActiveTab(activeTab: number): void {
         this.setState({ activeTab })
     }
+}
+
+function currentTabIsDisabled(props: React.PropsWithChildren<Props>, state: State): boolean {
+    if (!isArray(props.children)) {
+        return false
+    }
+
+    const children = compact(props.children)
+    const currentTab = children[state.activeTab]
+
+    return currentTab?.props.disabled ?? false
+}
+
+function getFirstNonDisabledTab(props: React.PropsWithChildren<Props>): number | null {
+    if (!isArray(props.children)) {
+        return null
+    }
+
+    const children = compact(props.children)
+
+    return findIndex(children, (child) => child && !child.props.disabled)
 }

@@ -1,23 +1,29 @@
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
 
 import styles from './Tab.module.css'
 
-interface Props {
-    // eslint-disable-next-line react/no-unused-prop-types
-    title?: string;
+export interface TabProps {
+    counter?: number | undefined;
+    maxCounter?: number | undefined;
     className?: string;
-    children?: React.ReactNode;
+    title?: React.JSX.Element | string;
+    onHeaderContextMenu?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    nonDraggable?: boolean;
+    isFixed?: boolean;
+    counterLink?: Record<string, any>;
+    onDoubleClick?: () => void;
+    icon?: React.JSX.Element | string;
+    disabled?: boolean;
+    label?: string;
 }
 
-const Tab: React.FC<Props> = ({ children, className }) => {
-    const newClassName = classNames(styles.Tab, className)
+export const Tab = (props: React.PropsWithChildren<TabProps>): React.JSX.Element => {
+    const newClassName = classNames(styles.Tab, props.className)
 
     return (
         <div className={newClassName}>
-            {children}
+            {props.children}
         </div>
     )
 }
-
-export default Tab

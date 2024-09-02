@@ -1,43 +1,42 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import _ from 'lodash'
-import React, { Component, ReactNode } from 'react'
 import classNames from 'classnames'
-import { mergeStyles } from '../../../utils'
+import { map } from 'lodash'
+import React, { Component } from 'react'
+
+import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer'
+import { mergeStyles } from '../../../utils/mergeStyle'
+import type { TabProps } from '../Tab'
 
 import styles from './TabContent.module.css'
 
-interface Theme {
-    TabContent?: string;
-    TabContent_Inner?: string;
+export type TabContentTheme = {
+    TabContent: string;
+    TabContent_Inner: string;
 }
-interface Props {
-    active?: number;
+
+type Props = Omit<TabsContainerProps, 'headerClassName' | 'contentClassName'> & {
+    children: React.ReactElement<TabProps>[];
     className?: string;
-    theme?: Theme | Record<string, string>;
-    children?: ReactNode[];
+    theme?: Partial<TabContentTheme>;
 }
 
-class TabContent extends Component<Props> {
-    static defaultProps = {
-        theme: {
-            TabContent: 'TabContent__TabContent',
-            TabContent_Inner: 'TabContent__TabContent_Inner',
-        },
+export class TabContent extends Component<Props> {
+    render(): React.JSX.Element {
+        const theme = this.getTheme
+        const className = classNames(theme.TabContent, this.props.className)
+
+        return (
+            <div className={className}>
+                {this.renderPanel()}
+            </div>
+        )
     }
 
-    render() {
-        const theme = mergeStyles(this.props.theme, styles)
-        const className = classNames((theme as Theme).TabContent, this.props.className)
+    renderPanel(): (React.JSX.Element | null)[] {
+        const theme = this.getTheme
+        const active = this.props.active ?? 0
 
-        return <div className={className}>{this.renderPanel()}</div>
-    }
-
-    renderPanel() {
-        const { active } = this.props
-        const theme = mergeStyles(this.props.theme, styles) as Theme
-
-        return _.map(this.props.children, (panel, index) => {
-            if (active !== index) {
+        return map(this.props.children, (panel, index) => {
+            if (active !== Number(index)) {
                 return null
             }
 
@@ -51,6 +50,10 @@ class TabContent extends Component<Props> {
             )
         })
     }
-}
 
-export default TabContent
+    private get getTheme(): TabsContainerTheme {
+        const customTheme = this.props.theme ?? {}
+
+        return mergeStyles(customTheme, styles) as TabsContainerTheme
+    }
+}

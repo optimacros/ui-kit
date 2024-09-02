@@ -17,7 +17,7 @@ interface Props {
     labelUploadNewFile?: string;
 }
 
-export default class FileInput extends React.Component<Props> {
+export class FileInput extends React.Component<Props> {
     render() {
         if (this.props.state.file && this.props.filePreview) {
             return this.renderFilePreview()

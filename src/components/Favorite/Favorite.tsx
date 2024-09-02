@@ -12,7 +12,7 @@ interface Props {
     className?: string;
 }
 
-export default class Favorite extends Component<Props> {
+export class Favorite extends Component<Props> {
     render() {
         const className = classNames(styles.Container, this.props.className)
 
