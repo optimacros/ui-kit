@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import { map } from 'lodash'
 import React, { Component } from 'react'
+import { mergeStyles } from 'ui-kit-core'
 
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer'
-import { mergeStyles } from 'ui-kit-core'
 import type { TabProps } from '../Tab'
 
 import styles from './TabContent.module.css'

@@ -3,13 +3,10 @@ import { has, isEmpty, isEqual, isString, map } from 'lodash'
 import { observer } from 'mobx-react'
 import type { CSSProperties, KeyboardEvent } from 'react'
 import React, { Component } from 'react'
+import { mergeStyles, ButtonMenu, Icon, Counter, Key } from 'ui-kit-core'
 
 import { TabHeaderState } from './TabHeaderState'
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer'
-import { mergeStyles, ButtonMenu, Icon, Counter } from 'ui-kit-core'
-
-//TODO: add types
-import { Key  } from 'ui-kit-core/components/helpers/KeyboardKeyList'
 import { MenuItem } from '../../Menu'
 import type { TabProps } from '../Tab'
 

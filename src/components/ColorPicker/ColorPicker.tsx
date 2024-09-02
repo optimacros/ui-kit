@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
-import type { Position } from 'ui-kit-core/components/Tooltip'
 import { Dropdown, Tooltip } from 'ui-kit-core'
+import type { Position } from 'ui-kit-core/dist/components/Tooltip'
 import Picker from './Picker'
 
 import style from './Color.module.css'
