@@ -9,6 +9,7 @@
     "dist"
   ],
   "scripts": {
+		"prepare": "npm run build",
     "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
