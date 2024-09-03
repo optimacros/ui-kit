@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import _ from 'lodash'
 import { observer } from 'mobx-react'

@@ -27,7 +27,23 @@
     transition: all var(--animation-duration) var(--animation-curve-default) var(--animation-duration);
     z-index: var(--z-index-higher);
 
-    @apply .reset;
+		& {
+			box-sizing: border-box;
+			font-family: var(--preferred-font);
+			-webkit-font-smoothing: antialiased;
+			font-smoothing: antialiased;
+			text-size-adjust: 100%;
+		}
+		
+		& *::after,
+		& *::before {
+			box-sizing: border-box;
+			-webkit-font-smoothing: antialiased;
+			font-smoothing: antialiased;
+			text-size-adjust: 100%;
+			-webkit-touch-callout: none;
+		}
+		
 
     &.accept .button {
         color: var(--snackbar-color-accept);

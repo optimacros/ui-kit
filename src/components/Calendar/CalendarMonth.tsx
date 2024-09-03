@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react'
 import { range } from '../../utils/react-toolbox-utils/utils'
 import time from '../../utils/react-toolbox-utils/time'

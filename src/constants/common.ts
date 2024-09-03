@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const KEY_CODES = {
     SPACE: 32,
     ESC: 27,

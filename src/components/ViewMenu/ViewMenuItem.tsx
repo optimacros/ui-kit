@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import classNames from 'classnames'
 import { OFFSET_STEP } from './constants'

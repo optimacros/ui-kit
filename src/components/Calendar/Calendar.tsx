@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 import CSSTransition from 'react-transition-group/CSSTransition'

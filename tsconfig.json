@@ -39,6 +39,6 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src/**/*", "vite.config.ts", "global.d.ts"],
   "exclude": ["node_modules"],
 }

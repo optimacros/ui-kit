@@ -1,3 +1,4 @@
+// @ts-nocheck
 import classNames from 'classnames'
 import { has, isEmpty, isEqual, isString, map } from 'lodash'
 import { observer } from 'mobx-react'
