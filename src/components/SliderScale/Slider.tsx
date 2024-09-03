@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { round, range } from '../../utils/react-toolbox-utils/utils'

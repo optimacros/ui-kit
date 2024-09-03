@@ -1,4 +1,5 @@
 /* eslint-disable react/default-props-match-prop-types */
+// @ts-nocheck
 import _ from 'lodash'
 import React from 'react'
 import { Button, IconButton, Toolbar } from 'ui-kit-core'

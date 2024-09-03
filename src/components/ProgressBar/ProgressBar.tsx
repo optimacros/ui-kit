@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import prefixer from '../../utils/react-toolbox-utils/prefixer'

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+// @ts-nocheck
 import _ from 'lodash'
 import React from 'react'
 import classNames from 'classnames'

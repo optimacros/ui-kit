@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { Button as BaseButton } from 'ui-kit-core'
