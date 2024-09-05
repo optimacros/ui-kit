@@ -91,7 +91,6 @@ export default defineConfig({
                 globals: {
                     react: 'React',
                     'react-dom': 'ReactDOM',
-                    'ui-kit-core': 'UiKitCore',
                 },
             },
         },

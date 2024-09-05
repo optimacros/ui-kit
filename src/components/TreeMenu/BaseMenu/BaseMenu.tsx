@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
 // @ts-nocheck
+/* eslint-disable @typescript-eslint/camelcase */
 import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
@@ -22,9 +22,14 @@ interface BaseMenuProps {
      * Do not render the "plus" icon, all branches
      * will be always expanded.
      */
+		className: string;
+		elementHeight: string;
     elements: React.ReactNode;
     keyHandler: boolean;
     isStatic?: boolean;
+		lazyScroll: boolean;
+		isTreeLineMenu: boolean;
+		stateDraggable?: object;
     /**
      * ```js
      * <TreeMenu
@@ -33,6 +38,7 @@ interface BaseMenuProps {
      * />
      * ```
      */
+		onToggle: () => void;
     onSelect?: () => void;
     closePortal?: () => void;
     emptyElementMessage?: string;

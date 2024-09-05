@@ -43,12 +43,12 @@ export class TreeMenu extends React.Component {
 
     static defaultProps = {
         theme: {
-            /* eslint-disable @typescript-eslint/camelcase, camelcase */
+            /* eslint-disable camelcase */
             Menu__static: 'TreeMenu__Menu__static',
             element: 'TreeMenu__element',
             icon: 'TreeMenu__icon',
             title: 'TreeMenu__title',
-            /* eslint-enable @typescript-eslint/camelcase, camelcase */
+            /* eslint-enable camelcase */
         },
     }
 
