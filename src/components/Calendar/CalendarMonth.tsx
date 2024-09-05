@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React, { Component } from 'react'
-import { range } from '../../utils/react-toolbox-utils/utils'
-import time from '../../utils/react-toolbox-utils/time'
+
 import CalendarDay from './CalendarDay'
+import time from '../../utils/react-toolbox-utils/time'
+import { range } from '../../utils/react-toolbox-utils/utils'
 
 interface Props {
     disabledDates?: Date[];
@@ -54,7 +55,9 @@ class Month extends Component<Props> {
 
     renderWeeks() {
         const days = range(0, 7).map((day) => time.getDayOfWeekLetter(day, this.props.locale))
-        const source = this.props.sundayFirstDayOfWeek ? days : [...days.slice(1), days[0]]
+        const source = this.props.sundayFirstDayOfWeek
+            ? days
+            : [...days.slice(1), days[0]]
 
         return source.map((day, i) => <span key={i}>{day}</span>)
     }

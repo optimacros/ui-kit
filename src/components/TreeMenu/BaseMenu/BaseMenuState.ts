@@ -1,7 +1,6 @@
 // @ts-nocheck
 import _ from 'lodash'
 import { action, computed, observable, makeObservable } from 'mobx'
-import { calcOffsetByTreeLineSequences, valueFromZoom } from '../../../utils'
 
 import {
     BASE_MENU_ELEMENT_HEIGHT_ZOOM_0,
@@ -20,6 +19,7 @@ import {
     BASE_MENU_COUNT_ELEMENTS_ZOOM_3,
     BASE_MENU_COUNT_ELEMENTS,
 } from '../../../constants'
+import { calcOffsetByTreeLineSequences, valueFromZoom } from '../../../utils'
 
 export default class BaseMenuState {
     constructor() {
@@ -458,7 +458,9 @@ export default class BaseMenuState {
             ? parentElement.nesting.slice(0, -1)
             : parentElement.nesting
 
-        const addNesting = parentElement.isLast || parentElement.isMissingParent ? [0, 1] : [1]
+        const addNesting = parentElement.isLast || parentElement.isMissingParent
+            ? [0, 1]
+            : [1]
 
         return parentNesting.concat(addNesting)
     }
@@ -707,7 +709,9 @@ export default class BaseMenuState {
     }
 
     _convertParentLongId(parentEntityLongId) {
-        return _.isUndefined(parentEntityLongId) || _.isNull(parentEntityLongId) ? -1 : parentEntityLongId
+        return _.isUndefined(parentEntityLongId) || _.isNull(parentEntityLongId)
+            ? -1
+            : parentEntityLongId
     }
 
     _calcOffsetByNesting(nesting) {

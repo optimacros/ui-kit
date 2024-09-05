@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { mergeStyles } from '../../utils'
 import { RadioButton as Base } from './BaseRadioButton'
 import { RadioProps } from './BaseRadioButton/Radio'
+import { mergeStyles } from '../../utils'
 
 import styles from './RadioButton.module.css'
 

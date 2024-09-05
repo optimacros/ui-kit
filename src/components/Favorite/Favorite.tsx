@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
 import classNames from 'classnames'
-import { FontIcon, CheckBox as Checkbox  } from 'ui-kit-core'
+import React, { Component } from 'react'
+import { FontIcon, CheckBox as Checkbox } from 'ui-kit-core'
 
 import styles from './Favorite.module.css'
 
@@ -15,7 +15,9 @@ export class Favorite extends Component<Props> {
     render() {
         const className = classNames(styles.Container, this.props.className)
 
-        const iconValue = this.props.checked ? 'star' : 'star_border'
+        const iconValue = this.props.checked
+            ? 'star'
+            : 'star_border'
 
         return (
             <div

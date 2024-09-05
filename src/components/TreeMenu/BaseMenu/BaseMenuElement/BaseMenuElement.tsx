@@ -1,10 +1,10 @@
 // @ts-nocheck
-import _ from 'lodash'
-import React from 'react'
 import classNames from 'classnames'
+import _ from 'lodash'
 import { observer } from 'mobx-react'
-import { findDOMNode } from 'react-dom'
+import React from 'react'
 import { DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd'
+import { findDOMNode } from 'react-dom'
 
 import styles from './BaseMenuElement.module.css'
 
@@ -30,7 +30,9 @@ interface BaseMenuElementProps {
 function _getDragItems({ stateDraggable, monitor }) {
     const { selectedElements } = stateDraggable
 
-    return _.isEmpty(selectedElements) ? [monitor.getItem()] : selectedElements
+    return _.isEmpty(selectedElements)
+        ? [monitor.getItem()]
+        : selectedElements
 }
 
 function _calculateInsertRules({ element, stateDraggable, monitor, property }) {

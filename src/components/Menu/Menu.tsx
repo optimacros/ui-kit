@@ -1,6 +1,6 @@
-//@ts-nocheck
-import React, { PureComponent } from 'react'
+// @ts-nocheck
 import classNames from 'classnames'
+import React, { PureComponent } from 'react'
 
 import styles from './Menu.module.css'
 

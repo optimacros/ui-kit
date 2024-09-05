@@ -1,6 +1,8 @@
-import React from 'react'
 import { mount, shallow } from 'enzyme'
+import React from 'react'
+
 import { ProgressBar } from '../ProgressBar'
+
 import theme from '../theme.module.css'
 
 describe('ProgressBar', () => {

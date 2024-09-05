@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React, { Component } from 'react'
 import classnames from 'classnames'
-import prefixer from '../../utils/react-toolbox-utils/prefixer'
+import React, { Component } from 'react'
 import { mergeStyles } from 'ui-kit-core'
+
+import prefixer from '../../utils/react-toolbox-utils/prefixer'
 
 import defaultTheme from './progressBarTheme.module.css'
 
@@ -54,7 +55,9 @@ export class ProgressBar extends Component<Props> {
             value,
             innerRef,
         } = this.props
-        const theme = customTheme ? mergeStyles(defaultTheme, customTheme) : defaultTheme
+        const theme = customTheme
+            ? mergeStyles(defaultTheme, customTheme)
+            : defaultTheme
 
         const _className = classnames(
             theme[type],
@@ -75,14 +78,18 @@ export class ProgressBar extends Component<Props> {
                 aria-valuemax={max}
                 className={_className}
             >
-                {type === 'circular' ? this.renderCircular() : this.renderLinear()}
+                {type === 'circular'
+                    ? this.renderCircular()
+                    : this.renderLinear()}
             </div>
         )
     }
 
     renderCircular() {
         const { theme: customTheme } = this.props
-        const theme = customTheme ? mergeStyles(defaultTheme, customTheme) : defaultTheme
+        const theme = customTheme
+            ? mergeStyles(defaultTheme, customTheme)
+            : defaultTheme
 
         return (
             <svg
@@ -102,7 +109,9 @@ export class ProgressBar extends Component<Props> {
 
     renderLinear() {
         const { theme: customTheme } = this.props
-        const theme = customTheme ? mergeStyles(defaultTheme, customTheme) : defaultTheme
+        const theme = customTheme
+            ? mergeStyles(defaultTheme, customTheme)
+            : defaultTheme
         const { buffer, value } = this.linearStyle()
 
         return (

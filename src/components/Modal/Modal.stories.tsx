@@ -1,33 +1,33 @@
-import { ArgTypes, Meta, StoryObj } from "@storybook/react"
+import { ArgTypes, Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
+import { FontIcon } from 'ui-kit-core'
 
-import { Modal } from "./index"
-import { useState } from "react";
-import { FontIcon } from "ui-kit-core";
+import { Modal } from './index'
 
 const argTypes: Partial<ArgTypes> = {
     isOpen: {
-        control: "boolean",
-        description: "If `true`, modal is shown."
+        control: 'boolean',
+        description: 'If `true`, modal is shown.',
     },
     compact: {
-        control: "boolean",
-        description: "If `true`, modal becomes more compact by reducing the padding."
+        control: 'boolean',
+        description: 'If `true`, modal becomes more compact by reducing the padding.',
     },
     nonDraggable: {
-        control: "boolean",
-        description: ''
+        control: 'boolean',
+        description: '',
     },
     isFatalError: {
-        control: "boolean",
-        description: "If `true`, hide modal close button."
+        control: 'boolean',
+        description: 'If `true`, hide modal close button.',
     },
     title: {
-        control: "text",
-        description: "Modal header title."
+        control: 'text',
+        description: 'Modal header title.',
     },
     draggableTarget: {
-        control: "text",
-        description: "Classname or id. If there is an element with the passed class/id inside the modal window, then moving is possible by pressing and holding this element."
+        control: 'text',
+        description: 'Classname or id. If there is an element with the passed class/id inside the modal window, then moving is possible by pressing and holding this element.',
     },
     className: { table: { disable: true } },
     headerClassName: { table: { disable: true } },
@@ -37,9 +37,9 @@ const argTypes: Partial<ArgTypes> = {
 }
 
 const meta: Meta<typeof Modal> = {
-    title: "UI Kit lite/Modal",
+    title: 'UI Kit lite/Modal',
     component: Modal,
-    argTypes
+    argTypes,
 }
 export default meta
 
@@ -47,8 +47,8 @@ type Story = StoryObj<typeof Modal>
 
 const Template: Story = {
     render: ({ ...args }) => {
-        const [isOpen, setIsOpen] = useState(false);
-        
+        const [isOpen, setIsOpen] = useState(false)
+
         return (
             <div>
                 <button onClick={() => setIsOpen(true)}>Open modal</button>
@@ -60,37 +60,38 @@ const Template: Story = {
                     {args.children}
                 </Modal>
             </div>
-        );
+        )
     },
-};
+}
 
 export const Draggable = {
     ...Template,
     args: {
-        title: "Modal name",
-        children: <div style={{ color: "black" }}>Modal content</div>,
+        title: 'Modal name',
+        children: <div style={{ color: 'black' }}>Modal content</div>,
     },
-};
-
+}
 
 export const NonDraggable = {
     ...Template,
     args: {
-        title: "Modal name",
+        title: 'Modal name',
         nonDraggable: true,
-        children: <div style={{ color: "black" }}>Modal content</div>,
+        children: <div style={{ color: 'black' }}>Modal content</div>,
     },
 }
 
 export const DraggableTarget = {
     ...Template,
     args: {
-        title: "Modal name",
-        draggableTarget: ".handIcon",
+        title: 'Modal name',
+        draggableTarget: '.handIcon',
         children: (
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ color: "black" }}>Modal content</div>
-                <FontIcon className="handIcon" value="pan_tool" />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ color: 'black' }}>Modal content</div>
+                <FontIcon className="handIcon"
+                    value="pan_tool"
+                />
             </div>
         ),
     },
@@ -99,27 +100,27 @@ export const DraggableTarget = {
 export const CustomHeaderButton = {
     ...Template,
     args: {
-        title: "Modal name",
+        title: 'Modal name',
         customHeaderButton: <FontIcon value="settings" />,
-        children: <div style={{ color: "black" }}>Modal content</div>,
+        children: <div style={{ color: 'black' }}>Modal content</div>,
     },
 }
 
 export const Compact = {
     ...Template,
     args: {
-        title: "Modal name",
+        title: 'Modal name',
         compact: true,
-        children:  <div style={{ color: "black" }}>Modal content</div>,
+        children: <div style={{ color: 'black' }}>Modal content</div>,
     },
 }
 
 export const Error = {
     ...Template,
     args: {
-        title: "Modal name",
+        title: 'Modal name',
         isFatalError: true,
-        children: <div style={{ color: "black" }}>Modal content</div>,
+        children: <div style={{ color: 'black' }}>Modal content</div>,
     },
 }
 

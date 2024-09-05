@@ -1,12 +1,13 @@
 // @ts-nocheck
-import React from 'react'
-import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { ResizableBox } from 'react-resizable'
 import { mergeStyles } from 'ui-kit-core'
-import { KEY_CODES } from '../../../constants'
+
 import BaseMenu from './BaseMenu'
 import BaseMenuState from './BaseMenuState'
+import { KEY_CODES } from '../../../constants'
 
 import themeBaseMenu from './BaseMenu.module.css'
 
@@ -144,6 +145,7 @@ export default class BaseMenuScrollContainer extends React.Component {
                 this._state.setNeedScrollToItem(true)
             }
         }
+
         if (this._state.needScrollToItem) {
             this._scrollToItem()
         }
@@ -157,6 +159,7 @@ export default class BaseMenuScrollContainer extends React.Component {
 
     render() {
         const theme = mergeStyles(this.props.theme, themeBaseMenu)
+
         if (this.props.resizable) {
             const maxHeight = this._state.getMaxHeightResizer
             const maxWidth = this._state.getMaxWidthResizer
@@ -241,7 +244,9 @@ export default class BaseMenuScrollContainer extends React.Component {
     }
 
     _getStyleScrollInnerContainer() {
-        const minHeight = this.props.lazyScroll ? this._state.scrollContainerHeight : 0
+        const minHeight = this.props.lazyScroll
+            ? this._state.scrollContainerHeight
+            : 0
 
         return {
             minHeight,

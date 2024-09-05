@@ -1,8 +1,10 @@
 // @ts-nocheck
-import React from 'react'
-import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import BaseMenu from './BaseMenu'
+
 import themeTreeLineMenu from './TreeLineMenu.module.css'
 
 @observer

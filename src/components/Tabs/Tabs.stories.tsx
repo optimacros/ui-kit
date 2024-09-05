@@ -1,21 +1,21 @@
-import { ArgTypes, Meta, StoryObj } from "@storybook/react"
+import { ArgTypes, Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
-import { Tabs } from "./index"
-import { Tab } from "./Tab.tsx"
-import { useState } from "react";
+import { Tabs } from './index'
+import { Tab } from './Tab.tsx'
 
 const argTypes: Partial<ArgTypes> = {
     active: {
-        control: "number",
-        description: "The value of the currently selected `Tab`."
+        control: 'number',
+        description: 'The value of the currently selected `Tab`.',
     },
     draggable: {
-        control: "boolean",
-        description: "If `true`, tabs are draggable."
+        control: 'boolean',
+        description: 'If `true`, tabs are draggable.',
     },
     hideTabHeader: {
-        control: "boolean",
-        description: ""
+        control: 'boolean',
+        description: '',
     },
     theme: { table: { disable: true } },
     className: { table: { disable: true } },
@@ -26,12 +26,11 @@ const argTypes: Partial<ArgTypes> = {
     onTabPositionChange: { table: { disable: true } },
 }
 
-
 const meta: Meta<typeof Tabs> = {
-    title: "UI Kit lite/Tabs",
+    title: 'UI Kit lite/Tabs',
     // @ts-ignore
     component: Tabs,
-    argTypes
+    argTypes,
 }
 export default meta
 
@@ -40,11 +39,10 @@ type Story = StoryObj<typeof Tabs>
 const BasicTemplate: Story = {
     render: ({ ...args }) => {
         const [activeTab, setActiveTab] = useState(0)
-        
 
         return (
             <Tabs
-                { ...args }
+                {...args}
                 active={activeTab}
                 onChange={(activeTabNumber: number)=> setActiveTab(activeTabNumber)}
             >
@@ -68,12 +66,11 @@ const BasicTemplate: Story = {
             </Tabs>
         )
     },
-};
-
+}
 
 const Template: Story = {
     render: ({ ...args }) => {
-        const [tabs, setTabs] = useState(["Tab 1", "Tab 2", "Tab 3"])
+        const [tabs, setTabs] = useState(['Tab 1', 'Tab 2', 'Tab 3'])
         const [activeTab, setActiveTab] = useState(0)
 
         const handleTabPositionChange = (newPosition: number, oldPosition: number) => {
@@ -85,10 +82,10 @@ const Template: Story = {
 
             setTabs(updatedTabs)
         }
-        
+
         return (
             <Tabs
-                { ...args }
+                {...args}
                 active={activeTab}
                 onTabPositionChange={handleTabPositionChange}
                 onChange={(activeTabNumber: number)=> setActiveTab(activeTabNumber)}
@@ -96,7 +93,7 @@ const Template: Story = {
                 {tabs.map(tab => {
                     return (
                         <Tab title={tab}
-                             key={tab}
+                            key={tab}
                         >
                             {tab}
                         </Tab>
@@ -105,18 +102,17 @@ const Template: Story = {
             </Tabs>
         )
     },
-};
+}
 
 export const Basic: Story = {
     ...BasicTemplate,
     args: { },
 }
 
-
 export const Draggable: Story = {
     ...Template,
     args: {
         // @ts-ignore
         draggable: true,
-    }
+    },
 }

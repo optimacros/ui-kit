@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React from 'react'
 import classNames from 'classnames'
-import { ResizableBox } from 'react-resizable'
 import { marked } from 'marked'
+import React from 'react'
+import { ResizableBox } from 'react-resizable'
+
 import { Tab, TabHeader } from '../Tabs'
 
 import styles from './MarkdownEditor.module.css'

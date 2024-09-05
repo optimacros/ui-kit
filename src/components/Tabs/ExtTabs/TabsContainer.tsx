@@ -10,7 +10,7 @@ import type { TabProps } from '../Tab'
 
 import styles from './TabsContainer.module.css'
 
-// TODO: add a type to ui-kit-core from ButtonMenu package 
+// TODO: add a type to ui-kit-core from ButtonMenu package
 type ButtonMenuTheme = {}
 
 export type TabsContainerTheme = {

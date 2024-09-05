@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React from 'react'
+import classNames from 'classnames'
 import { observer } from 'mobx-react'
+import React from 'react'
 import { Range } from 'react-range'
 import { getStepDecimals } from 'react-range/lib/utils'
-import classNames from 'classnames'
 
 import styles from './RangeSlider.module.css'
 
@@ -29,7 +29,6 @@ interface Props {
 
 @observer
 export class RangeSlider extends React.Component<Props> {
-
     _rangeValuesItemRef = React.createRef()
 
     state = { width: 0 }
@@ -127,8 +126,8 @@ export class RangeSlider extends React.Component<Props> {
 
     renderThumb = ({ index, props, isDragged }) => {
         const values = this.props.customValues || this._values
-        
-				const className = classNames({
+
+        const className = classNames({
             [styles.Thumb]: true,
             [styles.Thumb_isDragged]: isDragged,
         })

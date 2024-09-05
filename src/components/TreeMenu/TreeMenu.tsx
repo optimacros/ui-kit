@@ -1,9 +1,11 @@
 // @ts-nocheck
-import React from 'react'
-import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { mergeStyles, FontIcon } from 'ui-kit-core'
+
 import BaseMenu from './BaseMenu'
+
 import themeTreeMenu from './TreeMenu.module.css'
 
 @observer

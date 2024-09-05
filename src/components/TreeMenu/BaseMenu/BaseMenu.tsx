@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 // @ts-nocheck
-import _ from 'lodash'
-import React from 'react'
 import classNames from 'classnames'
+import _ from 'lodash'
 import { observer } from 'mobx-react'
+import React from 'react'
 import { FontIcon } from 'ui-kit-core'
-import { valueFromZoom } from '../../../utils'
-import { BaseMenuElement } from './BaseMenuElement'
 
+import { BaseMenuElement } from './BaseMenuElement'
 import {
     BASE_MENU_STATIC_OFFSET_ELEMENT,
     BASE_MENU_PADDING_LEFT_ELEMENT_ZOOM_0,
@@ -16,6 +15,7 @@ import {
     BASE_MENU_PADDING_LEFT_ELEMENT_ZOOM_3,
     BASE_MENU_PADDING_LEFT_ELEMENT,
 } from '../../../constants'
+import { valueFromZoom } from '../../../utils'
 
 interface BaseMenuProps {
     /**
@@ -128,7 +128,9 @@ export default class BaseMenu extends React.Component<BaseMenuProps> {
             paddingLeft: this._paddingLeft * offset || 0,
         }
 
-        const key = !_.isUndefined(element.entityLongId) ? element.entityLongId : index
+        const key = !_.isUndefined(element.entityLongId)
+            ? element.entityLongId
+            : index
 
         return (
             <div
@@ -217,7 +219,9 @@ export default class BaseMenu extends React.Component<BaseMenuProps> {
             >
                 <FontIcon
                     className={theme.ButtonArrowIcon}
-                    value={element.arrowActive ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                    value={element.arrowActive
+                        ? 'keyboard_arrow_up'
+                        : 'keyboard_arrow_down'}
                 />
             </div>
         )

@@ -1,13 +1,13 @@
 // @ts-nocheck
 import _ from 'lodash'
 import React from 'react'
-import tinyColor from 'tinycolor2'
 import { CustomPicker } from 'react-color'
 import {
     Saturation,
     EditableInput,
     Hue,
 } from 'react-color/lib/components/common'
+import tinyColor from 'tinycolor2'
 
 import style from './CustomPicker.module.css'
 
@@ -41,7 +41,9 @@ const CustomPointer = () => {
 }
 
 export const toState = (data, oldHue: number): State => {
-    const color = data.hex ? tinyColor(data.hex) : tinyColor(data)
+    const color = data.hex
+        ? tinyColor(data.hex)
+        : tinyColor(data)
     const hsl = color.toHsl()
     const hsv = color.toHsv()
     const rgb = color.toRgb()
@@ -56,7 +58,9 @@ export const toState = (data, oldHue: number): State => {
 
     return {
         hsl,
-        hex: transparent ? 'transparent' : `#${hex}`,
+        hex: transparent
+            ? 'transparent'
+            : `#${hex}`,
         rgb,
         hsv,
         oldHue: data.h || oldHue || hsl.h,

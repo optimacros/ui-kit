@@ -1,12 +1,13 @@
-//@ts-nocheck
-import React, { Component } from 'react'
+// @ts-nocheck
 import classNames from 'classnames'
+import React, { Component } from 'react'
 import { FontIcon } from 'ui-kit-core'
+
 import { SubMenuList } from './SubMenuList'
 
 import styles from './Menu.module.css'
 
-export  class SubMenuContainer extends Component {
+export class SubMenuContainer extends Component {
     constructor(props) {
         super(props)
 

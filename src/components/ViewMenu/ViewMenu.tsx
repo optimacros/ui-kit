@@ -1,10 +1,12 @@
 // @ts-nocheck
-import React from 'react'
 import _ from 'lodash'
-import { observer } from 'mobx-react'
 import { action, makeObservable } from 'mobx'
+import { observer } from 'mobx-react'
+import React from 'react'
+
 import ViewMenuItem from './ViewMenuItem'
 import ViewMenuState from './ViewMenuState'
+
 import styles from './ViewMenu.module.css'
 
 /**

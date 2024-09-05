@@ -2,14 +2,14 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import React, { Component } from 'react'
 
-import { RadioButton } from '../RadioButton'
 import { RadioGroup as Base } from './BaseRadioGroup'
+import { RadioButton } from '../RadioButton'
 
 interface Props {
-    options?: any[]
-    classNameButton?: string
-    children?: React.ReactNode
-    theme?: Record<string, string>
+    options?: any[];
+    classNameButton?: string;
+    children?: React.ReactNode;
+    theme?: Record<string, string>;
 }
 
 export class RadioGroup extends Component<Props> {

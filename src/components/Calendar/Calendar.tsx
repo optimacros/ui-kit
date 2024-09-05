@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React, { Component } from 'react'
-import TransitionGroup from 'react-transition-group/TransitionGroup'
 import CSSTransition from 'react-transition-group/CSSTransition'
+import TransitionGroup from 'react-transition-group/TransitionGroup'
 import { IconButton as ThemedIconButton } from 'ui-kit-core'
+
+import CalendarMonth from './CalendarMonth'
 import time from '../../utils/react-toolbox-utils/time'
 import { range, getAnimationModule } from '../../utils/react-toolbox-utils/utils'
-import CalendarMonth from './CalendarMonth'
 
 const DIRECTION_STEPS = { left: -1, right: 1 }
 const KEYS = {
@@ -77,7 +78,9 @@ class CalendarComponent extends Component<Props, State> {
     render() {
         return (
             <div className={this.props.theme.calendar}>
-                {this.props.display === 'months' ? this.renderMonths() : this.renderYears()}
+                {this.props.display === 'months'
+                    ? this.renderMonths()
+                    : this.renderYears()}
             </div>
         )
     }
@@ -93,7 +96,9 @@ class CalendarComponent extends Component<Props, State> {
             >
                 {range(1900, 2100).map((year) => (
                     <li
-                        className={year === this.state.viewDate.getFullYear() ? this.props.theme.active : ''}
+                        className={year === this.state.viewDate.getFullYear()
+                            ? this.props.theme.active
+                            : ''}
                         id={year}
                         key={year}
                         onClick={this.handleYearClick}
@@ -112,7 +117,9 @@ class CalendarComponent extends Component<Props, State> {
 
     renderMonths() {
         const { IconButton, theme } = this.props
-        const animation = this.state.direction === 'left' ? 'slideLeft' : 'slideRight'
+        const animation = this.state.direction === 'left'
+            ? 'slideLeft'
+            : 'slideRight'
         const animationModule = getAnimationModule(animation, theme)
 
         return (

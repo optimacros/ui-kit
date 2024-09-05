@@ -1,8 +1,10 @@
-import React from 'react'
 import { mount } from 'enzyme'
+import React from 'react'
+
 import { Input } from '../../Input/Input'
 import ProgressBar from '../../ProgressBar/ProgressBar'
 import { Slider } from '../Slider'
+
 import theme from '../theme.css'
 
 xdescribe('Slider', () => {

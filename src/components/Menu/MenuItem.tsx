@@ -1,7 +1,7 @@
-//@ts-nocheck
+// @ts-nocheck
+import classNames from 'classnames'
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
-import classNames from 'classnames'
 
 import styles from './Menu.module.css'
 

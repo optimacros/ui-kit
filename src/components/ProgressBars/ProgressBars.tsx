@@ -6,19 +6,19 @@ import { Component } from 'react'
 import styles from './ProgressBars.module.css'
 
 interface ProgressBar {
-    start: () => void
-    stop: () => void
-    currentValue: number
-    maxValue: number
+    start: () => void;
+    stop: () => void;
+    currentValue: number;
+    maxValue: number;
 }
 
 interface Props {
     state: {
-        currentProgressBar: ProgressBar
-        progressBars: ProgressBar[]
-        currentIndex: number
-    }
-    className?: string
+        currentProgressBar: ProgressBar;
+        progressBars: ProgressBar[];
+        currentIndex: number;
+    };
+    className?: string;
 }
 
 @observer

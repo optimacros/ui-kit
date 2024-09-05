@@ -1,30 +1,30 @@
-//@ts-nocheck
+// @ts-nocheck
 import classnames from 'classnames'
 import React, { Component } from 'react'
 
 import { RadioProps } from './Radio'
 
 interface Props {
-    Radio: React.FC<RadioProps>
-    checked?: boolean
-    children?: React.ReactNode
-    className?: string
-    disabled?: boolean
-    label?: string | React.ReactNode
-    tooltipOffset?: number
-    name?: string
-    onBlur?: () => void
-    onChange?: (event: React.MouseEvent<HTMLInputElement>, scope: any) => void
-    onFocus?: () => void
-    onMouseEnter?: () => void
-    onMouseLeave?: () => void
+    Radio: React.FC<RadioProps>;
+    checked?: boolean;
+    children?: React.ReactNode;
+    className?: string;
+    disabled?: boolean;
+    label?: string | React.ReactNode;
+    tooltipOffset?: number;
+    name?: string;
+    onBlur?: () => void;
+    onChange?: (event: React.MouseEvent<HTMLInputElement>, scope: any) => void;
+    onFocus?: () => void;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
     theme?: {
-        disabled?: string
-        field?: string
-        input?: string
-        text?: string
-    }
-    value?: string
+        disabled?: string;
+        field?: string;
+        input?: string;
+        text?: string;
+    };
+    value?: string;
 }
 
 class RadioButtonComponent extends Component<Props> {
@@ -53,7 +53,9 @@ class RadioButtonComponent extends Component<Props> {
             Radio,
             ...others
         } = this.props
-        const _className = classnames(theme[this.props.disabled ? 'disabled' : 'field'], className)
+        const _className = classnames(theme[this.props.disabled
+            ? 'disabled'
+            : 'field'], className)
 
         return (
             <label

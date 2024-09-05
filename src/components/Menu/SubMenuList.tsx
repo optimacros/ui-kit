@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import React, { Component } from 'react'
 
 import styles from './Menu.module.css'
@@ -58,6 +58,8 @@ export class SubMenuList extends Component {
         const positionForRight = parentLeft + parentWidth - SUBMENU_OFFSET
         const positionForLeft = parentLeft - menuWidth + SUBMENU_OFFSET
 
-        return canRight ? positionForRight : positionForLeft
+        return canRight
+            ? positionForRight
+            : positionForLeft
     }
 }

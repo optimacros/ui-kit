@@ -1,10 +1,10 @@
 // @ts-nocheck
-import React, { Component } from 'react'
 import classnames from 'classnames'
-import { Button } from 'ui-kit-core'
-import { mergeStyles } from 'ui-kit-core'
-import time from '../../utils/react-toolbox-utils/time'
+import React, { Component } from 'react'
+import { Button, mergeStyles } from 'ui-kit-core'
+
 import Calendar from './Calendar'
+import time from '../../utils/react-toolbox-utils/time'
 
 import styles from './Calendar.module.css'
 

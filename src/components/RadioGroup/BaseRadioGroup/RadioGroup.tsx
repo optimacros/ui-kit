@@ -1,18 +1,18 @@
-//@ts-nocheck
+// @ts-nocheck
 import React, { Component } from 'react'
 
 import isComponentOfType from '../../../utils/react-toolbox-utils/is-component-of-type'
 import { RadioProps } from '../../RadioButton/BaseRadioButton/Radio'
 
 export interface RadioGroupProps {
-    className?: string
-    disabled?: boolean
-    value?: string
-    children?: React.ReactNode
-    onChange?: (value: string | boolean, event: React.ChangeEvent) => void
-    RadioButton?: React.FC<RadioProps>
+    className?: string;
+    disabled?: boolean;
+    value?: string;
+    children?: React.ReactNode;
+    onChange?: (value: string | boolean, event: React.ChangeEvent) => void;
+    RadioButton?: React.FC<RadioProps>;
     // eslint-disable-next-line react/no-unused-prop-types
-    theme?: Record<string, string>
+    theme?: Record<string, string>;
 }
 
 class RadioGroupComponent extends Component<RadioGroupProps> {
@@ -39,10 +39,10 @@ class RadioGroupComponent extends Component<RadioGroupProps> {
             return !isComponentOfType(RadioButton, child)
                 ? child
                 : React.cloneElement(child, {
-                      disabled: disabled || child.props.disabled,
-                      checked: child.props.value === value,
-                      onChange: this.handleChange.bind(this, child.props.value),
-                  })
+                    disabled: disabled || child.props.disabled,
+                    checked: child.props.value === value,
+                    onChange: this.handleChange.bind(this, child.props.value),
+                })
         })
     }
 

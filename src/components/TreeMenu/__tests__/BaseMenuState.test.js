@@ -1,6 +1,7 @@
+import { app } from 'global/app'
 import _ from 'lodash'
 import { observable, action, computed, makeObservable } from 'mobx'
-import { app } from 'global/app'
+
 import { treeMenuOne, activeFirstLineTree, treeMenuTwo, treeMenuThree, treeMenuFour } from './mockData'
 import BaseMenuState from '../BaseMenu/BaseMenuState'
 

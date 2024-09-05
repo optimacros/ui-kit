@@ -1,6 +1,7 @@
 // @ts-nocheck
-import React, { Component } from 'react'
 import classnames from 'classnames'
+import React, { Component } from 'react'
+
 import time from '../../utils/react-toolbox-utils/time'
 
 interface Props {
@@ -41,11 +42,15 @@ class Day extends Component<Props> {
 
     dayStyle() {
         if (this.props.day === 1) {
-            const weekDayDiff = this.props.sundayFirstDayOfWeek ? 0 : 1
+            const weekDayDiff = this.props.sundayFirstDayOfWeek
+                ? 0
+                : 1
             const firstDay = time.getFirstWeekDay(this.props.viewDate) - weekDayDiff
 
             return {
-                marginLeft: `${(firstDay >= 0 ? firstDay : 6) * (100 / 7)}%`,
+                marginLeft: `${(firstDay >= 0
+                    ? firstDay
+                    : 6) * (100 / 7)}%`,
             }
         }
     }
