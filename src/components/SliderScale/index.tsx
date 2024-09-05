@@ -10,7 +10,7 @@ interface SliderScaleProps extends SliderProps {
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
-export default class SliderScale extends React.Component<SliderScaleProps> {
+export class SliderScale extends React.Component<SliderScaleProps> {
     render() {
         const { label, ...otherProps } = this.props
         const theme = mergeStyles(this.props.theme, styles)
