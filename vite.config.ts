@@ -1,6 +1,8 @@
 import react from '@vitejs/plugin-react-swc'
 import crypto from 'crypto'
+import { glob } from 'glob'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import postcssCustomProperties from 'postcss-custom-properties'
 // @ts-ignore
 import postcssImport from 'postcss-import'
@@ -21,9 +23,7 @@ export default defineConfig({
             include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'],
             exclude: [],
         }),
-        dts({
-            insertTypesEntry: true,
-        }),
+        dts(),
     ],
     css: {
         modules: {
@@ -67,11 +67,25 @@ export default defineConfig({
             formats: ['es'],
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime', 'ui-kit-core'],
-            input: {
-                index: 'src/index.ts',
-            },
+            external: ['react', 'react-dom', 'react/jsx-runtime'],
+            input: Object.fromEntries(
+                glob.sync(
+                    './src/**/*.{ts,tsx}',
+                ).map(file => [
+                    // The name of the entry point
+                    // src/components/nested/foo.ts becomes nested/foo
+                    path.relative(
+                        'src',
+                        file.slice(0, file.length - path.extname(file).length),
+                    ),
+                    // The absolute path to the entry file
+                    // src/components/nested/foo.ts becomes /project/src/components/nested/foo.ts
+                    fileURLToPath(new URL(file, import.meta.url)),
+                ]),
+            ),
             output: {
+                chunkFileNames: 'helpers/[name].js',
+                assetFileNames: 'assets/index[extname]',
                 entryFileNames: '[name].js',
                 dir: 'dist',
                 globals: {
@@ -82,4 +96,5 @@ export default defineConfig({
             },
         },
     },
+
 })
