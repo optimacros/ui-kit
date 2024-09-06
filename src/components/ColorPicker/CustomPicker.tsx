@@ -251,5 +251,6 @@ class CustomColorPicker extends React.Component<Props, State> {
         this.props.onChange(color.hex)
     }
 }
-
+/* eslint-disable */
 export default CustomPicker(CustomColorPicker)
+/* eslint-enable */

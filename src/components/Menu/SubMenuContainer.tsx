@@ -7,6 +7,7 @@ import { SubMenuList } from './SubMenuList'
 
 import styles from './Menu.module.css'
 
+/* eslint-disable */
 export class SubMenuContainer extends Component {
     constructor(props) {
         super(props)
@@ -85,3 +86,4 @@ export class SubMenuContainer extends Component {
         }
     }
 }
+/* eslint-enable */

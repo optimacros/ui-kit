@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { ResizableBox } from 'react-resizable'
 import { mergeStyles } from 'ui-kit-core'
@@ -11,29 +10,38 @@ import { KEY_CODES } from '../../../constants'
 
 import themeBaseMenu from './BaseMenu.module.css'
 
-@observer
-export default class BaseMenuScrollContainer extends React.Component {
-    static propsType = {
-        width: PropTypes.number,
-        maxHeight: PropTypes.number,
-        isSelected: PropTypes.func,
-        isStatic: PropTypes.bool,
-        activeByDefault: PropTypes.bool,
-        activeFirstLine: PropTypes.bool,
-        elementHeight: PropTypes.number,
-        scrollToFirstActiveItem: PropTypes.bool,
-        scrollToFirstDisabledItem: PropTypes.bool,
-        resizable: PropTypes.bool,
-        keyHandler: PropTypes.bool,
-    }
+interface Props {
+	width: number;
+	minWidth: number;
+	height: number;
+	maxHeight: number;
+	elementHeight: number;
+	sizeFromZoom: number;
+	isStatic: boolean;
+	activeByDefault: boolean;
+	activeFirstLine: boolean;
+	scrollToFirstActiveItem: boolean;
+	scrollToFirstDisabledItem: boolean;
+	resizable: boolean;
+	keyHandler: boolean;
+	lazyScroll: boolean;
+	theme: Record<string, string>;
+	elements: Array<Element>;
+	isSelected: () => boolean;
+	onResize: (props:any) => void;
+	onResizeStop: (props:any) => void;
+	onSelect: (el: Element, evetn: any) => void;
+}
 
+@observer
+export default class BaseMenuScrollContainer extends React.Component<Props> {
     static defaultProps = {
         lazyScroll: true,
         width: 300,
         minWidth: 150,
         keyHandler: false,
         theme: {
-            /* eslint-disable @typescript-eslint/camelcase, camelcase */
+            /* eslint-disable camelcase */
             Container: 'BaseMenu__Container',
             Menu: 'BaseMenu__Menu',
             Menu__static: 'BaseMenu__Menu__static',
@@ -55,7 +63,7 @@ export default class BaseMenuScrollContainer extends React.Component {
             Element__disabled: 'BaseMenu__Element__disabled',
             ScrollContainer: 'BaseMenu__ScrollContainer',
             ScrollInnerContainer: 'BaseMenu__ScrollInnerContainer',
-            /* eslint-enable @typescript-eslint/camelcase, camelcase */
+            /* eslint-enable camelcase */
         },
     }
 

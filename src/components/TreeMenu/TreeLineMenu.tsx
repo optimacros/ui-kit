@@ -44,7 +44,7 @@ export default class TreeLineMenu extends React.Component {
 
     static defaultProps = {
         theme: {
-            /* eslint-disable @typescript-eslint/camelcase, camelcase */
+            /* eslint-disable  camelcase */
             ButtonArrow: 'TreeLineMenu__ButtonArrow',
             ButtonArrowIcon: 'TreeLineMenu__ButtonArrowIcon',
             ButtonArrow__active: 'TreeLineMenu__ButtonArrow__active',
@@ -57,7 +57,7 @@ export default class TreeLineMenu extends React.Component {
             ListElement__children_one: 'TreeLineMenu__ListElement__children_one',
             ListElement__children_some: 'TreeLineMenu__ListElement__children_some',
             TreeLineMenu: 'TreeLineMenu__TreeLineMenu',
-            /* eslint-enable @typescript-eslint/camelcase, camelcase */
+            /* eslint-enable  camelcase */
         },
     }
 

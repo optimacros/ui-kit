@@ -14,6 +14,7 @@ interface Props {
     tooltipOffset?: number;
     name?: string;
     onBlur?: () => void;
+		onClick?: () => void;
     onChange?: (event: React.MouseEvent<HTMLInputElement>, scope: any) => void;
     onFocus?: () => void;
     onMouseEnter?: () => void;

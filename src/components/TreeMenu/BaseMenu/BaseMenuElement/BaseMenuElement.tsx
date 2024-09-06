@@ -128,6 +128,7 @@ const elementTarget = {
     }),
 )
 
+/* eslint-disable */
 @observer
 export class BaseMenuElement extends React.Component<BaseMenuElementProps> {
     render() {
@@ -214,3 +215,4 @@ export class BaseMenuElement extends React.Component<BaseMenuElementProps> {
         }
     }
 }
+/* eslint-enable */

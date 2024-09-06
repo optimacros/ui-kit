@@ -27,7 +27,9 @@ const argTypes: Partial<ArgTypes> = {
     },
     draggableTarget: {
         control: 'text',
-        description: 'Classname or id. If there is an element with the passed class/id inside the modal window, then moving is possible by pressing and holding this element.',
+        description: `Classname or id. If there is an element 
+				with the passed class/id inside the modal window, 
+				then moving is possible by pressing and holding this element.`,
     },
     className: { table: { disable: true } },
     headerClassName: { table: { disable: true } },

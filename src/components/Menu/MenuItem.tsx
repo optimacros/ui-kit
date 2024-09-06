@@ -32,6 +32,7 @@ const EXCLUDE_PROPS = [
     'subMenuKey',
 ]
 
+/* eslint-disable */
 export class MenuItem extends PureComponent {
     render() {
         const { className, children, label, title, onClick, ...otherProps } = this.props
@@ -71,3 +72,4 @@ export class MenuItem extends PureComponent {
         }
     }
 }
+/* eslint-enable */

@@ -1,5 +1,4 @@
 // @ts-nocheck
-/* eslint-disable @typescript-eslint/camelcase */
 import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
