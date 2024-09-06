@@ -15,7 +15,7 @@ export interface SliderProps {
     editable?: boolean;
     max?: number;
     min?: number;
-    onChange?: () => void;
+    onChange?: (cardSize: number) => void;
     onDragStart?: () => void;
     onDragStop?: () => void;
     pinned?: boolean;

@@ -3,7 +3,7 @@ import _ from 'lodash'
 import React from 'react'
 
 import { IconButton } from '../index'
-import { WSSelectBox } from '../WSSelectBox'
+import { SelectBox } from '../SelectBox'
 
 import styles from './SelectboxPanel.module.css'
 
@@ -42,7 +42,7 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
         return (
             <div className={classNames(styles.Container, className)}>
                 <div className={styles.SelectBoxRow}>
-                    <WSSelectBox
+                    <SelectBox
                         auto
                         {...otherProps}
                     />
