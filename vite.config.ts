@@ -21,7 +21,7 @@ export default defineConfig({
         eslint({
             cache: false,
             include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'],
-            exclude: [],
+            exclude: ['./src/icons/**/*.tsx'],
         }),
         dts(),
     ],

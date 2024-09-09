@@ -17,7 +17,7 @@ interface Props {
 }
 
 @observer
-export default class HeaderMenuElement extends React.Component<Props> {
+export class HeaderMenuElement extends React.Component<Props> {
     constructor(props) {
         super(props)
 
