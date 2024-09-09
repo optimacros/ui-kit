@@ -1,0 +1,52 @@
+@import '../FilterMenuVariables.module.css';
+
+.Container {
+  padding: 5px;
+  height: var(--heightFilterInputContainer);
+  display: flex;
+}
+
+.Field {
+  flex: 1;
+  padding: 0 8px;
+  height: var(--heightFilterInput);
+  border: 1px solid var(--light-divider-color);
+  line-height: var(--heightFilterInput);
+  transition: border-color 0.3s linear;
+  &:hover,
+  &:focus {
+    border: 1px solid var(--primary-color);
+  }
+}
+
+.ClearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--heightFilterInput);
+  height: var(--heightFilterInput);
+  margin-left: 5px;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  color: var(--light-divider-color);
+  cursor: pointer;
+  transition: color 0.3s linear, border-color 0.3s linear;
+  &:hover {
+    color: var(--primary-color);
+    border: 1px solid var(--light-divider-color);
+  }
+}
+
+.ClearButtonIcon {
+  font-size: 18px;
+  vertical-align: top;
+}
+
+.SettingsButtonIcon {
+  font-size: 18px;
+  vertical-align: top;
+  width: 24px;
+  height: 24px !important;
+  line-height: 24px !important;
+  margin-left: 5px;
+}
