@@ -2,25 +2,25 @@ export { default as InputMask } from 'react-input-mask'
 export {
     Tooltip,
     Button,
-    CheckBox,
     Chip,
     Counter,
     Divider,
     Dropdown,
     FontIcon,
-    Icon,
     IconButton,
     Input,
     LayoutFixedContainer,
     Loader,
     Menu,
     MenuDivider,
-    MenuItem,
     MenuItemGroup,
     SubMenu,
     TextArea,
     Toolbar,
 } from 'ui-kit-core'
+export * from './Checkbox'
+export * from './MenuItem'
+export * from './Icon'
 export * from './Calendar'
 export * from './ColorPicker'
 export * from './Favorite'
