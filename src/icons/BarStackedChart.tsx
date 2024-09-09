@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function BarStackedChartIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg

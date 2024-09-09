@@ -1,4 +1,4 @@
-import React, { useId } from 'react'
+import { useId } from 'react'
 
 export default function ScatterPlotChartIcon({ fill = 'black', opacity = 1 }) {
     const clipPathId = useId()

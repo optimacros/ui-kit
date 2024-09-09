@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import React from 'react'
 
 export default function ClockIcon({ fill = 'black' }) {
     return (

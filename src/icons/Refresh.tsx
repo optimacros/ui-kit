@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import React from 'react'
 
 export default function RefreshIcon({ fill = 'black' }) {
     return (

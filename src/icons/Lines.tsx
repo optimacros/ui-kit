@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function LinesIcon({ fill = 'black', opacity = 1 }) {
     return (
