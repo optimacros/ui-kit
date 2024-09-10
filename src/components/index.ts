@@ -17,6 +17,11 @@ export {
     SubMenu,
     TextArea,
     Toolbar,
+    ButtonMenu,
+    CheckBox,
+    Icon,
+    MenuItem,
+    Navigation,
 } from 'ui-kit-core'
 export * from './Calendar'
 export * from './ColorPicker'
