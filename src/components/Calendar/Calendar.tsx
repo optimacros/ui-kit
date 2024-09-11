@@ -235,11 +235,10 @@ class CalendarComponent extends Component<Props, State> {
     }
 }
 
-const Calendar = (props: Props) => (
+export const Calendar = (props: Props) => (
     <CalendarComponent
         {...props}
         IconButton={ThemedIconButton}
     />
 )
 
-export default Calendar

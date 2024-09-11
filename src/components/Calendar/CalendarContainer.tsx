@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import React, { Component } from 'react'
 import { Button, mergeStyles } from 'ui-kit-core'
 
-import Calendar from './Calendar'
+import { Calendar } from './Calendar'
 import time from '../../utils/react-toolbox-utils/time'
 
 import styles from './Calendar.module.css'

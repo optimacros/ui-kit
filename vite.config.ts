@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react-swc'
-import crypto from 'crypto'
 import { glob } from 'glob'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -20,27 +19,18 @@ export default defineConfig({
         react({ tsDecorators: true }),
         eslint({
             cache: false,
-            include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'],
-            exclude: ['./src/icons/**/*.tsx'],
-        }),
+            include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'] }),
         dts(),
     ],
     css: {
         modules: {
             localsConvention: 'camelCase',
-            generateScopedName: (name, filename, css) => {
+            generateScopedName: (name, filename) => {
                 const componentName = filename
                     .split('/')
                     .pop()
 
-                const hash = crypto
-                    .createHash('md5')
-                    .update(css)
-                    .digest('base64')
-                    .replace(/[^\d\w]+/, '')
-                    .substring(0, 5)
-
-                return `${componentName?.replace('.module.css', '-module')}__${name}__${hash}`
+                return `${componentName?.replace('.module.css', '')}__${name}`
             },
         },
         postcss: {
@@ -84,7 +74,7 @@ export default defineConfig({
                 ]),
             ),
             output: {
-                chunkFileNames: 'helpers/[name].js',
+                chunkFileNames: 'chunks/[name].js',
                 assetFileNames: 'assets/index[extname]',
                 entryFileNames: '[name].js',
                 dir: 'dist',

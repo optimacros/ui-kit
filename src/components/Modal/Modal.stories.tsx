@@ -39,7 +39,7 @@ const argTypes: Partial<ArgTypes> = {
 }
 
 const meta: Meta<typeof Modal> = {
-    title: 'UI Kit lite/Modal',
+    title: 'UI Kit /Modal',
     component: Modal,
     argTypes,
 }
