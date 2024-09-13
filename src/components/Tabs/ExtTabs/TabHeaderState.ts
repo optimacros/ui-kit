@@ -1,174 +1,145 @@
-import {
-    ceil,
-    each,
-    findIndex,
-    floor,
-    isString,
-    isUndefined,
-    map,
-    reduce,
-    round,
-    size,
-} from 'lodash'
-import { observable, computed, action, makeObservable } from 'mobx'
-import type React from 'react'
-
-import type { TabProps } from '../Tab'
-
-export type HiddenTabProps = {
-    content: string | React.JSX.Element | undefined;
-    active: boolean;
-    position: number;
-    disabled: boolean;
-}
+// @ts-nocheck
+import _ from 'lodash'
+import { action, computed, makeObservable, observable } from 'mobx'
 
 export class TabHeaderState {
     constructor() {
-        if (makeObservable) {
-            makeObservable(this)
-        }
+        makeObservable(this)
     }
 
-    @observable private activeTab: number | null = 0
+    @observable.shallow fixedTabsChildren = []
 
-    @observable private scrollLeft = 0
-
-    @observable private scrollableTabsNodes: React.RefObject<HTMLDivElement>[] = []
-
-    @observable fixedTabsChildren: React.ReactElement<TabProps>[] = []
-
-    @observable scrollableTabsChildren: React.ReactElement<TabProps>[] = []
+    @observable.shallow scrollableTabsChildren = []
 
     @observable countFixedTabs = 0
 
     @observable countScrollableTabs = 0
 
-    @observable tabsScrollerNode: HTMLDivElement | null = null
+    @observable.ref tabsScrollerNode = null
+
+    @observable.shallow scrollableTabsNodes = []
+
+    @observable activeTab = 0
 
     @observable countScrolledTabs = 0
 
-    @action.bound setActiveTab(index: number | null): void {
+    @observable _scrollLeft = 0
+
+    @action setActiveTab(index: number) {
         this.activeTab = index
     }
 
-    @action.bound setTabsChildren(children: React.ReactElement<TabProps>[] = []): void {
-        const fixedTabsChildren: React.ReactElement<TabProps>[] = []
-        const scrollableTabsChildren: React.ReactElement<TabProps>[] = []
+    @action setTabsChildren(children = []) {
+        const _fixedTabsChildren = []
+        const _scrollableTabsChildren = []
 
-        each(children, (element) => {
+        _.each(children, element => {
             if (element && element.props.isFixed) {
-                fixedTabsChildren.push(element)
+                _fixedTabsChildren.push(element)
             }
 
             if (element && !element.props.isFixed) {
-                scrollableTabsChildren.push(element)
+                _scrollableTabsChildren.push(element)
             }
         })
 
-        this.fixedTabsChildren = fixedTabsChildren
-        this.scrollableTabsChildren = scrollableTabsChildren
-        this.countFixedTabs = size(this.fixedTabsChildren)
-        this.countScrollableTabs = size(this.scrollableTabsChildren)
+        this.fixedTabsChildren = _fixedTabsChildren
+        this.scrollableTabsChildren = _scrollableTabsChildren
+        this.countFixedTabs = _.size(this.fixedTabsChildren)
+        this.countScrollableTabs = _.size(this.scrollableTabsChildren)
     }
 
-    @action.bound scrollToTab(index: number, toRight = false): void {
+    @action scrollToTab(index: number, toRight = false) {
         if (!this.tabsScrollerNode) {
             return
         }
 
         if (index >= 0) {
-            const { width: tabsScrollerWidth } = this.tabsScrollerNode.getBoundingClientRect()
+            setTimeout(
+                action(() => {
+                    this.tabsScrollerNode.scrollLeft = this._scrollableTabsOffsetsLeft[index]
 
-            this.tabsScrollerNode.scrollLeft = toRight
-                ? this.scrollableTabsOffsetsLeft[index] - tabsScrollerWidth + this.scrollableTabsWidth[index] || 0
-                : this.scrollableTabsOffsetsLeft[index] || 0
+                    const countScrolledTabs = _.findIndex(
+                        this._scrollableTabsOffsetsLeft,
+                        offset => {
+                            return offset >= this.tabsScrollerNode.scrollLeft
+                        },
+                    )
 
-            const countScrolledTabs = findIndex(this.scrollableTabsOffsetsLeft, (offset) => {
-                return offset >= (this.tabsScrollerNode?.scrollLeft || 0)
-            })
-
-            this.countScrolledTabs = toRight
-                ? countScrolledTabs - 1
-                : countScrolledTabs
+                    this.countScrolledTabs = toRight
+                        ? countScrolledTabs - 1
+                        : countScrolledTabs
+                }),
+            )
         } else {
             this.tabsScrollerNode.scrollLeft = 0
             this.countScrolledTabs = 0
         }
     }
 
-    @action.bound setScrollLeft(): void {
-        this.scrollLeft = this.tabsScrollerNode?.scrollLeft ?? 0
+    @action setScrollLeft() {
+        this._scrollLeft = this.tabsScrollerNode.scrollLeft
     }
 
-    @action.bound setTabsScrollerNode(node: HTMLDivElement): void {
+    @action setTabsScrollerNode(node) {
         this.tabsScrollerNode = node
     }
 
-    @action.bound setScrollableTabsNodes(nodes: React.RefObject<HTMLDivElement>[]): void {
+    @action setScrollableTabsNodes(nodes) {
         this.scrollableTabsNodes = nodes
     }
 
-    scrollToActiveTab(): void {
-        if (!this.tabsScrollerNode || !this.activeTab) {
-            return
-        }
+    @action scrollToActiveTab() {
+        if (this.tabsScrollerNode) {
+            const { width: tabsScrollerWidth } = this.tabsScrollerNode.getBoundingClientRect()
+            const position = this.activeTab - this.countFixedTabs
+            const offsetPosition = this._scrollableTabsOffsetsLeft[position]
+            const widthPosition = this._scrollableTabsWidth[position]
 
-        const { width: tabsScrollerWidth } = this.tabsScrollerNode.getBoundingClientRect()
-        const position = this.activeTab - this.countFixedTabs
-        const offsetPosition = this.scrollableTabsOffsetsLeft[position]
-        const widthPosition = this.scrollableTabsWidth[position]
+            const isHiddenLeft = offsetPosition < this._scrollLeft
+            const isHiddenRight = offsetPosition > this._scrollLeft + tabsScrollerWidth
+            const isHiddenPartRight = !isHiddenRight
+                ? offsetPosition + widthPosition > this._scrollLeft + tabsScrollerWidth
+                : false
 
-        if (isUndefined(offsetPosition) || isUndefined(widthPosition)) {
-            return
-        }
-
-        const isHiddenLeft = offsetPosition < this.scrollLeft
-        const isHiddenRight = offsetPosition > this.scrollLeft + tabsScrollerWidth
-        const isHiddenPartRight = !isHiddenRight
-            ? offsetPosition + widthPosition > this.scrollLeft + tabsScrollerWidth
-            : false
-
-        if (isHiddenLeft || isHiddenRight || isHiddenPartRight) {
-            this.scrollToTab(position, isHiddenPartRight)
+            if (isHiddenLeft || isHiddenRight || isHiddenPartRight) {
+                this.scrollToTab(position, isHiddenPartRight)
+            }
         }
     }
 
-    @computed get hiddenTabs(): HiddenTabProps[] {
+    @computed get hiddenTabs() {
         if (!this.tabsScrollerNode) {
             return []
         }
 
         const { width: tabsScrollerWidth } = this.tabsScrollerNode.getBoundingClientRect()
 
-        return reduce(
+        return _.reduce(
             this.scrollableTabsNodes,
-            (result: HiddenTabProps[], { current }, index) => {
+            (result, { current }, index) => {
                 if (current && this.scrollableTabsChildren[index]) {
                     const { width: tabWidth } = current.getBoundingClientRect()
                     const position = index + this.countFixedTabs
-
                     const {
                         [index]: { props: childrenTabProps },
                     } = this.scrollableTabsChildren
-
                     const childrenTabContent = childrenTabProps.title || childrenTabProps.label
 
-                    const disabled = isString(childrenTabContent)
+                    const disabled = _.isString(childrenTabContent)
                         ? childrenTabProps.disabled
                         : childrenTabContent && childrenTabContent.props.disabled
-
                     const tabProps = {
                         content: childrenTabContent,
                         active: this.activeTab == position,
                         position,
                         disabled,
                     }
-
                     const hiddenOnTheRight =
-                        this.scrollableTabsOffsetsLeft[index] + floor(tabWidth)
-                        > ceil(tabsScrollerWidth) + this.scrollLeft
-
-                    const hiddenOnTheLeft = this.scrollableTabsOffsetsLeft[index] < this.scrollLeft
+                        this._scrollableTabsOffsetsLeft[index] + _.floor(tabWidth)
+                        > _.ceil(tabsScrollerWidth) + this._scrollLeft
+                    const hiddenOnTheLeft =
+                        this._scrollableTabsOffsetsLeft[index] < this._scrollLeft
 
                     if (hiddenOnTheLeft || hiddenOnTheRight) {
                         result.push(tabProps)
@@ -181,15 +152,15 @@ export class TabHeaderState {
         )
     }
 
-    @computed private get scrollableTabsOffsetsLeft(): number[] {
+    @computed get _scrollableTabsOffsetsLeft() {
         // создаем массив расстояний скроллируемых табов относительно первого таба
         // методом сложения ширины предыдущих табов
-        return reduce(
-            this.scrollableTabsWidth,
-            (result: number[], tabWidth, index) => {
+        return _.reduce(
+            this._scrollableTabsWidth,
+            (result, tabWidth, index) => {
                 if (index > 0) {
                     // ширину предыдущего таба складываем с общей суммой всех пердыдущих табов
-                    result.push((result[index - 1] ?? 0) + (this.scrollableTabsWidth[index - 1] ?? 0))
+                    result.push(result[index - 1] + this._scrollableTabsWidth[index - 1])
                 } else {
                     result.push(0) // push(0) так как index == 0 это первый таб
                 }
@@ -200,10 +171,10 @@ export class TabHeaderState {
         )
     }
 
-    @computed private get scrollableTabsWidth(): number[] {
-        return map(this.scrollableTabsNodes, ({ current }) => {
+    @computed get _scrollableTabsWidth() {
+        return _.map(this.scrollableTabsNodes, ({ current }) => {
             return current
-                ? round(current.getBoundingClientRect().width)
+                ? _.round(current.getBoundingClientRect().width)
                 : 0
         })
     }

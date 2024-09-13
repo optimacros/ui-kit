@@ -1,47 +1,40 @@
+// @ts-nocheck
 import classNames from 'classnames'
-import React, { Component } from 'react'
-import { mergeStyles } from 'ui-kit-core'
+import { Component } from 'react'
 
-import type { TabContentTheme } from './TabContent'
 import { TabContent } from './TabContent'
-import type { TabHeaderTheme } from './TabHeader'
 import { TabHeader } from './TabHeader'
-import type { TabProps } from '../Tab'
+import { mergeStyles } from '../../../utils'
 
 import styles from './TabsContainer.module.css'
 
-// TODO: add a type to ui-kit-core from ButtonMenu package
-type ButtonMenuTheme = {}
-
-export type TabsContainerTheme = {
-    TabsContainer: string;
-} & TabContentTheme & TabHeaderTheme & ButtonMenuTheme
-
-export type TabsContainerProps = {
-    active: number; // currentActiveTab number
-    children: React.ReactElement<TabProps>[] | React.ReactElement<TabProps>;
+interface Props {
     className?: string;
+    active?: number;
     draggable?: boolean;
-    onTabSwitch?: (index: number) => void;
-    onTabPositionChange?: (newIndex: number, oldIndex: number) => void;
+    onTabSwitch?: () => void;
+    onTabPositionChange?: () => void;
     hideTabHeader?: boolean;
     headerClassName?: string;
     contentClassName?: string;
-    theme?: Partial<TabsContainerTheme>;
+    theme: {
+        TabsContainer: string;
+    };
 }
 
-export class TabsContainer extends Component<TabsContainerProps> {
-    render(): React.JSX.Element {
-        const {
-            headerClassName,
-            contentClassName,
-            theme: customTheme = {},
-            children,
-            ...otherProps
-        } = this.props
+// eslint-disable-next-line react/prefer-stateless-function
+export class TabsContainer extends Component<Props> {
+    static defaultProps = {
+        hideTabHeader: false,
+        theme: {
+            TabsContainer: 'TabsContainer__TabsContainer',
+        },
+    }
 
-        const theme = mergeStyles(customTheme, styles) as TabsContainerTheme
+    render() {
+        const theme = mergeStyles(this.props.theme, styles) as Props['theme']
 
+        const { headerClassName, contentClassName, ...otherProps } = this.props
         const className = classNames(theme.TabsContainer, this.props.className)
 
         return (
@@ -51,18 +44,14 @@ export class TabsContainer extends Component<TabsContainerProps> {
                         {...otherProps}
                         className={headerClassName}
                         theme={theme}
-                    >
-                        {this.props.children as React.ReactElement<TabProps>[]}
-                    </TabHeader>
+                    />
                 )}
 
                 <TabContent
                     {...otherProps}
                     className={contentClassName}
                     theme={theme}
-                >
-                    {this.props.children as React.ReactElement<TabProps>[]}
-                </TabContent>
+                />
             </div>
         )
     }

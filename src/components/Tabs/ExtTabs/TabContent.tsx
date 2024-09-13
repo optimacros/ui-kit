@@ -1,59 +1,56 @@
 import classNames from 'classnames'
-import { map } from 'lodash'
-import React, { Component } from 'react'
-import { mergeStyles } from 'ui-kit-core'
+import _ from 'lodash'
+import { Component, ReactNode } from 'react'
 
-import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer'
-import type { TabProps } from '../Tab'
+import { mergeStyles } from '../../../utils'
 
 import styles from './TabContent.module.css'
 
-export type TabContentTheme = {
-    TabContent: string;
-    TabContent_Inner: string;
+interface Theme {
+    TabContent?: string;
+    TabContent_Inner?: string;
 }
-
-type Props = Omit<TabsContainerProps, 'headerClassName' | 'contentClassName'> & {
-    children: React.ReactElement<TabProps>[];
+interface Props {
+    active?: number;
     className?: string;
-    theme?: Partial<TabContentTheme>;
+    theme?: Theme | Record<string, string>;
+    children?: ReactNode[];
 }
-
+/* eslint-disable */
 export class TabContent extends Component<Props> {
-    render(): React.JSX.Element {
-        const theme = this.getTheme
-        const className = classNames(theme.TabContent, this.props.className)
-
-        return (
-            <div className={className}>
-                {this.renderPanel()}
-            </div>
-        )
+    static defaultProps = {
+        theme: {
+            TabContent: 'TabContent__TabContent',
+            TabContent_Inner: 'TabContent__TabContent_Inner',
+        },
     }
 
-    renderPanel(): (React.JSX.Element | null)[] {
-        const theme = this.getTheme
-        const active = this.props.active ?? 0
+    render() {
+        const theme = mergeStyles(this.props.theme, styles)
+        const className = classNames((theme as Theme).TabContent, this.props.className)
 
-        return map(this.props.children, (panel, index) => {
-            if (active !== Number(index)) {
+        return <div className={className}>{this.renderPanel()}</div>
+    }
+
+    renderPanel() {
+        const { active } = this.props
+        const theme = mergeStyles(this.props.theme, styles) as Theme
+
+        return _.map(this.props.children, (panel, index) => {
+            if (active !== index) {
                 return null
             }
 
             return (
                 <div
-                    className={theme.TabContent_Inner}
                     key={`panel-${index}`}
+                    className={theme.TabContent_Inner}
                 >
                     {panel}
                 </div>
             )
         })
     }
-
-    private get getTheme(): TabsContainerTheme {
-        const customTheme = this.props.theme ?? {}
-
-        return mergeStyles(customTheme, styles) as TabsContainerTheme
-    }
 }
+/* eslint-enable */
+

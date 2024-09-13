@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { createElement, ReactNode } from 'react'
 import { Icon } from 'ui-kit-core'
-import { IconProps } from 'ui-kit-core/dist/components/Icon'
+import type { IconProps } from 'ui-kit-core/dist/components/Icon'
 
 import styles from './HeaderUserMenu.module.css'
 
@@ -14,10 +14,6 @@ interface Props {
 }
 
 export const HeaderUserMenuElement = (props: Props)=> {
-    const ContainerNode = props.href
-        ? 'a'
-        : 'span'
-
     const { className, onClick, label, icon, children, ...otherProps } = props
 
     return (
@@ -25,19 +21,18 @@ export const HeaderUserMenuElement = (props: Props)=> {
             className={className}
             title={label}
             onClick={onClick}
-        >
-            <ContainerNode {...otherProps}>
-                {icon && (
-                    <Icon
-                        className={styles.Icon}
-                        value={icon}
-                    />
-                )}
-                <div className={styles.Label}>
-                    {label}
-                    {children}
-                </div>
-            </ContainerNode>
+        > {createElement(props.href
+            ? 'a'
+            : 'span', otherProps, icon && (
+            <Icon
+                className={styles.Icon}
+                value={icon}
+            />
+        ), <div className={styles.Label}>
+            {label}
+            {children}
+        </div>,
+        )}
         </li>
     )
 }

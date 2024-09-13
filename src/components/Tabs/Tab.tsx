@@ -3,27 +3,16 @@ import React from 'react'
 
 import styles from './Tab.module.css'
 
-export interface TabProps {
-    counter?: number | undefined;
-    maxCounter?: number | undefined;
+interface Props {
+    // eslint-disable-next-line react/no-unused-prop-types
+    title?: string;
     className?: string;
-    title?: React.JSX.Element | string;
-    onHeaderContextMenu?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-    nonDraggable?: boolean;
-    isFixed?: boolean;
-    counterLink?: Record<string, any>;
-    onDoubleClick?: () => void;
-    icon?: React.JSX.Element | string;
-    disabled?: boolean;
-    label?: string;
+    children?: React.ReactNode;
 }
 
-export const Tab = (props: React.PropsWithChildren<TabProps>): React.JSX.Element => {
-    const newClassName = classNames(styles.Tab, props.className)
+export const Tab: React.FC<Props> = ({ children, className }) => {
+    const newClassName = classNames(styles.Tab, className)
 
-    return (
-        <div className={newClassName}>
-            {props.children}
-        </div>
-    )
+    return <div className={newClassName}>{children}</div>
 }
+

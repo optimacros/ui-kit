@@ -51,6 +51,7 @@ export default defineConfig({
         },
     },
     build: {
+        minify: false,
         copyPublicDir: false,
         target: ['esnext'],
         lib: {

@@ -1,3 +1,3 @@
-export { TabsContainer } from './TabsContainer'
-export { TabHeader } from './TabHeader'
-export { TabContent } from './TabContent'
+export * from './TabContent'
+export * from './TabHeader'
+export * from './TabsContainer'
