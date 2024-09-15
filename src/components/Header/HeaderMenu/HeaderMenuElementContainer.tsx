@@ -3,7 +3,8 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Icon } from 'ui-kit-core'
+
+import { WSIcon as Icon } from '../../WSIcon'
 
 import styles from './HeaderMenu.module.css'
 

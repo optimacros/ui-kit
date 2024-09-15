@@ -1,6 +1,7 @@
 import { createElement, ReactNode } from 'react'
-import { Icon } from 'ui-kit-core'
 import type { IconProps } from 'ui-kit-core/dist/components/Icon'
+
+import { WSIcon as Icon } from '../../WSIcon'
 
 import styles from './HeaderUserMenu.module.css'
 

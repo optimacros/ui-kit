@@ -19,7 +19,8 @@ export default defineConfig({
         react({ tsDecorators: true }),
         eslint({
             cache: false,
-            include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'] }),
+            include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'],
+            exclude: ['./src/components/WSIcon/icons/**/*.tsx'] }),
         dts(),
     ],
     css: {

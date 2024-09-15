@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { Component } from 'react'
-import { Icon } from 'ui-kit-core'
+
+import { WSIcon as Icon } from '../../WSIcon'
 
 import styles from './HeaderNavigation.module.css'
 
