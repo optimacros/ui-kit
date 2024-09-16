@@ -1,59 +1,43 @@
-import { includes } from 'lodash'
+// @ts-nocheck
+import _ from 'lodash'
 import React, { Component } from 'react'
 
 import styles from './DraggableModalContainer.module.css'
 
-export type Props = React.PropsWithChildren<{
-    draggableTarget: string;
-}>
+/* eslint-disable */
+export default class DraggableModalContainer extends Component {
+    static defaultProps = {
+        nonDraggable: false,
+        draggableTarget: `.${styles.Header}`,
+    }
 
-type State = {
-    isDragging: boolean;
-    currentPosition: {
-        x: number;
-        y: number;
-    };
-    movePosition: {
-        x: number;
-        y: number;
-    };
-    startDragPosition?: {
-        x: number;
-        y: number;
-    };
-}
+    state = {
+        isDragging: false,
+        currentPosition: {
+            x: 0,
+            y: 0,
+        },
+        movePosition: {
+            x: 0,
+            y: 0,
+        },
+    }
 
-export default class DraggableModalContainer extends Component<Props, State> {
-    constructor(props: Props) {
+    constructor(props) {
         super(props)
 
-        document.addEventListener('mousedown', this.startDrag)
-        document.addEventListener('mousemove', this.move)
-        document.addEventListener('mouseup', this.endDrag)
-
-        this.state = {
-            isDragging: false,
-            currentPosition: {
-                x: 0,
-                y: 0,
-            },
-            movePosition: {
-                x: 0,
-                y: 0,
-            },
-        }
+        document.addEventListener('mousedown', this._startDrag)
+        document.addEventListener('mousemove', this._move)
+        document.addEventListener('mouseup', this._endDrag)
     }
 
-    private containerNode: HTMLDivElement | null = null
-    private targetNodes: NodeListOf<Element> | null = null
-
-    componentWillUnmount(): void {
-        document.removeEventListener('mousedown', this.startDrag)
-        document.removeEventListener('mousemove', this.move)
-        document.removeEventListener('mouseup', this.endDrag)
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this._startDrag)
+        document.removeEventListener('mousemove', this._move)
+        document.removeEventListener('mouseup', this._endDrag)
     }
 
-    render(): React.JSX.Element {
+    render() {
         const containerPosition = {
             top: this.state.movePosition.y,
             left: this.state.movePosition.x,
@@ -61,7 +45,7 @@ export default class DraggableModalContainer extends Component<Props, State> {
 
         return (
             <div
-                ref={this.setContainerNode}
+                ref={this._setContainerNode}
                 className={styles.Container}
                 style={containerPosition}
             >
@@ -70,12 +54,12 @@ export default class DraggableModalContainer extends Component<Props, State> {
         )
     }
 
-    private startDrag = (event: MouseEvent): void => {
-        if (!this.targetNodes) {
-            this.setTargetNode()
+    _startDrag = event => {
+        if (!this._targetNodes) {
+            this._setTargetNode()
         }
 
-        if (this.hasClickedOnTheCurrentElement(event.target)) {
+        if (this._hasClickedOnTheCurrentElement(event.target)) {
             this.setState({
                 isDragging: true,
                 startDragPosition: {
@@ -86,11 +70,11 @@ export default class DraggableModalContainer extends Component<Props, State> {
         }
     }
 
-    private move = (event: MouseEvent): void => {
+    _move = event => {
         if (this.state.isDragging) {
-            this.setState((state) => {
-                const newX = state.currentPosition.x + (event.x - (state.startDragPosition?.x ?? 0))
-                const newY = state.currentPosition.y + (event.y - (state.startDragPosition?.y ?? 0))
+            this.setState(state => {
+                const newX = state.currentPosition.x + (event.x - state.startDragPosition.x)
+                const newY = state.currentPosition.y + (event.y - state.startDragPosition.y)
 
                 return {
                     movePosition: {
@@ -102,9 +86,9 @@ export default class DraggableModalContainer extends Component<Props, State> {
         }
     }
 
-    private endDrag = (): void => {
+    _endDrag = () => {
         if (this.state.isDragging) {
-            this.setState((state) => {
+            this.setState(state => {
                 return {
                     isDragging: false,
                     currentPosition: state.movePosition,
@@ -113,29 +97,32 @@ export default class DraggableModalContainer extends Component<Props, State> {
         }
     }
 
-    private hasClickedOnTheCurrentElement(target: EventTarget | null): boolean {
+    _hasClickedOnTheCurrentElement(target) {
         let currentNode = target
 
         while (currentNode) {
-            if (includes(this.targetNodes, currentNode)) {
+            if (_.includes(this._targetNodes, currentNode)) {
                 return true
             }
 
-            currentNode = (currentNode as HTMLElement).parentNode
+            currentNode = currentNode.parentNode
         }
 
         return false
     }
 
-    private setTargetNode(): void {
-        if (!this.containerNode) {
+    _setTargetNode() {
+        if (!this._containerNode) {
             return
         }
 
-        this.targetNodes = this.containerNode.querySelectorAll(this.props.draggableTarget)
+        const nodes = this._containerNode.querySelectorAll(this.props.draggableTarget)
+
+        this._targetNodes = nodes
     }
 
-    private setContainerNode = (node: HTMLDivElement | null): void => {
-        this.containerNode = node
+    _setContainerNode = node => {
+        this._containerNode = node
     }
 }
+/* eslint-enable */

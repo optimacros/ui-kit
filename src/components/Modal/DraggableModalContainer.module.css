@@ -1,4 +1,4 @@
 .Container {
-    will-change: left, top;
-    position: relative;
+  will-change: left, top;
+  position: relative;
 }

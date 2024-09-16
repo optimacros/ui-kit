@@ -1,7 +1,8 @@
+// @ts-nocheck
 import React from 'react'
 import BaseReactModal from 'react-modal'
 
-const ReactModal = (props: BaseReactModal.Props & { testMode?: boolean }): React.JSX.Element => {
+const ReactModal = (props:any) => {
     if (props.testMode) {
         return <div className="ReactModalRootContainer">{props.children}</div>
     }

@@ -1,2 +1,2 @@
-export { Modal } from './Modal'
-export type { ModalProps } from './Modal'
+// @ts-nocheck
+export { default as Modal } from './Modal'
