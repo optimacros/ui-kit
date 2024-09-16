@@ -16,23 +16,26 @@ interface Props {
 
 export const HeaderUserMenuElement = (props: Props)=> {
     const { className, onClick, label, icon, children, ...otherProps } = props
+    const tag = props.href
+        ? 'a'
+        : 'span'
 
     return (
         <li
             className={className}
             title={label}
             onClick={onClick}
-        > {createElement(props.href
-            ? 'a'
-            : 'span', otherProps, icon && (
-            <Icon
-                className={styles.Icon}
-                value={icon}
-            />
-        ), <div className={styles.Label}>
-            {label}
-            {children}
-        </div>,
+        > {createElement(tag, otherProps, icon
+            ? (
+                <Icon
+                    className={styles.Icon}
+                    value={icon}
+                />
+            )
+            : null, <div className={styles.Label}>
+                {label}
+                {children}
+            </div>,
         )}
         </li>
     )
