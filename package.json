@@ -35,8 +35,9 @@
     "react-resizable": "3.0.5",
     "react-transition-group": "4.0.1",
     "tinycolor2": "1.6.0",
-    "ui-kit-core": "github:optimacros/ui-kit-core#fix-version"
-  },
+    "ui-kit-core": "github:optimacros/ui-kit-core#fix-version",
+		"ramda": "0.23.0"
+	},
   "devDependencies": {
     "@storybook/addon-actions": "8.0.9",
     "@storybook/addon-essentials": "8.0.9",
