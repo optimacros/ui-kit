@@ -18,7 +18,7 @@ export {
     TextArea,
     Toolbar,
     ButtonMenu,
-    CheckBox,
+    Checkbox,
     Icon,
     MenuItem,
     Navigation,
