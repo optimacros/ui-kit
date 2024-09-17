@@ -40,6 +40,7 @@ export class WSCheckbox extends React.Component<Props> {
                     label={label || placeholder}
                     theme={mergeStyles(theme, styles)}
                     tooltip={tooltipLabel}
+                    name={label}
                     {...otherProps}
                 />
             )
