@@ -2,9 +2,11 @@
 // @ts-nocheck
 import _ from 'lodash'
 import React from 'react'
-import { Button, IconButton, Toolbar } from 'ui-kit-core'
+import { Toolbar } from 'ui-kit-core'
 
 import CustomPicker from './CustomPicker'
+import { WSButton as Button } from '../WSButton'
+import { WSIconButton as IconButton } from '../WSIconButton'
 
 import style from './Color.module.css'
 

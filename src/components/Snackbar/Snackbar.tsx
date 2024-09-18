@@ -1,8 +1,8 @@
 // @ts-nocheck
 import classnames from 'classnames'
 import React, { Component } from 'react'
-import { Button as BaseButton } from 'ui-kit-core'
 
+import { WSButton as BaseButton } from '../WSButton'
 export interface SnackbarProps {
     action?: string;
     active?: boolean;
