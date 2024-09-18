@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import React, { Component } from 'react'
-import { FontIcon, Checkbox as Checkbox } from 'ui-kit-core'
+import { FontIcon } from 'ui-kit-core'
+
+import { WSCheckbox as Checkbox } from '../WSCheckbox'
 
 import styles from './Favorite.module.css'
 
@@ -28,6 +30,7 @@ export class Favorite extends Component<Props> {
                     theme={styles}
                     label={this.props.label}
                     checked={this.props.checked}
+                    // @ts-ignore
                     onChange={this.props.onChange}
                 >
                     <FontIcon

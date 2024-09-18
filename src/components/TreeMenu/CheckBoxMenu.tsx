@@ -2,9 +2,9 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Checkbox as Checkbox } from 'ui-kit-core'
 
 import BaseMenu from './BaseMenu'
+import { WSCheckbox as Checkbox } from '../WSCheckbox'
 
 import theme from './CheckBoxMenu.module.css'
 
