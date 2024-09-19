@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import { FontIcon } from 'ui-kit-core'
 
-import styles from './Contents.module.css'
+import styles from './UiKitContents.module.css'
 
 interface Props {
 	state: any;

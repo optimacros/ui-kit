@@ -1,10 +1,11 @@
 // @ts-nocheck
 import classNames from 'classnames'
 import React from 'react'
-import { Dropdown, Tooltip } from 'ui-kit-core'
+import { Tooltip } from 'ui-kit-core'
 import type { Position } from 'ui-kit-core/dist/components/Tooltip'
 
 import Picker from './Picker'
+import { WSDropdown as Dropdown } from '../WSDropdown'
 
 import style from './Color.module.css'
 
