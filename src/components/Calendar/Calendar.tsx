@@ -1,244 +1,206 @@
 // @ts-nocheck
+import classnames from 'classnames'
 import React, { Component } from 'react'
-import CSSTransition from 'react-transition-group/CSSTransition'
-import TransitionGroup from 'react-transition-group/TransitionGroup'
-import { IconButton as ThemedIconButton } from 'ui-kit-core'
+import { mergeStyles, Button } from 'ui-kit-core'
 
-import CalendarMonth from './CalendarMonth'
+import { CalendarContent } from './CalendarContent'
 import time from '../../utils/react-toolbox-utils/time'
-import { range, getAnimationModule } from '../../utils/react-toolbox-utils/utils'
 
-const DIRECTION_STEPS = { left: -1, right: 1 }
-const KEYS = {
-    ENTER: 13,
-    ARROW_UP: 38,
-    ARROW_DOWN: 40,
-    ARROW_LEFT: 37,
-    ARROW_RIGHT: 39,
-    ESC: 27,
-}
+import styles from './Calendar.module.css'
 
 interface Props {
+    active?: boolean;
+    autoOk?: boolean;
+    cancelLabel?: string;
+    className?: string;
     disabledDates?: Date[];
-    display?: string;
     enabledDates?: Date[];
-    handleSelect?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     locale?: string;
     maxDate?: Date;
     minDate?: Date;
-    onChange?: (value: Date, dayClick: boolean) => void;
-    selectedDate?: Date;
+    name?: string;
+    okLabel?: string;
+    onDismiss?: () => void;
+    onSelect?: (value: Date, event?: React.ChangeEvent<HTMLSelectElement>) => void;
     sundayFirstDayOfWeek?: boolean;
-    IconButton?: (props) => React.JSX.Element;
     theme?: {
-        active?: string;
-        calendar?: string;
-        next?: string;
-        prev?: string;
-        years?: string;
+        button?: string;
+        calendarWrapper?: string;
+        date?: string;
+        dialog?: string;
+        wrapper?: string;
+        header?: string;
+        monthsDisplay?: string;
+        year?: string;
+        yearsDisplay?: string;
+        navigation?: string;
     };
+    value?: Date;
 }
 
 interface State {
-    viewDate: Date;
-    direction: string;
+    display: string;
+    date: Date;
 }
 
-class CalendarComponent extends Component<Props, State> {
+export class Calendar extends Component<Props, State> {
     static defaultProps = {
-        display: 'months',
-        selectedDate: new Date(),
+        active: false,
+        cancelLabel: 'Cancel',
+        className: '',
+        okLabel: 'Ok',
+        value: new Date(),
     }
 
     state = {
-        viewDate: this.props.selectedDate || new Date(),
-        direction: '',
+        display: 'months',
+        date: this.props.value || new Date(),
     }
 
-    constructor(props: Props) {
-        super(props)
-
-        document.body.addEventListener('keydown', this.handleKeys)
-    }
-
-    activeYearNode: HTMLLIElement | null | undefined
-
-    yearsNode: HTMLUListElement | null | undefined
-
-    componentDidUpdate() {
-        if (this.activeYearNode) {
-            this.scrollToActive()
-        }
-    }
-
-    componentWillUnmount() {
-        document.body.removeEventListener('keydown', this.handleKeys)
+    componentDidMount() {
+        this.updateStateDate(this.props.value)
     }
 
     render() {
-        return (
-            <div className={this.props.theme.calendar}>
-                {this.props.display === 'months'
-                    ? this.renderMonths()
-                    : this.renderYears()}
-            </div>
-        )
-    }
+        const theme = mergeStyles(this.props.theme, styles)
+        const display = `${this.state.display}Display`
+        const headerClassName = classnames(theme.header, theme[display])
+        const shortDayOfWeek = time.getShortDayOfWeek(this.state.date.getDay(), this.props.locale)
+        const shortMonth = time.getShortMonth(this.state.date, this.props.locale)
+        const date = this.state.date.getDate()
 
-    renderYears() {
+        const type = 'custom'
+
+        const className = classnames(
+            [theme.dialog, theme.wrapper, theme[type]],
+            {
+                [theme.active]: this.props.active,
+            },
+            this.props.className,
+        )
+
         return (
-            <ul
-                data-react-toolbox="years"
-                className={this.props.theme.years}
-                ref={(node) => {
-                    this.yearsNode = node
-                }}
+            <div
+                data-react-toolbox="dialog"
+                className={className}
             >
-                {range(1900, 2100).map((year) => (
-                    <li
-                        className={year === this.state.viewDate.getFullYear()
-                            ? this.props.theme.active
-                            : ''}
-                        id={year}
-                        key={year}
-                        onClick={this.handleYearClick}
-                        ref={(node) => {
-                            if (year === this.state.viewDate.getFullYear()) {
-                                this.activeYearNode = node
-                            }
-                        }}
-                    >
-                        {year}
-                    </li>
-                ))}
-            </ul>
-        )
-    }
+                <section className={theme.body}>
+                    <header className={headerClassName}>
+                        <span
+                            id="years"
+                            className={theme.year}
+                            onClick={this.handleSwitchDisplay}
+                        >
+                            {this.state.date.getFullYear()}
+                        </span>
 
-    renderMonths() {
-        const { IconButton, theme } = this.props
-        const animation = this.state.direction === 'left'
-            ? 'slideLeft'
-            : 'slideRight'
-        const animationModule = getAnimationModule(animation, theme)
+                        <h3
+                            id="months"
+                            className={theme.date}
+                            onClick={this.handleSwitchDisplay}
+                        >
+                            {shortDayOfWeek}, {shortMonth} {date}
+                        </h3>
+                    </header>
 
-        return (
-            <div data-react-toolbox="calendar">
-                <IconButton
-                    id="left"
-                    className={theme.prev}
-                    icon="chevron_left"
-                    onClick={this.changeViewMonth}
-                />
-                <IconButton
-                    id="right"
-                    className={theme.next}
-                    icon="chevron_right"
-                    onClick={this.changeViewMonth}
-                />
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames={animationModule}
-                        timeout={350}
-                    >
-                        <CalendarMonth
-                            enabledDates={this.props.enabledDates}
+                    <div className={theme.calendarWrapper}>
+                        <CalendarContent
                             disabledDates={this.props.disabledDates}
-                            key={this.state.viewDate.getMonth()}
-                            locale={this.props.locale}
+                            display={this.state.display}
+                            enabledDates={this.props.enabledDates}
+                            handleSelect={this.handleSelect}
                             maxDate={this.props.maxDate}
                             minDate={this.props.minDate}
-                            onDayClick={this.handleDayClick}
-                            selectedDate={this.props.selectedDate}
+                            onChange={this.handleNewDate}
+                            selectedDate={this.state.date}
+                            theme={theme}
+                            locale={this.props.locale}
                             sundayFirstDayOfWeek={this.props.sundayFirstDayOfWeek}
-                            theme={this.props.theme}
-                            viewDate={this.state.viewDate}
                         />
-                    </CSSTransition>
-                </TransitionGroup>
+                    </div>
+                </section>
+
+                {this.renderActions()}
             </div>
         )
     }
 
-    scrollToActive() {
-        if (this.yearsNode && this.activeYearNode) {
-            const offset = this.yearsNode.offsetHeight / 2 + this.activeYearNode.offsetHeight / 2
+    renderActions() {
+        const theme = mergeStyles(this.props.theme, styles)
 
-            this.yearsNode.scrollTop = this.activeYearNode.offsetTop - offset
+        const actions = this.actions.map((action, idx) => {
+            const className = classnames(theme.button, {
+                [action.className]: action.className,
+            })
+
+            return (
+                <Button
+                    key={idx}
+                    {...action}
+                    className={className}
+                />
+            )
+        })
+
+        if (actions.length) {
+            return <nav className={theme.navigation}>{actions}</nav>
+        }
+
+        return null
+    }
+
+    handleNewDate = (value: Date, dayClick: boolean) => {
+        const state = {
+            display: 'months',
+            date: value,
+        }
+
+        if (time.dateOutOfRange(value, this.props.minDate, this.props.maxDate)) {
+            if (this.props.maxDate && this.props.minDate) {
+                state.date = time.closestDate(value, this.props.maxDate, this.props.minDate)
+            } else {
+                state.date = this.props.maxDate || this.props.minDate || new Date()
+            }
+        }
+
+        this.setState(state)
+
+        if (dayClick && this.props.autoOk && this.props.onSelect) {
+            this.props.onSelect(value)
         }
     }
 
-    handleDayClick = (day) => {
-        if (this.props.onChange) {
-            this.props.onChange(time.setDay(this.state.viewDate, day), true)
+    handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        if (this.props.onSelect) {
+            this.props.onSelect(this.state.date, event)
         }
     }
 
-    handleYearClick = (event) => {
-        const year = parseInt(event.currentTarget.id, 10)
-        const viewDate = time.setYear(this.props.selectedDate, year)
+    handleSwitchDisplay = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        this.setState({ display: event.target.id })
+    }
 
-        this.setState({ viewDate })
-
-        if (this.props.onChange) {
-            this.props.onChange(viewDate, false)
+    updateStateDate = (date: Date) => {
+        if (Object.prototype.toString.call(date) === '[object Date]') {
+            this.handleNewDate(date, false)
         }
     }
 
-    handleKeys = (event) => {
-        const { selectedDate } = this.props
-        const availableKeys = [KEYS.ENTER, KEYS.ARROW_UP, KEYS.ARROW_DOWN, KEYS.ARROW_LEFT, KEYS.ARROW_RIGHT]
+    get actions() {
+        const theme = mergeStyles(this.props.theme, styles)
 
-        if (availableKeys.includes(event.keyCode)) {
-            event.preventDefault()
-        }
-
-        switch (event.keyCode) {
-            case KEYS.ENTER:
-                if (this.props.handleSelect) {
-                    this.props.handleSelect()
-                }
-
-                break
-            case KEYS.ARROW_LEFT:
-                this.handleDayArrowKey(time.addDays(selectedDate, -1))
-                break
-            case KEYS.ARROW_UP:
-                this.handleDayArrowKey(time.addDays(selectedDate, -7))
-                break
-            case KEYS.ARROW_RIGHT:
-                this.handleDayArrowKey(time.addDays(selectedDate, 1))
-                break
-            case KEYS.ARROW_DOWN:
-                this.handleDayArrowKey(time.addDays(selectedDate, 7))
-                break
-            default:
-                break
-        }
-    }
-
-    handleDayArrowKey = (date: Date) => {
-        this.setState({ viewDate: date })
-
-        if (this.props.onChange) {
-            this.props.onChange(date, false)
-        }
-    }
-
-    changeViewMonth = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const direction = event.currentTarget.id
-
-        this.setState((state) => ({
-            direction,
-            viewDate: time.addMonths(state.viewDate, DIRECTION_STEPS[direction as 'left' | 'right']),
-        }))
+        return [
+            {
+                label: this.props.cancelLabel,
+                className: theme.button,
+                onClick: this.props.onDismiss,
+            },
+            {
+                label: this.props.okLabel,
+                className: theme.button,
+                name: this.props.name,
+                onClick: this.handleSelect,
+            },
+        ]
     }
 }
-
-export const Calendar = (props: Props) => (
-    <CalendarComponent
-        {...props}
-        IconButton={ThemedIconButton}
-    />
-)
-
