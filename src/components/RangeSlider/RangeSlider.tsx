@@ -5,6 +5,8 @@ import React from 'react'
 import { Range } from 'react-range'
 import { getStepDecimals } from 'react-range/lib/utils'
 
+import { colorUtils } from '../../utils'
+
 import styles from './RangeSlider.module.css'
 
 const STEP = 0.01
@@ -21,7 +23,6 @@ interface Props {
 	color: string;
 	classNameTrack: string;
 	hasRangeValues: boolean;
-	toColorContrast: (color:string) => any;
 	designTheme: () => any;
 	onChange: () => void;
 	onFinalChange: () => void;
@@ -94,7 +95,7 @@ export class RangeSlider extends React.Component<Props> {
             width: `${defaultRangeValues[1]}`,
             left: `${this._values[0]}%`,
             background: this._color,
-            color: this.props.toColorContrast(this._color),
+            color: colorUtils.toColorContrast(this._color),
         }
         const rightRangeStyle = {
             width: `${defaultRangeValues[2]}`,
@@ -140,7 +141,7 @@ export class RangeSlider extends React.Component<Props> {
 
         const styleThumbInner = {
             background: this._color,
-            color: this.props.toColorContrast(this._color),
+            color: colorUtils.toColorContrast(this._color),
             maxWidth: this.state.width,
         }
 
