@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 
 import { SelectBox as BaseSelectBox, SelectBoxProps } from './SelectBox'
 import { mergeStyles } from '../../utils'
-import { WSThemedChip as Chip } from '../WSChip'
+import { WSChip as Chip } from '../WSChip'
 
 import styles from './SelectBox.module.css'
 

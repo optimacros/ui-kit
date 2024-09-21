@@ -30,7 +30,6 @@ export class Favorite extends Component<Props> {
                     theme={styles}
                     label={this.props.label}
                     checked={this.props.checked}
-                    // @ts-ignore
                     onChange={this.props.onChange}
                 >
                     <FontIcon

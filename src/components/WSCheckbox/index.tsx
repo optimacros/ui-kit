@@ -1,47 +1,25 @@
-// @ts-nocheck
+import { isUndefined } from 'lodash'
 import React from 'react'
-import { Tooltip } from 'ui-kit-core'
+import { Checkbox as Base } from 'ui-kit-core'
+import type { CheckboxProps } from 'ui-kit-core/dist/components/Checkbox'
 
-import { Checkbox as Base } from './Checkbox'
-import { mergeStyles } from '../../utils'
-
-import styles from './Checkbox.module.css'
-
-interface Props {
-    label?: string;
-    checked?: boolean;
+interface Props extends CheckboxProps {
+    value?: boolean;
+    error?: null | string;
     placeholder?: string;
-    value?: string;
-    tooltipLabel?: string;
-    theme?: Record<string, string>;
-    onChange?: (value: string) => void;
-    children?: React.ReactNode;
+    type?: string;
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
-export class WSCheckbox extends React.Component<Props> {
-    render() {
-        const { label, placeholder, value, tooltipLabel, theme, ...otherProps } = this.props
+export const WSCheckbox = (props: Props): React.JSX.Element => {
+    const { checked, value, error, placeholder, label, type, ...restProps } = props
 
-        return tooltipLabel
-            ? (
-                <Tooltip
-                    checked={!!value}
-                    composedComponent={Base}
-                    label={label || placeholder}
-                    theme={mergeStyles(theme, styles)}
-                    tooltip={tooltipLabel}
-                    {...otherProps}
-                />
-            )
-            : (
-                <Base
-                    checked={!!value}
-                    label={label || placeholder}
-                    theme={mergeStyles(theme, styles)}
-                    tooltip={tooltipLabel}
-                    {...otherProps}
-                />
-            )
-    }
+    return (
+        <Base
+            {...restProps}
+            checked={!isUndefined(checked)
+                ? checked
+                : !!value}
+            label={label || placeholder}
+        />
+    )
 }

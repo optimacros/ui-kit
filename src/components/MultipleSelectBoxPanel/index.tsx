@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import _ from 'lodash'
 import React from 'react'
+import { IconButton } from 'ui-kit-core'
 
 import { SelectBox } from '../SelectBox'
-import { WSIconButton as IconButton } from '../WSIconButton'
 
 import styles from './SelectboxPanel.module.css'
 

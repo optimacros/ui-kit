@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
+import { IconButton as ThemedIconButton } from 'ui-kit-core'
 
 import CalendarMonth from './CalendarMonth'
 import time from '../../utils/react-toolbox-utils/time'
 import { range, getAnimationModule } from '../../utils/react-toolbox-utils/utils'
-import { WSIconButton as ThemedIconButton } from '../WSIconButton'
 
 const DIRECTION_STEPS = { left: -1, right: 1 }
 const KEYS = {

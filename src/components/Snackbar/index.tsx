@@ -1,8 +1,7 @@
 import React from 'react'
-import { mergeStyles } from 'ui-kit-core'
+import { mergeStyles, Button } from 'ui-kit-core'
 
 import { SnackbarComponent, SnackbarProps } from './Snackbar'
-import { WSButton as Button } from '../WSButton'
 
 import theme from './snackbarTheme.module.css'
 
