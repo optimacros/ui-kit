@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import CSSTransition from 'react-transition-group/CSSTransition'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
-import { IconButton as ThemedIconButton } from 'ui-kit-core'
+import { IconButton } from 'ui-kit-core'
 
 import CalendarMonth from './CalendarMonth'
 import time from '../../utils/react-toolbox-utils/time'
@@ -29,7 +29,6 @@ interface Props {
     onChange?: (value: Date, dayClick: boolean) => void;
     selectedDate?: Date;
     sundayFirstDayOfWeek?: boolean;
-    IconButton?: (props) => React.JSX.Element;
     theme?: {
         active?: string;
         calendar?: string;
@@ -44,7 +43,7 @@ interface State {
     direction: string;
 }
 
-class CalendarComponent extends Component<Props, State> {
+export class CalendarContent extends Component<Props, State> {
     static defaultProps = {
         display: 'months',
         selectedDate: new Date(),
@@ -116,7 +115,7 @@ class CalendarComponent extends Component<Props, State> {
     }
 
     renderMonths() {
-        const { IconButton, theme } = this.props
+        const { theme } = this.props
         const animation = this.state.direction === 'left'
             ? 'slideLeft'
             : 'slideRight'
@@ -234,11 +233,3 @@ class CalendarComponent extends Component<Props, State> {
         }))
     }
 }
-
-export const CalendarContent = (props: Props) => (
-    <CalendarComponent
-        {...props}
-        IconButton={ThemedIconButton}
-    />
-)
-
