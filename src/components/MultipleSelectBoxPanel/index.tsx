@@ -1,7 +1,9 @@
 import classNames from 'classnames'
 import _ from 'lodash'
 import React from 'react'
-import { IconButton, SelectBox } from 'ui-kit-core'
+import { IconButton } from 'ui-kit-core'
+
+import { SelectBox } from '../SelectBox'
 
 import styles from './SelectboxPanel.module.css'
 
@@ -40,7 +42,6 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
         return (
             <div className={classNames(styles.Container, className)}>
                 <div className={styles.SelectBoxRow}>
-                    {/** @ts-ignore */}
                     <SelectBox
                         auto
                         {...otherProps}
