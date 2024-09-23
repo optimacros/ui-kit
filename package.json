@@ -34,9 +34,10 @@
     "react-input-mask": "2.0.4",
     "react-modal": "3.16.1",
     "react-range": "1.8.14",
-    "react-resizable": "3.0.5",
+    "react-resizable": "1.7.5",
     "react-transition-group": "4.0.1",
     "tinycolor2": "1.6.0",
+		"react-draggable": "2.2.6",
     "ui-kit-core": "github:optimacros/ui-kit-core#fix-version"
   },
   "devDependencies": {
