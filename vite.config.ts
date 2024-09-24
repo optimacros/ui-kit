@@ -11,13 +11,10 @@ import postcssPresetEnv from 'postcss-preset-env'
 // @ts-ignore
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-// TODO https://github.com/gxmari007/vite-plugin-eslint/issues/84
 // @ts-ignore
 import eslint from 'vite-plugin-eslint'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         libInjectCss(),
@@ -27,8 +24,9 @@ export default defineConfig({
             include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'],
             exclude: [],
         }),
-        tsconfigPaths(),
-        dts(),
+        dts({
+            insertTypesEntry: true,
+        }),
     ],
     css: {
         modules: {
@@ -74,52 +72,31 @@ export default defineConfig({
         },
         rollupOptions: {
             external: ['react', 'react-dom', 'react/jsx-runtime', 'ui-kit-core', 'lodash'],
-            input: {
-                ...(Object.fromEntries(
-                    glob.sync(
-                        './src/**/*.{ts,tsx}',
-                    ).map(file => [
+            input: Object.fromEntries(
+                glob.sync(
+                    './src/**/*.{ts,tsx}',
+                ).map(file => [
                     // The name of the entry point
                     // src/components/nested/foo.ts becomes nested/foo
-                        path.relative(
-                            'src',
-                            file.slice(0, file.length - path.extname(file).length),
-                        ),
-                        // The absolute path to the entry file
-                        // src/components/nested/foo.ts becomes /project/src/components/nested/foo.ts
-                        fileURLToPath(new URL(file, import.meta.url)),
-                    ]),
-                )),
-                ...(Object.fromEntries(
-                    glob.sync(
-                        './src/fonts/*.css',
-                    ).map(file => [
-                        path.relative(
-                            'src',
-                            file.slice(0, file.length - path.extname(file).length),
-                        ),
-                        fileURLToPath(new URL(file, import.meta.url)),
-                    ],
+                    path.relative(
+                        'src',
+                        file.slice(0, file.length - path.extname(file).length),
                     ),
-                )),
-            },
-
+                    // The absolute path to the entry file
+                    // src/components/nested/foo.ts becomes /project/src/components/nested/foo.ts
+                    fileURLToPath(new URL(file, import.meta.url)),
+                ]),
+            ),
             output: {
                 chunkFileNames: (chunkInfo) => {
                     switch (chunkInfo.name) {
                         case 'TabHeaderState':
                             return 'components/Tabs/ExtTabs/[name].js'
                         default:
-                            return 'helpers/[name].js'
+                            return 'chunks/[name].js'
                     }
                 },
-                assetFileNames: (assetInfo) => {
-                    if (assetInfo.name && assetInfo.name.includes('fonts.css')) {
-                        return '[name][extname]'
-                    }
-
-                    return 'assets/index[extname]'
-                },
+                assetFileNames: 'assets/index[extname]',
                 entryFileNames: '[name].js',
                 dir: 'dist',
                 globals: {
@@ -129,4 +106,5 @@ export default defineConfig({
             },
         },
     },
+
 })
