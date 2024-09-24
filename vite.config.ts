@@ -8,6 +8,7 @@ import postcssCustomProperties from 'postcss-custom-properties'
 import postcssImport from 'postcss-import'
 import postcssNesting from 'postcss-nested'
 import postcssPresetEnv from 'postcss-preset-env'
+// @ts-ignore
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 // TODO https://github.com/gxmari007/vite-plugin-eslint/issues/84
@@ -36,7 +37,6 @@ export default defineConfig({
                 const componentName = filename
                     .split('/')
                     .pop()
-
                 const hash = crypto
                     .createHash('md5')
                     .update(css)
@@ -65,7 +65,9 @@ export default defineConfig({
         },
     },
     build: {
+        minify: false,
         copyPublicDir: false,
+        target: ['esnext'],
         lib: {
             entry: path.resolve(__dirname, 'src/index.ts'),
             formats: ['cjs'],
@@ -77,8 +79,8 @@ export default defineConfig({
                     glob.sync(
                         './src/**/*.{ts,tsx}',
                     ).map(file => [
-                        // The name of the entry point
-                        // src/components/nested/foo.ts becomes nested/foo
+                    // The name of the entry point
+                    // src/components/nested/foo.ts becomes nested/foo
                         path.relative(
                             'src',
                             file.slice(0, file.length - path.extname(file).length),
