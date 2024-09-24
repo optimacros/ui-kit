@@ -22,6 +22,10 @@ export {
     Icon,
     MenuItem,
     Navigation,
+    Tab,
+    TabHeader,
+    Tabs,
+    SelectBox,
 } from 'ui-kit-core'
 export * from './Calendar'
 export * from './ColorPicker'
@@ -34,7 +38,7 @@ export * from './SearchContainer'
 export * from './SliderScale'
 export * from './Snackbar'
 export * from './ViewMenu'
-export * from './Tabs'
+export * from './WSTabs'
 export * from './Modal'
 export * from './RadioButton'
 export * from './RadioGroup'
@@ -54,4 +58,5 @@ export * from './WSChip'
 export * from './WSMenu'
 export * from './WSCheckbox'
 export * from './WSNavigation'
-export * from './SelectBox'
+export * from './WSSelectBox'
+export * from './WSButtonMenu'

@@ -16,7 +16,7 @@ export interface SelectBoxProps extends Omit<BaseSelectBoxProps, 'source'> {
     source?: { [key: string]: string | number }[];
 }
 
-export const SelectBox = observer((props: SelectBoxProps): React.JSX.Element => {
+export const WSSelectBox = observer((props: SelectBoxProps): React.JSX.Element => {
     const { options, source, onChange, value, ...restProps } = props
 
     const theme = useMemo(

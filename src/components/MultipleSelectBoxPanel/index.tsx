@@ -3,7 +3,7 @@ import _ from 'lodash'
 import React from 'react'
 import { IconButton } from 'ui-kit-core'
 
-import { SelectBox } from '../SelectBox'
+import { WSSelectBox as SelectBox } from '../WSSelectBox'
 
 import styles from './SelectboxPanel.module.css'
 

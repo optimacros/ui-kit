@@ -4,7 +4,7 @@ import { marked } from 'marked'
 import React from 'react'
 import { ResizableBox } from 'react-resizable'
 
-import { Tab, TabHeader } from '../Tabs'
+import { WSTab as Tab, WSTabHeader as TabHeader } from '../WSTabs'
 
 import styles from './MarkdownEditor.module.css'
 

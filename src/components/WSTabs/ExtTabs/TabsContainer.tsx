@@ -2,8 +2,8 @@
 import classNames from 'classnames'
 import { Component } from 'react'
 
-import { TabContent } from './TabContent'
-import { TabHeader } from './TabHeader'
+import { WSTabContent as TabContent } from './TabContent'
+import { WSTabHeader as TabHeader } from './TabHeader'
 import { mergeStyles } from '../../../utils'
 
 import styles from './TabsContainer.module.css'
@@ -23,7 +23,7 @@ interface Props {
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
-export class TabsContainer extends Component<Props> {
+export class WSTabsContainer extends Component<Props> {
     static defaultProps = {
         hideTabHeader: false,
         theme: {

@@ -2,7 +2,7 @@
 import _ from 'lodash'
 import React from 'react'
 
-import { TabsContainer as ExtTabs } from './ExtTabs'
+import { WSTabsContainer as ExtTabs } from './ExtTabs'
 
 interface Props {
     active?: number;
@@ -17,7 +17,7 @@ interface State {
     activeTab: number;
 }
 
-export class Tabs extends React.Component<Props, State> {
+export class WSTabs extends React.Component<Props, State> {
     state = {
         activeTab: 0,
     }

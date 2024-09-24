@@ -10,7 +10,7 @@ interface Props {
     children?: React.ReactNode;
 }
 
-export const Tab: React.FC<Props> = ({ children, className }) => {
+export const WSTab: React.FC<Props> = ({ children, className }) => {
     const newClassName = classNames(styles.Tab, className)
 
     return <div className={newClassName}>{children}</div>

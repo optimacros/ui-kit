@@ -17,7 +17,7 @@ interface Props {
     children?: ReactNode[];
 }
 /* eslint-disable */
-export class TabContent extends Component<Props> {
+export class WSTabContent extends Component<Props> {
     static defaultProps = {
         theme: {
             TabContent: 'TabContent__TabContent',
