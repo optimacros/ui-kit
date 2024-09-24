@@ -1,11 +1,14 @@
 import react from '@vitejs/plugin-react-swc'
 import crypto from 'crypto'
+import { glob } from 'glob'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import postcssCustomProperties from 'postcss-custom-properties'
 // @ts-ignore
 import postcssImport from 'postcss-import'
 import postcssNesting from 'postcss-nested'
 import postcssPresetEnv from 'postcss-preset-env'
+// @ts-ignore
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 // @ts-ignore
@@ -32,7 +35,6 @@ export default defineConfig({
                 const componentName = filename
                     .split('/')
                     .pop()
-
                 const hash = crypto
                     .createHash('md5')
                     .update(css)
@@ -61,25 +63,48 @@ export default defineConfig({
         },
     },
     build: {
+        minify: false,
         copyPublicDir: false,
+        target: ['esnext'],
         lib: {
             entry: path.resolve(__dirname, 'src/index.ts'),
-            formats: ['es'],
+            formats: ['cjs'],
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime', 'ui-kit-core'],
-            input: {
-                index: 'src/index.ts',
-            },
+            external: ['react', 'react-dom', 'react/jsx-runtime', 'ui-kit-core', 'lodash'],
+            input: Object.fromEntries(
+                glob.sync(
+                    './src/**/*.{ts,tsx}',
+                ).map(file => [
+                    // The name of the entry point
+                    // src/components/nested/foo.ts becomes nested/foo
+                    path.relative(
+                        'src',
+                        file.slice(0, file.length - path.extname(file).length),
+                    ),
+                    // The absolute path to the entry file
+                    // src/components/nested/foo.ts becomes /project/src/components/nested/foo.ts
+                    fileURLToPath(new URL(file, import.meta.url)),
+                ]),
+            ),
             output: {
+                chunkFileNames: (chunkInfo) => {
+                    switch (chunkInfo.name) {
+                        case 'TabHeaderState':
+                            return 'components/Tabs/ExtTabs/[name].js'
+                        default:
+                            return 'chunks/[name].js'
+                    }
+                },
+                assetFileNames: 'assets/index[extname]',
                 entryFileNames: '[name].js',
                 dir: 'dist',
                 globals: {
                     react: 'React',
                     'react-dom': 'ReactDOM',
-                    'ui-kit-core': 'UiKitCore',
                 },
             },
         },
     },
+
 })

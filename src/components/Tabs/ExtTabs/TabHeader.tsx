@@ -34,7 +34,7 @@ type Props = Omit<TabsContainerProps, 'headerClassName'| 'contentClassName'> & {
 }
 
 @observer
-export class TabHeader extends Component<Props> {
+class TabHeader extends Component<Props> {
     constructor(props: Props) {
         super(props)
 
@@ -485,3 +485,5 @@ export class TabHeader extends Component<Props> {
         return mergeStyles(styles, customTheme) as TabsContainerTheme
     }
 }
+
+export { TabHeader }
