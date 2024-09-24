@@ -11,7 +11,7 @@ const RadioButton: React.FC<RadioProps> = props => (
         {...props}
         Radio={Radio}
         theme={props.theme
-            ? mergeStyles(props.theme, theme)
+            ? mergeStyles(theme, props.theme)
             : theme}
     />
 )

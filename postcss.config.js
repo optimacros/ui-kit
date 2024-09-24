@@ -1,5 +1,6 @@
 // @ts-ignore
 module.exports = {
+	parser: 'postcss-comment',
     plugins: {
         'postcss-import': {
             path: ['src'],
@@ -22,7 +23,6 @@ module.exports = {
             ],
         },
         'postcss-color-function': {},
-        'postcss-calc': {},
-        cssnano: {},
+        'postcss-calc': {}
     },
 }
