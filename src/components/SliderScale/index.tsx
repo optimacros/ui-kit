@@ -3,6 +3,10 @@ import { mergeStyles } from 'ui-kit-core'
 
 import ThemedSlider, { SliderProps } from './Slider'
 
+// eslint-disable-next-line
+import baseTheme from './sliderTheme.module.css'
+
+// eslint-disable-next-line
 import styles from './SliderScale.module.css'
 
 interface SliderScaleProps extends SliderProps {
@@ -21,7 +25,7 @@ export class SliderScale extends React.Component<SliderScaleProps> {
 
                 <ThemedSlider
                     {...otherProps}
-                    theme={theme}
+                    theme={mergeStyles(theme, baseTheme)}
                 />
             </div>
         )

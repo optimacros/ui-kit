@@ -6,8 +6,6 @@ import { events, mergeStyles, Input as ThemedInput } from 'ui-kit-core'
 import { round, range } from '../../utils/react-toolbox-utils/utils'
 import { ProgressBar as InjectProgressBar } from '../ProgressBar'
 
-import styles from './sliderTheme.module.css'
-
 export interface SliderProps {
     buffer?: number;
     className?: string;
