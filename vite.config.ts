@@ -8,11 +8,11 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 // @ts-ignore
 import eslint from 'vite-plugin-eslint'
-import { libInjectCss } from 'vite-plugin-lib-inject-css'
+// import { libInjectCss } from 'vite-plugin-lib-inject-css'
 
 export default defineConfig({
     plugins: [
-        libInjectCss(),
+        // libInjectCss(),
         react({ tsDecorators: true }),
         eslint({
             cache: false,
@@ -22,6 +22,7 @@ export default defineConfig({
     ],
     css: {
         modules: {
+
             localsConvention: 'camelCase',
             generateScopedName: (name, filename, css) => {
                 const componentName = filename
@@ -40,6 +41,7 @@ export default defineConfig({
     },
     build: {
         minify: false,
+        cssMinify: true,
         copyPublicDir: false,
         target: ['esnext'],
         lib: {
@@ -65,8 +67,8 @@ export default defineConfig({
             ),
             output: {
                 chunkFileNames: 'chunks/[name].js',
-                assetFileNames: 'assets/index[extname]',
                 entryFileNames: '[name].js',
+
                 dir: 'dist',
                 globals: {
                     react: 'React',

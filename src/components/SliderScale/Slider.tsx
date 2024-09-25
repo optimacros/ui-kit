@@ -1,7 +1,7 @@
 // @ts-nocheck
 import classnames from 'classnames'
 import React, { Component } from 'react'
-import { events, mergeStyles, Input as ThemedInput } from 'ui-kit-core'
+import { events, Input as ThemedInput } from 'ui-kit-core'
 
 import { round, range } from '../../utils/react-toolbox-utils/utils'
 import { ProgressBar as InjectProgressBar } from '../ProgressBar'
@@ -430,9 +430,6 @@ const Slider: React.FC<SliderProps> = (props) => (
 const ThemedSlider: React.FC<SliderProps> = (props) => (
     <Slider
         {...props}
-        theme={props.theme
-            ? mergeStyles(props.theme, styles)
-            : styles}
     />
 )
 
