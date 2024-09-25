@@ -8,7 +8,11 @@ interface Props {
     children: React.ReactNode;
 }
 
-export const WSSubMenu: React.FC<Props> = props => {
+export { default as WSMenu } from './Menu'
+export { default as WSMenuItem } from './MenuItem'
+export { default as WSSubMenu } from './SubMenuContainer'
+
+export const SubMenu: React.FC<Props> = props => {
     const { label, title, ...restProps } = props
 
     return (
@@ -19,7 +23,7 @@ export const WSSubMenu: React.FC<Props> = props => {
     )
 }
 
-export const WSMenuItem = (props: Props): React.JSX.Element => {
+export const MenuItem = (props: Props): React.JSX.Element => {
     const { label, title, children, ...restProps } = props
 
     return (
