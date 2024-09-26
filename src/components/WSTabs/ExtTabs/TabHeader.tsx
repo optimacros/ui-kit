@@ -9,7 +9,7 @@ import { KEY_CODES } from '../../../constants'
 import { mergeStyles } from '../../../utils'
 import { WSButtonMenu as ButtonMenu } from '../../WSButtonMenu'
 import { WSIcon as Icon } from '../../WSIcon'
-import { WSMenuItem as MenuItem } from '../../WSMenu'
+import { MenuItem } from '../../WSMenu'
 
 import styles from './TabHeader.module.css'
 
