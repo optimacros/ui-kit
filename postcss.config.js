@@ -13,15 +13,6 @@ module.exports = {
         },
         'postcss-nested': {},
         'postcss-normalize': {},
-        'postcss-custom-properties': {
-            disableDeprecationNotice: true,
-            preserve: false,
-            importFrom: [
-                'src/themes/colors.css',
-                'src/themes/variables.css',
-                'src/themes/config.css',
-            ],
-        },
         'postcss-color-function': {},
         'postcss-calc': {}
     },
