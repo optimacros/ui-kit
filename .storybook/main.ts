@@ -18,9 +18,9 @@ const config: StorybookConfig =  {
         autodocs: true
     },
     staticDirs: [{ from: '../src/fonts', to: 'fonts' }],
-		typescript: {
-			reactDocgen: 'react-docgen-typescript'
-		}
+	typescript: {
+	    reactDocgen: 'react-docgen-typescript'
+    }
 };
 
 export default config
