@@ -3,7 +3,7 @@ import type { StorybookConfig } from '@storybook/react-vite'
 const config: StorybookConfig =  {
     stories: [
         '../node_modules/ui-kit-core/**/*.stories.@(js|jsx|ts|tsx)',
-				'../src/**/*.stories.@(js|jsx|ts|tsx)',
+        '../src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     addons: [
         '@storybook/addon-links',
@@ -18,8 +18,8 @@ const config: StorybookConfig =  {
         autodocs: true
     },
     staticDirs: [{ from: '../src/fonts', to: 'fonts' }],
-	typescript: {
-	    reactDocgen: 'react-docgen-typescript'
+    typescript: {
+        reactDocgen: 'react-docgen-typescript'
     }
 };
 

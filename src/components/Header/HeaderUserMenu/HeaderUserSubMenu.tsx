@@ -5,10 +5,10 @@ import { ReactNode } from 'react'
 import styles from './HeaderUserMenu.module.css'
 
 interface Props {
-	label: string;
-	className: string;
-	children: ReactNode;
-	onClick: () => void;
+    label: string;
+    className: string;
+    children: ReactNode;
+    onClick: () => void;
 }
 
 export const HeaderUserSubMenu = (props: Props) => {

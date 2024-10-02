@@ -4,9 +4,9 @@ import { ReactNode, Component } from 'react'
 import styles from './HeaderUserMenu.module.css'
 
 interface Props {
-	className: string;
-	userName: string;
-	children: ReactNode;
+    className: string;
+    userName: string;
+    children: ReactNode;
 }
 
 export class HeaderUserMenu extends Component<Props> {

@@ -9,10 +9,10 @@ import { WSIcon as Icon } from '../../WSIcon'
 import styles from './HeaderMenu.module.css'
 
 interface Props {
-	isFirstLevel: boolean;
-	element: Element;
-	rootElementNode: Node;
-	elements: Array<Element>;
+    isFirstLevel: boolean;
+    element: Element;
+    rootElementNode: Node;
+    elements: Array<Element>;
 }
 
 @observer

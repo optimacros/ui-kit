@@ -7,12 +7,12 @@ import { FontIcon } from 'ui-kit-core'
 import styles from './UiKitContents.module.css'
 
 interface Props {
-	state: any;
-	children: any;
-	header: any;
-	subHeader: any;
-	hideInPrintMode: boolean;
-	onDragOver: any;
+    state: any;
+    children: any;
+    header: any;
+    subHeader: any;
+    hideInPrintMode: boolean;
+    onDragOver: any;
 }
 
 @observer

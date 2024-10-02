@@ -14,18 +14,18 @@ const MIN = 0
 const MAX = 100
 
 interface Props {
-	step: number;
-	min: number;
-	max: number;
-	values: Array<number>;
-	customValues: Array<number>;
-	rangeValues: Array<number>;
-	color: string;
-	classNameTrack: string;
-	hasRangeValues: boolean;
-	designTheme: () => any;
-	onChange: () => void;
-	onFinalChange: () => void;
+    step: number;
+    min: number;
+    max: number;
+    values: Array<number>;
+    customValues: Array<number>;
+    rangeValues: Array<number>;
+    color: string;
+    classNameTrack: string;
+    hasRangeValues: boolean;
+    designTheme: () => any;
+    onChange: () => void;
+    onFinalChange: () => void;
 }
 
 @observer

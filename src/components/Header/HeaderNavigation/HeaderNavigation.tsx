@@ -6,8 +6,8 @@ import { WSIcon as Icon } from '../../WSIcon'
 import styles from './HeaderNavigation.module.css'
 
 interface Props {
-	title: string;
-	onClick: () => void;
+    title: string;
+    onClick: () => void;
 }
 
 export class HeaderNavigation extends Component<Props> {

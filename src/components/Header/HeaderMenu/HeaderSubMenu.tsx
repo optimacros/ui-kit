@@ -12,10 +12,10 @@ const HEADER_MENU_OFFSET_SUBMENU = 2
 const HEADER_MENU_OFFSET_FROM_WINDOW = 20
 
 interface Props {
-	firstLevel: boolean;
-	element: Element;
-	rootElementNode: Node;
-	elements: Array<Element>;
+    firstLevel: boolean;
+    element: Element;
+    rootElementNode: Node;
+    elements: Array<Element>;
 }
 
 @observer

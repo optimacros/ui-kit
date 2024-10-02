@@ -6,12 +6,12 @@ import { WSIcon as Icon } from '../../WSIcon'
 import styles from './HeaderUserMenu.module.css'
 
 interface Props {
-	href: string;
-	label: string;
-	className: string;
-	children: ReactNode;
-	icon: IconProps['value'];
-	onClick: () => void;
+    href: string;
+    label: string;
+    className: string;
+    children: ReactNode;
+    icon: IconProps['value'];
+    onClick: () => void;
 }
 
 export const HeaderUserMenuElement = (props: Props)=> {
