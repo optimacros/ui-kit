@@ -2,7 +2,8 @@
 // @ts-nocheck
 import _ from 'lodash'
 import React from 'react'
-import { Button, IconButton, Toolbar } from 'ui-kit-core'
+import { Toolbar, Button, IconButton } from 'ui-kit-core'
+
 import CustomPicker from './CustomPicker'
 
 import style from './Color.module.css'

@@ -1,11 +1,10 @@
 // @ts-nocheck
-import React, { Component } from 'react'
 import classnames from 'classnames'
+import React, { Component } from 'react'
+import { events, Input as ThemedInput } from 'ui-kit-core'
+
 import { round, range } from '../../utils/react-toolbox-utils/utils'
 import { ProgressBar as InjectProgressBar } from '../ProgressBar'
-import { events, mergeStyles, Input as ThemedInput } from 'ui-kit-core'
-
-import styles from './sliderTheme.module.css'
 
 export interface SliderProps {
     buffer?: number;
@@ -14,7 +13,7 @@ export interface SliderProps {
     editable?: boolean;
     max?: number;
     min?: number;
-    onChange?: () => void;
+    onChange?: (cardSize: number) => void;
     onDragStart?: () => void;
     onDragStop?: () => void;
     pinned?: boolean;
@@ -101,6 +100,7 @@ class SliderComponent extends Component<SliderProps, State> {
         if (prevState.inputFocused && this.props.value !== prevProps.value) {
             this.setState({ inputValue: this.valueForInput(this.props.value) })
         }
+
         if (this.state.pressed !== prevState.pressed) {
             if (this.state.pressed) {
                 this.props.onDragStart()
@@ -223,7 +223,9 @@ class SliderComponent extends Component<SliderProps, State> {
                 onFocus={this.handleInputFocus}
                 onChange={this.handleInputChange}
                 onBlur={this.handleInputBlur}
-                value={this.state.inputFocused ? this.state.inputValue : this.valueForInput(value)}
+                value={this.state.inputFocused
+                    ? this.state.inputValue
+                    : this.valueForInput(value)}
             />
         )
     }
@@ -249,7 +251,9 @@ class SliderComponent extends Component<SliderProps, State> {
     }
 
     addToValue(increment) {
-        let value = this.state.inputFocused ? parseFloat(this.state.inputValue) : this.props.value
+        let value = this.state.inputFocused
+            ? parseFloat(this.state.inputValue)
+            : this.props.value
         value = this.trimValue(value + increment)
 
         if (value !== this.props.value) {
@@ -409,7 +413,9 @@ class SliderComponent extends Component<SliderProps, State> {
     valueForInput(value) {
         const decimals = this.stepDecimals()
 
-        return decimals > 0 ? value.toFixed(decimals) : value.toString()
+        return decimals > 0
+            ? value.toFixed(decimals)
+            : value.toString()
     }
 }
 
@@ -424,7 +430,6 @@ const Slider: React.FC<SliderProps> = (props) => (
 const ThemedSlider: React.FC<SliderProps> = (props) => (
     <Slider
         {...props}
-        theme={props.theme ? mergeStyles(props.theme, styles) : styles}
     />
 )
 

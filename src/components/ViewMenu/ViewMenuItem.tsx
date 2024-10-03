@@ -1,12 +1,15 @@
 // @ts-nocheck
-import React from 'react'
+
 import classNames from 'classnames'
+import React from 'react'
+
 import { OFFSET_STEP } from './constants'
 
 import styles from './ViewMenu.module.css'
 
 export default class ViewMenuItem extends React.PureComponent {
     render() {
+        /* eslint-disable */
         const { label, active, offset, disabled } = this.props
         const className = classNames({
             [styles.Element]: true,
@@ -33,3 +36,4 @@ export default class ViewMenuItem extends React.PureComponent {
 
     _onClick = () => this.props.onClick()
 }
+/* eslint-enable */

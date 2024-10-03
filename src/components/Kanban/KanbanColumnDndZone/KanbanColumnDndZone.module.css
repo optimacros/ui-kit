@@ -1,0 +1,38 @@
+/* ---------------------------------------------------------- */
+/* Kanban Column Drop Zone */
+/* ---------------------------------------------------------- */
+/* WARNING: Attention!! The styles in this file are very fragile */
+/* WARNING: don't touch!!! */
+
+.Container {
+    display: flex;
+    height: 140px;
+    padding: 0;
+    margin: 0;
+    border: 2px solid transparent;
+
+    &:global(.DndIsOver) {
+        border-color: var(--kanban-primary);
+    }
+}
+
+.ScrollContainer {
+    flex: 1;
+    display: flex;
+}
+
+.ScrollInnerContainer {
+    flex-grow: 1;
+    flex: 1;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.InnerContainer {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}

@@ -1,108 +1,86 @@
+// @ts-nocheck
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import type BaseReactModal from 'react-modal'
 import { FontIcon } from 'ui-kit-core'
 
 import Draggable from './DraggableModalContainer'
 import ReactModal from './ReactModal'
 
 import styles from './Modal.module.css'
+/* eslint-disable */
+export default class Modal extends Component {
+    static propTypes = {
+        title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+        isOpen: PropTypes.bool.isRequired,
+        compact: PropTypes.bool,
+        nonDraggable: PropTypes.bool,
+        isFatalError: PropTypes.bool,
+        draggableTarget: PropTypes.string,
+        customHeaderButton: PropTypes.any,
+        headerClassName: PropTypes.string,
+        contentClassName: PropTypes.string,
+    }
 
-export interface Props extends BaseReactModal.Props {
-    title?: string | React.ReactNode;
-    compact?: boolean;
-    nonDraggable?: boolean;
-    isFatalError?: boolean;
-    draggableTarget?: string;
-    customHeaderButton?: React.ReactNode;
-    headerClassName?: string;
-    contentClassName?: string;
-}
+    static defaultProps = {
+        nonDraggable: false,
+        draggableTarget: `.${styles.Header}`,
+    }
 
-export type ModalProps = React.PropsWithChildren<Props>
-
-export class Modal extends Component<ModalProps> {
-    render(): React.JSX.Element {
+    render() {
         const containerClassName = classNames({
             [styles.Container]: true,
-            [styles.Container__compact]: this.props.compact ?? false,
+            [styles.Container__compact]: this.props.compact,
         })
-        const contentClassName = this.props.contentClassName
-            ? classNames({
-                [styles.Content]: true,
-                [this.props.contentClassName]: !!this.props.contentClassName,
-            })
-            : styles.Content
-
-        const {
-            title,
-            compact,
-            nonDraggable,
-            isFatalError,
-            draggableTarget,
-            customHeaderButton,
-            headerClassName,
-            contentClassName: contentClass,
-            ...rest
-        } = this.props
-
-        const className = classNames(this.props.className, styles.ReactModal__Content)
-        const overlayClassName = classNames(this.props.overlayClassName, styles.ReactModal__Overlay)
+        const contentClassName = classNames({
+            [styles.Content]: true,
+            [this.props.contentClassName]: !!this.props.contentClassName,
+        })
 
         return (
             <ReactModal
-                {...rest}
+                ariaHideApp={false}
                 contentLabel="optimacros-modal"
                 shouldCloseOnOverlayClick={false}
-                ariaHideApp={false}
-                className={className}
-                overlayClassName={overlayClassName}
+                {...this.props}
             >
-                <Draggable draggableTarget={this.props.draggableTarget ?? `.${styles.Header}`}>
+                <Draggable
+                    draggableTarget={this.props.draggableTarget}
+                    nonDraggable={this.props.nonDraggable}
+                >
                     <div className={containerClassName}>
                         {this.renderHeader()}
 
-                        <div className={contentClassName}>
-                            {this.props.children}
-                        </div>
+                        <div className={contentClassName}>{this.props.children}</div>
                     </div>
                 </Draggable>
             </ReactModal>
         )
     }
 
-    renderHeader(): React.JSX.Element | null {
+    renderHeader() {
         if (!this.props.title) {
             return null
         }
 
-        const className = this.props.headerClassName
-            ? classNames({
-                [styles.Header]: true,
-                [this.props.headerClassName]: !!this.props.headerClassName,
-                [styles.Header__draggable]: !(this.props.nonDraggable ?? false),
-            })
-            : classNames({
-                [styles.Header]: true,
-                [styles.Header__draggable]: !(this.props.nonDraggable ?? false),
-            })
+        const className = classNames({
+            [styles.Header]: true,
+            [this.props.headerClassName]: !!this.props.headerClassName,
+            [styles.Header__draggable]: !this.props.nonDraggable,
+        })
 
         return (
             <div className={className}>
-                <div className={styles.Header_Title}>
-                    {this.props.title}
-                </div>
+                <div className={styles.Header_Title}>{this.props.title}</div>
 
-                <div className={styles.CustomHeaderContainer}>
-                    {this.props.customHeaderButton}
-                </div>
+                <div className={styles.CustomHeaderContainer}>{this.props.customHeaderButton}</div>
 
                 {this.renderCloseButton()}
             </div>
         )
     }
 
-    renderCloseButton(): React.JSX.Element | null {
+    renderCloseButton() {
         if (!this.props.onRequestClose || this.props.isFatalError) {
             return null
         }
@@ -110,11 +88,12 @@ export class Modal extends Component<ModalProps> {
         return (
             <div className={styles.CloseButton}>
                 <FontIcon
-                    value="close"
                     className={styles.CloseButton_Icon}
+                    value="close"
                     onClick={this.props.onRequestClose}
                 />
             </div>
         )
     }
 }
+/* eslint-enable */

@@ -1,5 +1,5 @@
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
 import { FontIcon } from 'ui-kit-core'
 
 import styles from './SearchContainer.module.css'
@@ -66,5 +66,4 @@ export const SearchContainer: React.FC<Props> = ({
         </div>
     )
 }
-
 

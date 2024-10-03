@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { action, computed, observable, makeObservable } from 'mobx'
+
 import { COUNT_MAX_ELEMENTS, ELEMENT_HEIGHT } from './constants'
 
 /**

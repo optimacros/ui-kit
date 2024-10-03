@@ -1,7 +1,7 @@
 // @ts-nocheck
-import React, { Component } from 'react'
 import classnames from 'classnames'
-import { Button as BaseButton } from 'ui-kit-core'
+import React, { Component } from 'react'
+import { BaseButton } from 'ui-kit-core'
 
 export interface SnackbarProps {
     action?: string;

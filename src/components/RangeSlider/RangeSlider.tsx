@@ -1,9 +1,11 @@
 // @ts-nocheck
-import React from 'react'
+import classNames from 'classnames'
 import { observer } from 'mobx-react'
+import React from 'react'
 import { Range } from 'react-range'
 import { getStepDecimals } from 'react-range/lib/utils'
-import classNames from 'classnames'
+
+import { colorUtils } from '../../utils'
 
 import styles from './RangeSlider.module.css'
 
@@ -12,24 +14,22 @@ const MIN = 0
 const MAX = 100
 
 interface Props {
-	step: number;
-	min: number;
-	max: number;
-	values: Array<number>;
-	customValues: Array<number>;
-	rangeValues: Array<number>;
-	color: string;
-	classNameTrack: string;
-	hasRangeValues: boolean;
-	toColorContrast: (color:string) => any;
-	designTheme: () => any;
-	onChange: () => void;
-	onFinalChange: () => void;
+    step: number;
+    min: number;
+    max: number;
+    values: Array<number>;
+    customValues: Array<number>;
+    rangeValues: Array<number>;
+    color: string;
+    classNameTrack: string;
+    hasRangeValues: boolean;
+    designTheme: () => any;
+    onChange: () => void;
+    onFinalChange: () => void;
 }
 
 @observer
 export class RangeSlider extends React.Component<Props> {
-
     _rangeValuesItemRef = React.createRef()
 
     state = { width: 0 }
@@ -95,7 +95,7 @@ export class RangeSlider extends React.Component<Props> {
             width: `${defaultRangeValues[1]}`,
             left: `${this._values[0]}%`,
             background: this._color,
-            color: this.props.toColorContrast(this._color),
+            color: colorUtils.toColorContrast(this._color),
         }
         const rightRangeStyle = {
             width: `${defaultRangeValues[2]}`,
@@ -127,8 +127,8 @@ export class RangeSlider extends React.Component<Props> {
 
     renderThumb = ({ index, props, isDragged }) => {
         const values = this.props.customValues || this._values
-        
-				const className = classNames({
+
+        const className = classNames({
             [styles.Thumb]: true,
             [styles.Thumb_isDragged]: isDragged,
         })
@@ -141,7 +141,7 @@ export class RangeSlider extends React.Component<Props> {
 
         const styleThumbInner = {
             background: this._color,
-            color: this.props.toColorContrast(this._color),
+            color: colorUtils.toColorContrast(this._color),
             maxWidth: this.state.width,
         }
 

@@ -7,3 +7,4 @@ package-lock.json
 build/*
 config-overrides.js
 src/react-app-env.d.ts
+src/components/WSIcon/icons/*

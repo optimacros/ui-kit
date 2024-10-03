@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React from 'react'
 import classNames from 'classnames'
-import { Dropdown, Tooltip } from 'ui-kit-core'
+import React from 'react'
+import { Tooltip, Dropdown } from 'ui-kit-core'
 import type { Position } from 'ui-kit-core/dist/components/Tooltip'
+
 import Picker from './Picker'
 
 import style from './Color.module.css'
@@ -33,7 +34,7 @@ export class ColorPicker extends React.Component<Props, State> {
         }
     }
 
-    ref: React.RefObject<HTMLDivElement>;
+    ref: React.RefObject<HTMLDivElement>
 
     componentDidMount() {
         document.addEventListener('click', this.handleClickOutside, true)

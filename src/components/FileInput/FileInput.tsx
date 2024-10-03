@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'ui-kit-core'
+
+import { WSIcon as Icon } from '../WSIcon'
 
 import styles from './FileInput.module.css'
 
