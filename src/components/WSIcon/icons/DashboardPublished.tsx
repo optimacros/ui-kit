@@ -4,7 +4,7 @@ export default function DashboardPublishedIcon({ fill = 'black', opacity = 1 }) 
             height="15"
             style={{ opacity }}
             version="1.1"
-            viewBox="0 0 15 15"
+            viewBox="5 5 15 15"
             width="15"
             xmlns="http://www.w3.org/2000/svg"
         >
