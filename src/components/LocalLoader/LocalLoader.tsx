@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-
-import { ProgressBar } from '../ProgressBar'
+import { ProgressBar } from 'ui-kit-core'
 
 import styles from './LocalLoader.module.css'
 

@@ -1,8 +1,8 @@
 import React from 'react'
+import { RadioButton } from 'ui-kit-core'
 
 import RadioGroupComponent, { RadioGroupProps } from './RadioGroup'
 import { mergeStyles } from '../../../utils'
-import { RadioButton } from '../../RadioButton'
 
 import theme from './radioGroupTheme.module.css'
 
