@@ -1,9 +1,7 @@
 import classNames from 'classnames'
 import _ from 'lodash'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { IconButton } from 'ui-kit-core'
-
-import { WSSelectBox as SelectBox } from '../WSSelectBox'
 
 import styles from './SelectboxPanel.module.css'
 
@@ -13,13 +11,14 @@ interface Item {
 }
 
 interface Props {
-    selectedItems: Item[]
-    onSelectedItem: () => void
-    onDeselectItem: (item: Item) => void
-    disabledSelect?: boolean
-    className?: string
-    addLabel?: string
-    removeLabel?: string
+    selectedItems: Item[];
+    onSelectedItem: () => void;
+    onDeselectItem: (item: Item) => void;
+    children: (props:any) => ReactNode;
+    disabledSelect?: boolean;
+    className?: string;
+    addLabel?: string;
+    removeLabel?: string;
 }
 
 export class MultipleSelectBoxPanel extends React.Component<Props> {
@@ -36,13 +35,14 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
             onDeselectItem,
             disabledSelect,
             addLabel,
+            children,
             ...otherProps
         } = this.props
 
         return (
             <div className={classNames(styles.Container, className)}>
                 <div className={styles.SelectBoxRow}>
-                    <SelectBox auto {...otherProps} />
+                    {children({ auto: true, ...otherProps })}
                     <IconButton
                         disabled={this.props.disabledSelect}
                         icon="add"

@@ -1,10 +1,9 @@
 // @ts-nocheck
 import classnames from 'classnames'
 import React, { Component } from 'react'
-import { events, Input as ThemedInput } from 'ui-kit-core'
+import { events, Input as ThemedInput, ProgressBar as InjectProgressBar } from 'ui-kit-core'
 
 import { round, range } from '../../utils/react-toolbox-utils/utils'
-import { ProgressBar as InjectProgressBar } from '../ProgressBar'
 
 export interface SliderProps {
     buffer?: number

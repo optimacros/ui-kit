@@ -3,11 +3,11 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
 import React, { Component } from 'react'
+import { ButtonMenu } from 'ui-kit-core'
 
 import { TabHeaderState } from './TabHeaderState'
 import { KEY_CODES } from '../../../constants'
 import { mergeStyles } from '../../../utils'
-import { WSButtonMenu as ButtonMenu } from '../../WSButtonMenu'
 import { WSIcon as Icon } from '../../WSIcon'
 import { MenuItem } from '../../WSMenu'
 

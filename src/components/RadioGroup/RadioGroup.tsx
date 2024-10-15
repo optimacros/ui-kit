@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import _ from 'lodash'
 import React, { Component } from 'react'
+import { RadioButton } from 'ui-kit-core'
 
 import { RadioGroup as Base } from './BaseRadioGroup'
-import { RadioButton } from '../RadioButton'
 
 interface Props {
     options?: any[]

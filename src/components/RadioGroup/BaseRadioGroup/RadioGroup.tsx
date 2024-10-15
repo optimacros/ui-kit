@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React, { Component } from 'react'
+import { RadioProps } from 'ui-kit-core'
 
 import isComponentOfType from '../../../utils/react-toolbox-utils/is-component-of-type'
-import { RadioProps } from '../../RadioButton/BaseRadioButton/Radio'
 
 export interface RadioGroupProps {
     className?: string
