@@ -4,7 +4,11 @@ export {
     Button,
     Chip,
     Counter,
+    Contents,
+    HorizontalDivider,
+    VerticalDivider,
     Divider,
+    SearchInput,
     Dropdown,
     FontIcon,
     IconButton,
@@ -47,6 +51,5 @@ export * from './LocalLoader'
 export * from './Kanban'
 export * from './Header'
 export * from './TextShortener'
-export * from './WSIcon'
 export * from './WSMenu'
 export * from './MultipleSelectBoxPanel'
