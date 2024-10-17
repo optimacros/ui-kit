@@ -16,6 +16,8 @@ export {
     LayoutFixedContainer,
     Loader,
     Menu,
+    MenuItem,
+    SubMenu,
     MenuDivider,
     MenuItemGroup,
     TextArea,
@@ -44,11 +46,9 @@ export * from './ColorPicker'
 export * from './MarkdownEditor'
 export * from './SliderScale'
 export * from './ViewMenu'
-export * from './WSTabs'
 export * from './RadioGroup'
 export * from './ProgressBars'
 export * from './LocalLoader'
 export * from './Kanban'
 export * from './TextShortener'
-export * from './WSMenu'
 export * from './MultipleSelectBoxPanel'
