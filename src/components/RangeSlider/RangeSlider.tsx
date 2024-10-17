@@ -4,8 +4,7 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import { Range } from 'react-range'
 import { getStepDecimals } from 'react-range/lib/utils'
-
-import { colorUtils } from '../../utils'
+import { colorUtils } from 'ui-kit-core'
 
 import styles from './RangeSlider.module.css'
 
