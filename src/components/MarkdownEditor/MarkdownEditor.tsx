@@ -1,10 +1,8 @@
 // @ts-nocheck
 import classNames from 'classnames'
 import { marked } from 'marked'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { ResizableBox } from 'react-resizable'
-
-import { WSTab as Tab, WSTabHeader as TabHeader } from '../WSTabs'
 
 import styles from './MarkdownEditor.module.css'
 
@@ -17,6 +15,8 @@ interface Props {
     editTabLabel?: string;
     previewTabLabel?: string;
     splitTabLabel?: string;
+    renderTab: (props:any) => ReactNode;
+    renderTabHeader: (props:any) => ReactNode;
 }
 
 interface State {
@@ -54,15 +54,16 @@ export class MarkdownEditor extends React.Component<Props, State> {
         return (
             <div className={className}>
                 <div className={styles.MarkdownEditorTop}>
-                    <TabHeader
-                        theme={styles}
-                        active={this.state.activeTab}
-                        onTabSwitch={this._onTabChange}
-                    >
-                        <Tab title={this.props.editTabLabel} />
-                        <Tab title={this.props.previewTabLabel} />
-                        <Tab title={this.props.splitTabLabel} />
-                    </TabHeader>
+                    {/* TODO: unify tabs and connect them there */}
+                    {this.props.renderTabHeader({
+                        theme: styles,
+                        active: this.state.activeTab,
+                        onTabSwitch: this._onTabChange,
+                        children: [this.props.renderTab({ title: this.props.editTabLabel }),
+                            this.props.renderTab({ title: this.props.previewTabLabel }),
+                            this.props.renderTab({ title: this.props.splitTabLabel }),
+                        ],
+                    })}
                 </div>
 
                 <ResizableBox
