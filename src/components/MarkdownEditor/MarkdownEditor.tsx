@@ -17,8 +17,7 @@ interface Props {
     editTabLabel?: string;
     previewTabLabel?: string;
     splitTabLabel?: string;
-    renderTab: (props:any) => ReactNode;
-    renderTabHeader: (props:any) => ReactNode;
+    renderIcon: (props:any) => ReactNode;
 }
 
 interface State {
@@ -60,6 +59,7 @@ export class MarkdownEditor extends React.Component<Props, State> {
                         theme={styles}
                         active={this.state.activeTab}
                         onTabSwitch={this._onTabChange}
+                        renderIcon={this.props.renderIcon}
                     >
                         <Tab title={this.props.editTabLabel} />
                         <Tab title={this.props.previewTabLabel} />
