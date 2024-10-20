@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
 import React, { Component } from 'react'
-import { ButtonMenu, mergeStyles } from 'ui-kit-core'
+import { ButtonMenu, mergeStyles, Icon } from 'ui-kit-core'
 
 import { TabHeaderState } from './TabHeaderState'
 import { KEY_CODES } from '../../../constants'
@@ -11,7 +11,6 @@ import { KEY_CODES } from '../../../constants'
 import styles from './TabHeader.module.css'
 
 interface Props {
-    renderIcon: (props:any) => React.ReactNode;
     draggable?: boolean;
     arrowUp?: boolean;
     hiddenTabsLabel?: string;
@@ -255,7 +254,7 @@ export class TabHeader extends Component<Props> {
 
     renderIcon = tab => {
         if (tab.props.icon) {
-            return this.props.renderIcon({className: styles.Icon, value: tab.props.icon})
+            return <Icon className={styles.Icon} value={tab.props.icon} />
         }
     }
 
