@@ -233,7 +233,8 @@
 			"indentWidth": 4,
 			"quoteStyle": "single",
             "lineWidth": 100
-        }
+        },
+        "globals": ["expect", "describe", "it", "beforeEach", "afterEach", "jest"]
 	},
     "css": {
       "parser": {
