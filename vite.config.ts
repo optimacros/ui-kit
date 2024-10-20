@@ -6,18 +6,12 @@ import { fileURLToPath } from 'node:url'
 // @ts-ignore
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-// @ts-ignore
-import eslint from 'vite-plugin-eslint'
 // import { libInjectCss } from 'vite-plugin-lib-inject-css'
 
 export default defineConfig({
     plugins: [
         // libInjectCss(),
         react({ tsDecorators: true }),
-        eslint({
-            cache: false,
-            include: ['./src/**/*.js', './src/**/*.jsx', './src/**/*.ts', './src/**/*.tsx'],
-            exclude: ['./src/components/WSIcon/icons/**/*.tsx'] }),
         dts(),
     ],
     css: {
