@@ -2,23 +2,31 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Icon } from 'ui-kit-core'
+import { FontIcon } from 'ui-kit-core'
 
 import { isBig, isSmall } from '../kanban-card-sizes'
 import { KanbanColumnCard } from '../KanbanColumnCard'
 import { KanbanColumnDndZone } from '../KanbanColumnDndZone'
-import { KanbanColumn as IKanbanColumn, KanbanProps, KanbanStatus } from '../types'
+import {
+    KanbanColumn as IKanbanColumn,
+    KanbanProps,
+    KanbanStatus,
+} from '../types'
 
 import styles from './KanbanColumn.module.css'
 
 type PickKanbanProps = Pick<
-    KanbanProps,
-    'cards' | 'statuses' | 'toggleColumnVisibility' | 'currentSizeCard' | 'isCardUpdating'
->
+	KanbanProps,
+	| 'cards'
+	| 'statuses'
+	| 'toggleColumnVisibility'
+	| 'currentSizeCard'
+	| 'isCardUpdating'
+>;
 
 type Props = PickKanbanProps & {
-    column: IKanbanColumn;
-}
+	column: IKanbanColumn;
+};
 
 @observer
 export class KanbanColumn extends React.PureComponent<Props> {
@@ -42,13 +50,12 @@ export class KanbanColumn extends React.PureComponent<Props> {
 
         return (
             <div className={styles.ColumnContainer}>
-                <div
-                    className={classNameColumnTitle}
+                <div className={classNameColumnTitle}
                     onClick={this.onClickTitle}
                 >
-                    <Icon
-                        className={classNameArrow}
-                        name="arrow_drop_down"
+                    <FontIcon className={classNameArrow}
+                        value="arrow_drop_down"
+
                     />
 
                     {column.name}
@@ -66,7 +73,7 @@ export class KanbanColumn extends React.PureComponent<Props> {
             return null
         }
 
-        return _.map(statuses, status => {
+        return _.map(statuses, (status) => {
             const classNameStatusDropZone = classNames({
                 [styles.StatusDropZone]: true,
                 [styles.StatusDropZone_small]: isSmall(currentSizeCard),
@@ -91,7 +98,7 @@ export class KanbanColumn extends React.PureComponent<Props> {
     private renderCards(status: KanbanStatus) {
         const { cards, column, currentSizeCard, isCardUpdating } = this.props
 
-        const columnCards = cards.filter(card => {
+        const columnCards = cards.filter((card) => {
             const sameStatus = () => card.statusId === status.id
             const sameId = () => card.columnId === column.id
 
