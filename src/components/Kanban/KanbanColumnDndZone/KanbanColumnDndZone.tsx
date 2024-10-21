@@ -6,12 +6,12 @@ import { Droppable } from 'react-beautiful-dnd'
 import styles from './KanbanColumnDndZone.module.css'
 
 interface Props {
-    droppableId: string;
-    className?: string;
-    direction?: string;
-    isStatic?: boolean;
-    column: string;
-    children: JSX.Element[] | JSX.Element;
+    droppableId: string
+    className?: string
+    direction?: string
+    isStatic?: boolean
+    column: string
+    children: JSX.Element[] | JSX.Element
 }
 
 enum Direction {
@@ -29,10 +29,7 @@ export class KanbanColumnDndZone extends React.PureComponent<Props> {
         const { className, column, children, droppableId, isStatic } = this.props
 
         return (
-            <Droppable
-                direction={this.direction}
-                droppableId={droppableId}
-            >
+            <Droppable direction={this.direction} droppableId={droppableId}>
                 {(provided, snapshot) => {
                     const dragAndDropIsOver: boolean = !isStatic && snapshot.isDraggingOver
 

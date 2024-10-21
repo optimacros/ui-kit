@@ -10,7 +10,7 @@ import baseTheme from './sliderTheme.module.css'
 import styles from './SliderScale.module.css'
 
 interface SliderScaleProps extends SliderProps {
-    label?: string;
+    label?: string
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -23,10 +23,7 @@ export class SliderScale extends React.Component<SliderScaleProps> {
             <div className={theme.SliderScale}>
                 {label && <span className={theme.Title}>{label}</span>}
 
-                <ThemedSlider
-                    {...otherProps}
-                    theme={mergeStyles(theme, baseTheme)}
-                />
+                <ThemedSlider {...otherProps} theme={mergeStyles(theme, baseTheme)} />
             </div>
         )
     }

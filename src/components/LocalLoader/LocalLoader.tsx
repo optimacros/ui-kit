@@ -6,22 +6,15 @@ import { ProgressBar } from '../ProgressBar'
 import styles from './LocalLoader.module.css'
 
 interface Props {
-    centered?: boolean;
-    height?: string;
+    centered?: boolean
+    height?: string
 }
 
 export class LocalLoader extends React.PureComponent<Props> {
     render() {
         return (
-            <div
-                className={this.classes}
-                style={this.style}
-            >
-                <ProgressBar
-                    theme={styles}
-                    type="circular"
-                    {...this.props}
-                />
+            <div className={this.classes} style={this.style}>
+                <ProgressBar theme={styles} type="circular" {...this.props} />
             </div>
         )
     }

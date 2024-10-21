@@ -8,18 +8,18 @@ import { WSSelectBox as SelectBox } from '../WSSelectBox'
 import styles from './SelectboxPanel.module.css'
 
 interface Item {
-    value: string;
-    label: string;
+    value: string
+    label: string
 }
 
 interface Props {
-    selectedItems: Item[];
-    onSelectedItem: () => void;
-    onDeselectItem: (item: Item) => void;
-    disabledSelect?: boolean;
-    className?: string;
-    addLabel?: string;
-    removeLabel?: string;
+    selectedItems: Item[]
+    onSelectedItem: () => void
+    onDeselectItem: (item: Item) => void
+    disabledSelect?: boolean
+    className?: string
+    addLabel?: string
+    removeLabel?: string
 }
 
 export class MultipleSelectBoxPanel extends React.Component<Props> {
@@ -42,10 +42,7 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
         return (
             <div className={classNames(styles.Container, className)}>
                 <div className={styles.SelectBoxRow}>
-                    <SelectBox
-                        auto
-                        {...otherProps}
-                    />
+                    <SelectBox auto {...otherProps} />
                     <IconButton
                         disabled={this.props.disabledSelect}
                         icon="add"
@@ -59,17 +56,14 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
     }
 
     _renderItems() {
-        return _.map(this.props.selectedItems, item => {
+        return _.map(this.props.selectedItems, (item) => {
             return this._renderItem(item)
         })
     }
 
     _renderItem(item: Item) {
         return (
-            <div
-                key={`${item.value}${item.label}`}
-                className={styles.SelectedItem}
-            >
+            <div key={`${item.value}${item.label}`} className={styles.SelectedItem}>
                 <div>{item.label}</div>
                 <IconButton
                     className={styles.RemoveButton}

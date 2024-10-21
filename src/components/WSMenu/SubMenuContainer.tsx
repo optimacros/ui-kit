@@ -45,10 +45,7 @@ export default class SubMenuContainer extends Component {
                     <span className={styles.MenuItemTitle}>{label}</span>
 
                     <span className={styles.MenuItemTitleIcon}>
-                        <FontIcon
-                            className={styles.MenuItemArrowIcon}
-                            value="navigate_next"
-                        />
+                        <FontIcon className={styles.MenuItemArrowIcon} value="navigate_next" />
                     </span>
                 </div>
 
@@ -73,7 +70,7 @@ export default class SubMenuContainer extends Component {
         this.setState({ canShow: false })
     }
 
-    onClick = event => {
+    onClick = (event) => {
         if (this.props.disabled) {
             event.stopPropagation()
         }

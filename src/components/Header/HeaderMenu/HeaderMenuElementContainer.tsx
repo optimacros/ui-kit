@@ -9,10 +9,10 @@ import { WSIcon as Icon } from '../../WSIcon'
 import styles from './HeaderMenu.module.css'
 
 interface Props {
-    isFirstLevel: boolean;
-    element: Element;
-    rootElementNode: Node;
-    elements: Array<Element>;
+    isFirstLevel: boolean
+    element: Element
+    rootElementNode: Node
+    elements: Array<Element>
 }
 
 @observer
@@ -27,11 +27,7 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
         })
 
         return (
-            <div
-                className={className}
-                disabled={element.disabled}
-                onClick={this._onClick}
-            >
+            <div className={className} disabled={element.disabled} onClick={this._onClick}>
                 {this.renderIcon(element)}
 
                 <div className={styles.Element_Title}>{element.title}</div>
@@ -48,10 +44,7 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
 
         return (
             <div className={styles.Element_IconContainer}>
-                <Icon
-                    className={styles.Element_Icon}
-                    value={element.icon}
-                />
+                <Icon className={styles.Element_Icon} value={element.icon} />
             </div>
         )
     }
@@ -65,10 +58,7 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
 
         return (
             <div>
-                <Icon
-                    className={styles.Element_Arrow}
-                    value="navigate_next"
-                />
+                <Icon className={styles.Element_Arrow} value="navigate_next" />
             </div>
         )
     }

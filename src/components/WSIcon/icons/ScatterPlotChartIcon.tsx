@@ -19,33 +19,14 @@ export default function ScatterPlotChartIcon({ fill = 'black', opacity = 1 }) {
                     strokeLinecap="round"
                     strokeWidth="1.6875"
                 />
-                <circle
-                    cx="6.1875"
-                    cy="7.3125"
-                    fill={fill}
-                    r="1.6875"
-                />
-                <circle
-                    cx="10.6875"
-                    cy="3.9375"
-                    fill={fill}
-                    r="1.6875"
-                />
-                <circle
-                    cx="10.6875"
-                    cy="11.8125"
-                    fill={fill}
-                    r="1.6875"
-                />
+                <circle cx="6.1875" cy="7.3125" fill={fill} r="1.6875" />
+                <circle cx="10.6875" cy="3.9375" fill={fill} r="1.6875" />
+                <circle cx="10.6875" cy="11.8125" fill={fill} r="1.6875" />
             </g>
 
             <defs>
                 <clipPath id={clipPathId}>
-                    <rect
-                        fill="white"
-                        height="18"
-                        width="18"
-                    />
+                    <rect fill="white" height="18" width="18" />
                 </clipPath>
             </defs>
         </svg>

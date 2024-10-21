@@ -2,11 +2,7 @@
 import _ from 'lodash'
 import React from 'react'
 import { CustomPicker } from 'react-color'
-import {
-    Saturation,
-    EditableInput,
-    Hue,
-} from 'react-color/lib/components/common'
+import { Saturation, EditableInput, Hue } from 'react-color/lib/components/common'
 import tinyColor from 'tinycolor2'
 
 import style from './CustomPicker.module.css'
@@ -41,9 +37,7 @@ const CustomPointer = () => {
 }
 
 export const toState = (data, oldHue: number): State => {
-    const color = data.hex
-        ? tinyColor(data.hex)
-        : tinyColor(data)
+    const color = data.hex ? tinyColor(data.hex) : tinyColor(data)
     const hsl = color.toHsl()
     const hsv = color.toHsv()
     const rgb = color.toRgb()
@@ -58,9 +52,7 @@ export const toState = (data, oldHue: number): State => {
 
     return {
         hsl,
-        hex: transparent
-            ? 'transparent'
-            : `#${hex}`,
+        hex: transparent ? 'transparent' : `#${hex}`,
         rgb,
         hsv,
         oldHue: data.h || oldHue || hsl.h,
@@ -71,10 +63,10 @@ export const toState = (data, oldHue: number): State => {
 type HexColor = string
 
 interface Props {
-    color: string;
-    onChange: (color: HexColor) => void;
-    presetColors?: string[];
-    recentColors?: string[];
+    color: string
+    onChange: (color: HexColor) => void
+    presetColors?: string[]
+    recentColors?: string[]
 }
 
 enum ColorsBlock {
@@ -87,12 +79,12 @@ type RgbName = 'r' | 'g' | 'b'
 type RgbColor = Record<RgbName, number>
 
 interface State {
-    hex: HexColor | 'transparent';
-    rgb: RgbColor;
-    hsl: any;
-    hsv: any;
-    oldHue: number;
-    source: string;
+    hex: HexColor | 'transparent'
+    rgb: RgbColor
+    hsl: any
+    hsv: any
+    oldHue: number
+    source: string
 }
 
 class CustomColorPicker extends React.Component<Props, State> {
@@ -128,10 +120,7 @@ class CustomColorPicker extends React.Component<Props, State> {
                         />
                     </div>
 
-                    <div
-                        className={style.previewSwatch}
-                        style={{ background: this.state.hex }}
-                    />
+                    <div className={style.previewSwatch} style={{ background: this.state.hex }} />
                 </div>
 
                 <div className={style.customInputs}>
@@ -157,38 +146,28 @@ class CustomColorPicker extends React.Component<Props, State> {
 
     renderRgbInput(element: RgbName) {
         return (
-            <div
-                className={style.inputContainer}
-                data-name={element}
-            >
+            <div className={style.inputContainer} data-name={element}>
                 <EditableInput
                     value={this.state.rgb[element]}
                     onChange={(data) => this.handleInputChange(data, element)}
                     style={inputStyles.rgb}
                 />
 
-                <div className={style.caption}>
-                    {_.toUpper(element)}
-                </div>
+                <div className={style.caption}>{_.toUpper(element)}</div>
             </div>
         )
     }
 
     renderHexInput() {
         return (
-            <div
-                className={style.inputContainer}
-                data-name="hex"
-            >
+            <div className={style.inputContainer} data-name="hex">
                 <EditableInput
                     style={inputStyles.hex}
                     value={_.replace(this.state.hex, '#', '')}
                     onChange={this.props.onChange}
                 />
 
-                <div className={style.caption}>
-                    Hex
-                </div>
+                <div className={style.caption}>Hex</div>
             </div>
         )
     }
@@ -214,10 +193,7 @@ class CustomColorPicker extends React.Component<Props, State> {
             <div>
                 <div className={style.divider} />
 
-                <div
-                    className={style.swatches}
-                    data-name={colorBlock}
-                >
+                <div className={style.swatches} data-name={colorBlock}>
                     {colors.map((color, index) => (
                         <div
                             title={`#${color}`}

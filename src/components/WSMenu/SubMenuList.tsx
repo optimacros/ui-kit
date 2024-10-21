@@ -20,10 +20,7 @@ export default class SubMenuList extends Component {
 
     render() {
         return (
-            <ul
-                ref={this._rootMenuNode}
-                className={styles.SubMenuContainer}
-            >
+            <ul ref={this._rootMenuNode} className={styles.SubMenuContainer}>
                 {this.props.children}
             </ul>
         )
@@ -63,9 +60,7 @@ export default class SubMenuList extends Component {
         const positionForRight = parentLeft + parentWidth - SUBMENU_OFFSET
         const positionForLeft = parentLeft - menuWidth + SUBMENU_OFFSET
 
-        return canRight
-            ? positionForRight
-            : positionForLeft
+        return canRight ? positionForRight : positionForLeft
     }
 }
 /* eslint-enable */

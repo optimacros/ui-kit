@@ -33,7 +33,7 @@ export class TabHeaderState {
         const _fixedTabsChildren = []
         const _scrollableTabsChildren = []
 
-        _.each(children, element => {
+        _.each(children, (element) => {
             if (element && element.props.isFixed) {
                 _fixedTabsChildren.push(element)
             }
@@ -61,14 +61,12 @@ export class TabHeaderState {
 
                     const countScrolledTabs = _.findIndex(
                         this._scrollableTabsOffsetsLeft,
-                        offset => {
+                        (offset) => {
                             return offset >= this.tabsScrollerNode.scrollLeft
                         },
                     )
 
-                    this.countScrolledTabs = toRight
-                        ? countScrolledTabs - 1
-                        : countScrolledTabs
+                    this.countScrolledTabs = toRight ? countScrolledTabs - 1 : countScrolledTabs
                 }),
             )
         } else {
@@ -136,8 +134,8 @@ export class TabHeaderState {
                         disabled,
                     }
                     const hiddenOnTheRight =
-                        this._scrollableTabsOffsetsLeft[index] + _.floor(tabWidth)
-                        > _.ceil(tabsScrollerWidth) + this._scrollLeft
+                        this._scrollableTabsOffsetsLeft[index] + _.floor(tabWidth) >
+                        _.ceil(tabsScrollerWidth) + this._scrollLeft
                     const hiddenOnTheLeft =
                         this._scrollableTabsOffsetsLeft[index] < this._scrollLeft
 
@@ -173,9 +171,7 @@ export class TabHeaderState {
 
     @computed get _scrollableTabsWidth() {
         return _.map(this.scrollableTabsNodes, ({ current }) => {
-            return current
-                ? _.round(current.getBoundingClientRect().width)
-                : 0
+            return current ? _.round(current.getBoundingClientRect().width) : 0
         })
     }
 }

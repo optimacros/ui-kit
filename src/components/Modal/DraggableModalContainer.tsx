@@ -1,6 +1,6 @@
 // @ts-nocheck
 import _ from 'lodash'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import styles from './DraggableModalContainer.module.css'
 
@@ -54,7 +54,7 @@ export default class DraggableModalContainer extends Component {
         )
     }
 
-    _startDrag = event => {
+    _startDrag = (event) => {
         if (!this._targetNodes) {
             this._setTargetNode()
         }
@@ -70,9 +70,9 @@ export default class DraggableModalContainer extends Component {
         }
     }
 
-    _move = event => {
+    _move = (event) => {
         if (this.state.isDragging) {
-            this.setState(state => {
+            this.setState((state) => {
                 const newX = state.currentPosition.x + (event.x - state.startDragPosition.x)
                 const newY = state.currentPosition.y + (event.y - state.startDragPosition.y)
 
@@ -88,7 +88,7 @@ export default class DraggableModalContainer extends Component {
 
     _endDrag = () => {
         if (this.state.isDragging) {
-            this.setState(state => {
+            this.setState((state) => {
                 return {
                     isDragging: false,
                     currentPosition: state.movePosition,
@@ -121,7 +121,7 @@ export default class DraggableModalContainer extends Component {
         this._targetNodes = nodes
     }
 
-    _setContainerNode = node => {
+    _setContainerNode = (node) => {
         this._containerNode = node
     }
 }

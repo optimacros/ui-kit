@@ -9,10 +9,10 @@ import { KanbanProps } from '../types'
 import styles from './KanbanColumnCard.module.css'
 
 type Props = Pick<KanbanProps, 'currentSizeCard' | 'isCardUpdating'> & {
-    className?: string;
-    draggableId: string;
-    index: number;
-    value: string;
+    className?: string
+    draggableId: string
+    index: number
+    value: string
 }
 
 @observer
@@ -33,11 +33,7 @@ export class KanbanColumnCard extends React.PureComponent<Props> {
         })
 
         return (
-            <Draggable
-                draggableId={draggableId}
-                index={index}
-                isDragDisabled={this.disableCard}
-            >
+            <Draggable draggableId={draggableId} index={index} isDragDisabled={this.disableCard}>
                 {(provided, snapshot) => {
                     const classNameWrapper = classNames(styles.Wrapper, className)
 

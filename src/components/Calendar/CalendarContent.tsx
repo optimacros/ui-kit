@@ -19,28 +19,28 @@ const KEYS = {
 }
 
 interface Props {
-    disabledDates?: Date[];
-    display?: string;
-    enabledDates?: Date[];
-    handleSelect?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    locale?: string;
-    maxDate?: Date;
-    minDate?: Date;
-    onChange?: (value: Date, dayClick: boolean) => void;
-    selectedDate?: Date;
-    sundayFirstDayOfWeek?: boolean;
+    disabledDates?: Date[]
+    display?: string
+    enabledDates?: Date[]
+    handleSelect?: (event: React.ChangeEvent<HTMLSelectElement>) => void
+    locale?: string
+    maxDate?: Date
+    minDate?: Date
+    onChange?: (value: Date, dayClick: boolean) => void
+    selectedDate?: Date
+    sundayFirstDayOfWeek?: boolean
     theme?: {
-        active?: string;
-        calendar?: string;
-        next?: string;
-        prev?: string;
-        years?: string;
-    };
+        active?: string
+        calendar?: string
+        next?: string
+        prev?: string
+        years?: string
+    }
 }
 
 interface State {
-    viewDate: Date;
-    direction: string;
+    viewDate: Date
+    direction: string
 }
 
 export class CalendarContent extends Component<Props, State> {
@@ -77,9 +77,7 @@ export class CalendarContent extends Component<Props, State> {
     render() {
         return (
             <div className={this.props.theme.calendar}>
-                {this.props.display === 'months'
-                    ? this.renderMonths()
-                    : this.renderYears()}
+                {this.props.display === 'months' ? this.renderMonths() : this.renderYears()}
             </div>
         )
     }
@@ -95,9 +93,11 @@ export class CalendarContent extends Component<Props, State> {
             >
                 {range(1900, 2100).map((year) => (
                     <li
-                        className={year === this.state.viewDate.getFullYear()
-                            ? this.props.theme.active
-                            : ''}
+                        className={
+                            year === this.state.viewDate.getFullYear()
+                                ? this.props.theme.active
+                                : ''
+                        }
                         id={year}
                         key={year}
                         onClick={this.handleYearClick}
@@ -116,9 +116,7 @@ export class CalendarContent extends Component<Props, State> {
 
     renderMonths() {
         const { theme } = this.props
-        const animation = this.state.direction === 'left'
-            ? 'slideLeft'
-            : 'slideRight'
+        const animation = this.state.direction === 'left' ? 'slideLeft' : 'slideRight'
         const animationModule = getAnimationModule(animation, theme)
 
         return (
@@ -136,10 +134,7 @@ export class CalendarContent extends Component<Props, State> {
                     onClick={this.changeViewMonth}
                 />
                 <TransitionGroup>
-                    <CSSTransition
-                        classNames={animationModule}
-                        timeout={350}
-                    >
+                    <CSSTransition classNames={animationModule} timeout={350}>
                         <CalendarMonth
                             enabledDates={this.props.enabledDates}
                             disabledDates={this.props.disabledDates}
@@ -186,7 +181,13 @@ export class CalendarContent extends Component<Props, State> {
 
     handleKeys = (event) => {
         const { selectedDate } = this.props
-        const availableKeys = [KEYS.ENTER, KEYS.ARROW_UP, KEYS.ARROW_DOWN, KEYS.ARROW_LEFT, KEYS.ARROW_RIGHT]
+        const availableKeys = [
+            KEYS.ENTER,
+            KEYS.ARROW_UP,
+            KEYS.ARROW_DOWN,
+            KEYS.ARROW_LEFT,
+            KEYS.ARROW_RIGHT,
+        ]
 
         if (availableKeys.includes(event.keyCode)) {
             event.preventDefault()
@@ -229,7 +230,10 @@ export class CalendarContent extends Component<Props, State> {
 
         this.setState((state) => ({
             direction,
-            viewDate: time.addMonths(state.viewDate, DIRECTION_STEPS[direction as 'left' | 'right']),
+            viewDate: time.addMonths(
+                state.viewDate,
+                DIRECTION_STEPS[direction as 'left' | 'right'],
+            ),
         }))
     }
 }

@@ -9,38 +9,38 @@ import time from '../../utils/react-toolbox-utils/time'
 import styles from './Calendar.module.css'
 
 interface Props {
-    active?: boolean;
-    autoOk?: boolean;
-    cancelLabel?: string;
-    className?: string;
-    disabledDates?: Date[];
-    enabledDates?: Date[];
-    locale?: string;
-    maxDate?: Date;
-    minDate?: Date;
-    name?: string;
-    okLabel?: string;
-    onDismiss?: () => void;
-    onSelect?: (value: Date, event?: React.ChangeEvent<HTMLSelectElement>) => void;
-    sundayFirstDayOfWeek?: boolean;
+    active?: boolean
+    autoOk?: boolean
+    cancelLabel?: string
+    className?: string
+    disabledDates?: Date[]
+    enabledDates?: Date[]
+    locale?: string
+    maxDate?: Date
+    minDate?: Date
+    name?: string
+    okLabel?: string
+    onDismiss?: () => void
+    onSelect?: (value: Date, event?: React.ChangeEvent<HTMLSelectElement>) => void
+    sundayFirstDayOfWeek?: boolean
     theme?: {
-        button?: string;
-        calendarWrapper?: string;
-        date?: string;
-        dialog?: string;
-        wrapper?: string;
-        header?: string;
-        monthsDisplay?: string;
-        year?: string;
-        yearsDisplay?: string;
-        navigation?: string;
-    };
-    value?: Date;
+        button?: string
+        calendarWrapper?: string
+        date?: string
+        dialog?: string
+        wrapper?: string
+        header?: string
+        monthsDisplay?: string
+        year?: string
+        yearsDisplay?: string
+        navigation?: string
+    }
+    value?: Date
 }
 
 interface State {
-    display: string;
-    date: Date;
+    display: string
+    date: Date
 }
 
 export class Calendar extends Component<Props, State> {
@@ -80,25 +80,14 @@ export class Calendar extends Component<Props, State> {
         )
 
         return (
-            <div
-                data-react-toolbox="dialog"
-                className={className}
-            >
+            <div data-react-toolbox="dialog" className={className}>
                 <section className={theme.body}>
                     <header className={headerClassName}>
-                        <span
-                            id="years"
-                            className={theme.year}
-                            onClick={this.handleSwitchDisplay}
-                        >
+                        <span id="years" className={theme.year} onClick={this.handleSwitchDisplay}>
                             {this.state.date.getFullYear()}
                         </span>
 
-                        <h3
-                            id="months"
-                            className={theme.date}
-                            onClick={this.handleSwitchDisplay}
-                        >
+                        <h3 id="months" className={theme.date} onClick={this.handleSwitchDisplay}>
                             {shortDayOfWeek}, {shortMonth} {date}
                         </h3>
                     </header>
@@ -133,13 +122,7 @@ export class Calendar extends Component<Props, State> {
                 [action.className]: action.className,
             })
 
-            return (
-                <Button
-                    key={idx}
-                    {...action}
-                    className={className}
-                />
-            )
+            return <Button key={idx} {...action} className={className} />
         })
 
         if (actions.length) {

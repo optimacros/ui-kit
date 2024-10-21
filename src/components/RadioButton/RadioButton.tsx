@@ -7,7 +7,7 @@ import { mergeStyles } from '../../utils'
 import baseTheme from './BaseRadioButton/radioButtonTheme.module.css'
 import styles from './RadioButton.module.css'
 
-export const RadioButton: React.FC<RadioProps> = props => {
+export const RadioButton: React.FC<RadioProps> = (props) => {
     const { theme, label, placeholder, ...otherProps } = props
     const mixTheme = mergeStyles(theme, styles)
 
@@ -19,4 +19,3 @@ export const RadioButton: React.FC<RadioProps> = props => {
         />
     )
 }
-

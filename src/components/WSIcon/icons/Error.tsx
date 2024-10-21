@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function ErrorIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg

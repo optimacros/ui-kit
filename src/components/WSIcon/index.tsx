@@ -10,13 +10,13 @@ const iconList: Record<
 > = icons
 
 interface IconComponent {
-    name: string;
-    fill?: string;
-    opacity?: number | string;
+    name: string
+    fill?: string
+    opacity?: number | string
 }
 
 interface IconProps extends Omit<BaseIconProps, 'value'> {
-    value: IconComponent | string | React.ReactElement;
+    value: IconComponent | string | React.ReactElement
 }
 
 export const WSIcon = (props: IconProps): React.JSX.Element => {
@@ -26,31 +26,21 @@ export const WSIcon = (props: IconProps): React.JSX.Element => {
         const IconItem = iconList[(value as IconComponent).name]
 
         if (!IconItem) {
-            return (
-                <BaseIcon
-                    {...otherProps}
-                    value={(value as IconComponent).name}
-                />
-            )
+            return <BaseIcon {...otherProps} value={(value as IconComponent).name} />
         }
 
         return (
             <BaseIcon
                 {...otherProps}
-                value={(
+                value={
                     <IconItem
                         fill={(value as IconComponent).fill}
                         opacity={Number((value as IconComponent).opacity) || 1}
                     />
-                )}
+                }
             />
         )
     }
 
-    return (
-        <BaseIcon
-            {...props}
-            value={value}
-        />
-    )
+    return <BaseIcon {...props} value={value} />
 }

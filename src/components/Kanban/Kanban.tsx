@@ -21,10 +21,7 @@ export class Kanban extends React.PureComponent<KanbanProps> {
                 {this.renderSlider()}
                 {/** @ts-ignore */}
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                    <div
-                        className={styles.ContainerScroll}
-                        id="scrollContainer"
-                    >
+                    <div className={styles.ContainerScroll} id="scrollContainer">
                         <div className={styles.ContainerScrollContent}>{this.renderKanban()}</div>
                     </div>
                 </DragDropContext>
@@ -72,11 +69,8 @@ export class Kanban extends React.PureComponent<KanbanProps> {
     private renderStatuses() {
         const { statuses } = this.props
 
-        return _.map(statuses, element => (
-            <div
-                key={element.id}
-                className={styles.Col}
-            >
+        return _.map(statuses, (element) => (
+            <div key={element.id} className={styles.Col}>
                 <div className={styles.StatusItem}>{element.name}</div>
             </div>
         ))
@@ -92,7 +86,7 @@ export class Kanban extends React.PureComponent<KanbanProps> {
             toggleColumnVisibility,
         } = this.props
 
-        return _.map(columns, element => {
+        return _.map(columns, (element) => {
             return (
                 <KanbanColumn
                     key={element.id}
@@ -107,11 +101,11 @@ export class Kanban extends React.PureComponent<KanbanProps> {
         })
     }
 
-    private onResizeCard: KanbanProps['changeCardSize'] = value => {
+    private onResizeCard: KanbanProps['changeCardSize'] = (value) => {
         this.props.changeCardSize(value)
     }
 
-    private onDragEnd: KanbanProps['onDragEnd'] = payload => {
+    private onDragEnd: KanbanProps['onDragEnd'] = (payload) => {
         this.props.onDragEnd(payload)
     }
 }

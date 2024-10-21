@@ -17,7 +17,7 @@ type PickKanbanProps = Pick<
 >
 
 type Props = PickKanbanProps & {
-    column: IKanbanColumn;
+    column: IKanbanColumn
 }
 
 @observer
@@ -42,14 +42,8 @@ export class KanbanColumn extends React.PureComponent<Props> {
 
         return (
             <div className={styles.ColumnContainer}>
-                <div
-                    className={classNameColumnTitle}
-                    onClick={this.onClickTitle}
-                >
-                    <FontIcon
-                        className={classNameArrow}
-                        value="arrow_drop_down"
-                    />
+                <div className={classNameColumnTitle} onClick={this.onClickTitle}>
+                    <FontIcon className={classNameArrow} value="arrow_drop_down" />
 
                     {column.name}
                 </div>
@@ -66,7 +60,7 @@ export class KanbanColumn extends React.PureComponent<Props> {
             return null
         }
 
-        return _.map(statuses, status => {
+        return _.map(statuses, (status) => {
             const classNameStatusDropZone = classNames({
                 [styles.StatusDropZone]: true,
                 [styles.StatusDropZone_small]: isSmall(currentSizeCard),
@@ -91,7 +85,7 @@ export class KanbanColumn extends React.PureComponent<Props> {
     private renderCards(status: KanbanStatus) {
         const { cards, column, currentSizeCard, isCardUpdating } = this.props
 
-        const columnCards = cards.filter(card => {
+        const columnCards = cards.filter((card) => {
             const sameStatus = () => card.statusId === status.id
             const sameId = () => card.columnId === column.id
 

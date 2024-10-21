@@ -10,10 +10,10 @@ import HeaderSubMenu from './HeaderSubMenu'
 import styles from './HeaderMenu.module.css'
 
 interface Props {
-    firstLevel: boolean;
-    element: Element;
-    rootElementNode: Node;
-    elements: Array<Element>;
+    firstLevel: boolean
+    element: Element
+    rootElementNode: Node
+    elements: Array<Element>
 }
 
 @observer

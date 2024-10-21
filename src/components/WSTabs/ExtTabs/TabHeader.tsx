@@ -14,23 +14,23 @@ import { MenuItem } from '../../WSMenu'
 import styles from './TabHeader.module.css'
 
 interface Props {
-    draggable?: boolean;
-    arrowUp?: boolean;
-    hiddenTabsLabel?: string;
-    hasNarrowTabs?: boolean;
-    className?: string;
-    children?: React.ReactNode;
-    active?: number;
+    draggable?: boolean
+    arrowUp?: boolean
+    hiddenTabsLabel?: string
+    hasNarrowTabs?: boolean
+    className?: string
+    children?: React.ReactNode
+    active?: number
     theme?: {
-        TabButton?: string;
-        TabButton__draggable?: string;
-        TabHeaderContainer: string;
-        TabButton_Inner?: string;
-        TabButton_Content?: string;
-        TabButton__active?: string;
-        TabButton__disabled?: string;
-        TabButtonCounter?: string;
-    };
+        TabButton?: string
+        TabButton__draggable?: string
+        TabHeaderContainer: string
+        TabButton_Inner?: string
+        TabButton_Content?: string
+        TabButton__active?: string
+        TabButton__disabled?: string
+        TabButtonCounter?: string
+    }
 }
 /* eslint-disable */
 @observer
@@ -153,18 +153,14 @@ export class WSTabHeader extends Component<Props> {
         const theme = mergeStyles(this.props.theme, styles)
         const { scrollableTabsChildren, fixedTabsChildren, countFixedTabs, countScrollableTabs } =
             this._state
-        const tabs = isScrollableTabs
-            ? scrollableTabsChildren
-            : fixedTabsChildren
+        const tabs = isScrollableTabs ? scrollableTabsChildren : fixedTabsChildren
 
         if (_.isEmpty(tabs)) {
             return null
         }
 
         return _.map(tabs, (tab, index) => {
-            const position = isScrollableTabs
-                ? index + countFixedTabs
-                : index
+            const position = isScrollableTabs ? index + countFixedTabs : index
 
             if (_.isEmpty(tab)) {
                 return null
@@ -211,16 +207,12 @@ export class WSTabHeader extends Component<Props> {
             const tabButtonInnerProps = {
                 className: classNameTabButtonInner,
                 style: style,
-                onClick: isDisabled
-                    ? null
-                    : this._switchTab.bind(this, position),
+                onClick: isDisabled ? null : this._switchTab.bind(this, position),
                 onMouseDown:
                     isDisabled || !isScrollableTabs
                         ? null
-                        : event => this._onMouseDown(event, index),
-                onContextMenu: isDisabled
-                    ? null
-                    : event => this._onHeaderContextMenu(event, tab),
+                        : (event) => this._onMouseDown(event, index),
+                onContextMenu: isDisabled ? null : (event) => this._onHeaderContextMenu(event, tab),
             }
 
             if (isScrollableTabs) {
@@ -236,14 +228,12 @@ export class WSTabHeader extends Component<Props> {
                     data-name={dataName}
                     style={styleContainer}
                     tabIndex={0}
-                    onKeyDown={event => this._onKeyPress(event, position)}
+                    onKeyDown={(event) => this._onKeyPress(event, position)}
                 >
                     <div {...tabButtonInnerProps}>
                         <div
                             className={theme.TabButton_Content}
-                            title={_.isString(elementTitle)
-                                ? elementTitle
-                                : null}
+                            title={_.isString(elementTitle) ? elementTitle : null}
                         >
                             {this.renderIcon(tab)}
                             {elementTitle}
@@ -265,14 +255,9 @@ export class WSTabHeader extends Component<Props> {
         return <span className={theme.TabButtonCounter}>{tab.props.counter}</span>
     }
 
-    renderIcon = tab => {
+    renderIcon = (tab) => {
         if (tab.props.icon) {
-            return (
-                <Icon
-                    className={styles.Icon}
-                    value={tab.props.icon}
-                />
-            )
+            return <Icon className={styles.Icon} value={tab.props.icon} />
         }
     }
 
@@ -333,7 +318,7 @@ export class WSTabHeader extends Component<Props> {
         }
     }
 
-    _setTabsScrollerNode = node => {
+    _setTabsScrollerNode = (node) => {
         this._state.setTabsScrollerNode(node)
     }
 
@@ -346,9 +331,7 @@ export class WSTabHeader extends Component<Props> {
     }
 
     _onWheel = ({ deltaY }) => {
-        const increment = deltaY > 0
-            ? 1
-            : -1
+        const increment = deltaY > 0 ? 1 : -1
         const newIndex = this._state.countScrolledTabs + increment
 
         this._state.scrollToTab(newIndex)
@@ -378,7 +361,7 @@ export class WSTabHeader extends Component<Props> {
         this.forceUpdate()
     }
 
-    _onMouseMove = event => {
+    _onMouseMove = (event) => {
         if (this._dragTarget) {
             event.preventDefault()
             event.stopPropagation()
@@ -392,13 +375,9 @@ export class WSTabHeader extends Component<Props> {
             const offsetMouseX = dragTarget.mouseX - dragTarget.offsetLeft
             let realDragTargetIndex = countFixedTabs + dragTarget.index
 
-            const minMoveX = isFirstTab
-                ? 0
-                : -(Math.round(prevTab.clientWidth) / 2 + this._space)
+            const minMoveX = isFirstTab ? 0 : -(Math.round(prevTab.clientWidth) / 2 + this._space)
 
-            const maxMoveX = isLastTab
-                ? 0
-                : Math.round(nextTab.clientWidth) / 2 + this._space
+            const maxMoveX = isLastTab ? 0 : Math.round(nextTab.clientWidth) / 2 + this._space
 
             let moveX = event.pageX - dragTarget.mouseX
 

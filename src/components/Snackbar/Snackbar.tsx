@@ -4,26 +4,26 @@ import React, { Component } from 'react'
 import { BaseButton } from 'ui-kit-core'
 
 export interface SnackbarProps {
-    action?: string;
-    active?: boolean;
-    children?: React.ReactNode;
-    className?: string;
-    label?: string | React.FC;
-    onClick?: () => void;
+    action?: string
+    active?: boolean
+    children?: React.ReactNode
+    className?: string
+    label?: string | React.FC
+    onClick?: () => void
     // eslint-disable-next-line react/no-unused-prop-types
-    onTimeout?: () => void;
-    Button?: typeof BaseButton;
+    onTimeout?: () => void
+    Button?: typeof BaseButton
     theme?: {
-        accept?: string;
-        active?: string;
-        button?: string;
-        cancel?: string;
-        label?: string;
-        snackbar?: string;
-        warning?: string;
-    };
-    timeout?: number;
-    type?: 'accept' | 'cancel' | 'warning';
+        accept?: string
+        active?: string
+        button?: string
+        cancel?: string
+        label?: string
+        snackbar?: string
+        warning?: string
+    }
+    timeout?: number
+    type?: 'accept' | 'cancel' | 'warning'
 }
 
 export class SnackbarComponent extends Component<SnackbarProps> {
@@ -65,21 +65,14 @@ export class SnackbarComponent extends Component<SnackbarProps> {
 
         return (
             <div className={theme.portal}>
-                <div
-                    data-react-toolbox="snackbar"
-                    className={className}
-                >
+                <div data-react-toolbox="snackbar" className={className}>
                     <span className={theme.label}>
                         {label}
                         {children}
                     </span>
 
                     {action && Button && (
-                        <Button
-                            className={theme.button}
-                            label={action}
-                            onClick={onClick}
-                        />
+                        <Button className={theme.button} label={action} onClick={onClick} />
                     )}
                 </div>
             </div>

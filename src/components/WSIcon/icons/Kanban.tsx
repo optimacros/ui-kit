@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function KanbanIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg

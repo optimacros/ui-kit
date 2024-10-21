@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function CopyIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -23,22 +22,8 @@ export default function CopyIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
                 fillRule="evenodd"
             />
-            <rect
-                fill={fill}
-                height="4.5"
-                rx="2.25"
-                width="20.25"
-                x="18.75"
-                y="18.75"
-            />
-            <rect
-                fill={fill}
-                height="4.5"
-                rx="2.25"
-                width="20.25"
-                x="18.75"
-                y="33"
-            />
+            <rect fill={fill} height="4.5" rx="2.25" width="20.25" x="18.75" y="18.75" />
+            <rect fill={fill} height="4.5" rx="2.25" width="20.25" x="18.75" y="33" />
         </svg>
     )
 }

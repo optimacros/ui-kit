@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function ViewListIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg

@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function OneNumberIndicatorIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -22,12 +21,7 @@ export default function OneNumberIndicatorIcon({ fill = 'black', opacity = 1 }) 
 
             <defs>
                 <clipPath id="clip0_229_284">
-                    <rect
-                        fill="white"
-                        height="39"
-                        transform="translate(0 5.00098)"
-                        width="48"
-                    />
+                    <rect fill="white" height="39" transform="translate(0 5.00098)" width="48" />
                 </clipPath>
             </defs>
         </svg>

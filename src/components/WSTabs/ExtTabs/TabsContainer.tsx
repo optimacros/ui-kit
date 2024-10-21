@@ -9,17 +9,17 @@ import { mergeStyles } from '../../../utils'
 import styles from './TabsContainer.module.css'
 
 interface Props {
-    className?: string;
-    active?: number;
-    draggable?: boolean;
-    onTabSwitch?: () => void;
-    onTabPositionChange?: () => void;
-    hideTabHeader?: boolean;
-    headerClassName?: string;
-    contentClassName?: string;
+    className?: string
+    active?: number
+    draggable?: boolean
+    onTabSwitch?: () => void
+    onTabPositionChange?: () => void
+    hideTabHeader?: boolean
+    headerClassName?: string
+    contentClassName?: string
     theme: {
-        TabsContainer: string;
-    };
+        TabsContainer: string
+    }
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -40,18 +40,10 @@ export class WSTabsContainer extends Component<Props> {
         return (
             <div className={className}>
                 {!this.props.hideTabHeader && (
-                    <TabHeader
-                        {...otherProps}
-                        className={headerClassName}
-                        theme={theme}
-                    />
+                    <TabHeader {...otherProps} className={headerClassName} theme={theme} />
                 )}
 
-                <TabContent
-                    {...otherProps}
-                    className={contentClassName}
-                    theme={theme}
-                />
+                <TabContent {...otherProps} className={contentClassName} theme={theme} />
             </div>
         )
     }

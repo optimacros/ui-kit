@@ -1,7 +1,7 @@
 // @ts-nocheck
 import classNames from 'classnames'
 import _ from 'lodash'
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 
 import styles from './Menu.module.css'
 
@@ -46,10 +46,7 @@ export default class MenuItem extends PureComponent {
         const restProps = _.omit(otherProps, EXCLUDE_PROPS)
 
         return (
-            <li
-                {...restProps}
-                className={classNameContainer}
-            >
+            <li {...restProps} className={classNameContainer}>
                 <div
                     className={styles.MenuItemTitleContainer}
                     title={title || label}
@@ -63,7 +60,7 @@ export default class MenuItem extends PureComponent {
         )
     }
 
-    onClick = event => {
+    onClick = (event) => {
         if (this.props.disabled) {
             event.stopPropagation()
         }

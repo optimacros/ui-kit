@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function MapChartIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -23,11 +22,7 @@ export default function MapChartIcon({ fill = 'black', opacity = 1 }) {
             </g>
             <defs>
                 <clipPath id="clip0_35_11">
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

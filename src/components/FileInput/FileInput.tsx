@@ -6,16 +6,16 @@ import styles from './FileInput.module.css'
 
 interface Props {
     state: {
-        reset?: () => void;
+        reset?: () => void
         file: {
-            lastModified: number;
-            name: string;
-            size: number;
-        };
-    };
-    value?: string;
-    filePreview?: boolean;
-    labelUploadNewFile?: string;
+            lastModified: number
+            name: string
+            size: number
+        }
+    }
+    value?: string
+    filePreview?: boolean
+    labelUploadNewFile?: string
 }
 
 export class FileInput extends React.Component<Props> {
@@ -35,11 +35,7 @@ export class FileInput extends React.Component<Props> {
                 <div className={styles.UploadField}>
                     <div className={styles.UploadField_Label}>{this.props.labelUploadNewFile}</div>
 
-                    <input
-                        type="file"
-                        size={100}
-                        {...otherProps}
-                    />
+                    <input type="file" size={100} {...otherProps} />
                 </div>
             </div>
         )
@@ -90,7 +86,7 @@ export class FileInput extends React.Component<Props> {
 
         const i = Math.floor(Math.log(size) / Math.log(1024))
         // eslint-disable-next-line no-restricted-properties
-        const res = (size / +(Math.pow(1024, i)).toFixed(2))
+        const res = size / +Math.pow(1024, i).toFixed(2)
 
         return `${res} ${symbols[i]}`
     }

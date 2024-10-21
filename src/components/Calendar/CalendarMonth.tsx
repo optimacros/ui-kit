@@ -1,32 +1,30 @@
 // @ts-nocheck
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import CalendarDay from './CalendarDay'
 import time from '../../utils/react-toolbox-utils/time'
 import { range } from '../../utils/react-toolbox-utils/utils'
 
 interface Props {
-    disabledDates?: Date[];
-    enabledDates?: Date[];
-    locale?: string;
-    maxDate?: Date;
-    minDate?: Date;
-    onDayClick?: (day: number) => void;
-    selectedDate?: Date;
-    sundayFirstDayOfWeek?: boolean;
+    disabledDates?: Date[]
+    enabledDates?: Date[]
+    locale?: string
+    maxDate?: Date
+    minDate?: Date
+    onDayClick?: (day: number) => void
+    selectedDate?: Date
+    sundayFirstDayOfWeek?: boolean
     theme?: {
-        days?: string;
-        month?: string;
-        title?: string;
-        week?: string;
-    };
-    viewDate?: Date;
+        days?: string
+        month?: string
+        title?: string
+        week?: string
+    }
+    viewDate?: Date
 }
 
 class Month extends Component<Props> {
-    static propTypes = {
-
-    }
+    static propTypes = {}
 
     static defaultProps = {
         disabledDates: [],
@@ -38,10 +36,7 @@ class Month extends Component<Props> {
         const fullYear = this.props.viewDate && this.props.viewDate.getFullYear()
 
         return (
-            <div
-                data-react-toolbox="month"
-                className={this.props.theme.month}
-            >
+            <div data-react-toolbox="month" className={this.props.theme.month}>
                 <span className={this.props.theme.title}>
                     {fullMonth} {fullYear}
                 </span>
@@ -55,16 +50,18 @@ class Month extends Component<Props> {
 
     renderWeeks() {
         const days = range(0, 7).map((day) => time.getDayOfWeekLetter(day, this.props.locale))
-        const source = this.props.sundayFirstDayOfWeek
-            ? days
-            : [...days.slice(1), days[0]]
+        const source = this.props.sundayFirstDayOfWeek ? days : [...days.slice(1), days[0]]
 
         return source.map((day, i) => <span key={i}>{day}</span>)
     }
 
     renderDays() {
         return range(1, time.getDaysInMonth(this.props.viewDate) + 1).map((index) => {
-            const date = new Date(this.props.viewDate.getFullYear(), this.props.viewDate.getMonth(), index)
+            const date = new Date(
+                this.props.viewDate.getFullYear(),
+                this.props.viewDate.getMonth(),
+                index,
+            )
 
             return (
                 <CalendarDay
@@ -94,7 +91,9 @@ class Month extends Component<Props> {
         const dateInEnabled = enabledDates.filter(compareDate).length > 0
 
         return (
-            time.dateOutOfRange(date, minDate, maxDate) || (enabledDates.length > 0 && !dateInEnabled) || dateInDisabled
+            time.dateOutOfRange(date, minDate, maxDate) ||
+            (enabledDates.length > 0 && !dateInEnabled) ||
+            dateInDisabled
         )
     }
 }
