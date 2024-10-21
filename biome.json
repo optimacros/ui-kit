@@ -24,7 +24,7 @@
 				"noInteractiveElementToNoninteractiveRole": "error",
 				"noLabelWithoutControl": "error",
 				"noNoninteractiveElementToInteractiveRole": "error",
-				"noNoninteractiveTabindex": "error",
+				"noNoninteractiveTabindex": "warn",
 				"noPositiveTabindex": "error",
 				"noRedundantAlt": "warn",
 				"noRedundantRoles": "warn",
@@ -85,7 +85,7 @@
 				"noUnsafeOptionalChaining": "error",
 				"noUnusedImports": "error",
 				"noUnusedLabels": "warn",
-				"noUnusedVariables": "off",
+				"noUnusedVariables": "warn",
 				"useArrayLiterals": "error",
 				"useExhaustiveDependencies": "warn",
 				"useHookAtTopLevel": "error",
@@ -251,7 +251,7 @@
 	"overrides": [
 		{
 			"include": ["*.ts", "*.tsx"],
-			"linter": { "rules": { "correctness": { "noUnusedVariables": "error" } } }
+			"linter": { "rules": { "correctness": { "noUnusedVariables": "warn" } } }
 		},
 		{
 			"include": ["**/*.ts?(x)"],
@@ -260,9 +260,7 @@
 					"complexity": { "noUselessConstructor": "warn" },
 					"correctness": {
 						"noInvalidUseBeforeDeclaration": "warn",
-						"noUndeclaredVariables": "off",
-						"noUnusedVariables": "warn",
-						"useArrayLiterals": "off"
+						"noUndeclaredVariables": "off"
 					},
 					"style": { "useDefaultSwitchClause": "off" },
 					"suspicious": {
