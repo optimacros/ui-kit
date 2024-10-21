@@ -16,7 +16,6 @@ export const range = (start = 0, stop = null, step = 1) => {
     let [_start, _stop] = [0, start]
 
     if (stop !== null) {
-        // eslint-disable-next-line no-extra-semi
         ;[_start, _stop] = [start, stop]
     }
     const length = Math.max(Math.ceil((_stop - _start) / step), 0)
@@ -97,7 +96,6 @@ export const getAnimationModule = (animation, theme) => {
 export const isValuePresent = (value) => {
     return (
         value !== null &&
-        // eslint-disable-next-line no-undefined
         value !== undefined &&
         value !== '' &&
         !(typeof value === 'number' && isNaN(value))

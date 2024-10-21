@@ -1,10 +1,8 @@
 // @ts-nocheck
 import _ from 'lodash'
 import { Component } from 'react'
-
 import styles from './DraggableModalContainer.module.css'
 
-/* eslint-disable */
 export default class DraggableModalContainer extends Component {
     static defaultProps = {
         nonDraggable: false,
@@ -125,4 +123,3 @@ export default class DraggableModalContainer extends Component {
         this._containerNode = node
     }
 }
-/* eslint-enable */

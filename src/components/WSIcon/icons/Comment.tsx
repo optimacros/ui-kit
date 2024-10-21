@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function CommentIcon({ fill = 'black' }) {
     return (
         <svg

@@ -85,7 +85,6 @@ export class FileInput extends React.Component<Props> {
         const { size } = this.props.state.file
 
         const i = Math.floor(Math.log(size) / Math.log(1024))
-        // eslint-disable-next-line no-restricted-properties
         const res = size / +Math.pow(1024, i).toFixed(2)
 
         return `${res} ${symbols[i]}`

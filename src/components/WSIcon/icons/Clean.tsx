@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function CleanIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg

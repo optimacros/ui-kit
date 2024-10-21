@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { useId } from 'react'
 
 export default function UnlockIcon({ fill = 'black', opacity = 1 }) {

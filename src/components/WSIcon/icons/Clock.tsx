@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function ClockIcon({ fill = 'black' }) {
     return (
         <svg height="15" viewBox="0 -960 960 960" width="15" xmlns="http://www.w3.org/2000/svg">

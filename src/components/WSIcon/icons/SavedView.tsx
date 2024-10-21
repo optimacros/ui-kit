@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function SavedViewIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg height="15" style={{ opacity }} viewBox="0 0 15 15" width="15">

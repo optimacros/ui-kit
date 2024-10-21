@@ -143,7 +143,6 @@ class SliderComponent extends Component<SliderProps, State> {
                 name={this.props.name}
                 data-max={this.props.dataMax}
                 value={parseInt(this.props.value, 10)}
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                 tabIndex={0}
             >
                 <div

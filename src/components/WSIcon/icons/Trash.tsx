@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function TrashIcon({ fill = 'black' }) {
     return (
         <svg

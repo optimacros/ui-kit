@@ -16,7 +16,7 @@ import styles from './ViewMenu.module.css'
  *          .ContainerWithItem
  *              .Item
  */
-/* eslint-disable */
+
 @observer
 export class ViewMenu extends React.Component {
     constructor(props) {
@@ -118,4 +118,3 @@ export class ViewMenu extends React.Component {
         this._state.turnOffMouseScroll()
     }
 }
-/* eslint-enable */

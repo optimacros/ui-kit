@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function NotificationIcon({ fill = 'black' }) {
     return (
         <svg

@@ -4,7 +4,6 @@ import React from 'react'
 import styles from './Tab.module.css'
 
 interface Props {
-    // eslint-disable-next-line react/no-unused-prop-types
     title?: string
     className?: string
     children?: React.ReactNode

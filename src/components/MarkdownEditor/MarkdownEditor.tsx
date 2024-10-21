@@ -85,7 +85,6 @@ export class MarkdownEditor extends React.Component<Props, State> {
 
                     <div
                         className={classNameHtml}
-                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: this.formatValue,
                         }}

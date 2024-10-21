@@ -80,7 +80,6 @@ const TRANSITIONS = {
 
 function transitionEventNamesFor(element) {
     return keys(TRANSITIONS).reduce((result, transition) => {
-        // eslint-disable-next-line no-undefined
         return !result && element && element.style[transition] !== undefined
             ? TRANSITIONS[transition]
             : result

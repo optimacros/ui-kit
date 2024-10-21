@@ -11,7 +11,6 @@ export interface RadioGroupProps {
     children?: React.ReactNode
     onChange?: (value: string | boolean, event: React.ChangeEvent) => void
     RadioButton?: React.FC<RadioProps>
-    // eslint-disable-next-line react/no-unused-prop-types
     theme?: Record<string, string>
 }
 
