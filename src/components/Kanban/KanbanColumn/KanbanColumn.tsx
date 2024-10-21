@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
 import React from 'react'
-import { FontIcon } from 'ui-kit-core'
+import { Icon } from 'ui-kit-core'
 
 import { isBig, isSmall } from '../kanban-card-sizes'
 import { KanbanColumnCard } from '../KanbanColumnCard'
@@ -42,8 +42,14 @@ export class KanbanColumn extends React.PureComponent<Props> {
 
         return (
             <div className={styles.ColumnContainer}>
-                <div className={classNameColumnTitle} onClick={this.onClickTitle}>
-                    <FontIcon className={classNameArrow} value="arrow_drop_down" />
+                <div
+                    className={classNameColumnTitle}
+                    onClick={this.onClickTitle}
+                >
+                    <Icon
+                        className={classNameArrow}
+                        name="arrow_drop_down"
+                    />
 
                     {column.name}
                 </div>
