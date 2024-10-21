@@ -8,26 +8,26 @@ import prefixer from '../../utils/react-toolbox-utils/prefixer'
 import defaultTheme from './progressBarTheme.module.css'
 
 interface Props {
-    buffer?: number;
-    className?: string;
-    disabled?: boolean;
-    max?: number;
-    min?: number;
-    mode?: 'determinate' | 'indeterminate';
-    multicolor?: boolean;
+    buffer?: number
+    className?: string
+    disabled?: boolean
+    max?: number
+    min?: number
+    mode?: 'determinate' | 'indeterminate'
+    multicolor?: boolean
     theme?: {
-        buffer?: string;
-        circle?: string;
-        circular?: string;
-        indeterminate?: string;
-        linear?: string;
-        multicolor?: string;
-        path?: string;
-        value?: string;
-    };
-    type?: 'linear' | 'circular';
-    value?: number;
-    innerRef?: React.RefObject<HTMLDivElement>;
+        buffer?: string
+        circle?: string
+        circular?: string
+        indeterminate?: string
+        linear?: string
+        multicolor?: string
+        path?: string
+        value?: string
+    }
+    type?: 'linear' | 'circular'
+    value?: number
+    innerRef?: React.RefObject<HTMLDivElement>
 }
 
 export class ProgressBar extends Component<Props> {
@@ -55,9 +55,7 @@ export class ProgressBar extends Component<Props> {
             value,
             innerRef,
         } = this.props
-        const theme = customTheme
-            ? mergeStyles(defaultTheme, customTheme)
-            : defaultTheme
+        const theme = customTheme ? mergeStyles(defaultTheme, customTheme) : defaultTheme
 
         const _className = classnames(
             theme[type],
@@ -78,24 +76,17 @@ export class ProgressBar extends Component<Props> {
                 aria-valuemax={max}
                 className={_className}
             >
-                {type === 'circular'
-                    ? this.renderCircular()
-                    : this.renderLinear()}
+                {type === 'circular' ? this.renderCircular() : this.renderLinear()}
             </div>
         )
     }
 
     renderCircular() {
         const { theme: customTheme } = this.props
-        const theme = customTheme
-            ? mergeStyles(defaultTheme, customTheme)
-            : defaultTheme
+        const theme = customTheme ? mergeStyles(defaultTheme, customTheme) : defaultTheme
 
         return (
-            <svg
-                className={theme.circle}
-                viewBox="0 0 60 60"
-            >
+            <svg className={theme.circle} viewBox="0 0 60 60">
                 <circle
                     className={theme.path}
                     style={this.circularStyle()}
@@ -109,23 +100,13 @@ export class ProgressBar extends Component<Props> {
 
     renderLinear() {
         const { theme: customTheme } = this.props
-        const theme = customTheme
-            ? mergeStyles(defaultTheme, customTheme)
-            : defaultTheme
+        const theme = customTheme ? mergeStyles(defaultTheme, customTheme) : defaultTheme
         const { buffer, value } = this.linearStyle()
 
         return (
             <div>
-                <span
-                    data-ref="buffer"
-                    className={theme.buffer}
-                    style={buffer}
-                />
-                <span
-                    data-ref="value"
-                    className={theme.value}
-                    style={value}
-                />
+                <span data-ref="buffer" className={theme.buffer} style={buffer} />
+                <span data-ref="value" className={theme.value} style={value} />
             </div>
         )
     }
@@ -153,7 +134,9 @@ export class ProgressBar extends Component<Props> {
     linearStyle() {
         if (this.props.mode !== 'indeterminate') {
             return {
-                buffer: prefixer({ transform: `scaleX(${this.calculateRatio(this.props.buffer)})` }),
+                buffer: prefixer({
+                    transform: `scaleX(${this.calculateRatio(this.props.buffer)})`,
+                }),
                 value: prefixer({ transform: `scaleX(${this.calculateRatio(this.props.value)})` }),
             }
         }

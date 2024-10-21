@@ -21,11 +21,7 @@ export default function UnlockIcon({ fill = 'black', opacity = 1 }) {
             </g>
             <defs>
                 <clipPath id={clipPathId}>
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

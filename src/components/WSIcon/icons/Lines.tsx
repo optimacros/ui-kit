@@ -1,5 +1,3 @@
-
-
 export default function LinesIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg

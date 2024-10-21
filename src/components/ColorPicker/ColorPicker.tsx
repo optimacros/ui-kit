@@ -9,18 +9,18 @@ import Picker from './Picker'
 import style from './Color.module.css'
 
 interface Props {
-    color: string | object;
-    onChange: (color: any) => void;
-    disableAlpha: boolean;
-    disabled: boolean;
-    title?: string;
-    name?: string;
-    tooltip?: string;
-    tooltipPosition?: Position;
+    color: string | object
+    onChange: (color: any) => void
+    disableAlpha: boolean
+    disabled: boolean
+    title?: string
+    name?: string
+    tooltip?: string
+    tooltipPosition?: Position
 }
 
 interface State {
-    visible: boolean;
+    visible: boolean
 }
 
 export class ColorPicker extends React.Component<Props, State> {
@@ -79,11 +79,7 @@ export class ColorPicker extends React.Component<Props, State> {
         })
 
         if (this.state.visible) {
-            return (
-                <div className={className}>
-                    {this.props.title}
-                </div>
-            )
+            return <div className={className}>{this.props.title}</div>
         }
 
         return (
@@ -120,14 +116,8 @@ export class ColorPicker extends React.Component<Props, State> {
 
     renderMenu() {
         return (
-            <div
-                className={style.picker}
-                ref={this.ref}
-            >
-                <Picker
-                    {...this.props}
-                    onCloseMenu={this.onCloseMenu}
-                />
+            <div className={style.picker} ref={this.ref}>
+                <Picker {...this.props} onCloseMenu={this.onCloseMenu} />
             </div>
         )
     }

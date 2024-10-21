@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function CloseIcon({ fill = 'black' }) {
     return (
         <svg

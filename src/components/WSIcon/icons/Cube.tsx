@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function CubeIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -19,11 +18,7 @@ export default function CubeIcon({ fill = 'black', opacity = 1 }) {
             </g>
             <defs>
                 <clipPath id="clip0_1_6383">
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

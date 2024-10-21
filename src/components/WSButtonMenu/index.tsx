@@ -8,10 +8,5 @@ import styles from './ButtonMenu.module.css'
 export const WSButtonMenu = (props: ButtonMenuProps): React.JSX.Element => {
     const theme = useMemo(() => mergeStyles(styles, props.theme), [props.theme])
 
-    return (
-        <BaseIconButton
-            {...props}
-            theme={theme}
-        />
-    )
+    return <BaseIconButton {...props} theme={theme} />
 }

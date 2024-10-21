@@ -24,11 +24,7 @@ export default class ViewMenuItem extends React.PureComponent {
         }
 
         return (
-            <div
-                className={className}
-                style={style}
-                onClick={this._onClick}
-            >
+            <div className={className} style={style} onClick={this._onClick}>
                 {label}
             </div>
         )

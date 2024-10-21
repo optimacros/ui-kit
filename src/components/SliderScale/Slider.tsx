@@ -7,49 +7,49 @@ import { round, range } from '../../utils/react-toolbox-utils/utils'
 import { ProgressBar as InjectProgressBar } from '../ProgressBar'
 
 export interface SliderProps {
-    buffer?: number;
-    className?: string;
-    disabled?: boolean;
-    editable?: boolean;
-    max?: number;
-    min?: number;
-    onChange?: (cardSize: number) => void;
-    onDragStart?: () => void;
-    onDragStop?: () => void;
-    pinned?: boolean;
-    snaps?: boolean;
-    step?: number;
-    style?: React.CSSProperties;
-    dataMax?: number;
-    name?: string;
+    buffer?: number
+    className?: string
+    disabled?: boolean
+    editable?: boolean
+    max?: number
+    min?: number
+    onChange?: (cardSize: number) => void
+    onDragStart?: () => void
+    onDragStop?: () => void
+    pinned?: boolean
+    snaps?: boolean
+    step?: number
+    style?: React.CSSProperties
+    dataMax?: number
+    name?: string
     theme?: {
-        disabled?: string;
-        container?: string;
-        editable?: string;
-        innerknob?: string;
-        innerprogress?: string;
-        input?: string;
-        knob?: string;
-        pinned?: string;
-        pressed?: string;
-        progress?: string;
-        ring?: string;
-        slider?: string;
-        snap?: string;
-        snaps?: string;
-        SliderScale?: string;
-        Title?: string;
-    };
-    value?: number;
-    ProgressBar?: typeof InjectProgressBar;
-    Input?: typeof ThemedInput;
+        disabled?: string
+        container?: string
+        editable?: string
+        innerknob?: string
+        innerprogress?: string
+        input?: string
+        knob?: string
+        pinned?: string
+        pressed?: string
+        progress?: string
+        ring?: string
+        slider?: string
+        snap?: string
+        snaps?: string
+        SliderScale?: string
+        Title?: string
+    }
+    value?: number
+    ProgressBar?: typeof InjectProgressBar
+    Input?: typeof ThemedInput
 }
 
 interface State {
-    inputFocused: boolean;
-    inputValue: string | null;
-    sliderLength: number;
-    sliderStart: number;
+    inputFocused: boolean
+    inputValue: string | null
+    sliderLength: number
+    sliderStart: number
 }
 
 const KEYS = {
@@ -197,10 +197,7 @@ class SliderComponent extends Component<SliderProps, State> {
         return (
             <div className={this.props.theme.snaps}>
                 {range(0, (this.props.max - this.props.min) / this.props.step).map((i) => (
-                    <div
-                        key={`span-${i}`}
-                        className={this.props.theme.snap}
-                    />
+                    <div key={`span-${i}`} className={this.props.theme.snap} />
                 ))}
             </div>
         )
@@ -223,9 +220,7 @@ class SliderComponent extends Component<SliderProps, State> {
                 onFocus={this.handleInputFocus}
                 onChange={this.handleInputChange}
                 onBlur={this.handleInputBlur}
-                value={this.state.inputFocused
-                    ? this.state.inputValue
-                    : this.valueForInput(value)}
+                value={this.state.inputFocused ? this.state.inputValue : this.valueForInput(value)}
             />
         )
     }
@@ -251,9 +246,7 @@ class SliderComponent extends Component<SliderProps, State> {
     }
 
     addToValue(increment) {
-        let value = this.state.inputFocused
-            ? parseFloat(this.state.inputValue)
-            : this.props.value
+        let value = this.state.inputFocused ? parseFloat(this.state.inputValue) : this.props.value
         value = this.trimValue(value + increment)
 
         if (value !== this.props.value) {
@@ -413,25 +406,15 @@ class SliderComponent extends Component<SliderProps, State> {
     valueForInput(value) {
         const decimals = this.stepDecimals()
 
-        return decimals > 0
-            ? value.toFixed(decimals)
-            : value.toString()
+        return decimals > 0 ? value.toFixed(decimals) : value.toString()
     }
 }
 
 const Slider: React.FC<SliderProps> = (props) => (
-    <SliderComponent
-        {...props}
-        ProgressBar={InjectProgressBar}
-        Input={ThemedInput}
-    />
+    <SliderComponent {...props} ProgressBar={InjectProgressBar} Input={ThemedInput} />
 )
 
-const ThemedSlider: React.FC<SliderProps> = (props) => (
-    <Slider
-        {...props}
-    />
-)
+const ThemedSlider: React.FC<SliderProps> = (props) => <Slider {...props} />
 
 export default ThemedSlider
 export { Slider }

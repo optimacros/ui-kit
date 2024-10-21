@@ -9,21 +9,21 @@ import CustomPicker from './CustomPicker'
 import style from './Color.module.css'
 
 interface Props {
-    color: string | object;
-    onCloseMenu: () => void;
-    onClickSettingsIcon: () => void;
-    onShowError: () => void;
-    onChange: (color: object) => void;
-    saveColor: (color: string) => void;
-    disableAlpha: boolean;
-    cancelLabel: string;
-    applyLabel: string;
-    showSettings: boolean;
-    colorSettingsLabel: string;
-    recentColorsLabel: string;
-    presetColors: string[];
-    recentColors: string[];
-    innerRef?: any;
+    color: string | object
+    onCloseMenu: () => void
+    onClickSettingsIcon: () => void
+    onShowError: () => void
+    onChange: (color: object) => void
+    saveColor: (color: string) => void
+    disableAlpha: boolean
+    cancelLabel: string
+    applyLabel: string
+    showSettings: boolean
+    colorSettingsLabel: string
+    recentColorsLabel: string
+    presetColors: string[]
+    recentColors: string[]
+    innerRef?: any
 }
 
 export default class Picker extends React.Component<Props> {
@@ -45,10 +45,7 @@ export default class Picker extends React.Component<Props> {
 
     render() {
         return (
-            <div
-                className={style.popover}
-                ref={this.props.innerRef}
-            >
+            <div className={style.popover} ref={this.props.innerRef}>
                 <div className={style.colorPicker}>
                     <CustomPicker
                         width="200px"
@@ -60,10 +57,7 @@ export default class Picker extends React.Component<Props> {
                         recentColorsLabel={this.props.recentColorsLabel}
                     />
 
-                    <Toolbar
-                        align="left"
-                        className={style.toolbar}
-                    >
+                    <Toolbar align="left" className={style.toolbar}>
                         {this.props.showSettings && (
                             <IconButton
                                 icon="settings"

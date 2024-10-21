@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
 interface Props {
-    text: number | string | boolean;
-    maxLength: number;
+    text: number | string | boolean
+    maxLength: number
 }
 
 export const useTextShortener = ({ text, maxLength }: Props) => {

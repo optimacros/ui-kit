@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function EditPenIcon({ fill = 'black' }) {
     return (
         <svg

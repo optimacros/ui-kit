@@ -9,18 +9,18 @@ import { WSTab as Tab, WSTabHeader as TabHeader } from '../WSTabs'
 import styles from './MarkdownEditor.module.css'
 
 interface Props {
-    onChange: (value: string) => void;
-    value: string;
-    className?: string;
-    resizable?: boolean | string;
-    height?: number;
-    editTabLabel?: string;
-    previewTabLabel?: string;
-    splitTabLabel?: string;
+    onChange: (value: string) => void
+    value: string
+    className?: string
+    resizable?: boolean | string
+    height?: number
+    editTabLabel?: string
+    previewTabLabel?: string
+    splitTabLabel?: string
 }
 
 interface State {
-    activeTab: number;
+    activeTab: number
 }
 
 export class MarkdownEditor extends React.Component<Props, State> {
@@ -40,7 +40,8 @@ export class MarkdownEditor extends React.Component<Props, State> {
         const className = classNames({
             [styles.MarkdownEditor]: true,
             [this.props.className as string]: this.props.className,
-            [styles.MarkdownEditor_notResize]: !this.props.resizable || this.props.resizable === 'none',
+            [styles.MarkdownEditor_notResize]:
+                !this.props.resizable || this.props.resizable === 'none',
             [styles.MarkdownEditor_edit]: this.state.activeTab === 0,
             [styles.MarkdownEditor_preview]: this.state.activeTab === 1,
             [styles.MarkdownEditor_split]: this.state.activeTab === 2,

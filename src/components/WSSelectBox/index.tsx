@@ -12,8 +12,8 @@ import { mergeStyles } from '../../utils'
 import styles from './SelectBox.module.css'
 
 export interface SelectBoxProps extends Omit<BaseSelectBoxProps, 'source'> {
-    options?: { [key: string]: string | number }[];
-    source?: { [key: string]: string | number }[];
+    options?: { [key: string]: string | number }[]
+    source?: { [key: string]: string | number }[]
 }
 
 export const WSSelectBox = observer((props: SelectBoxProps): React.JSX.Element => {
@@ -58,9 +58,7 @@ export const WSSelectBox = observer((props: SelectBoxProps): React.JSX.Element =
         return false
     }
 
-    const correctValue = value === 0 && !isValueExist() && isNullExist()
-        ? null
-        : value
+    const correctValue = value === 0 && !isValueExist() && isNullExist() ? null : value
 
     return (
         <BaseSelectBox

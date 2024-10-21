@@ -1,7 +1,7 @@
 // @ts-nocheck
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { FontIcon } from 'ui-kit-core'
 
 import Draggable from './DraggableModalContainer'

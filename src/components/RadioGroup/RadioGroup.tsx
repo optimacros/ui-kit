@@ -6,10 +6,10 @@ import { RadioGroup as Base } from './BaseRadioGroup'
 import { RadioButton } from '../RadioButton'
 
 interface Props {
-    options?: any[];
-    classNameButton?: string;
-    children?: React.ReactNode;
-    theme?: Record<string, string>;
+    options?: any[]
+    classNameButton?: string
+    children?: React.ReactNode
+    theme?: Record<string, string>
 }
 
 export class RadioGroup extends Component<Props> {
@@ -30,14 +30,7 @@ export class RadioGroup extends Component<Props> {
         return _.map(options, (option, key) => {
             const className = classNames(option.className, classNameButton)
 
-            return (
-                <RadioButton
-                    {...option}
-                    key={key}
-                    className={className}
-                    theme={theme}
-                />
-            )
+            return <RadioButton {...option} key={key} className={className} theme={theme} />
         })
     }
 }

@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function IconPersonalListView({ fill = 'black' }) {
     return (
         <svg
@@ -10,16 +9,8 @@ export default function IconPersonalListView({ fill = 'black' }) {
             width="15"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <path
-                d="M0.283333 11H76.7833"
-                stroke={fill}
-                strokeWidth="8.5"
-            />
-            <path
-                d="M0 32.25H47.6"
-                stroke={fill}
-                strokeWidth="8.5"
-            />
+            <path d="M0.283333 11H76.7833" stroke={fill} strokeWidth="8.5" />
+            <path d="M0 32.25H47.6" stroke={fill} strokeWidth="8.5" />
             <path
                 d="M60.0469 58.028C62.3941 58.0389 64.3057 56.145 64.3166 53.7978C64.3276 51.4506 62.4336 49.539 60.0865 49.5281L60.0469 58.028ZM0.263566 57.75L60.0469 58.028L60.0865 49.5281L0.3031 49.25L0.263566 57.75Z"
                 fill={fill}

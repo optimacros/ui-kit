@@ -5,10 +5,10 @@ import { ReactNode } from 'react'
 import styles from './HeaderUserMenu.module.css'
 
 interface Props {
-    label: string;
-    className: string;
-    children: ReactNode;
-    onClick: () => void;
+    label: string
+    className: string
+    children: ReactNode
+    onClick: () => void
 }
 
 export const HeaderUserSubMenu = (props: Props) => {
@@ -20,10 +20,7 @@ export const HeaderUserSubMenu = (props: Props) => {
 
     return (
         <li>
-            <span
-                title={props.label}
-                onClick={props.onClick}
-            >
+            <span title={props.label} onClick={props.onClick}>
                 {props.label}
             </span>
 

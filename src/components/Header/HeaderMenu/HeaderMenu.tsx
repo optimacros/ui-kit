@@ -2,7 +2,7 @@
 import _ from 'lodash'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import { HeaderMenuElement } from './HeaderMenuElement'
 
@@ -27,20 +27,14 @@ export class HeaderMenu extends Component {
     }
 
     renderList() {
-        return _.map(this.props.elements, element => {
+        return _.map(this.props.elements, (element) => {
             if (element.hidden) {
                 return null
             }
 
             const key = element.id || element.entityLongId || element.title
 
-            return (
-                <HeaderMenuElement
-                    key={key}
-                    element={element}
-                    firstLevel
-                />
-            )
+            return <HeaderMenuElement key={key} element={element} firstLevel />
         })
     }
 }

@@ -14,18 +14,18 @@ const MIN = 0
 const MAX = 100
 
 interface Props {
-    step: number;
-    min: number;
-    max: number;
-    values: Array<number>;
-    customValues: Array<number>;
-    rangeValues: Array<number>;
-    color: string;
-    classNameTrack: string;
-    hasRangeValues: boolean;
-    designTheme: () => any;
-    onChange: () => void;
-    onFinalChange: () => void;
+    step: number
+    min: number
+    max: number
+    values: Array<number>
+    customValues: Array<number>
+    rangeValues: Array<number>
+    color: string
+    classNameTrack: string
+    hasRangeValues: boolean
+    designTheme: () => any
+    onChange: () => void
+    onFinalChange: () => void
 }
 
 @observer
@@ -68,10 +68,7 @@ export class RangeSlider extends React.Component<Props> {
                 onTouchStart={props.onTouchStart}
                 style={{ ...props.style }}
             >
-                <div
-                    className={styles.TrackInner}
-                    ref={props.ref}
-                >
+                <div className={styles.TrackInner} ref={props.ref}>
                     {this.renderRangeValues()}
                     {children}
                 </div>
@@ -107,7 +104,11 @@ export class RangeSlider extends React.Component<Props> {
         return (
             <div className={styles.RangeValues}>
                 {this.renderRangeValuesItem(leftRangeStyle, rangeValues[0])}
-                {this.renderRangeValuesItem(middleRangeStyle, rangeValues[1], this._rangeValuesItemRef)}
+                {this.renderRangeValuesItem(
+                    middleRangeStyle,
+                    rangeValues[1],
+                    this._rangeValuesItemRef,
+                )}
                 {this.renderRangeValuesItem(rightRangeStyle, rangeValues[2])}
             </div>
         )
@@ -115,11 +116,7 @@ export class RangeSlider extends React.Component<Props> {
 
     renderRangeValuesItem(style, value, ref) {
         return (
-            <div
-                className={styles.RangeValuesItem}
-                style={style}
-                ref={ref}
-            >
+            <div className={styles.RangeValuesItem} style={style} ref={ref}>
                 {this.props.hasRangeValues && value}
             </div>
         )
@@ -146,22 +143,12 @@ export class RangeSlider extends React.Component<Props> {
         }
 
         return (
-            <div
-                {...props}
-                className={className}
-                style={{ ...props.style }}
-            >
-                <div
-                    className={classNameThumbInner}
-                    style={styleThumbInner}
-                >
+            <div {...props} className={className} style={{ ...props.style }}>
+                <div className={classNameThumbInner} style={styleThumbInner}>
                     {values[index]}
                 </div>
 
-                <div
-                    className={styles.ThumbKnob}
-                    style={styleThumbInner}
-                />
+                <div className={styles.ThumbKnob} style={styleThumbInner} />
             </div>
         )
     }

@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function ImagesWithObjectsChartIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -41,11 +40,7 @@ export default function ImagesWithObjectsChartIcon({ fill = 'black', opacity = 1
             </g>
             <defs>
                 <clipPath id="clip0_29_778">
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

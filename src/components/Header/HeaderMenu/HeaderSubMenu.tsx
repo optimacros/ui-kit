@@ -12,10 +12,10 @@ const HEADER_MENU_OFFSET_SUBMENU = 2
 const HEADER_MENU_OFFSET_FROM_WINDOW = 20
 
 interface Props {
-    firstLevel: boolean;
-    element: Element;
-    rootElementNode: Node;
-    elements: Array<Element>;
+    firstLevel: boolean
+    element: Element
+    rootElementNode: Node
+    elements: Array<Element>
 }
 
 @observer
@@ -54,10 +54,7 @@ export default class HeaderSubMenu extends React.Component<Props> {
             >
                 {this.renderSearch()}
 
-                <ul
-                    className={styles.SubMenuScrollList}
-                    id={element.type}
-                >
+                <ul className={styles.SubMenuScrollList} id={element.type}>
                     {this.renderList()}
                 </ul>
             </div>
@@ -71,10 +68,7 @@ export default class HeaderSubMenu extends React.Component<Props> {
 
         return (
             <div className={styles.Search}>
-                <div
-                    aria-hidden="true"
-                    className={styles.HiddenPlaceholder}
-                >
+                <div aria-hidden="true" className={styles.HiddenPlaceholder}>
                     {this.props.element.placeholder || 'Search'}
                 </div>
 
@@ -102,7 +96,7 @@ export default class HeaderSubMenu extends React.Component<Props> {
         const formattedSearchValue = _.toLower(_.trim(this.state.searchValue))
         const hasSearch = formattedSearchValue !== ''
 
-        return _.map(this.props.elements, element => {
+        return _.map(this.props.elements, (element) => {
             if (element.hidden) {
                 return null
             }
@@ -114,16 +108,11 @@ export default class HeaderSubMenu extends React.Component<Props> {
             const { entityLongId, id, title } = element
             const key = entityLongId || id || title
 
-            return (
-                <HeaderMenuElement
-                    key={key}
-                    element={element}
-                />
-            )
+            return <HeaderMenuElement key={key} element={element} />
         })
     }
 
-    onChange = value => {
+    onChange = (value) => {
         this.setState({
             searchValue: value,
         })
@@ -167,8 +156,6 @@ export default class HeaderSubMenu extends React.Component<Props> {
         const positionForRight = parentLeft + parentWidth - HEADER_MENU_OFFSET_SUBMENU
         const positionForLeft = parentLeft - menuWidth + HEADER_MENU_OFFSET_SUBMENU
 
-        return canRight
-            ? positionForRight
-            : positionForLeft
+        return canRight ? positionForRight : positionForLeft
     }
 }

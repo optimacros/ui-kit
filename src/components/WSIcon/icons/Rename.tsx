@@ -20,20 +20,8 @@ export default function RenameIcon({ fill = 'black', opacity = 1 }) {
                     fill={fill}
                     fillRule="evenodd"
                 />
-                <rect
-                    fill={fill}
-                    height="7.44186"
-                    width="17.8605"
-                    x="6.69768"
-                    y="20.0933"
-                />
-                <rect
-                    fill={fill}
-                    height="17.8605"
-                    width="6.69767"
-                    x="30.5116"
-                    y="6.69775"
-                />
+                <rect fill={fill} height="7.44186" width="17.8605" x="6.69768" y="20.0933" />
+                <rect fill={fill} height="17.8605" width="6.69767" x="30.5116" y="6.69775" />
                 <path
                     d="M25.5491 5.89959C22.1176 5.89959 20.3762 2.9861 22.5232 0.839123C23.7251 -0.362738 29.7425 -0.248133 32.0331 1.01996C33.6078 1.8914 34.1846 1.88173 35.9788 0.954471C38.8 -0.504133 44.6545 -0.104505 45.7358 1.62052C46.9868 3.61494 45.3913 5.46201 42.0164 5.92563C37.9866 6.47931 37.2581 7.10368 37.2581 10.0023L29.1212 6.66982C28.3293 6.24638 26.7219 5.89959 25.5491 5.89959Z"
                     fill={fill}
@@ -51,11 +39,7 @@ export default function RenameIcon({ fill = 'black', opacity = 1 }) {
             </g>
             <defs>
                 <clipPath id={clipPathId}>
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

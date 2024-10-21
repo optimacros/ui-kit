@@ -1,5 +1,3 @@
-
-
 export default function CombinationChartIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -11,81 +9,16 @@ export default function CombinationChartIcon({ fill = 'black', opacity = 1 }) {
             xmlns="http://www.w3.org/2000/svg"
         >
             <g clipPath="url(#clip0_28_136)">
-                <rect
-                    fill={fill}
-                    height="14.7692"
-                    width="7.38462"
-                    x="1"
-                    y="33.231"
-                />
-                <rect
-                    fill={fill}
-                    height="18.4615"
-                    width="7.38462"
-                    x="10.8461"
-                    y="29.5386"
-                />
-                <rect
-                    fill={fill}
-                    height="25.8462"
-                    width="7.38462"
-                    x="20.6923"
-                    y="22.1538"
-                />
-                <rect
-                    fill={fill}
-                    height="34.4615"
-                    width="7.38462"
-                    x="40.3846"
-                    y="13.5386"
-                />
-                <rect
-                    fill={fill}
-                    height="20.9231"
-                    width="7.38462"
-                    x="30.5385"
-                    y="27.0771"
-                />
-                <rect
-                    fill={fill}
-                    height="3"
-                    rx="1.5"
-                    width="3"
-                    x="2.23077"
-                    y="20.9229"
-                />
-                <rect
-                    fill={fill}
-                    height="3"
-                    rx="1.5"
-                    width="3"
-                    x="12.077"
-                    y="16"
-                />
-                <rect
-                    fill={fill}
-                    height="3"
-                    rx="1.5"
-                    width="3"
-                    x="21.923"
-                    y="8.61572"
-                />
-                <rect
-                    fill={fill}
-                    height="3"
-                    rx="1.5"
-                    width="3"
-                    x="32"
-                    y="13"
-                />
-                <rect
-                    fill={fill}
-                    height="3"
-                    rx="1.5"
-                    width="3"
-                    x="42"
-                    y="4"
-                />
+                <rect fill={fill} height="14.7692" width="7.38462" x="1" y="33.231" />
+                <rect fill={fill} height="18.4615" width="7.38462" x="10.8461" y="29.5386" />
+                <rect fill={fill} height="25.8462" width="7.38462" x="20.6923" y="22.1538" />
+                <rect fill={fill} height="34.4615" width="7.38462" x="40.3846" y="13.5386" />
+                <rect fill={fill} height="20.9231" width="7.38462" x="30.5385" y="27.0771" />
+                <rect fill={fill} height="3" rx="1.5" width="3" x="2.23077" y="20.9229" />
+                <rect fill={fill} height="3" rx="1.5" width="3" x="12.077" y="16" />
+                <rect fill={fill} height="3" rx="1.5" width="3" x="21.923" y="8.61572" />
+                <rect fill={fill} height="3" rx="1.5" width="3" x="32" y="13" />
+                <rect fill={fill} height="3" rx="1.5" width="3" x="42" y="4" />
                 <rect
                     fill={fill}
                     height="1.23077"
@@ -121,11 +54,7 @@ export default function CombinationChartIcon({ fill = 'black', opacity = 1 }) {
             </g>
             <defs>
                 <clipPath id="clip0_28_136">
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

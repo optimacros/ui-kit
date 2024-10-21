@@ -7,14 +7,14 @@ import { mergeStyles } from '../../../utils'
 import styles from './TabContent.module.css'
 
 interface Theme {
-    TabContent?: string;
-    TabContent_Inner?: string;
+    TabContent?: string
+    TabContent_Inner?: string
 }
 interface Props {
-    active?: number;
-    className?: string;
-    theme?: Theme | Record<string, string>;
-    children?: ReactNode[];
+    active?: number
+    className?: string
+    theme?: Theme | Record<string, string>
+    children?: ReactNode[]
 }
 /* eslint-disable */
 export class WSTabContent extends Component<Props> {
@@ -42,10 +42,7 @@ export class WSTabContent extends Component<Props> {
             }
 
             return (
-                <div
-                    key={`panel-${index}`}
-                    className={theme.TabContent_Inner}
-                >
+                <div key={`panel-${index}`} className={theme.TabContent_Inner}>
                     {panel}
                 </div>
             )
@@ -53,4 +50,3 @@ export class WSTabContent extends Component<Props> {
     }
 }
 /* eslint-enable */
-

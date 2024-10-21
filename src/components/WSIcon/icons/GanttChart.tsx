@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 
-
 export default function GanttChartIcon({ fill = 'black', opacity = 1 }) {
     return (
         <svg
@@ -52,70 +51,18 @@ export default function GanttChartIcon({ fill = 'black', opacity = 1 }) {
                     d="M17.0057 30.7202L17.0057 32.2859C17.0057 33.3905 17.9012 34.2859 19.0057 34.2859L35.5772 34.2859C36.6817 34.2859 37.5772 33.3905 37.5772 32.2859L37.5772 30.7202L17.0057 30.7202Z"
                     fill={fill}
                 />
-                <rect
-                    fill={fill}
-                    height="1.64571"
-                    width="3.56571"
-                    x="4.93713"
-                    y="8.50293"
-                />
-                <rect
-                    fill={fill}
-                    height="1.37143"
-                    width="3.56571"
-                    x="4.93713"
-                    y="18.9263"
-                />
-                <rect
-                    fill={fill}
-                    height="1.37143"
-                    width="3.56571"
-                    x="37.5771"
-                    y="39.4971"
-                />
-                <rect
-                    fill={fill}
-                    height="1.64571"
-                    width="3.56571"
-                    x="17.0057"
-                    y="29.0737"
-                />
-                <rect
-                    fill={fill}
-                    height="1.64571"
-                    width="3.56571"
-                    x="44.4343"
-                    y="8.50293"
-                />
-                <rect
-                    fill={fill}
-                    height="1.37143"
-                    width="3.56571"
-                    x="13.44"
-                    y="18.9263"
-                />
-                <rect
-                    fill={fill}
-                    height="1.37143"
-                    width="3.56571"
-                    x="44.4343"
-                    y="39.4971"
-                />
-                <rect
-                    fill={fill}
-                    height="1.64571"
-                    width="3.56571"
-                    x="34.0114"
-                    y="29.0737"
-                />
+                <rect fill={fill} height="1.64571" width="3.56571" x="4.93713" y="8.50293" />
+                <rect fill={fill} height="1.37143" width="3.56571" x="4.93713" y="18.9263" />
+                <rect fill={fill} height="1.37143" width="3.56571" x="37.5771" y="39.4971" />
+                <rect fill={fill} height="1.64571" width="3.56571" x="17.0057" y="29.0737" />
+                <rect fill={fill} height="1.64571" width="3.56571" x="44.4343" y="8.50293" />
+                <rect fill={fill} height="1.37143" width="3.56571" x="13.44" y="18.9263" />
+                <rect fill={fill} height="1.37143" width="3.56571" x="44.4343" y="39.4971" />
+                <rect fill={fill} height="1.64571" width="3.56571" x="34.0114" y="29.0737" />
             </g>
             <defs>
                 <clipPath id="clip0_28_92">
-                    <rect
-                        fill="white"
-                        height="48"
-                        width="48"
-                    />
+                    <rect fill="white" height="48" width="48" />
                 </clipPath>
             </defs>
         </svg>

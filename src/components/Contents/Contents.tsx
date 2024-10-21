@@ -7,12 +7,12 @@ import { FontIcon } from 'ui-kit-core'
 import styles from './UiKitContents.module.css'
 
 interface Props {
-    state: any;
-    children: any;
-    header: any;
-    subHeader: any;
-    hideInPrintMode: boolean;
-    onDragOver: any;
+    state: any
+    children: any
+    header: any
+    subHeader: any
+    hideInPrintMode: boolean
+    onDragOver: any
 }
 
 @observer
@@ -29,18 +29,12 @@ export class Contents extends React.Component<Props> {
             hideInPrintMode: this.props.hideInPrintMode,
         })
 
-        return this._contents.opened
-            ? this.renderOpened(className)
-            : this.renderClosed(className)
+        return this._contents.opened ? this.renderOpened(className) : this.renderClosed(className)
     }
 
     renderOpened(className) {
         return (
-            <div
-                className={className}
-                onDragOver={this.props.onDragOver}
-                onScroll={this._onScroll}
-            >
+            <div className={className} onDragOver={this.props.onDragOver} onScroll={this._onScroll}>
                 {this.renderHeader()}
                 {this.renderContent()}
             </div>
@@ -49,10 +43,7 @@ export class Contents extends React.Component<Props> {
 
     renderClosed(className) {
         return (
-            <div
-                className={className}
-                onClick={() => this._contents.toggle()}
-            >
+            <div className={className} onClick={() => this._contents.toggle()}>
                 <div className={styles.toggleBtn}>{this.renderOpenIcon()}</div>
             </div>
         )
@@ -81,10 +72,7 @@ export class Contents extends React.Component<Props> {
 
     renderCloseButton() {
         return (
-            <div
-                className={styles.toggleBtn}
-                onClick={() => this._contents.toggle()}
-            >
+            <div className={styles.toggleBtn} onClick={() => this._contents.toggle()}>
                 {this.renderCloseIcon()}
             </div>
         )
@@ -99,14 +87,8 @@ export class Contents extends React.Component<Props> {
 
         return (
             <div>
-                <FontIcon
-                    className={styles.toggleBtnIcon}
-                    value={value}
-                />
-                <FontIcon
-                    className={styles.toggleBtnIcon}
-                    value={value}
-                />
+                <FontIcon className={styles.toggleBtnIcon} value={value} />
+                <FontIcon className={styles.toggleBtnIcon} value={value} />
             </div>
         )
     }
@@ -114,15 +96,10 @@ export class Contents extends React.Component<Props> {
     renderOpenIcon() {
         const value = 'keyboard_arrow_left'
 
-        return (
-            <FontIcon
-                className={styles.toggleBtnIcon}
-                value={value}
-            />
-        )
+        return <FontIcon className={styles.toggleBtnIcon} value={value} />
     }
 
-    _onScroll = e => {
+    _onScroll = (e) => {
         if (!this.state.isScrolled && e.currentTarget.scrollTop > 2) {
             this.setState({
                 isScrolled: true,

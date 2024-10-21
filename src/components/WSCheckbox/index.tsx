@@ -4,10 +4,10 @@ import { Checkbox as Base } from 'ui-kit-core'
 import type { CheckboxProps } from 'ui-kit-core/dist/components/Checkbox'
 
 interface Props extends CheckboxProps {
-    value?: boolean;
-    error?: null | string;
-    placeholder?: string;
-    type?: string;
+    value?: boolean
+    error?: null | string
+    placeholder?: string
+    type?: string
 }
 
 export const WSCheckbox = (props: Props): React.JSX.Element => {
@@ -16,9 +16,7 @@ export const WSCheckbox = (props: Props): React.JSX.Element => {
     return (
         <Base
             {...restProps}
-            checked={!isUndefined(checked)
-                ? checked
-                : !!value}
+            checked={!isUndefined(checked) ? checked : !!value}
             label={label || placeholder}
         />
     )

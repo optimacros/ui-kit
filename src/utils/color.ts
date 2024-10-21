@@ -9,9 +9,7 @@ class ColorUtils {
 
         return hex
             .split('')
-            .map(char => (char == '#'
-                ? '#'
-                : char + char))
+            .map((char) => (char == '#' ? '#' : char + char))
             .join('')
     }
 
@@ -50,9 +48,7 @@ class ColorUtils {
     }
 
     _cutHex(h) {
-        return h.charAt(0) == '#'
-            ? h.substring(1, 7)
-            : h
+        return h.charAt(0) == '#' ? h.substring(1, 7) : h
     }
 }
 

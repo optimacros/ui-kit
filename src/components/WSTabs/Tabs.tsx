@@ -5,16 +5,16 @@ import React from 'react'
 import { WSTabsContainer as ExtTabs } from './ExtTabs'
 
 interface Props {
-    active?: number;
-    key?: number | string;
-    onChange?: (value: number) => void;
-    onTabSwitch?: () => void;
-    onTabPositionChange?: () => void;
-    children?: React.ReactNode;
+    active?: number
+    key?: number | string
+    onChange?: (value: number) => void
+    onTabSwitch?: () => void
+    onTabPositionChange?: () => void
+    children?: React.ReactNode
 }
 
 interface State {
-    activeTab: number;
+    activeTab: number
 }
 
 export class WSTabs extends React.Component<Props, State> {
@@ -45,7 +45,7 @@ export class WSTabs extends React.Component<Props, State> {
 
             const activeTab = _.findIndex(
                 children,
-                child => child && !!child.props.disabled == false,
+                (child) => child && !!child.props.disabled == false,
             )
 
             return { activeTab }
@@ -58,11 +58,7 @@ export class WSTabs extends React.Component<Props, State> {
         const { children, ...otherProps } = this.props
 
         return (
-            <ExtTabs
-                active={this.state.activeTab}
-                onTabSwitch={this._onTabSwitch}
-                {...otherProps}
-            >
+            <ExtTabs active={this.state.activeTab} onTabSwitch={this._onTabSwitch} {...otherProps}>
                 {this.renderContent()}
             </ExtTabs>
         )
@@ -124,7 +120,7 @@ export class WSTabs extends React.Component<Props, State> {
 
         const children = _.compact(props.children)
 
-        return _.findIndex(children, child => child && !!child.props.disabled == false)
+        return _.findIndex(children, (child) => child && !!child.props.disabled == false)
     }
 
     _setActiveTab(activeTab: number) {

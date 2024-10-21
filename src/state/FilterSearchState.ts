@@ -34,7 +34,7 @@ export class FilterSearchState {
 
         const result = []
 
-        _.each(this._elements, element => {
+        _.each(this._elements, (element) => {
             const textElementIsString = _.isString(element.title) || _.isString(element.label)
             const textElementIsNumber = _.isNumber(element.title) || _.isNumber(element.label)
             const suitableForSearching = textElementIsString || textElementIsNumber
