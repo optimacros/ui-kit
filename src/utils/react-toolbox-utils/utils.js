@@ -19,7 +19,7 @@ export const range = (start = 0, stop = null, step = 1) => {
         ;[_start, _stop] = [start, stop]
     }
     const length = Math.max(Math.ceil((_stop - _start) / step), 0)
-    const _range = Array(length)
+    const _range = new Array(length)
 
     for (let idx = 0; idx < length; idx += 1, _start += step) {
         _range[idx] = _start
