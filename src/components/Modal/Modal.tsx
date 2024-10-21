@@ -3,12 +3,10 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { Component } from 'react'
 import { FontIcon } from 'ui-kit-core'
-
 import Draggable from './DraggableModalContainer'
 import ReactModal from './ReactModal'
-
 import styles from './Modal.module.css'
-/* eslint-disable */
+
 export default class Modal extends Component {
     static propTypes = {
         title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -96,4 +94,3 @@ export default class Modal extends Component {
         )
     }
 }
-/* eslint-enable */

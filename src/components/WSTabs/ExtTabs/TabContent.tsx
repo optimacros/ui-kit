@@ -16,7 +16,7 @@ interface Props {
     theme?: Theme | Record<string, string>
     children?: ReactNode[]
 }
-/* eslint-disable */
+
 export class WSTabContent extends Component<Props> {
     static defaultProps = {
         theme: {
@@ -49,4 +49,3 @@ export class WSTabContent extends Component<Props> {
         })
     }
 }
-/* eslint-enable */

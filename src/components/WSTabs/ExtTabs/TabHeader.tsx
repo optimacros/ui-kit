@@ -32,7 +32,7 @@ interface Props {
         TabButtonCounter?: string
     }
 }
-/* eslint-disable */
+
 @observer
 export class WSTabHeader extends Component<Props> {
     static defaultProps = {
@@ -413,4 +413,3 @@ export class WSTabHeader extends Component<Props> {
         return !this.props.children[index].props.nonDraggable
     }
 }
-/* eslint-enable */

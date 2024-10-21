@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function AddABC({ fill = 'black', opacity = 1 }) {
     return (
         <svg

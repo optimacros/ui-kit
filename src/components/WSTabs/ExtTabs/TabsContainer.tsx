@@ -22,7 +22,6 @@ interface Props {
     }
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class WSTabsContainer extends Component<Props> {
     static defaultProps = {
         hideTabHeader: false,

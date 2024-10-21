@@ -2,12 +2,9 @@
 import classNames from 'classnames'
 import React, { Component } from 'react'
 import { FontIcon } from 'ui-kit-core'
-
 import SubMenuList from './SubMenuList'
-
 import styles from './Menu.module.css'
 
-/* eslint-disable */
 export default class SubMenuContainer extends Component {
     constructor(props) {
         super(props)
@@ -80,4 +77,3 @@ export default class SubMenuContainer extends Component {
         }
     }
 }
-/* eslint-enable */

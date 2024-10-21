@@ -6,7 +6,6 @@ import styles from './Menu.module.css'
 const SUBMENU_OFFSET = 2
 const SUBMENU_OFFSET_FROM_WINDOW = 20
 
-/* eslint-disable */
 export default class SubMenuList extends Component {
     constructor(props) {
         super(props)
@@ -63,4 +62,3 @@ export default class SubMenuList extends Component {
         return canRight ? positionForRight : positionForLeft
     }
 }
-/* eslint-enable */

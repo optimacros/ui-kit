@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default function ReplyIcon({ fill = 'black' }) {
     return (
         <svg

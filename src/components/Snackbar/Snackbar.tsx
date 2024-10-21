@@ -10,7 +10,6 @@ export interface SnackbarProps {
     className?: string
     label?: string | React.FC
     onClick?: () => void
-    // eslint-disable-next-line react/no-unused-prop-types
     onTimeout?: () => void
     Button?: typeof BaseButton
     theme?: {

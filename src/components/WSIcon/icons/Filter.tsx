@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { useId } from 'react'
 
 export default function FilterIcon({ fill = 'black', opacity = 1 }) {

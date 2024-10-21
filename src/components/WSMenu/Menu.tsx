@@ -4,7 +4,6 @@ import { PureComponent } from 'react'
 
 import styles from './Menu.module.css'
 
-/* eslint-disable */
 export default class Menu extends PureComponent {
     render() {
         const { className, children, prefixCls, ...otherProps } = this.props
@@ -19,4 +18,3 @@ export default class Menu extends PureComponent {
         )
     }
 }
-/* eslint-enable */

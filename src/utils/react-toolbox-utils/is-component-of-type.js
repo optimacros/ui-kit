@@ -18,9 +18,7 @@ export function overrideComponentTypeChecker(providedChecker) {
  * @param reactElement {ReactElement} - any React Element (not a real DOM node)
  */
 export function defaultChecker(classType, reactElement) {
-    // eslint-disable-next-line no-process-env
     if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line max-len
         // https://github.com/gaearon/react-hot-loader/blob/v3.0.0-beta.7/docs/Known%20Limitations.md#checking-element-types
         classType = React.createElement(classType).type
     }
