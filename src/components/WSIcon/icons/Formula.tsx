@@ -13,5 +13,5 @@ export default function FormulaIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

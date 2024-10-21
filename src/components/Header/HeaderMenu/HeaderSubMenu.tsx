@@ -1,33 +1,33 @@
 // @ts-nocheck
-import _ from 'lodash'
-import { observer } from 'mobx-react'
-import React from 'react'
-import { FontIcon, Input } from 'ui-kit-core'
+import _ from 'lodash';
+import { observer } from 'mobx-react';
+import React from 'react';
+import { FontIcon, Input } from 'ui-kit-core';
 
-import { HeaderMenuElement } from './HeaderMenuElement'
+import { HeaderMenuElement } from './HeaderMenuElement';
 
-import styles from './HeaderMenu.module.css'
+import styles from './HeaderMenu.module.css';
 
-const HEADER_MENU_OFFSET_SUBMENU = 2
-const HEADER_MENU_OFFSET_FROM_WINDOW = 20
+const HEADER_MENU_OFFSET_SUBMENU = 2;
+const HEADER_MENU_OFFSET_FROM_WINDOW = 20;
 
 interface Props {
-    firstLevel: boolean
-    element: Element
-    rootElementNode: Node
-    elements: Array<Element>
+    firstLevel: boolean;
+    element: Element;
+    rootElementNode: Node;
+    elements: Array<Element>;
 }
 
 @observer
 export default class HeaderSubMenu extends React.Component<Props> {
     constructor(props) {
-        super(props)
+        super(props);
 
-        this._rootMenuNode = React.createRef()
+        this._rootMenuNode = React.createRef();
 
         this.state = {
             searchValue: '',
-        }
+        };
     }
 
     componentDidMount() {
@@ -35,15 +35,15 @@ export default class HeaderSubMenu extends React.Component<Props> {
          * ! После монтирования компонента в dom, устанавливаем корректную позицию, относительно родительского элемента
          */
         if (!this.props.firstLevel) {
-            this._setStyles()
+            this._setStyles();
         }
     }
 
     render() {
-        const { elements, element } = this.props
+        const { elements, element } = this.props;
 
         if (_.isEmpty(elements)) {
-            return null
+            return null;
         }
 
         return (
@@ -58,12 +58,12 @@ export default class HeaderSubMenu extends React.Component<Props> {
                     {this.renderList()}
                 </ul>
             </div>
-        )
+        );
     }
 
     renderSearch() {
         if (!this.props.element.showSearch) {
-            return null
+            return null;
         }
 
         return (
@@ -89,73 +89,73 @@ export default class HeaderSubMenu extends React.Component<Props> {
                     />
                 )}
             </div>
-        )
+        );
     }
 
     renderList() {
-        const formattedSearchValue = _.toLower(_.trim(this.state.searchValue))
-        const hasSearch = formattedSearchValue !== ''
+        const formattedSearchValue = _.toLower(_.trim(this.state.searchValue));
+        const hasSearch = formattedSearchValue !== '';
 
         return _.map(this.props.elements, (element) => {
             if (element.hidden) {
-                return null
+                return null;
             }
 
             if (hasSearch && !_.includes(_.toLower(element.title), formattedSearchValue)) {
-                return null
+                return null;
             }
 
-            const { entityLongId, id, title } = element
-            const key = entityLongId || id || title
+            const { entityLongId, id, title } = element;
+            const key = entityLongId || id || title;
 
-            return <HeaderMenuElement key={key} element={element} />
-        })
+            return <HeaderMenuElement key={key} element={element} />;
+        });
     }
 
     onChange = (value) => {
         this.setState({
             searchValue: value,
-        })
-    }
+        });
+    };
 
     onClearSearch = () => {
-        this.onChange('')
-    }
+        this.onChange('');
+    };
 
     _setStyles = () => {
-        const node = this.props.rootElementNode.current
-        const menu = this._rootMenuNode.current
+        const node = this.props.rootElementNode.current;
+        const menu = this._rootMenuNode.current;
 
         if (menu && node) {
             const {
                 top: parentTop,
                 left: parentLeft,
                 width: parentWidth,
-            } = node.getBoundingClientRect()
-            const { height: menuHeight, width: menuWidth } = menu.getBoundingClientRect()
-            const top = this._getTopPosition(parentTop, menuHeight)
-            const left = this._getLeftPosition(parentLeft, menuWidth, parentWidth)
+            } = node.getBoundingClientRect();
+            const { height: menuHeight, width: menuWidth } = menu.getBoundingClientRect();
+            const top = this._getTopPosition(parentTop, menuHeight);
+            const left = this._getLeftPosition(parentLeft, menuWidth, parentWidth);
 
-            menu.style.top = `${top}px`
-            menu.style.left = `${left}px`
+            menu.style.top = `${top}px`;
+            menu.style.left = `${left}px`;
         }
-    }
+    };
 
     _getTopPosition(parentTop, menuHeight) {
-        const windowsHeight = window.innerHeight
+        const windowsHeight = window.innerHeight;
 
         if (parentTop + menuHeight < windowsHeight) {
-            return parentTop
+            return parentTop;
         }
 
-        return windowsHeight - menuHeight - HEADER_MENU_OFFSET_FROM_WINDOW
+        return windowsHeight - menuHeight - HEADER_MENU_OFFSET_FROM_WINDOW;
     }
 
     _getLeftPosition(parentLeft, menuWidth, parentWidth) {
-        const canRight = parentLeft + menuWidth + parentWidth < window.innerWidth
-        const positionForRight = parentLeft + parentWidth - HEADER_MENU_OFFSET_SUBMENU
-        const positionForLeft = parentLeft - menuWidth + HEADER_MENU_OFFSET_SUBMENU
+        const canRight = parentLeft + menuWidth + parentWidth < window.innerWidth;
+        const positionForRight = parentLeft + parentWidth - HEADER_MENU_OFFSET_SUBMENU;
+        const positionForLeft = parentLeft - menuWidth + HEADER_MENU_OFFSET_SUBMENU;
 
-        return canRight ? positionForRight : positionForLeft
+        return canRight ? positionForRight : positionForLeft;
     }
 }

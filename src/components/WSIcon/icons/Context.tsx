@@ -12,5 +12,5 @@ export default function ContextIcon({ fill = 'black', opacity = 1 }) {
             <path d="M19.2 5H28.8V43.4H19.2V5Z" fill={fill} />
             <path d="M38.4 5H48V43.4H38.4V5Z" fill={fill} />
         </svg>
-    )
+    );
 }

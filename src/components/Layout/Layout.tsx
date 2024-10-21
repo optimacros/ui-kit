@@ -1,19 +1,19 @@
-import classnames from 'classnames'
-import React from 'react'
+import classnames from 'classnames';
+import React from 'react';
 
-import styles from './Layout.module.css'
+import styles from './Layout.module.css';
 
 interface Props {
-    width?: number
-    height?: number
-    row?: number
-    className?: string
-    style?: React.CSSProperties
-    children?: React.ReactNode
+    width?: number;
+    height?: number;
+    row?: number;
+    className?: string;
+    style?: React.CSSProperties;
+    children?: React.ReactNode;
 }
 
 export const Layout: React.FC<Props> = (props) => {
-    const { width, height, row, style, children, ...otherProps } = props
+    const { width, height, row, style, children, ...otherProps } = props;
 
     const className = classnames(
         {
@@ -21,11 +21,11 @@ export const Layout: React.FC<Props> = (props) => {
             [styles.Layout__row]: props.row,
         },
         props.className,
-    )
+    );
 
     return (
         <div {...otherProps} className={className} style={style}>
             {props.children}
         </div>
-    )
-}
+    );
+};

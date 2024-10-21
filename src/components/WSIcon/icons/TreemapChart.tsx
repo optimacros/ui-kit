@@ -22,5 +22,5 @@ export default function TreemapChartIcon({ fill = 'black', opacity = 1 }) {
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

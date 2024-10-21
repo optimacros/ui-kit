@@ -24,5 +24,5 @@ export default function MapChartIcon({ fill = 'black', opacity = 1 }) {
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

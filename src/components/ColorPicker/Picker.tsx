@@ -1,28 +1,28 @@
 // @ts-nocheck
-import _ from 'lodash'
-import React from 'react'
-import { Toolbar, Button, IconButton } from 'ui-kit-core'
+import _ from 'lodash';
+import React from 'react';
+import { Toolbar, Button, IconButton } from 'ui-kit-core';
 
-import CustomPicker from './CustomPicker'
+import CustomPicker from './CustomPicker';
 
-import style from './Color.module.css'
+import style from './Color.module.css';
 
 interface Props {
-    color: string | object
-    onCloseMenu: () => void
-    onClickSettingsIcon: () => void
-    onShowError: () => void
-    onChange: (color: object) => void
-    saveColor: (color: string) => void
-    disableAlpha: boolean
-    cancelLabel: string
-    applyLabel: string
-    showSettings: boolean
-    colorSettingsLabel: string
-    recentColorsLabel: string
-    presetColors: string[]
-    recentColors: string[]
-    innerRef?: any
+    color: string | object;
+    onCloseMenu: () => void;
+    onClickSettingsIcon: () => void;
+    onShowError: () => void;
+    onChange: (color: object) => void;
+    saveColor: (color: string) => void;
+    disableAlpha: boolean;
+    cancelLabel: string;
+    applyLabel: string;
+    showSettings: boolean;
+    colorSettingsLabel: string;
+    recentColorsLabel: string;
+    presetColors: string[];
+    recentColors: string[];
+    innerRef?: any;
 }
 
 export default class Picker extends React.Component<Props> {
@@ -33,14 +33,14 @@ export default class Picker extends React.Component<Props> {
         recentColorsLabel: 'Recent colors',
         showSettings: false,
         color: '#000000',
-    }
+    };
 
     state = {
         background: this.props.color,
         color: {
             hex: this.props.color,
         },
-    }
+    };
 
     render() {
         return (
@@ -83,59 +83,59 @@ export default class Picker extends React.Component<Props> {
                     </Toolbar>
                 </div>
             </div>
-        )
+        );
     }
 
     _onClickSettingsIcon() {
         if (this.props.onClickSettingsIcon) {
-            this.props.onClickSettingsIcon()
+            this.props.onClickSettingsIcon();
         }
 
-        this._onClosePicker()
+        this._onClosePicker();
     }
 
     _onClosePicker = () => {
         if (this.props.onCloseMenu) {
-            this.props.onCloseMenu()
+            this.props.onCloseMenu();
         }
-    }
+    };
 
     _onSelectColor = (color) => {
         this.setState({
             color,
             background: color.hex,
-        })
-    }
+        });
+    };
 
     _onChangeColor = () => {
-        const hasColor = !_.isEmpty(this.state.color)
-        const isValidColor = this._isValidColor(this.state.background)
+        const hasColor = !_.isEmpty(this.state.color);
+        const isValidColor = this._isValidColor(this.state.background);
 
         if (!isValidColor) {
             if (this.props.onShowError) {
-                this.props.onShowError()
+                this.props.onShowError();
             }
 
-            return
+            return;
         }
 
         if (this.props.onChange && hasColor && isValidColor) {
-            this.props.onChange(this.state.color)
+            this.props.onChange(this.state.color);
 
             if (this.props.saveColor) {
-                this.props.saveColor(this.state.color.hex as string)
+                this.props.saveColor(this.state.color.hex as string);
             }
         }
 
         if (this.props.onCloseMenu) {
-            this.props.onCloseMenu()
+            this.props.onCloseMenu();
         }
-    }
+    };
 
     _isValidColor(color) {
-        const regExp = /^#[0-9A-F]{6}$/i
-        const stringValue = _.toString(color)
+        const regExp = /^#[0-9A-F]{6}$/i;
+        const stringValue = _.toString(color);
 
-        return regExp.test(stringValue)
+        return regExp.test(stringValue);
     }
 }

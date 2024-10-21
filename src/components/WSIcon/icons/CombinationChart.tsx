@@ -58,5 +58,5 @@ export default function CombinationChartIcon({ fill = 'black', opacity = 1 }) {
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

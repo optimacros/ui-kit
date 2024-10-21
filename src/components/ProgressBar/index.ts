@@ -1,4 +1,4 @@
-import { ProgressBar } from './ProgressBar'
+import { ProgressBar } from './ProgressBar';
 
-export default ProgressBar
-export { ProgressBar }
+export default ProgressBar;
+export { ProgressBar };

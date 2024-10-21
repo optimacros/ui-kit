@@ -1,12 +1,12 @@
-import React from 'react'
-import { Divider } from 'ui-kit-core'
+import React from 'react';
+import { Divider } from 'ui-kit-core';
 
 export class VerticalDivider extends React.Component {
-    static identifier = 'verticalDivider'
+    static identifier = 'verticalDivider';
 
-    static isDivider = true
+    static isDivider = true;
 
     render() {
-        return <Divider vertical />
+        return <Divider vertical />;
     }
 }

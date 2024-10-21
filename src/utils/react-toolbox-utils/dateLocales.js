@@ -230,4 +230,4 @@ export const dateLocales = {
         weekdaysShort: '週日_週一_週二_週三_週四_週五_週六'.split('_'),
         weekdaysLetter: '日_一_二_三_四_五_六'.split('_'),
     },
-}
+};

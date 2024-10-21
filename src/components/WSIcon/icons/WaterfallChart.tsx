@@ -14,5 +14,5 @@ export default function WaterfallChartIcon({ fill = 'black', opacity = 1 }) {
             <path d="M10.6667 18.75H18.6667V29.25H10.6667V18.75Z" fill={fill} />
             <path d="M0 26.625H8V45H0V26.625Z" fill={fill} />
         </svg>
-    )
+    );
 }

@@ -12,5 +12,5 @@ export default function ReplyIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

@@ -21,5 +21,5 @@ export default function AddABC({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

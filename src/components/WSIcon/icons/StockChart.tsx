@@ -15,5 +15,5 @@ export default function StockChartIcon({ fill = 'black', opacity = 1 }) {
             <path d="M33 0V12H39V0H33Z" fill={fill} />
             <path d="M33 33V48H39V33H33Z" fill={fill} />
         </svg>
-    )
+    );
 }

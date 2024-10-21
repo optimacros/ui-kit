@@ -18,5 +18,5 @@ export default function LineChartIcon({ fill = 'black', opacity = 1 }) {
                 strokeWidth="3"
             />
         </svg>
-    )
+    );
 }

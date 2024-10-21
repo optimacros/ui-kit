@@ -11,5 +11,5 @@ export default function AddIcon({ fill = 'black', opacity = 1 }) {
             <path d="M27.4737 2H20.5264V46H27.4737V2Z" fill={fill} />
             <path d="M46 20.5264H2V27.4737H46V20.5264Z" fill={fill} />
         </svg>
-    )
+    );
 }

@@ -1,1 +1,1 @@
-export * from './LocalLoader'
+export * from './LocalLoader';

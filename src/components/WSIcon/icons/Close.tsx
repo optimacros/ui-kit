@@ -12,5 +12,5 @@ export default function CloseIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

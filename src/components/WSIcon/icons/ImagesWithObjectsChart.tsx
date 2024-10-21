@@ -42,5 +42,5 @@ export default function ImagesWithObjectsChartIcon({ fill = 'black', opacity = 1
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

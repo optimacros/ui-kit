@@ -15,5 +15,5 @@ export default function ProgressBarIndicatorIcon({ fill = 'black', opacity = 1 }
                 fillRule="evenodd"
             />
         </svg>
-    )
+    );
 }

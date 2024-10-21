@@ -23,5 +23,5 @@ export default function AddIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

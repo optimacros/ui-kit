@@ -12,5 +12,5 @@ export default function DrillDownIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

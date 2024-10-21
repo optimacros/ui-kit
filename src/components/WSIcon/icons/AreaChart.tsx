@@ -14,5 +14,5 @@ export default function AreaChartIcon({ fill = 'black', opacity = 1 }) {
             />
             <path d="M0 28L13.3333 37.3333L24 24L48 42V46.6667H0V28Z" fill={fill} />
         </svg>
-    )
+    );
 }

@@ -1,13 +1,13 @@
 // @ts-nocheck
-import { Component } from 'react'
+import { Component } from 'react';
 
-import { WSIcon as Icon } from '../../WSIcon'
+import { WSIcon as Icon } from '../../WSIcon';
 
-import styles from './HeaderNavigation.module.css'
+import styles from './HeaderNavigation.module.css';
 
 interface Props {
-    title: string
-    onClick: () => void
+    title: string;
+    onClick: () => void;
 }
 
 export class HeaderNavigation extends Component<Props> {
@@ -22,6 +22,6 @@ export class HeaderNavigation extends Component<Props> {
                     <div className={styles.Element_Title}>{this.props.title}</div>
                 </div>
             </div>
-        )
+        );
     }
 }

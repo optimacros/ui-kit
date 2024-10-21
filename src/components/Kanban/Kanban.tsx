@@ -1,19 +1,19 @@
-import _ from 'lodash'
-import { observer } from 'mobx-react'
-import React from 'react'
-import { DragDropContext } from 'react-beautiful-dnd'
+import _ from 'lodash';
+import { observer } from 'mobx-react';
+import React from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 
-import { KanbanColumn } from './KanbanColumn'
-import { KanbanProps } from './types'
-import { SliderScale } from '../SliderScale'
+import { KanbanColumn } from './KanbanColumn';
+import { KanbanProps } from './types';
+import { SliderScale } from '../SliderScale';
 
-import styles from './Kanban.module.css'
+import styles from './Kanban.module.css';
 
 @observer
 export class Kanban extends React.PureComponent<KanbanProps> {
-    static identifier = 'kanban'
+    static identifier = 'kanban';
 
-    static componentLabel = 'kanbanLabel'
+    static componentLabel = 'kanbanLabel';
 
     render() {
         return (
@@ -26,11 +26,11 @@ export class Kanban extends React.PureComponent<KanbanProps> {
                     </div>
                 </DragDropContext>
             </div>
-        )
+        );
     }
 
     private renderSlider() {
-        const { maxSizeCard, currentSizeCard } = this.props
+        const { maxSizeCard, currentSizeCard } = this.props;
 
         return (
             <div className={styles.Resizer}>
@@ -51,7 +51,7 @@ export class Kanban extends React.PureComponent<KanbanProps> {
 
                 <span className={styles.ResizerLabel}>XL</span>
             </div>
-        )
+        );
     }
 
     private renderKanban() {
@@ -63,17 +63,17 @@ export class Kanban extends React.PureComponent<KanbanProps> {
 
                 {this.renderColumn()}
             </React.Fragment>
-        )
+        );
     }
 
     private renderStatuses() {
-        const { statuses } = this.props
+        const { statuses } = this.props;
 
         return _.map(statuses, (element) => (
             <div key={element.id} className={styles.Col}>
                 <div className={styles.StatusItem}>{element.name}</div>
             </div>
-        ))
+        ));
     }
 
     private renderColumn() {
@@ -84,7 +84,7 @@ export class Kanban extends React.PureComponent<KanbanProps> {
             statuses,
             isCardUpdating,
             toggleColumnVisibility,
-        } = this.props
+        } = this.props;
 
         return _.map(columns, (element) => {
             return (
@@ -97,15 +97,15 @@ export class Kanban extends React.PureComponent<KanbanProps> {
                     statuses={statuses}
                     toggleColumnVisibility={toggleColumnVisibility}
                 />
-            )
-        })
+            );
+        });
     }
 
     private onResizeCard: KanbanProps['changeCardSize'] = (value) => {
-        this.props.changeCardSize(value)
-    }
+        this.props.changeCardSize(value);
+    };
 
     private onDragEnd: KanbanProps['onDragEnd'] = (payload) => {
-        this.props.onDragEnd(payload)
-    }
+        this.props.onDragEnd(payload);
+    };
 }

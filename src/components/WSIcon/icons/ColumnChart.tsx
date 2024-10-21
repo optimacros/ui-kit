@@ -12,5 +12,5 @@ export default function ColumnChartIcon({ fill = 'black', opacity = 1 }) {
             <path d="M24 18H32V32H24V18Z" fill={fill} />
             <path d="M12 0H20V32H12V0Z" fill={fill} />
         </svg>
-    )
+    );
 }

@@ -1,11 +1,11 @@
-import BaseReactModal from 'react-modal'
+import BaseReactModal from 'react-modal';
 
 const ReactModal = (props: any) => {
     if (props.testMode) {
-        return <div className="ReactModalRootContainer">{props.children}</div>
+        return <div className="ReactModalRootContainer">{props.children}</div>;
     }
 
-    return <BaseReactModal {...props} />
-}
+    return <BaseReactModal {...props} />;
+};
 
-export default ReactModal
+export default ReactModal;

@@ -1,14 +1,14 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import { ReactNode } from 'react'
+import classNames from 'classnames';
+import { ReactNode } from 'react';
 
-import styles from './HeaderUserMenu.module.css'
+import styles from './HeaderUserMenu.module.css';
 
 interface Props {
-    label: string
-    className: string
-    children: ReactNode
-    onClick: () => void
+    label: string;
+    className: string;
+    children: ReactNode;
+    onClick: () => void;
 }
 
 export const HeaderUserSubMenu = (props: Props) => {
@@ -16,7 +16,7 @@ export const HeaderUserSubMenu = (props: Props) => {
         styles.userMenu_List,
         styles.userMenu_List_SubMenu,
         props.className,
-    )
+    );
 
     return (
         <li>
@@ -26,5 +26,5 @@ export const HeaderUserSubMenu = (props: Props) => {
 
             <ul className={className}>{props.children}</ul>
         </li>
-    )
-}
+    );
+};

@@ -1,19 +1,19 @@
-import classNames from 'classnames'
-import React from 'react'
-import { FontIcon } from 'ui-kit-core'
+import classNames from 'classnames';
+import React from 'react';
+import { FontIcon } from 'ui-kit-core';
 
-import styles from './SearchContainer.module.css'
+import styles from './SearchContainer.module.css';
 
 interface Props {
-    name: string
-    value: string
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-    placeholder?: string
-    onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void
-    onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-    onClose?: () => void
-    style?: any
-    showIcon?: boolean
+    name: string;
+    value: string;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    placeholder?: string;
+    onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+    onClose?: () => void;
+    style?: any;
+    showIcon?: boolean;
 }
 
 export const SearchContainer: React.FC<Props> = ({
@@ -30,11 +30,11 @@ export const SearchContainer: React.FC<Props> = ({
     const className = classNames({
         [styles.SearchContainer]: true,
         [style]: style,
-    })
+    });
 
     const renderIcon = () => {
         if (!showIcon) {
-            return
+            return;
         }
 
         return (
@@ -43,8 +43,8 @@ export const SearchContainer: React.FC<Props> = ({
                 onClick={() => onClose && onClose()}
                 value="close"
             />
-        )
-    }
+        );
+    };
 
     return (
         <div>
@@ -64,5 +64,5 @@ export const SearchContainer: React.FC<Props> = ({
                 {renderIcon()}
             </div>
         </div>
-    )
-}
+    );
+};

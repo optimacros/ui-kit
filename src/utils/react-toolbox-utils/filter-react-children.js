@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 /**
  * Looks through a collection of React children elements, filtering them
@@ -9,14 +9,14 @@ import React from 'react'
  */
 export default function filterReactChildren(children, predicate) {
     if (children) {
-        const result = []
+        const result = [];
 
         React.Children.forEach(children, (entry, idx) => {
             if (predicate && predicate.call(this, entry, idx)) {
-                result.push(entry)
+                result.push(entry);
             }
-        })
+        });
 
-        return result
+        return result;
     }
 }

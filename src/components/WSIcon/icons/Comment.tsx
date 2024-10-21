@@ -15,5 +15,5 @@ export default function CommentIcon({ fill = 'black' }) {
                 strokeWidth="1.4"
             />
         </svg>
-    )
+    );
 }

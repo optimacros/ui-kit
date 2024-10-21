@@ -13,5 +13,5 @@ export default function KeyboardDoubleArrowUp({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

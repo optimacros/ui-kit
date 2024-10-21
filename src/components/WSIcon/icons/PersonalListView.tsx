@@ -24,5 +24,5 @@ export default function IconPersonalListView({ fill = 'black' }) {
                 strokeWidth="8.5"
             />
         </svg>
-    )
+    );
 }

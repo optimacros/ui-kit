@@ -1,38 +1,38 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import _ from 'lodash'
-import { observer } from 'mobx-react'
-import React from 'react'
+import classNames from 'classnames';
+import _ from 'lodash';
+import { observer } from 'mobx-react';
+import React from 'react';
 
-import HeaderMenuElementContainer from './HeaderMenuElementContainer'
-import HeaderSubMenu from './HeaderSubMenu'
+import HeaderMenuElementContainer from './HeaderMenuElementContainer';
+import HeaderSubMenu from './HeaderSubMenu';
 
-import styles from './HeaderMenu.module.css'
+import styles from './HeaderMenu.module.css';
 
 interface Props {
-    firstLevel: boolean
-    element: Element
-    rootElementNode: Node
-    elements: Array<Element>
+    firstLevel: boolean;
+    element: Element;
+    rootElementNode: Node;
+    elements: Array<Element>;
 }
 
 @observer
 export class HeaderMenuElement extends React.Component<Props> {
     constructor(props) {
-        super(props)
+        super(props);
 
-        this._node = React.createRef()
+        this._node = React.createRef();
     }
 
     state = {
         showMenu: false,
-    }
+    };
 
     render() {
-        const { element } = this.props
+        const { element } = this.props;
 
         if (element.hidden) {
-            return null
+            return null;
         }
 
         const className = classNames({
@@ -40,7 +40,7 @@ export class HeaderMenuElement extends React.Component<Props> {
             [styles.MenuItem__disabled]: element.disabled,
             [styles.MenuItem_child]: element.isChild,
             [styles.MenuItem_parent]: element.isParent,
-        })
+        });
 
         return (
             <li
@@ -56,14 +56,14 @@ export class HeaderMenuElement extends React.Component<Props> {
                 />
                 {this.renderSubMenu()}
             </li>
-        )
+        );
     }
 
     renderSubMenu() {
-        const { element } = this.props
+        const { element } = this.props;
 
         if (!this.state.showMenu || _.isEmpty(element.children)) {
-            return null
+            return null;
         }
 
         return (
@@ -73,22 +73,22 @@ export class HeaderMenuElement extends React.Component<Props> {
                 firstLevel={this.props.firstLevel}
                 rootElementNode={this._node}
             />
-        )
+        );
     }
 
     _onMouseEnter = () => {
         this.setState(() => {
             return {
                 showMenu: true,
-            }
-        })
-    }
+            };
+        });
+    };
 
     _onMouseLeave = () => {
         this.setState(() => {
             return {
                 showMenu: false,
-            }
-        })
-    }
+            };
+        });
+    };
 }

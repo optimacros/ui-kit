@@ -25,5 +25,5 @@ export default function FullStackedBarChartIcon({ fill = 'black', opacity = 1 })
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

@@ -1,4 +1,4 @@
-import { getAnimationModule, removeNamespace, transformKeys } from '../utils'
+import { getAnimationModule, removeNamespace, transformKeys } from '../utils';
 
 describe('react-toolbox-utils/utils', () => {
     describe('getAnimationModule', () => {
@@ -34,109 +34,109 @@ describe('react-toolbox-utils/utils', () => {
             slideLeftLeaveActive: 'Calendar-module__slideLeftLeaveActive___X_5d7',
             navigation: 'Calendar-module__navigation___Irxd3',
             wrapper: 'Calendar-module__wrapper___bP_7j',
-        }
+        };
 
         it('slideRight', () => {
-            const animation = 'slideRight'
+            const animation = 'slideRight';
 
-            const result = getAnimationModule(animation, theme)
+            const result = getAnimationModule(animation, theme);
 
             expect(result).toEqual({
                 enter: 'Calendar-module__slideRightEnter___lSPCd',
                 leave: 'Calendar-module__slideRightLeave___ibO3W',
                 enterActive: 'Calendar-module__slideRightEnterActive___W9VAO',
                 leaveActive: 'Calendar-module__slideRightLeaveActive___kQ4FN',
-            })
-        })
+            });
+        });
 
         it('slideLeft', () => {
-            const animation = 'slideLeft'
-            const result = getAnimationModule(animation, theme)
+            const animation = 'slideLeft';
+            const result = getAnimationModule(animation, theme);
 
             expect(result).toEqual({
                 enter: 'Calendar-module__slideLeftEnter___DVD4v',
                 leave: 'Calendar-module__slideLeftLeave___RyL48',
                 enterActive: 'Calendar-module__slideLeftEnterActive___kp6Z1',
                 leaveActive: 'Calendar-module__slideLeftLeaveActive___X_5d7',
-            })
-        })
-    })
+            });
+        });
+    });
 
     describe('removeNamespace', () => {
         it('slideRight - slideRightEnter', () => {
-            const namespace = 'slideRight'
-            const key = 'slideRightEnter'
+            const namespace = 'slideRight';
+            const key = 'slideRightEnter';
 
-            const result = removeNamespace(namespace)(key)
+            const result = removeNamespace(namespace)(key);
 
-            expect(result).toEqual('enter')
-        })
+            expect(result).toEqual('enter');
+        });
 
         it('slideRight - slideRightEnterActive', () => {
-            const namespace = 'slideRight'
-            const key = 'slideRightEnterActive'
+            const namespace = 'slideRight';
+            const key = 'slideRightEnterActive';
 
-            const result = removeNamespace(namespace)(key)
+            const result = removeNamespace(namespace)(key);
 
-            expect(result).toEqual('enterActive')
-        })
+            expect(result).toEqual('enterActive');
+        });
 
         it('slideLeft - slideLeftEnter', () => {
-            const namespace = 'slideLeft'
-            const key = 'slideLeftEnter'
+            const namespace = 'slideLeft';
+            const key = 'slideLeftEnter';
 
-            const result = removeNamespace(namespace)(key)
+            const result = removeNamespace(namespace)(key);
 
-            expect(result).toEqual('enter')
-        })
+            expect(result).toEqual('enter');
+        });
 
         it('slideLeft - slideLeftEnterActive', () => {
-            const namespace = 'slideLeft'
-            const key = 'slideLeftEnterActive'
+            const namespace = 'slideLeft';
+            const key = 'slideLeftEnterActive';
 
-            const result = removeNamespace(namespace)(key)
+            const result = removeNamespace(namespace)(key);
 
-            expect(result).toEqual('enterActive')
-        })
-    })
+            expect(result).toEqual('enterActive');
+        });
+    });
 
     describe('transformKeys', () => {
         it('slideRight', () => {
-            const namespace = 'slideRight'
+            const namespace = 'slideRight';
             const data = {
                 slideRightEnter: 'Calendar-module__slideRightEnter___lSPCd',
                 slideRightLeave: 'Calendar-module__slideRightLeave___ibO3W',
                 slideRightEnterActive: 'Calendar-module__slideRightEnterActive___W9VAO',
                 slideRightLeaveActive: 'Calendar-module__slideRightLeaveActive___kQ4FN',
-            }
+            };
 
-            const result = transformKeys(data, removeNamespace(namespace))
+            const result = transformKeys(data, removeNamespace(namespace));
 
             expect(result).toEqual({
                 enter: 'Calendar-module__slideRightEnter___lSPCd',
                 leave: 'Calendar-module__slideRightLeave___ibO3W',
                 enterActive: 'Calendar-module__slideRightEnterActive___W9VAO',
                 leaveActive: 'Calendar-module__slideRightLeaveActive___kQ4FN',
-            })
-        })
+            });
+        });
 
         it('slideLeft - slideLeftEnterActive', () => {
-            const namespace = 'slideLeft'
+            const namespace = 'slideLeft';
             const data = {
                 slideLeftEnter: 'Calendar-module__slideLeftEnter___DVD4v',
                 slideLeftLeave: 'Calendar-module__slideLeftLeave___RyL48',
                 slideLeftEnterActive: 'Calendar-module__slideLeftEnterActive___kp6Z1',
                 slideLeftLeaveActive: 'Calendar-module__slideLeftLeaveActive___X_5d7',
-            }
+            };
 
-            const result = transformKeys(data, removeNamespace(namespace))
+            const result = transformKeys(data, removeNamespace(namespace));
 
             expect(result).toEqual({
                 enter: 'Calendar-module__slideLeftEnter___DVD4v',
                 leave: 'Calendar-module__slideLeftLeave___RyL48',
                 enterActive: 'Calendar-module__slideLeftEnterActive___kp6Z1',
                 leaveActive: 'Calendar-module__slideLeftLeaveActive___X_5d7',
-            })
-        })
-    })
-})
+            });
+        });
+    });
+});

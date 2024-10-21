@@ -12,5 +12,5 @@ export default function RefreshIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

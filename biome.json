@@ -227,7 +227,7 @@
 	},
 	"javascript": {
 		"formatter": {
-			"semicolons": "asNeeded",
+			"semicolons": "always",
 			"enabled": true,
 			"indentStyle": "space",
 			"indentWidth": 4,

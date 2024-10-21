@@ -23,5 +23,5 @@ export default function CopyIcon({ fill = 'black', opacity = 1 }) {
             <rect fill={fill} height="4.5" rx="2.25" width="20.25" x="18.75" y="18.75" />
             <rect fill={fill} height="4.5" rx="2.25" width="20.25" x="18.75" y="33" />
         </svg>
-    )
+    );
 }

@@ -1,7 +1,7 @@
-import { useId } from 'react'
+import { useId } from 'react';
 
 export default function RenameIcon({ fill = 'black', opacity = 1 }) {
-    const clipPathId = useId()
+    const clipPathId = useId();
 
     return (
         <svg
@@ -42,5 +42,5 @@ export default function RenameIcon({ fill = 'black', opacity = 1 }) {
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

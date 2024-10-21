@@ -17,5 +17,5 @@ export default function VisualCellsIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

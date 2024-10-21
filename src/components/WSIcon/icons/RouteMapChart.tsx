@@ -20,5 +20,5 @@ export default function RouteMapChartIcon({ fill = 'black', opacity = 1 }) {
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

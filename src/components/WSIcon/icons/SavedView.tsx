@@ -10,5 +10,5 @@ export default function SavedViewIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

@@ -15,5 +15,5 @@ export default function LinesIcon({ fill = 'black', opacity = 1 }) {
                 fillRule="evenodd"
             />
         </svg>
-    )
+    );
 }

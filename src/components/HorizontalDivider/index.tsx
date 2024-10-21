@@ -1,12 +1,12 @@
-import React from 'react'
-import { Divider } from 'ui-kit-core'
+import React from 'react';
+import { Divider } from 'ui-kit-core';
 
 export class HorizontalDivider extends React.Component {
-    static identifier = 'horizontalDivider'
+    static identifier = 'horizontalDivider';
 
-    static hideInToolbarConfig = true
+    static hideInToolbarConfig = true;
 
     render() {
-        return <Divider />
+        return <Divider />;
     }
 }

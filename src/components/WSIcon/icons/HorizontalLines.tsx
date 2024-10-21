@@ -12,5 +12,5 @@ export default function HorizontalLinesIcon({ fill = 'black', opacity = 1 }) {
             <line stroke={fill} strokeWidth="1.25" x1="1.875" x2="13.125" y1="7.5" y2="7.5" />
             <line stroke={fill} strokeWidth="1.25" x1="1.875" x2="13.125" y1="10.625" y2="10.625" />
         </svg>
-    )
+    );
 }

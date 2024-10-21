@@ -15,5 +15,5 @@ export default function AddMultipleIcon({ fill = 'black', opacity = 1 }) {
             />
             <path d="M19.6001 12.8848H46V17.5163H19.6001V12.8848Z" fill={fill} />
         </svg>
-    )
+    );
 }

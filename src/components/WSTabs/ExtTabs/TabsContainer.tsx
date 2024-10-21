@@ -1,25 +1,25 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import { Component } from 'react'
+import classNames from 'classnames';
+import { Component } from 'react';
 
-import { WSTabContent as TabContent } from './TabContent'
-import { WSTabHeader as TabHeader } from './TabHeader'
-import { mergeStyles } from '../../../utils'
+import { WSTabContent as TabContent } from './TabContent';
+import { WSTabHeader as TabHeader } from './TabHeader';
+import { mergeStyles } from '../../../utils';
 
-import styles from './TabsContainer.module.css'
+import styles from './TabsContainer.module.css';
 
 interface Props {
-    className?: string
-    active?: number
-    draggable?: boolean
-    onTabSwitch?: () => void
-    onTabPositionChange?: () => void
-    hideTabHeader?: boolean
-    headerClassName?: string
-    contentClassName?: string
+    className?: string;
+    active?: number;
+    draggable?: boolean;
+    onTabSwitch?: () => void;
+    onTabPositionChange?: () => void;
+    hideTabHeader?: boolean;
+    headerClassName?: string;
+    contentClassName?: string;
     theme: {
-        TabsContainer: string
-    }
+        TabsContainer: string;
+    };
 }
 
 export class WSTabsContainer extends Component<Props> {
@@ -28,13 +28,13 @@ export class WSTabsContainer extends Component<Props> {
         theme: {
             TabsContainer: 'TabsContainer__TabsContainer',
         },
-    }
+    };
 
     render() {
-        const theme = mergeStyles(this.props.theme, styles) as Props['theme']
+        const theme = mergeStyles(this.props.theme, styles) as Props['theme'];
 
-        const { headerClassName, contentClassName, ...otherProps } = this.props
-        const className = classNames(theme.TabsContainer, this.props.className)
+        const { headerClassName, contentClassName, ...otherProps } = this.props;
+        const className = classNames(theme.TabsContainer, this.props.className);
 
         return (
             <div className={className}>
@@ -44,6 +44,6 @@ export class WSTabsContainer extends Component<Props> {
 
                 <TabContent {...otherProps} className={contentClassName} theme={theme} />
             </div>
-        )
+        );
     }
 }

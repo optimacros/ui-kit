@@ -64,5 +64,5 @@ export default function GanttChartIcon({ fill = 'black', opacity = 1 }) {
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

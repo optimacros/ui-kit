@@ -13,5 +13,5 @@ export default function BiaxialBarChartIcon({ fill = 'black', opacity = 1 }) {
             <path d="M15 6H21V48H15V6Z" fill={fill} />
             <path d="M3 24H9V48H3V24Z" fill={fill} />
         </svg>
-    )
+    );
 }

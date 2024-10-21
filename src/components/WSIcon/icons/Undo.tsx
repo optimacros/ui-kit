@@ -12,5 +12,5 @@ export default function UndoIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

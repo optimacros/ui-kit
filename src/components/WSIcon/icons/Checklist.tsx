@@ -12,5 +12,5 @@ export default function ChecklistIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

@@ -12,5 +12,5 @@ export default function BarChartIcon({ fill = 'black', opacity = 1 }) {
             <path d="M0 12H32V20H0V12Z" fill={fill} />
             <path d="M0 24H14V32H0V24Z" fill={fill} />
         </svg>
-    )
+    );
 }

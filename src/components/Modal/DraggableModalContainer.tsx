@@ -1,13 +1,13 @@
 // @ts-nocheck
-import _ from 'lodash'
-import { Component } from 'react'
-import styles from './DraggableModalContainer.module.css'
+import _ from 'lodash';
+import { Component } from 'react';
+import styles from './DraggableModalContainer.module.css';
 
 export default class DraggableModalContainer extends Component {
     static defaultProps = {
         nonDraggable: false,
         draggableTarget: `.${styles.Header}`,
-    }
+    };
 
     state = {
         isDragging: false,
@@ -19,27 +19,27 @@ export default class DraggableModalContainer extends Component {
             x: 0,
             y: 0,
         },
-    }
+    };
 
     constructor(props) {
-        super(props)
+        super(props);
 
-        document.addEventListener('mousedown', this._startDrag)
-        document.addEventListener('mousemove', this._move)
-        document.addEventListener('mouseup', this._endDrag)
+        document.addEventListener('mousedown', this._startDrag);
+        document.addEventListener('mousemove', this._move);
+        document.addEventListener('mouseup', this._endDrag);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this._startDrag)
-        document.removeEventListener('mousemove', this._move)
-        document.removeEventListener('mouseup', this._endDrag)
+        document.removeEventListener('mousedown', this._startDrag);
+        document.removeEventListener('mousemove', this._move);
+        document.removeEventListener('mouseup', this._endDrag);
     }
 
     render() {
         const containerPosition = {
             top: this.state.movePosition.y,
             left: this.state.movePosition.x,
-        }
+        };
 
         return (
             <div
@@ -49,12 +49,12 @@ export default class DraggableModalContainer extends Component {
             >
                 {this.props.children}
             </div>
-        )
+        );
     }
 
     _startDrag = (event) => {
         if (!this._targetNodes) {
-            this._setTargetNode()
+            this._setTargetNode();
         }
 
         if (this._hasClickedOnTheCurrentElement(event.target)) {
@@ -64,25 +64,25 @@ export default class DraggableModalContainer extends Component {
                     x: event.x,
                     y: event.y,
                 },
-            })
+            });
         }
-    }
+    };
 
     _move = (event) => {
         if (this.state.isDragging) {
             this.setState((state) => {
-                const newX = state.currentPosition.x + (event.x - state.startDragPosition.x)
-                const newY = state.currentPosition.y + (event.y - state.startDragPosition.y)
+                const newX = state.currentPosition.x + (event.x - state.startDragPosition.x);
+                const newY = state.currentPosition.y + (event.y - state.startDragPosition.y);
 
                 return {
                     movePosition: {
                         x: newX,
                         y: newY,
                     },
-                }
-            })
+                };
+            });
         }
-    }
+    };
 
     _endDrag = () => {
         if (this.state.isDragging) {
@@ -90,36 +90,36 @@ export default class DraggableModalContainer extends Component {
                 return {
                     isDragging: false,
                     currentPosition: state.movePosition,
-                }
-            })
+                };
+            });
         }
-    }
+    };
 
     _hasClickedOnTheCurrentElement(target) {
-        let currentNode = target
+        let currentNode = target;
 
         while (currentNode) {
             if (_.includes(this._targetNodes, currentNode)) {
-                return true
+                return true;
             }
 
-            currentNode = currentNode.parentNode
+            currentNode = currentNode.parentNode;
         }
 
-        return false
+        return false;
     }
 
     _setTargetNode() {
         if (!this._containerNode) {
-            return
+            return;
         }
 
-        const nodes = this._containerNode.querySelectorAll(this.props.draggableTarget)
+        const nodes = this._containerNode.querySelectorAll(this.props.draggableTarget);
 
-        this._targetNodes = nodes
+        this._targetNodes = nodes;
     }
 
     _setContainerNode = (node) => {
-        this._containerNode = node
-    }
+        this._containerNode = node;
+    };
 }

@@ -1,32 +1,32 @@
-import classNames from 'classnames'
-import _ from 'lodash'
-import React from 'react'
-import { IconButton } from 'ui-kit-core'
+import classNames from 'classnames';
+import _ from 'lodash';
+import React from 'react';
+import { IconButton } from 'ui-kit-core';
 
-import { WSSelectBox as SelectBox } from '../WSSelectBox'
+import { WSSelectBox as SelectBox } from '../WSSelectBox';
 
-import styles from './SelectboxPanel.module.css'
+import styles from './SelectboxPanel.module.css';
 
 interface Item {
-    value: string
-    label: string
+    value: string;
+    label: string;
 }
 
 interface Props {
-    selectedItems: Item[]
-    onSelectedItem: () => void
-    onDeselectItem: (item: Item) => void
-    disabledSelect?: boolean
-    className?: string
-    addLabel?: string
-    removeLabel?: string
+    selectedItems: Item[];
+    onSelectedItem: () => void;
+    onDeselectItem: (item: Item) => void;
+    disabledSelect?: boolean;
+    className?: string;
+    addLabel?: string;
+    removeLabel?: string;
 }
 
 export class MultipleSelectBoxPanel extends React.Component<Props> {
     static defaultProps = {
         addLabel: 'Add',
         removeLabel: 'Remove',
-    }
+    };
 
     render() {
         const {
@@ -37,7 +37,7 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
             disabledSelect,
             addLabel,
             ...otherProps
-        } = this.props
+        } = this.props;
 
         return (
             <div className={classNames(styles.Container, className)}>
@@ -52,13 +52,13 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
                 </div>
                 <div className={styles.SelectedItems}>{this._renderItems()}</div>
             </div>
-        )
+        );
     }
 
     _renderItems() {
         return _.map(this.props.selectedItems, (item) => {
-            return this._renderItem(item)
-        })
+            return this._renderItem(item);
+        });
     }
 
     _renderItem(item: Item) {
@@ -72,14 +72,14 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
                     onClick={() => this._onRemoveItem(item)}
                 />
             </div>
-        )
+        );
     }
 
     _onAddItem = () => {
-        this.props.onSelectedItem()
-    }
+        this.props.onSelectedItem();
+    };
 
     _onRemoveItem(item: Item) {
-        this.props.onDeselectItem(item)
+        this.props.onDeselectItem(item);
     }
 }

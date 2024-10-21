@@ -6,5 +6,5 @@ export default function ClockIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

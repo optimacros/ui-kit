@@ -9,5 +9,5 @@ export default function AddBoldIcon({ fill = 'black', opacity = 1 }) {
         >
             <path d="M433-433H175v-94h258v-259h94v259h259v94H527v258h-94v-258Z" fill={fill} />
         </svg>
-    )
+    );
 }

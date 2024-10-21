@@ -14,5 +14,5 @@ export default function Unpin({ fill = 'black', opacity = 1 }) {
                 fillRule="evenodd"
             />
         </svg>
-    )
+    );
 }

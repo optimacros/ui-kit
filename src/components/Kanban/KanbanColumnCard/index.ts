@@ -1,1 +1,1 @@
-export * from './KanbanColumnCard'
+export * from './KanbanColumnCard';

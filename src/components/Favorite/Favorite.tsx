@@ -1,23 +1,23 @@
-import classNames from 'classnames'
-import React, { Component } from 'react'
-import { FontIcon } from 'ui-kit-core'
+import classNames from 'classnames';
+import React, { Component } from 'react';
+import { FontIcon } from 'ui-kit-core';
 
-import { WSCheckbox as Checkbox } from '../WSCheckbox'
+import { WSCheckbox as Checkbox } from '../WSCheckbox';
 
-import styles from './Favorite.module.css'
+import styles from './Favorite.module.css';
 
 interface Props {
-    checked: boolean
-    onChange: (value: boolean) => void
-    label?: string
-    className?: string
+    checked: boolean;
+    onChange: (value: boolean) => void;
+    label?: string;
+    className?: string;
 }
 
 export class Favorite extends Component<Props> {
     render() {
-        const className = classNames(styles.Container, this.props.className)
+        const className = classNames(styles.Container, this.props.className);
 
-        const iconValue = this.props.checked ? 'star' : 'star_border'
+        const iconValue = this.props.checked ? 'star' : 'star_border';
 
         return (
             <div className={className} onClick={this._onClick}>
@@ -30,10 +30,10 @@ export class Favorite extends Component<Props> {
                     <FontIcon className={styles.Icon} value={iconValue} />
                 </Checkbox>
             </div>
-        )
+        );
     }
 
     _onClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation()
-    }
+        event.stopPropagation();
+    };
 }

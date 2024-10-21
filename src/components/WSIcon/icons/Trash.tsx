@@ -12,5 +12,5 @@ export default function TrashIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

@@ -1,11 +1,11 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import PropTypes from 'prop-types'
-import { Component } from 'react'
-import { FontIcon } from 'ui-kit-core'
-import Draggable from './DraggableModalContainer'
-import ReactModal from './ReactModal'
-import styles from './Modal.module.css'
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { Component } from 'react';
+import { FontIcon } from 'ui-kit-core';
+import Draggable from './DraggableModalContainer';
+import ReactModal from './ReactModal';
+import styles from './Modal.module.css';
 
 export default class Modal extends Component {
     static propTypes = {
@@ -18,22 +18,22 @@ export default class Modal extends Component {
         customHeaderButton: PropTypes.any,
         headerClassName: PropTypes.string,
         contentClassName: PropTypes.string,
-    }
+    };
 
     static defaultProps = {
         nonDraggable: false,
         draggableTarget: `.${styles.Header}`,
-    }
+    };
 
     render() {
         const containerClassName = classNames({
             [styles.Container]: true,
             [styles.Container__compact]: this.props.compact,
-        })
+        });
         const contentClassName = classNames({
             [styles.Content]: true,
             [this.props.contentClassName]: !!this.props.contentClassName,
-        })
+        });
 
         return (
             <ReactModal
@@ -53,19 +53,19 @@ export default class Modal extends Component {
                     </div>
                 </Draggable>
             </ReactModal>
-        )
+        );
     }
 
     renderHeader() {
         if (!this.props.title) {
-            return null
+            return null;
         }
 
         const className = classNames({
             [styles.Header]: true,
             [this.props.headerClassName]: !!this.props.headerClassName,
             [styles.Header__draggable]: !this.props.nonDraggable,
-        })
+        });
 
         return (
             <div className={className}>
@@ -75,12 +75,12 @@ export default class Modal extends Component {
 
                 {this.renderCloseButton()}
             </div>
-        )
+        );
     }
 
     renderCloseButton() {
         if (!this.props.onRequestClose || this.props.isFatalError) {
-            return null
+            return null;
         }
 
         return (
@@ -91,6 +91,6 @@ export default class Modal extends Component {
                     onClick={this.props.onRequestClose}
                 />
             </div>
-        )
+        );
     }
 }

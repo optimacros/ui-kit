@@ -12,5 +12,5 @@ export default function SaveIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

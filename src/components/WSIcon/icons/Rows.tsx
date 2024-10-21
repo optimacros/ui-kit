@@ -13,5 +13,5 @@ export default function RowsIcon({ fill = 'black', opacity = 1 }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

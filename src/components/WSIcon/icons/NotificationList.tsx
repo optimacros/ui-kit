@@ -12,5 +12,5 @@ export default function NotificationListIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

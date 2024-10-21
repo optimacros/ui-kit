@@ -1,43 +1,43 @@
-import classNames from 'classnames'
-import _ from 'lodash'
-import { observer } from 'mobx-react'
-import { Component } from 'react'
+import classNames from 'classnames';
+import _ from 'lodash';
+import { observer } from 'mobx-react';
+import { Component } from 'react';
 
-import styles from './ProgressBars.module.css'
+import styles from './ProgressBars.module.css';
 
 interface ProgressBar {
-    start: () => void
-    stop: () => void
-    currentValue: number
-    maxValue: number
+    start: () => void;
+    stop: () => void;
+    currentValue: number;
+    maxValue: number;
 }
 
 interface Props {
     state: {
-        currentProgressBar: ProgressBar
-        progressBars: ProgressBar[]
-        currentIndex: number
-    }
-    className?: string
+        currentProgressBar: ProgressBar;
+        progressBars: ProgressBar[];
+        currentIndex: number;
+    };
+    className?: string;
 }
 
 @observer
 export class ProgressBars extends Component<Props> {
     render() {
         if (!this._state || !this._state.currentProgressBar) {
-            return null
+            return null;
         }
 
-        const className = classNames(styles.ProgressBarsContainer, this.props.className)
+        const className = classNames(styles.ProgressBarsContainer, this.props.className);
 
-        return <div className={className}>{this.renderProgressBars()}</div>
+        return <div className={className}>{this.renderProgressBars()}</div>;
     }
 
     renderProgressBars() {
         return _.map(this._state.progressBars, (progressBar, index) => {
-            const { currentValue, maxValue } = progressBar
-            const needRenderMessage = index === this._state.currentIndex
-            const progress = `${Math.floor((currentValue * 100) / maxValue)}%`
+            const { currentValue, maxValue } = progressBar;
+            const needRenderMessage = index === this._state.currentIndex;
+            const progress = `${Math.floor((currentValue * 100) / maxValue)}%`;
 
             return (
                 <div key={index} className={styles.ProgressBarContainer}>
@@ -54,11 +54,11 @@ export class ProgressBars extends Component<Props> {
                         }}
                     />
                 </div>
-            )
-        })
+            );
+        });
     }
 
     get _state() {
-        return this.props.state
+        return this.props.state;
     }
 }

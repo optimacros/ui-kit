@@ -1,9 +1,9 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import _ from 'lodash'
-import { PureComponent } from 'react'
+import classNames from 'classnames';
+import _ from 'lodash';
+import { PureComponent } from 'react';
 
-import styles from './Menu.module.css'
+import styles from './Menu.module.css';
 
 // Unnecessary props from rc-menu
 const EXCLUDE_PROPS = [
@@ -30,19 +30,19 @@ const EXCLUDE_PROPS = [
     'selectedKeys',
     'triggerSubMenuAction',
     'subMenuKey',
-]
+];
 
 export default class MenuItem extends PureComponent {
     render() {
-        const { className, children, label, title, onClick, ...otherProps } = this.props
+        const { className, children, label, title, onClick, ...otherProps } = this.props;
         const classNameContainer = classNames(
             {
                 [styles.MenuItem]: true,
                 [styles.MenuItem_disabled]: this.props.disabled,
             },
             className,
-        )
-        const restProps = _.omit(otherProps, EXCLUDE_PROPS)
+        );
+        const restProps = _.omit(otherProps, EXCLUDE_PROPS);
 
         return (
             <li {...restProps} className={classNameContainer}>
@@ -56,16 +56,16 @@ export default class MenuItem extends PureComponent {
                     <div className={styles.MenuItemTitleIcon} />
                 </div>
             </li>
-        )
+        );
     }
 
     onClick = (event) => {
         if (this.props.disabled) {
-            event.stopPropagation()
+            event.stopPropagation();
         }
 
         if (this.props.onClick && !this.props.disabled) {
-            this.props.onClick(this.props)
+            this.props.onClick(this.props);
         }
-    }
+    };
 }

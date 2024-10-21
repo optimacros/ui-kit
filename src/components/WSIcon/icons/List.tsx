@@ -12,5 +12,5 @@ export default function ListIcon({ fill = 'black', opacity = 1 }) {
             <path d="M0 21.4H48V26.2H0V21.4Z" fill={fill} />
             <path d="M0 35.8H48V40.6H0V35.8Z" fill={fill} />
         </svg>
-    )
+    );
 }

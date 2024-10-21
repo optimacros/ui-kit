@@ -1,34 +1,34 @@
-import React from 'react'
+import React from 'react';
 
-import { WSIcon as Icon } from '../WSIcon'
+import { WSIcon as Icon } from '../WSIcon';
 
-import styles from './FileInput.module.css'
+import styles from './FileInput.module.css';
 
 interface Props {
     state: {
-        reset?: () => void
+        reset?: () => void;
         file: {
-            lastModified: number
-            name: string
-            size: number
-        }
-    }
-    value?: string
-    filePreview?: boolean
-    labelUploadNewFile?: string
+            lastModified: number;
+            name: string;
+            size: number;
+        };
+    };
+    value?: string;
+    filePreview?: boolean;
+    labelUploadNewFile?: string;
 }
 
 export class FileInput extends React.Component<Props> {
     render() {
         if (this.props.state.file && this.props.filePreview) {
-            return this.renderFilePreview()
+            return this.renderFilePreview();
         }
 
-        return this.renderFileInput()
+        return this.renderFileInput();
     }
 
     renderFileInput() {
-        const { state, value, filePreview, labelUploadNewFile, ...otherProps } = this.props
+        const { state, value, filePreview, labelUploadNewFile, ...otherProps } = this.props;
 
         return (
             <div className={styles.UploadFieldContainer}>
@@ -38,7 +38,7 @@ export class FileInput extends React.Component<Props> {
                     <input type="file" size={100} {...otherProps} />
                 </div>
             </div>
-        )
+        );
     }
 
     renderFilePreview() {
@@ -61,12 +61,12 @@ export class FileInput extends React.Component<Props> {
                     </tbody>
                 </table>
             </div>
-        )
+        );
     }
 
     renderReset() {
         if (!this.props.state.reset) {
-            return null
+            return null;
         }
 
         return (
@@ -76,17 +76,17 @@ export class FileInput extends React.Component<Props> {
                     onClick={() => this.props.state.reset && this.props.state.reset()}
                 />
             </div>
-        )
+        );
     }
 
     // fix move this
     calculateFileSize() {
-        const symbols = ['B', 'kB', 'MB', 'GB', 'TB']
-        const { size } = this.props.state.file
+        const symbols = ['B', 'kB', 'MB', 'GB', 'TB'];
+        const { size } = this.props.state.file;
 
-        const i = Math.floor(Math.log(size) / Math.log(1024))
-        const res = size / +Math.pow(1024, i).toFixed(2)
+        const i = Math.floor(Math.log(size) / Math.log(1024));
+        const res = size / +Math.pow(1024, i).toFixed(2);
 
-        return `${res} ${symbols[i]}`
+        return `${res} ${symbols[i]}`;
     }
 }

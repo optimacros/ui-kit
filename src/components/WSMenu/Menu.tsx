@@ -1,13 +1,13 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import { PureComponent } from 'react'
+import classNames from 'classnames';
+import { PureComponent } from 'react';
 
-import styles from './Menu.module.css'
+import styles from './Menu.module.css';
 
 export default class Menu extends PureComponent {
     render() {
-        const { className, children, prefixCls, ...otherProps } = this.props
-        const classNameContainer = classNames(styles.MenuContainer, className)
+        const { className, children, prefixCls, ...otherProps } = this.props;
+        const classNameContainer = classNames(styles.MenuContainer, className);
 
         return (
             <div className={styles.MenuContainer}>
@@ -15,6 +15,6 @@ export default class Menu extends PureComponent {
                     {this.props.children}
                 </ul>
             </div>
-        )
+        );
     }
 }

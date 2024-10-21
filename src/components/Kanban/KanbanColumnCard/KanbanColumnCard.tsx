@@ -1,28 +1,28 @@
-import classNames from 'classnames'
-import { observer } from 'mobx-react'
-import React from 'react'
-import { Draggable, DraggableProvidedDraggableProps } from 'react-beautiful-dnd'
+import classNames from 'classnames';
+import { observer } from 'mobx-react';
+import React from 'react';
+import { Draggable, DraggableProvidedDraggableProps } from 'react-beautiful-dnd';
 
-import { isBig, isMedium, isSmall } from '../kanban-card-sizes'
-import { KanbanProps } from '../types'
+import { isBig, isMedium, isSmall } from '../kanban-card-sizes';
+import { KanbanProps } from '../types';
 
-import styles from './KanbanColumnCard.module.css'
+import styles from './KanbanColumnCard.module.css';
 
 type Props = Pick<KanbanProps, 'currentSizeCard' | 'isCardUpdating'> & {
-    className?: string
-    draggableId: string
-    index: number
-    value: string
-}
+    className?: string;
+    draggableId: string;
+    index: number;
+    value: string;
+};
 
 @observer
 export class KanbanColumnCard extends React.PureComponent<Props> {
-    static identifier = 'kanbanColumnCard'
+    static identifier = 'kanbanColumnCard';
 
-    static componentLabel = 'kanbanColumnCardLabel'
+    static componentLabel = 'kanbanColumnCardLabel';
 
     render() {
-        const { currentSizeCard, draggableId, index, className, value } = this.props
+        const { currentSizeCard, draggableId, index, className, value } = this.props;
 
         const classNameCardContent = classNames({
             [styles.CardContent]: true,
@@ -30,17 +30,17 @@ export class KanbanColumnCard extends React.PureComponent<Props> {
             [styles.CardContent_small]: isSmall(currentSizeCard),
             [styles.CardContent_medium]: isMedium(currentSizeCard),
             [styles.CardContent_big]: isBig(currentSizeCard),
-        })
+        });
 
         return (
             <Draggable draggableId={draggableId} index={index} isDragDisabled={this.disableCard}>
                 {(provided, snapshot) => {
-                    const classNameWrapper = classNames(styles.Wrapper, className)
+                    const classNameWrapper = classNames(styles.Wrapper, className);
 
                     const containerClassName = classNames(
                         styles.Container,
                         styles.Container_noStyle,
-                    )
+                    );
 
                     const classNameElement = classNames({
                         [styles.Item]: true,
@@ -48,9 +48,9 @@ export class KanbanColumnCard extends React.PureComponent<Props> {
                         [styles.Item_disabled]: this.disableCard,
                         [styles.Item_dragging]: snapshot.isDragging,
                         disabled: this.disableCard,
-                    })
+                    });
 
-                    const { placeholder } = provided
+                    const { placeholder } = provided;
 
                     return (
                         <div className={classNameWrapper}>
@@ -75,10 +75,10 @@ export class KanbanColumnCard extends React.PureComponent<Props> {
 
                             {placeholder}
                         </div>
-                    )
+                    );
                 }}
             </Draggable>
-        )
+        );
     }
 
     getItemStyle = (
@@ -91,10 +91,10 @@ export class KanbanColumnCard extends React.PureComponent<Props> {
 
             // styles we need to apply on draggables
             ...draggableStyle,
-        }
-    }
+        };
+    };
 
     private get disableCard() {
-        return this.props.isCardUpdating
+        return this.props.isCardUpdating;
     }
 }

@@ -1,53 +1,53 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import React from 'react'
-import { Tooltip, Dropdown } from 'ui-kit-core'
-import type { Position } from 'ui-kit-core/dist/components/Tooltip'
+import classNames from 'classnames';
+import React from 'react';
+import { Tooltip, Dropdown } from 'ui-kit-core';
+import type { Position } from 'ui-kit-core/dist/components/Tooltip';
 
-import Picker from './Picker'
+import Picker from './Picker';
 
-import style from './Color.module.css'
+import style from './Color.module.css';
 
 interface Props {
-    color: string | object
-    onChange: (color: any) => void
-    disableAlpha: boolean
-    disabled: boolean
-    title?: string
-    name?: string
-    tooltip?: string
-    tooltipPosition?: Position
+    color: string | object;
+    onChange: (color: any) => void;
+    disableAlpha: boolean;
+    disabled: boolean;
+    title?: string;
+    name?: string;
+    tooltip?: string;
+    tooltipPosition?: Position;
 }
 
 interface State {
-    visible: boolean
+    visible: boolean;
 }
 
 export class ColorPicker extends React.Component<Props, State> {
     constructor(props: Props) {
-        super(props)
+        super(props);
 
-        this.ref = React.createRef()
+        this.ref = React.createRef();
 
         this.state = {
             visible: false,
-        }
+        };
     }
 
-    ref: React.RefObject<HTMLDivElement>
+    ref: React.RefObject<HTMLDivElement>;
 
     componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside, true)
+        document.addEventListener('click', this.handleClickOutside, true);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.handleClickOutside, true)
+        document.removeEventListener('click', this.handleClickOutside, true);
     }
 
     render() {
         const align = {
             points: ['tl', 'bl'],
-        }
+        };
 
         return (
             <div>
@@ -65,21 +65,21 @@ export class ColorPicker extends React.Component<Props, State> {
                     {this.renderButton()}
                 </Dropdown>
             </div>
-        )
+        );
     }
 
     renderTitle() {
         if (!this.props.title) {
-            return null
+            return null;
         }
 
         const className = classNames({
             [style.Title]: true,
             [style.disabled]: this.props.disabled,
-        })
+        });
 
         if (this.state.visible) {
-            return <div className={className}>{this.props.title}</div>
+            return <div className={className}>{this.props.title}</div>;
         }
 
         return (
@@ -92,14 +92,14 @@ export class ColorPicker extends React.Component<Props, State> {
                     {this.props.title}
                 </Tooltip>
             </div>
-        )
+        );
     }
 
     renderButton() {
         const className = classNames({
             [style.color]: true,
             [style.disabled]: this.props.disabled,
-        })
+        });
 
         return (
             <div className={style.swatch}>
@@ -111,7 +111,7 @@ export class ColorPicker extends React.Component<Props, State> {
                     }}
                 />
             </div>
-        )
+        );
     }
 
     renderMenu() {
@@ -119,20 +119,20 @@ export class ColorPicker extends React.Component<Props, State> {
             <div className={style.picker} ref={this.ref}>
                 <Picker {...this.props} onCloseMenu={this.onCloseMenu} />
             </div>
-        )
+        );
     }
 
     handleClickOutside = (event) => {
         if (this.ref.current && !this.ref.current.contains(event.target)) {
-            this.onCloseMenu()
+            this.onCloseMenu();
         }
-    }
+    };
 
     onVisibleChange = () => {
-        this.setState({ visible: true })
-    }
+        this.setState({ visible: true });
+    };
 
     onCloseMenu = () => {
-        this.setState({ visible: false })
-    }
+        this.setState({ visible: false });
+    };
 }

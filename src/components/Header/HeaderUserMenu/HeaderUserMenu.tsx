@@ -1,12 +1,12 @@
 // @ts-nocheck
-import { ReactNode, Component } from 'react'
+import { ReactNode, Component } from 'react';
 
-import styles from './HeaderUserMenu.module.css'
+import styles from './HeaderUserMenu.module.css';
 
 interface Props {
-    className: string
-    userName: string
-    children: ReactNode
+    className: string;
+    userName: string;
+    children: ReactNode;
 }
 
 export class HeaderUserMenu extends Component<Props> {
@@ -17,7 +17,7 @@ export class HeaderUserMenu extends Component<Props> {
                     <li className={styles.headerNav_Item}>{this.renderDropDown()}</li>
                 </ul>
             </div>
-        )
+        );
     }
 
     renderDropDown() {
@@ -34,6 +34,6 @@ export class HeaderUserMenu extends Component<Props> {
                     </ul>
                 </div>
             </div>
-        )
+        );
     }
 }

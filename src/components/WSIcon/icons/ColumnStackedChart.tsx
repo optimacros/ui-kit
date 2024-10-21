@@ -22,5 +22,5 @@ export default function ColumnStackedChartIcon({ fill = 'black', opacity = 1 }) 
                 </clipPath>
             </defs>
         </svg>
-    )
+    );
 }

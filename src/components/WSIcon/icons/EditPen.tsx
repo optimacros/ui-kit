@@ -12,5 +12,5 @@ export default function EditPenIcon({ fill = 'black' }) {
                 fill={fill}
             />
         </svg>
-    )
+    );
 }

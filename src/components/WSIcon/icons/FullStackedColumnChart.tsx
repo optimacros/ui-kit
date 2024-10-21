@@ -18,5 +18,5 @@ export default function FullStackedColumnChartIcon({ fill = 'black', opacity = 1
             <path d="M25 18H32V26H25V18Z" fill={fill} />
             <path d="M25 0H32V16H25V0Z" fill={fill} />
         </svg>
-    )
+    );
 }

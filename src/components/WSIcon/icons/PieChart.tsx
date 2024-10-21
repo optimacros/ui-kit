@@ -15,5 +15,5 @@ export default function PieChartIcon({ fill = 'black', opacity = 1 }) {
             <path d="M18 3.87118H22V36.2114H18V3.87118Z" fill={fill} />
             <path d="M36.5 18V22H21.8985V18H36.5Z" fill={fill} />
         </svg>
-    )
+    );
 }

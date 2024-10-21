@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import RadioGroupComponent, { RadioGroupProps } from './RadioGroup'
-import { mergeStyles } from '../../../utils'
-import { RadioButton } from '../../RadioButton'
+import RadioGroupComponent, { RadioGroupProps } from './RadioGroup';
+import { mergeStyles } from '../../../utils';
+import { RadioButton } from '../../RadioButton';
 
-import theme from './radioGroupTheme.module.css'
+import theme from './radioGroupTheme.module.css';
 
 const RadioGroup: React.FC<RadioGroupProps> = (props) => (
     <RadioGroupComponent
@@ -12,6 +12,6 @@ const RadioGroup: React.FC<RadioGroupProps> = (props) => (
         RadioButton={RadioButton}
         theme={props.theme ? mergeStyles(props.theme, theme) : theme}
     />
-)
+);
 
-export { RadioGroup }
+export { RadioGroup };
