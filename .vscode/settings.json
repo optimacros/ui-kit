@@ -1,0 +1,9 @@
+{
+    "css.lint.unknownAtRules": "ignore",
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "quickfix.biome": "always"
+    },
+    "editor.defaultFormatter": "biomejs.biome"
+}
