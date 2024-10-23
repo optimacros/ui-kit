@@ -1,0 +1,94 @@
+.TabHeaderContainer {
+  display: flex;
+  width: 100%;
+  height: 37px;
+  max-width: 100%;
+  padding: 13px 0 0;
+  margin: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  flex-shrink: 0;
+  z-index: 1;
+
+  width: auto;
+  flex-grow: 1;
+  height: auto;
+  margin-right: 35px;
+  padding: 0;
+  align-self: stretch;
+  border-color: var(--primary-color);
+}
+
+.TabHeaderContainerScroller {
+  display: flex;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  flex-grow: 1;
+  border-bottom: 1px solid var(--tab-header-button-border);
+}
+
+.TabButton {
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 24px;
+  min-width: 39px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+
+  height: auto;
+  transition: 0.2s all;
+
+  &_Inner {
+    height: 100%;
+    padding: 0 12px 1px;
+    border-bottom: 1px solid var(--tab-header-button-border);
+    background-clip: padding-box;
+    position: relative;
+
+    background: var(--driveLanding-header-tab-bg);
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 1px 25px 0;
+    transition: 0.2s all;
+
+    &:hover {
+      background: var(--driveLanding-header-tab-bg-hover);
+    }
+  }
+
+  &_Content {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    color: var(--tab-header-button-color);
+    font-size: 1.3rem;
+    line-height: 22px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    line-height: normal;
+    font-size: 19px;
+  }
+
+  &__active {
+    & .TabButton_Inner {
+      border-bottom: 2px solid var(--tab-header-button-active-border);
+
+      background: var(--driveLanding-header-tab-bg-active);
+      padding: 0 25px;
+      border-width: 1px;
+    }
+
+    & .TabButton_Content {
+      color: var(--driveLanding-header-tab-color-active);
+    }
+  }
+}

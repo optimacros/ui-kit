@@ -1,0 +1,72 @@
+.Container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 15px 0 15px;
+  height: 65px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &:not(.Container_renaming) {
+    &:hover {
+      background-color: var(--model-row-bg-hover);
+    }
+  }
+
+  &_renaming {
+    border: 1px solid var(--model-row-bg-rename);
+  }
+
+  &_active {
+    transition: 0.4s all;
+    z-index: 1;
+    box-shadow: 0 5px 15px 0 rgba(83, 94, 110, 0.18);
+    background-color: var(--model-row-bg-hover);
+  }
+}
+
+.Image {
+  width: 27px;
+  margin-left: 38px;
+
+  & svg {
+    max-width: 27px;
+
+    & path {
+      &:nth-child(1) {
+        fill: var(--driveLanding-folder-color-hover) !important;
+      }
+
+      &:nth-child(2) {
+        fill: #ffffff !important;
+      }
+
+      &:nth-child(4) {
+        fill: var(--driveLanding-folder-color) !important;
+      }
+
+      &:nth-child(3) {
+        fill: var(--driveLanding-folder-color) !important;
+      }
+    }
+  }
+}
+
+.Name {
+  flex: 1;
+  padding: 0 5px 0 20px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--model-name-color);
+}
+
+.CountModels {
+  padding: 0 8px 0 25px;
+  font-size: 12px;
+  flex-shrink: 0;
+  color: var(--model-date-color);
+}

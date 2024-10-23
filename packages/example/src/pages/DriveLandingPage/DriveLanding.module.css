@@ -1,0 +1,25 @@
+.Container {
+  height: 100%;
+  max-height: 100%;
+  background-color: var(--driveLanding-bg);
+  overflow: hidden;
+
+  --content-width: 1fr;
+  --aside-width: 300px;
+
+  display: grid;
+  grid-template-areas: 'content aside';
+  grid-template-columns: var(--content-width) var(--aside-width);
+
+  &.Flip {
+    grid-template-areas: 'aside content';
+    grid-template-columns: var(--aside-width) var(--content-width);
+  }
+}
+
+.Main {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}

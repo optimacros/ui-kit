@@ -1,0 +1,85 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 20px 20px;
+  padding: 16px;
+  border: 1px solid var(--model-card-border-color);
+  width: calc(33% - 20px);
+  height: 180px;
+  color: #525252;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+
+  &_active {
+    transition: 0.4s all;
+    box-shadow: 0 16px 24px 0 rgba(83, 94, 110, 0.13);
+    border-color: var(--driveLanding-folder-color);
+  }
+
+  &:hover {
+    border-color: var(--driveLanding-folder-color);
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+.Image {
+  & svg {
+    display: block;
+    max-width: 60px;
+
+    & path {
+      &:nth-child(1) {
+        fill: var(--driveLanding-folder-color-hover) !important;
+      }
+
+      &:nth-child(2) {
+        fill: #ffffff !important;
+      }
+
+      &:nth-child(4) {
+        fill: var(--driveLanding-folder-color) !important;
+      }
+
+      &:nth-child(3) {
+        fill: var(--driveLanding-folder-color) !important;
+      }
+    }
+  }
+}
+
+.Name {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-overflow: ellipsis;
+  color: var(--model-name-color);
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.CountModels {
+  font-size: 12px;
+  color: var(--model-date-color);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+@media screen and (min-width: 1200px) {
+  .Container {
+    flex-basis: calc(25% - 20px);
+    max-width: calc(25% - 20px);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .Container {
+    flex-basis: calc(20% - 20px);
+    max-width: calc(20% - 20px);
+  }
+}

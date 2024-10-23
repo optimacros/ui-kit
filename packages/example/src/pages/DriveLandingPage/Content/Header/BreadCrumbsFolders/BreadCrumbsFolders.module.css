@@ -1,0 +1,40 @@
+.HeaderFolders {
+  display: flex;
+  flex-grow: 0;
+  height: 100%;
+  margin-right: 15px;
+  color: var(--driveLanding-header-accent-font);
+}
+
+.HeaderFoldersItem {
+  background: var(--secondary-color);
+  margin-right: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  padding: 0 10px;
+  max-width: 150px;
+  white-space: nowrap;
+
+  &:first-child {
+    &:last-child {
+      background: var(--secondary-color);
+    }
+  }
+
+  &:hover {
+    background: var(--driveLanding-folder-color-hover);
+  }
+
+  &_active {
+    background: var(--driveLanding-folder-color-hover);
+    cursor: default;
+  }
+}
+
+.HeaderFoldersItemText {
+  display: inline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,55 @@
+:root {
+  /* ---------------------------------------------- */
+  /* Base Color */
+  /* ---------------------------------------------- */
+  --widgets-select-box-isSelect: var(--primary-color);
+
+  /* ---------------------------------------------- */
+  /* Fonts */
+  /* ---------------------------------------------- */
+  --preferred-font: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --font-base: var(--preferred-font);
+  --fsz-def: 1.4rem;
+  --line-height-def: normal;
+  --ff-def: var(--font-base);
+
+  /* ---------------------------------------------- */
+  /* Border-radius */
+  /* ---------------------------------------------- */
+  --border-radius-min: 0;
+  --border-radius: 3px;
+  --border-radius-big: 0;
+
+  --brd-rds: var(--border-radius);
+
+  /* ------------------------------------------------------- */
+  /* Global */
+  /* ------------------------------------------------------- */
+  --wallpaper: #fafafa;
+
+  /* ------------------------------------------------------- */
+  /* Pivot */
+  /* ------------------------------------------------------- */
+  --pivot-indent: 7px;
+
+  /* ------------------------------------------------------- */
+  /* React-toolbox-components */
+  /* ------------------------------------------------------- */
+  --input-text-bottom-border-color: rgb(189, 189, 189);
+
+  /* ------------------------------------------------------- */
+  /* Grid */
+  /* ------------------------------------------------------- */
+  --small-padding-left-rowHeader: 5px;
+  --medium-padding-left-rowHeader: 10px;
+  --large-padding-left-rowHeader: 20px;
+
+  --padding-bottom-columnsHeadersRow: 7px;
+  --padding-gridCell-inner: 4px;
+
+  --grid-hidden-headers-offset: 1px;
+  /* ------------------------------------------------------- */
+
+  --global-loader-close-button-hover-bg: #eeeeee;
+  --progressbar-current-user-bg: #feff99;
+}

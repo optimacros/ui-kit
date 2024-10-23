@@ -1,0 +1,179 @@
+.Container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 15px 0 15px;
+  height: 72px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &:not(.Container_renaming) {
+    &:hover {
+      background-color: var(--model-row-bg-hover);
+    }
+  }
+
+  &_renaming {
+    border: 1px solid var(--model-row-bg-rename);
+  }
+
+  &_active {
+    transition: 0.4s all;
+    z-index: 1;
+    box-shadow: 0 5px 15px 0 rgba(83, 94, 110, 0.18);
+    background-color: var(--model-row-bg-hover);
+  }
+
+  &_offline {
+    background: var(--model-offline-background);
+
+    .Date {
+      color: var(--model-offline-date-color);
+    }
+
+    .DateCreate {
+      color: var(--model-offline-date-color);
+    }
+
+    .DateUpdate {
+      color: var(--model-offline-date-color);
+    }
+  }
+
+  &_hasPrivate {
+    .Caption {
+      padding-left: 45px;
+    }
+  }
+
+  &_isPrivate {
+    .Caption {
+      padding-left: 10px;
+    }
+  }
+
+  &:hover {
+    & .Date {
+      visibility: hidden;
+    }
+
+    & .Size {
+      visibility: hidden;
+    }
+
+    & .Status {
+      visibility: hidden;
+    }
+
+    & .DateCreate {
+      visibility: visible;
+    }
+
+    & .DateUpdate {
+      visibility: visible;
+    }
+  }
+}
+
+.Favorite {
+  margin: 0 20px 0 0;
+}
+
+.Image {
+  width: 27px;
+
+  & svg {
+    max-width: 27px;
+  }
+
+  & path {
+    stroke: var(--model-icon-color) !important;
+  }
+}
+
+.PrivateImage {
+  width: 24px;
+  margin-left: 10px;
+
+  & path {
+    fill: var(--model-icon-color) !important;
+  }
+}
+
+.Date {
+  padding: 0;
+  position: absolute;
+  top: 10px;
+  right: 23px;
+  color: var(--model-date-color);
+  font-size: 12px;
+  flex-shrink: 0;
+  order: 1;
+}
+
+.DateCreate {
+  visibility: hidden;
+  font-size: 12px;
+  color: var(--model-date-color);
+  position: absolute;
+  right: 23px;
+  top: 10px;
+}
+
+.DateUpdate {
+  visibility: hidden;
+  font-size: 12px;
+  color: var(--model-date-color);
+  position: absolute;
+  right: 23px;
+  top: 30px;
+}
+
+.Status {
+  position: absolute;
+  right: 23px;
+  top: 30px;
+  font-size: 11px;
+  color: var(--model-status-color);
+
+  &_offline {
+    color: red;
+    margin-left: 3px;
+  }
+}
+
+.Size {
+  position: absolute;
+  right: 23px;
+  top: 30px;
+  font-size: 11px;
+  color: var(--model-size-color);
+}
+
+.Caption {
+  max-width: 65%;
+  padding: 0 5px 0 20px;
+  flex-grow: 1;
+}
+
+.Name {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--model-name-color);
+}
+
+.Tags {
+}
+
+.VersionBlock {
+  font-size: 12px;
+  color: var(--model-icon-color);
+  position: absolute;
+  right: 23px;
+  top: 48px;
+}

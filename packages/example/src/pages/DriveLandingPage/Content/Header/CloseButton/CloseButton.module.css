@@ -1,0 +1,7 @@
+.CloseButton {
+  font-size: 24px;
+  cursor: pointer;
+  color: #525252;
+  margin-left: 20px;
+  margin-right: -20px;
+}

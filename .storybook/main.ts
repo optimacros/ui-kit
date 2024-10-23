@@ -1,9 +1,9 @@
-import type { StorybookConfig } from '@storybook/react-vite'
+import type { StorybookConfig } from '@storybook/react-vite';
 
-const config: StorybookConfig =  {
+const config: StorybookConfig = {
     stories: [
-        '../node_modules/ui-kit-core/**/*.stories.@(js|jsx|ts|tsx)',
-        '../src/**/*.stories.@(js|jsx|ts|tsx)',
+        '../packages/core/src/**/*.stories.@(js|jsx|ts|tsx)',
+        '../packages/main/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     addons: [
         '@storybook/addon-links',
@@ -15,12 +15,11 @@ const config: StorybookConfig =  {
         builder: '@storybook/builder-vite',
     },
     docs: {
-        autodocs: true
+        autodocs: true,
     },
-    staticDirs: [{ from: '../src/fonts', to: 'fonts' }],
     typescript: {
-        reactDocgen: 'react-docgen-typescript'
-    }
+        reactDocgen: 'react-docgen-typescript',
+    },
 };
 
-export default config
+export default config;

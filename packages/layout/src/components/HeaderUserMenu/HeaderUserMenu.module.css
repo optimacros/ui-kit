@@ -1,0 +1,11 @@
+.User {
+  display: flex;
+  align-items: center;
+  max-width: 255px;
+
+  & li > div:not([role='none']) {
+    right: 0 !important;
+    left: unset;
+    min-width: 160px;
+  }
+}

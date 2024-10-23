@@ -1,0 +1,1 @@
+export { TypeViewButton } from './TypeViewButton';

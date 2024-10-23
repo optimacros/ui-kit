@@ -1,0 +1,25 @@
+{
+    "name": "@optimacros/ui-kit-layout",
+    "private": false,
+    "version": "0.0.2",
+    "files": ["dist"],
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "start": "vite",
+        "dev": "vite",
+        "build": "tsc --p ./tsconfig-build.json && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "classnames": "2.5.1",
+        "lodash": "4.17.21",
+        "mobx": "6.9.0",
+        "mobx-react": "7.6.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-svg": "16.1.32",
+        "@optimacros/ui-kit-core": "1.1.3"
+    }
+}

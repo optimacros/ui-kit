@@ -22,4 +22,5 @@ lib
 /dist
 
 src/version.json
+lerna-debug
 

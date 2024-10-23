@@ -1,0 +1,18 @@
+.Container {
+  height: 100%;
+}
+
+.Content {
+  padding-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-left: -20px;
+}
+
+.Title {
+  padding-bottom: 16px;
+  font-size: 15px;
+  color: #929191;
+  line-height: 24px;
+}

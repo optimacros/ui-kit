@@ -1,0 +1,79 @@
+/* Сделать title через свойство компонента */
+.NavigationContainer {
+  padding: 0;
+  margin: 5px 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+
+  & > * {
+    margin: 3px 0 !important;
+
+    & * {
+      max-height: 100%;
+    }
+  }
+
+  & > *:not(:last-child) {
+    margin-right: 6px !important;
+  }
+
+  & .NavigationContainer {
+    padding: 0 !important;
+
+    & > * {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  & .Button {
+    width: auto;
+    min-width: 30px;
+    height: 24px;
+    font-size: 13px;
+
+    &:not([disabled]) {
+      &[class*='neutral'] {
+        color: var(--toolbar-icon-color);
+      }
+    }
+
+    &[class*='neutral'] {
+      &:hover {
+        color: var(--primary-text-color);
+      }
+    }
+  }
+  & [data-react-toolbox='checkbox'] {
+    & .check {
+      width: 15px;
+      height: 15px;
+
+      &:after {
+        height: 9px;
+        width: 5px;
+        top: 0;
+        left: 3px;
+      }
+    }
+
+    & .text {
+      padding-left: 7px;
+    }
+  }
+
+  &_Vertical {
+    flex-direction: column;
+
+    & > *:not(:last-child) {
+      margin-right: 0 !important;
+      margin-bottom: 6px !important;
+    }
+  }
+
+  &_Wrap {
+    flex-wrap: wrap;
+  }
+}

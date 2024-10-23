@@ -1,0 +1,45 @@
+.input {
+  padding: 16px 0;
+}
+
+.inputElement {
+  font-size: 14px;
+  color: var(--input-color);
+  border-bottom: 1px solid var(--input-border);
+
+  &:focus:not([disabled]):not([readonly]) ~ .label:not(.fixed) {
+    color: var(--input-color);
+  }
+}
+
+.bar {
+  &:before,
+  &:after {
+    height: 1px;
+    background-color: var(--input-border-focus);
+  }
+}
+
+.label {
+  color: #a7a7a7;
+  top: 0;
+  font-size: 12px;
+}
+
+.hint {
+  top: 24px;
+  left: 5px;
+  font-size: 14px;
+}
+
+.collapsed {
+  &.input {
+    padding: 0;
+  }
+
+  & .label,
+  & .hint {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

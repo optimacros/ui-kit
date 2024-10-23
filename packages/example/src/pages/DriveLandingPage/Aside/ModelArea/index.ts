@@ -1,0 +1,1 @@
+export { ModelArea } from './ModelArea';

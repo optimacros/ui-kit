@@ -1,0 +1,46 @@
+.Header {
+  display: flex;
+  padding: 16px 24px 0 8px;
+  align-items: center;
+}
+
+.IconWrapper {
+  width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.UserIcon {
+  display: block;
+  background: url('./icon-user.png') no-repeat center;
+  width: 32px;
+  height: 38px;
+}
+
+.UserArrow {
+  padding-left: 4px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.UserButton {
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover .UserArrow {
+    color: #fff;
+  }
+}
+
+.Menu {
+  & a {
+    text-decoration: none;
+    color: #666666;
+  }
+}
+
+.MenuIcon {
+  font-size: 16px;
+  padding-right: 24px;
+}

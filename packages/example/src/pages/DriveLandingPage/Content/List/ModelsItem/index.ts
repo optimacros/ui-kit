@@ -1,0 +1,1 @@
+export { ModelsItem } from './ModelsItem';

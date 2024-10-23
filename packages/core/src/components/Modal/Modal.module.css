@@ -1,0 +1,108 @@
+/* -------------------------------------------------- */
+/* Base React Modal Style */
+/* -------------------------------------------------- */
+:global(.ReactModal) {
+  &__Overlay {
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5000;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: var(--Modal-overlay-bg) !important;
+    overflow: auto;
+    overflow: overlay;
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  &__Content {
+    display: inline-block;
+    padding: 0 !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    vertical-align: middle;
+    text-align: left;
+    white-space: normal;
+    border: none !important;
+    background: none !important;
+    outline: none !important;
+    overflow: visible !important;
+    max-width: 1280px;
+  }
+}
+
+/* -------------------------------------------------- */
+/* Modal Style */
+/* -------------------------------------------------- */
+.Container {
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--light-divider-color);
+  background: var(--Modal-bg);
+  outline: none;
+  &__compact {
+    padding: 0 !important;
+    & .Header,
+    & .Content {
+      padding: 0 !important;
+    }
+  }
+}
+
+.Header {
+  display: flex;
+  padding: 14px 0;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  word-wrap: break-word;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  margin: 0 24px;
+  &_Title {
+    flex: 1;
+    padding-right: 16px;
+    align-items: center;
+    min-height: 18px;
+    line-height: 24px;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--Modal-title-color);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__draggable {
+    cursor: move;
+  }
+}
+
+.Content {
+  padding: 16px 24px 24px;
+}
+
+.CloseButton {
+  &_Icon {
+    cursor: pointer;
+    color: #c1c1c1;
+  }
+}
+
+.CustomHeaderContainer {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}

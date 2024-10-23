@@ -13,6 +13,6 @@ module.exports = {
         'postcss-nested': {},
         'postcss-normalize': {},
         'postcss-color-function': {},
-        'postcss-calc': {}
+        'postcss-calc': {},
     },
-}
+};

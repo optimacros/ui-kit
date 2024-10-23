@@ -1,0 +1,40 @@
+.Toolbar {
+  clear: both;
+  margin-top: 48px;
+
+  &__align {
+    &_left {
+      text-align: left;
+    }
+
+    &_right {
+      text-align: right;
+    }
+
+    &_center {
+      text-align: center;
+    }
+
+    &_rightInRow {
+      text-align: right;
+      margin-top: 0;
+      flex: 1;
+    }
+  }
+
+  &__small {
+    margin-top: 20px;
+  }
+
+  & > [data-react-toolbox='button'],
+  & > [data-react-toolbox='link'] {
+    display: inline-block;
+    margin: 0 .8rem 0 0;
+    text-transform: uppercase !important;
+  }
+
+  & > [data-react-toolbox='button']:last-child,
+  & > [data-react-toolbox='link']:last-child {
+    margin: 0;
+  }
+}

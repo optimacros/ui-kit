@@ -1,0 +1,245 @@
+.Container {
+  max-height: 200px;
+  height: 30px;
+  position: relative;
+  z-index: 1000;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Container_special {
+  & .Menu {
+    padding: 0;
+  }
+
+  & .MenuItem {
+    &:last-child {
+      & .Element {
+        padding-right: 16px;
+      }
+    }
+  }
+
+  & .Element_Title {
+    font-size: 14px;
+    max-width: 180px;
+  }
+}
+
+/* -------------------------------------------------- */
+/* Menu */
+/* -------------------------------------------------- */
+.Menu {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  & > li {
+    position: relative;
+  }
+}
+
+/* -------------------------------------------------- */
+/* Submenu */
+/* -------------------------------------------------- */
+.SubMenu {
+  position: absolute;
+  left: -1px;
+  z-index: 10;
+  margin: 0;
+  padding: 5px 0;
+  border: 1px solid var(--headerMenu-subMenu-border);
+  border-top: none;
+  box-shadow: 6px 8px 8px 0 var(--headerMenu-subMenu-shadow);
+  background: var(--headerMenu-subMenu-bg);
+
+  & .SubMenu {
+    position: fixed;
+    margin: -8px 0 0 0;
+    border-top: 1px solid var(--color-scale-gray-8);
+  }
+}
+
+/*
+Attribute max-width: 250px; is the correction of an error in the task :
+https://optimacros.myjetbrains.com/youtrack/issue/OM-1575
+*/
+
+.SubMenuScrollList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 420px;
+  max-width: 250px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* -------------------------------------------------- */
+/* Menu Item */
+/* -------------------------------------------------- */
+.MenuItem {
+  position: static;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 1.3rem;
+  margin: 0;
+
+  &__disabled {
+    pointer-events: none;
+    cursor: auto;
+
+    & > * {
+      opacity: 0.4;
+    }
+  }
+
+  &_parent {
+    &:not(:first-child) {
+      border-top: 1px solid var(--color-scale-gray-8) !important;
+    }
+  }
+
+  &_child {
+    padding-left: 10px !important;
+  }
+
+  & .Element_IconContainer {
+    margin-right: 5px;
+
+    svg {
+      path {
+        stroke: currentColor;
+      }
+    }
+  }
+
+  & .Element_Icon {
+    font-size: 22px;
+    color: #fff;
+  }
+
+  &:hover {
+    background: var(--headerMenu-menuItem-hover);
+  }
+
+  &:hover > .SubMenu {
+    display: block;
+  }
+}
+
+.SubMenu {
+  & .MenuItem {
+    color: var(--primary-text-color);
+    margin: 2px 0;
+    border: none;
+
+    &:hover {
+      border: none;
+      box-shadow: none;
+      background: var(--headerMenu-subMenu-menuItem-hover);
+      color: var(--primary-text-color);
+    }
+  }
+
+  & .Element_IconContainer {
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .Element_Icon {
+    font-size: 15px;
+    color: var(--headerMenu-subMenu-color);
+
+    & > div > svg {
+      width: 14px;
+      height: 14px;
+
+      & > g > path {
+        stroke: var(--headerMenu-subMenu-color);
+      }
+    }
+  }
+}
+
+/* -------------------------------------------------- */
+/* Element */
+/* -------------------------------------------------- */
+.ElementContainer {
+  padding: 4px 8px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.Element {
+  height: 30px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+
+  &_IconContainer {
+    width: auto;
+    text-align: center;
+  }
+
+  &_Icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
+
+    & img {
+      max-width: 18px;
+      max-height: 18px;
+    }
+  }
+
+  &_Title {
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 13px;
+    max-width: 180px;
+  }
+
+  &_Arrow {
+    font-size: 15px;
+    color: var(--primary-text-color);
+  }
+}
+
+.SubMenu {
+  & .Element {
+    color: var(--headerMenu-subMenu-color);
+    padding: 8px 4px 8px 32px;
+
+    &_withIcon {
+      padding-left: 0;
+    }
+
+    &_IconContainer {
+      width: 32px;
+    }
+
+    &_Title {
+      margin-right: 20px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
