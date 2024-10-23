@@ -254,6 +254,7 @@ export class TabHeader extends Component<Props> {
 
     renderIcon = tab => {
         if (tab.props.icon) {
+            //TODO: rewrite
             return <Icon className={styles.Icon} {...(typeof tab.props.icon === 'string' ? { value: tab.props.icon }: { ...tab.props.icon, value: tab.props.icon.name })} />
         }
     }
