@@ -1,1 +1,1 @@
-export { Kanban } from './Kanban'
+export { Kanban } from './Kanban';

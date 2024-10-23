@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-let customChecker
+let customChecker;
 
 /**
  *  Sets customChecker which will be used for all components.
@@ -8,7 +8,7 @@ let customChecker
  * @param providedChecker {Function} - Checker function
  */
 export function overrideComponentTypeChecker(providedChecker) {
-    customChecker = providedChecker
+    customChecker = providedChecker;
 }
 
 /**
@@ -20,10 +20,10 @@ export function overrideComponentTypeChecker(providedChecker) {
 export function defaultChecker(classType, reactElement) {
     if (process.env.NODE_ENV !== 'production') {
         // https://github.com/gaearon/react-hot-loader/blob/v3.0.0-beta.7/docs/Known%20Limitations.md#checking-element-types
-        classType = React.createElement(classType).type
+        classType = React.createElement(classType).type;
     }
 
-    return reactElement && reactElement.type === classType
+    return reactElement && reactElement.type === classType;
 }
 
 /**
@@ -35,5 +35,5 @@ export function defaultChecker(classType, reactElement) {
 export default function isComponentOfType(classType, reactElement) {
     return customChecker
         ? customChecker(classType, reactElement)
-        : defaultChecker(classType, reactElement)
+        : defaultChecker(classType, reactElement);
 }

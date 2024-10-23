@@ -1,1 +1,1 @@
-export * from './useTextShortener'
+export * from './useTextShortener';

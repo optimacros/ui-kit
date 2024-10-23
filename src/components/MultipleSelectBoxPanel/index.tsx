@@ -1,20 +1,20 @@
-import classNames from 'classnames'
-import _ from 'lodash'
-import React, { ReactNode } from 'react'
-import { IconButton } from 'ui-kit-core'
+import classNames from 'classnames';
+import _ from 'lodash';
+import React, { ReactNode } from 'react';
+import { IconButton } from 'ui-kit-core';
 
-import styles from './SelectboxPanel.module.css'
+import styles from './SelectboxPanel.module.css';
 
 interface Item {
-    value: string
-    label: string
+    value: string;
+    label: string;
 }
 
 interface Props {
     selectedItems: Item[];
     onSelectedItem: () => void;
     onDeselectItem: (item: Item) => void;
-    children: (props:any) => ReactNode;
+    children: (props: any) => ReactNode;
     disabledSelect?: boolean;
     className?: string;
     addLabel?: string;
@@ -25,7 +25,7 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
     static defaultProps = {
         addLabel: 'Add',
         removeLabel: 'Remove',
-    }
+    };
 
     render() {
         const {
@@ -37,7 +37,7 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
             addLabel,
             children,
             ...otherProps
-        } = this.props
+        } = this.props;
 
         return (
             <div className={classNames(styles.Container, className)}>
@@ -52,13 +52,13 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
                 </div>
                 <div className={styles.SelectedItems}>{this._renderItems()}</div>
             </div>
-        )
+        );
     }
 
     _renderItems() {
         return _.map(this.props.selectedItems, (item) => {
-            return this._renderItem(item)
-        })
+            return this._renderItem(item);
+        });
     }
 
     _renderItem(item: Item) {
@@ -72,14 +72,14 @@ export class MultipleSelectBoxPanel extends React.Component<Props> {
                     onClick={() => this._onRemoveItem(item)}
                 />
             </div>
-        )
+        );
     }
 
     _onAddItem = () => {
-        this.props.onSelectedItem()
-    }
+        this.props.onSelectedItem();
+    };
 
     _onRemoveItem(item: Item) {
-        this.props.onDeselectItem(item)
+        this.props.onDeselectItem(item);
     }
 }

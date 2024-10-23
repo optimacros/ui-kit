@@ -1,12 +1,12 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import { marked } from 'marked'
-import React from 'react'
-import { ResizableBox } from 'react-resizable'
+import classNames from 'classnames';
+import { marked } from 'marked';
+import React from 'react';
+import { ResizableBox } from 'react-resizable';
 
-import { Tab, TabHeader } from '../Tabs'
+import { Tab, TabHeader } from '../Tabs';
 
-import styles from './MarkdownEditor.module.css'
+import styles from './MarkdownEditor.module.css';
 
 interface Props {
     onChange: (value: string) => void;
@@ -20,7 +20,7 @@ interface Props {
 }
 
 interface State {
-    activeTab: number
+    activeTab: number;
 }
 
 export class MarkdownEditor extends React.Component<Props, State> {
@@ -28,13 +28,13 @@ export class MarkdownEditor extends React.Component<Props, State> {
         editTabLabel: 'Editor',
         previewTabLabel: 'Preview',
         splitTabLabel: 'Split',
-    }
+    };
 
     state = {
         activeTab: 2,
-    }
+    };
 
-    _editorTextarea: HTMLTextAreaElement | null | undefined
+    _editorTextarea: HTMLTextAreaElement | null | undefined;
 
     render() {
         const className = classNames({
@@ -45,12 +45,12 @@ export class MarkdownEditor extends React.Component<Props, State> {
             [styles.MarkdownEditor_edit]: this.state.activeTab === 0,
             [styles.MarkdownEditor_preview]: this.state.activeTab === 1,
             [styles.MarkdownEditor_split]: this.state.activeTab === 2,
-        })
+        });
 
         const classNameHtml = classNames({
             Markdown: true,
             [styles.MarkdownEditorHtml]: true,
-        })
+        });
 
         return (
             <div className={className}>
@@ -63,7 +63,6 @@ export class MarkdownEditor extends React.Component<Props, State> {
                         <Tab title={this.props.editTabLabel} />
                         <Tab title={this.props.previewTabLabel} />
                         <Tab title={this.props.splitTabLabel} />
-
                     </TabHeader>
                 </div>
 
@@ -80,7 +79,7 @@ export class MarkdownEditor extends React.Component<Props, State> {
                         onChange={this._onValueChange}
                         onKeyDown={this._onPressTab}
                         ref={(node) => {
-                            this._editorTextarea = node
+                            this._editorTextarea = node;
                         }}
                     />
 
@@ -92,38 +91,38 @@ export class MarkdownEditor extends React.Component<Props, State> {
                     />
                 </ResizableBox>
             </div>
-        )
+        );
     }
 
     _onValueChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        this.props.onChange(event.target.value)
-    }
+        this.props.onChange(event.target.value);
+    };
 
     _onPressTab = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Tab') {
-            event.preventDefault()
-            const { value } = this.props
-            const start = event.target.selectionStart
-            const end = event.target.selectionEnd
+            event.preventDefault();
+            const { value } = this.props;
+            const start = event.target.selectionStart;
+            const end = event.target.selectionEnd;
 
-            this.props.onChange(`${value.substring(0, start)}\t${value.substring(end)}`)
+            this.props.onChange(`${value.substring(0, start)}\t${value.substring(end)}`);
 
             setTimeout(() => {
                 if (this._editorTextarea) {
-                    this._editorTextarea.selectionStart = start + 1
-                    this._editorTextarea.selectionEnd = start + 1
+                    this._editorTextarea.selectionStart = start + 1;
+                    this._editorTextarea.selectionEnd = start + 1;
                 }
-            })
+            });
         }
-    }
+    };
 
     _onTabChange = (index: number) => {
         this.setState({
             activeTab: index,
-        })
-    }
+        });
+    };
 
     get formatValue() {
-        return marked(this.props.value, { sanitize: true })
+        return marked(this.props.value, { sanitize: true });
     }
 }

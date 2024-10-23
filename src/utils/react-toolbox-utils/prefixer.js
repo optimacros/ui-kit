@@ -1,46 +1,46 @@
-const WEBKIT = 'Webkit'
-const MICROSOFT = 'Ms'
+const WEBKIT = 'Webkit';
+const MICROSOFT = 'Ms';
 
 const properties = {
     transform: [WEBKIT, MICROSOFT],
-}
+};
 
 function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.substr(1)
+    return string.charAt(0).toUpperCase() + string.substr(1);
 }
 
 function getPrefixes(property, value) {
     return properties[property].reduce((acc, item) => {
-        acc[`${item}${capitalize(property)}`] = value
+        acc[`${item}${capitalize(property)}`] = value;
 
-        return acc
-    }, {})
+        return acc;
+    }, {});
 }
 
 function addPrefixesTo(style, property, value) {
-    const vendor = getPrefixes(property, value)
+    const vendor = getPrefixes(property, value);
     for (const prefix in vendor) {
         if ({}.hasOwnProperty.call(vendor, prefix)) {
-            style[prefix] = vendor[prefix]
+            style[prefix] = vendor[prefix];
         }
     }
 
-    return style
+    return style;
 }
 
 function prefixer(style, defaultValue = {}) {
-    const _style = defaultValue
+    const _style = defaultValue;
     for (const property in style) {
         if ({}.hasOwnProperty.call(style, property)) {
-            _style[property] = style[property]
+            _style[property] = style[property];
 
             if (properties[property]) {
-                addPrefixesTo(_style, property, style[property])
+                addPrefixesTo(_style, property, style[property]);
             }
         }
     }
 
-    return _style
+    return _style;
 }
 
-export default prefixer
+export default prefixer;

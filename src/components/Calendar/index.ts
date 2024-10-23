@@ -1,2 +1,2 @@
-export * from './Calendar'
-export * from './CalendarContent'
+export * from './Calendar';
+export * from './CalendarContent';

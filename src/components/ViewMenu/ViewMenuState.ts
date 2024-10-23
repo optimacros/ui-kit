@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { action, computed, observable, makeObservable } from 'mobx'
+import { action, computed, observable, makeObservable } from 'mobx';
 
-import { COUNT_MAX_ELEMENTS, ELEMENT_HEIGHT } from './constants'
+import { COUNT_MAX_ELEMENTS, ELEMENT_HEIGHT } from './constants';
 
 /**
  * TODO:
@@ -10,77 +10,77 @@ import { COUNT_MAX_ELEMENTS, ELEMENT_HEIGHT } from './constants'
  */
 export default class ViewMenuState {
     constructor({ totalCount, getElements, scrollToPosition }) {
-        this._totalCount = totalCount
-        this._getElements = getElements
+        this._totalCount = totalCount;
+        this._getElements = getElements;
 
         if (scrollToPosition) {
-            this.needScrollToPosition = true
-            this.scrollToPosition = scrollToPosition
+            this.needScrollToPosition = true;
+            this.scrollToPosition = scrollToPosition;
         }
 
-        makeObservable(this)
+        makeObservable(this);
     }
 
-    @observable scrollTopPosition = 0
+    @observable scrollTopPosition = 0;
 
-    @observable needScrollToPosition = false
+    @observable needScrollToPosition = false;
 
-    @observable scrollToPosition = 0
+    @observable scrollToPosition = 0;
 
-    @observable _totalCount = 0
+    @observable _totalCount = 0;
 
-    _mouseScroll = false
+    _mouseScroll = false;
 
     @action updateTotalCount(value) {
-        this._totalCount = value
+        this._totalCount = value;
     }
 
     @action setNeedScrollToPosition(value) {
-        this.needScrollToPosition = value
+        this.needScrollToPosition = value;
     }
 
     @action resetScroll() {
-        this.scrollTopPosition = 0
+        this.scrollTopPosition = 0;
     }
 
     @action setScrollPosition(scrollTop) {
-        this.scrollTopPosition = scrollTop
+        this.scrollTopPosition = scrollTop;
 
         if (this._getElements) {
-            const { start, count } = this.visibleArea
+            const { start, count } = this.visibleArea;
 
             this._getElements({
                 start,
                 count,
                 passive: this._mouseScroll,
-            })
+            });
         }
     }
 
     @action turnOnMouseScroll() {
-        this._mouseScroll = true
+        this._mouseScroll = true;
     }
 
     @action turnOffMouseScroll() {
-        this._mouseScroll = false
+        this._mouseScroll = false;
     }
 
     @computed get visibleArea() {
         return {
             start: this.startPosition,
             count: COUNT_MAX_ELEMENTS,
-        }
+        };
     }
 
     @computed get scrollPositionForFirstScroll() {
-        return this.scrollToPosition * ELEMENT_HEIGHT
+        return this.scrollToPosition * ELEMENT_HEIGHT;
     }
 
     @computed get startPosition() {
-        return Math.ceil(this.scrollTopPosition / ELEMENT_HEIGHT)
+        return Math.ceil(this.scrollTopPosition / ELEMENT_HEIGHT);
     }
 
     get heightScrollContainer() {
-        return this._totalCount * ELEMENT_HEIGHT
+        return this._totalCount * ELEMENT_HEIGHT;
     }
 }

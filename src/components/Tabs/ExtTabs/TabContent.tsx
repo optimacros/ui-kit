@@ -1,10 +1,10 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import _ from 'lodash'
-import React, { Component, ReactNode } from 'react'
-import { mergeStyles } from 'ui-kit-core'
+import classNames from 'classnames';
+import _ from 'lodash';
+import { Component, ReactNode } from 'react';
+import { mergeStyles } from 'ui-kit-core';
 
-import styles from './TabContent.module.css'
+import styles from './TabContent.module.css';
 
 interface Theme {
     TabContent?: string;
@@ -24,32 +24,29 @@ export class TabContent extends Component<Props> {
             /* eslint-disable */
             TabContent_Inner: 'TabContent__TabContent_Inner',
         },
-    }
+    };
 
     render() {
-        const theme = mergeStyles(this.props.theme, styles)
-        const className = classNames((theme as Theme).TabContent, this.props.className)
+        const theme = mergeStyles(this.props.theme, styles);
+        const className = classNames((theme as Theme).TabContent, this.props.className);
 
-        return <div className={className}>{this.renderPanel()}</div>
+        return <div className={className}>{this.renderPanel()}</div>;
     }
 
     renderPanel() {
-        const { active } = this.props
-        const theme = mergeStyles(this.props.theme, styles) as Theme
+        const { active } = this.props;
+        const theme = mergeStyles(this.props.theme, styles) as Theme;
 
         return _.map(this.props.children, (panel, index) => {
             if (active !== index) {
-                return null
+                return null;
             }
 
             return (
-                <div
-                    key={`panel-${index}`}
-                    className={theme.TabContent_Inner}
-                >
+                <div key={`panel-${index}`} className={theme.TabContent_Inner}>
                     {panel}
                 </div>
-            )
-        })
+            );
+        });
     }
 }

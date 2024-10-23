@@ -1,17 +1,17 @@
-import classNames from 'classnames'
-import { observer } from 'mobx-react'
-import React, { JSX } from 'react'
-import { Droppable } from 'react-beautiful-dnd'
+import classNames from 'classnames';
+import { observer } from 'mobx-react';
+import React, { JSX } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 
-import styles from './KanbanColumnDndZone.module.css'
+import styles from './KanbanColumnDndZone.module.css';
 
 interface Props {
-    droppableId: string
-    className?: string
-    direction?: string
-    isStatic?: boolean
-    column: string
-    children: JSX.Element[] | JSX.Element
+    droppableId: string;
+    className?: string;
+    direction?: string;
+    isStatic?: boolean;
+    column: string;
+    children: JSX.Element[] | JSX.Element;
 }
 
 enum Direction {
@@ -21,17 +21,17 @@ enum Direction {
 
 @observer
 export class KanbanColumnDndZone extends React.PureComponent<Props> {
-    static identifier = 'kanbanColumnDndZone'
+    static identifier = 'kanbanColumnDndZone';
 
-    static componentLabel = 'kanbanColumnDndZoneLabel'
+    static componentLabel = 'kanbanColumnDndZoneLabel';
 
     render() {
-        const { className, column, children, droppableId, isStatic } = this.props
+        const { className, column, children, droppableId, isStatic } = this.props;
 
         return (
             <Droppable direction={this.direction} droppableId={droppableId}>
                 {(provided, snapshot) => {
-                    const dragAndDropIsOver: boolean = !isStatic && snapshot.isDraggingOver
+                    const dragAndDropIsOver: boolean = !isStatic && snapshot.isDraggingOver;
 
                     const containerClassName = classNames(
                         {
@@ -42,7 +42,7 @@ export class KanbanColumnDndZone extends React.PureComponent<Props> {
                             [`axisLabels--${column}`]: true,
                         },
                         className,
-                    )
+                    );
 
                     return (
                         <div className={containerClassName}>
@@ -60,17 +60,17 @@ export class KanbanColumnDndZone extends React.PureComponent<Props> {
                                 </div>
                             </div>
                         </div>
-                    )
+                    );
                 }}
             </Droppable>
-        )
+        );
     }
 
     get direction(): Direction {
         if (this.props.direction == Direction.X) {
-            return Direction.X
+            return Direction.X;
         }
 
-        return Direction.Y
+        return Direction.Y;
     }
 }

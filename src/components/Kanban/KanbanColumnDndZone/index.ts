@@ -1,1 +1,1 @@
-export * from './KanbanColumnDndZone'
+export * from './KanbanColumnDndZone';
