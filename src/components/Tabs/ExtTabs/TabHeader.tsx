@@ -1,14 +1,14 @@
 // @ts-nocheck
-import classNames from 'classnames'
-import _ from 'lodash'
-import { observer } from 'mobx-react'
-import React, { Component } from 'react'
-import { ButtonMenu, mergeStyles, Icon } from 'ui-kit-core'
+import classNames from 'classnames';
+import _ from 'lodash';
+import { observer } from 'mobx-react';
+import React, { Component } from 'react';
+import { ButtonMenu, mergeStyles, Icon, MenuItem } from 'ui-kit-core';
 
-import { TabHeaderState } from './TabHeaderState'
-import { KEY_CODES } from '../../../constants'
+import { TabHeaderState } from './TabHeaderState';
+import { KEY_CODES } from '../../../constants';
 
-import styles from './TabHeader.module.css'
+import styles from './TabHeader.module.css';
 
 interface Props {
     draggable?: boolean;
@@ -44,81 +44,81 @@ export class TabHeader extends Component<Props> {
             TabButton__disabled: 'TabHeader__TabButton__disabled',
             TabButtonCounter: 'TabHeader__TabButtonCounter',
         },
-    }
+    };
 
     constructor(props: Props) {
-        super(props)
+        super(props);
 
-        this._state = new TabHeaderState()
-        this._scrollableTabsNodes = []
-        this._dragTarget = null
-        this._space = 10
+        this._state = new TabHeaderState();
+        this._scrollableTabsNodes = [];
+        this._dragTarget = null;
+        this._space = 10;
     }
 
-    _state: TabHeaderState
+    _state: TabHeaderState;
 
-    _scrollableTabsNodes: React.ReactNode
+    _scrollableTabsNodes: React.ReactNode;
 
-    _dragTarget: HTMLElement | null
+    _dragTarget: HTMLElement | null;
 
-    _space: number
+    _space: number;
 
     componentDidMount() {
-        this._state.setActiveTab(this.props.active)
-        this._state.setTabsChildren(this.props.children)
+        this._state.setActiveTab(this.props.active);
+        this._state.setTabsChildren(this.props.children);
 
         // setTimeout для получения верных значений getBoundingClientRect
         setTimeout(() => {
-            this._state.setScrollableTabsNodes(this._scrollableTabsNodes)
+            this._state.setScrollableTabsNodes(this._scrollableTabsNodes);
             // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
-            this._state.scrollToActiveTab()
-        }, 100)
+            this._state.scrollToActiveTab();
+        }, 100);
 
         if (this.props.draggable) {
-            window.addEventListener('mousemove', this._onMouseMove)
-            window.addEventListener('mouseup', this._onMouseUp)
+            window.addEventListener('mousemove', this._onMouseMove);
+            window.addEventListener('mouseup', this._onMouseUp);
         }
     }
 
     componentWillUnmount() {
         if (this.props.draggable) {
-            window.removeEventListener('mousemove', this._onMouseMove)
-            window.removeEventListener('mouseup', this._onMouseUp)
+            window.removeEventListener('mousemove', this._onMouseMove);
+            window.removeEventListener('mouseup', this._onMouseUp);
         }
     }
 
     componentDidUpdate(prevProps: Props) {
         if (!_.isEqual(prevProps.children, this.props.children)) {
-            this._state.setTabsChildren(this.props.children)
+            this._state.setTabsChildren(this.props.children);
 
             // setTimeout для получения верных значений getBoundingClientRect
             // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
             setTimeout(() => {
-                this._state.setScrollableTabsNodes(this._scrollableTabsNodes)
-                this._state.scrollToActiveTab()
-            }, 100)
+                this._state.setScrollableTabsNodes(this._scrollableTabsNodes);
+                this._state.scrollToActiveTab();
+            }, 100);
         }
 
         if (this.props.active != prevProps.active) {
-            this._state.setActiveTab(this.props.active)
-            this._state.scrollToActiveTab()
+            this._state.setActiveTab(this.props.active);
+            this._state.scrollToActiveTab();
         }
 
         if (this.props.draggable && this._dragTarget) {
-            const { tabsScrollerNode } = this._state
+            const { tabsScrollerNode } = this._state;
 
             this._dragTarget.offsetLeft =
-                tabsScrollerNode.children[this._dragTarget.index].offsetLeft
+                tabsScrollerNode.children[this._dragTarget.index].offsetLeft;
         }
     }
 
     render() {
-        const theme = mergeStyles(this.props.theme, styles)
+        const theme = mergeStyles(this.props.theme, styles);
         const className = classNames(
             theme.TabHeaderContainer,
             !this._state.countScrollableTabs && styles.TabHeaderContainer_noScroller,
             this.props.className,
-        )
+        );
 
         return (
             <nav className={className}>
@@ -126,12 +126,12 @@ export class TabHeader extends Component<Props> {
                 {this.renderScroller()}
                 {this.renderDropdown()}
             </nav>
-        )
+        );
     }
 
     renderScroller() {
         if (!this._state.countScrollableTabs) {
-            return null
+            return null;
         }
 
         return (
@@ -143,36 +143,36 @@ export class TabHeader extends Component<Props> {
             >
                 {this.renderTabsHeaderButton(true)}
             </div>
-        )
+        );
     }
 
     renderTabsHeaderButton(isScrollableTabs) {
-        const theme = mergeStyles(this.props.theme, styles)
+        const theme = mergeStyles(this.props.theme, styles);
         const { scrollableTabsChildren, fixedTabsChildren, countFixedTabs, countScrollableTabs } =
-            this._state
-        const tabs = isScrollableTabs ? scrollableTabsChildren : fixedTabsChildren
+            this._state;
+        const tabs = isScrollableTabs ? scrollableTabsChildren : fixedTabsChildren;
 
         if (_.isEmpty(tabs)) {
-            return null
+            return null;
         }
 
         return _.map(tabs, (tab, index) => {
-            const position = isScrollableTabs ? index + countFixedTabs : index
+            const position = isScrollableTabs ? index + countFixedTabs : index;
 
             if (_.isEmpty(tab)) {
-                return null
+                return null;
             }
 
-            const { dataName, disabled, nonDraggable, title, label } = tab.props
+            const { dataName, disabled, nonDraggable, title, label } = tab.props;
 
-            const isDisabled = disabled || false
+            const isDisabled = disabled || false;
 
-            const styleContainer = {}
-            const style = {}
+            const styleContainer = {};
+            const style = {};
             const isDraggableTab =
-                !nonDraggable && this._dragTarget && this._dragTarget.index === index
-            const isActive = this.props.active === position
-            const elementTitle = title || label
+                !nonDraggable && this._dragTarget && this._dragTarget.index === index;
+            const isActive = this.props.active === position;
+            const elementTitle = title || label;
 
             const className = classNames(
                 {
@@ -182,24 +182,24 @@ export class TabHeader extends Component<Props> {
                     [theme.TabButton__disabled]: isDisabled,
                 },
                 tab.props.className,
-            )
+            );
 
-            styleContainer.zIndex = countScrollableTabs - index
-            style.transform = 'translateX(0)'
+            styleContainer.zIndex = countScrollableTabs - index;
+            style.transform = 'translateX(0)';
 
             if (this._dragTarget && this._dragTarget.index === index) {
-                styleContainer.zIndex = countScrollableTabs + 1
-                style.transform = `translateX(${this._dragTarget.moveX})`
+                styleContainer.zIndex = countScrollableTabs + 1;
+                style.transform = `translateX(${this._dragTarget.moveX})`;
             }
 
             if (tab.props.nonDraggable) {
-                style.transform = 'translateX(0)'
+                style.transform = 'translateX(0)';
             }
 
             const classNameTabButtonInner = classNames({
                 [theme.TabButton_Inner]: true,
                 [theme.TabButton_Inner_narrow]: this.props.hasNarrowTabs,
-            })
+            });
 
             const tabButtonInnerProps = {
                 className: classNameTabButtonInner,
@@ -208,14 +208,14 @@ export class TabHeader extends Component<Props> {
                 onMouseDown:
                     isDisabled || !isScrollableTabs
                         ? null
-                        : event => this._onMouseDown(event, index),
-                onContextMenu: isDisabled ? null : event => this._onHeaderContextMenu(event, tab),
-            }
+                        : (event) => this._onMouseDown(event, index),
+                onContextMenu: isDisabled ? null : (event) => this._onHeaderContextMenu(event, tab),
+            };
 
             if (isScrollableTabs) {
                 this._scrollableTabsNodes[index] =
-                    this._scrollableTabsNodes[index] || React.createRef()
-                tabButtonInnerProps.ref = this._scrollableTabsNodes[index]
+                    this._scrollableTabsNodes[index] || React.createRef();
+                tabButtonInnerProps.ref = this._scrollableTabsNodes[index];
             }
 
             return (
@@ -225,7 +225,7 @@ export class TabHeader extends Component<Props> {
                     data-name={dataName}
                     style={styleContainer}
                     tabIndex={0}
-                    onKeyDown={event => this._onKeyPress(event, position)}
+                    onKeyDown={(event) => this._onKeyPress(event, position)}
                 >
                     <div {...tabButtonInnerProps}>
                         <div
@@ -238,33 +238,40 @@ export class TabHeader extends Component<Props> {
                         </div>
                     </div>
                 </div>
-            )
-        })
+            );
+        });
     }
 
     renderCounter(tab) {
-        const theme = mergeStyles(this.props.theme, styles)
+        const theme = mergeStyles(this.props.theme, styles);
 
         if (!tab.props.counter) {
-            return null
+            return null;
         }
 
-        return <span className={theme.TabButtonCounter}>{tab.props.counter}</span>
+        return <span className={theme.TabButtonCounter}>{tab.props.counter}</span>;
     }
 
-    renderIcon = tab => {
+    renderIcon = (tab) => {
         if (tab.props.icon) {
             //TODO: rewrite
-            return <Icon className={styles.Icon} {...(typeof tab.props.icon === 'string' ? { value: tab.props.icon }: { ...tab.props.icon, value: tab.props.icon.name })} />
+            return (
+                <Icon
+                    className={styles.Icon}
+                    {...(typeof tab.props.icon === 'string'
+                        ? { value: tab.props.icon }
+                        : { ...tab.props.icon, value: tab.props.icon.name })}
+                />
+            );
         }
-    }
+    };
 
     renderDropdown() {
         if (_.isEmpty(this._state.hiddenTabs)) {
-            return null
+            return null;
         }
 
-        const theme = mergeStyles(this.props.theme, styles)
+        const theme = mergeStyles(this.props.theme, styles);
 
         return (
             <div className={styles.Dropdown}>
@@ -279,16 +286,16 @@ export class TabHeader extends Component<Props> {
                     {this.renderDropdownList()}
                 </ButtonMenu>
             </div>
-        )
+        );
     }
 
     renderDropdownList() {
         return _.map(this._state.hiddenTabs, (element, index) => {
-            const { content, active, position, disabled } = element
+            const { content, active, position, disabled } = element;
             const className = classNames({
                 [styles.DropdownButtonElement]: true,
                 [styles.DropdownButtonElement_active]: active,
-            })
+            });
 
             return (
                 <MenuItem
@@ -300,50 +307,50 @@ export class TabHeader extends Component<Props> {
                 >
                     {content}
                 </MenuItem>
-            )
-        })
+            );
+        });
     }
 
     _onKeyPress(event, position) {
-        const { SPACE, ENTER } = KEY_CODES
+        const { SPACE, ENTER } = KEY_CODES;
 
-        this._state.scrollToTab(position)
+        this._state.scrollToTab(position);
 
         if (event.keyCode === SPACE || event.keyCode === ENTER) {
-            event.preventDefault()
+            event.preventDefault();
 
-            this.props.onTabSwitch(position)
+            this.props.onTabSwitch(position);
         }
     }
 
-    _setTabsScrollerNode = node => {
-        this._state.setTabsScrollerNode(node)
-    }
+    _setTabsScrollerNode = (node) => {
+        this._state.setTabsScrollerNode(node);
+    };
 
     _switchTab(index) {
         if (this.props.active != index) {
-            this.props.onTabSwitch(index)
+            this.props.onTabSwitch(index);
         } else {
-            this._state.scrollToActiveTab()
+            this._state.scrollToActiveTab();
         }
     }
 
     _onWheel = ({ deltaY }) => {
-        const increment = deltaY > 0 ? 1 : -1
-        const newIndex = this._state.countScrolledTabs + increment
+        const increment = deltaY > 0 ? 1 : -1;
+        const newIndex = this._state.countScrolledTabs + increment;
 
-        this._state.scrollToTab(newIndex)
-    }
+        this._state.scrollToTab(newIndex);
+    };
 
     _onScroll = () => {
-        this._state.setScrollLeft()
-    }
+        this._state.setScrollLeft();
+    };
 
     _onHeaderContextMenu = (event, tab) => {
         if (tab.props.onHeaderContextMenu) {
-            tab.props.onHeaderContextMenu(event)
+            tab.props.onHeaderContextMenu(event);
         }
-    }
+    };
 
     _onMouseDown = (event, index) => {
         this._dragTarget = {
@@ -351,64 +358,64 @@ export class TabHeader extends Component<Props> {
             moveX: `${event.currentTarget.offsetLeft}px`,
             mouseX: event.pageX,
             index: index,
-        }
-    }
+        };
+    };
 
     _onMouseUp = () => {
-        this._dragTarget = null
-        this.forceUpdate()
-    }
+        this._dragTarget = null;
+        this.forceUpdate();
+    };
 
-    _onMouseMove = event => {
+    _onMouseMove = (event) => {
         if (this._dragTarget) {
-            event.preventDefault()
-            event.stopPropagation()
+            event.preventDefault();
+            event.stopPropagation();
 
-            const { tabsScrollerNode, countScrollableTabs, countFixedTabs } = this._state
-            const dragTarget = this._dragTarget
-            const isFirstTab = dragTarget.index == 0
-            const isLastTab = dragTarget.index + 1 >= countScrollableTabs
-            const prevTab = tabsScrollerNode.children[dragTarget.index - 1]
-            const nextTab = tabsScrollerNode.children[dragTarget.index + 1]
-            const offsetMouseX = dragTarget.mouseX - dragTarget.offsetLeft
-            let realDragTargetIndex = countFixedTabs + dragTarget.index
+            const { tabsScrollerNode, countScrollableTabs, countFixedTabs } = this._state;
+            const dragTarget = this._dragTarget;
+            const isFirstTab = dragTarget.index == 0;
+            const isLastTab = dragTarget.index + 1 >= countScrollableTabs;
+            const prevTab = tabsScrollerNode.children[dragTarget.index - 1];
+            const nextTab = tabsScrollerNode.children[dragTarget.index + 1];
+            const offsetMouseX = dragTarget.mouseX - dragTarget.offsetLeft;
+            let realDragTargetIndex = countFixedTabs + dragTarget.index;
 
-            const minMoveX = isFirstTab ? 0 : -(Math.round(prevTab.clientWidth) / 2 + this._space)
+            const minMoveX = isFirstTab ? 0 : -(Math.round(prevTab.clientWidth) / 2 + this._space);
 
-            const maxMoveX = isLastTab ? 0 : Math.round(nextTab.clientWidth) / 2 + this._space
+            const maxMoveX = isLastTab ? 0 : Math.round(nextTab.clientWidth) / 2 + this._space;
 
-            let moveX = event.pageX - dragTarget.mouseX
+            let moveX = event.pageX - dragTarget.mouseX;
 
             if (moveX <= minMoveX) {
                 if (!isFirstTab && this.isDraggable(realDragTargetIndex - 1)) {
-                    moveX = prevTab.clientWidth - Math.abs(moveX)
-                    this._dragTarget.mouseX = prevTab.offsetLeft + offsetMouseX
-                    realDragTargetIndex--
-                    this._dragTarget.index--
+                    moveX = prevTab.clientWidth - Math.abs(moveX);
+                    this._dragTarget.mouseX = prevTab.offsetLeft + offsetMouseX;
+                    realDragTargetIndex--;
+                    this._dragTarget.index--;
 
-                    this.props.onTabPositionChange(realDragTargetIndex, realDragTargetIndex + 1)
+                    this.props.onTabPositionChange(realDragTargetIndex, realDragTargetIndex + 1);
                 } else {
-                    moveX = minMoveX
+                    moveX = minMoveX;
                 }
             } else if (moveX >= maxMoveX) {
                 if (!isLastTab && this.isDraggable(realDragTargetIndex + 1)) {
-                    moveX = -(nextTab.clientWidth - Math.abs(moveX))
+                    moveX = -(nextTab.clientWidth - Math.abs(moveX));
                     this._dragTarget.mouseX =
-                        dragTarget.offsetLeft + nextTab.clientWidth + offsetMouseX
-                    realDragTargetIndex++
-                    this._dragTarget.index++
+                        dragTarget.offsetLeft + nextTab.clientWidth + offsetMouseX;
+                    realDragTargetIndex++;
+                    this._dragTarget.index++;
 
-                    this.props.onTabPositionChange(realDragTargetIndex, realDragTargetIndex - 1)
+                    this.props.onTabPositionChange(realDragTargetIndex, realDragTargetIndex - 1);
                 }
             }
 
-            this._dragTarget.moveX = `${moveX}px`
-            this.forceUpdate()
+            this._dragTarget.moveX = `${moveX}px`;
+            this.forceUpdate();
         }
-    }
+    };
 
     isDraggable(index) {
-        return !this.props.children[index].props.nonDraggable
+        return !this.props.children[index].props.nonDraggable;
     }
 }
 /* eslint-enable */
