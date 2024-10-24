@@ -1,4 +1,4 @@
-import { ICONS_MAP } from '@optimacros/icons';
+import { ICONS_MAP } from '@optimacros/themes';
 import React, { SVGProps } from 'react';
 
 import { useUiCore } from '../../store';

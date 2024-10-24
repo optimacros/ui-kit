@@ -1,7 +1,0 @@
-{
-    "name": "@optimacros/icons",
-    "private": false,
-    "version": "0.0.0",
-    "files": ["src"],
-    "main": "src/index.ts"
-}

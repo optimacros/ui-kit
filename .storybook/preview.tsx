@@ -1,6 +1,6 @@
 import { Preview } from '@storybook/react';
 import { UiCoreContextWrapper } from '../packages/core/src';
-import iconsSrc from '../packages/icons/src/default/sprite/index.svg';
+import iconsSrc from '../packages/themes/src/default/sprite/index.svg';
 
 import '../packages/main/src/themes/appBaseTheme.css';
 
