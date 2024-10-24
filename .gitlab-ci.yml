@@ -24,7 +24,7 @@ stages:
 build:
   stage: build
   script:
-    - nvm use && npm ci && npm run build-storybook
+    - nvm use && npm install git+https://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:x-oauth-basic@github.com/optimacros/icons.git && npm ci && npm run build:storybook
     - mv storybook-static $CI_PROJECT_NAME
     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
   tags:
