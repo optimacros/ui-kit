@@ -24,7 +24,7 @@ stages:
 build:
   stage: build
   script:
-    - nvm use && npm ci && npm run build-storybook
+    - nvm use && npm ci && npm run build:storybook
     - mv storybook-static $CI_PROJECT_NAME
     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
   tags:
