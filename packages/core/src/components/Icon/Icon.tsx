@@ -1,4 +1,4 @@
-import { ICONS_MAP } from '@optimacros/themes';
+import { isValidIconName } from '@optimacros/themes';
 import React, { SVGProps } from 'react';
 
 import { useUiCore } from '../../store';
@@ -20,8 +20,7 @@ export function Icon({ value, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
     const { iconsSrc } = useUiCore();
 
     if (typeof value === 'string') {
-        // @ts-ignore
-        return ICONS_MAP[value] ? (
+        return isValidIconName(value) ? (
             <svg {...rest} data-recipe="Icon">
                 <use href={`${iconsSrc}#${value}`} />
             </svg>

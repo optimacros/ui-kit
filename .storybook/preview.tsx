@@ -1,10 +1,9 @@
-import { Preview } from '@storybook/react';
-import { UiCoreContextWrapper } from '../packages/core/src';
-import iconsSrc from '../packages/themes/src/default/sprite/index.svg';
-
+import { UiCoreContextWrapper } from '../packages/main/src';
 import '../packages/main/src/themes/appBaseTheme.css';
 
-export const parameters: Preview = {
+import iconsSrc from '../packages/themes/src/icons/optimacros/sprite/index.svg';
+
+const preview = {
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
@@ -16,6 +15,7 @@ export const parameters: Preview = {
     },
     decorators: [
         (Story, { parameters }) => {
+            console.log(Story, parameters);
             return (
                 <UiCoreContextWrapper state={{ iconsSrc }}>
                     <Story />
@@ -23,4 +23,7 @@ export const parameters: Preview = {
             );
         },
     ],
+    tags: ['autodocs'],
 };
+
+export default preview;

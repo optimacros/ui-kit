@@ -113,3 +113,7 @@ export const ICONS_MAP = {
     widgets: 'widgets',
     workspaces: 'workspaces',
 } as const;
+
+export function isValidIconName(name: string) {
+    return typeof ICONS_MAP[name] === 'string';
+}
