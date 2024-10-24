@@ -10,7 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@optimacros/icons": "github:optimacros/icons",
+        "@optimacros/icons": "0.0.0",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",
         "rc-dropdown": "2.4.1",

@@ -1,0 +1,18 @@
+<svg  viewBox="0 0 48 48"  xmlns="http://www.w3.org/2000/svg">
+    <g clipPath="url(#barChartClip)">
+        <rect height="10" width="24"/>
+        <rect height="10" width="12" x="27"/>
+        <rect height="10" width="5" x="43"/>
+        <rect height="12" width="9" y="18"/>
+        <rect height="10" width="21" y="38"/>
+        <rect height="10" width="12" x="24" y="38"/>
+        <rect height="10" width="9" x="39" y="38"/>
+        <rect height="12" width="12" x="12" y="18"/>
+        <rect height="12" width="21" x="27" y="18"/>
+    </g>
+    <defs>
+        <clipPath id="barChartClip">
+            <rect  height="48" width="48"/>
+        </clipPath>
+    </defs>
+</svg>

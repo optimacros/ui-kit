@@ -19,7 +19,8 @@ reports
 coverage
 
 lib
-/dist
+
+dist
 
 src/version.json
 lerna-debug
