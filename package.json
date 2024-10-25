@@ -5,10 +5,9 @@
     "scripts": {
         "prepare": "husky",
         "start": "storybook dev --no-open -p 6006",
-        "dev": "lerna run dev --scope=@optimacros/ui-kit",
-        "dev:core": "lerna run dev --scope=@optimacros/ui-kit-core",
-        "dev:example": "lerna run dev --scope=@optimacros/example",
         "build": "lerna run build --scope=@optimacros/ui-kit",
+        "build:core": "lerna run build --scope=@optimacros/ui-kit-core",
+        "build:example": "lerna run build --scope=@optimacros/ui-kit-example",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error",
         "preview": "vite preview",
@@ -19,6 +18,7 @@
         "postinstall": "lerna bootstrap"
     },
     "devDependencies": {
+        "tsup": "8.3.4",
         "lerna": "^6.6.1",
         "@biomejs/biome": "1.9.4",
         "@storybook/addon-actions": "8.3.6",

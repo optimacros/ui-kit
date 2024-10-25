@@ -5,9 +5,8 @@
     "main": "src/index.ts",
     "module": "src/index.ts",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc --p ./tsconfig-build.json && vite build",
-        "preview": "vite preview"
+        "clean": "rm -rf dist",
+        "build": "tsup --config ./tsup.config.ts && tsc"
     },
     "dependencies": {
         "@optimacros/themes": "0.0.0",
