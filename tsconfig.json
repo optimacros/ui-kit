@@ -18,6 +18,7 @@
         "exactOptionalPropertyTypes": false,
         "strictNullChecks": false,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "emitDeclarationOnly": true
     }
 }

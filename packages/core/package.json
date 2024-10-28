@@ -5,8 +5,7 @@
     "main": "src/index.ts",
     "module": "src/index.ts",
     "scripts": {
-        "clean": "rm -rf dist",
-        "build": "tsup --config ./tsup.config.ts && tsc"
+        "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
         "@optimacros/themes": "0.0.0",
@@ -17,7 +16,11 @@
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-modal": "3.16.1",
-        "react-range": "1.8.14"
+        "react-range": "1.8.14",
+        "lodash": "4.17.21",
+        "classnames": "2.5.1",
+        "prop-types": "15.7.2",
+        "object-assign": "4.1.1"
     },
     "devDependencies": {
         "@types/react-modal": "3.16.3"

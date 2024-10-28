@@ -8,6 +8,7 @@
         "build": "lerna run build --scope=@optimacros/ui-kit",
         "build:core": "lerna run build --scope=@optimacros/ui-kit-core",
         "build:example": "lerna run build --scope=@optimacros/ui-kit-example",
+        "build:ui": "lerna run build --parallel --scope @optimacros/ui-kit-core --scope @optimacros/ui-kit",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error",
         "preview": "vite preview",
