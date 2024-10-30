@@ -17,7 +17,7 @@
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
         "postinstall": "lerna bootstrap",
-        "publish": "lerna publish from-package"
+        "publish": "lerna publish from-package --contents dist"
     },
     "devDependencies": {
         "tsup": "8.3.4",
