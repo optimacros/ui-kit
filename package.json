@@ -13,11 +13,11 @@
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error",
         "preview": "vite preview",
-        "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
         "build:storybook": "storybook build",
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
-        "postinstall": "lerna bootstrap"
+        "postinstall": "lerna bootstrap",
+        "publish": "lerna publish from-package"
     },
     "devDependencies": {
         "tsup": "8.3.4",

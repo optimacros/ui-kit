@@ -8,5 +8,11 @@
     },
     "forceLocal": true,
     "useWorkspaces": false,
-    "$schema": "node_modules/lerna/schemas/lerna-schema.json"
+    "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+    "command": {
+        "publish": {
+            "message": "chore(release): publish",
+            "directory": "{workspaceRoot}/{projectRoot}/dist"
+        }
+    }
 }

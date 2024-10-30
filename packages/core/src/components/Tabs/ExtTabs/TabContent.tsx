@@ -31,6 +31,7 @@ export class TabContent extends Component<Props> {
         const theme = this.getTheme;
         const active = this.props.active ?? 0;
 
+        //@ts-ignore
         return map(this.props.children, (panel, index) => {
             if (active !== Number(index)) {
                 return null;
