@@ -95,6 +95,7 @@ const TRANSITIONS: Record<keyof CSSStyleDeclaration, keyof HTMLElementEventMap> 
 };
 
 function transitionEventNamesFor(element: HTMLElement): keyof HTMLElementEventMap | null {
+    //@ts-ignore
     return keys(TRANSITIONS).reduce((result: keyof HTMLElementEventMap | null, transition) => {
         return !result && !isUndefined(element.style[transition as keyof CSSStyleDeclaration])
             ? (TRANSITIONS[transition as keyof CSSStyleDeclaration] as keyof HTMLElementEventMap)
