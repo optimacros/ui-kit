@@ -16,7 +16,8 @@
         "build:storybook": "storybook build",
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
-        "postinstall": "lerna bootstrap"
+        "postinstall": "lerna bootstrap",
+        "tailwind": "lerna run tailwind --scope=@optimacros/ui-kit"
     },
     "devDependencies": {
         "tsup": "8.3.4",
@@ -59,7 +60,10 @@
         "vite-tsconfig-paths": "4.3.2",
         "lint-staged": "15.2.10",
         "@commitlint/cli": "17.1.2",
-        "@commitlint/config-conventional": "9.1.2"
+        "@commitlint/config-conventional": "9.1.2",
+        "tailwindcss": "^4.0.0-alpha.30",
+        "@tailwindcss/cli": "^4.0.0-alpha.30",
+        "@tailwindcss/postcss": "^4.0.0-alpha.30"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": ["biome check --write"]

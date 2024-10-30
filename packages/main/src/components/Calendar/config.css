@@ -1,4 +1,4 @@
-:root {
+@theme {
   --datepicker-primary: var(--color-primary);
   --datepicker-primary-contrast: var(--color-primary-contrast);
   --datepicker-primary-dark: var(--color-primary-dark);

@@ -14,5 +14,8 @@ module.exports = {
         'postcss-normalize': {},
         'postcss-color-function': {},
         'postcss-calc': {},
+        // '@tailwindcss/postcss': {
+
+        // },
     },
 };

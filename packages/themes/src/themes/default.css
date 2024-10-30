@@ -1,4 +1,6 @@
-:root {
+@import 'tailwindcss';
+
+@theme {
   --color-divider: var(--palette-grey-200);
   --color-background: var(--color-white);
   --color-text: var(--palette-grey-900);
@@ -11,7 +13,7 @@
   --color-primary-contrast: var(--color-dark-contrast);
   --color-accent-contrast: var(--color-dark-contrast);
 
-  --unit: 10px;
+  --unit: 1rem;
 
   --preferred-font: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   --font-size: calc(1.6 * var(--unit));

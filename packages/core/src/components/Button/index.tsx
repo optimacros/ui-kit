@@ -9,6 +9,7 @@ import { mergeStyles } from '../../utils/mergeStyle';
 import themeStyle from './buttonTheme.module.css';
 // eslint-disable-next-line
 import style from './Button.module.css';
+import { tw } from '../../utils';
 
 export type ThemeButtonProps = {
     button: string;
@@ -54,7 +55,13 @@ export interface ButtonInitialProps
     theme: Partial<ThemeButtonProps>;
 }
 
-export type ButtonProps = Partial<ButtonInitialProps>;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+    variant: 'primary' | 'accent' | 'bordered' | 'neutral';
+    shape: 'raised' | 'floating' | 'flat';
+    size: 'mini';
+    fontColor: string;
+    fontSize: string | number;
+}
 
 export class Button extends Component<ButtonProps> {
     render(): React.JSX.Element {
@@ -74,3 +81,33 @@ export class Button extends Component<ButtonProps> {
         return <ButtonComponent {...this.props} className={className} theme={theme} />;
     }
 }
+
+const buttonCn = tw`
+leading-normal inline-flex items-center font-normal text-sm rounded-md border-1 border-solid border-transparent
+normal-case data-uppercase:uppercase
+`;
+
+// export const Buttn = (props) => {
+//     const { disabled, renderIcon, variant, size, shape, inverse } = props;
+
+//     const buttonElement = React.createElement(
+//         element,
+//         {
+//             ...props,
+//             'data-variant': variant ?? 'neutral',
+//             'data-size': size,
+//             'data-shape': shape,
+//             'data-inverse': inverse,
+//             'data-recipe': 'Button',
+//         },
+//         renderIcon(),
+//         label,
+//         children,
+//     );
+
+//     if (disabled) {
+//         return <span>{buttonElement}</span>;
+//     }
+
+//     return buttonElement;
+// };

@@ -1,6 +1,3 @@
-@import '../../themes/config.css';
-@import './config.css';
-
 .field {
   display: block;
   height: var(--checkbox-size);

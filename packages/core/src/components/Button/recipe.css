@@ -1,0 +1,109 @@
+[data-recipe='Button'] {
+  align-content: center;
+  align-items: center;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  flex-direction: row;
+  font-size: calc(1.4 * var(--unit));
+  font-weight: 500;
+  height: var(--button-height);
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: var(--button-height);
+  outline: none;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: box-shadow 0.2s var(--animation-curve-fast-out-linear-in), background-color 0.2s
+    var(--animation-curve-default), color 0.2s var(--animation-curve-default);
+  white-space: nowrap;
+  box-sizing: border-box;
+  font-family: var(--preferred-font);
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+
+  line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: none;
+  border-radius: 3px;
+  border: 1px solid transparent;
+
+  &[data-upperuppercase {
+    text-transform: uppercase;
+  }
+
+  & [data-recipe='Icon'] {
+    line-height: normal !important;
+    color: inherit;
+  }
+
+  &[disabled] {
+    background: transparent;
+    color: var(--Button-disabled-color);
+
+    &:hover {
+      background: transparent;
+      border-color: transparent;
+    }
+  }
+
+  &:focus {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -4px;
+  }
+
+  & *,
+  & *::after,
+  & *::before {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    -webkit-touch-callout: none;
+  }
+
+  & > input {
+    height: 0.1px;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 0.1px;
+    z-index: 0;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  & > span:not([data-react-toolbox='tooltip']) {
+    display: inline-block;
+    line-height: var(--button-height);
+    vertical-align: middle;
+  }
+
+  & > svg {
+    display: inline-block;
+    fill: currentColor;
+    font-size: 120%;
+    height: var(--button-height);
+    vertical-align: top;
+    width: 1em;
+  }
+
+  & > * {
+    pointer-events: none;
+  }
+
+  &[disabled] {
+    color: var(--button-disabled-text-color);
+    cursor: auto;
+    pointer-events: none;
+  }
+}

@@ -8,6 +8,10 @@ import { Icon } from '../Icon';
 export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
     theme: ButtonTheme;
 }
+type ButtonProps = {
+    variant: 'primary' | 'accent' | 'bordered' | 'neutral';
+    shape: 'raised' | 'floating' | 'flat';
+};
 
 export class ButtonComponent extends Component<ButtonComponentProps> {
     constructor(props: ButtonComponentProps) {
@@ -121,10 +125,10 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
     };
 
     handleMouseUp = (event: MouseEvent<HTMLButtonElement>): void => {
-        if (this.buttonNode.current) {
-            // TODO проверить не сломает ли это тесты в АМ
-            this.buttonNode.current.blur();
-        }
+        // if (this.buttonNode.current) {
+        //     // TODO проверить не сломает ли это тесты в АМ
+        //     this.buttonNode.current.blur();
+        // }
 
         if (this.props.onMouseUp) {
             this.props.onMouseUp(event);
@@ -132,10 +136,10 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
     };
 
     handleMouseLeave = (event: MouseEvent<HTMLButtonElement>): void => {
-        if (this.buttonNode.current) {
-            // TODO проверить не сломает ли это тесты в АМ
-            this.buttonNode.current.blur();
-        }
+        // if (this.buttonNode.current) {
+        //     // TODO проверить не сломает ли это тесты в АМ
+        //     this.buttonNode.current.blur();
+        // }
 
         if (this.props.onMouseLeave) {
             this.props.onMouseLeave(event);
