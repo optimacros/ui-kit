@@ -4,7 +4,7 @@ interface Props {
     text: number | string | boolean;
     maxLength: number;
 }
-
+//change
 export const useTextShortener = ({ text, maxLength }: Props) => {
     const shortText = useMemo(() => {
         const textAsString = String(text);

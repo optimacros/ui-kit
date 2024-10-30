@@ -11,8 +11,7 @@
     "$schema": "node_modules/lerna/schemas/lerna-schema.json",
     "command": {
         "publish": {
-            "message": "chore(release): publish",
-            "directory": "{workspaceRoot}/{projectRoot}/dist"
+            "message": "chore(release): publish"
         }
     }
 }
