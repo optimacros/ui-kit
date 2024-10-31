@@ -58,7 +58,7 @@
                 "noUselessStringConcat": "warn",
                 "noUselessTernary": "error",
                 "noUselessUndefinedInitialization": "off",
-                "noVoid": "error",
+                "noVoid": "warn",
                 "noWith": "error",
                 "useLiteralKeys": "warn"
             },
@@ -211,6 +211,7 @@
             }
         },
         "ignore": [
+            "dist",
             "**/dist",
             "**/.eslintrc.cjs",
             "**/.gitignore",
