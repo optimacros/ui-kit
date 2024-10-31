@@ -10,9 +10,7 @@ export function BreadCrumbsFolders() {
     const { entityLongId: lastId } = _.last(driveLandingState.breadCrumbsFolders) || {};
     const ROOT_FOLDER_ID = -1;
 
-    const onChangeFolder = (entityLongId?: number) => {
-        console.log('onChangeFolder', entityLongId);
-    };
+    const onChangeFolder = (entityLongId?: number) => {};
 
     const list = _.map(driveLandingState.breadCrumbsFolders, (element, index) => {
         const id = element.entityLongId;

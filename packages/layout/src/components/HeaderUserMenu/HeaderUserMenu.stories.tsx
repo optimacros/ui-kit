@@ -40,32 +40,28 @@ const userElements = [
                 icon: iconUser,
                 title: 'Profile',
                 disabled: false,
-                // eslint-disable-next-line no-console
-                open: () => console.log('click'),
+                open: () => {},
             },
             {
                 id: '12',
                 icon: 'help_outline',
                 title: 'App version',
                 disabled: false,
-                // eslint-disable-next-line no-console
-                open: () => console.log('click'),
+                open: () => {},
             },
             {
                 id: '13',
                 icon: 'settings',
                 title: 'Settings',
                 disabled: false,
-                // eslint-disable-next-line no-console
-                open: () => console.log('click'),
+                open: () => {},
             },
             {
                 id: '14',
                 icon: 'input',
                 title: 'Log Out',
                 disabled: false,
-                // eslint-disable-next-line no-console
-                open: () => console.log('click'),
+                open: () => {},
             },
         ],
     },

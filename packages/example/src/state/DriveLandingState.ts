@@ -46,24 +46,18 @@ class DriveLandingState {
         {
             visible: true,
             label: 'element menu 1',
-            onClick: () => {
-                console.log('click');
-            },
+            onClick: () => {},
         },
         {
             visible: true,
             label: 'element menu 2',
-            onClick: () => {
-                console.log('click');
-            },
+            onClick: () => {},
         },
         {
             visible: true,
             label: 'element (link)',
             href: 'link',
-            onClick: () => {
-                console.log('click');
-            },
+            onClick: () => {},
         },
     ];
 

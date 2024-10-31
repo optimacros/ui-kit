@@ -36,8 +36,7 @@ const notification = {
     unreadCount: 0,
     active: false,
     visible: true,
-    // eslint-disable-next-line no-console
-    toggle: () => console.log('toggle'),
+    toggle: () => {},
 };
 
 export const Basic: Story = {
