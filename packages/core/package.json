@@ -20,7 +20,8 @@
         "lodash": "4.17.21",
         "classnames": "2.5.1",
         "prop-types": "15.7.2",
-        "object-assign": "4.1.1"
+        "object-assign": "4.1.1",
+        "react-svg": "16.1.32"
     },
     "devDependencies": {
         "@types/react-modal": "3.16.3"

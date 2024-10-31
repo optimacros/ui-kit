@@ -9,7 +9,7 @@ interface SliderScaleProps extends SliderProps {
 }
 
 export class SliderScale extends React.Component<SliderScaleProps> {
-    render() {
+    override render() {
         const { label, ...otherProps } = this.props;
         const theme = mergeStyles(this.props.theme, styles);
 
