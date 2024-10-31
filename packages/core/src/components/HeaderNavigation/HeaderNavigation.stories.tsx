@@ -34,8 +34,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
 
 export const Basic: Story = {
     args: {
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('click'),
+        onClick: () => {},
         title: 'Title',
     },
     decorators: [(story) => <Wrapper>{story()}</Wrapper>],

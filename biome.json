@@ -99,7 +99,7 @@
                 "noGlobalEval": "warn"
             },
             "style": {
-                "noCommaOperator": "error",
+                "noCommaOperator": "warn",
                 "noInferrableTypes": "error",
                 "noParameterAssign": "warn",
                 "noRestrictedGlobals": {
@@ -184,7 +184,7 @@
                 "noClassAssign": "error",
                 "noCommentText": "warn",
                 "noCompareNegZero": "error",
-                "noConsole": "warn",
+                "noConsole": "error",
                 "noControlCharactersInRegex": "warn",
                 "noDebugger": "error",
                 "noDoubleEquals": "off",

@@ -18,9 +18,7 @@ interface Props {
 }
 
 export const FoldersItem = observer((props: Props) => {
-    const onOpen = () => {
-        console.log('open', props.element.entityLongId);
-    };
+    const onOpen = () => {};
 
     const styles = driveLandingState.isCardView ? stylesCard : stylesRow;
 

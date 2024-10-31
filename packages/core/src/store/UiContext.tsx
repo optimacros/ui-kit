@@ -17,7 +17,6 @@ export const UiCoreContextWrapper = ({
     state: IUiContext;
     children: ReactNode;
 }) => {
-    console.log('debug');
     return <UiContext.Provider value={state}>{children}</UiContext.Provider>;
 };
 

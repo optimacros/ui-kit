@@ -15,7 +15,6 @@ const preview = {
     },
     decorators: [
         (Story, { parameters }) => {
-            console.log(Story, parameters);
             return (
                 <UiCoreContextWrapper state={{ iconsSrc }}>
                     <Story />

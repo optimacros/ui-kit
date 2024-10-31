@@ -13,9 +13,6 @@ interface Props {
 export function TagsItem(props: Props) {
     const onClick = () => {
         const { longId } = props.element;
-
-        console.log('longId', longId);
-
         props.onChange(longId);
     };
 

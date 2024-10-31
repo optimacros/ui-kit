@@ -38,29 +38,25 @@ const elements = [
         icon: 'list',
         title: 'AM Landing (Applications)',
         disabled: false,
-        // eslint-disable-next-line no-console
-        open: () => console.log('click'),
+        open: () => {},
     },
     {
         id: '2',
         title: 'Tasks manager',
         disabled: false,
-        // eslint-disable-next-line no-console
-        open: () => console.log('click'),
+        open: () => {},
     },
     {
         id: '3',
         title: 'Task output',
         disabled: false,
-        // eslint-disable-next-line no-console
-        open: () => console.log('click'),
+        open: () => {},
     },
     {
         id: '4',
         title: 'General parameters',
         disabled: false,
-        // eslint-disable-next-line no-console
-        open: () => console.log('click'),
+        open: () => {},
     },
     {
         id: '5',
@@ -77,8 +73,7 @@ const elements = [
                 icon: 'help_outline',
                 title: 'App Version',
                 disabled: false,
-                // eslint-disable-next-line no-console
-                open: () => console.log('click'),
+                open: () => {},
             },
         ],
     },

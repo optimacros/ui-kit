@@ -106,13 +106,9 @@ export class ModelsItem extends React.Component<Props, State> {
         );
     }
 
-    private onOpen = () => {
-        console.log('onOpen');
-    };
+    private onOpen = () => {};
 
     private onChangeFavorite = (favorite: boolean) => {
-        console.log('onChangeFavorite', favorite);
-
         this.setState({ favorite });
     };
 

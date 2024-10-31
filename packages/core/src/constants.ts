@@ -5,8 +5,7 @@ export const foldersMock = [
         label: 'Folder 1',
         id: 123423,
         icon: 'Folder',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Folder 1'),
+        onClick: () => {},
     },
     {
         rootId: null,
@@ -14,8 +13,7 @@ export const foldersMock = [
         label: 'Folder 2',
         id: 42432,
         icon: 'Folder',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Folder 2'),
+        onClick: () => {},
     },
     {
         rootId: 123423,
@@ -23,8 +21,7 @@ export const foldersMock = [
         label: 'Folder 3',
         id: 3432324,
         icon: 'Folder',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Folder 3'),
+        onClick: () => {},
     },
     {
         rootId: null,
@@ -32,8 +29,7 @@ export const foldersMock = [
         label: 'Folder 4',
         id: 43232324,
         icon: 'Folder',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Folder 4'),
+        onClick: () => {},
     },
 ];
 
@@ -45,8 +41,7 @@ export const workspacesMock = [
         id: 1432423432,
         href: '#',
         icon: 'Workspace',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Workspace 1'),
+        onClick: () => {},
     },
     {
         rootId: 42432,
@@ -55,8 +50,7 @@ export const workspacesMock = [
         id: 24324323,
         href: '#',
         icon: 'Workspace',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Workspace 2'),
+        onClick: () => {},
     },
     {
         rootId: null,
@@ -66,10 +60,8 @@ export const workspacesMock = [
         href: '#',
         icon: 'Workspace',
         settingHref: '#',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Workspace 3'),
-        // eslint-disable-next-line no-console
-        settingOnClick: () => console.log('Setting Click'),
+        onClick: () => {},
+        settingOnClick: () => {},
     },
     {
         rootId: 42432,
@@ -78,8 +70,7 @@ export const workspacesMock = [
         id: 375635352,
         href: '#',
         icon: 'Workspace',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click Workspace 4'),
+        onClick: () => {},
     },
 ];
 export const appManagersMock = [
@@ -90,8 +81,7 @@ export const appManagersMock = [
         id: 1132335,
         href: '#',
         icon: 'AM',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click AM 1'),
+        onClick: () => {},
     },
     {
         rootId: 42432,
@@ -100,8 +90,7 @@ export const appManagersMock = [
         id: 3122432325,
         href: '#',
         icon: 'AM',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click AM 2'),
+        onClick: () => {},
     },
     {
         rootId: 3432324,
@@ -110,8 +99,7 @@ export const appManagersMock = [
         id: 3533653,
         href: '#',
         icon: 'AM',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click AM 3'),
+        onClick: () => {},
     },
     {
         rootId: null,
@@ -120,7 +108,6 @@ export const appManagersMock = [
         id: 412424325,
         href: '#',
         icon: 'AM',
-        // eslint-disable-next-line no-console
-        onClick: () => console.log('Click AM 4'),
+        onClick: () => {},
     },
 ];
