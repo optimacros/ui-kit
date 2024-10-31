@@ -22,7 +22,11 @@
         "emitDeclarationOnly": true,
         "noEmitOnError": true,
         "paths": {
-            "@optimacros/*": ["packages/*/src"]
+            "@optimacros/ui-kit-core": ["packages/core/src"],
+            "@optimacros/ui-kit": ["packages/main/src"],
+            "@optimacros/themes": ["packages/themes/src"],
+            "@optimacros/ui-kit-layout": ["packages/layout/src"]
         }
-    }
+    },
+    "exclude": ["node_modules", "dist"]
 }
