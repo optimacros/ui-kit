@@ -1,13 +1,11 @@
 {
     "name": "@optimacros/ui-kit-layout",
     "private": false,
-    "version": "0.0.3",
+    "version": "0.0.4",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "files": [
-        "dist"
-    ],
+    "files": ["dist"],
     "scripts": {
         "build": "tsup --config ./tsup.config.ts"
     },

@@ -17,13 +17,14 @@
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
         "postinstall": "lerna bootstrap",
-        "publish": "npm run build:ui && lerna publish",
+        "publish": "npm run build:ui && lerna publish from-package",
+        "version": "lerna version",
         "unpublish": "npm unpublish @optimacros/ui-kit"
     },
     "devDependencies": {
-        "tsup": "8.3.4",
-        "lerna": "^6.6.1",
         "@biomejs/biome": "1.9.4",
+        "@commitlint/cli": "17.1.2",
+        "@commitlint/config-conventional": "9.1.2",
         "@storybook/addon-actions": "8.3.6",
         "@storybook/addon-essentials": "8.3.6",
         "@storybook/addon-interactions": "8.3.6",
@@ -42,6 +43,8 @@
         "@types/tinycolor2": "1.4.6",
         "@vitejs/plugin-react-swc": "3.6.0",
         "husky": "^9.1.6",
+        "lerna": "^6.6.1",
+        "lint-staged": "15.2.10",
         "postcss": "8.4.20",
         "postcss-apply": "0.12.0",
         "postcss-calc": "8.2.4",
@@ -54,14 +57,12 @@
         "postcss-normalize": "10.0.1",
         "postcss-preset-env": "7.8.3",
         "storybook": "^8.3.6",
+        "tsup": "8.3.4",
         "typescript": "5.4.5",
         "vite": "5.2.8",
         "vite-plugin-dts": "3.8.1",
         "vite-plugin-lib-inject-css": "2.0.1",
-        "vite-tsconfig-paths": "4.3.2",
-        "lint-staged": "15.2.10",
-        "@commitlint/cli": "17.1.2",
-        "@commitlint/config-conventional": "9.1.2"
+        "vite-tsconfig-paths": "4.3.2"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": ["biome check --write"]
