@@ -1,3 +1,3 @@
 export * from './Sidebar';
 export * from './utils';
-export * from './types.ts';
+export * from './types';

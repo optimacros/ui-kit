@@ -3,8 +3,8 @@ import { FC, JSX, useEffect, useState } from 'react';
 
 import { ResourceListItem } from './ResourceListItem';
 import { ResourceSubList } from './ResourceSubList';
-import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from './types.ts';
-import { updateResourceList } from './utils/updateResourceList.ts';
+import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from './types';
+import { updateResourceList } from './utils/updateResourceList';
 
 import styles from './ResourceList.module.css';
 

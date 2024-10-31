@@ -1,4 +1,4 @@
-import { ResourceListDynamicStatus, ResourceListElement } from '../types.ts';
+import { ResourceListDynamicStatus, ResourceListElement } from '../types';
 
 export const updateResourceList = (
     list: ResourceListElement[],

@@ -1,2 +1,2 @@
-export * from './getSidebarNestedList.ts';
-export * from './getSidebarData.ts';
+export * from './getSidebarNestedList';
+export * from './getSidebarData';

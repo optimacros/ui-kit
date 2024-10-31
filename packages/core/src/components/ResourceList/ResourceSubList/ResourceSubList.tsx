@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { FC, PropsWithChildren } from 'react';
 
 import { ResourceListItem } from '../ResourceListItem';
-import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from '../types.ts';
+import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from '../types';
 
 import styles from './ResourceSubList.module.css';
 

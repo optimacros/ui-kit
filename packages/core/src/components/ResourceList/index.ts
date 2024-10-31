@@ -1,2 +1,2 @@
-export * from './ResourceList.tsx';
-export * from './types.ts';
+export * from './ResourceList';
+export * from './types';

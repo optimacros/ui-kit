@@ -1,5 +1,5 @@
-import { defaultIconList } from './constants.ts';
-import { ResourceListType } from '../types.ts';
+import { defaultIconList } from './constants';
+import { ResourceListType } from '../types';
 
 export const getLeftIcon = (
     icon: ResourceListType | string,
