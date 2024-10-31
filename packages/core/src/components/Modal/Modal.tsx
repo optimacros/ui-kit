@@ -1,57 +1,79 @@
 // @ts-nocheck
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { Component } from 'react';
-
-import Draggable from './DraggableModalContainer';
+import React from 'react';
 import ReactModal from './ReactModal';
+import classNames from 'classnames';
 import { Icon } from '../Icon';
-
+import Draggable from './DraggableModalContainer';
 import styles from './Modal.module.css';
-/* eslint-disable */
-export default class Modal extends Component {
-    static propTypes = {
-        title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-        isOpen: PropTypes.bool.isRequired,
-        compact: PropTypes.bool,
-        nonDraggable: PropTypes.bool,
-        isFatalError: PropTypes.bool,
-        draggableTarget: PropTypes.string,
-        customHeaderButton: PropTypes.any,
-        headerClassName: PropTypes.string,
-        contentClassName: PropTypes.string,
-    };
 
+type ReactModalProps = React.ComponentProps<typeof ReactModal>;
+
+type Props = {
+    children: React.ReactNode;
+    isOpen: ReactModalProps['isOpen'];
+    onRequestClose: ReactModalProps['onRequestClose'];
+    className?: string;
+    title?: string;
+    compact?: boolean;
+    nonDraggable?: boolean;
+    isFatalError?: boolean;
+    draggableTarget?: string;
+    customHeaderButton?: React.ReactNode;
+    headerClassName?: string;
+    containerClassName?: string;
+    contentClassName?: string;
+    testMode: boolean;
+    handleUpdate?: () => void;
+};
+
+const MAX_TITLE_LENGTH = 438;
+
+export default class Modal extends React.PureComponent<Props> {
     static defaultProps = {
         nonDraggable: false,
         draggableTarget: `.${styles.Header}`,
+        testMode: false,
     };
 
+    componentDidUpdate(prevProps: Props) {
+        if (!this.props.isOpen && prevProps.isOpen) {
+            this.props.handleUpdate && this.props.handleUpdate();
+        }
+    }
+
     render() {
-        const containerClassName = classNames({
-            [styles.Container]: true,
-            [styles.Container__compact]: this.props.compact,
-        });
-        const contentClassName = classNames({
-            [styles.Content]: true,
-            [this.props.contentClassName]: !!this.props.contentClassName,
-        });
+        const {
+            compact,
+            containerClassName: baseContainerClassName,
+            contentClassName: baseContentClassName,
+            draggableTarget,
+            nonDraggable,
+            children,
+        } = this.props;
+
+        const containerClassName = classNames(
+            {
+                [styles.Container]: true,
+                [styles.Container__compact]: compact,
+            },
+            baseContainerClassName,
+        );
+
+        const contentClassName = classNames(styles.Content, baseContentClassName);
+        const { handleUpdate, ...propsForReactModal } = this.props;
 
         return (
             <ReactModal
                 ariaHideApp={false}
                 contentLabel="optimacros-modal"
                 shouldCloseOnOverlayClick={false}
-                {...this.props}
+                shouldFocusAfterRender
+                {...propsForReactModal}
             >
-                <Draggable
-                    draggableTarget={this.props.draggableTarget}
-                    nonDraggable={this.props.nonDraggable}
-                >
-                    <div className={containerClassName}>
+                <Draggable draggableTarget={draggableTarget} nonDraggable={nonDraggable}>
+                    <div className={containerClassName} data-react-toolbox="dialog">
                         {this.renderHeader()}
-
-                        <div className={contentClassName}>{this.props.children}</div>
+                        <div className={contentClassName}>{children}</div>
                     </div>
                 </Draggable>
             </ReactModal>
@@ -59,21 +81,23 @@ export default class Modal extends Component {
     }
 
     renderHeader() {
-        if (!this.props.title) {
+        const { title, headerClassName, nonDraggable, customHeaderButton } = this.props;
+
+        if (!title) {
             return null;
         }
 
         const className = classNames({
             [styles.Header]: true,
-            [this.props.headerClassName]: !!this.props.headerClassName,
-            [styles.Header__draggable]: !this.props.nonDraggable,
+            [headerClassName]: !!headerClassName,
+            [styles.Header__draggable]: !nonDraggable,
         });
 
         return (
             <div className={className}>
-                <div className={styles.Header_Title}>{this.props.title}</div>
+                <div className={styles.Header_Title}>{this.generateTitle()}</div>
 
-                <div className={styles.CustomHeaderContainer}>{this.props.customHeaderButton}</div>
+                <div className={styles.CustomHeaderContainer}>{customHeaderButton}</div>
 
                 {this.renderCloseButton()}
             </div>
@@ -81,19 +105,47 @@ export default class Modal extends Component {
     }
 
     renderCloseButton() {
-        if (!this.props.onRequestClose || this.props.isFatalError) {
+        const { onRequestClose } = this.props;
+
+        if (!onRequestClose) {
             return null;
         }
 
         return (
             <div className={styles.CloseButton}>
-                <Icon
-                    className={styles.CloseButton_Icon}
-                    value="close"
-                    onClick={this.props.onRequestClose}
-                />
+                <Icon className={styles.CloseButton_Icon} value="close" onClick={onRequestClose} />
             </div>
         );
+    }
+
+    generateTitle() {
+        const { title, testMode } = this.props;
+
+        if (!title || testMode) {
+            return title;
+        }
+
+        let titleLengthInPixels = 0;
+        const element = document.createElement('canvas');
+        const context = element.getContext('2d');
+
+        if (context) {
+            titleLengthInPixels = context.measureText(title).width;
+        }
+
+        element.remove();
+
+        if (titleLengthInPixels > MAX_TITLE_LENGTH) {
+            const characterMiddleSize = titleLengthInPixels / title.length;
+            const lengthsDifference = titleLengthInPixels - MAX_TITLE_LENGTH;
+            const charactersAmountForDeleting = lengthsDifference / characterMiddleSize;
+
+            const reducedCopyOfTitle = title.slice(0, -charactersAmountForDeleting);
+
+            return `${reducedCopyOfTitle}...`;
+        }
+
+        return title;
     }
 }
 /* eslint-enable */
