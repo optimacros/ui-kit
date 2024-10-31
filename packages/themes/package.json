@@ -1,11 +1,13 @@
 {
     "name": "@optimacros/themes",
     "private": false,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsup --config ./tsup.config.ts"
     }
