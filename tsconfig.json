@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "Bundler",
@@ -19,6 +20,9 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "emitDeclarationOnly": true,
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "paths": {
+            "@optimacros/*": ["packages/*/src"]
+        }
     }
 }

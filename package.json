@@ -8,7 +8,8 @@
         "build": "lerna run build --scope=@optimacros/ui-kit",
         "build:core": "lerna run build --scope=@optimacros/ui-kit-core",
         "build:example": "lerna run build --scope=@optimacros/ui-kit-example",
-        "build:ui": "lerna run build --parallel --scope @optimacros/ui-kit-core --scope @optimacros/ui-kit",
+        "build:themes": "lerna run build --scope=@optimacros/themes",
+        "build:ui": "lerna run build --parallel --scope @optimacros/ui-kit-core --scope @optimacros/ui-kit --scope @optimacros/themes",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error",
         "preview": "vite preview",
@@ -16,7 +17,8 @@
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
         "postinstall": "lerna bootstrap",
-        "publish": "lerna publish from-package --contents dist"
+        "publish": "lerna publish from-package",
+        "unpublish": "npm unpublish @optimacros/ui-kit"
     },
     "devDependencies": {
         "tsup": "8.3.4",

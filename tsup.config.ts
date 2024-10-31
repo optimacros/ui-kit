@@ -1,4 +1,5 @@
 import { defineConfig } from 'tsup';
+// import { exec } from 'node:child_process';
 
 export default defineConfig({
     entry: ['src/index.ts'],
@@ -11,4 +12,10 @@ export default defineConfig({
     dts: true,
     platform: 'browser',
     outDir: 'dist',
+    //@ts-ignore
+    // onSuccess() {
+    //     const pkg = require('./package.json');
+    //     console.log(pkg);
+    //     return exec('cp -a package.json dist');
+    // },
 });
