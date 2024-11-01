@@ -61,7 +61,7 @@ nexus-push-job:
     - nvm use && npm ci
     - echo "y" | npm run publish
 
-deploy
+#deploy
 deploy:
   stage: deploy
   variables:
