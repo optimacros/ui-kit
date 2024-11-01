@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import 'tailwindcss';
+
+html {
+  font-family: var(--font-family-primary);
+}
+
+body {
+  color: var(--color-inverse-primary);
+  background-color: var(--color-primary);
+}
+
+@theme {
+  --font-family-primary: 'Raleway', sans-serif;
+
+  --color-primary: var(--color-white);
+  --color-primary-hover: var(--color-zinc-200);
+  --color-primary-active: var(--color-zinc-200);
+  --color-inverse-primary: var(--color-zinc-900);
+  --color-inverse-primary-hover: var(--color-zinc-700);
+  --color-inverse-primary-active: var(--color-zinc-700);
+  --color-secondary: var(--color-zinc-200);
+  --color-secondary-hover: var(--color-zinc-100);
+  --color-secondary-active: var(--color-zinc-300);
+  --color-inverse-secondary: var(--color-zinc-600);
+  --color-inverse-secondary-hover: var(--color-zinc-500);
+  --color-inverse-secondary-active: var(--color-zinc-500);
+  --color-tertiary: var(--color-zinc-300);
+  --color-tertiary-hover: var(--color-zinc-400);
+  --color-tertiary-active: var(--color-zinc-400);
+  --color-inverse-tertiary: var(--color-zinc-400);
+  --color-inverse-tertiary-hover: var(--color-zinc-800);
+  --color-inverse-tertiary-active: var(--color-black);
+  --color-success: var(--color-green-500);
+  --color-success-active: var(--color-green-600);
+  --color-error: var(--color-red-500);
+  --color-error-active: var(--color-red-600);
+  --color-warning: var(--color-yellow-500);
+  --color-warning-active: var(--color-yellow-600);
+
+  --color-disabled: var(--color-zinc-500);
+
+  --color-border-primary: var(--color-gray-200);
+  --color-border-primary-hover: var(--color-gray-300);
+  --color-border-primary-active: var(--color-gray-300);
+  --color-misc-disabled-light: var(--color-zinc-200);
+  --color-misc-disabled: var(--color-zinc-400);
+
+  --color-background-primary: var(--color-primary-base);
+  --color-background-secondary: var(--color-secondary-base);
+  --color-background-tertiary: var(--color-tertiary-base);
+  --color-layer-primary: var(--color-zinc-900 / 20%);
+
+  --aspect-ratio-square: '1 / 1';
+  --aspect-ratio-landscape: '4 / 3';
+  --aspect-ratio-portrait: '3 / 4';
+  --aspect-ratio-wide: '16 / 9';
+  --aspect-ratio-ultrawide: '18 / 5';
+  --aspect-ratio-golden: '1.618 / 1';
+
+  --shadow-sm: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --shadow-md: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --shadow-lg: rgba(0, 0, 0, 0.15) 0px 48px 100px 0px;
+
+  --radius-round: 50%;
+  --radius-auto: auto;
+  --radius-min: 0px;
+  --radius-full: 9999px;
+
+  --size-maxvh: 100vh;
+  --size-maxvw: 100vw;
+  --size-xss: 15rem;
+
+  --width-xss: 15rem;
+
+  --animate-lepeek: lePeek 1s ease-in;
+  --animate-skeleton: gradient 2s ease-in infinite;
+}
+
+@media (prefers-color-scheme: light) {
+}
+
+.light {
+  --color-primary: var(--color-zinc-800);
+  --color-primary-hover: var(--color-zinc-200);
+  --color-primary-active: var(--color-zinc-400);
+  --color-inverse-primary: var(--color-zinc-900);
+  --color-inverse-primary-hover: var(--color-zinc-700);
+  --color-inverse-primary-active: var(--color-zinc-700);
+  --color-secondary: var(--color-zinc-200);
+  --color-secondary-hover: var(--color-zinc-100);
+  --color-secondary-active: var(--color-zinc-300);
+  --color-inverse-secondary: var(--color-zinc-600);
+  --color-inverse-secondary-hover: var(--color-zinc-500);
+  --color-inverse-secondary-active: var(--color-zinc-500);
+  --color-tertiary: var(--color-zinc-300);
+  --color-tertiary-hover: var(--color-zinc-400);
+  --color-tertiary-active: var(--color-zinc-400);
+  --color-inverse-tertiary: var(--color-zinc-400);
+  --color-inverse-tertiary-hover: var(--color-zinc-800);
+  --color-inverse-tertiary-active: var(--color-black);
+  --color-success: var(--color-green-500);
+  --color-success-active: var(--color-green-600);
+  --color-error: var(--color-red-500);
+  --color-error-active: var(--color-red-600);
+  --color-warning: var(--color-yellow);
+  --color-warning-active: var(--color-yellow);
+  --color-border-primary: var(--color-gray-200);
+  --color-border-primary-hover: var(--color-gray-300);
+  --color-border-primary-active: var(--color-gray-300);
+  --color-misc-disabled-light: var(--color-zinc-200);
+  --color-misc-disabled: var(--color-zinc-400);
+  --color-background-primary: var(--color-primary-base);
+  --color-background-secondary: var(--color-secondary-base);
+  --color-background-tertiary: var(--color-tertiary-base);
+  --color-layer-primary: var(--color-zinc-900 / 20%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: var(--color-zinc-900);
+    --color-primary-hover: var(--color-zinc-700);
+    --color-primary-active: var(--color-zinc-700);
+    --color-inverse-primary: var(--color-white);
+    --color-inverse-primary-hover: var(--color-zinc-200);
+    --color-inverse-primary-active: var(--color-zinc-200);
+
+    --color-secondary: var(--color-zinc-400);
+    --color-secondary-hover: var(--color-zinc-300);
+    --color-secondary-active: var(--color-zinc-300);
+
+    --color-inverse-secondary: var(--color-zinc-200);
+    --color-inverse-secondary-hover: var(--color-zinc-300);
+    --color-inverse-secondary-active: var(--color-zinc-400);
+  }
+}
+.dark {
+  --color-primary: var(--color-zinc-900);
+  --color-primary-hover: var(--color-zinc-700);
+  --color-primary-active: var(--color-zinc-700);
+  --color-inverse-primary: var(--color-white);
+  --color-inverse-primary-hover: var(--color-zinc-200);
+  --color-inverse-primary-active: var(--color-zinc-200);
+  --color-secondary: var(--color-zinc-600);
+  --color-secondary-hover: var(--color-zinc-500);
+  --color-secondary-active: var(--color-zinc-500);
+  --color-inverse-secondary: var(--color-zinc-200);
+  --color-inverse-secondary-hover: var(--color-zinc-300);
+  --color-inverse-secondary-active: var(--color-zinc-400);
+}
