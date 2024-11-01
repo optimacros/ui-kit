@@ -7,10 +7,12 @@
     "types": "dist/index.d.ts",
     "files": ["dist"],
     "scripts": {
-        "build": "tsup --config ./tsup.config.ts"
+        "build": "tsup --config ./tsup.config.ts",
+        "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
     "dependencies": {
         "@optimacros/ui-kit-core": "1.1.3",
+        "@optimacros/themes": "0.0.0",
         "marked": "4.1.0",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",

@@ -5,5 +5,7 @@
     "editor.codeActionsOnSave": {
         "quickfix.biome": "always"
     },
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "biomejs.biome",
+    "tailwindCSS.experimental.classRegex": [["tw\\s\\*/\\s+[\"'`]([^\"'`]*)"], ["tw`([^]*)\\`"]],
+    "tailwindCSS.classAttributes": ["class", "className"]
 }
