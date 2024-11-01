@@ -1,5 +1,5 @@
-import { SidebarElement } from '../types.ts';
-import { ResourceListElement } from '../../ResourceList/types.ts';
+import { SidebarElement } from '../types';
+import { ResourceListElement } from '../../ResourceList/types';
 
 export function getSidebarNestedList(
     rootElements: SidebarElement[],

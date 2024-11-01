@@ -25,3 +25,4 @@ dist
 src/version.json
 lerna-debug
 
+.npmrc

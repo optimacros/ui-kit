@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import { isUndefined } from 'lodash';
 import type { FC } from 'react';
-import { ReactSVG } from 'react-svg';
 
-import { ResourceListItemContent } from './ResourceListItemContent.tsx';
-import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from '../types.ts';
-import settingsIcon from '../../../icons/icon-settings.svg';
+import { ResourceListItemContent } from './ResourceListItemContent';
+import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from '../types';
 
 import styles from './ResourceListItem.module.css';
+import { Icon } from '../../Icon';
+import { ICONS_MAP } from '@optimacros/themes';
 
 export interface ResourceListItemProps {
     listItem: ResourceListElement;
@@ -79,7 +79,7 @@ export const ResourceListItem: FC<ResourceListItemProps> = (props) => {
                         rel="noreferrer"
                     >
                         <div className={styles.Icon}>
-                            <ReactSVG src={settingsIcon} />
+                            <Icon value={ICONS_MAP.settings} />
                         </div>
                     </a>
                 ) : null}

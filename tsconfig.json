@@ -1,24 +1,32 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "Bundler",
         "noFallthroughCasesInSwitch": true,
-        "noImplicitOverride": true,
+        "noImplicitOverride": false,
         "noUncheckedIndexedAccess": false,
-        "resolveJsonModule": true,
         "skipLibCheck": true,
         "strict": false,
         "allowJs": true,
         "jsx": "react-jsx",
-        "lib": ["DOM", "DOM.Iterable"],
-        "module": "NodeNext",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
         "target": "ESNext",
         "declaration": true,
         "exactOptionalPropertyTypes": false,
         "strictNullChecks": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "emitDeclarationOnly": true
-    }
+        "emitDeclarationOnly": true,
+        "noEmitOnError": true,
+        "paths": {
+            "@optimacros/ui-kit-core": ["packages/core/src"],
+            "@optimacros/ui-kit": ["packages/main/src"],
+            "@optimacros/themes": ["packages/themes/src"],
+            "@optimacros/ui-kit-layout": ["packages/layout/src"]
+        }
+    },
+    "exclude": ["node_modules", "dist"]
 }

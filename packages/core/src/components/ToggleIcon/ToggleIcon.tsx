@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 import type { FC } from 'react';
-import { ReactSVG } from 'react-svg';
-
-import iconDoubleArrowLeft from '../../icons/icon-double-arrow-left.svg';
-import iconDoubleArrowRight from '../../icons/icon-double-arrow-right.svg';
-
 import styles from './ToggleIcon.module.css';
+
+import { Icon } from '../Icon';
+import { ICONS_MAP } from '@optimacros/themes';
 
 export interface ToggleIconProps {
     isOpen?: boolean;
@@ -16,7 +14,9 @@ export interface ToggleIconProps {
 
 export const ToggleIcon: FC<ToggleIconProps> = (props) => {
     const { isOpen, handleClick, wrapperClassName, iconClassName } = props;
-    const iconValue = isOpen ? iconDoubleArrowRight : iconDoubleArrowLeft;
+    const iconValue = isOpen
+        ? ICONS_MAP['keyboard-double-arrow-right']
+        : ICONS_MAP['keyboard-double-arrow-left'];
 
     const title = isOpen ? 'Hide panel' : 'Show panel';
 
@@ -26,7 +26,7 @@ export const ToggleIcon: FC<ToggleIconProps> = (props) => {
 
     return (
         <div role="none" className={className} onClick={handleClick} title={title}>
-            <ReactSVG className={iconClassNameFinal} src={iconValue} />
+            <Icon className={iconClassNameFinal} value={iconValue} />
         </div>
     );
 };

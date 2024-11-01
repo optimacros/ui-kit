@@ -1,6 +1,6 @@
-import { getSidebarNestedList } from './getSidebarNestedList.ts';
+import { getSidebarNestedList } from './getSidebarNestedList';
 import { ResourceListElement } from '../../ResourceList';
-import { SidebarElement } from '../types.ts';
+import { SidebarElement } from '../types';
 
 export function getSidebarData(
     rootElements: SidebarElement[],

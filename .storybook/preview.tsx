@@ -1,7 +1,7 @@
 import { UiCoreContextWrapper } from '../packages/main/src';
 import '../packages/main/src/themes/appBaseTheme.css';
 import './output.css';
-import iconsSrc from '../packages/themes/src/icons/optimacros/sprite/index.svg';
+import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 
 const preview = {
     parameters: {

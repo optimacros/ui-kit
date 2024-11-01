@@ -19,12 +19,15 @@ workflow:
 stages:
   - build
   - test
+  - nexus
   - deploy
 
 build:
   stage: build
   script:
-    - nvm use && npm ci && npm run build:storybook
+    - echo "legacy-peer-deps=true" >> .npmrc
+    - nvm use && npm ci
+    - npm run build:storybook
     - mv storybook-static $CI_PROJECT_NAME
     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
   tags:
@@ -39,6 +42,24 @@ lint-test:
     - ${runner}
   script:
     - nvm use && npm run lint
+
+# push artefacts to nexus
+nexus-push-job:
+  stage: nexus
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - when: manual
+  allow_failure: true
+  needs:
+    - lint-test
+  tags:
+    - ${runner}
+  script:
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
+    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - nvm use && npm ci
+    - echo "y" | npm run publish
 
 #deploy
 deploy:

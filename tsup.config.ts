@@ -1,14 +1,17 @@
 import { defineConfig } from 'tsup';
+// import { exec } from 'node:child_process';
 
 export default defineConfig({
     entry: ['src/index.ts'],
-    splitting: true,
-    sourcemap: true,
+    sourcemap: false,
     clean: true,
     treeshake: true,
-    metafile: true,
     target: 'es2020',
     dts: true,
     platform: 'browser',
     outDir: 'dist',
+    bundle: true,
+    loader: {
+        '.css': 'local-css',
+    },
 });

@@ -1,4 +1,7 @@
-const config = {
+import type { StorybookConfig } from '@storybook/react-vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
+const config: StorybookConfig = {
     stories: [
         '../packages/core/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../packages/main/src/**/*.stories.@(js|jsx|ts|tsx)',
@@ -9,6 +12,13 @@ const config = {
         '@storybook/addon-interactions',
     ],
     framework: '@storybook/react-vite',
+    viteFinal: (cfg) => {
+        return {
+            ...cfg,
+            //@ts-ignore
+            plugins: [...cfg.plugins, tsconfigPaths()],
+        };
+    },
     core: {
         builder: '@storybook/builder-vite',
     },

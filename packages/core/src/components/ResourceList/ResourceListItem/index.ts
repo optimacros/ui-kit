@@ -1,1 +1,1 @@
-export * from './ResourceListItem.tsx';
+export * from './ResourceListItem';

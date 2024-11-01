@@ -2,11 +2,12 @@ import classNames from 'classnames';
 import { FC, useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { ResourceListType } from '../types.ts';
-import { getLeftIcon } from '../utils/getLeftIcon.ts';
-import iconArrowRight from '../../../icons/icon-arrow-right.svg';
+import { ResourceListType } from '../types';
+import { getLeftIcon } from '../utils/getLeftIcon';
 
 import styles from './ResourceListItem.module.css';
+import { Icon } from '../../Icon';
+import { ICONS_MAP } from '@optimacros/themes';
 
 interface ResourceListItemContentProps {
     label: string;
@@ -48,7 +49,7 @@ export const ResourceListItemContent: FC<ResourceListItemContentProps> = (props)
 
             {shouldShowRightIcon ? (
                 <div className={classNames(styles.Icon, styles.RightIcon)}>
-                    <ReactSVG src={iconArrowRight} />
+                    <Icon value={ICONS_MAP.arr} />
                 </div>
             ) : null}
         </>
