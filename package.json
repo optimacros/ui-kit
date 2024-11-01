@@ -13,7 +13,6 @@
         "build:ui": "lerna run build --parallel --scope @optimacros/ui-kit-core --scope @optimacros/ui-kit --scope @optimacros/themes",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error",
-        "preview": "vite preview",
         "build:storybook": "storybook build",
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",

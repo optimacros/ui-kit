@@ -697,9 +697,6 @@
   .inline-block {
     display: inline-block;
   }
-  .inline-flex {
-    display: inline-flex;
-  }
   .table {
     display: table;
   }
@@ -709,47 +706,15 @@
   .resize {
     resize: both;
   }
-  .items-center {
-    align-items: center;
-  }
   .rounded {
     border-radius: var(--radius, 0.25rem);
-  }
-  .rounded-md {
-    border-radius: var(--radius-md, 0.375rem);
   }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .border-1 {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-  }
-  .border-solid {
-    --tw-border-style: solid;
-    border-style: solid;
-  }
-  .border-transparent {
-    border-color: transparent;
-  }
-  .text-sm {
-    font-size: var(--font-size-sm, 0.875rem);
-    line-height: var(--tw-leading, var(--font-size-sm--line-height, 1.25rem));
-  }
-  .leading-normal {
-    --tw-leading: var(--line-height-normal, 1.5);
-    line-height: var(--line-height-normal, 1.5);
-  }
-  .font-normal {
-    --tw-font-weight: var(--font-weight-normal, 400);
-    font-weight: var(--font-weight-normal, 400);
-  }
   .capitalize {
     text-transform: capitalize;
-  }
-  .normal-case {
-    text-transform: none;
   }
   .uppercase {
     text-transform: uppercase;
@@ -773,11 +738,6 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function, cubic-bezier(0.4, 0, 0.2, 1)));
     transition-duration: var(--tw-duration, var(--default-transition-duration, 150ms));
   }
-  .data-uppercase\:uppercase {
-    &[data-uppercase] {
-      text-transform: uppercase;
-    }
-  }
 }
 @supports (-moz-orient: inline) {
   @layer base {
@@ -788,8 +748,6 @@
       --tw-skew-x: skewX(0);
       --tw-skew-y: skewY(0);
       --tw-border-style: solid;
-      --tw-leading: initial;
-      --tw-font-weight: initial;
       --tw-shadow: 0 0 #0000;
       --tw-shadow-color: initial;
       --tw-inset-shadow: 0 0 #0000;
@@ -869,14 +827,6 @@
   syntax: "<custom-ident>";
   inherits: false;
   initial-value: solid;
-}
-@property --tw-leading {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-font-weight {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-shadow {
   syntax: "*";
