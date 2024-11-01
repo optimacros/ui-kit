@@ -48,14 +48,6 @@ nexus-push-job:
   stage: nexus
   variables:
     GIT_STRATEGY: none
-  rules:
-    - if: ($deploy == "true")
-      when: on_success
-    - if: ($pr == "true")
-      when: never
-    - if: ($deploy != "true" && $pr != "true")
-      when: manual
-      allow_failure: true
   needs:
     - lint-test
   tags:
