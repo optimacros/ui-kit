@@ -19,12 +19,14 @@ workflow:
 stages:
   - build
   - test
-  - deploy
+  - nexus
+  # - deploy
 
 build:
   stage: build
   script:
-    - nvm use && npm ci && npm run build:storybook
+    - nvm use && npm ci
+    # - npm run build:storybook
     - mv storybook-static $CI_PROJECT_NAME
     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
   tags:
@@ -40,9 +42,9 @@ lint-test:
   script:
     - nvm use && npm run lint
 
-#deploy
-deploy:
-  stage: deploy
+# push artefacts to nexus
+nexus-push-job:
+  stage: nexus
   variables:
     GIT_STRATEGY: none
   rules:
@@ -53,19 +55,41 @@ deploy:
     - if: ($deploy != "true" && $pr != "true")
       when: manual
       allow_failure: true
+  needs:
+    - lint-test
   tags:
     - ${runner}
-  before_script:
-    - eval $(ssh-agent -s)
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
-    - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
   script:
-    - echo "Deploying application..."
-    - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
-    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
-      rm -rf $CI_PROJECT_NAME &&
-      tar -xvf $CI_PROJECT_NAME.tar.gz &&
-      rm -rf $CI_PROJECT_NAME.tar.gz"
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
+    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - echo "y" | npm run publish
+
+#deploy
+# deploy:
+#   stage: deploy
+#   variables:
+#     GIT_STRATEGY: none
+#   rules:
+#     - if: ($deploy == "true")
+#       when: on_success
+#     - if: ($pr == "true")
+#       when: never
+#     - if: ($deploy != "true" && $pr != "true")
+#       when: manual
+#       allow_failure: true
+#   tags:
+#     - ${runner}
+#   before_script:
+#     - eval $(ssh-agent -s)
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#     - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
+#     - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
+#     - chmod 644 ~/.ssh/known_hosts
+#   script:
+#     - echo "Deploying application..."
+#     - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
+#     - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
+#       rm -rf $CI_PROJECT_NAME &&
+#       tar -xvf $CI_PROJECT_NAME.tar.gz &&
+#       rm -rf $CI_PROJECT_NAME.tar.gz"
