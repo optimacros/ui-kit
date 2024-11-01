@@ -25,6 +25,7 @@ stages:
 build:
   stage: build
   script:
+    - echo "/legacy-peer-deps=true" >> .npmrc
     - nvm use && npm ci
     # - npm run build:storybook
     # - mv storybook-static $CI_PROJECT_NAME
