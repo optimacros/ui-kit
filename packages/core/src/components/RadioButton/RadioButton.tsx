@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RadioButton as Base } from './BaseRadioButton';
 import { RadioProps } from './BaseRadioButton/Radio';
-import { mergeStyles } from '../../utils';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import baseTheme from './BaseRadioButton/radioButtonTheme.module.css';
 import styles from './RadioButton.module.css';

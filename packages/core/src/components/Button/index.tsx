@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes } from 'react';
 import React, { Component } from 'react';
 
 import { ButtonComponent } from './Button';
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 // order of styles import is important
 import themeStyle from './buttonTheme.module.css';

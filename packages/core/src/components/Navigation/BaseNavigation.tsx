@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { isEqual } from 'lodash';
 import React from 'react';
 
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import themeStyles from './navigationTheme.module.css';
 

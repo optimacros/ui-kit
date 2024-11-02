@@ -4,7 +4,7 @@ import React from 'react';
 
 import type { NavigationProps as BaseNavigationProps, NavigationTheme } from './BaseNavigation';
 import { BaseNavigation } from './BaseNavigation';
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import navigationTheme from './Navigation.module.css';
 

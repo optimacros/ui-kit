@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@optimacros/ui-kit-core": "1.1.3",
+        "@optimacros/ui-kit-utils": "0.0.0",
         "@optimacros/themes": "0.0.0",
         "marked": "4.1.0",
         "mobx": "6.9.0",

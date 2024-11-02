@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { Box } from './Box';
 import type { InitialProps, Theme } from './index';
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import checkBoxStyle from './Checkbox.module.css';
 

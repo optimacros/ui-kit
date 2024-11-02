@@ -5,8 +5,7 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 import { IconButton } from '@optimacros/ui-kit-core';
 
 import CalendarMonth from './CalendarMonth';
-import time from '../../utils/react-toolbox-utils/time';
-import { range, getAnimationModule } from '../../utils/react-toolbox-utils/utils';
+import { range, getAnimationModule, time } from '@optimacros/ui-kit-utils';
 
 const DIRECTION_STEPS = { left: -1, right: 1 };
 const KEYS = {

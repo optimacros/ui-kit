@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Component } from 'react';
 
-import isComponentOfType from '../../../utils/react-toolbox-utils/is-component-of-type';
+import { isComponentOfType } from '@optimacros/ui-kit-utils';
 import { RadioProps } from '../../RadioButton';
 
 export interface RadioGroupProps {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mergeStyles } from '@optimacros/ui-kit-core';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import ThemedSlider, { SliderProps } from './Slider';
 import baseTheme from './sliderTheme.module.css';
 import styles from './SliderScale.module.css';

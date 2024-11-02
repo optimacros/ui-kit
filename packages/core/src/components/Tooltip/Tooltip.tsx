@@ -2,9 +2,7 @@ import classnames from 'classnames';
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-import { mergeStyles } from '../../utils/mergeStyle';
-import events from '../../utils/react-toolbox-utils/events';
-import { getViewport } from '../../utils/react-toolbox-utils/utils';
+import { mergeStyles, getViewport, events } from '@optimacros/ui-kit-utils';
 
 import styles from './tooltipTheme.module.css';
 

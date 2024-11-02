@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SnackbarComponent, SnackbarProps } from './Snackbar';
-import { mergeStyles } from '../../utils';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import { Button } from '../Button';
 
 import theme from './snackbarTheme.module.css';

@@ -2,7 +2,7 @@ import type { CSSProperties, MouseEventHandler } from 'react';
 import React from 'react';
 
 import { CheckboxComponent } from './Checkbox';
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import { Tooltip, TooltipProps, TooltipTheme } from '../Tooltip';
 
 import themeStyle from './checkboxTheme.module.css';

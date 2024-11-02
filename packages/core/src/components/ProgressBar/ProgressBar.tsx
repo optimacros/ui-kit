@@ -2,8 +2,7 @@
 import classnames from 'classnames';
 import React, { Component } from 'react';
 
-import { mergeStyles } from '../../utils';
-import prefixer from '../../utils/react-toolbox-utils/prefixer';
+import { mergeStyles, prefixer } from '@optimacros/ui-kit-utils';
 
 import defaultTheme from './progressBarTheme.module.css';
 

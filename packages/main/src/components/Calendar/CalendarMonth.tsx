@@ -2,8 +2,7 @@
 import { Component } from 'react';
 
 import CalendarDay from './CalendarDay';
-import time from '../../utils/react-toolbox-utils/time';
-import { range } from '../../utils/react-toolbox-utils/utils';
+import { range, time } from '@optimacros/ui-kit-utils';
 
 interface Props {
     disabledDates?: Date[];

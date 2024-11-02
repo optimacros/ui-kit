@@ -3,8 +3,7 @@ import { isNull, isUndefined } from 'lodash';
 import React from 'react';
 import type { TextareaHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 
-import { mergeStyles } from '../../utils/mergeStyle';
-import { isValuePresent } from '../../utils/react-toolbox-utils';
+import { mergeStyles, isValuePresent } from '@optimacros/ui-kit-utils';
 import { Icon } from '../Icon';
 
 // order of styles import is important

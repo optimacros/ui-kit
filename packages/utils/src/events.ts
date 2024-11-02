@@ -1,6 +1,6 @@
 import { keys } from 'lodash';
 
-export default {
+export const events = {
     getMousePosition(event) {
         return {
             x: event.pageX - (window.scrollX || window.pageXOffset),

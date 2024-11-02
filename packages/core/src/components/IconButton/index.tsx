@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { IconButtonComponent } from './IconButton';
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import type { ButtonInitialProps, ThemeButtonProps } from '../Button';
 import { Tooltip, TooltipProps } from '../Tooltip';
 

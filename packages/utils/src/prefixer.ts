@@ -28,7 +28,7 @@ function addPrefixesTo(style, property, value) {
     return style;
 }
 
-function prefixer(style, defaultValue = {}) {
+export function prefixer(style, defaultValue = {}) {
     const _style = defaultValue;
     for (const property in style) {
         if ({}.hasOwnProperty.call(style, property)) {
@@ -42,5 +42,3 @@ function prefixer(style, defaultValue = {}) {
 
     return _style;
 }
-
-export default prefixer;

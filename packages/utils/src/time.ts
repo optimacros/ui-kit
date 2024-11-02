@@ -1,7 +1,7 @@
 import { dateLocales } from './dateLocales';
 import hasOwnProperty from './hasOwnProperty';
 
-const time = {
+export const time = {
     getDaysInMonth(d) {
         const resultDate = this.getFirstDayOfMonth(d);
         resultDate.setMonth(resultDate.getMonth() + 1);
@@ -188,5 +188,3 @@ const time = {
         return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     },
 };
-
-export default time;

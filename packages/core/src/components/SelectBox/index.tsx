@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import type { SelectBoxTheme, SelectBoxProps as Props } from './SelectBox';
 import { SelectBoxComponent } from './SelectBox';
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import { Chip } from '../Chip/index';
 import type { InputTheme } from '../Input';
 

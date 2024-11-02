@@ -37,12 +37,6 @@ export {
     Toolbar,
     Tooltip,
     VerticalDivider,
-    colorUtils,
-    events,
-    getViewport,
-    isValuePresent,
-    mergeStyles,
-    prefixer,
 } from '@optimacros/ui-kit-core';
 export * from './Calendar';
 export * from './ColorPicker';

@@ -1,8 +1,7 @@
 import classnames from 'classnames';
 import React, { Component } from 'react';
 
-import { mergeStyles } from '../../utils/mergeStyle';
-import prefixer from '../../utils/react-toolbox-utils/prefixer';
+import { mergeStyles, prefixer } from '@optimacros/ui-kit-utils';
 
 import style from './theme.module.css';
 

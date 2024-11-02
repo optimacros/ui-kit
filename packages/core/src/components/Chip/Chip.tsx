@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import styles from './chipTheme.module.css';
 

@@ -3,7 +3,7 @@ import { map } from 'lodash';
 import React, { Component } from 'react';
 
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer';
-import { mergeStyles } from '../../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import type { TabProps } from '../Tab';
 
 import styles from './TabContent.module.css';

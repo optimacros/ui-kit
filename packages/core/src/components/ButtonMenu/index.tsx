@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 
-import { mergeStyles } from '../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import { Button, ButtonTheme } from '../Button';
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';

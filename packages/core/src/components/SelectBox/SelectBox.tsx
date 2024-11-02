@@ -3,7 +3,7 @@ import { isUndefined } from 'lodash';
 import React, { Component } from 'react';
 
 import { Key } from '../../types/KeyboardKeyList';
-import events from '../../utils/react-toolbox-utils/events';
+import { events } from '@optimacros/ui-kit-utils';
 import { Input } from '../Input';
 
 export type SelectBoxTheme = {

@@ -5,7 +5,7 @@ import type { TabContentTheme } from './TabContent';
 import { TabContent } from './TabContent';
 import type { TabHeaderTheme } from './TabHeader';
 import { TabHeader } from './TabHeader';
-import { mergeStyles } from '../../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import { ButtonMenuTheme } from '../../ButtonMenu';
 import type { TabProps } from '../Tab';
 

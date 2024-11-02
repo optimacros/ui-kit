@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { TabHeaderState } from './TabHeaderState';
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer';
 import { Key } from '../../../types/KeyboardKeyList';
-import { mergeStyles } from '../../../utils/mergeStyle';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 import { ButtonMenu } from '../../ButtonMenu';
 import { Counter } from '../../Counter';
 import { Icon } from '../../Icon';
