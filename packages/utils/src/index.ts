@@ -7,3 +7,5 @@ export * from './time';
 export * from './prefixer';
 export * from './events';
 export * from './utils';
+export * from './is-component-of-type';
+export * from './is-browser';

@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import _ from 'lodash';
 import { Component, ReactNode } from 'react';
-import { mergeStyles } from '@optimacros/ui-kit-core';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import styles from './TabContent.module.css';
 

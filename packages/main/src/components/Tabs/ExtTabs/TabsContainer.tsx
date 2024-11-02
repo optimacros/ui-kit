@@ -1,7 +1,7 @@
 // @ts-nocheck
 import classNames from 'classnames';
 import { Component } from 'react';
-import { mergeStyles } from '@optimacros/ui-kit-core';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 import { TabContent } from './TabContent';
 import { TabHeader } from './TabHeader';

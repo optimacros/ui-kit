@@ -3,12 +3,13 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { ButtonMenu, mergeStyles, Icon, MenuItem } from '@optimacros/ui-kit-core';
+import { ButtonMenu, Icon, MenuItem } from '@optimacros/ui-kit-core';
 
 import { TabHeaderState } from './TabHeaderState';
 import { KEY_CODES } from '../../../constants';
 
 import styles from './TabHeader.module.css';
+import { mergeStyles } from '@optimacros/ui-kit-utils';
 
 interface Props {
     draggable?: boolean;
