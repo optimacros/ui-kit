@@ -1,6 +1,6 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
-import { Button } from './index';
+import { Buttn, Button } from './index';
 
 const argTypes: Partial<ArgTypes> = {
     accent: {
@@ -199,4 +199,12 @@ export const Link: Story = {
         accent: true,
         label: 'Github',
     },
+};
+
+const BtnTemplate = (args) => <Buttn {...args} />;
+
+export const BtnDefault = BtnTemplate.bind({});
+BtnDefault.storyName = 'Base example';
+BtnDefault.args = {
+    children: 'Some Text',
 };

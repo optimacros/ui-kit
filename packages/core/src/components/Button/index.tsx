@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes } from 'react';
 import React, { Component } from 'react';
 
 import { ButtonComponent } from './Button';
-import { mergeStyles } from '@optimacros/ui-kit-utils';
+import { mergeStyles, tw } from '@optimacros/ui-kit-utils';
 
 // order of styles import is important
 import themeStyle from './buttonTheme.module.css';
@@ -54,9 +54,7 @@ export interface ButtonInitialProps
     theme: Partial<ThemeButtonProps>;
 }
 
-export type ButtonProps = Partial<ButtonInitialProps>;
-
-export class Button extends Component<ButtonProps> {
+export class Button extends Component<ButtonInitialProps> {
     render(): React.JSX.Element {
         let theme = mergeStyles(style, this.props.theme) as ButtonTheme;
         theme = mergeStyles(theme, themeStyle) as ButtonTheme;
@@ -74,3 +72,60 @@ export class Button extends Component<ButtonProps> {
         return <ButtonComponent {...this.props} className={className} theme={theme} />;
     }
 }
+
+const buttonCn = tw`
+leading-normal inline-flex items-center font-normal text-sm rounded-md border-1 border-solid border-transparent
+normal-case data-[uppercase=true]:uppercase bg-button-primary
+`;
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+    variant?: 'primary' | 'accent' | 'bordered' | 'neutral';
+    shape?: 'raised' | 'floating' | 'flat';
+    status?: 'warning' | 'error' | 'success';
+    size?: 'mini';
+    uppercase: boolean;
+    target: string;
+    fontColor: string;
+    fontSize: string | number;
+}
+
+export const Buttn = (props) => {
+    const {
+        disabled,
+        renderIcon,
+        variant,
+        size,
+        shape,
+        inverse,
+        status,
+        href,
+        children,
+        uppercase,
+    } = props;
+
+    const elementProps = {
+        ...props,
+        'data-variant': variant ?? 'neutral',
+        'data-size': size,
+        'data-shape': shape ?? 'flat',
+        'data-inverse': inverse,
+        'data-recipe': 'Button',
+        'data-uppercase': uppercase,
+        'data-status': status,
+        children: (
+            <>
+                {renderIcon?.()}
+                {children}
+            </>
+        ),
+        className: buttonCn,
+    };
+
+    const buttonElement = href ? <a {...elementProps} /> : <button {...elementProps} />;
+
+    if (disabled) {
+        return <span>{buttonElement}</span>;
+    }
+
+    return buttonElement;
+};

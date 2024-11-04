@@ -1,15 +1,17 @@
 import classNames from 'classnames';
-import type { MouseEvent } from 'react';
-import React, { Component } from 'react';
-
 import type { ButtonInitialProps, ButtonTheme } from './index';
 import { Icon } from '../Icon';
+import React from 'react';
 
 export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
     theme: ButtonTheme;
 }
+type ButtonProps = {
+    variant: 'primary' | 'accent' | 'bordered' | 'neutral';
+    shape: 'raised' | 'floating' | 'flat';
+};
 
-export class ButtonComponent extends Component<ButtonComponentProps> {
+export class ButtonComponent extends React.Component<ButtonComponentProps> {
     constructor(props: ButtonComponentProps) {
         super(props);
 
@@ -118,27 +120,5 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
         }
 
         return 'flat';
-    };
-
-    handleMouseUp = (event: MouseEvent<HTMLButtonElement>): void => {
-        if (this.buttonNode.current) {
-            // TODO проверить не сломает ли это тесты в АМ
-            this.buttonNode.current.blur();
-        }
-
-        if (this.props.onMouseUp) {
-            this.props.onMouseUp(event);
-        }
-    };
-
-    handleMouseLeave = (event: MouseEvent<HTMLButtonElement>): void => {
-        if (this.buttonNode.current) {
-            // TODO проверить не сломает ли это тесты в АМ
-            this.buttonNode.current.blur();
-        }
-
-        if (this.props.onMouseLeave) {
-            this.props.onMouseLeave(event);
-        }
     };
 }
