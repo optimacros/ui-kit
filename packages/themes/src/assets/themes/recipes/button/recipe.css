@@ -20,19 +20,19 @@
     }
 
     &[data-shape='flat'] {
-      @apply bg-transparent text-button-primary focus-not-active:bg-button-primary-focus hover:bg-button-primary-hover;
+      @apply bg-transparent text-button-primary focus:bg-button-primary-focus hover:bg-button-primary-hover;
     }
   }
 
   &[data-variant='neutral'] {
     &[data-shape='flat'] {
-      @apply bg-transparent text-button-neutral-contrast hover:bg-button-neutral-hover focus-not-active:bg-button-neutral-bg-focus focus-not-active:border-transparent;
+      @apply bg-transparent text-button-neutral-contrast hover:bg-button-neutral-hover focus:bg-button-neutral-bg-focus focus:border-transparent;
     }
   }
 
   &[data-variant='accent'] {
     &[data-shape='flat'] {
-      @apply bg-button-accent-bg text-button-accent hover:bg-button-accent-bg-hover focus-not-active:bg-button-accent-bg-focus focus-not-active:border-transparent;
+      @apply bg-button-accent-bg text-button-accent hover:bg-button-accent-bg-hover focus:bg-button-accent-bg-focus focus:border-transparent;
     }
 
     &[disabled] {
@@ -44,7 +44,7 @@
 
   &[data-variant='bordered'] {
     &[data-shape='flat'] {
-      @apply bg-primary text-button-accent border-button-accent-bg hover:button-accent-bg-hover focus-not-active:bg-button-accent-bg-focus focus-not-active:border-transparent;
+      @apply bg-primary text-button-accent border-button-accent-bg hover:bg-button-accent-bg-hover focus:bg-button-accent-bg-focus focus:border-transparent;
     }
 
     &[disabled] {

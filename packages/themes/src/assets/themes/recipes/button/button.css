@@ -3,18 +3,6 @@
   --height-button: calc(3.6 * var(--unit));
   --button-toggle-font-size: calc(2 * var(--unit));
 
-  --color-button-primary: var(--color-primary);
-  --color-button-primary-hover: color(var(--color-primary) a(20%));
-  --color-button-primary-focus: var(--color-button-primary-hover);
-  --color-button-primary-contrast: var(--color-primary-contrast);
-
-  --color-button-accent-contrast: var(--color-primary-contrast);
-  --color-button-accent-hover: color(var(--color-accent) a(20%));
-  --color-button-accent: var(--color-accent);
-  --color-button-neutral: var(--color-white);
-  --color-button-neutral-contrast: var(--palette-grey-900);
-  --color-button-neutral-hover: color(var(--palette-grey-900) a(20%));
-
   --button-floating-font-size: calc(2.4 * var(--unit));
   --button-floating-height: calc(5.6 * var(--unit));
   --button-floating-mini-height: calc(4 * var(--unit));
@@ -27,6 +15,18 @@
   --button-squared-icon-margin: calc(0.6 * var(--unit));
   --button-squared-min-width: calc(9 * var(--unit));
   --button-squared-padding: 0 calc(1.2 * var(--unit));
+
+  --color-button-primary: var(--color-primary);
+  --color-button-primary-hover: color(var(--color-primary) a(20%));
+  --color-button-primary-focus: var(--color-button-primary-hover);
+  --color-button-primary-contrast: var(--color-primary-contrast);
+
+  --color-button-accent-contrast: var(--color-primary-contrast);
+  --color-button-accent-hover: color(var(--color-accent) a(20%));
+  --color-button-accent: var(--color-accent);
+  --color-button-neutral: var(--color-white);
+  --color-button-neutral-contrast: var(--palette-grey-900);
+  --color-button-neutral-hover: color(var(--palette-grey-900) a(20%));
 
   --color-button-warning-bg: #d12a2d;
   --color-button-warning: #f0f6fc;
