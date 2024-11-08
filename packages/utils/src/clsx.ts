@@ -29,7 +29,7 @@ function toVal(mix) {
     return str;
 }
 
-export function clsx() {
+export function clsx(...args) {
     var i = 0,
         tmp,
         x,

@@ -2,6 +2,7 @@
 @import 'tailwindcss/utilities' layer(utilities);
 
 @import './recipes';
+@import './colors.css';
 
 @theme {
   --color-divider: var(--palette-grey-200);

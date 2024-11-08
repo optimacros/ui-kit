@@ -17,7 +17,9 @@ const preview = {
         (Story, { parameters }) => {
             return (
                 <UiCoreContextWrapper state={{ iconsSrc }}>
-                    <Story />
+                    <div style={{ padding: '1rem' }}>
+                        <Story />
+                    </div>
                 </UiCoreContextWrapper>
             );
         },

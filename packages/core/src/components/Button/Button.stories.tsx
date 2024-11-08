@@ -1,6 +1,7 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
-import { Buttn, Button } from './index';
+import { Button } from './index';
+import { Icon } from '../Icon';
 
 const argTypes: Partial<ArgTypes> = {
     accent: {
@@ -78,7 +79,7 @@ const argTypes: Partial<ArgTypes> = {
         control: 'text',
         description: 'The `target` attribute value for link button.',
     },
-    label: {
+    children: {
         control: 'text',
         description: 'The text string to use for the name of the button.',
     },
@@ -90,105 +91,107 @@ const meta: Meta<typeof Button> = {
     component: Button,
     argTypes,
 };
+
 export default meta;
 
 type Story = StoryObj<typeof Button>;
 
 export const Accent: Story = {
     args: {
-        icon: 'bookmark',
-        label: 'Bookmark',
-        accent: true,
+        renderIcon: () => {
+            return <Icon value="bookmark" />;
+        },
+        children: 'bookmark',
+        variant: 'accent',
     },
 };
 
 export const Bordered: Story = {
     args: {
-        label: 'Apply',
-        bordered: true,
+        children: 'Apply',
+        variant: 'bordered',
     },
 };
 
 export const Primary: Story = {
     args: {
-        label: 'Apply',
-        primary: true,
+        children: 'Apply',
+        variant: 'primary',
     },
 };
 
 export const Flat: Story = {
     args: {
-        icon: 'inbox',
-        label: 'Inbox',
+        renderIcon: () => {
+            return <Icon value="inbox" />;
+        },
+        shape: 'flat',
+        children: 'Inbox',
     },
 };
 
 export const Floating: Story = {
     args: {
-        icon: 'add',
-        floating: true,
+        renderIcon: () => {
+            return <Icon value="inbox" />;
+        },
+        shape: 'floating',
     },
 };
 
 export const Mini: Story = {
     args: {
-        icon: 'add',
-        floating: true,
-        mini: true,
+        renderIcon: () => {
+            return <Icon value="add" />;
+        },
+        shape: 'floating',
+        variant: 'neutral',
+        size: 'xs',
     },
 };
 
 export const Raised: Story = {
     args: {
-        label: 'Next',
-        raised: true,
+        children: 'Next',
+        shape: 'raised',
     },
 };
 
 export const Uppercase: Story = {
     args: {
-        label: 'Apply',
+        children: 'Apply',
         uppercase: true,
     },
 };
 
 export const Disabled: Story = {
     args: {
-        icon: 'add',
-        label: 'Add this',
+        renderIcon: () => {
+            return <Icon value="add" className="size-auto" />;
+        },
+        children: 'Add this',
         disabled: true,
-        accent: true,
+        variant: 'accent',
     },
 };
 
 export const Gray: Story = {
     args: {
-        label: 'Cancel',
-        gray: true,
+        children: 'Cancel',
     },
 };
 
 export const Warning: Story = {
     args: {
-        label: 'Delete',
-        warning: true,
+        children: 'Delete',
+        status: 'warning',
     },
 };
 
 export const Inverse: Story = {
     args: {
-        label: 'Delete',
+        children: 'Delete',
         inverse: true,
-        buttonColor: 'black',
-    },
-};
-
-export const Styled: Story = {
-    args: {
-        label: 'Remove',
-        buttonColor: 'purple',
-        fontColor: 'white',
-        fontSize: 14,
     },
 };
 
@@ -196,15 +199,7 @@ export const Link: Story = {
     args: {
         href: 'http://github.com/',
         target: '_blank',
-        accent: true,
-        label: 'Github',
+        variant: 'accent',
+        children: 'Github',
     },
-};
-
-const BtnTemplate = (args) => <Buttn {...args} />;
-
-export const BtnDefault = BtnTemplate.bind({});
-BtnDefault.storyName = 'Base example';
-BtnDefault.args = {
-    children: 'Some Text',
 };

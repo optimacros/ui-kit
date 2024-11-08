@@ -1,4 +1,4 @@
-:root {
+@theme {
   --palette-red-50: rgb(255, 235, 238);
   --palette-red-100: rgb(255, 205, 210);
   --palette-red-200: rgb(239, 154, 154);
@@ -273,8 +273,6 @@
   --palette-blue-grey-800: rgb(55, 71, 79);
   --palette-blue-grey-900: rgb(38, 50, 56);
 
-  --color-black: rgb(0, 0, 0);
-  --color-white: rgb(255, 255, 255);
   --color-dark-contrast: var(--color-white);
   --color-light-contrast: var(--color-black);
 }
