@@ -54,7 +54,6 @@ nexus-push-job:
     GIT_STRATEGY: none
   rules:
     - if: ($deployTag == "true")
-    #- if: $CI_COMMIT_REF_NAME =~ /^\d+\.\d+\.\d+(-.*)?$/ #/^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # Выполняется для тегов 1.0.0, 2.3.4-dev, 2.3.4-devXX
   allow_failure: true
   needs:
     - lint-test
