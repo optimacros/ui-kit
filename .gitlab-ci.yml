@@ -29,7 +29,7 @@ build:
   stage: build
   script:
     - echo "CI_COMMIT_TAG=$CI_COMMIT_TAG" # debug
-    - echo "CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME" #debug
+    - echo "CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME" # debug
     - echo "legacy-peer-deps=true" >> .npmrc
     - nvm use && npm ci
     - npm run build:storybook
