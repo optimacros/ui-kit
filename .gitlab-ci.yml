@@ -14,7 +14,7 @@ workflow:
     - if: ( $CI_PIPELINE_SOURCE == "merge_request_event") # При MR
       variables:
         pr: "true"
-    - if: $CI_COMMIT_REF_NAME =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # При запуске для тегов
+    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # При запуске для тегов
       variables:
         deployTag: "true"
     - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
@@ -29,6 +29,7 @@ build:
   stage: build
   script:
     - echo "CI_COMMIT_TAG=$CI_COMMIT_TAG" # debug
+    - echo "CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME" #debug
     - echo "legacy-peer-deps=true" >> .npmrc
     - nvm use && npm ci
     - npm run build:storybook
@@ -60,6 +61,7 @@ nexus-push-job:
   tags:
     - ${runner}
   script:
+    - echo "CI_COMMIT_TAG=$CI_COMMIT_TAG" # debug
     - echo "CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME" #debug
     - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
