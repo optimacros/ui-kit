@@ -49,7 +49,7 @@ nexus-push-job:
   variables:
     GIT_STRATEGY: none
   rules:
-    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  #Выполняется для тегов 1.0.0, 2.3.4-dev, 2.3.4-devXX
+    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # Выполняется для тегов 1.0.0, 2.3.4-dev, 2.3.4-devXX
   allow_failure: true
   needs:
     - lint-test
