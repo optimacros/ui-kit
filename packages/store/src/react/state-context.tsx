@@ -2,7 +2,7 @@ import { invariant, isFunction } from '@optimacros/ui-kit-utils';
 import { ComponentProps, createContext, FC, memo, ReactNode, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';
-import { createMachineApiHook } from './useMachineApi';
+import { createActorApiHook, createMachineApiHook } from './useMachineApi';
 import { styled } from './factory';
 
 type HooksConfig = object;
@@ -164,8 +164,12 @@ type ApiStoreConfig<
 > = StoreConfig<ID, InitialState, Selectors, Hooks> & {
     machine: Machine;
     api: Api;
+    /** place as div in dom */
     rootAsTag?: boolean;
+    /** replace root props */
     useRootProps?: (api: Api) => any;
+    /** use actor instead of machine */
+    actor?: boolean;
 };
 
 export function createReactApiStateContext<
@@ -176,7 +180,7 @@ export function createReactApiStateContext<
     Selectors extends Record<string, Selector<InitialState>> = NonNullable<unknown>,
     Hooks extends HooksConfig = NonNullable<unknown>,
 >(config: ApiStoreConfig<ID, InitialState, Api, Machine, Selectors, Hooks>) {
-    const { initialState, createConfig, id, api, machine, rootAsTag, useRootProps } = config;
+    const { initialState, createConfig, id, api, machine, rootAsTag, useRootProps, actor } = config;
 
     const createdConfig = createConfig?.(initialState) ?? {};
 
@@ -210,8 +214,9 @@ export function createReactApiStateContext<
     StoreProvider.displayName = id;
 
     const useMachine = createMachineApiHook<Parameters<Machine['machine']>[0]>(machine);
+    const useActor = createActorApiHook(machine);
 
-    function Root({
+    function RootMachine({
         children,
         state = null,
         ...context
@@ -228,6 +233,22 @@ export function createReactApiStateContext<
         );
     }
 
+    function RootActor({
+        children,
+        state = null,
+        actor,
+    }: { state?: InitialState; children: ReactNode | ((api: Api) => ReactNode); actor: any }) {
+        const { send, api } = useActor(actor);
+
+        return (
+            <StoreProvider state={state} api={api}>
+                {isFunction(children) ? children(api) : children}
+            </StoreProvider>
+        );
+    }
+
+    const Root = actor ? RootActor : RootMachine;
+
     const RootAsTagComponent = ({
         children,
         className,
@@ -236,7 +257,7 @@ export function createReactApiStateContext<
         className?: string;
     }) => {
         const api = useApi();
-        const props = useRootProps(api);
+        const props = useRootProps?.(api) ?? {};
 
         return (
             <styled.div
