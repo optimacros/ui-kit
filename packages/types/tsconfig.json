@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "noEmit": false,
+        "noEmitOnError": false,
+        "allowSyntheticDefaultImports": true
+    },
+    "exclude": ["**/*.stories.*", "**/*.s.*", "node_modules"],
+    "include": ["src"]
+}

@@ -11,7 +11,7 @@
         "strict": false,
         "allowJs": true,
         "jsx": "react-jsx",
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "target": "ESNext",
         "declaration": true,
@@ -26,7 +26,8 @@
             "@optimacros/ui-kit": ["packages/main/src"],
             "@optimacros/themes": ["packages/themes/src"],
             "@optimacros/ui-kit-layout": ["packages/layout/src"],
-            "@optimacros/ui-kit-utils": ["packages/utils/src"]
+            "@optimacros/ui-kit-utils": ["packages/utils/src"],
+            "@optimacros/ui-kit-store": ["packages/store/src"]
         }
     },
     "exclude": ["node_modules", "dist"]

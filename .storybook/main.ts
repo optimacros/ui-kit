@@ -17,13 +17,13 @@ const config: StorybookConfig = {
             ...cfg,
             //@ts-ignore
             plugins: [...cfg.plugins, tsconfigPaths()],
+            css: {
+                transformer: 'lightningcss',
+            },
         };
     },
     core: {
         builder: '@storybook/builder-vite',
-    },
-    docs: {
-        autodocs: true,
     },
     typescript: {
         reactDocgen: 'react-docgen-typescript',

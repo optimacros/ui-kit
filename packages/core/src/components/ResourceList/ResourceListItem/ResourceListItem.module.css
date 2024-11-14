@@ -69,7 +69,7 @@
     height: auto;
   }
 
-  & :global(.am-app-icon) {
+  & .am-app-icon {
     fill: var(--ListItem-icon-color);
   }
 }

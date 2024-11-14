@@ -1,0 +1,17 @@
+{
+    "name": "@optimacros/ui-kit-types",
+    "version": "0.0.0",
+    "description": "",
+    "types": "./src/index.ts",
+    "main": "./src/index.ts",
+    "scripts": {
+        "start": "tsc"
+    },
+    "devDependencies": {
+        "type-fest": "4.15.0",
+        "ts-toolbelt": "9.6.0"
+    },
+    "peerDependencies": {
+        "immutable": ">=4.3.5"
+    }
+}

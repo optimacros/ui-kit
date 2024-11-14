@@ -40,16 +40,16 @@
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px;
 
-  & :global(.sketch-picker) {
+  & .sketch-picker {
     background: var(--contextMenu-bg) !important;
     box-shadow: none !important;
   }
 
-  & :global(.flexbox-fix) {
+  & .flexbox-fix {
     border-color: var(--light-divider-color) !important;
   }
 
-  & :global(.flexbox-fix) span {
+  & .flexbox-fix span {
     color: var(--primary-text-color) !important;
   }
 }

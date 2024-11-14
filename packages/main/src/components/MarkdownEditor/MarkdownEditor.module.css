@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   &_notResize {
-    & :global(.react-resizable-handle) {
+    & .react-resizable-handle {
       display: none;
     }
   }

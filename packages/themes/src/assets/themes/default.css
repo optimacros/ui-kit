@@ -92,14 +92,10 @@
   --z-index-global-loader: 9999;
 
   /* main */
-  --input-border: #b1bac4;
-  --input-border-focus: #757474;
-  --input-color: #595959;
-  --input-focus: var(--primary-color);
-  --primary-text-color: #212121;
-  --secondary-text-color: #595959;
-  --dark-divider-color: #e8e8e8;
-  --light-divider-color: #e0e0e0;
+  --color-text-primary: #212121;
+  --color-text-secondary: #595959;
+  --color-dark-divider: #e8e8e8;
+  --color-light-highlighted-bg: #f6f6f6;
 
   /* button */
   --Button-warning-bg: #d12a2d;

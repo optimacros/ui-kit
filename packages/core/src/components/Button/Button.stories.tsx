@@ -125,7 +125,7 @@ export const Flat: Story = {
         renderIcon: () => {
             return <Icon value="inbox" />;
         },
-        shape: 'flat',
+        float: 'flat',
         children: 'Inbox',
     },
 };
@@ -135,7 +135,7 @@ export const Floating: Story = {
         renderIcon: () => {
             return <Icon value="inbox" />;
         },
-        shape: 'floating',
+        float: 'floating',
     },
 };
 
@@ -144,7 +144,7 @@ export const Mini: Story = {
         renderIcon: () => {
             return <Icon value="add" />;
         },
-        shape: 'floating',
+        float: 'floating',
         variant: 'neutral',
         size: 'xs',
     },
@@ -153,7 +153,7 @@ export const Mini: Story = {
 export const Raised: Story = {
     args: {
         children: 'Next',
-        shape: 'raised',
+        float: 'raised',
     },
 };
 
