@@ -12,6 +12,11 @@ export default {
 
     decorators: [
         (Story) => (
+            <ToastGroup.Root getRootNode={() => document.body}>
+                <Story />
+            </ToastGroup.Root>
+        ),
+        (Story) => (
             <Wrapper>
                 <Story />
             </Wrapper>
@@ -20,32 +25,28 @@ export default {
 };
 
 export const Base = (props) => {
+    const api = ToastGroup.useApi();
     return (
-        <ToastGroup.Root>
-            {(api) => (
-                <>
-                    <button
-                        onClick={() => {
-                            api.create({
-                                duration: 50000,
-                                title: 'test',
-                                placement: 'top',
-                                type: 'info',
-                            });
-                        }}
-                    >
-                        create toast
-                    </button>
-                    <ToastGroup.Portal>
-                        {(toast) => (
-                            <Toast.Root actor={toast}>
-                                <Toast.Title />
-                                <Toast.Description />
-                            </Toast.Root>
-                        )}
-                    </ToastGroup.Portal>
-                </>
-            )}
-        </ToastGroup.Root>
+        <>
+            <button
+                onClick={() => {
+                    api.create({
+                        duration: 50000,
+                        title: 'test',
+                        type: 'info',
+                    });
+                }}
+            >
+                create toast
+            </button>
+            <ToastGroup.Portal>
+                {(toast) => (
+                    <Toast.Root actor={toast}>
+                        <Toast.Title />
+                        <Toast.Description />
+                    </Toast.Root>
+                )}
+            </ToastGroup.Portal>
+        </>
     );
 };

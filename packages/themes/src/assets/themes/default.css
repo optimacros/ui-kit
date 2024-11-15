@@ -29,6 +29,16 @@
 
   --radius-sm: 0.188rem;
 
+  --size-xl: var(--container-xl);
+  --size-2xl: var(--container-2xl);
+  --size-3xl: var(--container-3xl);
+  --size-3xs: var(--container-3xs);
+  --size-2xs: var(--container-2xs);
+  --size-xs: var(--container-xs);
+  --size-sm: var(--container-sm);
+  --size-md: var(--container-md);
+  --size-lg: var(--container-lg);
+
   --font-weight-thin: 300;
   --font-weight-normal: 400;
   --font-weight-semi-bold: 500;

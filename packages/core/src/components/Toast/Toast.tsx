@@ -3,6 +3,8 @@ import * as toast from '@zag-js/toast';
 import { ReactNode } from 'react';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 
+export const rootClassName = tw`size-xs flex radius-sm flex items-center justify-center`;
+
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     api: null as toast.Api,
     id: 'toast',
@@ -13,7 +15,7 @@ export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     useRootProps(api) {
         return {
             ...api.getRootProps(),
-            className: tw`bg-black size-3xl`,
+            className: rootClassName,
         };
     },
 });
@@ -50,14 +52,23 @@ export const CloseTrigger = forward<{ children: ((props) => ReactNode) | ReactNo
     },
 );
 
+export const titleClassName = 'text-base';
 export const Title = forward<{}, 'h3'>((props, ref) => {
     const api = useApi();
 
-    return <styled.h3 {...api.getTitleProps()} {...props} ref={ref} />;
+    return <styled.h3 {...api.getTitleProps()} {...props} ref={ref} className={titleClassName} />;
 });
 
+export const descriptionClassName = 'text-sm';
 export const Description = forward<{}, 'p'>((props, ref) => {
     const api = useApi();
 
-    return <styled.p {...api.getDescriptionProps()} {...props} ref={ref} />;
+    return (
+        <styled.p
+            {...api.getDescriptionProps()}
+            {...props}
+            ref={ref}
+            className={descriptionClassName}
+        />
+    );
 });
