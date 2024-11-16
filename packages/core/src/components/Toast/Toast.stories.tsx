@@ -1,4 +1,5 @@
 import { Toast, ToastGroup } from '.';
+import { Icon } from '../Icon';
 import { ReactNode } from 'react';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
@@ -12,7 +13,7 @@ export default {
 
     decorators: [
         (Story) => (
-            <ToastGroup.Root getRootNode={() => document.body}>
+            <ToastGroup.Root>
                 <Story />
             </ToastGroup.Root>
         ),
@@ -23,7 +24,7 @@ export default {
         ),
     ],
 };
-
+const types = ['info', 'error', 'loading', 'success'];
 export const Base = (props) => {
     const api = ToastGroup.useApi();
     return (
@@ -31,9 +32,10 @@ export const Base = (props) => {
             <button
                 onClick={() => {
                     api.create({
-                        duration: 50000,
-                        title: 'test',
-                        type: 'info',
+                        duration: 1000,
+                        title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
+                        type: types[Math.floor(Math.random() * (types.length - 1))],
+                        placement: 'top-end',
                     });
                 }}
             >
@@ -42,8 +44,14 @@ export const Base = (props) => {
             <ToastGroup.Portal>
                 {(toast) => (
                     <Toast.Root actor={toast}>
-                        <Toast.Title />
-                        <Toast.Description />
+                        <Toast.Content>
+                            {toast.id}
+                            <Toast.Title />
+                            <Toast.Description />
+                        </Toast.Content>
+                        <Toast.CloseTrigger>
+                            {(props) => <Icon {...props} value="close" />}
+                        </Toast.CloseTrigger>
                     </Toast.Root>
                 )}
             </ToastGroup.Portal>

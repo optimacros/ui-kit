@@ -10,6 +10,13 @@
 
 [data-scope='toast'] {
   &[data-part='root'] {
+    translate: var(--x) var(--y);
+    scale: var(--scale);
+    z-index: var(--z-index);
+    opacity: var(--opacity);
+    height: var(--height);
+    will-change: translate, opacity, scale;
+
     --bg: var(--color-toast-bg);
     --bg-warning: var(--color-toast-warning);
     --text: var(--color-toast);

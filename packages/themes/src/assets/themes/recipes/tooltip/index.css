@@ -6,6 +6,7 @@
 [data-scope='tooltip'][data-part='arrow'] {
   --arrow-size: var(--spacing-5);
   --arrow-background: var(--color-tooltip-bg);
+
   &[data-placement='right'] {
     --arrow-size: var(--spacing-2);
   }

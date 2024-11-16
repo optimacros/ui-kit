@@ -264,6 +264,7 @@ export function createReactApiStateContext<
                 data-scope={id}
                 data-part="root"
                 {...props}
+                key={props?.id ?? id}
                 className={`${props.className ?? ''} ${className}`}
             >
                 {isFunction(children) ? children(api) : children}

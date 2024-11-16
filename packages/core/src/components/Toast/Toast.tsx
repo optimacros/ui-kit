@@ -3,7 +3,7 @@ import * as toast from '@zag-js/toast';
 import { ReactNode } from 'react';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 
-export const rootClassName = tw`size-xs flex radius-sm flex items-center justify-center`;
+export const rootClassName = tw`flex rounded-sm flex items-center justify-center py-1 px-2 bg-[var(--bg)] text-[var(--text)] gap-2 size-auto`;
 
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     api: null as toast.Api,
@@ -36,11 +36,12 @@ export const Trigger = forward<{ children: ((props) => ReactNode) | ReactNode },
     },
 );
 
+export const closeTriggerClassName = 'bg-[var(--bg)]';
 export const CloseTrigger = forward<{ children: ((props) => ReactNode) | ReactNode }, 'button'>(
     ({ children, ...rest }) => {
         const api = useApi();
 
-        const apiProps = api.getCloseTriggerProps();
+        const apiProps = { ...api.getCloseTriggerProps(), className: closeTriggerClassName };
 
         return isFunction(children) ? (
             children(apiProps)
@@ -56,7 +57,11 @@ export const titleClassName = 'text-base';
 export const Title = forward<{}, 'h3'>((props, ref) => {
     const api = useApi();
 
-    return <styled.h3 {...api.getTitleProps()} {...props} ref={ref} className={titleClassName} />;
+    return (
+        <styled.h3 {...props} {...api.getTitleProps()} ref={ref} className={titleClassName}>
+            {api.title}
+        </styled.h3>
+    );
 });
 
 export const descriptionClassName = 'text-sm';
@@ -69,6 +74,25 @@ export const Description = forward<{}, 'p'>((props, ref) => {
             {...props}
             ref={ref}
             className={descriptionClassName}
+        >
+            {api.description}
+        </styled.p>
+    );
+});
+
+export const contentClassName = 'flex flex-col gap-0.5';
+export const Content = forward<{}, 'div'>((props, ref) => {
+    return (
+        <styled.div
+            {...props}
+            data-scope="toast"
+            data-part="content"
+            ref={ref}
+            className={contentClassName}
         />
     );
+});
+
+export const LoaderBar = forward<{}, 'h3'>((props, ref) => {
+    return <>todo</>;
 });
