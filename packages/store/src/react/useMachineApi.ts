@@ -23,6 +23,6 @@ export function createActorApiHook<Machine extends Record<string, any> = NonNull
 
         const api = machine.connect(state, send, normalizeProps);
 
-        return { api, state, send };
+        return { api: { ...api, send }, state };
     };
 }

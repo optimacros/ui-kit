@@ -32,15 +32,21 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 };
 const itemCn = tw`py-2 px-3 data-highlighted:bg-[var(--bg-hover)] data-disabled:text-[var(--text-disabled)] cursor-pointer data-disabled:cursor-default select-none`;
 
-export const Item = ({ valueText, ...rest }: menu.ItemProps) => {
-    const api = useApi();
+export const Item = forward<menu.ItemProps, 'li'>(
+    ({ valueText, closeOnSelect, disabled, value, ...rest }) => {
+        const api = useApi();
 
-    return (
-        <li {...api.getItemProps(rest)} className={itemCn}>
-            {valueText}
-        </li>
-    );
-};
+        return (
+            <styled.li
+                {...rest}
+                {...api.getItemProps({ value, closeOnSelect, disabled, valueText })}
+                className={itemCn}
+            >
+                {valueText}
+            </styled.li>
+        );
+    },
+);
 
 export const Separator = () => {
     const api = useApi();
@@ -48,28 +54,35 @@ export const Separator = () => {
     return <hr {...api.getSeparatorProps()} className="h-px my-px text-[var(--text)]" />;
 };
 
-export const Group = ({ children, ...props }: menu.ItemGroupProps & { children: ReactNode }) => {
-    const api = useApi();
+export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'>(
+    ({ children, id, ...rest }, ref) => {
+        const api = useApi();
 
-    return <ul {...api.getItemGroupProps(props)}>{children}</ul>;
-};
+        return (
+            <styled.ul ref={ref} {...rest} {...api.getItemGroupProps({ id })}>
+                {children}
+            </styled.ul>
+        );
+    },
+);
 
-export const GroupLabel = ({
-    children,
-    ...props
-}: menu.ItemGroupLabelProps & { children: ReactNode }) => {
-    const api = useApi();
+export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNode }, 'label'>(
+    ({ children, htmlFor, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <p
-            {...api.getItemGroupLabelProps(props)}
-            className="px-2 py-2.5 border-b-1 border-solid border-[var(--border)]
+        return (
+            <styled.label
+                {...rest}
+                ref={ref}
+                {...api.getItemGroupLabelProps({ htmlFor })}
+                className="px-2 py-2.5 border-b-1 border-solid border-[var(--border)]
 bg-[var(--bg)] shadow-[var(--shadow)] text-[var(--text)]"
-        >
-            {children}
-        </p>
-    );
-};
+            >
+                {children}
+            </styled.label>
+        );
+    },
+);
 
 export const OptionItem = ({
     children,
@@ -98,20 +111,26 @@ data-[orientation="vertical"]:flex-col
 data-[orientation="horizontal"]:py-0
 `;
 
-export const Content = ({
-    children,
-    orientation = 'vertical',
-}: { children: ReactNode; orientation?: 'vertical' | 'horizontal' }) => {
+export const Content = forward<
+    { children: ReactNode; orientation?: 'vertical' | 'horizontal' },
+    'ul'
+>(({ children, orientation = 'vertical', ...rest }, ref) => {
     const api = useApi();
 
     return (
         <div {...api.getPositionerProps()} className="w-[var(--reference-width)]">
-            <ul {...api.getContentProps()} data-orientation={orientation} className={menuContentCn}>
+            <styled.ul
+                ref={ref}
+                {...rest}
+                {...api.getContentProps()}
+                data-orientation={orientation}
+                className={menuContentCn}
+            >
                 {children}
-            </ul>
+            </styled.ul>
         </div>
     );
-};
+});
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }) => {
     const api = useApi();

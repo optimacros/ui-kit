@@ -56,6 +56,7 @@ export const Button = forward<ButtonProps, 'button'>((props: ButtonProps, ref) =
 
     const elementProps = {
         ...rest,
+        ref,
         disabled,
         'data-variant': variant ?? 'neutral',
         'data-size': size ?? 'md',
@@ -76,5 +77,6 @@ export const Button = forward<ButtonProps, 'button'>((props: ButtonProps, ref) =
         className: clsx(buttonCn, className),
     };
 
+    //@ts-ignore
     return href ? <styled.a href={href} {...elementProps} /> : <styled.button {...elementProps} />;
 });
