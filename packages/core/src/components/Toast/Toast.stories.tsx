@@ -1,10 +1,6 @@
 import { Toast, ToastGroup } from '.';
 import { Icon } from '../Icon';
-import { ReactNode } from 'react';
-
-const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div style={{ width: '200px', display: 'flex', flexDirection: 'column' }}>{children}</div>
-);
+import { IconButton } from '../IconButtonV2';
 
 export default {
     title: 'UI Kit core/Toast',
@@ -17,13 +13,9 @@ export default {
                 <Story />
             </ToastGroup.Root>
         ),
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
     ],
 };
+
 const types = ['info', 'error', 'loading', 'success'];
 export const Base = (props) => {
     const api = ToastGroup.useApi();
@@ -50,7 +42,13 @@ export const Base = (props) => {
                             <Toast.Description />
                         </Toast.Content>
                         <Toast.CloseTrigger>
-                            {(props) => <Icon {...props} value="close" />}
+                            {(props) => (
+                                <IconButton
+                                    {...props}
+                                    renderIcon={() => <Icon value="close" />}
+                                    variant="accent"
+                                />
+                            )}
                         </Toast.CloseTrigger>
                     </Toast.Root>
                 )}

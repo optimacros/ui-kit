@@ -3,7 +3,7 @@ import * as toast from '@zag-js/toast';
 import { ReactNode } from 'react';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 
-export const rootClassName = tw`flex rounded-sm flex items-center justify-center py-1 px-2 bg-[var(--bg)] text-[var(--text)] gap-2 size-auto`;
+export const rootClassName = tw`flex rounded-sm flex items-center justify-center py-2 px-3 bg-[var(--bg)] text-[var(--text)] gap-2 w-sm`;
 
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     api: null as toast.Api,
@@ -36,7 +36,7 @@ export const Trigger = forward<{ children: ((props) => ReactNode) | ReactNode },
     },
 );
 
-export const closeTriggerClassName = 'bg-[var(--bg)]';
+export const closeTriggerClassName = 'bg-[var(--bg)] shrink-0';
 export const CloseTrigger = forward<{ children: ((props) => ReactNode) | ReactNode }, 'button'>(
     ({ children, ...rest }) => {
         const api = useApi();
