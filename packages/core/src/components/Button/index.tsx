@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { clsx, tw } from '@optimacros/ui-kit-utils';
 
 export interface ButtonThemeProps {
-    variant?: 'primary' | 'accent' | 'bordered' | 'neutral';
+    variant?: 'primary' | 'accent' | 'bordered' | 'neutral' | 'transparent';
     float?: 'raised' | 'floating' | 'flat';
     status?: 'warning' | 'error' | 'success';
     size?: 'xs' | 'md';
@@ -31,7 +31,7 @@ outline-[var(--outline-color)] outline-solid outline-offset-[-4px] outline-1
 
 text-[var(--text)] hover:text-[var(--text-hover)] focus-visible:text-[var(--text-focus)] 
 bg-[var(--bg)] hover:bg-[var(--bg-hover)]  focus-visible:bg-[var(--bg-focus)]
-shadow-[var(--shadow)]
+shadow-[var(--shadow)] focus-visible:shadow-[var(--shadow-focus)]
 
 disabled:pointer-events-none disabled:cursor-auto
 `;

@@ -1,4 +1,4 @@
-import { createReactApiStateContext } from '@optimacros/ui-kit-store';
+import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import { tw } from '@optimacros/ui-kit-utils';
 import * as menu from '@zag-js/menu';
 import { ComponentProps, ReactNode, useMemo } from 'react';
@@ -113,7 +113,7 @@ export const Content = ({
     );
 };
 
-export const Trigger = ({ children }: { children: (props) => ReactNode }) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }) => {
     const api = useApi();
     const disabled = useSelector((s) => s.disabled);
 
@@ -122,5 +122,5 @@ export const Trigger = ({ children }: { children: (props) => ReactNode }) => {
         [api.getTriggerProps, disabled],
     );
 
-    return children(props);
-};
+    return <styled.button {...props}>{children}</styled.button>;
+});

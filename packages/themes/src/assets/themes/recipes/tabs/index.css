@@ -1,0 +1,15 @@
+@theme {
+  --color-tab-border: #e8e8e8;
+  --color-tab-border-focus: #44b991;
+  --color-tab-text-focus: #44b991;
+  --color-tab-shadow-focus: rgba(0, 0, 0, 0.2);
+}
+
+[data-scope='tabs'] {
+  &[data-part='trigger'] {
+    --border: var(--color-tab-border);
+    --border-focus: var(--color-tab-border-focus);
+    --text-focus: var(--color-tab-text-focus);
+    --shadow-focus: inset 0 0 4px 1px var(--color-tab-shadow-focus);
+  }
+}

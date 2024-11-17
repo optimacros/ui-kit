@@ -20,19 +20,11 @@ export const Trigger = ({
     renderToggleIcon?: (props) => ReactNode;
 }) => {
     return (
-        <Menu.Trigger>
-            {(triggerProps) => (
-                <Button
-                    {...rest}
-                    {...triggerProps}
-                    data-name={dataName}
-                    data-tag="button-menu"
-                    className="group"
-                >
-                    {children}
-                    {renderToggleIcon?.(toggleIconProps)}
-                </Button>
-            )}
+        <Menu.Trigger asChild>
+            <Button {...rest} data-name={dataName} data-tag="button-menu" className="group">
+                {children}
+                {renderToggleIcon?.(toggleIconProps)}
+            </Button>
         </Menu.Trigger>
     );
 };

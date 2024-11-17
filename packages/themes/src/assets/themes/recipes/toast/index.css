@@ -22,19 +22,22 @@
     --text: var(--color-toast);
 
     &[data-type='success'] {
-      & [data-part='close-trigger'] {
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
         --bg: var(--color-toast-success);
       }
     }
 
     &[data-type='info'] {
-      & [data-part='close-trigger'] {
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
         --bg: var(--color-toast-cancel);
       }
     }
 
     &[data-type='error'] {
-      & [data-part='close-trigger'] {
+      & [data-part='close-trigger'],
+      & [data-scope='button'][data-toast-part='close-trigger'] {
         --bg: var(--color-toast-warning);
       }
     }

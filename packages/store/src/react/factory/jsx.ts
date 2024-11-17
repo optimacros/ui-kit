@@ -61,10 +61,8 @@ const withAsChild = (Component: ElementType) => {
 
         return isValidElement(onlyChild)
             ? cloneElement(onlyChild, {
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   ...merge(false, restProps, onlyChild.props as any),
 
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   ref: ref ? composeRefs(ref, (onlyChild as any).ref) : (onlyChild as any).ref,
               })
             : null;

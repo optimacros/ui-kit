@@ -2,7 +2,7 @@ import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-
 import * as fileUpload from '@zag-js/file-upload';
 import { PropTypes } from '@zag-js/react';
 import { ReactNode, useMemo } from 'react';
-import { isFunction, round, sum, tw } from '@optimacros/ui-kit-utils';
+import { round, sum, tw } from '@optimacros/ui-kit-utils';
 
 export const { Api, Root, Provider, useApi, useMachine } = createReactApiStateContext({
     api: null as fileUpload.Api<PropTypes>,
@@ -26,50 +26,43 @@ export const HiddenInput = () => {
     return <styled.input {...api.getHiddenInputProps()} />;
 };
 
-export const UploadTrigger = forward<{ children: ((props) => ReactNode) | ReactNode }, 'button'>(
-    ({ children, ...rest }) => {
-        const api = useApi();
+export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
+    const api = useApi();
 
-        const apiProps = api.getTriggerProps();
+    const apiProps = api.getTriggerProps();
 
-        return isFunction(children) ? (
-            children(apiProps)
-        ) : (
-            <styled.button {...apiProps} {...rest}>
-                {children}
-            </styled.button>
-        );
-    },
-);
+    return (
+        <styled.button {...apiProps} {...rest}>
+            {children}
+        </styled.button>
+    );
+});
 
 export const clearTriggerClassName = tw`
 absolute top-1 right-1
 `;
 
-export const ClearTrigger = forward<{ children: ((props) => ReactNode) | ReactNode }, 'button'>(
-    ({ children, ...rest }) => {
+export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
+    const api = useApi();
+
+    const apiProps = api.getClearTriggerProps();
+
+    return (
+        <styled.button {...apiProps} {...rest} className={clearTriggerClassName}>
+            {children}
+        </styled.button>
+    );
+});
+
+export const DeleteItemTrigger = forward<{ children: ReactNode }, 'button'>(
+    ({ file, children }: { file: File; children: ReactNode }) => {
         const api = useApi();
 
-        const apiProps = api.getClearTriggerProps();
-
-        return isFunction(children) ? (
-            <div className={clearTriggerClassName}>{children(apiProps)}</div>
-        ) : (
-            <styled.button {...apiProps} {...rest} className={clearTriggerClassName}>
-                {children}
-            </styled.button>
+        return (
+            <styled.button {...api.getItemDeleteTriggerProps({ file })}>{children}</styled.button>
         );
     },
 );
-
-export const DeleteItemTrigger = ({
-    file,
-    children,
-}: { file: File; children: (props) => ReactNode }) => {
-    const api = useApi();
-
-    return children(api.getItemDeleteTriggerProps({ file }));
-};
 
 export const contentClassName =
     'relative text-[var(--text)] border-[var(--border)] border-12 w-full hidden group-data-[empty=false]:flex flex-col';

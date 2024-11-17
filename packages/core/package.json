@@ -29,6 +29,7 @@
         "@zag-js/menu": "0.77.0",
         "@zag-js/file-upload": "0.77.0",
         "@zag-js/toast": "0.77.0",
+        "@zag-js/tabs": "0.77.0",
         "@optimacros/ui-kit-store": "0.0.0"
     },
     "devDependencies": {

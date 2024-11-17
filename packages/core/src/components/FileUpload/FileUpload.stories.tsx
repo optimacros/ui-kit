@@ -31,23 +31,13 @@ export const Base = () => {
             className="size-full"
         >
             <FileUpload.HiddenInput />
-            <FileUpload.UploadTrigger>
-                {(props) => (
-                    <Button {...props} variant="bordered">
-                        Upload
-                    </Button>
-                )}
+            <FileUpload.UploadTrigger asChild>
+                <Button variant="bordered">Upload</Button>
             </FileUpload.UploadTrigger>
             <FileUpload.Dropzone>Upload</FileUpload.Dropzone>
             <FileUpload.Content>
                 <FileUpload.ClearTrigger>
-                    {(props) => (
-                        <IconButton
-                            {...props}
-                            renderIcon={() => <Icon value={'close'} />}
-                            variant="bordered"
-                        />
-                    )}
+                    <IconButton renderIcon={() => <Icon value={'close'} />} variant="bordered" />
                 </FileUpload.ClearTrigger>
                 <FileUpload.ItemGroupHeader>
                     <span>FileName</span>

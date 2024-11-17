@@ -71,6 +71,7 @@
   --text-focus: var(--text);
   --text-hover: var(--text);
   --shadow: none;
+  --shadow-focus: none;
   --border: transparent;
   --border-hover: transparent;
   --outline-color: transparent;
@@ -193,6 +194,18 @@
       --bg-hover: var(--color-button-bordered-bg-hover);
       --bg-focus: var(--color-button-bordered-bg-focus);
     }
+  }
+
+  &[data-variant='transparent'] {
+    --bg: transparent;
+    --bg-hover: transparent;
+    --bg-focus: transparent;
+    --border: transparent;
+    --border-hover: transparent;
+    --border-focus: transparent;
+    padding: 0;
+    margin: 0;
+    outline: none;
   }
 
   &[data-status='warning'] {

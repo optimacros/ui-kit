@@ -1,7 +1,7 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as toast from '@zag-js/toast';
 import { ReactNode } from 'react';
-import { isFunction, tw } from '@optimacros/ui-kit-utils';
+import { tw } from '@optimacros/ui-kit-utils';
 
 export const rootClassName = tw`flex rounded-sm flex items-center justify-center py-2 px-3 bg-[var(--bg)] text-[var(--text)] gap-2 w-sm`;
 
@@ -20,38 +20,30 @@ export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     },
 });
 
-export const Trigger = forward<{ children: ((props) => ReactNode) | ReactNode }, 'button'>(
-    ({ children, ...rest }) => {
-        const api = useApi();
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
+    const api = useApi();
 
-        const apiProps = api.getActionTriggerProps();
+    const apiProps = api.getActionTriggerProps();
 
-        return isFunction(children) ? (
-            children(apiProps)
-        ) : (
-            <styled.button {...apiProps} {...rest}>
-                {children}
-            </styled.button>
-        );
-    },
-);
+    return (
+        <styled.button {...apiProps} {...rest}>
+            {children}
+        </styled.button>
+    );
+});
 
 export const closeTriggerClassName = 'bg-[var(--bg)] shrink-0';
-export const CloseTrigger = forward<{ children: ((props) => ReactNode) | ReactNode }, 'button'>(
-    ({ children, ...rest }) => {
-        const api = useApi();
+export const CloseTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
+    const api = useApi();
 
-        const apiProps = { ...api.getCloseTriggerProps(), className: closeTriggerClassName };
+    const apiProps = { ...api.getCloseTriggerProps(), className: closeTriggerClassName };
 
-        return isFunction(children) ? (
-            children(apiProps)
-        ) : (
-            <styled.button {...apiProps} {...rest}>
-                {children}
-            </styled.button>
-        );
-    },
-);
+    return (
+        <styled.button {...apiProps} {...rest} data-toast-part={apiProps['data-part']}>
+            {children}
+        </styled.button>
+    );
+});
 
 export const titleClassName = 'text-base';
 export const Title = forward<{}, 'h3'>((props, ref) => {

@@ -24,7 +24,9 @@ const menuItems: Array<menu.ItemProps> = createMenuItems(10);
 export const Basic = () => {
     return (
         <Menu.Root open>
-            <Menu.Trigger>{(props) => <div {...props}>Click me</div>}</Menu.Trigger>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
             <Menu.Content>
                 {menuItems.map((v) => (
                     <Menu.Item {...v} />
@@ -37,7 +39,9 @@ export const Basic = () => {
 export const Horizontal = () => {
     return (
         <Menu.Root open>
-            <Menu.Trigger>{(props) => <div {...props}>Click me</div>}</Menu.Trigger>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
             <Menu.Content orientation="horizontal">
                 {menuItems.map((v) => (
                     <Menu.Item {...v} />
@@ -50,7 +54,9 @@ export const Horizontal = () => {
 export const Group = () => {
     return (
         <Menu.Root open>
-            <Menu.Trigger>{(props) => <div {...props}>Click me</div>}</Menu.Trigger>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
             <Menu.Content>
                 <Menu.Group id="first">
                     <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>
@@ -82,7 +88,9 @@ export const Group = () => {
 export const Disabled = () => {
     return (
         <Menu.Root open closeOnSelect={false}>
-            <Menu.Trigger>{(props) => <div {...props}>Click me</div>}</Menu.Trigger>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
             <Menu.Content>
                 {menuItems.map((v, i) => (
                     <Menu.Item {...v} disabled={i % 2 === 0} />

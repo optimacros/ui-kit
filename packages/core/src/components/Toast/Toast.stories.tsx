@@ -16,7 +16,7 @@ export default {
     ],
 };
 
-const types = ['info', 'error', 'loading', 'success'];
+const types = ['info', 'error', 'success'];
 export const Base = (props) => {
     const api = ToastGroup.useApi();
     return (
@@ -24,7 +24,7 @@ export const Base = (props) => {
             <button
                 onClick={() => {
                     api.create({
-                        duration: 1000,
+                        duration: 50000,
                         title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
                         type: types[Math.floor(Math.random() * (types.length - 1))],
                         placement: 'top-end',
@@ -41,14 +41,11 @@ export const Base = (props) => {
                             <Toast.Title />
                             <Toast.Description />
                         </Toast.Content>
-                        <Toast.CloseTrigger>
-                            {(props) => (
-                                <IconButton
-                                    {...props}
-                                    renderIcon={() => <Icon value="close" />}
-                                    variant="accent"
-                                />
-                            )}
+                        <Toast.CloseTrigger asChild>
+                            <IconButton
+                                renderIcon={() => <Icon value="close" />}
+                                variant="accent"
+                            />
                         </Toast.CloseTrigger>
                     </Toast.Root>
                 )}

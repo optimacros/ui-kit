@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 import * as tooltip from '@zag-js/tooltip';
-import { createReactApiStateContext } from '@optimacros/ui-kit-store';
+import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import { tw } from '@optimacros/ui-kit-utils';
 
 export const { Provider, useState, useApi, State, Api, Root } = createReactApiStateContext({
@@ -29,10 +29,14 @@ export const Content = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export const Trigger = ({ children }: { children: (props) => ReactNode }) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }, ref) => {
     const api = useApi();
 
-    return children(api.getTriggerProps());
-};
+    return (
+        <styled.button {...api.getTriggerProps()} ref={ref}>
+            {children}
+        </styled.button>
+    );
+});
 
 export interface Props extends ComponentProps<typeof Root> {}

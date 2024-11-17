@@ -150,20 +150,18 @@ export const WithTooltip = () => {
                 closeDelay={0}
                 positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
             >
-                <Tooltip.Trigger>
-                    {(tooltipProps) => (
-                        <div {...tooltipProps}>
-                            <ButtonMenu.Trigger
-                                uppercase
-                                renderIcon={() => <Icon value="print" />}
-                                renderToggleIcon={(props) => (
-                                    <Icon {...props} value={'arrow_drop_down'} />
-                                )}
-                            >
-                                Menu
-                            </ButtonMenu.Trigger>
-                        </div>
-                    )}
+                <Tooltip.Trigger asChild>
+                    <div>
+                        <ButtonMenu.Trigger
+                            uppercase
+                            renderIcon={() => <Icon value="print" />}
+                            renderToggleIcon={(props) => (
+                                <Icon {...props} value={'arrow_drop_down'} />
+                            )}
+                        >
+                            Menu
+                        </ButtonMenu.Trigger>
+                    </div>
                 </Tooltip.Trigger>
                 <Tooltip.Content>some info there</Tooltip.Content>
             </Tooltip.Root>

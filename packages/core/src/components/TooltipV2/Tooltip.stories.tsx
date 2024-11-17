@@ -21,12 +21,8 @@ const Base = (props: ComponentProps<typeof Tooltip.Root>) => {
             }}
         >
             <Tooltip.Root {...props}>
-                <Tooltip.Trigger>
-                    {(props) => (
-                        <Button {...props} variant="bordered">
-                            hover over me
-                        </Button>
-                    )}
+                <Tooltip.Trigger asChild>
+                    <Button variant="bordered">hover over me</Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>here we are</Tooltip.Content>
             </Tooltip.Root>
