@@ -10,7 +10,7 @@ export function createMachineApiHook<
 
         const api = machine.connect(state, send, normalizeProps);
 
-        return { api, state, send };
+        return { api: { ...api, send }, state };
     };
 }
 

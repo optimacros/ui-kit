@@ -27,7 +27,8 @@
             "@optimacros/themes": ["packages/themes/src"],
             "@optimacros/ui-kit-layout": ["packages/layout/src"],
             "@optimacros/ui-kit-utils": ["packages/utils/src"],
-            "@optimacros/ui-kit-store": ["packages/store/src"]
+            "@optimacros/ui-kit-store": ["packages/store/src"],
+            "@optimacros/ui-kit-types": ["packages/types/src"]
         }
     },
     "exclude": ["node_modules", "dist"]

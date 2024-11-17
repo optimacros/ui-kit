@@ -1,6 +1,7 @@
 export type * as Tuple from './tuple';
 export type * as Object from './object';
 export type * as String from './string';
+export type * from './paths';
 export type * from './utils';
 export type {
     Class,
@@ -15,5 +16,4 @@ export type {
 
 export * from 'type-fest';
 export type * from './base';
-export * from './paths';
 export * as Immutable from './immutable';

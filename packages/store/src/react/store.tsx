@@ -12,8 +12,7 @@ type HooksConfig = object;
 type ReactStoreConfig = {
     middleware?: Array<ReactMiddlewareFn>;
 };
-
-interface StoreConfig<
+export interface StoreConfig<
     ID extends string = string,
     InitialState extends Record<string, any> = NonNullable<unknown>,
     Reducers = NonNullable<unknown>,

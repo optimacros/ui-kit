@@ -31,8 +31,6 @@ export type ManyReducerActionsMapper<
     [Key in P[number]]: ReducerActionsMapper<State, Key>;
 }>;
 
-type t = ManyReducerActionsMapper<{ some: { thing: [] } }, ['some']>['clearSome'];
-
 const setArrayLikeState = (state, paths, value, updValue) => {
     const createdValue = _.createImmutableInstance(value, updValue);
 

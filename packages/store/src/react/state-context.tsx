@@ -154,22 +154,29 @@ export function createReactStateContext<
     };
 }
 
+type MachineCtx<Machine extends Record<string, any>> = Omit<
+    Parameters<Machine['machine']>[0],
+    'id'
+>;
 type ApiStoreConfig<
     ID extends string = string,
     InitialState extends Record<string, any> = NonNullable<unknown>,
     Api extends Record<string, any> = NonNullable<unknown>,
-    Machine = NonNullable<unknown>,
+    Machine extends Record<string, any> = NonNullable<unknown>,
     Selectors = NonNullable<unknown>,
     Hooks = NonNullable<unknown>,
+    ExtApi extends Api = Api,
 > = StoreConfig<ID, InitialState, Selectors, Hooks> & {
     machine: Machine;
     api: Api;
     /** place as div in dom */
     rootAsTag?: boolean;
     /** replace root props */
-    useRootProps?: (api: Api) => any;
+    useRootProps?: (api: ExtApi) => any;
     /** use actor instead of machine */
     actor?: boolean;
+    useExtendApi?: (api: Api & { send: (action: string) => void }) => ExtApi;
+    defaultContext?: MachineCtx<Machine>;
 };
 
 export function createReactApiStateContext<
@@ -179,8 +186,19 @@ export function createReactApiStateContext<
     Machine extends Record<string, any> = NonNullable<unknown>,
     Selectors extends Record<string, Selector<InitialState>> = NonNullable<unknown>,
     Hooks extends HooksConfig = NonNullable<unknown>,
->(config: ApiStoreConfig<ID, InitialState, Api, Machine, Selectors, Hooks>) {
-    const { initialState, createConfig, id, api, machine, rootAsTag, useRootProps, actor } = config;
+    ExtApi extends Api = Api,
+>(config: ApiStoreConfig<ID, InitialState, Api, Machine, Selectors, Hooks, ExtApi>) {
+    const {
+        initialState,
+        createConfig,
+        id,
+        api,
+        machine,
+        rootAsTag,
+        useRootProps,
+        actor,
+        useExtendApi = (api) => api,
+    } = config;
 
     const createdConfig = createConfig?.(initialState) ?? {};
 
@@ -190,13 +208,20 @@ export function createReactApiStateContext<
     };
 
     const { StateContext, ...hooks } = createHooks(`${id}State`, initialState, true);
-    const { StateContext: ApiContext, useState: useApi } = createHooks(`${id}Api`, api);
+    const { StateContext: ApiContext, useState: useBaseApi } = createHooks(`${id}Api`, api);
+
+    function useApi() {
+        const api = useBaseApi();
+
+        const extendedApi = useExtendApi(api);
+
+        return extendedApi as ExtApi & { send: (action: string) => void };
+    }
 
     const helpers = createHelpers<InitialState, typeof hooks>(id, hooks);
-    const { State: Api } = createHelpers<InitialState, { useState: typeof useApi }>(
-        `${id}Api`,
-        hooks,
-    );
+    const { State: Api } = createHelpers<InitialState, { useState: typeof useApi }>(`${id}Api`, {
+        useState: useApi,
+    });
 
     const StoreProvider: FC<{
         children: ReactNode;
@@ -213,18 +238,18 @@ export function createReactApiStateContext<
 
     StoreProvider.displayName = id;
 
-    const useMachine = createMachineApiHook<Parameters<Machine['machine']>[0]>(machine);
+    const useMachine = createMachineApiHook<MachineCtx<Machine>>(machine);
     const useActor = createActorApiHook(machine);
 
     function RootMachine({
         children,
         state = null,
         ...context
-    }: { state?: InitialState; children: ReactNode | ((api: Api) => ReactNode) } & Omit<
-        Parameters<Machine['machine']>[0],
-        'id'
-    > & { id?: string }) {
-        const { send, api } = useMachine(context);
+    }: {
+        state?: InitialState;
+        children: ReactNode | ((api: ExtApi) => ReactNode);
+    } & MachineCtx<Machine> & { id?: string }) {
+        const { api } = useMachine(context);
 
         return (
             <StoreProvider state={state} api={api}>
@@ -237,8 +262,8 @@ export function createReactApiStateContext<
         children,
         state = null,
         actor,
-    }: { state?: InitialState; children: ReactNode | ((api: Api) => ReactNode); actor: any }) {
-        const { send, api } = useActor(actor);
+    }: { state?: InitialState; children: ReactNode | ((api: ExtApi) => ReactNode); actor: any }) {
+        const { api } = useActor(actor);
 
         return (
             <StoreProvider state={state} api={api}>
@@ -253,7 +278,7 @@ export function createReactApiStateContext<
         children,
         className,
     }: {
-        children: ReactNode | ((api: Api) => ReactNode);
+        children: ReactNode | ((api: ExtApi) => ReactNode);
         className?: string;
     }) => {
         const api = useApi();

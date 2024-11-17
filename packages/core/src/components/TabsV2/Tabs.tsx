@@ -1,18 +1,36 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as tabs from '@zag-js/tabs';
-import { tw } from '@optimacros/ui-kit-utils';
+import { tw, isVisibleInParentViewport, filter } from '@optimacros/ui-kit-utils';
 import { ReactNode } from 'react';
 
-// TODO: enrich api with methods from '../Tabs'
 export const rootClassName = tw``;
-
-//TODO: make useApi extendable with methods
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     api: null as tabs.Api,
     id: 'tabs',
     machine: tabs,
     initialState: null,
     rootAsTag: true,
+    defaultContext: {},
+    useExtendApi(api) {
+        return {
+            ...api,
+            scrollTo: (value: string) => {
+                api.selectNext(value);
+            },
+            scrollToActive: () => {
+                api.focus();
+            },
+            getHiddenTabs: () => {
+                const list = api.getListProps();
+                const containerNode = document.getElementById(list.id);
+
+                return filter(
+                    containerNode.children,
+                    (element, index) => !isVisibleInParentViewport(containerNode, element),
+                );
+            },
+        };
+    },
     useRootProps(api) {
         return {
             ...api.getRootProps(),
@@ -21,7 +39,7 @@ export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     },
 });
 
-export const listClassName = 'flex relative z-1';
+export const listClassName = 'flex relative z-1 overflow-scroll';
 export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
     const api = useApi();
 

@@ -9,19 +9,8 @@ import type {
     Set,
     Stack,
 } from 'immutable';
-import type { IMSTArray, IMSTMap } from 'mobx-state-tree';
 import { ValuesUnion } from './object';
 import type { Is } from './utils';
-/** get type from immutable type */
-export type FromMobx<T> = Is.StrictPrimitive<T> extends 1
-    ? T
-    : Is.Fn<T> extends 1
-      ? T
-      : T extends IMSTMap<infer VI>
-        ? Record<string, VI>
-        : T extends IMSTArray<infer VI>
-          ? Array<VI>
-          : T;
 
 export type FromImmutable<T> = Is.StrictPrimitive<T> extends 1
     ? T

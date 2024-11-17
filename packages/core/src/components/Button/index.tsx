@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { clsx, tw } from '@optimacros/ui-kit-utils';
+import { forward, styled } from '@optimacros/ui-kit-store';
 
 export interface ButtonThemeProps {
     variant?: 'primary' | 'accent' | 'bordered' | 'neutral' | 'transparent';
@@ -36,7 +37,7 @@ shadow-[var(--shadow)] focus-visible:shadow-[var(--shadow-focus)]
 disabled:pointer-events-none disabled:cursor-auto
 `;
 
-export const Button = (props: ButtonProps) => {
+export const Button = forward<ButtonProps, 'button'>((props: ButtonProps, ref) => {
     const {
         disabled,
         renderIcon,
@@ -75,5 +76,5 @@ export const Button = (props: ButtonProps) => {
         className: clsx(buttonCn, className),
     };
 
-    return href ? <a href={href} {...elementProps} /> : <button {...elementProps} />;
-};
+    return href ? <styled.a href={href} {...elementProps} /> : <styled.button {...elementProps} />;
+});

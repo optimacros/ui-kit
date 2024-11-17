@@ -8,11 +8,24 @@ export default {
     component: Tabs.Root,
     tags: ['autodocs'],
 };
-const items = createTabs(5);
+
+const items = createTabs(20);
 
 export const Base = (props) => {
     return (
         <Tabs.Root activationMode="manual">
+            <Tabs.Api>
+                {(api) => (
+                    <div>
+                        <Button
+                            onClick={() => api.scrollTo(`tab-${Math.floor(Math.random() * 19)}`)}
+                        >
+                            select random tab
+                        </Button>
+                        <Button onClick={() => api.scrollToActive()}>scroll to active</Button>
+                    </div>
+                )}
+            </Tabs.Api>
             <Tabs.List>
                 {items.map((item) => (
                     <Tabs.Trigger value={item.value}>

@@ -1,5 +1,5 @@
 import { Primitive } from 'type-fest';
-import { FromImmutable, FromMobx, ImmutableArrayLike } from './immutable';
+import { FromImmutable, ImmutableArrayLike } from './immutable';
 import { Is } from './utils';
 
 interface File extends Blob {
@@ -437,9 +437,7 @@ type PathImpl<
     TraversedTypes,
     ExcludeImmutable extends boolean = false,
     Value = ExcludeImmutable extends true ? FromImmutable<V> : V,
-    Traversed = ExcludeImmutable extends true
-        ? FromMobx<FromImmutable<TraversedTypes>>
-        : TraversedTypes,
+    Traversed = ExcludeImmutable extends true ? FromImmutable<TraversedTypes> : TraversedTypes,
 > = Value extends SingleKeyPathTypes
     ? `${K}`
     : // Check so that we don't recurse into the same type
