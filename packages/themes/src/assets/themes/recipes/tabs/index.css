@@ -12,4 +12,7 @@
     --text-focus: var(--color-tab-text-focus);
     --shadow-focus: inset 0 0 4px 1px var(--color-tab-shadow-focus);
   }
+
+  & [data-scope='menu'][data-part='content'] {
+  }
 }

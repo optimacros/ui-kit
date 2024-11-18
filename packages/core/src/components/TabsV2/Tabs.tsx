@@ -2,6 +2,7 @@ import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-
 import * as tabs from '@zag-js/tabs';
 import { tw, isVisibleInParentViewport, filter, useEventListener } from '@optimacros/ui-kit-utils';
 import { ReactNode, RefObject, useState } from 'react';
+import { Menu as BaseMenu } from '../MenuV2';
 
 export const rootClassName = tw``;
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
@@ -11,7 +12,7 @@ export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     initialState: null,
     rootAsTag: true,
     defaultContext: {},
-    useExtendApi(api) {
+    useExtendApi(state, api) {
         const getListNode = () => {
             const list = api.getListProps();
             const containerNode = document.getElementById(list.id);
@@ -19,32 +20,57 @@ export const { Api, Provider, Root, useApi } = createReactApiStateContext({
             return containerNode;
         };
 
+        const scrollTo = (value: string) => {
+            const tab = api.getTriggerProps({ value });
+
+            api.send({ type: 'TAB_FOCUS', value });
+
+            document.getElementById(tab.id).scrollIntoView();
+        };
+
+        const open = (value?: string) => {
+            if (value) {
+                scrollTo(value);
+
+                api.setValue(value);
+            } else {
+                api.send('ENTER');
+            }
+        };
+
+        const getHiddenTabs = () => {
+            const containerNode = getListNode();
+
+            return filter(
+                containerNode?.children,
+                (element, index) => !isVisibleInParentViewport(containerNode, element),
+            ).map((element, i, arr) => {
+                const value = element.getAttribute('data-value');
+
+                return {
+                    value,
+                    onClickCapture: () => open(value),
+                };
+            });
+        };
+
+        const last = () => api.send('END');
+
+        const first = () => api.send('HOME');
+
+        const scrollToActive = () => scrollTo(api.value);
+
         return {
             ...api,
-            scrollTo: (value: string) => {
-                api.selectNext(value);
-            },
-            scrollToActive: () => {
-                api.focus();
-            },
-            getHiddenTabs: () => {
-                const containerNode = getListNode();
-
-                return filter(
-                    containerNode?.children,
-                    (element, index) => !isVisibleInParentViewport(containerNode, element),
-                ).map((element, i, arr) => ({
-                    value: element.getAttribute('data-value'),
-                    onClickCapture: () => {
-                        api.setValue(element.getAttribute('data-value'));
-                        // TODO: fix focus
-                        api.selectNext(arr[i - 1].getAttribute('data-value'));
-                    },
-                }));
-            },
-            getListNode,
+            scrollTo,
+            open,
+            getHiddenTabs,
+            scrollToActive,
+            last,
+            first,
         };
     },
+
     useRootProps(api) {
         return {
             ...api.getRootProps(),
@@ -102,7 +128,7 @@ export const Content = forward<{ children: ReactNode; value: string }, 'div'>(
 export function useHiddenTabs(ref: RefObject<HTMLUListElement>) {
     const api = useApi();
     const [tabs, setTabs] = useState([]);
-
+    1;
     useEventListener(
         'scroll',
         () => {
@@ -113,6 +139,8 @@ export function useHiddenTabs(ref: RefObject<HTMLUListElement>) {
 
     return tabs;
 }
+
+export const Menu = BaseMenu;
 
 export const HiddenTabsList = forward<
     { children: (tab: { value: string; disabled: boolean; onClick: any }) => any },

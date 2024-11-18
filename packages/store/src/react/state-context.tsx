@@ -166,6 +166,7 @@ type ApiStoreConfig<
     Selectors = NonNullable<unknown>,
     Hooks = NonNullable<unknown>,
     ExtApi extends Api = Api,
+    ApiState = NonNullable<unknown>,
 > = StoreConfig<ID, InitialState, Selectors, Hooks> & {
     machine: Machine;
     api: Api;
@@ -175,7 +176,12 @@ type ApiStoreConfig<
     useRootProps?: (api: ExtApi) => any;
     /** use actor instead of machine */
     actor?: boolean;
-    useExtendApi?: (api: Api & { send: (action: string) => void }) => ExtApi;
+    useExtendApi?: (
+        state: ApiState,
+        api: Api & {
+            send: (action: string | { type?: string; value?: any; src?: string }) => void;
+        },
+    ) => ExtApi;
     defaultContext?: MachineCtx<Machine>;
 };
 
@@ -187,7 +193,8 @@ export function createReactApiStateContext<
     Selectors extends Record<string, Selector<InitialState>> = NonNullable<unknown>,
     Hooks extends HooksConfig = NonNullable<unknown>,
     ExtApi extends Api = Api,
->(config: ApiStoreConfig<ID, InitialState, Api, Machine, Selectors, Hooks, ExtApi>) {
+    ApiState extends Record<string, any> = Parameters<Machine['connect']>[0],
+>(config: ApiStoreConfig<ID, InitialState, Api, Machine, Selectors, Hooks, ExtApi, ApiState>) {
     const {
         initialState,
         createConfig,
@@ -197,7 +204,7 @@ export function createReactApiStateContext<
         rootAsTag,
         useRootProps,
         actor,
-        useExtendApi = (api) => api,
+        useExtendApi = (state, api) => api,
     } = config;
 
     const createdConfig = createConfig?.(initialState) ?? {};
@@ -209,17 +216,22 @@ export function createReactApiStateContext<
 
     const { StateContext, ...hooks } = createHooks(`${id}State`, initialState, true);
     const { StateContext: ApiContext, useState: useBaseApi } = createHooks(`${id}Api`, api);
+    const { StateContext: ApiStateContext, useState: useApiState } = createHooks(
+        `${id}ApiState`,
+        null as ApiState,
+    );
 
     function useApi() {
         const api = useBaseApi();
+        const state = useApiState();
 
-        const extendedApi = useExtendApi(api);
+        const extendedApi = useExtendApi(state, api);
 
         return extendedApi as ExtApi & { send: (action: string) => void };
     }
 
     const helpers = createHelpers<InitialState, typeof hooks>(id, hooks);
-    const { State: Api } = createHelpers<InitialState, { useState: typeof useApi }>(`${id}Api`, {
+    const { State: Api } = createHelpers<ExtApi, { useState: typeof useApi }>(`${id}Api`, {
         useState: useApi,
     });
 
@@ -228,10 +240,13 @@ export function createReactApiStateContext<
         initialState?: Partial<InitialState>;
         state?: InitialState;
         api?: Api;
-    }> = memo(({ children, state, api }) => {
+        apiState?: ApiState;
+    }> = memo(({ children, state, api, apiState }) => {
         return (
             <StateContext.Provider value={state}>
-                <ApiContext.Provider value={api}>{children}</ApiContext.Provider>
+                <ApiContext.Provider value={api}>
+                    <ApiStateContext.Provider value={apiState}>{children}</ApiStateContext.Provider>
+                </ApiContext.Provider>
             </StateContext.Provider>
         );
     });
@@ -249,10 +264,10 @@ export function createReactApiStateContext<
         state?: InitialState;
         children: ReactNode | ((api: ExtApi) => ReactNode);
     } & MachineCtx<Machine> & { id?: string }) {
-        const { api } = useMachine(context);
+        const { api, send, state: apiState } = useMachine(context);
 
         return (
-            <StoreProvider state={state} api={api}>
+            <StoreProvider state={state} api={{ ...api, send }} apiState={apiState}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
         );
@@ -263,10 +278,10 @@ export function createReactApiStateContext<
         state = null,
         actor,
     }: { state?: InitialState; children: ReactNode | ((api: ExtApi) => ReactNode); actor: any }) {
-        const { api } = useActor(actor);
+        const { api, send, state: apiState } = useActor(actor);
 
         return (
-            <StoreProvider state={state} api={api}>
+            <StoreProvider state={state} api={{ ...api, send }} apiState={apiState}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
         );

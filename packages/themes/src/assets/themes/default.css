@@ -29,15 +29,32 @@
 
   --radius-sm: 0.188rem;
 
+  --container-4xs: 12rem;
+  --container-5xs: 8rem;
+
   --size-xl: var(--container-xl);
   --size-2xl: var(--container-2xl);
   --size-3xl: var(--container-3xl);
+  --size-5xs: var(--container-5xs);
+  --size-4xs: var(--container-4xs);
   --size-3xs: var(--container-3xs);
   --size-2xs: var(--container-2xs);
   --size-xs: var(--container-xs);
   --size-sm: var(--container-sm);
   --size-md: var(--container-md);
   --size-lg: var(--container-lg);
+
+  --height-xl: var(--container-xl);
+  --height-2xl: var(--container-2xl);
+  --height-3xl: var(--container-3xl);
+  --height-5xs: var(--container-5xs);
+  --height-4xs: var(--container-4xs);
+  --height-3xs: var(--container-3xs);
+  --height-2xs: var(--container-2xs);
+  --height-xs: var(--container-xs);
+  --height-sm: var(--container-sm);
+  --height-md: var(--container-md);
+  --height-lg: var(--container-lg);
 
   --font-weight-thin: 300;
   --font-weight-normal: 400;

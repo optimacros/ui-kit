@@ -109,12 +109,20 @@ w-full
 data-[orientation="horizontal"]:flex-row
 data-[orientation="vertical"]:flex-col
 data-[orientation="horizontal"]:py-0
+
+data-[size="sm"]:w-5xs
+data-[size="sm"]:h-2xs
+
+data-[size="md"]:w-xs
+data-[size="md"]:h-sm
+
+overflow-y-scroll
 `;
 
 export const Content = forward<
-    { children: ReactNode; orientation?: 'vertical' | 'horizontal' },
+    { children: ReactNode; orientation?: 'vertical' | 'horizontal'; size?: 'sm' | 'md' | 'lg' },
     'ul'
->(({ children, orientation = 'vertical', ...rest }, ref) => {
+>(({ children, orientation = 'vertical', size = 'md', ...rest }, ref) => {
     const api = useApi();
 
     return (
@@ -124,6 +132,7 @@ export const Content = forward<
                 {...rest}
                 {...api.getContentProps()}
                 data-orientation={orientation}
+                data-size={size}
                 className={menuContentCn}
             >
                 {children}
