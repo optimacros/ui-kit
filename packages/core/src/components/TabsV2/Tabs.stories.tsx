@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Tabs } from '.';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { createTabs } from './mock';
 import { Menu } from '../MenuV2';
 import { IconButton } from '../IconButtonV2';
+import { shuffle } from '@optimacros/ui-kit-utils';
 
 export default {
     title: 'UI Kit core/TabsV2',
@@ -15,6 +16,7 @@ export default {
 const items = createTabs(20);
 
 export const Base = (props) => {
+    const [tabs, setTabs] = useState(items);
     const ref = useRef(null);
 
     return (
@@ -32,19 +34,22 @@ export const Base = (props) => {
                             <Button onClick={() => api.scrollToActive()}>scroll to active</Button>
                             <Button onClick={() => api.first()}>select first</Button>
                             <Button onClick={() => api.last()}>select last</Button>
+                            <Button onClick={() => setTabs((prev) => shuffle(prev))}>
+                                shuffle
+                            </Button>
                         </div>
                     </div>
                 )}
             </Tabs.Api>
             <div className="flex gap-2">
                 <Tabs.List ref={ref}>
-                    {items.map((item) => (
-                        <Tabs.Trigger value={item.value}>
+                    {tabs.map((tab, i) => (
+                        <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
                             <Button
                                 renderIcon={() => <Icon value="article" />}
                                 variant="transparent"
                             >
-                                {item.value}
+                                {tab.value}
                             </Button>
                         </Tabs.Trigger>
                     ))}
@@ -68,6 +73,37 @@ export const Base = (props) => {
                         </Tabs.HiddenTabsList>
                     </Tabs.Menu.Content>
                 </Tabs.Menu.Root>
+            </div>
+            {items.map((item) => (
+                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+            ))}
+        </Tabs.Root>
+    );
+};
+
+export const Draggable = (props) => {
+    const [tabs, setTabs] = useState(items);
+
+    return (
+        <Tabs.Root activationMode="manual" deselectable>
+            <div className="flex gap-2">
+                <Tabs.DraggableList setTabs={setTabs}>
+                    {tabs.map((tab, i) => (
+                        <Tabs.DraggableTrigger
+                            {...props}
+                            value={tab.value}
+                            key={tab.value}
+                            data-index={i}
+                        >
+                            <Button
+                                renderIcon={() => <Icon value="article" />}
+                                variant="transparent"
+                            >
+                                {tab.value}
+                            </Button>
+                        </Tabs.DraggableTrigger>
+                    ))}
+                </Tabs.DraggableList>
             </div>
             {items.map((item) => (
                 <Tabs.Content value={item.value}>{item.content}</Tabs.Content>

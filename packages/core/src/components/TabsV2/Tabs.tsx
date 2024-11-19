@@ -1,8 +1,16 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as tabs from '@zag-js/tabs';
-import { tw, isVisibleInParentViewport, filter, useEventListener } from '@optimacros/ui-kit-utils';
-import { ReactNode, RefObject, useState } from 'react';
+import {
+    tw,
+    isVisibleInParentViewport,
+    filter,
+    useEventListener,
+    round,
+    swap,
+} from '@optimacros/ui-kit-utils';
+import { ReactNode, RefObject, useEffect, useId, useState } from 'react';
 import { Menu as BaseMenu } from '../MenuV2';
+import { Draggable as DraggableComponent } from '../Draggable';
 
 export const rootClassName = tw``;
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
@@ -86,6 +94,37 @@ export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
     return <styled.ul {...props} {...api.getListProps()} ref={ref} className={listClassName} />;
 });
 
+export const DraggableList = forward<
+    { mode?: 'swap' | 'ordered'; setTabs: (prev: (arr: any[]) => any[]) => void },
+    'ul'
+>(({ setTabs, mode = 'ordered', children, ...rest }) => {
+    const id = useId();
+
+    function handleDragEnd(event) {
+        const element = document.querySelector(`[data-draggable-id="${event.active.id}"]`);
+        const currentIndex = parseInt(element.getAttribute('data-index'));
+        const rect = element.getBoundingClientRect();
+
+        const newIndex = round((currentIndex * rect.width + event.delta.x) / rect.width, 0);
+
+        if (mode === 'swap') {
+            setTabs((prev) => swap(prev, currentIndex, newIndex));
+        } else if (mode === 'ordered') {
+            setTabs((prev) =>
+                prev.toSpliced(currentIndex, 1).toSpliced(newIndex, 0, prev[currentIndex]),
+            );
+        }
+    }
+
+    return (
+        <DraggableComponent.Root onDragEnd={handleDragEnd}>
+            <DraggableComponent.Container asChild id={id}>
+                <List {...rest}>{children}</List>
+            </DraggableComponent.Container>
+        </DraggableComponent.Root>
+    );
+});
+
 export const triggerClassName = tw`first:pr-3 last:pl-3 not-last:not-first:px-3
 border-solid border-[var(--border)] border-b-1 cursor-pointer
 data-focus:border-[var(--border-focus)] data-focus:text-[var(--text-focus)]
@@ -110,6 +149,25 @@ export const Trigger = forward<{ children: ReactNode; value: string; disabled?: 
     },
 );
 
+export const DraggableTrigger = forward<
+    { children: ReactNode; value: string; disabled?: boolean },
+    'li'
+>((props) => {
+    const id = useId();
+
+    return (
+        <DraggableComponent.Item
+            id={id}
+            asChild
+            style={(transform) => ({
+                transform: transform && `translateX(${transform.x}px)`,
+            })}
+        >
+            <Trigger {...props} />
+        </DraggableComponent.Item>
+    );
+});
+
 export const Content = forward<{ children: ReactNode; value: string }, 'div'>(
     ({ value, ...rest }, ref) => {
         const api = useApi();
@@ -128,7 +186,7 @@ export const Content = forward<{ children: ReactNode; value: string }, 'div'>(
 export function useHiddenTabs(ref: RefObject<HTMLUListElement>) {
     const api = useApi();
     const [tabs, setTabs] = useState([]);
-    1;
+
     useEventListener(
         'scroll',
         () => {
@@ -136,6 +194,8 @@ export function useHiddenTabs(ref: RefObject<HTMLUListElement>) {
         },
         ref,
     );
+
+    useEffect(() => setTabs(() => api.getHiddenTabs()), []);
 
     return tabs;
 }
