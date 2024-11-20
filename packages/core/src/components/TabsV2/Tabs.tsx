@@ -7,6 +7,8 @@ import {
     useEventListener,
     round,
     swap,
+    clsx,
+    noop,
 } from '@optimacros/ui-kit-utils';
 import { ReactNode, RefObject, useEffect, useId, useState } from 'react';
 import { Menu as BaseMenu } from '../MenuV2';
@@ -149,21 +151,42 @@ export const Trigger = forward<{ children: ReactNode; value: string; disabled?: 
     },
 );
 
+export const draggableTriggerClassName = clsx(
+    triggerClassName,
+    `
+    data-[dragging=true]:cursor-grabbing
+`,
+);
 export const DraggableTrigger = forward<
     { children: ReactNode; value: string; disabled?: boolean },
     'li'
->((props) => {
+>(({ value, disabled, ...rest }) => {
     const id = useId();
 
+    const api = useApi();
+
+    const apiProps = api.getTriggerProps({ value, disabled });
+
     return (
-        <DraggableComponent.Item
-            id={id}
-            asChild
-            style={(transform) => ({
-                transform: transform && `translateX(${transform.x}px)`,
-            })}
-        >
-            <Trigger {...props} />
+        <DraggableComponent.Item id={id}>
+            {({ setNodeRef, transform, attributes, listeners, isDragging, id: draggableId }) => (
+                <styled.li
+                    {...rest}
+                    {...attributes}
+                    {...apiProps}
+                    data-dragging={isDragging}
+                    data-draggable-id={draggableId}
+                    onClick={noop}
+                    onPointerDown={(e) => {
+                        apiProps.onClick(e);
+                        listeners.onPointerDown(e);
+                    }}
+                    ref={setNodeRef}
+                    style={{ transform: transform && `translateX(${transform.x}px)` }}
+                    className={draggableTriggerClassName}
+                    key={`trigger-${value}`}
+                />
+            )}
         </DraggableComponent.Item>
     );
 });

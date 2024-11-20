@@ -81,13 +81,45 @@ export const Base = (props) => {
     );
 };
 
-export const Draggable = (props) => {
+export const DraggableOrdered = (props) => {
     const [tabs, setTabs] = useState(items);
 
     return (
         <Tabs.Root activationMode="manual" deselectable>
             <div className="flex gap-2">
                 <Tabs.DraggableList setTabs={setTabs}>
+                    {tabs.map((tab, i) => (
+                        <Tabs.DraggableTrigger
+                            {...props}
+                            value={tab.value}
+                            key={tab.value}
+                            data-index={i}
+                        >
+                            <Button
+                                renderIcon={() => <Icon value="article" />}
+                                variant="transparent"
+                            >
+                                {tab.value}
+                            </Button>
+                        </Tabs.DraggableTrigger>
+                    ))}
+                </Tabs.DraggableList>
+            </div>
+            {items.map((item) => (
+                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+            ))}
+        </Tabs.Root>
+    );
+};
+
+//TODO: fix scroll problem
+export const DraggableSwap = (props) => {
+    const [tabs, setTabs] = useState(items);
+
+    return (
+        <Tabs.Root activationMode="manual" deselectable>
+            <div className="flex gap-2">
+                <Tabs.DraggableList setTabs={setTabs} mode="swap">
                     {tabs.map((tab, i) => (
                         <Tabs.DraggableTrigger
                             {...props}

@@ -8,39 +8,29 @@ import {
     useDroppable,
     UseDroppableArguments,
 } from '@dnd-kit/core';
-
 type DraggableProps = {
     mode?: 'drag-and-return';
     config?: UserDragConfig;
     children: ReactNode;
 };
 
-export const Item = forward<UseDraggableArguments & { style: (transform) => object }, 'div'>(
-    ({ children, id: baseId, data, disabled, attributes: attr, style, ...rest }) => {
-        const id = 'draggable-' + baseId;
-
-        const { listeners, attributes, setNodeRef, transform, over, active, isDragging, node } =
-            useDraggable({
-                id,
-                data,
-                disabled,
-                attributes: attr,
-            });
-        return (
-            <styled.div
-                id={baseId as string}
-                onPointerDown={listeners?.onPointerDown}
-                {...attributes}
-                style={style(transform)}
-                ref={setNodeRef}
-                data-draggable-id={id}
-                {...rest}
-            >
-                {children}
-            </styled.div>
-        );
+export const Item = forward<
+    UseDraggableArguments & {
+        children: (props: ReturnType<typeof useDraggable> & { id: string }) => ReactNode;
     },
-);
+    'div'
+>(({ children, id: baseId, data, disabled, attributes: attr }) => {
+    const id = 'draggable-' + baseId;
+
+    const draggable = useDraggable({
+        id,
+        data,
+        disabled,
+        attributes: attr,
+    });
+
+    return children({ id, ...draggable });
+});
 
 export const Root = DndContext;
 
