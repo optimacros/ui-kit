@@ -1,20 +1,22 @@
 {
     "name": "@optimacros/ui-kit-store",
     "private": false,
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "proxy-memoize": "3.0.1",
-        "@zag-js/react": "0.77.0"
+        "@zag-js/react": "0.77.0",
+        "proxy-memoize": "3.0.1"
     },
     "devDependencies": {
-        "@optimacros/ui-kit-types": "0.0.0",
+        "@optimacros/ui-kit-types": "^0.0.1",
         "@types/lodash-es": "^4.17.12"
     }
 }
