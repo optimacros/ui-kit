@@ -24,7 +24,14 @@
         "react-modal": "3.16.1",
         "react-range": "1.8.14",
         "react-svg": "16.1.32",
-        "@zag-js/react": "0.77.0"
+        "@zag-js/react": "0.77.0",
+        "@zag-js/tooltip": "0.77.0",
+        "@zag-js/menu": "0.77.0",
+        "@zag-js/file-upload": "0.77.0",
+        "@zag-js/toast": "0.77.0",
+        "@zag-js/tabs": "0.77.0",
+        "@optimacros/ui-kit-store": "0.0.0",
+        "@dnd-kit/core": "6.1.0"
     },
     "devDependencies": {
         "@types/react-modal": "3.16.3"

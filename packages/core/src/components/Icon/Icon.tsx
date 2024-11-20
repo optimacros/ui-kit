@@ -21,17 +21,17 @@ export function Icon({ value, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
 
     if (typeof value === 'string') {
         return isValidIconName(value) ? (
-            <svg {...rest} data-recipe="Icon">
+            <svg width="1em" height="1em" fill="currentColor" {...rest} data-scope="icon">
                 <use href={`${iconsSrc}#${value}`} />
             </svg>
         ) : (
-            <FontIcon {...rest} value={value} />
+            <FontIcon {...rest} value={value} data-scope="icon" />
         );
     }
 
     return (
         // @ts-ignore
-        <div {...rest} className={rest.className ?? IconStyle.Container}>
+        <div {...rest} className={rest.className ?? IconStyle.Container} data-scope="icon">
             {value}
         </div>
     );

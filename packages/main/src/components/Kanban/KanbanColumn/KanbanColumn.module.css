@@ -66,7 +66,7 @@
   padding: 0 10px 5px;
   border: none;
 
-  &:global(.DndIsOver) {
+  &.DndIsOver {
     background-color: var(--kanban-dnd-over);
   }
 

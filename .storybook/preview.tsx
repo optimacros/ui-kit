@@ -1,9 +1,9 @@
 import { UiCoreContextWrapper } from '../packages/main/src';
+import { Preview } from '@storybook/react';
 import '../packages/main/src/themes/appBaseTheme.css';
-import './output.css';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 
-const preview = {
+const preview: Preview = {
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
@@ -14,10 +14,12 @@ const preview = {
         },
     },
     decorators: [
-        (Story, { parameters }) => {
+        (Story) => {
             return (
                 <UiCoreContextWrapper state={{ iconsSrc }}>
-                    <Story />
+                    <div style={{ padding: '1rem' }}>
+                        <Story />
+                    </div>
                 </UiCoreContextWrapper>
             );
         },

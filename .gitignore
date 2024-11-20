@@ -26,3 +26,4 @@ src/version.json
 lerna-debug
 
 .npmrc
+.storybook/*.css

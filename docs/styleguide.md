@@ -57,7 +57,7 @@ https://tailwindcss.com/docs/hover-focus-and-other-states
 
 **Вы можете использовать значение из root переменной**
 ```css
-:root {
+@theme {
   --color-pink-rose: pink;
   --color-primary: var(--bg-pink-rose);
   --color-primary-hover: blue;

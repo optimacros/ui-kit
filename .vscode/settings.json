@@ -6,6 +6,9 @@
         "quickfix.biome": "always"
     },
     "editor.defaultFormatter": "biomejs.biome",
+    "[tailwindcss]": {
+        "editor.defaultFormatter": "bradlc.vscode-tailwindcss"
+    },
     "tailwindCSS.experimental.classRegex": [["tw\\s\\*/\\s+[\"'`]([^\"'`]*)"], ["tw`([^]*)\\`"]],
     "tailwindCSS.classAttributes": ["class", "className"]
 }

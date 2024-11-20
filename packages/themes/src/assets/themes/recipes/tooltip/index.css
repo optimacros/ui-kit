@@ -1,0 +1,13 @@
+@theme {
+  --color-tooltip-bg: var(--color-grey-700);
+  --color-tooltip: var(--color-white);
+}
+
+[data-scope='tooltip'][data-part='arrow'] {
+  --arrow-size: var(--spacing-5);
+  --arrow-background: var(--color-tooltip-bg);
+
+  &[data-placement='right'] {
+    --arrow-size: var(--spacing-2);
+  }
+}

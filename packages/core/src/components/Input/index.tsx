@@ -231,7 +231,6 @@ export class Input extends React.Component<InputProps> {
 
     handleAutoresize = (): void => {
         const element = this.inputNode.current;
-
         if (!element) {
             return;
         }

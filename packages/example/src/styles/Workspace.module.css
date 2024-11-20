@@ -6,7 +6,7 @@
   overflow: auto;
 }
 
-:global(html.printMode) {
+html.printMode {
   @media print {
     .Wrapper {
       height: auto;
@@ -14,10 +14,8 @@
   }
 }
 
-:global {
-  & [data-react-toolbox='navigation'] {
-    & ~ .GridContainer {
-      height: calc(100% - 38px);
-    }
+[data-react-toolbox='navigation'] {
+  & ~ .GridContainer {
+    height: calc(100% - 38px);
   }
 }

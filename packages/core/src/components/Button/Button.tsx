@@ -3,7 +3,7 @@ import type { MouseEvent } from 'react';
 import React, { Component } from 'react';
 
 import type { ButtonInitialProps, ButtonTheme } from './index';
-import { Icon } from '../Icon';
+import { FontIcon } from '../FontIcon';
 
 export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
     theme: ButtonTheme;
@@ -81,7 +81,7 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
             style,
         };
 
-        const iconContent = icon ? <Icon className={theme.icon} value={icon} /> : null;
+        const iconContent = icon ? <FontIcon className={theme.icon} value={icon} /> : null;
 
         const buttonElement = React.createElement(element, props, iconContent, label, children);
 
