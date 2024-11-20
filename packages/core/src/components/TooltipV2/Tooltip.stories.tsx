@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
 import { Tooltip } from '.';
-import { Button } from '../Button';
+import { Button } from '../ButtonV2';
 import { Meta } from '@storybook/react';
 
 export default {

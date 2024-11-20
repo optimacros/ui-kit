@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Tabs } from '.';
-import { Button } from '../Button';
+import { Button } from '../ButtonV2';
 import { Icon } from '../Icon';
 import { createTabs } from './mock';
 import { Menu } from '../MenuV2';

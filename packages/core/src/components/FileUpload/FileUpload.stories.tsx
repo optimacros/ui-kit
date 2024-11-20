@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/react';
 
 import { FileUpload } from './index';
-import { Button } from '../Button';
+import { Button } from '../ButtonV2';
 import { Icon } from '../Icon';
-import { IconButton } from '../IconButtonV2/IconButton';
+import { IconButton } from '../IconButtonV2';
 import { ReactNode } from 'react';
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '500px', marginLeft: '20px', height: '500px' }}>{children}</div>

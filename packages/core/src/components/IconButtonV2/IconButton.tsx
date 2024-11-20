@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '../Button';
+import { Button, ButtonProps } from '../ButtonV2';
 export interface IconButtonProps extends ButtonProps {}
 
 export const IconButton = (props: IconButtonProps) => {
