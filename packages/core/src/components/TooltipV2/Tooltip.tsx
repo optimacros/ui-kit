@@ -29,11 +29,11 @@ export const Content = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }, ref) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
     const api = useApi();
 
     return (
-        <styled.button {...api.getTriggerProps()} ref={ref}>
+        <styled.button {...rest} {...api.getTriggerProps()} ref={ref}>
             {children}
         </styled.button>
     );
