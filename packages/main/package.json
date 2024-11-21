@@ -1,7 +1,7 @@
 {
     "name": "@optimacros/ui-kit",
     "private": false,
-    "version": "1.0.6",
+    "version": "1.0.7",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -11,10 +11,10 @@
         "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
     "dependencies": {
-        "@optimacros/themes": "^0.0.2",
-        "@optimacros/ui-kit-core": "^1.1.4",
-        "@optimacros/ui-kit-utils": "^0.0.1",
-        "@optimacros/ui-kit-types": "^0.0.1",
+        "@optimacros/themes": "^0.0.3",
+        "@optimacros/ui-kit-core": "^1.1.5",
+        "@optimacros/ui-kit-types": "^0.0.2",
+        "@optimacros/ui-kit-utils": "^0.0.2",
         "marked": "4.1.0",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",
