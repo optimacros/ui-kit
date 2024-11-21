@@ -12,6 +12,9 @@
     "command": {
         "publish": {
             "message": "chore(release): publish"
+        },
+        "bootstrap": {
+            "npmClientArgs": ["--legacy-peer-deps"]
         }
     }
 }
