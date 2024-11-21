@@ -18,7 +18,7 @@
         "clean": "lerna clean",
         "postinstall": "lerna bootstrap",
         "publish": "npm run build:ui && lerna publish from-package",
-        "version": "lerna version",
+        "version": "lerna version && npm run lint:fix",
         "unpublish": "npm unpublish @optimacros/ui-kit"
     },
     "devDependencies": {
