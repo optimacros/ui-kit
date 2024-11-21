@@ -1,17 +1,19 @@
 {
     "name": "@optimacros/ui-kit-utils",
     "private": false,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros/ui-kit-types": "^0.0.1",
         "@internationalized/date": "3.5.4",
+        "@optimacros/ui-kit-types": "^0.0.2",
         "immutable": "4.3.5",
         "lodash-es": "4.17.21",
         "radash": "12.1.0"
