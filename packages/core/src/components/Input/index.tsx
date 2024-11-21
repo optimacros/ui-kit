@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { isNull, isUndefined } from 'lodash';
+import { isNull, isUndefined } from '@optimacros/ui-kit-utils';
 import React from 'react';
 import type { TextareaHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 

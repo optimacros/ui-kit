@@ -1,5 +1,5 @@
 import type * as TypeFest from 'type-fest';
-import { Any, Boolean, Number, Object } from 'ts-toolbelt';
+import { Any, Object } from 'ts-toolbelt';
 import type * as ImmutableTypes from './immutable';
 import type * as Base from './base';
 

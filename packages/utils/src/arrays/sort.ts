@@ -26,6 +26,6 @@ export function sortUniqBy<
 >(arrayLike: T, by: keyof Item, ...payload: Array<P>) {
     const list = List(arrayLike);
     const sorted = sortBy(list, ...payload);
-
+    //@ts-ignore
     return uniqBy(sorted, by);
 }

@@ -1,9 +1,4 @@
 {
-    "compilerOptions": {
-        "noEmit": false,
-        "noEmitOnError": false,
-        "allowSyntheticDefaultImports": true
-    },
-    "exclude": ["node_modules"],
+    "extends": "../../tsconfig.json",
     "include": ["src"]
 }

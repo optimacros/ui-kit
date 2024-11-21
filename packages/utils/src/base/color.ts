@@ -1,5 +1,5 @@
 // @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 
 class ColorUtils {
     convertToFullHex(hex) {

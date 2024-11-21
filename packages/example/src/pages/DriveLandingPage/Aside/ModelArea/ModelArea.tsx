@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 
 import { ModelLink } from './ModelLink';
 import { ModelLinkProps } from './ModelLink/ModelLink';

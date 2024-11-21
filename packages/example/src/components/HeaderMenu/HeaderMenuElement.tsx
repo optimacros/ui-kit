@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty } from '@optimacros/ui-kit-utils';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 

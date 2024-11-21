@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { isEqual } from 'lodash';
+import { isEqual } from '@optimacros/ui-kit-utils';
 import React from 'react';
 
 import type { NavigationProps as BaseNavigationProps, NavigationTheme } from './BaseNavigation';

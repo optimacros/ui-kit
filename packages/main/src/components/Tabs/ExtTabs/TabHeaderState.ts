@@ -1,5 +1,5 @@
 // @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import { action, computed, makeObservable, observable } from 'mobx';
 
 export class TabHeaderState {

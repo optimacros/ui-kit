@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEmpty, map } from 'lodash';
+import { isEmpty, map } from '@optimacros/ui-kit-utils';
 import { observer } from 'mobx-react';
 
 import type { Element } from './HeaderMenuElement';

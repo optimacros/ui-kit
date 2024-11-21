@@ -58,7 +58,7 @@ export interface ActionCreatorBase<T extends string = string, P = NonNullable<un
     type: T;
 }
 
-export interface ActionCreator<T extends string = string, P = { ok: true }> {
+export interface ActionCreator<T extends string = string, P = { ok?: true }> {
     (payload?: P): PayloadAction<T, P>;
     type: T;
     match: (action: unknown) => action is PayloadAction<T, P>;

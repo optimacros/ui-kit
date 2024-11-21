@@ -225,6 +225,7 @@ export function createReactApiStateContext<
         const api = useBaseApi();
         const state = useApiState();
 
+        //@ts-ignore
         const extendedApi = useExtendApi(state, api);
 
         return extendedApi as ExtApi & { send: (action: string) => void };
@@ -264,9 +265,11 @@ export function createReactApiStateContext<
         state?: InitialState;
         children: ReactNode | ((api: ExtApi) => ReactNode);
     } & MachineCtx<Machine> & { id?: string }) {
+        //@ts-ignore
         const { api, send, state: apiState } = useMachine(context);
 
         return (
+            //@ts-ignore
             <StoreProvider state={state} api={{ ...api, send }} apiState={apiState}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
@@ -281,6 +284,7 @@ export function createReactApiStateContext<
         const { api, send, state: apiState } = useActor(actor);
 
         return (
+            //@ts-ignore
             <StoreProvider state={state} api={{ ...api, send }} apiState={apiState}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
@@ -318,6 +322,7 @@ export function createReactApiStateContext<
         ...rest
     }: ComponentProps<typeof Root> & { className?: string }) => {
         return (
+            //@ts-ignore
             <Root {...rest}>
                 <RootAsTagComponent className={className}>{children}</RootAsTagComponent>
             </Root>

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Map as _Map } from 'immutable';
 import { invariant } from '../functions';
 /**

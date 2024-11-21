@@ -1,6 +1,6 @@
 // @ts-nocheck
 import classNames from 'classnames';
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import { Component, ReactNode } from 'react';
 import { mergeStyles } from '@optimacros/ui-kit-utils';
 

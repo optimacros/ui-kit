@@ -2,12 +2,12 @@
     "name": "@optimacros/ui-kit-types",
     "version": "0.0.1",
     "description": "",
-    "types": "./src/index.ts",
-    "main": "./src/index.ts",
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
     "scripts": {
-        "start": "tsc"
+        "build": "tsup --config ./tsup.config.ts"
     },
-    "devDependencies": {
+    "dependencies": {
         "ts-toolbelt": "9.6.0",
         "type-fest": "4.15.0"
     },

@@ -14,6 +14,7 @@
         "@optimacros/themes": "^0.0.2",
         "@optimacros/ui-kit-core": "^1.1.4",
         "@optimacros/ui-kit-utils": "^0.0.1",
+        "@optimacros/ui-kit-types": "^0.0.1",
         "marked": "4.1.0",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import createExtendable from './createExtendable';
 
 export default function extendable(Base) {

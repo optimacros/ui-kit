@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { isEmpty } from 'lodash';
+import { isEmpty } from '@optimacros/ui-kit-utils';
 import type { FC } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Icon } from '../Icon';

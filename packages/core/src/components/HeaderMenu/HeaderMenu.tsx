@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { isEmpty, map } from 'lodash';
+import { isEmpty, map } from '@optimacros/ui-kit-utils';
 import type { FC, JSX } from 'react';
 
 import { HeaderMenuElement } from './HeaderMenuElement';

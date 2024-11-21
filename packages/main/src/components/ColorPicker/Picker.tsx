@@ -1,5 +1,5 @@
 // @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import React from 'react';
 import { Toolbar, Button, IconButton } from '@optimacros/ui-kit-core';
 

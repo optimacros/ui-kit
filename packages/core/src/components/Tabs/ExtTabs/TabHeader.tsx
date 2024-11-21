@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { has, isEmpty, isEqual, isString, map } from 'lodash';
+import { has, isEmpty, isEqual, isString, map } from '@optimacros/ui-kit-utils';
 import { observer } from 'mobx-react';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import React, { Component } from 'react';

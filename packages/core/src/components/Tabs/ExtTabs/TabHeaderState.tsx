@@ -9,7 +9,7 @@ import {
     reduce,
     round,
     size,
-} from 'lodash';
+} from '@optimacros/ui-kit-utils';
 import { observable, computed, action, makeObservable } from 'mobx';
 import type React from 'react';
 

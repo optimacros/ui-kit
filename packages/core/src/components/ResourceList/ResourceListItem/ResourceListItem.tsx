@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { isUndefined } from 'lodash';
+import { isUndefined } from '@optimacros/ui-kit-utils';
 import type { FC } from 'react';
 
 import { ResourceListItemContent } from './ResourceListItemContent';
