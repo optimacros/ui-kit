@@ -8,7 +8,7 @@ import {
     isValidElement,
     memo,
 } from 'react';
-import { ForwardRefComponent, JsxElementsKey, styled } from './factory';
+import { type ForwardRefComponent, type JsxElementsKey, styled } from './factory';
 
 export type ElementConfig<TProps = NonNullable<unknown>, DProps = TProps> = {
     memoize?: boolean;
@@ -34,6 +34,7 @@ export type ElementConfig<TProps = NonNullable<unknown>, DProps = TProps> = {
 export function createReactElement<T extends FC | ForwardRefExoticComponent<{}> | JsxElementsKey>(
     ComponentOrKey: T,
     config: ElementConfig<ComponentProps<T>>,
+    //@ts-ignore
 ): T extends string ? ForwardRefComponent<T> : T {
     const { memoize, displayName, useProps, defaultProps } = config;
 
@@ -54,9 +55,12 @@ export function createReactElement<T extends FC | ForwardRefExoticComponent<{}> 
     };
 
     const Component =
-        typeof ComponentOrKey === 'string' ? { ...styled[ComponentOrKey] } : ComponentOrKey;
+        typeof ComponentOrKey === 'string'
+            ? { ...styled[ComponentOrKey as JsxElementsKey] }
+            : ComponentOrKey;
 
     if (
+        //@ts-ignore
         !Component?.$$typeof?.toString() &&
         !isValidElement(Component) &&
         !_.isFunction(Component)
@@ -72,6 +76,7 @@ export function createReactElement<T extends FC | ForwardRefExoticComponent<{}> 
                 const mutatedProps = useProps(props);
 
                 return createElement(
+                    //@ts-ignore
                     Component,
                     //@ts-ignore
                     { ...mutatedProps, ref },

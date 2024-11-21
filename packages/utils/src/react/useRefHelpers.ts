@@ -18,6 +18,7 @@ export function useConst<T>(initialValue: (() => T) | T): T {
         constRef.current = { value: getValue<T>(initialValue) };
     }
 
+    //@ts-ignore
     return constRef.current.value;
 }
 

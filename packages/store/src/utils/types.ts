@@ -1,4 +1,4 @@
-import type * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros/ui-kit-types';
 import { type IndexedUtils } from '@optimacros/ui-kit-utils';
 type NoPayload = {
     ok?: true;
@@ -63,6 +63,7 @@ export type SetInRecordPayload<
 export type UpdateRecordPayload<
     T = NonNullable<unknown>,
     Path extends string = string,
+    //@ts-ignore
     PathValue = $.PathValue<T, Path>,
 > = { deep?: boolean; value: Partial<PathValue> };
 
@@ -96,11 +97,13 @@ export type TRecordActions<
 };
 
 export type ActionType<T> = $.Is.Tuple<T> extends 1
-    ? TArrayActions<T>
+    ? //@ts-ignore
+      TArrayActions<T>
     : $.Is.Object<T> extends 1
       ? TRecordActions<T>
       : $.Is.Boolean<T> extends 1
-        ? TBooleanActions<T>
+        ? //@ts-ignore
+          TBooleanActions<T>
         : TPrimitiveActions<T>;
 
 export type ActionsMap<

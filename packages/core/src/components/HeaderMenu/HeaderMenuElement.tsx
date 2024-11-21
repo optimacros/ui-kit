@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { isEmpty } from 'lodash';
+import { isEmpty } from '@optimacros/ui-kit-utils';
 import { useRef, useState } from 'react';
 import type { FC } from 'react';
 

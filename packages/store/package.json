@@ -10,11 +10,16 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
+        "@optimacros/ui-kit-utils": "^0.0.1",
+        "@optimacros/ui-kit-types": "^0.0.1",
         "@zag-js/react": "0.77.0",
-        "proxy-memoize": "3.0.1"
+        "proxy-memoize": "3.0.1",
+        "immutable": "4.3.5"
     },
     "devDependencies": {
-        "@optimacros/ui-kit-types": "^0.0.1",
         "@types/lodash-es": "^4.17.12"
+    },
+    "peerDependencies": {
+        "react": "18.2.0"
     }
 }

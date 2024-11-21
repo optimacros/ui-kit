@@ -35,9 +35,11 @@ export function combine2dWith<T extends $.Tuple.Indexed.Type<$.Tuple.Indexed.Typ
     arrayLike: T,
 
     /** method call when 1d array is combinated */
+    //@ts-ignore
     onCombinationDone?: (list: Array<T[number][number]>) => void,
 
     /** method call when 1d array item is added */
+    //@ts-ignore
     onItemAddition?: (list: Array<T[number][number]>) => void,
 ) {
     const collection = toCollection(arrayLike) as Collection.Indexed<any>;
@@ -107,6 +109,7 @@ export function combine2dWith<T extends $.Tuple.Indexed.Type<$.Tuple.Indexed.Typ
 export function reduce2d<
     T extends $.Tuple.Indexed.Type<$.Tuple.Indexed.Type<any>>,
     A extends unknown,
+    //@ts-ignore
 >(arrayLike: T, onItemAddition: (acc: A, list: Array<T[number][number]>) => A, acc: A) {
     const collection = toCollection(arrayLike) as Collection.Indexed<any>;
 

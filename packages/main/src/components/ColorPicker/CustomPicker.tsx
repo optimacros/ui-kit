@@ -1,5 +1,5 @@
 // @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import React from 'react';
 import { CustomPicker } from 'react-color';
 import { Saturation, EditableInput, Hue } from 'react-color/lib/components/common';

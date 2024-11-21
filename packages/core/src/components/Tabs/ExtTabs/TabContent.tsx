@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { map } from 'lodash';
+import { map } from '@optimacros/ui-kit-utils';
 import React, { Component } from 'react';
 
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer';

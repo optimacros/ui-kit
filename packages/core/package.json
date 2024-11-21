@@ -14,6 +14,7 @@
         "@optimacros/themes": "^0.0.2",
         "@optimacros/ui-kit-store": "^0.0.1",
         "@optimacros/ui-kit-utils": "^0.0.1",
+        "@optimacros/ui-kit-types": "^0.0.1",
         "@zag-js/file-upload": "0.77.0",
         "@zag-js/menu": "0.77.0",
         "@zag-js/react": "0.77.0",
@@ -31,7 +32,8 @@
         "react-dom": "18.2.0",
         "react-modal": "3.16.1",
         "react-range": "1.8.14",
-        "react-svg": "16.1.32"
+        "react-svg": "16.1.32",
+        "classnames": "2.5.1"
     },
     "devDependencies": {
         "@types/react-modal": "3.16.3"

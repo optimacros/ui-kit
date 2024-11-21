@@ -1,4 +1,4 @@
-import { isUndefined, keys } from 'lodash';
+import { isUndefined, keys } from '@optimacros/ui-kit-utils';
 import type React from 'react';
 
 export default {

@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from '@optimacros/ui-kit-utils';
 import type { RefObject, FC } from 'react';
 import { useEffect, useRef } from 'react';
 

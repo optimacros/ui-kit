@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { find, indexOf, map, without, filter } from 'lodash';
+import { find, indexOf, map, without, filter } from '@optimacros/ui-kit-utils';
 import React, { Component } from 'react';
 
 import type { SelectBoxTheme, SelectBoxProps as Props } from './SelectBox';

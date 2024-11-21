@@ -1,4 +1,4 @@
-import { keys } from 'lodash';
+import { keys } from '@optimacros/ui-kit-utils';
 
 export const events = {
     getMousePosition(event) {

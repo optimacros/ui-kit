@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { FontIcon } from '@optimacros/ui-kit-core';

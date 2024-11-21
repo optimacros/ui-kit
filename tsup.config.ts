@@ -8,6 +8,7 @@ export default defineConfig({
     treeshake: true,
     target: 'es2020',
     dts: true,
+    splitting: true,
     platform: 'browser',
     outDir: 'dist',
     bundle: true,

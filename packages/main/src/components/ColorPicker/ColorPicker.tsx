@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Tooltip, Dropdown } from '@optimacros/ui-kit-core';
-import type { Position } from 'ui-kit-core/dist/components/Tooltip';
+import type { Position } from '@optimacros/ui-kit-core';
 
 import Picker from './Picker';
 

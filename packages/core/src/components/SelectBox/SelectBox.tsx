@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { isUndefined } from 'lodash';
+import { isUndefined } from '@optimacros/ui-kit-utils';
 import React, { Component } from 'react';
 
 import { Key } from '../../types/KeyboardKeyList';

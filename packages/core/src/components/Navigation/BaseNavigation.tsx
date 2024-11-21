@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { isEqual } from 'lodash';
+import { isEqual } from '@optimacros/ui-kit-utils';
 import React from 'react';
 
 import { mergeStyles } from '@optimacros/ui-kit-utils';

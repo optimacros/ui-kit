@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import classNames from 'classnames';
 
 import { driveLandingState } from '../../../../../state/DriveLandingState';

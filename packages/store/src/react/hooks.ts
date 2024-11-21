@@ -39,6 +39,7 @@ export function createReducerWithMiddleware<M extends Array<any>>(
                 dispatch(action);
             }
 
+            //@ts-ignore
             nextState.current = Context._currentValue;
         }, []);
 

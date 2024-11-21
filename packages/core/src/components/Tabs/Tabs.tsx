@@ -1,4 +1,4 @@
-import { compact, findIndex, isArray } from 'lodash';
+import { compact, findIndex, isArray } from '@optimacros/ui-kit-utils';
 import React from 'react';
 
 import { TabsContainer } from './ExtTabs';

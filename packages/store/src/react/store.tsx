@@ -204,8 +204,10 @@ export function createReactStore<
     type CreatedActions = typeof actions;
 
     type ReducerActions = {
+        //@ts-ignore
         [K in keyof CreatedActions]: Parameters<CreatedActions[K]>[1];
     } & {
+        //@ts-ignore
         [K in keyof ConfigReducers]: PayloadAction<K, Parameters<ConfigReducers[K]>[1]>;
     };
 
@@ -260,6 +262,7 @@ export function createReactStore<
 
             return (
                 <StateContext.Provider value={controlledState ?? state}>
+                    {/**@ts-ignore*/}
                     <ActionsContext.Provider value={controlledActions ?? actions}>
                         {children}
                     </ActionsContext.Provider>

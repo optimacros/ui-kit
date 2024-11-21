@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { HeaderUserMenu, HeaderUserSubMenu, HeaderUserMenuElement } from '../../../../components';

@@ -21,6 +21,7 @@
         "experimentalDecorators": true,
         "emitDeclarationOnly": true,
         "noEmitOnError": true,
+        "noEmit": true,
         "paths": {
             "@optimacros/ui-kit-core": ["packages/core/src"],
             "@optimacros/ui-kit": ["packages/main/src"],

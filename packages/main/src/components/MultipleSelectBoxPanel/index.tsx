@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import React, { ReactNode } from 'react';
 import { IconButton } from '@optimacros/ui-kit-core';
 

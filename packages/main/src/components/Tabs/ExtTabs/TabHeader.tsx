@@ -1,6 +1,6 @@
 // @ts-nocheck
 import classNames from 'classnames';
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { ButtonMenu, Icon, MenuItem } from '@optimacros/ui-kit-core';

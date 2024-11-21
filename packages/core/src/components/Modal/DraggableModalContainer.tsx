@@ -1,5 +1,5 @@
 // @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros/ui-kit-utils';
 import { Component } from 'react';
 
 import styles from './DraggableModalContainer.module.css';
