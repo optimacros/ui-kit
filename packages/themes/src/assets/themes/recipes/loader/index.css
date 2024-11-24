@@ -1,0 +1,56 @@
+@theme {
+  --height-progress-track: calc(0.4 * var(--unit));
+}
+
+[data-scope='progress'] {
+  & [data-part='label'] {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    & [data-part='label-container'] {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+    }
+  }
+
+  /* &[data-part='root'] {
+  } */
+
+  & [data-part='track'] {
+    background: var(--color-divider);
+    height: var(--height-progress-track);
+  }
+
+  & [data-part='range'] {
+    background: var(--color-primary);
+    height: var(--height-progress-track);
+
+    &[data-state='indeterminate'] {
+      animation: linear-indeterminate-bar 1s linear infinite;
+      transform-origin: center center;
+    }
+  }
+
+  &[data-disabled='true'] {
+
+    & [data-part='range'] {
+      background: var(--color-black) a(26%);
+    }
+  }
+}
+
+@keyframes linear-indeterminate-bar {
+  0% {
+    transform: translate(-50%) scaleX(0);
+  }
+
+  50% {
+    transform: translate(-0%) scaleX(0.3);
+  }
+
+  100% {
+    transform: translate(50%) scaleX(0);
+  }
+}
