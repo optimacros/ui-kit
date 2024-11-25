@@ -4,7 +4,8 @@
     "version": "0.0.0",
     "scripts": {
         "prepare": "husky",
-        "start": "storybook dev --no-open -p 6006 & npm run tailwind:storybook",
+        "start": "concurrently \"npm run start:storybook\" \"npm run tailwind:storybook\" ",
+        "start:storybook": "storybook dev --no-open -p 6006",
         "tailwind:storybook": "tailwindcss -i ./packages/main/src/index.css -o ./.storybook/output.css --watch",
         "tailwind:build": "tailwindcss -i ./packages/main/src/index.css -o ./packages/main/dist/tailwind.css",
         "build": "lerna run build --scope=@optimacros/ui-kit && npm run tailwind:build",
@@ -71,7 +72,8 @@
         "vite": "5.2.8",
         "vite-plugin-dts": "3.8.1",
         "vite-plugin-lib-inject-css": "2.0.1",
-        "vite-tsconfig-paths": "4.3.2"
+        "vite-tsconfig-paths": "4.3.2",
+        "concurrently": "9.1.0"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": ["npm run lint:fix"]
