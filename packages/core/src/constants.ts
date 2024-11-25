@@ -111,3 +111,8 @@ export const appManagersMock = [
         onClick: () => {},
     },
 ];
+
+export enum Orientation {
+    Vertical = 'vertical',
+    Horizontal = 'horizontal',
+}
