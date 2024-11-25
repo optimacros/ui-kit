@@ -1,0 +1,21 @@
+[data-scope='toolbar'][data-part='root'] {
+  &[data-is-small='true'] {
+    @apply mt-5;
+  }
+
+  &[data-align='left'] {
+    @apply text-left;
+  }
+
+  &[data-align='right'] {
+    @apply text-right;
+  }
+
+  &[data-align='center'] {
+    @apply text-center text-red-700;
+  }
+
+  &[data-align='rightInRow'] {
+    @apply text-right mt-0 flex-1;
+  }
+}
