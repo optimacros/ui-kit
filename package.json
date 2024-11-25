@@ -4,7 +4,9 @@
     "version": "0.0.0",
     "scripts": {
         "prepare": "husky",
-        "start": "storybook dev --no-open -p 6006 & npm run tailwind:storybook",
+        "start": "sh ./scripts/start.sh",
+        "start:default": "storybook dev --no-open -p 6006 & npm run tailwind:storybook",
+        "start:win": "sh -c 'storybook dev --no-open -p 6006 & npm run tailwind:storybook'",
         "tailwind:storybook": "tailwindcss -i ./packages/main/src/index.css -o ./.storybook/output.css --watch",
         "tailwind:build": "tailwindcss -i ./packages/main/src/index.css -o ./packages/main/dist/tailwind.css",
         "build": "lerna run build --scope=@optimacros/ui-kit && npm run tailwind:build",
