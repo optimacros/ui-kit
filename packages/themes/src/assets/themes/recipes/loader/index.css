@@ -98,29 +98,29 @@
     stroke-dashoffset: 0;
   }
   100% {
-    stroke-dasharray: 400, 400;
+    stroke-dasharray: 400, 400; 
     stroke-dashoffset: -260;
   }
 }
 
 @keyframes circle-indeterminate-color {
   0% {
-    stroke: var(--color-blue-700)
+    stroke: var(--color-blue-700);
   }
 
   25% {
-    stroke: var(--color-red-500)
+    stroke: var(--color-red-500);
   }
 
   50% {
-    stroke: var(--color-amber-600)
+    stroke: var(--color-amber-600);
   }
 
   75% {
-    stroke: var(--color-green-600)
+    stroke: var(--color-green-600);
   }
 
   100% {
-    stroke: var(--color-blue-700)
+    stroke: var(--color-blue-700);
   }
 }
