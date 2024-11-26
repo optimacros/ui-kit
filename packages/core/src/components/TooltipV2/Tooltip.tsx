@@ -3,9 +3,15 @@ import * as tooltip from '@zag-js/tooltip';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import { tw } from '@optimacros/ui-kit-utils';
 
-export const { Provider, useState, useApi, State, Api, Root } = createReactApiStateContext({
+export const {
+    useState,
+    useApi,
+    State,
+    Api,
+    RootProvider: Root,
+} = createReactApiStateContext({
     id: 'Tooltip',
-    initialState: null,
+    initialState: {},
     machine: tooltip,
     api: null as tooltip.Api,
 });

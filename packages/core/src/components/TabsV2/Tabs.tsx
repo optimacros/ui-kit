@@ -10,17 +10,23 @@ import {
     clsx,
     noop,
 } from '@optimacros/ui-kit-utils';
-import { ReactNode, RefObject, useEffect, useId, useState } from 'react';
+import {
+    ComponentProps,
+    PropsWithChildren,
+    ReactNode,
+    RefObject,
+    useEffect,
+    useId,
+    useState,
+} from 'react';
 import { Menu as BaseMenu } from '../MenuV2';
 import { Draggable as DraggableComponent } from '../Draggable';
 
-export const rootClassName = tw``;
-export const { Api, Provider, Root, useApi } = createReactApiStateContext({
+export const { Api, Provider, RootProvider, useApi } = createReactApiStateContext({
     api: null as tabs.Api,
     id: 'tabs',
     machine: tabs,
     initialState: null,
-    rootAsTag: true,
     defaultContext: {},
     useExtendApi(state, api) {
         const getListNode = () => {
@@ -80,13 +86,21 @@ export const { Api, Provider, Root, useApi } = createReactApiStateContext({
             first,
         };
     },
+});
 
-    useRootProps(api) {
-        return {
-            ...api.getRootProps(),
-            className: rootClassName,
-        };
-    },
+export const rootClassName = tw``;
+
+export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
+export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
+    return (
+        <RootProvider {...context}>
+            {(api) => (
+                <styled.div {...api.getRootProps()} className={rootClassName} ref={ref}>
+                    {children}
+                </styled.div>
+            )}
+        </RootProvider>
+    );
 });
 
 export const listClassName = 'flex relative z-1 overflow-scroll';
