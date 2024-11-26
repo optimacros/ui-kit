@@ -3,7 +3,7 @@ import { BaseRoot } from '../Loader';
 import { isNumber, tw } from '@optimacros/ui-kit-utils';
 import { RootContent } from './RootContent';
 
-const cn = tw`flex`;
+const rootClassName = tw`flex`;
 
 export interface Props {
     max?: number;
@@ -42,7 +42,7 @@ export const Root: FC<CompositeProps> = ({
     }, [valueProp, mode]);
 
     return (
-        <BaseRoot {...context} value={value} className={cn}>
+        <BaseRoot {...context} value={value} className={rootClassName}>
             <RootContent value={value} disabled={disabled} multicolor={multicolor}>
                 {children}
             </RootContent>

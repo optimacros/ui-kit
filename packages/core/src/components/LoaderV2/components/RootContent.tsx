@@ -2,9 +2,7 @@ import { ComponentProps, FC, useEffect, useMemo } from 'react';
 import { BaseRoot, useApi, Props as RootProps } from '../Loader';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 
-const cn = tw`
-flex items-center flex-col w-full
-`;
+export const rootContentClassName = tw`flex items-center flex-col w-full`;
 
 type Props = ComponentProps<typeof BaseRoot> & Pick<RootProps, 'value' | 'disabled' | 'multicolor'>;
 
@@ -24,7 +22,7 @@ export const RootContent: FC<Props> = ({ children, value, disabled, multicolor }
     }, [children, api]);
 
     return (
-        <div data-disabled={disabled} data-multicolor={multicolor} className={cn}>
+        <div data-disabled={disabled} data-multicolor={multicolor} className={rootContentClassName}>
             {content}
         </div>
     );
