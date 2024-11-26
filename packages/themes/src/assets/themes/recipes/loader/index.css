@@ -1,23 +1,10 @@
 @theme {
   --height-progress-track: calc(0.4 * var(--unit));
+  --size-progress-circle: calc(6 * var(--unit));
 }
 
 [data-scope='progress'] {
-  & [data-part='label'] {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-
-    & [data-part='label-container'] {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      max-width: 100%;
-    }
-  }
-
-  /* &[data-part='root'] {
-  } */
-
+  /* linear */
   & [data-part='track'] {
     background: var(--color-divider);
     height: var(--height-progress-track);
@@ -33,10 +20,54 @@
     }
   }
 
-  &[data-disabled='true'] {
+  & [data-part='buffer'] {
+    background: linear-gradient(to right, var(--color-primary-contrast), var(--color-primary));
+    height: var(--height-progress-track);
+  }
 
-    & [data-part='range'] {
-      background: var(--color-black) a(26%);
+  & > div[data-disabled='true'] {
+    & [data-part='track'] [data-part='range'] {
+      background: var(--color-divider);
+    }
+
+    & [data-part='circle-track'] {
+      stroke: var(--color-divider);
+    }
+
+    & [data-part='circle-range'] {
+      stroke: transparent;
+    }
+  }
+
+  /* circle */
+  & [data-part='circle'] {
+    --size: var(--size-progress-circle);
+    --thickness: var(--height-progress-track);
+
+    &[data-state='indeterminate'] {
+      animation: circle-indeterminate-rotate 1.5s linear infinite;
+    }
+  }
+
+  & [data-part='circle-track'] {
+    stroke: transparent;
+  }
+
+  & [data-part='circle-range'] {
+    stroke: var(--color-primary);
+    stroke-linecap: round;
+    transition-property: stroke-dasharray, stroke;
+    transition-duration: 0.6s;
+
+    &[data-state='indeterminate'] {
+      animation: circle-indeterminate-range 2s ease-in-out infinite;
+    }
+  }
+
+  & > div[data-multicolor='true'] {
+    & [data-part='circle-range'][data-state='indeterminate'] {
+      animation: circle-indeterminate-range 2s ease-in-out infinite, circle-indeterminate-color 2s
+        ease-in-out infinite;
     }
   }
 }
@@ -52,5 +83,44 @@
 
   100% {
     transform: translate(50%) scaleX(0);
+  }
+}
+
+@keyframes circle-indeterminate-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes circle-indeterminate-range {
+  0% {
+    stroke-dasharray: 1, 400;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 400, 400;
+    stroke-dashoffset: -260;
+  }
+}
+
+@keyframes circle-indeterminate-color {
+  0% {
+    stroke: #4285f4;
+  }
+
+  25% {
+    stroke: #de3e35;
+  }
+
+  50% {
+    stroke: #f7c223;
+  }
+
+  75% {
+    stroke: #1b9a59;
+  }
+
+  100% {
+    stroke: #4285f4;
   }
 }

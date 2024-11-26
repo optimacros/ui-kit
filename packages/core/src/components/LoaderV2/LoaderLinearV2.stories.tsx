@@ -1,6 +1,7 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { ArgTypes, Meta } from '@storybook/react';
 
 import { Loader } from './index';
+import { useEffect, useState } from 'react';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -31,73 +32,88 @@ const argTypes: Partial<ArgTypes> = {
         },
         description: 'Mode of the progress bar.',
     },
-    className: { control: 'text', description: 'Root element className' },
-    as: { table: { disable: true } },
-    asChild: { table: { disable: true } },
-    label: {
-        control: 'text',
-        description: 'Text to display above progress bar',
-    },
 };
 
-const meta: Meta<typeof Loader.Linear> = {
+const meta: Meta = {
     title: 'UI Kit core/LoaderV2 Linear',
-    component: Loader.Linear,
     argTypes,
 };
 export default meta;
 
-type Story = StoryObj<typeof Loader.Linear>;
+export const Basic = () => (
+    <Loader.Root>
+        <Loader.LinearTrack>
+            <Loader.LinearRange />
+        </Loader.LinearTrack>
+    </Loader.Root>
+);
 
-export const Basic: Story = {
-    args: {},
+export const Determinate = () => {
+    const [counter, setCounter] = useState(33);
+
+    useEffect(() => {
+        setInterval(() => {
+            setCounter((c) => {
+                if (c >= 100) {
+                    return 0;
+                }
+
+                return c + 1;
+            });
+        }, 100);
+    }, []);
+
+    return (
+        <Loader.Root value={counter}>
+            <Loader.LinearTrack>
+                <Loader.LinearRange />
+            </Loader.LinearTrack>
+        </Loader.Root>
+    );
 };
 
-// export const Circular: Story = {
-//     args: {
-//         type: 'circular',
-//         mode: 'indeterminate',
-//     },
-// };
+export const Disabled = () => (
+    <Loader.Root disabled>
+        <Loader.LinearTrack>
+            <Loader.LinearRange />
+        </Loader.LinearTrack>
+    </Loader.Root>
+);
 
-// export const CircularMulticolor: Story = {
-//     args: {
-//         type: 'circular',
-//         mode: 'indeterminate',
-//         multicolor: true,
-//     },
-// };
+export const Buffer = () => (
+    <Loader.Root value={50}>
+        <Loader.LinearTrack>
+            <Loader.LinearRange />
+            <Loader.Buffer buffer={70} />
+        </Loader.LinearTrack>
+    </Loader.Root>
+);
 
-// export const CircularDeterminate: Story = {
-//     args: {
-//         type: 'circular',
-//         mode: 'determinate',
-//         value: 25,
-//     },
-// };
+export const Label = () => {
+    const [counter, setCounter] = useState(33);
 
-// export const Linear: Story = {
-//     args: {
-//         type: 'linear',
-//         mode: 'indeterminate',
-//     },
-// };
+    useEffect(() => {
+        setInterval(() => {
+            setCounter((c) => {
+                if (c >= 100) {
+                    return 0;
+                }
 
-// export const LinearBuffer: Story = {
-//     args: {
-//         type: 'linear',
-//         mode: 'determinate',
-//         value: 23,
-//         buffer: 40,
-//         max: 100,
-//     },
-// };
+                return c + 1;
+            });
+        }, 100);
+    }, []);
 
-// export const Disabled: Story = {
-//     args: {
-//         type: 'linear',
-//         mode: 'determinate',
-//         value: 23,
-//         disabled: true,
-//     },
-// };
+    return (
+        <Loader.Root value={counter}>
+            <Loader.Label>
+                Loading {counter}/100 Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading{' '}
+            </Loader.Label>
+            <Loader.LinearTrack>
+                <Loader.LinearRange />
+            </Loader.LinearTrack>
+        </Loader.Root>
+    );
+};

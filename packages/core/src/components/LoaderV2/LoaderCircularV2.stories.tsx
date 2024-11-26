@@ -1,10 +1,37 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { ArgTypes, Meta } from '@storybook/react';
 
 import { Loader } from './index';
-import LinearStory from './LoaderLinearV2.stories';
+import { useEffect, useState } from 'react';
 
 const argTypes: Partial<ArgTypes> = {
-    ...LinearStory.argTypes,
+    disabled: {
+        control: 'boolean',
+        description: 'If `true`, component will be disabled.',
+    },
+    value: {
+        control: 'number',
+        description: 'Value of the current progress.',
+    },
+    min: {
+        control: 'number',
+        description: 'Minimum value permitted.',
+    },
+    max: {
+        control: 'number',
+        description: 'Maximum value permitted.',
+    },
+    buffer: {
+        control: 'number',
+        description: 'Value of a secondary progress bar useful for buffering.',
+    },
+    mode: {
+        control: 'radio',
+        options: ['determinate', 'indeterminate'],
+        table: {
+            defaultValue: { summary: 'indeterminate' },
+        },
+        description: 'Mode of the progress bar.',
+    },
     multicolor: {
         control: 'boolean',
         description:
@@ -13,64 +40,99 @@ const argTypes: Partial<ArgTypes> = {
     },
 };
 
-const meta: Meta<typeof Loader.Linear> = {
+const meta: Meta = {
     title: 'UI Kit core/LoaderV2 Circular',
-    component: Loader.Circular,
     argTypes,
 };
 export default meta;
 
-type Story = StoryObj<typeof Loader.Circular>;
+export const Basic = () => (
+    <Loader.Root>
+        <Loader.Circle>
+            <Loader.CircleTrack />
+            <Loader.CircleRange />
+        </Loader.Circle>
+    </Loader.Root>
+);
 
-export const Basic: Story = {
-    args: {},
+export const Determinate = () => {
+    const [counter, setCounter] = useState(33);
+
+    useEffect(() => {
+        setInterval(() => {
+            setCounter((c) => {
+                if (c >= 100) {
+                    return 0;
+                }
+
+                return c + 1;
+            });
+        }, 100);
+    }, []);
+
+    return (
+        <Loader.Root value={counter}>
+            <Loader.Circle>
+                <Loader.CircleTrack />
+                <Loader.CircleRange />
+            </Loader.Circle>
+        </Loader.Root>
+    );
 };
 
-// export const Circular: Story = {
-//     args: {
-//         type: 'circular',
-//         mode: 'indeterminate',
-//     },
-// };
+export const Disabled = () => (
+    <Loader.Root disabled>
+        <Loader.Circle>
+            <Loader.CircleTrack />
+            <Loader.CircleRange />
+        </Loader.Circle>
+    </Loader.Root>
+);
 
-// export const CircularMulticolor: Story = {
-//     args: {
-//         type: 'circular',
-//         mode: 'indeterminate',
-//         multicolor: true,
-//     },
-// };
+export const Buffer = () => (
+    <Loader.Root value={33}>
+        <Loader.Circle>
+            <Loader.CircleTrack />
+            <Loader.CircleRange />
+        </Loader.Circle>
+    </Loader.Root>
+);
 
-// export const CircularDeterminate: Story = {
-//     args: {
-//         type: 'circular',
-//         mode: 'determinate',
-//         value: 25,
-//     },
-// };
+export const Label = () => {
+    const [counter, setCounter] = useState(33);
 
-// export const Linear: Story = {
-//     args: {
-//         type: 'linear',
-//         mode: 'indeterminate',
-//     },
-// };
+    useEffect(() => {
+        setInterval(() => {
+            setCounter((c) => {
+                if (c >= 100) {
+                    return 0;
+                }
 
-// export const LinearBuffer: Story = {
-//     args: {
-//         type: 'linear',
-//         mode: 'determinate',
-//         value: 23,
-//         buffer: 40,
-//         max: 100,
-//     },
-// };
+                return c + 1;
+            });
+        }, 100);
+    }, []);
 
-// export const Disabled: Story = {
-//     args: {
-//         type: 'linear',
-//         mode: 'determinate',
-//         value: 23,
-//         disabled: true,
-//     },
-// };
+    return (
+        <Loader.Root value={counter}>
+            <Loader.Label>
+                Loading {counter}/100 Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading{' '}
+            </Loader.Label>
+            <Loader.Circle>
+                <Loader.CircleTrack />
+                <Loader.CircleRange />
+            </Loader.Circle>
+        </Loader.Root>
+    );
+};
+
+export const Multicolor = () => (
+    <Loader.Root multicolor>
+        <Loader.Circle>
+            <Loader.CircleTrack />
+            <Loader.CircleRange />
+        </Loader.Circle>
+    </Loader.Root>
+);
