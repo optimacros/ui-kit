@@ -76,7 +76,7 @@
         "concurrently": "9.1.0"
     },
     "lint-staged": {
-        "*.{js,ts,tsx}": ["npm run lint:fix"]
+        "*.{js,ts,tsx,css,json}": ["npm run lint:fix"]
     },
     "commitlint": {
         "extends": ["@commitlint/config-conventional"]
