@@ -7,6 +7,7 @@ export const {
     Api,
     useApi,
     Root: BaseRoot,
+    RootProvider,
 } = createReactApiStateContext({
     api: null as progress.Api<PropTypes>,
     id: 'progress',

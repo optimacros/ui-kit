@@ -1,9 +1,8 @@
-import { ComponentProps, FC, useMemo } from 'react';
-import { BaseRoot } from '../Loader';
-import { isNumber, tw } from '@optimacros/ui-kit-utils';
+import { ComponentProps, useMemo } from 'react';
+import { BaseRoot, RootProvider } from '../Loader';
+import { isNumber } from '@optimacros/ui-kit-utils';
 import { RootContent } from './RootContent';
-
-const rootClassName = tw`flex`;
+import { forward } from '@optimacros/ui-kit-store';
 
 export interface Props {
     max?: number;
@@ -21,31 +20,32 @@ export interface Props {
 
 type CompositeProps = ComponentProps<typeof BaseRoot> & Props;
 
-export const Root: FC<CompositeProps> = ({
-    children,
-    value: valueProp,
-    disabled,
-    multicolor,
-    mode,
-    ...context
-}) => {
-    const value = useMemo(() => {
-        if (mode === 'indeterminate') {
+export const Root = forward<CompositeProps, 'div'>(
+    ({ children, value: valueProp, disabled, multicolor, mode, ...context }, ref) => {
+        const value = useMemo(() => {
+            if (mode === 'indeterminate') {
+                return null;
+            }
+
+            if (isNumber(valueProp)) {
+                return valueProp;
+            }
+
             return null;
-        }
+        }, [valueProp, mode]);
 
-        if (isNumber(valueProp)) {
-            return valueProp;
-        }
-
-        return null;
-    }, [valueProp, mode]);
-
-    return (
-        <BaseRoot {...context} value={value} className={rootClassName}>
-            <RootContent value={value} disabled={disabled} multicolor={multicolor}>
-                {children}
-            </RootContent>
-        </BaseRoot>
-    );
-};
+        return (
+            <RootProvider {...context} value={value}>
+                <RootContent
+                    value={value}
+                    data-disabled={disabled}
+                    data-multicolor={multicolor}
+                    ref={ref}
+                >
+                    {children}
+                </RootContent>
+            </RootProvider>
+        );
+    },
+    { memoize: true, displayName: 'Root' },
+);

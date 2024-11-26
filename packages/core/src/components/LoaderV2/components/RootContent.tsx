@@ -5,10 +5,10 @@ import { forward, styled } from '@optimacros/ui-kit-store';
 
 export const rootContentClassName = tw`flex items-center flex-col w-full`;
 
-type Props = ComponentProps<typeof BaseRoot> & Pick<RootProps, 'value' | 'disabled' | 'multicolor'>;
+type Props = ComponentProps<typeof BaseRoot> & Pick<RootProps, 'value'>;
 
 export const RootContent = forward<Props, 'div'>(
-    ({ children, value, disabled, multicolor, ...rest }, ref) => {
+    ({ children, value, ...rest }, ref) => {
         const api = useApi();
 
         useEffect(() => {
@@ -26,9 +26,9 @@ export const RootContent = forward<Props, 'div'>(
         return (
             <styled.div
                 ref={ref}
-                data-disabled={disabled}
-                data-multicolor={multicolor}
                 className={rootContentClassName}
+                data-scope="progress"
+                data-part="root"
                 {...rest}
             >
                 {content}

@@ -3,7 +3,7 @@
   --size-progress-circle: calc(6 * var(--unit));
 }
 
-[data-scope='progress'] {
+[data-scope='progress'][data-part='root'] {
   /* linear */
   & [data-part='track'] {
     background: var(--color-divider);
@@ -23,20 +23,6 @@
   & [data-part='buffer'] {
     background: linear-gradient(to right, var(--color-primary-contrast), var(--color-primary));
     height: var(--height-progress-track);
-  }
-
-  & > div[data-disabled='true'] {
-    & [data-part='track'] [data-part='range'] {
-      background: var(--color-divider);
-    }
-
-    & [data-part='circle-track'] {
-      stroke: var(--color-divider);
-    }
-
-    & [data-part='circle-range'] {
-      stroke: transparent;
-    }
   }
 
   /* circle */
@@ -64,7 +50,23 @@
     }
   }
 
-  & > div[data-multicolor='true'] {
+  /* disabled */
+  &[data-disabled='true'] {
+    & [data-part='range'] {
+      background: var(--color-divider);
+    }
+
+    & [data-part='circle-track'] {
+      stroke: var(--color-divider);
+    }
+
+    & [data-part='circle-range'] {
+      stroke: transparent;
+    }
+  }
+
+  /* multicolor */
+  &[data-multicolor='true'] {
     & [data-part='circle-range'][data-state='indeterminate'] {
       animation: circle-indeterminate-range 2s ease-in-out infinite, circle-indeterminate-color 2s
         ease-in-out infinite;
@@ -98,7 +100,7 @@
     stroke-dashoffset: 0;
   }
   100% {
-    stroke-dasharray: 400, 400; 
+    stroke-dasharray: 400, 400;
     stroke-dashoffset: -260;
   }
 }
