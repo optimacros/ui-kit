@@ -71,7 +71,6 @@ export const CustomDeleteIcon: Story = {
     },
 };
 
-// todo rename
 export const SettingsDialog: Story = {
     args: {
         children: 'Chip',
