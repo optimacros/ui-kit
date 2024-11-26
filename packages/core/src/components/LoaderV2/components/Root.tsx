@@ -3,9 +3,7 @@ import { BaseRoot } from '../Loader';
 import { isNumber, tw } from '@optimacros/ui-kit-utils';
 import { RootContent } from './RootContent';
 
-const cn = tw`
-flex
-`;
+const cn = tw`flex`;
 
 export interface Props {
     max?: number;

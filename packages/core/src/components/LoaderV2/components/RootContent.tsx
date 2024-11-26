@@ -3,7 +3,7 @@ import { BaseRoot, useApi, Props as RootProps } from '../Loader';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 
 const cn = tw`
-flex items-center flex-col max-w-full
+flex items-center flex-col w-full
 `;
 
 type Props = ComponentProps<typeof BaseRoot> & Pick<RootProps, 'value' | 'disabled' | 'multicolor'>;
