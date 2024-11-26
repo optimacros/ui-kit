@@ -105,22 +105,22 @@
 
 @keyframes circle-indeterminate-color {
   0% {
-    stroke: #4285f4;
+    stroke: var(--color-blue-700)
   }
 
   25% {
-    stroke: #de3e35;
+    stroke: var(--color-red-500)
   }
 
   50% {
-    stroke: #f7c223;
+    stroke: var(--color-amber-600)
   }
 
   75% {
-    stroke: #1b9a59;
+    stroke: var(--color-green-600)
   }
 
   100% {
-    stroke: #4285f4;
+    stroke: var(--color-blue-700)
   }
 }
