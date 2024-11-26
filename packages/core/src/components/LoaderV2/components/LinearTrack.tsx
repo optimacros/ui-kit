@@ -1,15 +1,24 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useApi } from '../Loader';
 import { tw } from '@optimacros/ui-kit-utils';
+import { forward, styled } from '@optimacros/ui-kit-store';
 
 export const linearTrackClassName = tw`w-full`;
 
-export const LinearTrack = memo<React.PropsWithChildren>(({ children }) => {
-    const api = useApi();
+export const LinearTrack = forward<React.PropsWithChildren, 'div'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <div {...api.getTrackProps()} className={linearTrackClassName}>
-            {children}
-        </div>
-    );
-});
+        return (
+            <styled.div
+                {...api.getTrackProps()}
+                className={linearTrackClassName}
+                ref={ref}
+                {...rest}
+            >
+                {children}
+            </styled.div>
+        );
+    },
+    { memoize: true, displayName: 'LinearTrack' },
+);

@@ -1,20 +1,23 @@
-import { memo } from 'react';
 import { useApi } from '../Loader';
+import { forward, styled } from '@optimacros/ui-kit-store';
 
 interface Props {
     buffer: number;
 }
 
-export const Buffer = memo<Props>(({ buffer }) => {
-    const api = useApi();
+export const Buffer = forward<Props, 'div'>(
+    ({ buffer, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <div
-            {...{
-                ...api.getRangeProps(),
-                'data-part': 'buffer',
-                style: { width: `${buffer}%` },
-            }}
-        />
-    );
-});
+        return (
+            <styled.div
+                {...api.getRangeProps()}
+                data-part="buffer"
+                style={{ width: `${buffer}%` }}
+                ref={ref}
+                {...rest}
+            />
+        );
+    },
+    { memoize: true, displayName: 'Buffer' },
+);

@@ -1,8 +1,11 @@
-import { memo } from 'react';
 import { useApi } from '../Loader';
+import { forward, styled } from '@optimacros/ui-kit-store';
 
-export const CircleTrack = memo(() => {
-    const api = useApi();
+export const CircleTrack = forward<any, 'circle'>(
+    (props, ref) => {
+        const api = useApi();
 
-    return <circle {...api.getCircleTrackProps()} />;
-});
+        return <styled.circle {...api.getCircleTrackProps()} ref={ref} {...props} />;
+    },
+    { memoize: true, displayName: 'CircleTrack' },
+);

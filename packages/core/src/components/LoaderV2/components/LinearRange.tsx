@@ -1,8 +1,11 @@
-import { memo } from 'react';
 import { useApi } from '../Loader';
+import { forward, styled } from '@optimacros/ui-kit-store';
 
-export const LinearRange = memo(() => {
-    const api = useApi();
+export const LinearRange = forward<any, 'div'>(
+    (props, ref) => {
+        const api = useApi();
 
-    return <div {...api.getRangeProps()} />;
-});
+        return <styled.div {...api.getRangeProps()} ref={ref} {...props} />;
+    },
+    { memoize: true, displayName: 'LinearRange' },
+);
