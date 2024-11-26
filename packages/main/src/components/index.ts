@@ -10,5 +10,6 @@ export * from './LocalLoader';
 export * from './Kanban';
 export * from './TextShortener';
 export * from './MultipleSelectBoxPanel';
+export * from './RangeSlider';
 //@ts-ignore
 export * from './Tabs';

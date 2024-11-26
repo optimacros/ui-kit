@@ -6,3 +6,7 @@
 @import './toast';
 @import './tabs';
 @import './loader';
+@import './counter';
+@import './divider';
+@import './toolbar';
+@import './chip';

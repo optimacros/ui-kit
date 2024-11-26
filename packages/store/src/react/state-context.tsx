@@ -1,21 +1,20 @@
 import { invariant, isFunction } from '@optimacros/ui-kit-utils';
-import { ComponentProps, createContext, FC, memo, ReactNode, useContext } from 'react';
+import { createContext, FC, memo, ReactNode, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';
 import { createActorApiHook, createMachineApiHook } from './useMachineApi';
-import { styled } from './factory';
 
 type HooksConfig = object;
 
 interface StoreConfig<
     ID extends string = string,
-    InitialState extends Record<string, any> = NonNullable<unknown>,
+    State extends Record<string, any> = NonNullable<unknown>,
     Selectors = NonNullable<unknown>,
     Hooks = NonNullable<unknown>,
 > {
     id: ID;
-    initialState: InitialState;
-    createConfig?: (initialState: InitialState) => {
+    initialState: State;
+    createConfig?: (initialState: State) => {
         selectors?: Selectors;
     };
     hooks?: Hooks;
@@ -23,31 +22,27 @@ interface StoreConfig<
 
 const createDisplayName = (name?: string, displayName?: string) => `${displayName}.${name}`;
 
-function createHooks<InitialState>(
+function createHooks<State>(
     name: string,
-    initialState: InitialState,
+    initialState: State,
     createSelectorHooks: boolean,
 ): {
-    useSelector: <R extends any>(s: (state: InitialState) => R) => R;
-    useProxySelector: <R extends any>(s: (state: InitialState) => R) => R;
-    StateContext: InitialState;
-    useState: () => InitialState;
+    useSelector: <R extends any>(s: (state: State) => R) => R;
+    useProxySelector: <R extends any>(s: (state: State) => R) => R;
+    StateContext: State;
+    useState: () => State;
 };
 
-function createHooks<InitialState>(
+function createHooks<State>(
     name: string,
-    initialState: InitialState,
+    initialState: State,
 ): {
-    StateContext: InitialState;
-    useState: () => InitialState;
+    StateContext: State;
+    useState: () => State;
 };
 
-function createHooks<InitialState>(
-    name: string,
-    initialState: InitialState,
-    createSelectorHooks?: boolean,
-) {
-    const StateContext = createContext<InitialState>(initialState);
+function createHooks<State>(name: string, initialState: State, createSelectorHooks?: boolean) {
+    const StateContext = createContext<State>(initialState);
 
     StateContext.displayName = createDisplayName(name, 'State');
 
@@ -61,7 +56,7 @@ function createHooks<InitialState>(
 
     if (createSelectorHooks) {
         const useSelector = createUseSelectorHook(StateContext);
-        const useProxySelector = createProxySelectorHook<InitialState>(useSelector);
+        const useProxySelector = createProxySelectorHook<State>(useSelector);
 
         return {
             StateContext,
@@ -77,12 +72,9 @@ function createHooks<InitialState>(
     };
 }
 
-function createHelpers<InitialState, H extends { useState } = { useState }>(
-    name: string,
-    hooks: H,
-) {
+function createHelpers<State, H extends { useState } = { useState }>(name: string, hooks: H) {
     const State: FC<{
-        children: (state: InitialState) => ReactNode;
+        children: (state: State) => ReactNode;
     }> = ({ children }) => {
         const state = hooks.useState();
 
@@ -107,14 +99,14 @@ function createHelpers<InitialState, H extends { useState } = { useState }>(
         State,
     };
 }
-type Selector<InitialState> = (store: InitialState, ...params) => any;
+type Selector<State> = (store: State, ...params) => any;
 
 export function createReactStateContext<
     ID extends string = string,
-    InitialState extends Record<string, any> = NonNullable<unknown>,
-    Selectors extends Record<string, Selector<InitialState>> = NonNullable<unknown>,
+    State extends Record<string, any> = NonNullable<unknown>,
+    Selectors extends Record<string, Selector<State>> = NonNullable<unknown>,
     Hooks extends HooksConfig = NonNullable<unknown>,
->(config: StoreConfig<ID, InitialState, Selectors, Hooks>) {
+>(config: StoreConfig<ID, State, Selectors, Hooks>) {
     const { initialState, createConfig, id } = config;
 
     const createdConfig = createConfig?.(initialState) ?? {};
@@ -126,13 +118,13 @@ export function createReactStateContext<
 
     const { StateContext, ...hooks } = createHooks(id, initialState);
 
-    const helpers = createHelpers<InitialState, typeof hooks>(id, hooks);
+    const helpers = createHelpers<State, typeof hooks>(id, hooks);
 
     const StoreProvider: FC<{
         children: ReactNode;
-        initialState?: Partial<InitialState>;
-        state?: InitialState;
-        onChange?: (v: InitialState) => void;
+        initialState?: Partial<State>;
+        state?: State;
+        onChange?: (v: State) => void;
     }> = memo(({ children, state: controlledState }) => {
         const state = hooks.useState();
 
@@ -160,51 +152,56 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
 >;
 type ApiStoreConfig<
     ID extends string = string,
-    InitialState extends Record<string, any> = NonNullable<unknown>,
+    State extends Record<string, any> = NonNullable<unknown>,
     Api extends Record<string, any> = NonNullable<unknown>,
     Machine extends Record<string, any> = NonNullable<unknown>,
     Selectors = NonNullable<unknown>,
     Hooks = NonNullable<unknown>,
     ExtApi extends Api = Api,
     ApiState = NonNullable<unknown>,
-> = StoreConfig<ID, InitialState, Selectors, Hooks> & {
+> = StoreConfig<ID, State, Selectors, Hooks> & {
     machine: Machine;
     api: Api;
-    /** place as div in dom */
+    /**
+     * @deprecated
+     * place as div in dom
+     * */
     rootAsTag?: boolean;
-    /** replace root props */
+    /**
+     * @deprecated
+     */
     useRootProps?: (api: ExtApi) => any;
     /** use actor instead of machine */
     actor?: boolean;
     useExtendApi?: (
-        state: ApiState,
+        state: State,
         api: Api & {
             send: (action: string | { type?: string; value?: any; src?: string }) => void;
         },
+        apiState: ApiState,
     ) => ExtApi;
     defaultContext?: MachineCtx<Machine>;
 };
 
 export function createReactApiStateContext<
     ID extends string = string,
-    InitialState extends Record<string, any> = NonNullable<unknown>,
+    State extends Record<string, any> = NonNullable<unknown>,
     Api extends Record<string, any> = NonNullable<unknown>,
     Machine extends Record<string, any> = NonNullable<unknown>,
-    Selectors extends Record<string, Selector<InitialState>> = NonNullable<unknown>,
+    Selectors extends Record<string, Selector<State>> = NonNullable<unknown>,
     Hooks extends HooksConfig = NonNullable<unknown>,
     ExtApi extends Api = Api,
     ApiState extends Record<string, any> = Parameters<Machine['connect']>[0],
->(config: ApiStoreConfig<ID, InitialState, Api, Machine, Selectors, Hooks, ExtApi, ApiState>) {
+>(config: ApiStoreConfig<ID, State, Api, Machine, Selectors, Hooks, ExtApi, ApiState>) {
     const {
         initialState,
         createConfig,
         id,
         api,
         machine,
-        rootAsTag,
-        useRootProps,
         actor,
         useExtendApi = (state, api) => api,
+        defaultContext = {},
     } = config;
 
     const createdConfig = createConfig?.(initialState) ?? {};
@@ -214,7 +211,7 @@ export function createReactApiStateContext<
         selectors: createdConfig?.selectors,
     };
 
-    const { StateContext, ...hooks } = createHooks(`${id}State`, initialState, true);
+    const { StateContext, ...stateHooks } = createHooks(`${id}State`, initialState, true);
     const { StateContext: ApiContext, useState: useBaseApi } = createHooks(`${id}Api`, api);
     const { StateContext: ApiStateContext, useState: useApiState } = createHooks(
         `${id}ApiState`,
@@ -223,7 +220,7 @@ export function createReactApiStateContext<
 
     function useApi() {
         const api = useBaseApi();
-        const state = useApiState();
+        const state = stateHooks.useState();
 
         //@ts-ignore
         const extendedApi = useExtendApi(state, api);
@@ -231,20 +228,19 @@ export function createReactApiStateContext<
         return extendedApi as ExtApi & { send: (action: string) => void };
     }
 
-    const helpers = createHelpers<InitialState, typeof hooks>(id, hooks);
+    const helpers = createHelpers<State, typeof stateHooks>(id, stateHooks);
     const { State: Api } = createHelpers<ExtApi, { useState: typeof useApi }>(`${id}Api`, {
         useState: useApi,
     });
 
     const StoreProvider: FC<{
         children: ReactNode;
-        initialState?: Partial<InitialState>;
-        state?: InitialState;
+        state?: State;
         api?: Api;
         apiState?: ApiState;
-    }> = memo(({ children, state, api, apiState }) => {
+    }> = memo(({ children, state = {}, api, apiState }) => {
         return (
-            <StateContext.Provider value={state}>
+            <StateContext.Provider value={{ ...initialState, ...state }}>
                 <ApiContext.Provider value={api}>
                     <ApiStateContext.Provider value={apiState}>{children}</ApiStateContext.Provider>
                 </ApiContext.Provider>
@@ -262,11 +258,11 @@ export function createReactApiStateContext<
         state = null,
         ...context
     }: {
-        state?: InitialState;
+        state?: State;
         children: ReactNode | ((api: ExtApi) => ReactNode);
     } & MachineCtx<Machine> & { id?: string }) {
         //@ts-ignore
-        const { api, send, state: apiState } = useMachine(context);
+        const { api, send, state: apiState } = useMachine({ ...defaultContext, ...context });
 
         return (
             //@ts-ignore
@@ -280,7 +276,7 @@ export function createReactApiStateContext<
         children,
         state = null,
         actor,
-    }: { state?: InitialState; children: ReactNode | ((api: ExtApi) => ReactNode); actor: any }) {
+    }: { state?: State; children: ReactNode | ((api: ExtApi) => ReactNode); actor: any }) {
         const { api, send, state: apiState } = useActor(actor);
 
         return (
@@ -293,50 +289,15 @@ export function createReactApiStateContext<
 
     const Root = actor ? RootActor : RootMachine;
 
-    const RootAsTagComponent = ({
-        children,
-        className,
-    }: {
-        children: ReactNode | ((api: ExtApi) => ReactNode);
-        className?: string;
-    }) => {
-        const api = useApi();
-        const props = useRootProps?.(api) ?? {};
-
-        return (
-            <styled.div
-                data-scope={id}
-                data-part="root"
-                {...props}
-                key={props?.id ?? id}
-                className={`${props.className ?? ''} ${className}`}
-            >
-                {isFunction(children) ? children(api) : children}
-            </styled.div>
-        );
-    };
-
-    const RootAsTag = ({
-        children,
-        className,
-        ...rest
-    }: ComponentProps<typeof Root> & { className?: string }) => {
-        return (
-            //@ts-ignore
-            <Root {...rest}>
-                <RootAsTagComponent className={className}>{children}</RootAsTagComponent>
-            </Root>
-        );
-    };
     return {
         ...helpers,
-        ...hooks,
+        ...stateHooks,
         select: slice.selectors,
         slice,
         Api,
+        useApiState,
         useApi,
         useMachine,
-        Root: rootAsTag ? RootAsTag : Root,
-        Provider: StoreProvider,
+        RootProvider: Root,
     };
 }

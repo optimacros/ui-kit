@@ -1,0 +1,13 @@
+@theme {
+  --color-dark-divider: #e8e8e8;
+}
+
+[data-scope='divider'][data-part='root'] {
+  &[data-orientation='vertical'] {
+    @apply h-[18px] min-w-[1px] w-[1px] mt-0 self-center;
+  }
+
+  &[data-orientation='horizontal'] {
+    @apply min-w-[20px] h-[1px];
+  }
+}

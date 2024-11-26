@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React from 'react';
-
 import styles from './Toolbar.module.css';
 
 export type Props = {
@@ -11,17 +10,20 @@ export type Props = {
 
 export type ToolbarProps = React.PropsWithChildren<Props>;
 
-export class Toolbar extends React.PureComponent<ToolbarProps> {
-    render(): React.JSX.Element {
-        const className = classNames(
-            {
-                [styles.Toolbar]: true,
-                [styles.Toolbar__small]: this.props.small ?? false,
-                [styles[`Toolbar__align_${this.props.align}`]]: this.props.align ?? 'left',
-            },
-            this.props.className,
-        );
+export const Toolbar: React.FC<ToolbarProps> = ({
+    small = false,
+    align = 'left',
+    className,
+    children,
+}) => {
+    const toolbarClassName = classNames(
+        styles.Toolbar,
+        {
+            [styles.Toolbar__small]: small,
+            [styles[`Toolbar__align_${align}`]]: align,
+        },
+        className,
+    );
 
-        return <div className={className}>{this.props.children}</div>;
-    }
-}
+    return <div className={toolbarClassName}>{children}</div>;
+};

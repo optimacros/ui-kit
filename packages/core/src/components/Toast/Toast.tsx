@@ -1,23 +1,29 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as toast from '@zag-js/toast';
-import { ReactNode } from 'react';
+import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 import { tw } from '@optimacros/ui-kit-utils';
 
-export const rootClassName = tw`flex rounded-sm flex items-center justify-center py-2 px-3 bg-[var(--bg)] text-[var(--text)] gap-2 w-sm`;
-
-export const { Api, Provider, Root, useApi } = createReactApiStateContext({
+export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as toast.Api,
     id: 'toast',
     machine: toast,
     initialState: null,
     actor: true,
-    rootAsTag: true,
-    useRootProps(api) {
-        return {
-            ...api.getRootProps(),
-            className: rootClassName,
-        };
-    },
+});
+
+export const rootClassName = tw`flex rounded-sm flex items-center justify-center py-2 px-3 bg-[var(--bg)] text-[var(--text)] gap-2 w-sm`;
+
+export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
+export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
+    return (
+        <RootProvider {...context}>
+            {(api) => (
+                <styled.div {...api.getRootProps()} className={rootClassName} ref={ref}>
+                    {children}
+                </styled.div>
+            )}
+        </RootProvider>
+    );
 });
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {

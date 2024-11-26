@@ -1,23 +1,32 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as fileUpload from '@zag-js/file-upload';
 import { PropTypes } from '@zag-js/react';
-import { ReactNode, useMemo } from 'react';
+import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
 import { round, sum, tw } from '@optimacros/ui-kit-utils';
 
-export const { Api, Root, Provider, useApi, useMachine } = createReactApiStateContext({
+export const { Api, RootProvider, useApi, useMachine } = createReactApiStateContext({
     api: null as fileUpload.Api<PropTypes>,
     id: 'file-upload',
     initialState: null,
     machine: fileUpload,
-    rootAsTag: true,
-    useRootProps(api) {
-        const hasFile = api.acceptedFiles.length > 0;
-        return {
-            ...api.getRootProps(),
-            'data-empty': !hasFile,
-            className: 'group',
-        };
-    },
+});
+
+export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
+export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
+    return (
+        <RootProvider {...context}>
+            {(api) => (
+                <styled.div
+                    {...api.getRootProps()}
+                    className="group"
+                    ref={ref}
+                    data-empty={api.acceptedFiles.length > 0}
+                >
+                    {children}
+                </styled.div>
+            )}
+        </RootProvider>
+    );
 });
 
 export const HiddenInput = () => {

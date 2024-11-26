@@ -3,26 +3,29 @@ import { tw } from '@optimacros/ui-kit-utils';
 import * as menu from '@zag-js/menu';
 import { ComponentProps, ReactNode, useMemo } from 'react';
 
-export const {
-    Api,
-    Provider,
-    useApi,
-    State,
-    useMachine,
-    Root: BaseRoot,
-    useSelector,
-} = createReactApiStateContext({
-    id: 'menu',
-    initialState: { disabled: false },
-    api: null as menu.Api,
-    machine: menu,
-});
+const initialState = {
+    disabled: false,
+};
+
+export const { Api, Provider, useApi, State, useMachine, RootProvider, useSelector } =
+    createReactApiStateContext({
+        id: 'menu',
+        initialState,
+        api: null as menu.Api,
+        machine: menu,
+        useExtendApi(state, api) {
+            return {
+                ...state,
+                ...api,
+            };
+        },
+    });
 
 export const Root = ({
-    disabled,
+    state,
     ...context
-}: { disabled: boolean } & ComponentProps<typeof BaseRoot>) => {
-    return <BaseRoot {...context} state={{ disabled }} />;
+}: { state: typeof initialState } & ComponentProps<typeof RootProvider>) => {
+    return <RootProvider {...context} state={state} />;
 };
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
@@ -30,8 +33,8 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 
     return <span {...api.getIndicatorProps()}>{children}</span>;
 };
-const itemCn = tw`py-2 px-3 data-highlighted:bg-[var(--bg-hover)] data-disabled:text-[var(--text-disabled)] cursor-pointer data-disabled:cursor-default select-none`;
 
+const itemCn = tw`py-2 px-3 data-highlighted:bg-[var(--bg-hover)] data-disabled:text-[var(--text-disabled)] cursor-pointer data-disabled:cursor-default select-none`;
 export const Item = forward<menu.ItemProps, 'li'>(
     ({ valueText, closeOnSelect, disabled, value, ...rest }) => {
         const api = useApi();
@@ -150,5 +153,9 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children })
         [api.getTriggerProps, disabled],
     );
 
-    return <styled.button {...props}>{children}</styled.button>;
+    return (
+        <styled.button {...props}>
+            {children} {`${api.disabled}`}
+        </styled.button>
+    );
 });

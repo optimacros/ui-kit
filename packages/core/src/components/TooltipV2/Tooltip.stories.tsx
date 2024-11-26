@@ -9,7 +9,7 @@ export default {
     tags: ['autodocs'],
 } as Meta;
 
-const Base = (props: ComponentProps<typeof Tooltip.Root>) => {
+export const Base = (props: ComponentProps<typeof Tooltip.Root>) => {
     return (
         <div
             style={{
