@@ -1,4 +1,4 @@
-import { ComponentProps, useEffect, useMemo } from 'react';
+import { ComponentProps, useEffect } from 'react';
 import { RootProvider, useApi } from './Context';
 import { Props as RootProps } from './Root';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
@@ -16,14 +16,6 @@ export const RootContent = forward<Props, 'div'>(
             api.setValue(value);
         }, [value, api.setValue]);
 
-        const content = useMemo(() => {
-            if (isFunction(children)) {
-                return children(api);
-            }
-
-            return children;
-        }, [children, api]);
-
         return (
             <styled.div
                 ref={ref}
@@ -32,7 +24,7 @@ export const RootContent = forward<Props, 'div'>(
                 data-part="root"
                 {...rest}
             >
-                {content}
+                {isFunction(children) ? children(api) : children}
             </styled.div>
         );
     },
