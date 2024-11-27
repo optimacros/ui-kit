@@ -3,6 +3,7 @@
 
 @import './recipes';
 @import './colors.css';
+@import './scroll.css';
 
 @theme {
   --color-divider: var(--palette-grey-200);
