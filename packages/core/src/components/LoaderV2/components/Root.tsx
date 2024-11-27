@@ -7,32 +7,25 @@ import { forward } from '@optimacros/ui-kit-store';
 export interface Props {
     max?: number;
     min?: number;
+    /** value=null for indeterminate mode */
     value?: number | null;
     disabled?: boolean;
     /** not implemented yet */
     buffer?: number;
-    /** @deprecated
-     * use value=null for indeterminate mode
-     * */
-    mode?: 'determinate' | 'indeterminate';
     multicolor?: boolean;
 }
 
 type CompositeProps = ComponentProps<typeof RootProvider> & Props;
 
 export const Root = forward<CompositeProps, 'div'>(
-    ({ children, value: valueProp, disabled, multicolor, mode, ...context }, ref) => {
+    ({ children, value: valueProp, disabled, multicolor, ...context }, ref) => {
         const value = useMemo(() => {
-            if (mode === 'indeterminate') {
-                return null;
-            }
-
             if (isNumber(valueProp)) {
                 return valueProp;
             }
 
             return null;
-        }, [valueProp, mode]);
+        }, [valueProp]);
 
         return (
             <RootProvider {...context} value={value}>

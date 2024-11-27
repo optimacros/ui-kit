@@ -24,14 +24,6 @@ const argTypes: Partial<ArgTypes> = {
         control: 'number',
         description: 'Value of a secondary progress bar useful for buffering.',
     },
-    mode: {
-        control: 'radio',
-        options: ['determinate', 'indeterminate'],
-        table: {
-            defaultValue: { summary: 'indeterminate' },
-        },
-        description: 'Mode of the progress bar.',
-    },
 };
 
 const meta: Meta = {
