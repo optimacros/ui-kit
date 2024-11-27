@@ -22,7 +22,6 @@ export const ScrollContainer = forward<React.PropsWithChildren, 'div'>(
         </styled.div>
     ),
     {
-        memoize: true,
         displayName: 'ScrollContainer',
     },
 );

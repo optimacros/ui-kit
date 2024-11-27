@@ -79,7 +79,6 @@ export const Root = forward<Props, 'div'>(
         );
     },
     {
-        memoize: true,
         displayName: 'ModalRoot',
     },
 );

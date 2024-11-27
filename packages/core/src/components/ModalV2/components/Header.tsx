@@ -25,7 +25,6 @@ export const Header = forward<React.PropsWithChildren, 'div'>(
         );
     },
     {
-        memoize: true,
         displayName: 'Header',
     },
 );

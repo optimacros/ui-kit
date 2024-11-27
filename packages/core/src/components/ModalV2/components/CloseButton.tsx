@@ -21,7 +21,6 @@ export const CloseButton = forward<React.PropsWithChildren, 'button'>(
         );
     },
     {
-        memoize: true,
         displayName: 'CloseButton',
     },
 );

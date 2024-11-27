@@ -11,7 +11,6 @@ export const Footer = forward<React.PropsWithChildren, 'div'>(
         </styled.div>
     ),
     {
-        memoize: true,
         displayName: 'Footer',
     },
 );

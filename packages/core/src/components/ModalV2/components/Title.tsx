@@ -20,7 +20,6 @@ export const Title = forward<React.PropsWithChildren, 'h3'>(
         );
     },
     {
-        memoize: true,
         displayName: 'Title',
     },
 );
