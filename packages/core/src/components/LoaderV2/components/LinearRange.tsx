@@ -7,5 +7,5 @@ export const LinearRange = forward<any, 'div'>(
 
         return <styled.div {...api.getRangeProps()} ref={ref} {...props} />;
     },
-    { memoize: true, displayName: 'LinearRange' },
+    { displayName: 'LinearRange' },
 );

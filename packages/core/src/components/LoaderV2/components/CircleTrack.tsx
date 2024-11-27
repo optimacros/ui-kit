@@ -7,5 +7,5 @@ export const CircleTrack = forward<any, 'circle'>(
 
         return <styled.circle {...api.getCircleTrackProps()} ref={ref} {...props} />;
     },
-    { memoize: true, displayName: 'CircleTrack' },
+    { displayName: 'CircleTrack' },
 );

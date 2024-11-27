@@ -7,5 +7,5 @@ export const CircleRange = forward<any, 'circle'>(
 
         return <styled.circle {...api.getCircleRangeProps()} ref={ref} {...props} />;
     },
-    { memoize: true, displayName: 'CircleRange' },
+    { displayName: 'CircleRange' },
 );

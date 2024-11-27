@@ -8,5 +8,5 @@ export const Circle = forward<React.PropsWithChildren, 'svg'>(
 
         return <styled.svg {...api.getCircleProps()} {...props} ref={ref} />;
     },
-    { memoize: true, displayName: 'Circle' },
+    { displayName: 'Circle' },
 );

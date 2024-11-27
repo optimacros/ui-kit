@@ -16,5 +16,5 @@ export const Label = forward<React.PropsWithChildren, 'div'>(
             </styled.div>
         );
     },
-    { memoize: true, displayName: 'Label' },
+    { displayName: 'Label' },
 );

@@ -20,5 +20,5 @@ export const LinearTrack = forward<React.PropsWithChildren, 'div'>(
             </styled.div>
         );
     },
-    { memoize: true, displayName: 'LinearTrack' },
+    { displayName: 'LinearTrack' },
 );

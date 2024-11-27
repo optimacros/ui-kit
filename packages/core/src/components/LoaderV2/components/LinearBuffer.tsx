@@ -19,5 +19,5 @@ export const LinearBuffer = forward<Props, 'div'>(
             />
         );
     },
-    { memoize: true, displayName: 'LinearBuffer' },
+    { displayName: 'LinearBuffer' },
 );

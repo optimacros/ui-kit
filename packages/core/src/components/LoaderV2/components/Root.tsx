@@ -47,5 +47,5 @@ export const Root = forward<CompositeProps, 'div'>(
             </RootProvider>
         );
     },
-    { memoize: true, displayName: 'Root' },
+    { displayName: 'Root' },
 );

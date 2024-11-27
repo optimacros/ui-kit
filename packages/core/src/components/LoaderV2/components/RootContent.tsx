@@ -36,5 +36,5 @@ export const RootContent = forward<Props, 'div'>(
             </styled.div>
         );
     },
-    { memoize: true, displayName: 'RootContent' },
+    { displayName: 'RootContent' },
 );
