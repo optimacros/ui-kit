@@ -1,4 +1,4 @@
-import { useApi } from '../Loader';
+import { useApi } from './Context';
 import { forward, styled } from '@optimacros/ui-kit-store';
 
 interface Props {

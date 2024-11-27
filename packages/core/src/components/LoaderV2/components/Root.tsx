@@ -1,5 +1,5 @@
 import { ComponentProps, useMemo } from 'react';
-import { BaseRoot, RootProvider } from '../Loader';
+import { RootProvider } from './Context';
 import { isNumber } from '@optimacros/ui-kit-utils';
 import { RootContent } from './RootContent';
 import { forward } from '@optimacros/ui-kit-store';
@@ -18,7 +18,7 @@ export interface Props {
     multicolor?: boolean;
 }
 
-type CompositeProps = ComponentProps<typeof BaseRoot> & Props;
+type CompositeProps = ComponentProps<typeof RootProvider> & Props;
 
 export const Root = forward<CompositeProps, 'div'>(
     ({ children, value: valueProp, disabled, multicolor, mode, ...context }, ref) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApi } from '../Loader';
+import { useApi } from './Context';
 import { tw } from '@optimacros/ui-kit-utils';
 import { forward, styled } from '@optimacros/ui-kit-store';
 

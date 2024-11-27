@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApi } from '../Loader';
+import { useApi } from './Context';
 import { forward, styled } from '@optimacros/ui-kit-store';
 
 export const Circle = forward<React.PropsWithChildren, 'svg'>(

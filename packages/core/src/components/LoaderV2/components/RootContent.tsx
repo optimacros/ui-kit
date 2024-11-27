@@ -1,11 +1,12 @@
 import { ComponentProps, useEffect, useMemo } from 'react';
-import { BaseRoot, useApi, Props as RootProps } from '../Loader';
+import { RootProvider, useApi } from './Context';
+import { Props as RootProps } from './Root';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 import { forward, styled } from '@optimacros/ui-kit-store';
 
 export const rootContentClassName = tw`flex items-center flex-col w-full`;
 
-type Props = ComponentProps<typeof BaseRoot> & Pick<RootProps, 'value'>;
+type Props = ComponentProps<typeof RootProvider> & Pick<RootProps, 'value'>;
 
 export const RootContent = forward<Props, 'div'>(
     ({ children, value, ...rest }, ref) => {
