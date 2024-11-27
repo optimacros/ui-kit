@@ -1,7 +1,7 @@
 import { forward, styled } from '@optimacros/ui-kit-store';
 import { tw } from '@optimacros/ui-kit-utils';
 import React from 'react';
-import { useApi } from '../Modal';
+import { useApi } from './context';
 import { Icon } from '../../Icon';
 import { ICONS_MAP } from '@optimacros/themes';
 

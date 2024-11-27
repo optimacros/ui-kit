@@ -1,5 +1,5 @@
 import { forward, styled } from '@optimacros/ui-kit-store';
-import { RootProvider } from '../Modal';
+import { RootProvider } from './context';
 import React, { useMemo } from 'react';
 import { Context } from '@zag-js/dialog';
 import { Portal } from '@zag-js/react';

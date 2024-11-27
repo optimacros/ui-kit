@@ -1,5 +1,5 @@
 import { forward } from '@optimacros/ui-kit-store';
-import { useApi } from '../Modal';
+import { useApi } from './context';
 import { tw } from '@optimacros/ui-kit-utils';
 import React from 'react';
 import { Button } from '../../ButtonV2';

@@ -1,1 +1,1 @@
-export * as Modal from './Modal';
+export * as Modal from './components';
