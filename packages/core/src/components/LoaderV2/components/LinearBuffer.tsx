@@ -5,7 +5,7 @@ interface Props {
     buffer: number;
 }
 
-export const Buffer = forward<Props, 'div'>(
+export const LinearBuffer = forward<Props, 'div'>(
     ({ buffer, ...rest }, ref) => {
         const api = useApi();
 
@@ -19,5 +19,5 @@ export const Buffer = forward<Props, 'div'>(
             />
         );
     },
-    { memoize: true, displayName: 'Buffer' },
+    { memoize: true, displayName: 'LinearBuffer' },
 );

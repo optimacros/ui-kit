@@ -84,7 +84,7 @@ export const Buffer = () => (
     <Loader.Root value={50}>
         <Loader.LinearTrack>
             <Loader.LinearRange />
-            <Loader.Buffer buffer={70} />
+            <Loader.LinearBuffer buffer={70} />
         </Loader.LinearTrack>
     </Loader.Root>
 );

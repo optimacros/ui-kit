@@ -1,5 +1,5 @@
 export * from './Label';
-export * from './Buffer';
+export * from './LinearBuffer';
 export * from './LinearTrack';
 export * from './LinearRange';
 export * from './Root';
