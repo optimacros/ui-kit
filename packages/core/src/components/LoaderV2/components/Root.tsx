@@ -1,6 +1,5 @@
-import { ComponentProps, useMemo } from 'react';
+import { ComponentProps } from 'react';
 import { RootProvider } from './Context';
-import { isNumber } from '@optimacros/ui-kit-utils';
 import { RootContent } from './RootContent';
 import { forward } from '@optimacros/ui-kit-store';
 
@@ -18,17 +17,9 @@ export interface Props {
 type CompositeProps = ComponentProps<typeof RootProvider> & Props;
 
 export const Root = forward<CompositeProps, 'div'>(
-    ({ children, value: valueProp, disabled, multicolor, ...context }, ref) => {
-        const value = useMemo(() => {
-            if (isNumber(valueProp)) {
-                return valueProp;
-            }
-
-            return null;
-        }, [valueProp]);
-
+    ({ children, value = null, disabled, multicolor, ...context }, ref) => {
         return (
-            <RootProvider {...context} value={value}>
+            <RootProvider {...context}>
                 <RootContent
                     value={value}
                     data-disabled={disabled}
