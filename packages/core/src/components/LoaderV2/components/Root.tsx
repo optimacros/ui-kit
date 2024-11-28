@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import { RootProvider } from './Context';
+import { RootProvider } from './context';
 import { RootContent } from './RootContent';
 import { forward } from '@optimacros/ui-kit-store';
 

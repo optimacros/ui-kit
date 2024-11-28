@@ -1,5 +1,5 @@
 import { ComponentProps, useEffect } from 'react';
-import { RootProvider, useApi } from './Context';
+import { RootProvider, useApi } from './context';
 import { Props as RootProps } from './Root';
 import { isFunction, tw } from '@optimacros/ui-kit-utils';
 import { forward, styled } from '@optimacros/ui-kit-store';
