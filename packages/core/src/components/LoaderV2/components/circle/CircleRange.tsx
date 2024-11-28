@@ -5,7 +5,7 @@ export const CircleRange = forward<{}, 'circle'>(
     (props, ref) => {
         const api = useApi();
 
-        return <styled.circle {...api.getCircleRangeProps()} ref={ref} {...props} />;
+        return <styled.circle {...props} {...api.getCircleRangeProps()} ref={ref} />;
     },
     { displayName: 'CircleRange' },
 );

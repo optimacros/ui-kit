@@ -5,7 +5,7 @@ export const LinearRange = forward<{}, 'div'>(
     (props, ref) => {
         const api = useApi();
 
-        return <styled.div {...api.getRangeProps()} ref={ref} {...props} />;
+        return <styled.div {...props} {...api.getRangeProps()} ref={ref} />;
     },
     { displayName: 'LinearRange' },
 );

@@ -6,7 +6,7 @@ export const Circle = forward<React.PropsWithChildren, 'svg'>(
     (props, ref) => {
         const api = useApi();
 
-        return <styled.svg {...api.getCircleProps()} {...props} ref={ref} />;
+        return <styled.svg {...props} {...api.getCircleProps()} ref={ref} />;
     },
     { displayName: 'Circle' },
 );

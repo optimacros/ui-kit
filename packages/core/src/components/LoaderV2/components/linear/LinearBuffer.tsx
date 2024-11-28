@@ -14,12 +14,12 @@ export const LinearBuffer = forward<Props, 'div'>(
 
         return (
             <styled.div
+                {...rest}
                 {...api.getRangeProps()}
                 data-part="buffer"
                 style={{ width: `${buffer}%` }}
                 ref={ref}
                 className={linearBufferClassName}
-                {...rest}
             />
         );
     },

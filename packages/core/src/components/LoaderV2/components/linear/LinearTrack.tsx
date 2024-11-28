@@ -11,10 +11,10 @@ export const LinearTrack = forward<React.PropsWithChildren, 'div'>(
 
         return (
             <styled.div
+                {...rest}
                 {...api.getTrackProps()}
                 className={linearTrackClassName}
                 ref={ref}
-                {...rest}
             >
                 {children}
             </styled.div>

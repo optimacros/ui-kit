@@ -11,8 +11,14 @@ export const Label = forward<React.PropsWithChildren, 'div'>(
         const api = useApi();
 
         return (
-            <styled.div {...api.getLabelProps()} className={labelClassName} ref={ref} {...rest}>
-                <styled.div className={labelContainerClassName}>{children}</styled.div>
+            <styled.div {...rest} {...api.getLabelProps()} className={labelClassName} ref={ref}>
+                <styled.div
+                    className={labelContainerClassName}
+                    data-scope="progress"
+                    data-part="label-container"
+                >
+                    {children}
+                </styled.div>
             </styled.div>
         );
     },
