@@ -3,7 +3,7 @@ import React from 'react';
 import { tw } from '@optimacros/ui-kit-utils';
 
 export const scrollContainerOuterClassName = tw`flex pl-6 pr-2 w-full box-border overflow-hidden`;
-export const scrollContainerInnerClassName = tw`overflow-auto`;
+export const scrollContainerInnerClassName = tw`scroll`;
 
 export const ScrollContainer = forward<React.PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => (
