@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import React, { Component } from 'react';
-
 import { Checkbox } from '../Checkbox';
 import { Icon } from '../Icon';
-
 import styles from './Favourite.module.css';
 
 interface Props {
@@ -16,7 +14,6 @@ interface Props {
 export class Favourite extends Component<Props> {
     render() {
         const className = classNames(styles.Container, this.props.className);
-
         const iconValue = this.props.checked ? 'star' : 'star_border';
 
         return (
