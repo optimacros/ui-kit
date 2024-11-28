@@ -190,7 +190,7 @@
   /* Modal */
   --Modal-bg: #ffffff;
   --Modal-title-color: #1c1c1c;
-  --Modal-overlay-bg: rgba(50, 50, 50, 0.2);
+  --Modal-overlay-bg: #32323233;
 
   --toolbar-icon-color: #9d9d9d;
 
