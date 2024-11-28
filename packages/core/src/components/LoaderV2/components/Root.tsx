@@ -3,7 +3,7 @@ import { RootProvider } from './context';
 import { RootContent } from './RootContent';
 import { forward } from '@optimacros/ui-kit-store';
 
-export interface Props {
+export type Props = ComponentProps<typeof RootProvider> & {
     max?: number;
     min?: number;
     /** value=null for indeterminate mode */
@@ -12,11 +12,9 @@ export interface Props {
     /** not implemented yet */
     buffer?: number;
     multicolor?: boolean;
-}
+};
 
-type CompositeProps = ComponentProps<typeof RootProvider> & Props;
-
-export const Root = forward<CompositeProps, 'div'>(
+export const Root = forward<Props, 'div'>(
     ({ children, value = null, disabled, multicolor, ...context }, ref) => {
         return (
             <RootProvider {...context}>
