@@ -1,5 +1,5 @@
 @theme {
-  --z-dialog-backdrop: 1400;
+  --z-index-dialog-backdrop: 1400;
 }
 
 [data-scope='dialog'] {
