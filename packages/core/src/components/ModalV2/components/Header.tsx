@@ -7,7 +7,13 @@ export const headerClassName = tw`relative pl-6 pr-14 py-3.5 flex flex-row items
 export const Header = forward<React.PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
         return (
-            <styled.div className={headerClassName} {...rest} ref={ref} data-part="header">
+            <styled.div
+                className={headerClassName}
+                {...rest}
+                ref={ref}
+                data-scope="dialog"
+                data-part="header"
+            >
                 {children}
             </styled.div>
         );

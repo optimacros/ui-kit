@@ -11,10 +11,12 @@ export const ScrollContainer = forward<React.PropsWithChildren, 'div'>(
             className={scrollContainerOuterClassName}
             ref={ref}
             {...rest}
+            data-scope="dialog"
             data-part="scroll-container-outer"
         >
             <styled.div
                 className={scrollContainerInnerClassName}
+                data-scope="dialog"
                 data-part="scroll-container-inner"
             >
                 {children}

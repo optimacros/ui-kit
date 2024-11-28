@@ -15,6 +15,7 @@ export const Title = forward<React.PropsWithChildren, 'h3'>(
                 ref={ref}
                 {...props}
                 className={titleClassName}
+                data-scope="dialog"
                 data-part="title"
             />
         );
