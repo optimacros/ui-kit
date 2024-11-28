@@ -24,20 +24,16 @@
 .disabled {
   & > .radio {
     border-color: var(--Checkbox-color-disabled);
-
     &:before {
       display: none !important;
     }
   }
-
   & > .radioChecked {
     border-color: var(--Checkbox-color-disabled);
-
     &:before {
       background-color: var(--Checkbox-color-disabled);
     }
   }
-
   & > .text {
     color: var(--Checkbox-color-disabled) !important;
   }
