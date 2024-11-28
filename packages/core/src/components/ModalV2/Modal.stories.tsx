@@ -109,7 +109,7 @@ export const Basic = () => {
                     </div>
                 </Modal.ScrollContainer>
                 <Modal.Footer>
-                    <Modal.CloseButton>Close</Modal.CloseButton>
+                    <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
             </Modal.Root>
         </>
