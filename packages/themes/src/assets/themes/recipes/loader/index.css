@@ -21,7 +21,8 @@
   }
 
   & [data-part='buffer'] {
-    background: linear-gradient(to right, var(--color-primary-contrast), var(--color-primary));
+    --from: var(--color-primary-contrast);
+    --to: var(--color-primary);
     height: var(--height-progress-track);
   }
 
