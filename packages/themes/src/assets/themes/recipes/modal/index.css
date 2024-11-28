@@ -1,8 +1,23 @@
 @theme {
   --z-index-dialog-backdrop: 1400;
+  --color-dialog-backdrop: var(--Modal-overlay-bg);
+  --color-dialog-bg: var(--Modal-bg);
 }
 
 [data-scope='dialog'] {
+  &[data-part='backdrop'] {
+    --bg: var(--color-dialog-backdrop);
+    --z: var(--z-index-dialog-backdrop);
+  }
+
+  &[data-part='positioner'] {
+    --z: var(--z-index-dialog-backdrop);
+  }
+
+  &[data-part='content'] {
+    --bg: var(--color-dialog-bg);
+  }
+
   & [data-part='scroll-container-inner'] {
     scrollbar-gutter: stable;
     /* у outer pl = 1.5r, pr = 0.5, тут нужно получить 1 вместе со скроллом */
