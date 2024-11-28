@@ -1,6 +1,6 @@
 @theme {
-  --height-progress-track: calc(0.4 * var(--unit));
-  --size-progress-circle: calc(6 * var(--unit));
+  --height-progress-track: var(--spacing);
+  --size-progress-circle: calc(15 * var(--spacing));
   --color-progress-track: var(--color-divider);
   --color-progress-range: var(--color-primary);
   --color-progress-range-disabled: var(--color-divider);
