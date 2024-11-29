@@ -10,5 +10,6 @@
 @import './divider';
 @import './toolbar';
 @import './chip';
+@import './modal';
 @import './radioGroup';
 @import './checkbox';
