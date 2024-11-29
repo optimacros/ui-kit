@@ -8,6 +8,7 @@
         "start:storybook": "storybook dev --no-open -p 6006",
         "tailwind:storybook": "tailwindcss -i ./packages/main/src/index.css -o ./.storybook/output.css --watch",
         "tailwind:build": "tailwindcss -i ./packages/main/src/index.css -o ./packages/main/dist/tailwind.css",
+        "start:figma": "lerna run start --scope=@optimacros/ui-kit-figma",
         "build": "lerna run build --scope=@optimacros/ui-kit && npm run tailwind:build",
         "build:core": "lerna run build --scope=@optimacros/ui-kit-core",
         "build:example": "lerna run build --scope=@optimacros/ui-kit-example",

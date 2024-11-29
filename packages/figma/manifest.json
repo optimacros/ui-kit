@@ -1,0 +1,14 @@
+{
+    "name": "@optimacros/ui-kit-figma",
+    "id": "1444228961926391580",
+    "api": "1.0.0",
+    "main": "dist/code.js",
+    "ui": "ui.html",
+    "capabilities": [],
+    "enableProposedApi": false,
+    "documentAccess": "dynamic-page",
+    "editorType": ["figma"],
+    "networkAccess": {
+        "allowedDomains": ["https://optimacros.com"]
+    }
+}

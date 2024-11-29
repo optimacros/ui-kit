@@ -44,10 +44,6 @@
   --color-button-accent-bg-hover: #2da274;
   --color-button-accent-bg-focus: var(--color-button-accent-bg-hover);
 
-  --color-button-primary: #2da274;
-  --color-button-primary-bg-hover: rgba(45, 162, 116, 0.1);
-  --color-button-primary-bg-focus: var(--color-button-primary-bg-hover);
-
   --color-button-neutral-bg-hover: rgba(33, 33, 33, 0.2);
   --color-button-neutral-bg-focus: var(--color-button-neutral-bg-hover);
 
