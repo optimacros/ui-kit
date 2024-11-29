@@ -21,6 +21,6 @@
   & [data-part='scroll-container-inner'] {
     scrollbar-gutter: stable;
     /* у outer pl = 1.5r, pr = 0.5, тут нужно получить 1 вместе со скроллом */
-    padding-right: calc(1 * var(--unit) - var(--width-scroll));
+    padding-right: calc(2.5 * var(--spacing) - var(--width-scroll));
   }
 }

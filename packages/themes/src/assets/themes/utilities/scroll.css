@@ -4,7 +4,7 @@
   --scrollbar-thumb: #cdcdcd;
   --scrollbar-thumb-hover: #b3b3b3;
 
-  --width-scroll: calc(0.75 * var(--unit));
+  --width-scroll: calc(2 * var(--spacing));
 }
 
 @utility scroll {
