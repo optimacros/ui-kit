@@ -27,7 +27,7 @@
   }
 
   &::before {
-    background-color: var(--radio-inner-color);
+    background-color: var(--color-radio-inner);
     border-radius: 50%;
     content: '';
     height: 100%;
@@ -47,7 +47,7 @@
 }
 
 .radioChecked {
-  border: calc(0.2 * var(--unit)) solid var(--radio-inner-color);
+  border: calc(0.2 * var(--unit)) solid var(--color-radio-inner);
   composes: radio;
 
   &::before {

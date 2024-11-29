@@ -77,7 +77,6 @@ export class Tooltip extends Component<TooltipProps, State> {
 
     render() {
         const { active, left, top, position, visible } = this.state;
-
         const positionClass = `tooltip${position.charAt(0).toUpperCase() + position.slice(1)}`;
 
         const {
