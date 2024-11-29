@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div style="display: flex; flex-direction: column; gap:2rem;">
+		<img src="https://optimacros.com/wp-content/themes/mtemplate/dist/img/logo.svg" width="100"/>
+		<nav>
+		<ul data-scope="navigation" data-part="root">
+			<li data-scope="navigation" data-part="item" class="figma-button secondary small">Экспорт темы</li>
+			<li data-scope="navigation" data-part="item" class="figma-button secondary small">Экспорт темы</li>
+			<li data-scope="navigation" data-part="item" class="figma-button secondary small">Экспорт темы</li>
+		</ul>
+	</nav>
+	<div class="loader-container" data-hidden data-scope="loader" data-part="root">
+		<div class="loader">
+		  <div class="circle"></div>
+		  <div class="circle"></div>
+		  <div class="circle"></div>
+		</div>
+	  </div>
+	<main>
+		<div>
+			<button id="optimacros-download-theme" download="theme.css" class="figma-button primary">Экспортировать тему</button>
+		</div>
+	</main>
+</div>
+	<style>
+		[data-scope="navigation"][data-part="root"] {
+			display: flex;
+			gap: 1rem;
+			padding: 0;
+			margin:0;
+		}
+		[data-scope="navigation"] li{
+			list-style: none;
+		}
+
+		/* Base button styles */
+.figma-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    min-height: 32px;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Primary button */
+.figma-button.primary {
+    background-color: #0D99FF;
+    color: white;
+    border-color: #0D99FF;
+}
+
+.figma-button.primary:hover {
+    background-color: #0088EA;
+    border-color: #0088EA;
+}
+
+.figma-button.primary:active {
+    background-color: #0077D1;
+    border-color: #0077D1;
+}
+
+/* Secondary button */
+.figma-button.secondary {
+    background-color: white;
+    color: #333333;
+    border-color: #E5E5E5;
+}
+
+.figma-button.secondary:hover {
+    background-color: #F5F5F5;
+    border-color: #DBDBDB;
+}
+
+.figma-button.secondary:active,
+.figma-button.secondary[data-active] {
+    background-color: #EBEBEB;
+    border-color: #D1D1D1;
+}
+
+/* Disabled state */
+.figma-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Icon support */
+.figma-button .icon {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Small variant */
+.figma-button.small {
+    padding: 4px 12px;
+    font-size: 12px;
+    min-height: 24px;
+}
+
+/* Large variant */
+.figma-button.large {
+    padding: 12px 20px;
+    font-size: 16px;
+    min-height: 40px;
+}
+
+/* Danger variant */
+.figma-button.danger {
+    background-color: #F24822;
+    color: white;
+    border-color: #F24822;
+}
+
+.figma-button.danger:hover {
+    background-color: #DE3A16;
+    border-color: #DE3A16;
+}
+
+.figma-button.danger:active {
+    background-color: #C7300F;
+    border-color: #C7300F;
+}
+	</style>
+	<style>
+
+		 .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loader {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+
+    .circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 8px solid transparent;
+      border-top-color: #8E24AA;
+      border-radius: 50%;
+      animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    }
+
+    .circle:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+
+    .circle:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+
+    .circle:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    #progress {
+      position: absolute;
+      bottom: -30px;
+      width: 100%;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: #8E24AA;
+    }
+
+
+	[data-hidden]{
+			display: none;
+		}
+	</style>
+	<script>
+		const msgRecord = {
+			download: async ({filename, data}) => {
+				const a = document.createElement("a");
+				document.body.appendChild(a);
+				a.style = "display: none";
+				a.href = data;
+				a.download = filename;
+				a.click();
+				document.body.removeChild(a);
+
+				return null
+			}
+		}
+		const loader = document.querySelector("[data-scope=loader][data-part=root]")
+
+		const link = document.getElementById("optimacros-download-theme") 
+		
+		link.addEventListener('click', () => {
+			loader.removeAttribute('data-hidden')	
+			
+			parent.postMessage({ pluginMessage: 'exportTheme' }, '*')
+		})
+
+		onmessage = (event) => {
+
+			msgRecord[event.data.pluginMessage.type]?.(event.data.pluginMessage.data).then(() => loader.setAttribute('data-hidden', ""))
+		}
+		const nav = document.querySelector("[data-scope=navigation][data-part=root]")
+		let activeNavNode = null;
+
+		nav.childNodes.forEach((c) => {
+			c.addEventListener('click', (e, activeIndex) => {
+				if(activeNavNode){
+					activeNavNode.removeAttribute("data-active");
+				}
+
+				activeNavNode = e.target;
+
+				activeNavNode.setAttribute("data-active", "");
+				
+			});
+		})
+</script>
+</body>
+</html>

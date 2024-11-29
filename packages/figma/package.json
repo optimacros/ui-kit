@@ -1,0 +1,14 @@
+{
+    "name": "@optimacros/ui-kit-figma",
+    "version": "0.0.1",
+    "main": "dist/code.js",
+    "scripts": {
+        "build": "tsup --config ./tsup.config.ts",
+        "start": "npm run build -- --watch"
+    },
+    "author": "Georgiy Zhuravlev",
+    "devDependencies": {
+        "@figma/eslint-plugin-figma-plugins": "*",
+        "@figma/plugin-typings": "*"
+    }
+}
