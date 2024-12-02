@@ -5,7 +5,9 @@
   --padding-sidebar-mini-panel: var(--spacing);
   --padding-sidebar-header: calc(2 * var(--spacing));
   --size-sidebar-trigger: calc(4 * var(--spacing));
+  --size-sidebar-trigger-icon: calc(4 * var(--spacing));
   --size-sidebar-close-trigger: calc(8 * var(--spacing));
+  --size-sidebar-close-trigger-icon: calc(6 * var(--spacing));
   --padding-sidebar-content: calc(2 * var(--spacing));
 }
 
@@ -27,6 +29,10 @@
     --text: var(--color-primary);
     --text-hover: var(--color-accent);
     --size: var(--size-sidebar-trigger);
+
+    & > svg {
+      font-size: var(--size-sidebar-trigger-icon);
+    }
   }
 
   & [data-part='header'] {
@@ -38,6 +44,10 @@
     --text: var(--color-primary);
     --text-hover: var(--color-accent);
     --size: var(--size-sidebar-close-trigger);
+
+    & > svg {
+      font-size: var(--size-sidebar-close-trigger-icon);
+    }
   }
 
   & [data-part='content-outer'],

@@ -2,6 +2,7 @@ import { ArgTypes } from '@storybook/react';
 import { Sidebar } from './';
 import { Fragment, useState } from 'react';
 import { times } from '@optimacros/ui-kit-utils';
+import { Icon } from '../Icon';
 
 const argTypes: Partial<ArgTypes> = {
     children: {
@@ -35,7 +36,9 @@ export const Basic = () => {
             <Sidebar.Root open={open}>
                 <Sidebar.Panel>
                     <Sidebar.Header>
-                        <Sidebar.CloseTrigger onClick={() => setOpen(false)} />
+                        <Sidebar.CloseTrigger onClick={() => setOpen(false)}>
+                            <Icon value="keyboard-double-arrow-right" />
+                        </Sidebar.CloseTrigger>
                     </Sidebar.Header>
 
                     <Sidebar.Content>
@@ -51,7 +54,9 @@ export const Basic = () => {
                 </Sidebar.Panel>
 
                 <Sidebar.MiniPanel onClick={() => setOpen(true)}>
-                    <Sidebar.Trigger />
+                    <Sidebar.Trigger>
+                        <Icon value="keyboard-double-arrow-left" />
+                    </Sidebar.Trigger>
                 </Sidebar.MiniPanel>
             </Sidebar.Root>
         </div>
