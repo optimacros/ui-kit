@@ -4,7 +4,7 @@ import { tw } from '@optimacros/ui-kit-utils';
 import { Orientation } from '../../constants';
 
 export type BaseNavigationProps = {
-    orientation: Orientation;
+    orientation?: Orientation;
     isWrap?: boolean;
 };
 

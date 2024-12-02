@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import { Icon } from '@optimacros/ui-kit-core';
 import { Counter } from './index';
 import { Button } from '../ButtonV2';
-import { Navigation } from '../Navigation';
+import { Navigation } from '../NavigationV2';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ display: 'flex' }}>{children}</div>
@@ -64,31 +64,12 @@ export const MaxValue = (props) => {
     return <Counter {...props} value={12} maxValue={5} />;
 };
 
-// TODO Navigation
-type NavigationComponentProps = {
-    route: Record<string, any>;
-    className: string;
-    children: ReactNode;
-};
-
-const NavigationComponent = (props: NavigationComponentProps) => {
-    const { route, className, children } = props;
-
-    return (
-        <a href={route.href} className={className}>
-            {children}
-        </a>
-    );
-};
-
 export const Link = (props) => {
     return (
-        <Navigation
-            route={{ href: 'https://google.com' }}
-            navigationComponent={NavigationComponent}
-            style={{ textDecoration: 'none' }}
-        >
-            <Counter {...props} value={12} />
-        </Navigation>
+        <Navigation.Root>
+            <a href={'https://google.com'} style={{ textDecoration: 'none' }}>
+                <Counter {...props} value={12} />
+            </a>
+        </Navigation.Root>
     );
 };
