@@ -2,7 +2,7 @@ import { forward, styled } from '@optimacros/ui-kit-store';
 import { Icon } from '../../Icon';
 import { tw } from '@optimacros/ui-kit-utils';
 
-export const triggerClassName = tw`transition-all text-[var(--color)] hover:text-[var(--color-hover)] size-[var(--size)] flex items-center justify-center`;
+export const triggerClassName = tw`transition-all text-[var(--text)] hover:text-[var(--text-hover)] size-[var(--size)] flex items-center justify-center`;
 
 export const Trigger = forward<{}, 'div'>(
     (props, ref) => {

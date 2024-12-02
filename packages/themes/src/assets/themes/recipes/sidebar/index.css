@@ -24,8 +24,8 @@
   }
 
   & [data-part='trigger'] {
-    --color: var(--color-primary);
-    --color-hover: var(--color-accent);
+    --text: var(--color-primary);
+    --text-hover: var(--color-accent);
     --size: var(--size-sidebar-trigger);
   }
 
@@ -35,8 +35,8 @@
   }
 
   & [data-part='close-trigger'] {
-    --color: var(--color-primary);
-    --color-hover: var(--color-accent);
+    --text: var(--color-primary);
+    --text-hover: var(--color-accent);
     --size: var(--size-sidebar-close-trigger);
   }
 

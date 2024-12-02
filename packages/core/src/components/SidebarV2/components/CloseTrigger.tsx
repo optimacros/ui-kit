@@ -2,7 +2,7 @@ import { forward, styled } from '@optimacros/ui-kit-store';
 import { Icon } from '../../Icon';
 import { tw } from '@optimacros/ui-kit-utils';
 
-export const closeTriggerClassName = tw`transition-all text-[var(--color)] hover:text-[var(--color-hover)] size-[var(--size)] flex items-center justify-center cursor-pointer`;
+export const closeTriggerClassName = tw`text-[var(--text)] hover:text-[var(--text-hover)] size-[var(--size)]`;
 
 export const CloseTrigger = forward<{}, 'div'>(
     (props, ref) => {
