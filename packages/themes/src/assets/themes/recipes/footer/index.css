@@ -1,0 +1,9 @@
+@theme {
+  --color-footer: var(--color-text);
+  --color-footer-bg: var(--color-accent);
+}
+
+[data-scope='footer'][data-part='root'] {
+  --text: var(--color-footer);
+  --bg: var(--color-footer-bg);
+}
