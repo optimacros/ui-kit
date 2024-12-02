@@ -1,78 +1,68 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { ComponentType, ReactNode } from 'react';
-
-import { Navigation, NavigationProps } from './index';
-import { Button } from '../Button';
-
-const argTypes: Partial<ArgTypes> = {
-    wrap: {
-        control: 'boolean',
-        description: 'If `true`, navigation items can wrap onto multiple lines. ',
-    },
-    type: {
-        control: 'radio',
-        options: ['horizontal', 'vertical'],
-        table: {
-            defaultValue: { summary: 'horizontal' },
-        },
-        description: 'Type of the navigation.',
-    },
-    theme: { table: { disable: true } },
-    className: { table: { disable: true } },
-    children: { table: { disable: true } },
-};
-
-const meta: Meta<typeof Navigation> = {
-    title: 'UI Kit core/Navigation',
-    component: Navigation as unknown as ComponentType<NavigationProps>,
-    argTypes,
-};
-export default meta;
-
-type Story = StoryObj<NavigationProps>;
+import { ReactNode } from 'react';
+import { Orientation } from '../../constants';
+import { Navigation } from './index';
+import { Button } from '../ButtonV2';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '300px' }}>{children}</div>
 );
 
-export const Horizontal: Story = {
-    args: {
-        children: (
-            <>
-                <Button label="Portfolio" />
-                <Button label="About" />
-            </>
-        ),
-    },
-};
-
-export const Vertical: Story = {
-    args: {
-        vertical: true,
-        children: (
-            <>
-                <Button label="Portfolio" />
-                <Button label="About" />
-            </>
-        ),
-    },
-};
-
-export const Wrap: Story = {
-    args: {
-        wrap: true,
-        children: (
-            <>
-                <Button label="Portfolio" />
-                <Button label="About" />
-                <Button label="Menu" />
-                <Button label="Location" />
-                <Button label="Contact" />
-            </>
-        ),
+export default {
+    title: 'UI Kit core/NavigationV2',
+    component: Navigation.Root,
+    tags: ['autodocs'],
+    argTypes: {
+        orientation: {
+            control: 'radio',
+            options: ['horizontal', 'vertical'],
+            table: {
+                defaultValue: { summary: 'horizontal' },
+            },
+            description: 'Type of the navigation.',
+        },
     },
     decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
+};
+
+const Children = (
+    <>
+        <Button variant="primary"> Portfolio </Button>
+        <Button variant="primary"> About </Button>
+        <Button variant="primary"> Menu </Button>
+        <Button variant="primary"> Location </Button>
+        <Button variant="primary"> Contacts </Button>
+    </>
+);
+
+export const Base = (props) => {
+    return <Navigation.Root {...props}>{Children}</Navigation.Root>;
+};
+export const Horizontal = (props) => {
+    return (
+        <Navigation.Root {...props} orientation={Orientation.Horizontal}>
+            {Children}
+        </Navigation.Root>
+    );
+};
+
+export const Vertical = (props) => {
+    return (
+        <Navigation.Root {...props} orientation={Orientation.Vertical}>
+            {Children}
+        </Navigation.Root>
+    );
+};
+
+export const Wrap = (props) => {
+    return (
+        <Navigation.Root {...props} isWrap>
+            {Children}
+        </Navigation.Root>
+    );
 };
