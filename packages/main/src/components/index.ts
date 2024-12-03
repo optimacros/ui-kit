@@ -6,7 +6,6 @@ export * from './MarkdownEditor';
 export * from './SliderScale';
 export * from './ViewMenu';
 export * from './ProgressBars';
-export * from './LocalLoader';
 export * from './Kanban';
 export * from './TextShortener';
 export * from './MultipleSelectBoxPanel';
