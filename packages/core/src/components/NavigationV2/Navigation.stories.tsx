@@ -58,11 +58,3 @@ export const Vertical = (props) => {
         </Navigation.Root>
     );
 };
-
-export const Wrap = (props) => {
-    return (
-        <Navigation.Root {...props} isWrap>
-            {Children}
-        </Navigation.Root>
-    );
-};
