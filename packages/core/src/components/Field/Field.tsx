@@ -20,7 +20,7 @@ export const Root = forward<{ status?: 'error' | 'readonly' | 'warning' | 'defau
 );
 
 export const inputClassName = tw`
-peer box-border py-2
+peer box-border py-2 px-0
 border-0 border-b border-solid border-[var(--border)]
 focus:border-[var(--border-focus)]
 
@@ -29,6 +29,7 @@ disabled:border-[var(--border-disabled)]
 
 text-[var(--text)]  focus:text-[var(--text-focus)] 
 bg-[var(--bg)] group-data-[collapsed=true]:p-0 outline-none text-md
+text-start
 
 flex grow-1 group-data-[status=readonly]:pointer-events-none
 
@@ -46,6 +47,31 @@ export const Input = forward<{}, 'input'>((props, ref) => {
         />
     );
 });
+
+export const triggerInputClassName = clsx(
+    inputClassName,
+    tw`cursor-pointer flex justify-between align-center text-center`,
+);
+/**
+ * actually a "fake input" used for menus selectboxes etc.
+ */
+export const TriggerInput = forward<{ value?: string | number }, 'button'>(
+    ({ children, value, id, ...rest }, ref) => {
+        return (
+            <styled.button
+                {...rest}
+                data-scope="field"
+                data-part="input"
+                data-tag="trigger"
+                className={triggerInputClassName}
+                ref={ref}
+            >
+                {value}
+                {children}
+            </styled.button>
+        );
+    },
+);
 
 const textAreaClassName = clsx(inputClassName, 'border-1');
 export const TextArea = forward<{}, 'textarea'>((props, ref) => {
@@ -126,20 +152,24 @@ export const Multiline = forward<{}, 'textarea'>(
         );
     },
 );
-export const iconClassName =
-    'text-[var(--text)] absolute top-6 -left-8 peer-focus:text-[var(--text-focus)]';
+
+export const iconClassName = 'text-[var(--text)] peer-focus:text-[var(--text-focus)]';
 export const Icon = forward<{}, 'div'>((props, ref) => {
     return (
         <styled.div
+            className={iconClassName}
             {...props}
             data-scope="field"
             data-part="icon"
             ref={ref}
-            className={iconClassName}
         />
     );
 });
 
+export const floatingIconClassName = clsx(iconClassName, 'absolute top-6 -left-8');
+export const FloatingIcon = forward<{}, 'div'>((props, ref) => {
+    return <Icon {...props} className={floatingIconClassName} ref={ref} />;
+});
 export const counterClassName =
     'absolute right-0 -bottom-1 peer-focus:text-[var(--text-focus)] text-[var(--text)]';
 export const Counter = forward<

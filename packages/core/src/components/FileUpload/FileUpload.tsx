@@ -4,7 +4,7 @@ import { PropTypes } from '@zag-js/react';
 import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
 import { round, sum, tw } from '@optimacros/ui-kit-utils';
 
-export const { Api, RootProvider, useApi, useMachine } = createReactApiStateContext({
+export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as fileUpload.Api<PropTypes>,
     id: 'file-upload',
     initialState: null,
@@ -20,7 +20,7 @@ export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) =>
                     {...api.getRootProps()}
                     className="group"
                     ref={ref}
-                    data-empty={api.acceptedFiles.length > 0}
+                    data-empty={api.acceptedFiles.length <= 0}
                 >
                     {children}
                 </styled.div>
@@ -47,8 +47,7 @@ export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(({ child
     );
 });
 
-export const clearTriggerClassName = tw`
-absolute top-1 right-1
+export const clearTriggerClassName = tw` absolute top-1 right-1
 `;
 
 export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
@@ -103,7 +102,7 @@ export const ItemGroupHeader = forward<{}, 'div'>((props, ref) => {
     );
 });
 
-export const itemGroupClassName = 'p-2  flex-col gap-1 flex';
+export const itemGroupClassName = 'p-2  flex-col gap-1 flex list-none';
 export const ItemGroup = forward<{ children: (file: File) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();

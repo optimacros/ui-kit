@@ -67,17 +67,17 @@ export const WithIcon = () => {
     return (
         <div className="flex flex-col gap-4">
             <Field.Root>
-                <Field.Icon>
+                <Field.FloatingIcon>
                     <Icon value={'people'} />
-                </Field.Icon>
+                </Field.FloatingIcon>
                 <Field.Input id="ic-1" placeholder="Enter" />
                 <Field.FloatingLabel htmlFor="ic-1">Enter name</Field.FloatingLabel>
                 <Field.FloatingHint>hint do this</Field.FloatingHint>
             </Field.Root>
             <Field.Root>
-                <Field.Icon>
+                <Field.FloatingIcon>
                     <Icon value={'people'} />
-                </Field.Icon>
+                </Field.FloatingIcon>
                 <Field.FloatingLabel htmlFor="ic-2">Enter name</Field.FloatingLabel>
                 <Field.Input id="ic-2" placeholder="Enter" />
                 <Field.FloatingHint>hint do this</Field.FloatingHint>

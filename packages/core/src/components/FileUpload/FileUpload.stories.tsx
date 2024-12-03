@@ -36,8 +36,13 @@ export const Base = () => {
             </FileUpload.UploadTrigger>
             <FileUpload.Dropzone>Upload</FileUpload.Dropzone>
             <FileUpload.Content>
-                <FileUpload.ClearTrigger>
-                    <IconButton renderIcon={() => <Icon value={'close'} />} variant="bordered" />
+                <FileUpload.ClearTrigger as="div">
+                    <IconButton
+                        renderIcon={() => <Icon value={'close'} />}
+                        variant="bordered"
+                        size="xs"
+                        squared
+                    />
                 </FileUpload.ClearTrigger>
                 <FileUpload.ItemGroupHeader>
                     <span>FileName</span>
