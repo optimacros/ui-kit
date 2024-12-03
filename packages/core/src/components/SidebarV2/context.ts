@@ -6,4 +6,5 @@ export const { Api, useApi, RootProvider } = createReactApiStateContext({
     initialState: null,
     api: null as collapsible.Api,
     machine: collapsible,
+    useExtendApi: (state, api) => ({ ...api, ...state }),
 });
