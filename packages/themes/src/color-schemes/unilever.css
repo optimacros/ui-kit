@@ -1,0 +1,263 @@
+:root {
+  /* Base Colors */
+  --color-black: #010409;
+  --color-white: #f0f6fc;
+
+  /* Gray Colors */
+  --color-gray-0: #f0f0f0;
+  --color-gray-1: #d9d9d9;
+  --color-gray-2: #c0c0c0;
+  --color-gray-3: #a7a7a7;
+  --color-gray-4: #949494;
+  --color-gray-5: #818181;
+  --color-gray-6: #797979;
+  --color-gray-7: #6e6e6e;
+  --color-gray-8: #646464;
+  --color-gray-9: #515151;
+
+  /* Primary Colors */
+  --color-primary: #005eef;
+  --color-primary-0: #e5f0ff;
+  --color-primary-1: #b8d2fb;
+  --color-primary-2: #8ab5f8;
+  --color-primary-3: #5c98f5;
+  --color-primary-4: #2e7bf2;
+  --color-primary-5: #005eef;
+  --color-primary-6: #004ec6;
+  --color-primary-7: #003d9b;
+  --color-primary-8: #002c70;
+  --color-primary-9: #001b45;
+
+  /* Accent Colors */
+  --color-accent: #005eef;
+  --color-accent-0: #e5f0ff;
+  --color-accent-1: #b8d2fb;
+  --color-accent-2: #8ab5f8;
+  --color-accent-3: #5c98f5;
+  --color-accent-4: #2e7bf2;
+  --color-accent-5: #005eef;
+  --color-accent-6: #004ec6;
+  --color-accent-7: #003d9b;
+  --color-accent-8: #002c70;
+  --color-accent-9: #001b45;
+
+  /* Secondary Colors */
+  --color-secondary: #9c44c0;
+  --color-secondary-0: #f5ecf9;
+  --color-secondary-1: #e4ccec;
+  --color-secondary-2: #d2aae1;
+  --color-secondary-3: #c088d6;
+  --color-secondary-4: #ae66cb;
+  --color-secondary-5: #9c44c0;
+  --color-secondary-6: #80369f;
+  --color-secondary-7: #642a7c;
+  --color-secondary-8: #481e59;
+  --color-secondary-9: #2c1236;
+
+  /* System Colors */
+  --color-scrollbar: #e5e5e5;
+  --color-scrollbar-thumb: #cdcdcd;
+  --color-scrollbar-thumb-hover: #b3b3b3;
+
+  /* Input Colors */
+  --color-input-bg: #ffffff;
+  --color-input-border: #b1bac4;
+  --color-input-border-focus: #757474;
+  --color-input: #595959;
+  --color-body-bg: #ffffff;
+  --color-caret: #000000;
+  --color-highlight-accent: #fff5cc;
+  --color-highlight-light: #f6f6f6;
+  --color-highlight-dark: #d2d2d2;
+
+  /* Text Colors */
+  --color-text-primary: #212121;
+  --color-text-secondary: #595959;
+
+  /* Divider Colors */
+  --color-divider-dark: #e8e8e8;
+  --color-divider-light: #e0e0e0;
+
+  /* Button Colors */
+  --color-button-warning-bg: #d12a2d;
+  --color-button-warning: #f0f6fc;
+  --color-button-warning-hover: #de5356;
+  --color-button-gray-bg: #f0f0f0;
+  --color-button-gray: #595959;
+  --color-button-gray-hover-bg: #e7e7e7;
+  --color-button-gray-border: #d1d1d1;
+  --color-button-accent-bg: #005eef;
+  --color-button-accent: #005eef;
+  --color-button-accent-hover-bg: #002c70;
+  --color-button-primary: #002c70;
+  --color-button-primary-hover-bg: rgba(0, 94, 239, 0.1);
+  --color-button-neutral: #595959;
+  --color-button-neutral-hover-bg: rgba(33, 33, 33, 0.2);
+  --color-button-disabled-bg: #f0f0f0;
+  --color-button-disabled: #c9c9c9;
+  --color-button-disabled-hover-bg: #f0f0f0;
+
+  /* Menu Colors */
+  --color-button-menu-text: #767676;
+
+  /* Drive Landing Colors */
+  --color-drive-landing-bg: #ffffff;
+  --color-drive-landing-panel-left-bg: #005eef;
+  --color-drive-landing-panel-left: #ffffff;
+  --color-drive-landing-divider: #ffffff;
+  --color-drive-landing-workspace-link-line-bg: #ffffff;
+  --color-drive-landing-folder: #9c44c0;
+  --color-drive-landing-folder-hover: #c088d6;
+  --color-drive-landing-header-tab-bg: #f5f5f5;
+  --color-drive-landing-header-tab-hover-bg: #eeeeee;
+  --color-drive-landing-header-tab-active-bg: #005eef;
+  --color-drive-landing-header-tab-active: #ffffff;
+  --color-drive-landing-tags: #929191;
+  --color-drive-landing-tags-border: #005eef;
+  --color-drive-landing-tags-border-hover: #2e7bf2;
+  --color-drive-landing-tags-personal: #005eef;
+
+  /* Model Colors */
+  --color-model-row-bg-rename: #f0f0f0;
+  --color-model-row-bg-hover: #f0f0f0;
+  --color-model-card-border: #dcdcdc;
+  --color-model-card-border-hover: #005eef;
+  --color-model-icon: #005eef;
+  --color-model-name: #212121;
+  --color-model-size: #a2a2a2;
+  --color-model-date: #c7c7c7;
+  --color-model-date-offline: #212121;
+  --color-model-status: #212121;
+  --color-model-bg-offline: rgba(0, 0, 0, 0.2);
+  --color-model-delete-bg: #727272;
+
+  /* SelectBox Colors */
+  --color-select-box-border: #b1bac4;
+  --color-select-box-arrow-bg: #b1bac4;
+  --color-select-box-values-bg: #ffffff;
+  --color-select-box-values-selected: #8068bc;
+  --color-select-box-values-hover-bg: #eeeeee;
+  --color-select-box-values-disabled: #8b949e;
+
+  /* Checkbox Colors */
+  --color-checkbox: #c1c1c1;
+  --color-checkbox-disabled: #d8d8d8;
+  --color-checkbox-text: #595959;
+
+  /* Header Colors */
+  --color-header-bg: #005eef;
+  --color-header: #ffffff;
+
+  /* Tab Colors */
+  --color-tab-header-dropdown-bg: #e8e8e8;
+  --color-tab-header-dropdown-hover-bg: #dddddd;
+  --color-tab-header-button: #767676;
+  --color-tab-header-button-border: #e8e8e8;
+  --color-tab-header-button-active-border: #005eef;
+  --color-tab-header-button-focus-border: rgba(0, 0, 0, 0.2);
+  --color-tab-header-button-active: #005eef;
+  --color-tab-content-bg: #ffffff;
+
+  /* Menu Colors */
+  --color-dropdown-menu-bg: #ffffff;
+  --color-dropdown-menu-item-hover: #ebfaff;
+  --color-context-menu-bg: #ffffff;
+  --color-context-menu-divider: #cccccc;
+  --color-context-menu-hover: #dddddd;
+  --color-header-menu-bg: #ffffff;
+  --color-header-menu-shadow: rgba(24, 26, 31, 0.2);
+  --color-header-menu-border: #005eef;
+  --color-header-menu-item-hover: rgba(0, 0, 0, 0.1);
+
+  /* Contents Colors */
+  --color-contents-bg: #f5f5f5;
+  --color-contents-mini-hover: #c8e6c9;
+  --color-contents-toggle-btn: #939393;
+
+  /* Functional Area Colors */
+  --color-functional-area-header: #303030;
+  --color-functional-area-element-selected: #666666;
+  --color-functional-area-element-selected-bg: #ffffff;
+  --color-functional-area-element-selected-line: #005eef;
+  --color-functional-area-view-selected-line: #de5356;
+  --color-functional-area-element-view-selected-bg: #f8f8f8;
+
+  /* Comments Colors */
+  --color-comments-close-hover: #d2d2d2;
+
+  /* Main Tabs Colors */
+  --color-main-tabs-header-container-bg: #f2f2f2;
+  --color-main-tabs-header-container-border: #dadada;
+  --color-main-tabs-footer-bg: #e2e2e2;
+  --color-main-tabs-footer: #545454;
+  --color-main-tabs-label: #525252;
+  --color-main-tabs-label-active-formula: #b71c1c;
+  --color-main-tabs-button-close: #9f9f9f;
+  --color-main-tabs-button-bg: #f2f2f2;
+  --color-main-tabs-button-border: #dadada;
+  --color-main-tabs-button-active-bg: #ffffff;
+
+  /* Grid Colors */
+  --color-grid-pinned-area-border: #d3d3d3;
+  --color-grid-cells-border: #e8e8e8;
+  --color-grid-table-container-bg: #ffffff;
+  --color-grid-cell-bg: #ffffff;
+  --color-grid-header-cell-bg: #f1f1f1;
+  --color-grid-cell-inner-bg: #d7d7d7;
+  --color-grid-body-header-bg: #f1f1f1;
+  --color-grid-body-top-left-bg: #f1f1f1;
+  --color-grid-body-heading-0-bg: #d7d7d7;
+  --color-preview-cell-bg: #ffffff;
+  --color-preview-cell-link: #0000ff;
+  --color-cell-bg-default: #ffffff;
+  --color-text-calculated: #212121;
+  --color-text-input: #0000ff;
+  --color-cell-editor-textarea-bg: #ffffff;
+  --color-cell-editor-pre-edit-container-bg: #0000ff;
+
+  /* Formula Editor Colors */
+  --color-mark-comment-func: #0000ff;
+  --color-mark-comment-value: #008000;
+  --color-text-field-bg: #eff5f2;
+  --color-token-comment-bg: #1e28851a;
+  --color-token-comment: #484848;
+  --color-token-incomplete: #003cff33;
+  --color-token-value: #000000;
+  --color-token-punctuation-operator: #ff00a5;
+  --color-token-keyword: #1f38b1;
+  --color-token-function: #098f25;
+  --color-unmatched-text: #898989;
+
+  /* Dashboard Colors */
+  --color-bordered-container-shadow: rgba(0, 0, 0, 0.2);
+  --color-toolbar-icon: #9d9d9d;
+  --color-toolbar-icon-secondary: #444444;
+  --color-warning: #d12a2d;
+  --color-warning-hover: #de5356;
+  --color-attention: #dddd00;
+  --color-attention-hover: #e1c400;
+
+  /* Chart Colors */
+  --color-chart-increment: #228b22;
+  --color-chart-decrement: #b22222;
+  --color-chart-total: #0000cd;
+
+  /* Icon Colors */
+  --color-icon-primary: #a5a5a5;
+  --color-icon-secondary-0: #626262;
+  --color-icon-secondary-1: #50be98;
+
+  /* Navigation Colors */
+  --color-nav-accent: #ffffff;
+
+  /* Header Badge Colors */
+  --color-header-badge: #ffff00;
+
+  /* Notification Colors */
+  --color-notification-accent: #d0695b;
+  --color-notification-publish: #8e8e8e;
+  --color-notification-icon: #000000;
+
+  /* Comment Colors */
+  --color-comment-triangle: #f00;
+}
