@@ -1,8 +1,6 @@
 import { ArgTypes, Meta } from '@storybook/react';
 import { Slider } from './index';
-import { useState } from 'react';
-import { Button } from '../Button';
-
+import { Button } from '../ButtonV2';
 const argTypes: Partial<ArgTypes> = {
     value: {
         control: false,
@@ -40,85 +38,77 @@ const meta: Meta<typeof Slider> = {
 export default meta;
 
 export const Basic = () => {
-    const [value, setValue] = useState([12]);
-
-    const onValueChange = ({ value }) => {
-        setValue(value);
-    };
-
     return (
-        <>
-            <div style={{ marginBottom: 50 }}>
-                <Button onClick={() => setValue([12])}>reset</Button>
-            </div>
+        <Slider.RootProvider>
+            {(api) => (
+                <>
+                    <div style={{ marginBottom: 50 }}>
+                        <Button onClick={() => api.setValue([12])}>reset</Button>
+                    </div>
 
-            <Slider.Root value={value} onValueChange={onValueChange}>
-                <Slider.Label>Quantity</Slider.Label>
-                <Slider.Output />
-            </Slider.Root>
-        </>
+                    <Slider.Root>
+                        <Slider.Label>Quantity</Slider.Label>
+                        <Slider.Output />
+                    </Slider.Root>
+                </>
+            )}
+        </Slider.RootProvider>
     );
 };
 
 export const Range = () => {
-    const [value, setValue] = useState([12, 34]);
-
-    const onValueChange = ({ value }) => {
-        setValue(value);
-    };
-
     return (
-        <>
-            <div style={{ marginBottom: 50 }}>
-                <Button onClick={() => setValue([12, 34])}>reset</Button>
-            </div>
+        <Slider.RootProvider>
+            {(api) => (
+                <>
+                    <div style={{ marginBottom: 50 }}>
+                        <Button onClick={() => api.setValue([12, 34])}>reset</Button>
+                    </div>
 
-            <Slider.Root value={value} onValueChange={onValueChange}>
-                <Slider.Label>Quantity</Slider.Label>
-                <Slider.Output />
-            </Slider.Root>
-        </>
+                    <Slider.Root>
+                        <Slider.Label>Quantity</Slider.Label>
+                        <Slider.Output />
+                    </Slider.Root>
+                </>
+            )}
+        </Slider.RootProvider>
     );
 };
 
 export const Disabled = () => {
-    const [value, setValue] = useState([12, 34]);
-
-    const onValueChange = ({ value }) => {
-        setValue(value);
-    };
-
     return (
-        <>
-            <div style={{ marginBottom: 50 }}>
-                <Button onClick={() => setValue([12, 34])}>reset</Button>
-            </div>
+        <Slider.RootProvider>
+            {(api) => (
+                <>
+                    <div style={{ marginBottom: 50 }}>
+                        <Button onClick={() => api.setValue([12, 34])}>reset</Button>
+                    </div>
 
-            <Slider.Root disabled value={value} onValueChange={onValueChange}>
-                <Slider.Label>Quantity</Slider.Label>
-                <Slider.Output />
-            </Slider.Root>
-        </>
+                    <Slider.Root disabled>
+                        <Slider.Label>Quantity</Slider.Label>
+                        <Slider.Output />
+                    </Slider.Root>
+                </>
+            )}
+        </Slider.RootProvider>
     );
 };
 
 export const CustomMinMax = () => {
-    const [value, setValue] = useState([12, 34]);
-
-    const onValueChange = ({ value }) => {
-        setValue(value);
-    };
-
     return (
-        <>
-            <div style={{ marginBottom: 50 }}>
-                <Button onClick={() => setValue([12, 34])}>reset</Button>
-            </div>
+        <Slider.RootProvider min={-100} max={50}>
+            {(api) => (
+                <>
+                    <div style={{ marginBottom: 50 }}>
+                        <Button onClick={() => api.setValue([12, 34])}>reset</Button>
+                    </div>
 
-            <Slider.Root value={value} min={-100} max={50} onValueChange={onValueChange}>
-                <Slider.Label>Quantity</Slider.Label>
-                <Slider.Output />
-            </Slider.Root>
-        </>
+                    <Slider.Root>
+                        <Slider.Label>Quantity</Slider.Label>
+                        <Slider.Output />
+                    </Slider.Root>
+                </>
+            )}
+        </Slider.RootProvider>
     );
 };

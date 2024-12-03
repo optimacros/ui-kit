@@ -1,5 +1,5 @@
 import { forward } from '@optimacros/ui-kit-store';
-import { RootProvider } from './context';
+import { RootProvider, useApi } from './context';
 import { PropsWithChildren, ComponentProps } from 'react';
 import { Wrap } from './Wrap';
 import { InfoContainer } from './InfoContainer';
@@ -12,25 +12,23 @@ import { map } from '@optimacros/ui-kit-utils';
 export type Props = PropsWithChildren & ComponentProps<typeof RootProvider>;
 
 export const Root = forward<Props, 'div'>(
-    ({ value, children, onValueChange, ...rest }, ref) => {
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
+
         return (
-            <RootProvider {...rest} value={value} onValueChange={onValueChange}>
-                {(api) => (
-                    <Wrap value={value} ref={ref}>
-                        <InfoContainer>{children}</InfoContainer>
+            <Wrap ref={ref} {...rest}>
+                <InfoContainer>{children}</InfoContainer>
 
-                        <Control>
-                            <Track>
-                                <Range />
-                            </Track>
+                <Control>
+                    <Track>
+                        <Range />
+                    </Track>
 
-                            {map(api.value, (_, index) => (
-                                <Thumb key={index} index={index} />
-                            ))}
-                        </Control>
-                    </Wrap>
-                )}
-            </RootProvider>
+                    {map(api.value, (_, index) => (
+                        <Thumb key={index} index={index} />
+                    ))}
+                </Control>
+            </Wrap>
         );
     },
     {
