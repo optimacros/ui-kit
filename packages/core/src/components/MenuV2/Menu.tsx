@@ -1,13 +1,14 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import { tw } from '@optimacros/ui-kit-utils';
 import * as menu from '@zag-js/menu';
+import { Portal } from '@zag-js/react';
 import { ComponentProps, ReactNode, useMemo } from 'react';
 
 const initialState = {
     disabled: false,
 };
 
-export const { Api, Provider, useApi, State, useMachine, RootProvider, useSelector } =
+export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
     createReactApiStateContext({
         id: 'menu',
         initialState,
@@ -34,7 +35,7 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
     return <span {...api.getIndicatorProps()}>{children}</span>;
 };
 
-const itemCn = tw`py-2 px-3 data-highlighted:bg-[var(--bg-hover)] data-disabled:text-[var(--text-disabled)] cursor-pointer data-disabled:cursor-default select-none`;
+export const itemClassName = tw`py-2 px-3 data-highlighted:bg-[var(--bg-hover)] data-disabled:text-[var(--text-disabled)] cursor-pointer data-disabled:cursor-default select-none flex gap-1 align-center justify-start`;
 export const Item = forward<menu.ItemProps, 'li'>(
     ({ valueText, closeOnSelect, disabled, value, ...rest }) => {
         const api = useApi();
@@ -43,7 +44,7 @@ export const Item = forward<menu.ItemProps, 'li'>(
             <styled.li
                 {...rest}
                 {...api.getItemProps({ value, closeOnSelect, disabled, valueText })}
-                className={itemCn}
+                className={itemClassName}
             >
                 {valueText}
             </styled.li>
@@ -51,10 +52,11 @@ export const Item = forward<menu.ItemProps, 'li'>(
     },
 );
 
+export const separatorClassName = tw`h-px my-px text-[var(--text)]`;
 export const Separator = () => {
     const api = useApi();
 
-    return <hr {...api.getSeparatorProps()} className="h-px my-px text-[var(--text)]" />;
+    return <hr {...api.getSeparatorProps()} className={separatorClassName} />;
 };
 
 export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'>(
@@ -69,6 +71,15 @@ export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'
     },
 );
 
+export const groupLabelClassName = tw`px-2 py-2.5 border-b-1 border-solid border-[var(--border)]
+bg-[var(--bg)] shadow-[var(--shadow)] 
+
+text-primary
+b
+
+
+`;
+
 export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNode }, 'label'>(
     ({ children, htmlFor, ...rest }, ref) => {
         const api = useApi();
@@ -78,8 +89,7 @@ export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNo
                 {...rest}
                 ref={ref}
                 {...api.getItemGroupLabelProps({ htmlFor })}
-                className="px-2 py-2.5 border-b-1 border-solid border-[var(--border)]
-bg-[var(--bg)] shadow-[var(--shadow)] text-[var(--text)]"
+                className={groupLabelClassName}
             >
                 {children}
             </styled.label>
@@ -95,67 +105,82 @@ export const OptionItem = ({
     const api = useApi();
 
     return (
-        <div key={item.value} {...api.getOptionItemProps(item)} className={itemCn}>
+        <div key={item.value} {...api.getOptionItemProps(item)} className={itemClassName}>
             {item.valueText}
         </div>
     );
 };
 
-const menuContentCn = tw`
-font-normal block outline-none  m-0 p-0 radius-sm text-md
-
-py-3
-border-1 border-solid border-[var(--border)]
-bg-[var(--bg)] shadow-[var(--shadow)]
-flex
-w-full
-data-[orientation="horizontal"]:flex-row
-data-[orientation="vertical"]:flex-col
-data-[orientation="horizontal"]:py-0
-
-data-[size="sm"]:w-5xs
-data-[size="sm"]:h-2xs
-
-data-[size="md"]:w-xs
-data-[size="md"]:h-sm
-
-overflow-y-scroll
-`;
-
-export const Content = forward<
-    { children: ReactNode; orientation?: 'vertical' | 'horizontal'; size?: 'sm' | 'md' | 'lg' },
-    'ul'
->(({ children, orientation = 'vertical', size = 'md', ...rest }, ref) => {
+export const Positioner = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
     return (
-        <div {...api.getPositionerProps()} className="w-[var(--reference-width)]">
-            <styled.ul
-                ref={ref}
-                {...rest}
-                {...api.getContentProps()}
-                data-orientation={orientation}
-                data-size={size}
-                className={menuContentCn}
-            >
-                {children}
-            </styled.ul>
-        </div>
+        <Portal>
+            <styled.div {...props} {...api.getPositionerProps()} ref={ref} />
+        </Portal>
+    );
+});
+
+export const contentClassName = tw`
+    data-[size="sm"]:w-5xs
+    data-[size="sm"]:h-2xs
+
+    data-[size="md"]:w-xs
+    data-[size="md"]:h-sm
+
+    data-[size="md"]:data-[orientation="horizontal"]:h-auto
+    data-[size="md"]:data-[orientation="horizontal"]:w-sm
+
+    border-1 border-solid border-[var(--border)]
+    bg-[var(--bg)] shadow-[var(--shadow)]
+    radius-sm text-md outline-none
+
+    font-normal group
+`;
+
+export const Content = forward<
+    { size?: 'sm' | 'md' | 'lg'; orientation?: 'vertical' | 'horizontal' },
+    'div'
+>(({ size = 'md', orientation = 'vertical', ...rest }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.div
+            {...rest}
+            {...api.getContentProps()}
+            data-size={size}
+            data-orientation={orientation}
+            ref={ref}
+            className={contentClassName}
+        />
+    );
+});
+
+export const listClassName = tw`
+    m-0 p-0 flex flex-col w-full h-full
+    group-data-[orientation="horizontal"]:flex-row
+    group-data-[orientation="horizontal"]:py-0
+    group-data-[orientation="horizontal"]:overflow-x-scroll
+    group-data-[orientation="vertical"]:overflow-y-scroll
+    list-none
+`;
+
+export const List = forward<{ children: ReactNode }, 'ul'>(({ children, ...rest }, ref) => {
+    return (
+        <styled.ul {...rest} ref={ref} data-scope="menu" data-part="list" className={listClassName}>
+            {children}
+        </styled.ul>
     );
 });
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }) => {
     const api = useApi();
-    const disabled = useSelector((s) => s.disabled);
+    const disabled = api.disabled;
 
     const props = useMemo(
         () => ({ ...api.getTriggerProps(), disabled }),
         [api.getTriggerProps, disabled],
     );
 
-    return (
-        <styled.button {...props}>
-            {children} {`${api.disabled}`}
-        </styled.button>
-    );
+    return <styled.button {...props}>{children}</styled.button>;
 });

@@ -13,13 +13,16 @@
   --color-menu-horizontal-item-active: #2baee9;
 }
 
-[data-scope='menu'] {
+[data-scope='menu'],
+[data-scope='select'] {
   &[data-part='content'] {
     --shadow: var(--box-shadow-menu);
     --text: var(--color-menu);
     --bg: var(--color-menu-bg);
     --border: var(--color-menu-border);
+  }
 
+  &[data-part='list'] {
     &[data-orientation='horizontal'] {
       & [data-scope='menu'][data-part='item'] {
         border-bottom: 2px solid transparent;
