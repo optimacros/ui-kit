@@ -77,14 +77,14 @@ export const Range = () => {
 
 export const Disabled = () => {
     return (
-        <Slider.RootProvider>
+        <Slider.RootProvider disabled>
             {(api) => (
                 <>
                     <div style={{ marginBottom: 50 }}>
                         <Button onClick={() => api.setValue([12, 34])}>reset</Button>
                     </div>
 
-                    <Slider.Root disabled>
+                    <Slider.Root>
                         <Slider.Label>Quantity</Slider.Label>
                         <Slider.Output />
                     </Slider.Root>
