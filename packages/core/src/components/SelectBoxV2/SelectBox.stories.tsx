@@ -91,6 +91,8 @@ type Story = StoryObj<typeof Select>;
 const mockItems = createSelectBoxItems(20);
 const defaultContext = {
     name: 'select-story-1',
+    closeOnSelect: false,
+    multiple: true,
     deselectable: true,
     // value: [mockItems[0].value],
 };
@@ -98,7 +100,27 @@ const defaultContext = {
 const ControlTemplate = ({ children, ...rest }) => {
     return (
         <Select.Root items={mockItems} {...rest} {...defaultContext}>
+            <div className="flex">
+                <Select.Api>
+                    {(api) =>
+                        api.value.map((value) => {
+                            return (
+                                <div className="bg-primary p-1.5 rounded-xs">
+                                    {value}
+                                    <Select.ItemDeleteTrigger item={{ value }} asChild>
+                                        <IconButton size="sm" squared>
+                                            <Icon value={'close'} />
+                                        </IconButton>
+                                    </Select.ItemDeleteTrigger>
+                                </div>
+                            );
+                        })
+                    }
+                </Select.Api>
+            </div>
+
             <Select.Control>{children}</Select.Control>
+
             <Select.Positioner>
                 <Select.Content>
                     <Select.FloatingCloseTrigger>
