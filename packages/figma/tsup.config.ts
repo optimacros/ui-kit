@@ -7,4 +7,6 @@ export default defineConfig({
     dts: false,
     entry: ['code.ts'],
     clean: true,
+    bundle: true,
+    target: ['es2015'],
 });

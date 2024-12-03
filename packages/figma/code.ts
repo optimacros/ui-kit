@@ -1,13 +1,25 @@
 //@ts-nocheck
+
+import tinycolor from 'tinycolor2';
 //biome-ignore lint: wait
 figma.showUI(__html__, { themeColors: true, height: 400, width: 350 });
 
 const transformVarName = (v: string) => `--${v.replaceAll('/', '-')}`;
 
-const transformColor = (v: number) => `${v * 100}`.slice(0, 4) + '%';
+const transformColor = (v: number) => `${v * 100}`.slice(0, 6) + '%';
+
+const PLAIN_NUMBER_VALUES = ['z-index', 'opacity', 'font-weight'] as const;
+
+const PX_NUMBER_VALUES = ['blur', 'shadow'] as const;
+
+const isSize = (name: string) => !PLAIN_NUMBER_VALUES.some((v) => name.includes(v));
 
 const REM = 16;
-const transformSize = (v: number) => `${v / REM}rem`;
+
+const convertNumber = (name: string, val: number) =>
+    PX_NUMBER_VALUES.some((v) => name.includes(v)) ? `${val}px` : `${val / REM}rem`;
+
+const transformSize = (name: string, v: number) => (isSize(name) ? convertNumber(name, v) : v);
 
 //biome-ignore lint: wait
 const getAliasValue = (v: any, arr: Array<Variable>) => {
@@ -50,23 +62,30 @@ const exportTheme = () => {
     //biome-ignore lint: wait
     const colors = figma.variables.getLocalVariablesAsync('COLOR').then((vars) => {
         //@ts-ignore
+        const transformRGBA = (v) => {
+            return Object.keys(v).reduce((acc, key) => {
+                return {
+                    ...acc,
+                    [key]: transformColor(v[key]),
+                };
+            }, {});
+        };
+
         return mapByMode(
             vars,
             ({ name }, v) =>
-                `${transformVarName(name)}: rgb(${transformColor(v.r)} ${transformColor(v.g)} ${transformColor(v.b)} / ${transformColor(v.a)})`,
-        ).join(`;\n`);
+                `${transformVarName(name)}: ${tinycolor(transformRGBA(v)).toHexString()}`,
+        );
     });
 
     //biome-ignore lint: wait
     const sizes = figma.variables.getLocalVariablesAsync('FLOAT').then((vars) => {
         //@ts-ignore
-        return vars
-            .map(({ valuesByMode, name }) =>
-                Object.values(valuesByMode).map(
-                    (v) => `${transformVarName(name)}: ${transformSize(v)}`,
-                ),
-            )
-            .join(`;\n`);
+        return vars.map(({ valuesByMode, name }) =>
+            Object.values(valuesByMode).map(
+                (v) => `${transformVarName(name)}: ${transformSize(name, v)}`,
+            ),
+        );
     });
 
     //biome-ignore lint: wait
@@ -78,15 +97,21 @@ const exportTheme = () => {
     });
 
     Promise.all([colors, sizes, other]).then((v) => {
+        const data =
+            'data:text/css;charset=utf-8,' +
+            encodeURIComponent(
+                `:root{ ${v
+                    .filter((arr) => arr.length > 0)
+                    .flat()
+                    .join(`;`)}; }`,
+            );
+
         //biome-ignore lint: wait
         figma.ui.postMessage({
             type: 'download',
             data: {
                 filename: 'theme.css',
-                data: `data:text/css, :root{ ${v
-                    .filter((arr) => arr.length > 0)
-                    .flat()
-                    .join(`;\n`)}; }`,
+                data,
             },
         });
     });

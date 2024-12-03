@@ -8,6 +8,7 @@
     },
     "author": "Georgiy Zhuravlev",
     "devDependencies": {
+        "tinycolor2": "1.6.0",
         "@figma/eslint-plugin-figma-plugins": "*",
         "@figma/plugin-typings": "*"
     }
