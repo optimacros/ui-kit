@@ -6,12 +6,6 @@ export const footerClassName = tw`w-full min-h-5 flex flex-row items-center spac
 
 text-[var(--text)] bg-[var(--bg)]`;
 
-export const footerLeftClassName = tw`flex items-center space-x-1`;
-
-export const footerRightClassName = tw`flex grow-1 flex-row justify-end`;
-
-export const versionClassName = tw`font-bold`;
-
 export interface FooterProps extends PropsWithChildren {
     appVersion?: string;
     copyright?: string;
@@ -27,25 +21,77 @@ export const Root = forward<FooterProps, 'div'>(
                 data-scope="footer"
                 data-part="root"
             >
-                <styled.div className={footerLeftClassName} data-scope="footer" data-part="info">
-                    <span className={versionClassName} data-scope="footer" data-part="version">
-                        {appVersion}
-                    </span>
-
-                    <span data-scope="footer" data-part="copyright">
-                        {copyright}
-                    </span>
-                </styled.div>
-
-                <styled.div
-                    className={footerRightClassName}
-                    data-scope="footer"
-                    data-part="content"
-                >
-                    {children}
-                </styled.div>
+                {children}
             </styled.footer>
         );
     },
     { displayName: 'FooterRoot' },
+);
+
+export const leftColClassName = tw`flex items-center space-x-1`;
+
+export const LeftCol = forward<PropsWithChildren, 'div'>(
+    ({ children, ...rest }, ref) => {
+        return (
+            <styled.div
+                {...rest}
+                className={leftColClassName}
+                ref={ref}
+                data-scope="footer"
+                data-part="left-col"
+            >
+                {children}
+            </styled.div>
+        );
+    },
+    { displayName: 'LeftCol' },
+);
+
+export const versionClassName = tw`font-bold`;
+
+export const Version = forward<PropsWithChildren, 'span'>(
+    ({ children, ...rest }, ref) => {
+        return (
+            <styled.span
+                {...rest}
+                ref={ref}
+                className={versionClassName}
+                data-scope="footer"
+                data-part="version"
+            >
+                {children}
+            </styled.span>
+        );
+    },
+    { displayName: 'Version' },
+);
+
+export const Copyright = forward<PropsWithChildren, 'span'>(
+    ({ children, ...rest }, ref) => {
+        return (
+            <styled.span {...rest} ref={ref} data-scope="footer" data-part="copyright">
+                {children}
+            </styled.span>
+        );
+    },
+    { displayName: 'Copyright' },
+);
+
+export const contentClassName = tw`flex grow-1 flex-row justify-end`;
+
+export const Content = forward<PropsWithChildren, 'div'>(
+    ({ children, ...rest }, ref) => {
+        return (
+            <styled.div
+                {...rest}
+                ref={ref}
+                className={contentClassName}
+                data-scope="footer"
+                data-part="content"
+            >
+                {children}
+            </styled.div>
+        );
+    },
+    { displayName: 'Content' },
 );
