@@ -222,7 +222,7 @@ export function createReactStore<
 
             const call = reducerActions[type];
 
-            return call(state, action.payload);
+            return call(state, action);
         },
         actions: mapValues(reducerActions, (v, k) => createActionCreator(`${id}/${k}`)) as {
             [K in keyof ReducerActions]: ActionCreator<

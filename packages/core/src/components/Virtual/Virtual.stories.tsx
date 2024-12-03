@@ -18,13 +18,15 @@ export const Base = () => {
                 height: 700,
             }}
         >
-            <Virtual.List data={randomItems}>
-                {(i, { id, value, style }) => (
+            <Virtual.List data={randomItems} topItemCount={1}>
+                {({ id, value, style }) => (
                     <Virtual.Item id={id} style={style}>
                         {value}
                     </Virtual.Item>
                 )}
             </Virtual.List>
+
+            <Virtual.Footer>i am footer</Virtual.Footer>
         </Virtual.Root>
     );
 };

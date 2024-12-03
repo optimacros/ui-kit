@@ -3,6 +3,7 @@ export const createSelectBoxItems = (count: number) => {
         return {
             label: `item ${i}`,
             value: `item-value-${i}`,
+            index: i,
         };
     });
 };

@@ -2,8 +2,9 @@ import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-
 import { clsx, isFunction, tw } from '@optimacros/ui-kit-utils';
 import { Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
-import { ComponentProps, ReactNode, useMemo } from 'react';
+import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Menu } from '../MenuV2';
+import { Virtual } from '../Virtual';
 
 export const { useApi, RootProvider, Api } = createReactApiStateContext({
     api: null as select.Api,
@@ -139,6 +140,44 @@ export const List = forward<{ children: (item: unknown) => ReactNode }, 'ul'>(
         );
     },
 );
+
+export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...rest }) => {
+    const api = useApi();
+    const scrollerRef = useRef<HTMLDivElement>(null);
+
+    //TODO: check if possible to optimize
+    useEffect(() => {
+        const el = scrollerRef.current?.querySelector(
+            `[data-index="${api.highlightedItem?.index}"]`,
+        );
+
+        if (!el?.matches(':hover')) {
+            el?.scrollIntoView({
+                block: 'end',
+            });
+        }
+    }, [api.highlightedItem?.index]);
+
+    return (
+        <Virtual.Root data-scope="select" data-part="virtual-list">
+            <Virtual.List
+                {...rest}
+                data={api.collection.items}
+                className={listClassName}
+                scrollerRef={useCallback(
+                    (ref) =>
+                        //@ts-ignore
+                        (scrollerRef.current = ref?.querySelector(
+                            '[data-testid=virtuoso-item-list]',
+                        )),
+                    [],
+                )}
+            >
+                {children}
+            </Virtual.List>
+        </Virtual.Root>
+    );
+});
 
 export const itemClassName = Menu.itemClassName;
 export const Item = forward<
