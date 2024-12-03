@@ -1,1 +1,1 @@
-export * as Slider from './components';
+export * as Slider from './Slider';

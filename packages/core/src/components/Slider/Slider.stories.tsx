@@ -1,6 +1,7 @@
 import { ArgTypes, Meta } from '@storybook/react';
 import { Slider } from './index';
 import { Button } from '../ButtonV2';
+
 const argTypes: Partial<ArgTypes> = {
     value: {
         control: false,
