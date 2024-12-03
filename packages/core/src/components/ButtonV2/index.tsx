@@ -7,7 +7,7 @@ export interface ButtonThemeProps {
     variant?: 'primary' | 'accent' | 'bordered' | 'neutral' | 'transparent';
     float?: 'raised' | 'floating' | 'flat';
     status?: 'warning' | 'error' | 'success';
-    size?: 'xs' | 'md';
+    size?: 'xs' | 'sm' | 'md';
     squared?: boolean;
     uppercase?: boolean;
     inverse?: boolean;

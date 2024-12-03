@@ -185,14 +185,9 @@ export const Item = forward<
     'li'
 >(({ item, persistFocus, children, ...rest }, ref) => {
     const api = useApi();
-
+    const apiProps = api.getItemProps({ item, persistFocus });
     return (
-        <styled.li
-            {...rest}
-            {...api.getItemProps({ item, persistFocus })}
-            className={itemClassName}
-            ref={ref}
-        >
+        <styled.li {...rest} {...apiProps} className={itemClassName} ref={ref}>
             {isFunction(children) ? children(api.getItemState({ item, persistFocus })) : children}
         </styled.li>
     );
@@ -217,3 +212,22 @@ export const ItemIndicator = forward<select.ItemProps, 'span'>(
         );
     },
 );
+
+export const itemDeleteTriggerClassName = tw``;
+export const ItemDeleteTrigger = forward<select.ItemProps, 'button'>(({ item, ...rest }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.button
+            {...rest}
+            onClick={(e) => {
+                e.stopPropagation();
+                api.clearValue(item.value);
+            }}
+            data-scope="select"
+            data-part="delete-item-trigger"
+            ref={ref}
+            className={itemDeleteTriggerClassName}
+        />
+    );
+});
