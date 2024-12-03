@@ -38,9 +38,11 @@
         "react-dom": "18.2.0",
         "react-modal": "3.16.1",
         "react-range": "1.8.14",
-        "react-svg": "16.1.32"
+        "react-svg": "16.1.32",
+        "react-virtuoso": "4.12.3"
     },
     "devDependencies": {
-        "@types/react-modal": "3.16.3"
+        "@types/react-modal": "3.16.3",
+        "@faker-js/faker": "9.3.0"
     }
 }
