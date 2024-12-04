@@ -18,5 +18,13 @@ const meta: Meta<typeof Calendar> = {
 export default meta;
 
 export const Basic = () => {
-    return <Calendar.Root />;
+    return (
+        <Calendar.Root>
+            <Calendar.Positioner>
+                <Calendar.Content>
+                    <Calendar.Indicator></Calendar.Indicator>
+                </Calendar.Content>
+            </Calendar.Positioner>
+        </Calendar.Root>
+    );
 };
