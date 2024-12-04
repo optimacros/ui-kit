@@ -1,3 +1,4 @@
+import { Icon } from '@optimacros/ui-kit-core';
 import { Meta } from '@storybook/react';
 import { Calendar } from './index';
 
@@ -20,11 +21,25 @@ export default meta;
 export const Basic = () => {
     return (
         <Calendar.Root>
-            <Calendar.Positioner>
-                <Calendar.Content>
-                    <Calendar.Indicator></Calendar.Indicator>
-                </Calendar.Content>
-            </Calendar.Positioner>
+            <Calendar.Content>
+                <Calendar.ViewControl>
+                    <Calendar.PrevTrigger>
+                        <Icon value="chevron_left" />
+                    </Calendar.PrevTrigger>
+                    <Calendar.RangeText />
+                    <Calendar.NextTrigger>
+                        <Icon value="chevron_right" />
+                    </Calendar.NextTrigger>
+                </Calendar.ViewControl>
+                <Calendar.Table>
+                    <Calendar.TableHead />
+                    <Calendar.TableBody />
+                </Calendar.Table>
+                <Calendar.Footer>
+                    <Calendar.CanselButton>Cancel</Calendar.CanselButton>
+                    <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
+                </Calendar.Footer>
+            </Calendar.Content>
         </Calendar.Root>
     );
 };
