@@ -25,7 +25,9 @@
         "postinstall": "lerna bootstrap",
         "publish": "npm run build:ui && lerna publish from-package",
         "version": "lerna version && npm run lint:fix",
-        "unpublish": "npm unpublish @optimacros/ui-kit"
+        "unpublish": "npm unpublish @optimacros/ui-kit",
+        "rebase": "node ./scripts/rebase.js --main=v1.0.4",
+        "rebase:continue": "npm run rebase -- --continue"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
