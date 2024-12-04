@@ -12,34 +12,6 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     initialState: null,
 });
 
-export const rootClassName = tw`w-full`;
-
-export type Props = PropsWithChildren & ComponentProps<typeof RootProvider>;
-
-export const Root = forward<Props, 'div'>(
-    ({ children, ...rest }, ref) => {
-        const api = useApi();
-
-        return (
-            <styled.div {...rest} {...api.getRootProps()} ref={ref} className={rootClassName}>
-                <InfoContainer>{children}</InfoContainer>
-
-                <Control>
-                    <Track>
-                        <Range />
-                    </Track>
-
-                    {map(api.value, (_, index) => (
-                        <Thumb key={index} index={index} />
-                    ))}
-                </Control>
-            </styled.div>
-        );
-    },
-    {
-        displayName: 'SliderRoot',
-    },
-);
 
 export const Label = forward<PropsWithChildren, 'label'>(
     ({ children, ...rest }, ref) => {
@@ -158,5 +130,34 @@ export const Track = forward<PropsWithChildren, 'div'>(
     },
     {
         displayName: 'Track',
+    },
+);
+
+export const rootClassName = tw`w-full`;
+
+export type Props = PropsWithChildren & ComponentProps<typeof RootProvider>;
+
+export const Root = forward<Props, 'div'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
+
+        return (
+            <styled.div {...rest} {...api.getRootProps()} ref={ref} className={rootClassName}>
+                <InfoContainer>{children}</InfoContainer>
+
+                <Control>
+                    <Track>
+                        <Range />
+                    </Track>
+
+                    {map(api.value, (_, index) => (
+                        <Thumb key={index} index={index} />
+                    ))}
+                </Control>
+            </styled.div>
+        );
+    },
+    {
+        displayName: 'SliderRoot',
     },
 );
