@@ -35,7 +35,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Calendar> = {
-    title: 'UI Kit main/CalendarV2',
+    title: 'UI Kit main/Calendar',
     component: Calendar,
     argTypes,
 };
