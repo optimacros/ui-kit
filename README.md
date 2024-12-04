@@ -1,5 +1,10 @@
 # ui-kit
 
+## commit
+
+- first `npm run rebase` to rebase to actual master branch
+- then `npm run rebase:continue` to update lock files
+
 ### Linters
 
 #### VSCode
