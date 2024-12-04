@@ -5,8 +5,7 @@ const mainBranchArg = '--main';
 const updateLockFileCommand = [
     `rm package-lock.json`,
     `npm i`,
-    `git commit -a -m "chore: update package-lock"`,
-    `git push --force`,
+    `git commit -a -m "chore: update package-lock" | git push --force`,
 ].join(' && ');
 
 const createCommands = (currentBranch, mainBranch) => {
