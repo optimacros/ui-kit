@@ -29,11 +29,15 @@ function rebase() {
         const commands = createCommands(currentBranch.replace('\n', ''), mainBranch);
 
         if (continueCommand) {
+            console.info('running update package-lock...');
+
             exec(updateLockFileCommand, (err, output, stderr) => {
                 console.info(output);
                 console.error(stderr);
             });
         } else {
+            console.info('running git commands...');
+
             exec(commands, (err, output, stderr) => {
                 console.info(output);
                 console.error(stderr);
