@@ -3,7 +3,6 @@ const exec = require('child_process').exec;
 const mainBranchArg = '--main';
 
 const updateLockFileCommand = [
-    `rm package-lock.json`,
     `npm i`,
     `git commit -a -m "chore: update package-lock" | git push --force`,
 ].join(' && ');
