@@ -1,5 +1,5 @@
 const exec = require('child_process').exec;
-
+const fs = require('fs');
 const mainBranchArg = '--main';
 
 const updateLockFileCommand = [
@@ -23,15 +23,17 @@ function rebase() {
 
     const continueCommand = process.argv.find((v) => v.includes('continue'));
 
-    exec('git branch --show-current', async (e, currentBranch) => {
+    exec('git branch --show-current', (e, currentBranch) => {
         const commands = createCommands(currentBranch.replace('\n', ''), mainBranch);
 
         if (continueCommand) {
             console.info('running update package-lock...');
 
-            exec(updateLockFileCommand, (err, output, stderr) => {
-                console.info(output);
-                console.error(stderr);
+            fs.unlink('package-lock.json', () => {
+                exec(updateLockFileCommand, (err, output, stderr) => {
+                    console.info(output);
+                    console.error(stderr);
+                });
             });
         } else {
             console.info('running git commands...');
