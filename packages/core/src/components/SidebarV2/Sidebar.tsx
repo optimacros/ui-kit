@@ -59,19 +59,26 @@ export const Panel = forward<PropsWithChildren, 'div'>(
 export const headerClassName = tw`flex flex-row items-center
 border-0 border-b border-solid border-[var(--border-bg)]
 
-p-[var(--padding)]`;
+p-[var(--padding)]
+
+data-[position=left]:flex-row-reverse`;
 
 export const Header = forward<PropsWithChildren, 'div'>(
-    (props, ref) => (
-        <styled.div
-            {...props}
-            ref={ref}
-            className={headerClassName}
-            data-tag="sidebar"
-            data-scope="collapsible"
-            data-part="header"
-        />
-    ),
+    (props, ref) => {
+        const api = useApi();
+
+        return (
+            <styled.div
+                {...props}
+                ref={ref}
+                className={headerClassName}
+                data-tag="sidebar"
+                data-scope="collapsible"
+                data-part="header"
+                data-position={api.position}
+            />
+        );
+    },
     { displayName: 'Header' },
 );
 
@@ -130,16 +137,21 @@ export const MiniPanel = forward<PropsWithChildren, 'div'>(
     { displayName: 'MiniPanel' },
 );
 
-export const closeTriggerClassName = tw`text-[var(--text)] hover:text-[var(--text-hover)] size-[var(--size)] flex items-center justify-center cursor-pointer`;
+export const closeTriggerClassName = tw`text-[var(--text)] hover:text-[var(--text-hover)] size-[var(--size)] flex items-center justify-center cursor-pointer
+
+data-[position=left]:rotate-180`;
 
 export const CloseTrigger = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
+        const api = useApi();
+
         return (
             <styled.div
                 {...rest}
                 data-tag="sidebar"
                 data-scope="collapsible"
                 data-part="close-trigger"
+                data-position={api.position}
                 ref={ref}
                 className={closeTriggerClassName}
             >
@@ -150,16 +162,21 @@ export const CloseTrigger = forward<PropsWithChildren, 'div'>(
     { displayName: 'CloseTrigger' },
 );
 
-export const triggerClassName = tw`transition-all text-[var(--text)] hover:text-[var(--text-hover)] size-[var(--size)] flex items-center justify-center`;
+export const triggerClassName = tw`transition-all text-[var(--text)] hover:text-[var(--text-hover)] size-[var(--size)] flex items-center justify-center
+
+data-[position=left]:rotate-180`;
 
 export const Trigger = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
+        const api = useApi();
+
         return (
             <styled.div
                 {...rest}
                 data-tag="sidebar"
                 data-scope="collapsible"
                 data-part="trigger"
+                data-position={api.position}
                 ref={ref}
                 className={triggerClassName}
             >
