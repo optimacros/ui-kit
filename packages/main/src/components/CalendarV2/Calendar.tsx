@@ -1,32 +1,29 @@
-import React, { ComponentProps } from 'react';
+import { time } from '@optimacros/ui-kit-utils';
+import React, { ComponentProps, useEffect } from 'react';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as datepicker from '@zag-js/date-picker';
-
-const initialState = {
-    disabled: false,
-};
 
 export const { RootProvider, useApi, State } = createReactApiStateContext({
     api: null as datepicker.Api,
     id: 'calendar',
     machine: datepicker,
-    initialState: { disabled: false },
+    initialState: {},
     defaultContext: {
         open: true,
     },
 });
 
-export const Root = ({
-    state,
-    ...context
-}: { state: typeof initialState } & ComponentProps<typeof RootProvider>) => {
+export const Root = ({ state, ...context }: ComponentProps<typeof RootProvider>) => {
     return <RootProvider {...context} state={state} />;
 };
 
-export const Content = forward<{}, 'div'>((props, ref) => {
+export const Content = forward<{ value?: Date }, 'div'>(({ value, ...rest }, ref) => {
     const api = useApi();
+    useEffect(() => {
+        value && api.setValue([datepicker.parse(value)]);
+    }, [api]);
 
-    return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
+    return <styled.div {...rest} {...api.getContentProps()} ref={ref} />;
 });
 
 export const ViewControl = forward<{}, 'div'>((props, ref) => {
@@ -47,12 +44,12 @@ export const NextTrigger = forward<{}, 'button'>((props, ref) => {
     return <styled.button {...props} {...api.getNextTriggerProps()} ref={ref} />;
 });
 
-export const RangeText = forward<{}, 'span'>((props, ref) => {
+export const RangeText = forward<{ locale?: string }, 'span'>(({ locale, ...rest }, ref) => {
     const api = useApi();
 
     return (
-        <styled.span {...props} ref={ref}>
-            {api.visibleRangeText.start}
+        <styled.span {...rest} ref={ref}>
+            {time.getFullMonth(api.focusedValueAsDate, locale)}
         </styled.span>
     );
 });
@@ -63,15 +60,15 @@ export const Table = forward<{}, 'table'>((props, ref) => {
     return <styled.table {...props} {...api.getTableProps({ view: 'day' })} ref={ref} />;
 });
 
-export const TableHead = forward<{}, 'thead'>((props, ref) => {
+export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...rest }, ref) => {
     const api = useApi();
 
     return (
-        <styled.thead {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
+        <styled.thead {...rest} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
             <tr {...api.getTableRowProps({ view: 'day' })}>
                 {api.weekDays.map((day, i) => (
                     <th scope="col" key={i} aria-label={day.long}>
-                        {day.narrow}
+                        {time.getShortDayOfWeek(i, locale)}
                     </th>
                 ))}
             </tr>
@@ -105,7 +102,7 @@ export const SuccessButton = forward<SuccessButtonProps, 'button'>(({ onSelect, 
 export const TableBody = forward<{ onSelect: () => void }, 'tbody'>(
     ({ onSelect, ...rest }, ref) => {
         const api = useApi();
-        const handleClick = (value) => {
+        const handleClick = (value: Date) => {
             api.setOpen(true);
             api.setValue([value]);
         };
