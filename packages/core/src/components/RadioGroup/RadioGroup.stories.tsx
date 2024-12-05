@@ -1,50 +1,77 @@
-// @ts-nocheck
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { RadioGroup } from './RadioGroup';
+import { RadioGroup } from './index';
 
-const argTypes: Partial<ArgTypes> = {
-    options: {
-        table: { disable: true },
-    },
-    children: {
-        table: { disable: true },
-    },
-    classNameButton: {
-        table: { disable: true },
-    },
-    theme: {
-        table: { disable: true },
+export default {
+    title: 'UI Kit core/RadioGroupV2',
+    component: RadioGroup.Root,
+    tags: ['autodocs'],
+    argTypes: {
+        disabled: {
+            control: 'boolean',
+            description: 'If `true`, component will be disabled',
+        },
+        onValueChange: {
+            table: { disable: true },
+        },
+        value: {
+            control: 'text',
+            description: 'Checked value',
+        },
     },
 };
 
-const meta: Meta<typeof RadioGroup> = {
-    title: 'UI Kit core/RadioGroup',
-    component: RadioGroup,
-    argTypes,
+export const Base = (props) => {
+    return (
+        <RadioGroup.Root {...props}>
+            <RadioGroup.Item value="gradient">
+                <RadioGroup.Control value="gradient" />
+                <RadioGroup.Text value="gradient">gradient</RadioGroup.Text>
+            </RadioGroup.Item>
+            <RadioGroup.Item value="partialGradient">
+                <RadioGroup.Control value="partialGradient" />
+                <RadioGroup.Text value="partialGradient">without gradient</RadioGroup.Text>
+            </RadioGroup.Item>
+            <RadioGroup.Item value="notGradient">
+                <RadioGroup.Control value="notGradient" />
+                <RadioGroup.Text value="notGradient">specified values only</RadioGroup.Text>
+            </RadioGroup.Item>
+        </RadioGroup.Root>
+    );
 };
-export default meta;
 
-type Story = StoryObj<typeof RadioGroup>;
+export const Checked = (props) => {
+    return (
+        <RadioGroup.Root {...props} value="gradient">
+            <RadioGroup.Item value="gradient">
+                <RadioGroup.Control value="gradient" />
+                <RadioGroup.Text value="gradient">gradient</RadioGroup.Text>
+            </RadioGroup.Item>
+            <RadioGroup.Item value="partialGradient">
+                <RadioGroup.Control value="partialGradient" />
+                <RadioGroup.Text value="partialGradient">without gradient</RadioGroup.Text>
+            </RadioGroup.Item>
+            <RadioGroup.Item value="notGradient">
+                <RadioGroup.Control value="notGradient" />
+                <RadioGroup.Text value="notGradient">specified values only</RadioGroup.Text>
+            </RadioGroup.Item>
+        </RadioGroup.Root>
+    );
+};
 
-const options = [
-    {
-        label: 'gradient',
-        value: 'gradient',
-        disabled: true,
-    },
-    {
-        label: 'without gradient',
-        value: 'partialGradient',
-    },
-    {
-        label: 'specified values only',
-        value: 'notGradient',
-    },
-];
-
-export const Basic: Story = {
-    args: {
-        options,
-        value: 'notGradient',
-    },
+export const Disabled = (props) => {
+    return (
+        <RadioGroup.Root {...props} value="gradient" disabled>
+            <RadioGroup.Item value="gradient">
+                <RadioGroup.Control value="gradient" />
+                <RadioGroup.Text value="gradient">gradient</RadioGroup.Text>
+            </RadioGroup.Item>
+            <RadioGroup.Item value="partialGradient">
+                <RadioGroup.Control value="partialGradient" />
+                <RadioGroup.Text value="partialGradient">without gradient</RadioGroup.Text>
+            </RadioGroup.Item>
+            <RadioGroup.Item value="notGradient">
+                <RadioGroup.Control value="notGradient" />
+                <RadioGroup.Text value="notGradient">specified values only</RadioGroup.Text>
+            </RadioGroup.Item>
+        </RadioGroup.Root>
+    );
 };

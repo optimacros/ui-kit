@@ -1,106 +1,145 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Tabs } from '.';
+import { Button } from '../Button';
+import { Icon } from '../Icon';
+import { createTabs } from './mock';
+import { Menu } from '../Menu';
+import { IconButton } from '../IconButton';
+import { shuffle } from '@optimacros/ui-kit-utils';
 
-import { Tab } from './Tab.tsx';
-import { Tabs } from './Tabs';
-
-const argTypes: Partial<ArgTypes> = {
-    active: {
-        control: 'number',
-        description: 'The value of the currently selected `Tab`.',
-    },
-    draggable: {
-        control: 'boolean',
-        description: 'If `true`, tabs are draggable.',
-    },
-    hideTabHeader: {
-        control: 'boolean',
-        description: '',
-    },
-    theme: { table: { disable: true } },
-    className: { table: { disable: true } },
-    headerClassName: { table: { disable: true } },
-    contentClassName: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    onTabSwitch: { table: { disable: true } },
-    onTabPositionChange: { table: { disable: true } },
+export default {
+    title: 'UI Kit core/TabsV2',
+    component: Tabs.Root,
+    tags: ['autodocs'],
 };
 
-const meta: Meta<typeof Tabs> = {
-    title: 'UI Kit core/Tabs',
-    // @ts-ignore
-    component: Tabs,
-    argTypes,
-};
-export default meta;
+const items = createTabs(20);
 
-type Story = StoryObj<typeof Tabs>;
+export const Base = (props) => {
+    const [tabs, setTabs] = useState(items);
+    const ref = useRef(null);
 
-const BasicTemplate: Story = {
-    render: ({ ...args }) => {
-        const [activeTab, setActiveTab] = useState(0);
-
-        return (
-            <Tabs
-                {...args}
-                active={activeTab}
-                onChange={(activeTabNumber: number) => setActiveTab(activeTabNumber)}
-            >
-                <Tab title="Item one" icon="favorite">
-                    Item one
-                </Tab>
-                <Tab label="Item two" icon="people">
-                    Item two
-                </Tab>
-                <Tab title="Item three">Item three</Tab>
-            </Tabs>
-        );
-    },
-};
-
-const Template: Story = {
-    render: ({ ...args }) => {
-        const [tabs, setTabs] = useState(['Tab 1', 'Tab 2', 'Tab 3']);
-        const [activeTab, setActiveTab] = useState(0);
-
-        const handleTabPositionChange = (newPosition: number, oldPosition: number) => {
-            const updatedTabs = [...tabs];
-
-            const tabOnTargetPosition = updatedTabs[newPosition];
-            updatedTabs[newPosition] = updatedTabs[oldPosition];
-            updatedTabs[oldPosition] = tabOnTargetPosition;
-
-            setTabs(updatedTabs);
-        };
-
-        return (
-            <Tabs
-                {...args}
-                active={activeTab}
-                onTabPositionChange={handleTabPositionChange}
-                onChange={(activeTabNumber: number) => setActiveTab(activeTabNumber)}
-            >
-                {tabs.map((tab) => {
-                    return (
-                        <Tab title={tab} key={tab}>
-                            {tab}
-                        </Tab>
-                    );
-                })}
-            </Tabs>
-        );
-    },
-};
-
-export const Basic: Story = {
-    ...BasicTemplate,
-    args: {},
+    return (
+        <Tabs.Root activationMode="manual" deselectable>
+            <Tabs.Api>
+                {(api) => (
+                    <div>
+                        <p>active tab: {api.value}</p>
+                        <div>
+                            <Button
+                                onClick={() => api.open(`tab-${Math.floor(Math.random() * 19)}`)}
+                            >
+                                open random tab
+                            </Button>
+                            <Button onClick={() => api.scrollToActive()}>scroll to active</Button>
+                            <Button onClick={() => api.first()}>select first</Button>
+                            <Button onClick={() => api.last()}>select last</Button>
+                            <Button onClick={() => setTabs((prev) => shuffle(prev))}>
+                                shuffle
+                            </Button>
+                        </div>
+                    </div>
+                )}
+            </Tabs.Api>
+            <div className="flex gap-2">
+                <Tabs.List ref={ref}>
+                    {tabs.map((tab, i) => (
+                        <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                            <Button
+                                renderIcon={() => <Icon value="article" />}
+                                variant="transparent"
+                            >
+                                {tab.value}
+                            </Button>
+                        </Tabs.Trigger>
+                    ))}
+                </Tabs.List>
+                <Tabs.Menu.Root>
+                    <Tabs.Menu.Trigger asChild>
+                        <IconButton renderIcon={() => <Icon value="settings" />} />
+                    </Tabs.Menu.Trigger>
+                    <Tabs.Menu.Content size="sm">
+                        <Tabs.HiddenTabsList ref={ref}>
+                            {(props) => (
+                                <Menu.Item
+                                    {...props}
+                                    key={props.value}
+                                    valueText={props.value}
+                                    closeOnSelect
+                                >
+                                    {props.value}
+                                </Menu.Item>
+                            )}
+                        </Tabs.HiddenTabsList>
+                    </Tabs.Menu.Content>
+                </Tabs.Menu.Root>
+            </div>
+            {items.map((item) => (
+                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+            ))}
+        </Tabs.Root>
+    );
 };
 
-export const Draggable: Story = {
-    ...Template,
-    args: {
-        // @ts-ignore
-        draggable: true,
-    },
+export const DraggableOrdered = (props) => {
+    const [tabs, setTabs] = useState(items);
+
+    return (
+        <Tabs.Root activationMode="manual" deselectable>
+            <div className="flex gap-2">
+                <Tabs.DraggableList setTabs={setTabs}>
+                    {tabs.map((tab, i) => (
+                        <Tabs.DraggableTrigger
+                            {...props}
+                            value={tab.value}
+                            key={tab.value}
+                            data-index={i}
+                        >
+                            <Button
+                                renderIcon={() => <Icon value="article" />}
+                                variant="transparent"
+                            >
+                                {tab.value}
+                            </Button>
+                        </Tabs.DraggableTrigger>
+                    ))}
+                </Tabs.DraggableList>
+            </div>
+            {items.map((item) => (
+                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+            ))}
+        </Tabs.Root>
+    );
+};
+
+//TODO: fix scroll problem
+export const DraggableSwap = (props) => {
+    const [tabs, setTabs] = useState(items);
+
+    return (
+        <Tabs.Root activationMode="manual" deselectable>
+            <div className="flex gap-2">
+                <Tabs.DraggableList setTabs={setTabs} mode="swap">
+                    {tabs.map((tab, i) => (
+                        <Tabs.DraggableTrigger
+                            {...props}
+                            value={tab.value}
+                            key={tab.value}
+                            data-index={i}
+                        >
+                            <Button
+                                renderIcon={() => <Icon value="article" />}
+                                variant="transparent"
+                            >
+                                {tab.value}
+                            </Button>
+                        </Tabs.DraggableTrigger>
+                    ))}
+                </Tabs.DraggableList>
+            </div>
+            {items.map((item) => (
+                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+            ))}
+        </Tabs.Root>
+    );
 };

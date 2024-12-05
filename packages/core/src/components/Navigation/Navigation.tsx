@@ -1,48 +1,27 @@
-import classNames from 'classnames';
-import { isEqual } from '@optimacros/ui-kit-utils';
 import React from 'react';
+import { forward, styled } from '@optimacros/ui-kit-store';
+import { tw } from '@optimacros/ui-kit-utils';
+import { Orientation } from '../../constants';
 
-import type { NavigationProps as BaseNavigationProps, NavigationTheme } from './BaseNavigation';
-import { BaseNavigation } from './BaseNavigation';
-import { mergeStyles } from '@optimacros/ui-kit-utils';
+export type NavigationProps = React.PropsWithChildren<{ orientation?: Orientation }>;
 
-import navigationTheme from './Navigation.module.css';
-
-export interface Props extends Omit<BaseNavigationProps, 'theme'> {
-    theme?: Partial<NavigationTheme>;
-}
-
-interface State {
-    theme: NavigationTheme;
-}
-
-export type NavigationProps = React.PropsWithChildren<Props>;
-
-export class Navigation extends React.PureComponent<NavigationProps, State> {
-    state = {
-        theme: {} as NavigationTheme,
-    };
-
-    static getDerivedStateFromProps(props: React.PropsWithChildren<Props>, state: State) {
-        const updatedTheme = props.theme
-            ? mergeStyles(props.theme, navigationTheme)
-            : navigationTheme;
-        const theme = isEqual(state.theme, updatedTheme) ? state.theme : updatedTheme;
-
-        return {
-            theme,
-        };
-    }
-
-    render(): React.JSX.Element {
-        const { theme } = this.state;
-
-        const className = classNames(this.props.className, {
-            [navigationTheme.NavigationContainer]: true,
-            [navigationTheme.NavigationContainer_Vertical]: this.props.vertical ?? false,
-            [navigationTheme.NavigationContainer_Wrap]: this.props.wrap,
-        });
-
-        return <BaseNavigation {...this.props} theme={theme} className={className} />;
-    }
-}
+export const rootClassName = tw`
+flex flex-wrap p-0 m-[0.3rem_0] flex-shrink-0 items-center space-y-[0.19rem] space-x-1.5
+max-w-full box-border font-preferred antialiased [text-size-adjust:full] p-0 max-h-full
+ 
+data-[orientation="vertical"]:flex-col
+data-[orientation="vertical"]:mr-0
+data-[orientation="vertical"]:mb-1.5
+`;
+export const Root = forward<NavigationProps, 'nav'>(
+    ({ orientation = Orientation.Horizontal, ...rest }, ref) => (
+        <styled.nav
+            {...rest}
+            ref={ref}
+            data-scope="navigation"
+            data-part="root"
+            data-orientation={orientation}
+            className={rootClassName}
+        />
+    ),
+);

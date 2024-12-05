@@ -1,2 +1,1 @@
-export { Navigation } from './Navigation';
-export type { NavigationProps } from './Navigation';
+export * as Navigation from './Navigation';

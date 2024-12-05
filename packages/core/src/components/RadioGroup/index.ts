@@ -1,1 +1,1 @@
-export * from './RadioGroup';
+export * as RadioGroup from './RadioGroup';

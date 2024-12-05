@@ -1,71 +1,67 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
 import { Toolbar } from './index';
 import { Button } from '../Button';
+import { Align } from '../../constants';
 
-const argTypes: Partial<ArgTypes> = {
-    align: {
-        control: 'radio',
-        options: ['right', 'rightInRow', 'left', 'center'],
-        table: {
-            defaultValue: {
-                summary: 'left',
+export default {
+    title: 'UI Kit core/ToolbarV2',
+    component: Toolbar.Root,
+    tags: ['autodocs'],
+    argTypes: {
+        align: {
+            control: 'radio',
+            options: Align,
+            table: {
+                defaultValue: {
+                    summary: Align.Left,
+                },
             },
         },
-    },
-    small: {
-        control: 'boolean',
-        description: 'If `true`, toolbar will have less margin top.',
-    },
-    children: { table: { disable: true } },
-    className: { table: { disable: true } },
-};
-
-const meta: Meta<typeof Toolbar> = {
-    title: 'UI Kit core/Toolbar',
-    component: Toolbar,
-    argTypes,
-};
-export default meta;
-
-type Story = StoryObj<typeof Toolbar>;
-
-export const Basic: Story = {
-    args: {
-        align: 'left',
-        children: (
-            <>
-                <Button label="cancel" />
-
-                <Button label="submit" bordered />
-            </>
-        ),
+        isSmall: {
+            control: 'boolean',
+            description: 'If `true`, toolbar will have less margin top.',
+        },
     },
 };
 
-export const Center: Story = {
-    args: {
-        align: 'center',
-        children: (
-            <>
-                <Button label="cancel" />
+const Children = (
+    <>
+        <Button variant="accent"> Cancel </Button>
+        <Button variant="primary"> Submit </Button>
+    </>
+);
 
-                <Button label="submit" bordered />
-            </>
-        ),
-    },
+export const Base = (props) => {
+    return <Toolbar.Root {...props}>{Children}</Toolbar.Root>;
 };
 
-export const Small: Story = {
-    args: {
-        align: 'left',
-        small: true,
-        children: (
-            <>
-                <Button label="cancel" />
+export const Left = (props) => {
+    return (
+        <Toolbar.Root {...props} align={Align.Left}>
+            {Children}
+        </Toolbar.Root>
+    );
+};
 
-                <Button label="submit" bordered />
-            </>
-        ),
-    },
+export const Center = (props) => {
+    return (
+        <Toolbar.Root {...props} align={Align.Center}>
+            {Children}
+        </Toolbar.Root>
+    );
+};
+
+export const RightInRow = (props) => {
+    return (
+        <Toolbar.Root {...props} align={Align.RightInRow}>
+            {Children}
+        </Toolbar.Root>
+    );
+};
+
+export const Small = (props) => {
+    return (
+        <Toolbar.Root {...props} isSmall>
+            {Children}
+        </Toolbar.Root>
+    );
 };

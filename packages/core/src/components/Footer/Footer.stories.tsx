@@ -1,26 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-import { Footer } from './Footer';
+import { Footer } from './index';
 
 const meta: Meta<typeof Footer> = {
-    component: Footer,
-    title: 'UI Kit core/Footer',
-    argTypes: {
-        appVersion: {
-            description: 'Specify App version',
-            control: 'text',
-        },
-    },
+    title: 'UI Kit core/Footer V2',
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Footer>;
+export const Basic = () => (
+    <Footer.Root>
+        <Footer.LeftCol>
+            <Footer.Version>1.2.3</Footer.Version>
+            <Footer.Copyright>{`©Copyright Optimacros 2018 - ${new Date().getFullYear()}`}</Footer.Copyright>
+        </Footer.LeftCol>
 
-export const Basic: Story = {
-    args: {
-        appVersion: '1.0.0',
-        copyright: `©Copyright Optimacros 2018 - ${new Date().getFullYear()}`,
-        children: 'children content',
-    },
-};
+        <Footer.Content>children content</Footer.Content>
+    </Footer.Root>
+);

@@ -1,111 +1,77 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
 import { Checkbox } from './index';
+import { Tooltip } from '../Tooltip';
 
-const argTypes: Partial<ArgTypes> = {
-    label: {
-        control: 'text',
-        description: 'The text to use for the label element.',
-    },
-    name: {
-        control: 'text',
-        description: 'Value for `name` input attribute.',
-    },
-    disabled: {
-        control: 'boolean',
-        description: 'If `true`, component will be disabled.',
-    },
-    checked: {
-        control: 'boolean',
-        description: ' If `true`, component will be checked.',
-    },
-    tooltipLabel: {
-        control: 'text',
-        description: 'The text string to use for the tooltip.',
-    },
-    tooltipDelay: {
-        control: 'number',
-        description: 'Amount of time in milliseconds spent before the tooltip is visible.',
-    },
-    tooltipPosition: {
-        control: 'radio',
-        options: ['vertical', 'horizontal', 'bottom', 'top', 'left', 'right'],
-        table: {
-            defaultValue: { summary: 'vertical' },
+export default {
+    title: 'UI Kit core/CheckboxV2',
+    component: Checkbox.Root,
+    tags: ['autodocs'],
+    argTypes: {
+        disabled: {
+            control: 'boolean',
+            description: 'If `true`, component will be disabled',
         },
-        description: 'Determines the position of the tooltip.',
-    },
-    tooltipOffset: {
-        control: 'number',
-        description:
-            ' If `tooltipPosition` - `vertical`, `bottom` or `top`, the tooltip moves relative to its axis.',
-    },
-    className: {
-        table: { disable: true },
-    },
-    theme: {
-        table: { disable: true },
-    },
-    children: {
-        table: { disable: true },
-    },
-    style: {
-        table: { disable: true },
-    },
-    onClick: {
-        table: { disable: true },
-    },
-    onChange: {
-        table: { disable: true },
-    },
-    onMouseEnter: {
-        table: { disable: true },
-    },
-    onMouseLeave: {
-        table: { disable: true },
+        onValueChange: {
+            table: { disable: true },
+        },
+        value: {
+            control: 'text',
+            description: 'Checked value',
+        },
     },
 };
 
-const meta: Meta<typeof Checkbox> = {
-    title: 'UI Kit core/Checkbox',
-    component: Checkbox,
-    argTypes,
-};
-export default meta;
-
-type Story = StoryObj<typeof Checkbox>;
-
-export const Basic: Story = {
-    args: {
-        name: 'Basic',
-    },
+export const Base = (props) => {
+    return (
+        <Checkbox.Root {...props}>
+            <Checkbox.BoxControl />
+            <Checkbox.Label>gradient</Checkbox.Label>
+        </Checkbox.Root>
+    );
 };
 
-export const Checked: Story = {
-    args: {
-        checked: true,
-    },
+export const Checked = (props) => {
+    return (
+        <Checkbox.Root checked value="gradient" {...props}>
+            <Checkbox.BoxControl />
+            <Checkbox.Label>gradient</Checkbox.Label>
+        </Checkbox.Root>
+    );
 };
 
-export const Disabled: Story = {
-    args: {
-        disabled: true,
-    },
+export const Disabled = (props) => {
+    return (
+        <Checkbox.Root disabled value="gradient" {...props}>
+            <Checkbox.BoxControl />
+            <Checkbox.Label>gradient</Checkbox.Label>
+        </Checkbox.Root>
+    );
 };
 
-export const Label: Story = {
-    args: {
-        label: 'Label',
-        checked: true,
-    },
+export const CheckedDisabled = (props) => {
+    return (
+        <Checkbox.Root disabled checked value="gradient" {...props}>
+            <Checkbox.BoxControl />
+            <Checkbox.Label>gradient</Checkbox.Label>
+        </Checkbox.Root>
+    );
 };
 
-export const WithTooltip: Story = {
-    args: {
-        label: 'Label',
-        tooltipLabel: 'Tooltip text',
-        tooltipDelay: 50,
-        tooltipPosition: 'bottom',
-        tooltipOffset: 0,
-    },
+export const WithTooltip = (props) => {
+    return (
+        <Checkbox.Root>
+            <Tooltip.Root
+                openDelay={0}
+                closeDelay={0}
+                positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
+            >
+                <Tooltip.Trigger asChild>
+                    <div>
+                        <Checkbox.BoxControl />
+                        <Checkbox.Label>gradient</Checkbox.Label>
+                    </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content>here we are</Tooltip.Content>
+            </Tooltip.Root>
+        </Checkbox.Root>
+    );
 };

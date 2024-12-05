@@ -1,147 +1,117 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { ReactNode } from 'react';
+import { Meta } from '@storybook/react';
 
-import { Menu, MenuItem, SubMenu, MenuItemGroup } from './index';
-import { FontIcon } from '../FontIcon';
-
-const argTypes: Partial<ArgTypes> = {
-    mode: {
-        control: 'text',
-        table: {
-            defaultValue: { summary: 'vertical' },
-        },
-        description: 'Mode of menu.',
-    },
-    children: { control: 'object', table: { disable: true } },
-    className: { table: { disable: true } },
-    expandIcon: { table: { disable: true } },
-};
-
-const meta: Meta<typeof Menu> = {
-    title: 'UI Kit core/Menu',
-    component: Menu,
-    argTypes,
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    'Ui-kit using rc-menu library for Menu, SubMenu, MenuItemGroup, MenuItem and MenuDivider. ' +
-                    'Other props can be viewed at the [link](https://react-component.github.io/menu/).',
-            },
-        },
-    },
-};
-export default meta;
-
-type Story = StoryObj<typeof Menu>;
-
-const Wrapper = ({ children }: { children: ReactNode }) => (
+import { Menu } from './index';
+import { menu } from '.';
+import { createMenuItems } from './mock';
+const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '200px', marginLeft: '20px' }}>{children}</div>
 );
 
-// todo - mode inline, because another return error "any"
-export const Basic: Story = {
+const meta: Meta<typeof Menu> = {
+    title: 'UI Kit core/MenuV2',
     decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
-    args: {
-        mode: 'inline',
-        children: [
-            <MenuItem key={1}>1</MenuItem>,
-            <MenuItem key={2}>2</MenuItem>,
-            <MenuItem key={3}>3</MenuItem>,
-        ],
-    },
-};
-
-export const DisabledMenuItem: Story = {
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
-    args: {
-        mode: 'inline',
-        children: [
-            <MenuItem disabled key={1}>
-                1
-            </MenuItem>,
-            <MenuItem key={2}>2</MenuItem>,
-            <MenuItem key={3}>3</MenuItem>,
-        ],
-    },
-};
-
-// todo - uncomment, when update rc-menu, mode 'vertical' -> error rc-menu
-// export const MenuWithSubMenu: Story = {
-//     decorators: [
-//         (Story) => <Wrapper>{Story()}</Wrapper>,
-//     ],
-//     args: {
-//         mode: "vertical",
-//         expandIcon: <FontIcon style={{ position: "absolute", right: "20px" }} value="arrow_right_alt" />,
-//         children: [
-//             <MenuItem key="1">1</MenuItem>,
-//             <SubMenu key="sub2" title="2">
-//                 <MenuItem key="2-1">2-1</MenuItem>
-//                 <SubMenu key="sub3" title="3">
-//                     <MenuItem key="3-1">3-1</MenuItem>
-//                     <SubMenu key="sub4" title="4">
-//                         <MenuItem key="4-1">4-1</MenuItem>
-//                         <MenuItem key="4-2">4-2</MenuItem>
-//                         <MenuItem key="4-3">4-3</MenuItem>
-//                         <MenuItem key="4-4">4-4</MenuItem>
-//                     </SubMenu>
-//                 </SubMenu>
-//             </SubMenu>
-//         ]
-//     },
-// }
-
-export const MenuWithSubGroup: Story = {
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
-    args: {
-        mode: 'inline',
-        expandIcon: (
-            <FontIcon style={{ position: 'absolute', right: '20px' }} value="arrow_drop_down" />
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
         ),
-        children: [
-            <MenuItemGroup title="Menu Group 1" key={1.1}>
-                <MenuItem key={1}>1</MenuItem>
-                <MenuItem key={2}>2</MenuItem>
-                <SubMenu title="3">
-                    <MenuItem key={3}>3-1</MenuItem>
-                    <MenuItem key={4}>3-2</MenuItem>
-                </SubMenu>
-            </MenuItemGroup>,
-            <MenuItemGroup title="Menu Group 2" key={2.2}>
-                <MenuItem key={5}>3</MenuItem>
-                <MenuItem key={6}>4</MenuItem>
-            </MenuItemGroup>,
-        ],
-    },
+    ],
+};
+export default meta;
+
+const menuItems: Array<menu.ItemProps> = createMenuItems(10);
+
+export const Basic = () => {
+    return (
+        <Menu.Root>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
+            <Menu.Positioner>
+                <Menu.Content>
+                    <Menu.List>
+                        {menuItems.map((v, i) => (
+                            <Menu.Item {...v} />
+                        ))}
+                    </Menu.List>
+                </Menu.Content>
+            </Menu.Positioner>
+        </Menu.Root>
+    );
 };
 
-export const Inline: Story = {
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
-    args: {
-        mode: 'inline',
-        expandIcon: (
-            <FontIcon style={{ position: 'absolute', right: '20px' }} value="arrow_drop_down" />
-        ),
-        children: [
-            <MenuItem key={1}>1</MenuItem>,
-            <SubMenu title="2" key={2.0}>
-                <MenuItem key={2}>2-1</MenuItem>
-                <MenuItem key={3}>2-2</MenuItem>
-                <MenuItem key={4}>2-3</MenuItem>
-            </SubMenu>,
-        ],
-    },
+export const Horizontal = () => {
+    return (
+        <Menu.Root>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
+            <Menu.Positioner>
+                <Menu.Content orientation="horizontal">
+                    <Menu.List>
+                        {menuItems.map((v, i) => (
+                            <Menu.Item {...v} />
+                        ))}
+                    </Menu.List>
+                </Menu.Content>
+            </Menu.Positioner>
+        </Menu.Root>
+    );
+};
+
+export const Group = () => {
+    return (
+        <Menu.Root>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
+            <Menu.Positioner>
+                <Menu.Content>
+                    <Menu.List>
+                        <Menu.Group id="first">
+                            <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>
+                            {menuItems.map((v, i) => (
+                                <Menu.Item {...v} key={`${v} 1`} value={`${v} 1`} />
+                            ))}
+                        </Menu.Group>
+
+                        <Menu.Group id="second">
+                            <Menu.GroupLabel htmlFor="second">second</Menu.GroupLabel>
+                            {menuItems.map((v, i) => (
+                                <>
+                                    <Menu.Item {...v} key={`${v} 2`} value={`${v} 2`} />
+                                    <Menu.Separator />
+                                </>
+                            ))}
+                        </Menu.Group>
+                        <Menu.Group id="third">
+                            <Menu.GroupLabel htmlFor="third">third</Menu.GroupLabel>
+                            {menuItems.map((v, i) => (
+                                <Menu.Item {...v} key={`${v} 3`} value={`${v} 3`} />
+                            ))}
+                        </Menu.Group>
+                    </Menu.List>
+                </Menu.Content>
+            </Menu.Positioner>
+        </Menu.Root>
+    );
+};
+
+export const Disabled = () => {
+    return (
+        <Menu.Root closeOnSelect={false}>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
+            <Menu.Positioner>
+                <Menu.Content>
+                    <Menu.List>
+                        {menuItems.map((v, i) => (
+                            <Menu.Item {...v} disabled={i % 2 === 0} />
+                        ))}
+                    </Menu.List>
+                </Menu.Content>
+            </Menu.Positioner>
+        </Menu.Root>
+    );
 };
