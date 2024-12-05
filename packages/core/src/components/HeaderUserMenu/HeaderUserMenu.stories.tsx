@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactNode } from 'react';
 
 import { HeaderUserMenu } from './HeaderUserMenu';
-import iconUser from '../../icons/icon-user.svg';
 
 const meta: Meta<typeof HeaderUserMenu> = {
     component: HeaderUserMenu,
@@ -32,12 +31,11 @@ const userElements = [
     {
         id: '10',
         title: 'User Name',
-        icon: iconUser,
         disabled: false,
         children: [
             {
                 id: '11',
-                icon: iconUser,
+
                 title: 'Profile',
                 disabled: false,
                 open: () => {},
