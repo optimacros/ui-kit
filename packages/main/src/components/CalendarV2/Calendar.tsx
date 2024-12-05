@@ -72,7 +72,7 @@ export const HeaderYears = forward<{ locale?: string }, 'span'>(({ locale, ...re
 });
 
 export const headerMonthsClassName = tw`
-text-[var(--font-size-calendar-month)] font-[var(--font-weight-semi-bold)]
+text-[3.4rem] font-[var(--font-weight-semi-bold)]
 leading-[var(--size-calendar-month-text)] m-0 capitalize transition-opacity
 `;
 export const HeaderMonths = forward<{ locale?: string }, 'h3'>(({ locale, ...rest }, ref) => {
