@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react';
 import { Calendar } from './index';
 
 const Wrapper = ({ children }: { children }) => (
-    <div style={{ width: '200px', marginLeft: '20px' }}>{children}</div>
+    <div style={{ marginLeft: '20px' }}>{children}</div>
 );
 
 const meta: Meta<typeof Calendar> = {

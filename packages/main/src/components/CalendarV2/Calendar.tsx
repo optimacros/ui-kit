@@ -1,5 +1,5 @@
-import { time } from '@optimacros/ui-kit-utils';
 import React, { ComponentProps, useEffect } from 'react';
+import { time, tw } from '@optimacros/ui-kit-utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as datepicker from '@zag-js/date-picker';
 
@@ -17,54 +17,129 @@ export const Root = ({ state, ...context }: ComponentProps<typeof RootProvider>)
     return <RootProvider {...context} state={state} />;
 };
 
+export const contentClassName = tw`
+w-datepicker-dialog bg-calendar-primary-contrast text-[var(--font-size-calendar)] h-calendar-total 
+leading-[var(--height-calendar-row)] overflow-hidden relative text-center bg-calendar-primary-contrast
+`;
 export const Content = forward<{ value?: Date }, 'div'>(({ value, ...rest }, ref) => {
     const api = useApi();
     useEffect(() => {
         value && api.setValue([datepicker.parse(value)]);
-    }, [api]);
+    }, []);
 
-    return <styled.div {...rest} {...api.getContentProps()} ref={ref} />;
+    return (
+        <styled.div
+            {...rest}
+            data-scope="calendar"
+            data-part="content"
+            ref={ref}
+            className={contentClassName}
+        />
+    );
 });
 
 export const ViewControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} {...api.getViewControlProps({ view: 'year' })} ref={ref} />;
+    return (
+        <styled.div
+            {...props}
+            {...api.getViewControlProps({ view: 'year' })}
+            data-scope="calendar"
+            data-part="view-control"
+            ref={ref}
+        />
+    );
 });
 
+export const prevTriggerClassName = tw`
+cursor-pointer h-trigger-button opacity-70 absolute top-0 z-[var(--z-index-high)] left-0 w-calendar-trigger
+bg-transparent border-0 rounded-[0.06rem] border-0 w-[var(--width-calendar-trigger)]
+hover:border hover:border-solid hover:border-[var(--color-calendar-trigger)]
+`;
 export const PrevTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
-    return <styled.button {...props} {...api.getPrevTriggerProps()} ref={ref} />;
+    return (
+        <styled.button
+            {...props}
+            {...api.getPrevTriggerProps()}
+            data-scope="calendar"
+            data-part="prev-trigger"
+            ref={ref}
+            className={prevTriggerClassName}
+        />
+    );
 });
 
+export const nextTriggerClassName = tw`
+cursor-pointer h-trigger-button opacity-70 absolute top-0 z-[var(--z-index-high)] right-0
+bg-transparent rounded-[0.06rem] border-0 w-[var(--width-calendar-trigger)]
+hover:border hover:border-solid hover:border-[var(--color-calendar-trigger)]
+`;
 export const NextTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
-    return <styled.button {...props} {...api.getNextTriggerProps()} ref={ref} />;
+    return (
+        <styled.button
+            {...props}
+            {...api.getNextTriggerProps()}
+            data-scope="calendar"
+            data-part="next-trigger"
+            ref={ref}
+            className={nextTriggerClassName}
+        />
+    );
 });
 
+export const rangeTextClassName = tw`inline-block font-medium leading-[var(--height-calendar-row)]`;
 export const RangeText = forward<{ locale?: string }, 'span'>(({ locale, ...rest }, ref) => {
     const api = useApi();
 
     return (
-        <styled.span {...rest} ref={ref}>
-            {time.getFullMonth(api.focusedValueAsDate, locale)}
+        <styled.span
+            {...rest}
+            data-scope="calendar"
+            data-part="range-text"
+            ref={ref}
+            className={rangeTextClassName}
+        >
+            {`${time.getFullMonth(api.focusedValueAsDate, locale)} ${api.visibleRange.start.year}`}
         </styled.span>
     );
 });
 
+export const tableClassName = tw`w-full`;
 export const Table = forward<{}, 'table'>((props, ref) => {
     const api = useApi();
 
-    return <styled.table {...props} {...api.getTableProps({ view: 'day' })} ref={ref} />;
+    return (
+        <styled.table
+            {...props}
+            {...api.getTableProps({ view: 'day' })}
+            data-scope="calendar"
+            data-part="table"
+            ref={ref}
+            className={tableClassName}
+        />
+    );
 });
 
+export const tableHeadClassNames = tw`
+text-[var(--font-size-calendar-day)] h-calendar-row leading-[var(--height-calendar-row)] opacity-50
+`;
 export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...rest }, ref) => {
     const api = useApi();
 
     return (
-        <styled.thead {...rest} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
+        <styled.thead
+            {...rest}
+            {...api.getTableHeaderProps({ view: 'day' })}
+            data-scope="calendar"
+            data-part="table-head"
+            ref={ref}
+            className={tableHeadClassNames}
+        >
             <tr {...api.getTableRowProps({ view: 'day' })}>
                 {api.weekDays.map((day, i) => (
                     <th scope="col" key={i} aria-label={day.long}>
@@ -76,43 +151,32 @@ export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...res
     );
 });
 
-export const Footer = forward<{}, 'div'>((props, ref) => {
-    return <styled.div {...props} ref={ref} />;
-});
-
-export type DismissButtonProps = {
-    onDismiss?: () => void;
-};
-export const CanselButton = forward<DismissButtonProps, 'button'>(({ onDismiss, ...rest }, ref) => {
-    return <styled.button {...rest} ref={ref} onClick={onDismiss} />;
-});
-
-export type SuccessButtonProps = {
-    onSelect?: (value: Date, event: React.ChangeEvent<HTMLSelectElement>) => void;
-};
-export const SuccessButton = forward<SuccessButtonProps, 'button'>(({ onSelect, ...rest }, ref) => {
-    const api = useApi();
-    const handleClick = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        onSelect && onSelect(api.valueAsDate, event);
-    };
-
-    return <styled.button {...rest} ref={ref} onClick={handleClick} />;
-});
-
+export const tableBodyClassName = tw`text-calendar-day cursor-pointer`;
+export const tdClassName = tw`rounded-[0.2rem] hover:bg-calendar-primary-hover hover:text-calendar-primary`;
 export const TableBody = forward<{ onSelect: () => void }, 'tbody'>(
     ({ onSelect, ...rest }, ref) => {
         const api = useApi();
-        const handleClick = (value: Date) => {
-            api.setOpen(true);
+        const handleClick = (value: datepicker.DateValue) => {
             api.setValue([value]);
         };
 
         return (
-            <styled.tbody {...rest} {...api.getTableBodyProps({ view: 'day' })} ref={ref}>
+            <styled.tbody
+                {...rest}
+                {...api.getTableBodyProps({ view: 'day' })}
+                data-scope="calendar"
+                data-part="table-body"
+                ref={ref}
+                className={tableBodyClassName}
+            >
                 {api.weeks.map((week, i) => (
                     <tr key={i} {...api.getTableRowProps({ view: 'day' })}>
                         {week.map((value, i) => (
-                            <td key={i} {...api.getDayTableCellProps({ value })}>
+                            <td
+                                key={i}
+                                {...api.getDayTableCellProps({ value })}
+                                className={tdClassName}
+                            >
                                 <div
                                     {...api.getDayTableCellTriggerProps({
                                         value,
@@ -129,3 +193,63 @@ export const TableBody = forward<{ onSelect: () => void }, 'tbody'>(
         );
     },
 );
+
+export const footerClassName = tw`flex-grow-0 p-[var(--padding-footer)] text-right`;
+export const Footer = forward<{}, 'div'>((props, ref) => {
+    return (
+        <styled.div
+            {...props}
+            ref={ref}
+            data-scope="calendar"
+            data-part="footer"
+            className={footerClassName}
+        />
+    );
+});
+
+export type DismissButtonProps = {
+    onDismiss?: () => void;
+};
+export const cancelButtonClassName = tw`
+ml-[var(--padding-footer)] min-w-0 px-[var(--padding-footer)] leading-[var(--height-calendar-button-text)] cursor-pointer
+bg-transparent text-calendar-button-text border-none h-full text-[1.4rem] rounded-[0.1875rem] m-w-calendar-button
+hover:bg-calendar-button-hover focus:bg-calendar-button-focus focus:transparent
+`;
+export const CanselButton = forward<DismissButtonProps, 'button'>(({ onDismiss, ...rest }, ref) => {
+    return (
+        <styled.button
+            {...rest}
+            ref={ref}
+            data-scope="calendar"
+            data-part="cancel-button"
+            onClick={onDismiss}
+            className={cancelButtonClassName}
+        />
+    );
+});
+
+export type SuccessButtonProps = {
+    onSelect?: (value: Date, event: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+export const successButtonClassName = tw`
+ml-[var(--padding-footer)] min-w-0 px-[var(--padding-footer)] leading-[var(--height-calendar-button-text)] cursor-pointer
+bg-transparent text-calendar-button-text border-none h-full text-[1.4rem] rounded-[0.1875rem] m-w-calendar-button
+hover:bg-calendar-button-hover focus:bg-calendar-button-focus focus:transparent
+`;
+export const SuccessButton = forward<SuccessButtonProps, 'button'>(({ onSelect, ...rest }, ref) => {
+    const api = useApi();
+    const handleClick = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        onSelect && onSelect(api.valueAsDate, event);
+    };
+
+    return (
+        <styled.button
+            {...rest}
+            ref={ref}
+            data-scope="calendar"
+            data-part="cuccess-button"
+            onClick={handleClick}
+            className={successButtonClassName}
+        />
+    );
+});
