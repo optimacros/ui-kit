@@ -27,6 +27,7 @@
         "@zag-js/select": "0.77.0",
         "@zag-js/slider": "0.77.0",
         "@zag-js/collapsible": "0.77.0",
+        "@zag-js/editable": "0.77.0",
         "classnames": "2.5.1",
         "@zag-js/progress": "0.77.0",
         "lodash": "4.17.21",
