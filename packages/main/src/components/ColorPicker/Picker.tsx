@@ -1,8 +1,6 @@
-// @ts-nocheck
-import * as _ from '@optimacros/ui-kit-utils';
 import React from 'react';
 import { Toolbar, Button, IconButton } from '@optimacros/ui-kit-core';
-
+import { isEmpty, toString } from '@optimacros/ui-kit-utils';
 import CustomPicker from './CustomPicker';
 
 import style from './Color.module.css';
@@ -108,7 +106,7 @@ export default class Picker extends React.Component<Props> {
     };
 
     _onChangeColor = () => {
-        const hasColor = !_.isEmpty(this.state.color);
+        const hasColor = !isEmpty(this.state.color);
         const isValidColor = this._isValidColor(this.state.background);
 
         if (!isValidColor) {
@@ -134,7 +132,7 @@ export default class Picker extends React.Component<Props> {
 
     _isValidColor(color) {
         const regExp = /^#[0-9A-F]{6}$/i;
-        const stringValue = _.toString(color);
+        const stringValue = toString(color);
 
         return regExp.test(stringValue);
     }
