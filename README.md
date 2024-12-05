@@ -5,6 +5,11 @@
 - first `npm run rebase` to rebase to actual master branch
 - then `npm run rebase:continue` to update lock files
 
+## Q&A
+
+Q: something is wrong  
+A: do `node run reinstall`
+
 ### Linters
 
 #### VSCode
