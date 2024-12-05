@@ -1,6 +1,6 @@
 import { Toast, ToastGroup } from '.';
 import { Icon } from '../Icon';
-import { IconButton } from '../IconButtonV2';
+import { IconButton } from '../IconButton';
 
 export default {
     title: 'UI Kit core/Toast',

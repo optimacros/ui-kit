@@ -1,3 +1,1 @@
-export * from './Tab';
-export * from './Tabs';
-export * from './ExtTabs';
+export * as Tabs from './Tabs';

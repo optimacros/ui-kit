@@ -1,7 +1,10 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { ArgTypes, Meta } from '@storybook/react';
 
 import { ButtonMenu } from './index';
-import { MenuItem } from '../Menu';
+import { Icon } from '../Icon';
+import { menu } from '../Menu';
+import { createMenuItems } from '../Menu/mock';
+import { Tooltip } from '../Tooltip';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -77,89 +80,96 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof ButtonMenu> = {
-    title: 'UI Kit core/ButtonMenu',
-    component: ButtonMenu,
+    title: 'UI Kit core/ButtonMenuV2',
     argTypes,
 };
 export default meta;
 
-type Story = StoryObj<typeof ButtonMenu>;
+const menuItems: Array<menu.ItemProps> = createMenuItems(10);
 
-export const Basic: Story = {
-    args: {
-        label: 'Menu',
-        icon: 'print',
-        arrowUp: false,
-        children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
-        ],
-    },
+export const Basic = () => {
+    return (
+        <ButtonMenu.Root>
+            <ButtonMenu.Trigger
+                renderIcon={() => <Icon value="print" />}
+                renderToggleIcon={(props) => <Icon {...props} value={'arrow_drop_down'} />}
+            >
+                Menu
+            </ButtonMenu.Trigger>
+            <ButtonMenu.Content>
+                {menuItems.map((v) => (
+                    <ButtonMenu.Item {...v} />
+                ))}
+            </ButtonMenu.Content>
+        </ButtonMenu.Root>
+    );
 };
 
-export const Uppercase: Story = {
-    args: {
-        label: 'Menu',
-        uppercase: true,
-        children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
-        ],
-    },
+export const Disabled = () => {
+    return (
+        <ButtonMenu.Root disabled>
+            <ButtonMenu.Trigger
+                renderIcon={() => <Icon value="print" />}
+                renderToggleIcon={(props) => <Icon {...props} value={'arrow_drop_down'} />}
+            >
+                Menu
+            </ButtonMenu.Trigger>
+            <ButtonMenu.Content>
+                {menuItems.map((v) => (
+                    <ButtonMenu.Item {...v} />
+                ))}
+            </ButtonMenu.Content>
+        </ButtonMenu.Root>
+    );
 };
 
-export const WithTooltip: Story = {
-    args: {
-        label: 'Menu',
-        tooltip: 'Tooltip text',
-        tooltipDelay: 50,
-        tooltipPosition: 'bottom',
-        tooltipOffset: 0,
-        children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
-        ],
-    },
+export const Uppercase = () => {
+    return (
+        <ButtonMenu.Root>
+            <ButtonMenu.Trigger
+                uppercase
+                renderIcon={() => <Icon value="print" />}
+                renderToggleIcon={(props) => <Icon {...props} value={'arrow_drop_down'} />}
+            >
+                Menu
+            </ButtonMenu.Trigger>
+            <ButtonMenu.Content>
+                {menuItems.map((v) => (
+                    <ButtonMenu.Item {...v} />
+                ))}
+            </ButtonMenu.Content>
+        </ButtonMenu.Root>
+    );
 };
 
-export const Disabled: Story = {
-    args: {
-        label: 'Menu',
-        disabled: true,
-        children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
-        ],
-    },
-};
-
-export const Visible: Story = {
-    args: {
-        label: 'Menu',
-        visible: true,
-        children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
-        ],
-    },
+export const WithTooltip = () => {
+    return (
+        <ButtonMenu.Root>
+            <Tooltip.Root
+                openDelay={0}
+                closeDelay={0}
+                positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
+            >
+                <Tooltip.Trigger asChild>
+                    <div>
+                        <ButtonMenu.Trigger
+                            uppercase
+                            renderIcon={() => <Icon value="print" />}
+                            renderToggleIcon={(props) => (
+                                <Icon {...props} value={'arrow_drop_down'} />
+                            )}
+                        >
+                            Menu
+                        </ButtonMenu.Trigger>
+                    </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content>some info there</Tooltip.Content>
+            </Tooltip.Root>
+            <ButtonMenu.Content>
+                {menuItems.map((v) => (
+                    <ButtonMenu.Item {...v} />
+                ))}
+            </ButtonMenu.Content>
+        </ButtonMenu.Root>
+    );
 };

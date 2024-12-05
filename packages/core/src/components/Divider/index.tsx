@@ -1,39 +1,17 @@
-import classNames from 'classnames';
-import React, { PureComponent } from 'react';
+import { forward, styled } from '@optimacros/ui-kit-store';
+import { tw } from '@optimacros/ui-kit-utils';
+import { Orientation } from '../../constants';
 
-import styles from './Divider.module.css';
-
-export type DividerProps = {
-    vertical?: boolean;
-};
-
-export class Divider extends PureComponent<DividerProps> {
-    render(): React.JSX.Element {
-        const className = classNames({
-            [styles.Divider]: true,
-            [styles.Divider__vertical]: this.props.vertical ?? false,
-        });
-
-        return <hr className={className} />;
-    }
-}
-
-export class HorizontalDivider extends React.Component {
-    static identifier = 'horizontalDivider';
-
-    static hideInToolbarConfig = true;
-
-    render() {
-        return <Divider />;
-    }
-}
-
-export class VerticalDivider extends React.Component {
-    static identifier = 'verticalDivider';
-
-    static isDivider = true;
-
-    render() {
-        return <Divider vertical />;
-    }
-}
+const dividerClassNames = tw`inline-flex m-0 p-0 border-none bg-dark-divider translate-y-px`;
+export const Divider = forward<{ orientation?: Orientation }, 'hr'>(
+    ({ orientation = Orientation.Horizontal, ...rest }, ref) => (
+        <styled.hr
+            {...rest}
+            data-scope="divider"
+            data-part="root"
+            data-orientation={orientation}
+            ref={ref}
+            className={dividerClassNames}
+        />
+    ),
+);

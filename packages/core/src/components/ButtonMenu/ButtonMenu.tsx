@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { Button, ButtonProps } from '../ButtonV2';
-import { Menu } from '../MenuV2';
+import { Button, ButtonProps } from '../Button';
+import { Menu } from '../Menu';
 
 export const { Root, Content, Item } = Menu;
 

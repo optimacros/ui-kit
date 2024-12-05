@@ -1,59 +1,108 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { ArgTypes } from '@storybook/react';
+import { Sidebar } from '.';
+import { Fragment, useState } from 'react';
+import { times } from '@optimacros/ui-kit-utils';
+import { Icon } from '../Icon';
 
-import { Sidebar } from './Sidebar';
-import { getSidebarData } from './utils';
-import { appManagersMock, foldersMock, workspacesMock } from '../../constants';
-import iconFolderOpen from '../../icons/icon-folder-open.svg';
-import { MemoryCounter } from '../MemoryCounter';
-import { ResourceList } from '../ResourceList';
-
-const meta: Meta<typeof Sidebar> = {
-    component: Sidebar,
-    title: 'UI Kit core/Sidebar',
-    argTypes: {
-        children: {
-            description: 'Content of sidebar',
-            control: 'object',
-        },
-        className: { table: { disable: true } },
+const argTypes: Partial<ArgTypes> = {
+    children: {
+        description: 'Content of sidebar',
+        control: 'object',
     },
+    className: { table: { disable: true } },
+};
+
+const meta = {
+    title: 'UI Kit core/SidebarV2',
+    argTypes,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Sidebar>;
+export const Basic = () => {
+    const [open, setOpen] = useState(false);
 
-enum OpenIconType {
-    Folder = 'Folder',
-}
+    return (
+        <div
+            style={{
+                position: 'relative',
+                width: '100%',
+                height: 400,
+                backgroundColor: 'aliceblue',
+            }}
+        >
+            <button onClick={() => setOpen(!open)}>open\close</button>
 
-const openIcons = {
-    [OpenIconType.Folder]: iconFolderOpen,
+            <Sidebar.Root open={open}>
+                <Sidebar.Panel>
+                    <Sidebar.Header>
+                        <Sidebar.CloseTrigger onClick={() => setOpen(false)}>
+                            <Icon value="keyboard-double-arrow-right" />
+                        </Sidebar.CloseTrigger>
+                    </Sidebar.Header>
+
+                    <Sidebar.Content>
+                        <div>
+                            {times(100, (n) => (
+                                <Fragment key={n}>
+                                    line
+                                    <br />
+                                </Fragment>
+                            ))}
+                        </div>
+                    </Sidebar.Content>
+                </Sidebar.Panel>
+
+                <Sidebar.MiniPanel onClick={() => setOpen(true)}>
+                    <Sidebar.Trigger>
+                        <Icon value="keyboard-double-arrow-left" />
+                    </Sidebar.Trigger>
+                </Sidebar.MiniPanel>
+            </Sidebar.Root>
+        </div>
+    );
 };
 
-const sidebarData = getSidebarData(foldersMock, workspacesMock, appManagersMock);
+export const PositionLeft = () => {
+    const [open, setOpen] = useState(false);
 
-const getOpenedIcon = (icon: string) => {
-    return openIcons[icon as OpenIconType];
-};
+    return (
+        <div
+            style={{
+                position: 'relative',
+                width: '100%',
+                height: 400,
+                backgroundColor: 'aliceblue',
+            }}
+        >
+            <button onClick={() => setOpen(!open)}>open\close</button>
 
-export const Basic: Story = {
-    args: {
-        children: [
-            <MemoryCounter
-                key="memory-counter"
-                data={{
-                    filledSize: '2 gb',
-                    percentSize: 20,
-                    freeSize: '5 gb',
-                    doubleFreeSize: '11 gb',
-                }}
-            />,
-            <ResourceList
-                key="resource-list"
-                elements={sidebarData}
-                getOpenedIcon={getOpenedIcon}
-            />,
-        ],
-    },
+            <Sidebar.Root position="left" open={open}>
+                <Sidebar.Panel>
+                    <Sidebar.Header>
+                        <Sidebar.CloseTrigger onClick={() => setOpen(false)}>
+                            <Icon value="keyboard-double-arrow-right" />
+                        </Sidebar.CloseTrigger>
+                    </Sidebar.Header>
+
+                    <Sidebar.Content>
+                        <div>
+                            {times(100, (n) => (
+                                <Fragment key={n}>
+                                    line
+                                    <br />
+                                </Fragment>
+                            ))}
+                        </div>
+                    </Sidebar.Content>
+                </Sidebar.Panel>
+
+                <Sidebar.MiniPanel onClick={() => setOpen(true)}>
+                    <Sidebar.Trigger>
+                        <Icon value="keyboard-double-arrow-left" />
+                    </Sidebar.Trigger>
+                </Sidebar.MiniPanel>
+            </Sidebar.Root>
+        </div>
+    );
 };

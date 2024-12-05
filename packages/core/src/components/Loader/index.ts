@@ -1,1 +1,1 @@
-export { Loader, type LoaderProps } from './Loader';
+export * as Loader from './components';

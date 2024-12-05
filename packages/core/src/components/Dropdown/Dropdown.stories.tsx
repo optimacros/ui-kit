@@ -121,25 +121,16 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Dropdown> = {
-    title: 'UI Kit core/Dropdown',
+    title: 'UI Kit core/DropdownV2',
     // @ts-ignore
-    component: Dropdown,
+    component: Dropdown.Root,
     argTypes,
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    'Ui-kit using `rc-dropdown`. You can read more ' +
-                    'at the [link](https://github.com/react-component/dropdown).',
-            },
-        },
-    },
 };
 
 export default meta;
 
 // todo - fix ts
-type Story = StoryObj<typeof Dropdown>;
+type Story = StoryObj<typeof Dropdown.Root>;
 // type Story = any
 
 const OverlayComponent = () => {
@@ -153,8 +144,9 @@ const OverlayComponent = () => {
 
 export const Basic: Story = {
     args: {
-        children: <Button label="Users" />,
+        children: <Button>Users</Button>,
         closeOnSelect: true,
+
         overlay: <OverlayComponent />,
         trigger: ['hover'],
     },

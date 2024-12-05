@@ -1,2 +1,1 @@
-// @ts-nocheck
-export { default as Modal } from './Modal';
+export * as Modal from './components';

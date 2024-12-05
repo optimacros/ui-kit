@@ -1,31 +1,26 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
 import { Divider } from './index';
+import { Orientation } from '../../constants';
 
-const argTypes: Partial<ArgTypes> = {
-    vertical: {
-        control: 'boolean',
-        description: 'If `true`, divider will be vertical.',
-    },
-};
-
-const meta: Meta<typeof Divider> = {
-    title: 'UI Kit core/Divider',
+export default {
+    title: 'UI Kit core/DividerV2',
     component: Divider,
-    argTypes,
-};
-export default meta;
-
-type Story = StoryObj<typeof Divider>;
-
-export const Horizontal: Story = {
-    args: {
-        vertical: false,
+    tags: ['autodocs'],
+    argTypes: {
+        variant: {
+            control: { type: 'radio' },
+            options: Orientation,
+        },
     },
 };
 
-export const Vertical: Story = {
-    args: {
-        vertical: true,
-    },
+export const Base = (props) => {
+    return <Divider {...props} />;
+};
+
+export const Vertical = (props) => {
+    return <Divider orientation={Orientation.Vertical} {...props} />;
+};
+
+export const Horizonatal = (props) => {
+    return <Divider orientation={Orientation.Horizontal} {...props} />;
 };

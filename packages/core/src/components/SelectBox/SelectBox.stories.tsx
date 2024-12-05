@@ -1,8 +1,13 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { ReactNode, useState } from 'react';
 
-import { SelectBox } from './index';
-import { SelectBoxProps } from './SelectBox.tsx';
+import { Select } from './index';
+import { createSelectBoxItems } from './mock';
+import { Icon } from '../Icon';
+import { Field } from '../Field';
+import { ReactNode } from 'react';
+import { Button } from '../Button';
+import { ButtonGroup } from '../ButtonGroup';
+import { IconButton } from '../IconButton';
 
 const argTypes: Partial<ArgTypes> = {
     allowBlank: {
@@ -65,130 +70,185 @@ const argTypes: Partial<ArgTypes> = {
     onChange: { table: { disable: true } },
     onFocus: { table: { disable: true } },
 };
-
-const meta: Meta<typeof SelectBox> = {
-    title: 'UI Kit core/SelectBox',
-    component: SelectBox,
-    argTypes,
-};
-export default meta;
-
-type Story = StoryObj<typeof SelectBox>;
-
-const source = [
-    { label: 'Newer first', value: 1 },
-    { label: 'Older first', value: 2 },
-    { label: 'No sort', value: 3 },
-];
-const customSource = [
-    { title: 'One', key: 1 },
-    { title: 'Two', key: 2 },
-];
-
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
 );
+const meta: Meta<typeof Select> = {
+    title: 'UI Kit core/SelectV2',
+    component: Select.Root,
+    argTypes,
+    decorators: [
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
+    ],
+};
+export default meta;
 
-const Template: Story = {
-    render: ({ ...args }) => {
-        const [value, setValue] = useState<SelectBoxProps['value']>(1);
-
-        return <SelectBox {...args} value={value} onChange={(val) => setValue(val)} />;
-    },
+type Story = StoryObj<typeof Select>;
+const mockItems = createSelectBoxItems(20);
+const defaultContext = {
+    name: 'select-story-1',
+    closeOnSelect: false,
+    multiple: true,
+    deselectable: true,
+    // value: [mockItems[0].value],
 };
 
-const MultiTemplate: Story = {
-    render: ({ ...args }) => {
-        const [value, setValue] = useState<SelectBoxProps['value']>([1, 2]);
-
-        return (
-            <div>
-                <SelectBox {...args} value={value} onChange={(val) => setValue(val)} />
+const ControlTemplate = ({ children, ...rest }) => {
+    return (
+        <Select.Root items={mockItems} {...rest} {...defaultContext}>
+            <div className="flex">
+                <Select.Api>
+                    {(api) =>
+                        api.value.map((value) => {
+                            return (
+                                <div className="bg-primary p-1.5 rounded-xs">
+                                    {value}
+                                    <Select.ItemDeleteTrigger item={{ value }} asChild>
+                                        <IconButton size="sm" squared>
+                                            <Icon value={'close'} />
+                                        </IconButton>
+                                    </Select.ItemDeleteTrigger>
+                                </div>
+                            );
+                        })
+                    }
+                </Select.Api>
             </div>
-        );
-    },
+
+            <Select.Control>{children}</Select.Control>
+
+            <Select.Positioner>
+                <Select.Content>
+                    <Select.FloatingCloseTrigger>
+                        <Icon value="close" />
+                    </Select.FloatingCloseTrigger>
+
+                    <Select.List>
+                        {(item) => (
+                            <Select.Item item={item} key={item.value}>
+                                {({ selected }) => (
+                                    <>
+                                        <div>
+                                            {selected ? (
+                                                <Icon value="check_box" />
+                                            ) : (
+                                                <Icon value="check_box_outline_blank" />
+                                            )}
+                                        </div>
+                                        <Select.ItemLabel>{item.label}</Select.ItemLabel>
+                                    </>
+                                )}
+                            </Select.Item>
+                        )}
+                    </Select.List>
+                </Select.Content>
+            </Select.Positioner>
+        </Select.Root>
+    );
 };
 
-export const Basic: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
+export const InputTrigger = (props) => {
+    return (
+        <ControlTemplate {...props}>
+            <Select.Api>
+                {(api) => (
+                    <Field.Root status={api.disabled ? 'readonly' : 'default'}>
+                        <Field.FloatingLabel>label</Field.FloatingLabel>
+
+                        <Select.HiddenInput />
+
+                        <Field.TriggerInput
+                            {...api.getTriggerProps()}
+                            value={api.empty ? 'choose value' : api.valueAsString}
+                        >
+                            <Field.Icon>
+                                <Icon value={'arrow_drop_down'} />
+                            </Field.Icon>
+                        </Field.TriggerInput>
+                    </Field.Root>
+                )}
+            </Select.Api>
+        </ControlTemplate>
+    );
 };
 
-export const Multi: Story = {
-    ...MultiTemplate,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        multiSelect: true,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
+export const ButtonTrigger = (props) => {
+    return (
+        <ControlTemplate {...props}>
+            <Select.Api>
+                {(api) => (
+                    <Button {...api.getTriggerProps()} variant="bordered">
+                        {api.empty ? 'choose value' : api.valueAsString}
+                        <div className="data-[active=true]:rotate-180" data-active={api.open}>
+                            <Icon value={'arrow_drop_down'} />
+                        </div>
+                    </Button>
+                )}
+            </Select.Api>
+        </ControlTemplate>
+    );
 };
 
-export const Disabled: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        disabled: true,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
+export const ButtonGroupTrigger = (props) => {
+    return (
+        <ControlTemplate {...props}>
+            <Select.Api>
+                {(api) => (
+                    <ButtonGroup.Root>
+                        <ButtonGroup.Item>
+                            {api.empty ? 'choose value' : api.valueAsString}
+                        </ButtonGroup.Item>
+                        <ButtonGroup.Item {...api.getTriggerProps()}>
+                            <div className="data-[active=true]:rotate-180" data-active={api.open}>
+                                <IconButton>
+                                    <Icon value={'arrow_drop_down'} />
+                                </IconButton>
+                            </div>
+                        </ButtonGroup.Item>
+                    </ButtonGroup.Root>
+                )}
+            </Select.Api>
+        </ControlTemplate>
+    );
 };
 
-export const Error: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        error: 'Error description',
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
-};
+const mockManyItems = createSelectBoxItems(2000);
+export const VirtualSelect = ({ children, ...rest }) => {
+    return (
+        <Select.Root items={mockManyItems} {...rest} {...defaultContext}>
+            <Select.Control>
+                <Select.Trigger>open</Select.Trigger>
+            </Select.Control>
+            <Select.Positioner>
+                <Select.Content>
+                    <Select.FloatingCloseTrigger>
+                        <Icon value="close" />
+                    </Select.FloatingCloseTrigger>
 
-export const Required: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        required: true,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
-};
-
-export const Custom: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        labelKey: 'title',
-        valueKey: 'key',
-        source: customSource,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
-    ],
+                    <Select.VirtualList>
+                        {(item) => (
+                            <Select.Item item={item} key={item.value}>
+                                {({ selected }) => (
+                                    <>
+                                        <div>
+                                            {selected ? (
+                                                <Icon value="check_box" />
+                                            ) : (
+                                                <Icon value="check_box_outline_blank" />
+                                            )}
+                                        </div>
+                                        <Select.ItemLabel>{item.label}</Select.ItemLabel>
+                                    </>
+                                )}
+                            </Select.Item>
+                        )}
+                    </Select.VirtualList>
+                </Select.Content>
+            </Select.Positioner>
+        </Select.Root>
+    );
 };

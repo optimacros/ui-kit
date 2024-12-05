@@ -1,6 +1,5 @@
 import { UiCoreContextWrapper } from '../packages/main/src';
 import { Preview } from '@storybook/react';
-import '../packages/main/src/themes/appBaseTheme.css';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 
 const preview: Preview = {
