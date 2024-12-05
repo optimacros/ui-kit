@@ -1,6 +1,6 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
-import { Button } from './src/index';
+import { Button } from './index';
 import { Icon } from '../Icon';
 
 const argTypes: Partial<ArgTypes> = {
