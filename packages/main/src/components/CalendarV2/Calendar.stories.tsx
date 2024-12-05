@@ -22,6 +22,40 @@ export const Basic = () => {
     return (
         <Calendar.Root>
             <Calendar.Content>
+                <Calendar.Header>
+                    <Calendar.HeaderYears />
+                    <Calendar.HeaderMonths />
+                </Calendar.Header>
+                <Calendar.ViewControl>
+                    <Calendar.PrevTrigger>
+                        <Icon value="chevron_left" />
+                    </Calendar.PrevTrigger>
+                    <Calendar.RangeText />
+                    <Calendar.NextTrigger>
+                        <Icon value="chevron_right" />
+                    </Calendar.NextTrigger>
+                </Calendar.ViewControl>
+                <Calendar.Table>
+                    <Calendar.TableHead />
+                    <Calendar.TableBody />
+                </Calendar.Table>
+                <Calendar.Footer>
+                    <Calendar.CanselButton>Cancel</Calendar.CanselButton>
+                    <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
+                </Calendar.Footer>
+            </Calendar.Content>
+        </Calendar.Root>
+    );
+};
+
+export const Selected = () => {
+    return (
+        <Calendar.Root>
+            <Calendar.Content value={new Date('02.12.2014')}>
+                <Calendar.Header>
+                    <Calendar.HeaderYears />
+                    <Calendar.HeaderMonths />
+                </Calendar.Header>
                 <Calendar.ViewControl>
                     <Calendar.PrevTrigger>
                         <Icon value="chevron_left" />

@@ -19,7 +19,7 @@ export const Root = ({ state, ...context }: ComponentProps<typeof RootProvider>)
 
 export const contentClassName = tw`
 w-datepicker-dialog bg-calendar-primary-contrast text-[var(--font-size-calendar)] h-calendar-total 
-leading-[var(--height-calendar-row)] overflow-hidden relative text-center bg-calendar-primary-contrast
+leading-[var(--height-calendar-row)] relative text-center bg-calendar-primary-contrast
 `;
 export const Content = forward<{ value?: Date }, 'div'>(({ value, ...rest }, ref) => {
     const api = useApi();
@@ -38,6 +38,60 @@ export const Content = forward<{ value?: Date }, 'div'>(({ value, ...rest }, ref
     );
 });
 
+export const headerClassName = tw`
+flex flex-col items-start bg-calendar-header text-calendar-header-text 
+p-[calc(1.6_*_var(--unit))] pl-[calc(2_*_var(--unit))] pr-[calc(2_*_var(--unit))]
+`;
+export const Header = forward<{}, 'header'>((props, ref) => {
+    return (
+        <styled.header
+            {...props}
+            ref={ref}
+            data-scope="calendar"
+            data-part="header"
+            className={headerClassName}
+        />
+    );
+});
+
+export const headerYearsClassName = tw`inline-block text-[var(--font-size-calendar-year)] transition-opacity`;
+export const HeaderYears = forward<{ locale?: string }, 'span'>(({ locale, ...rest }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.span
+            {...rest}
+            ref={ref}
+            data-scope="calendar"
+            data-part="header-years"
+            className={headerYearsClassName}
+        >
+            {api.value[0]?.year}
+        </styled.span>
+    );
+});
+
+export const headerMonthsClassName = tw`
+text-[var(--font-size-calendar-month)] font-[var(--font-weight-semi-bold)]
+leading-[var(--size-calendar-month-text)] m-0 capitalize transition-opacity
+`;
+export const HeaderMonths = forward<{ locale?: string }, 'h3'>(({ locale, ...rest }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.h3
+            {...rest}
+            ref={ref}
+            data-scope="calendar"
+            data-part="header-months"
+            className={headerMonthsClassName}
+        >
+            {api.valueAsDate[0] &&
+                `${time.getShortMonth(api.valueAsDate[0], locale)} ${api.value[0]?.day}`}
+        </styled.h3>
+    );
+});
+
 export const ViewControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
@@ -53,7 +107,7 @@ export const ViewControl = forward<{}, 'div'>((props, ref) => {
 });
 
 export const prevTriggerClassName = tw`
-cursor-pointer h-trigger-button opacity-70 absolute top-0 z-[var(--z-index-high)] left-0 w-calendar-trigger
+cursor-pointer h-trigger-button opacity-70 absolute z-[var(--z-index-high)] left-0 w-calendar-trigger
 bg-transparent border-0 rounded-[0.06rem] border-0 w-[var(--width-calendar-trigger)]
 hover:border hover:border-solid hover:border-[var(--color-calendar-trigger)]
 `;
@@ -73,7 +127,7 @@ export const PrevTrigger = forward<{}, 'button'>((props, ref) => {
 });
 
 export const nextTriggerClassName = tw`
-cursor-pointer h-trigger-button opacity-70 absolute top-0 z-[var(--z-index-high)] right-0
+cursor-pointer h-trigger-button opacity-70 absolute z-[var(--z-index-high)] right-0
 bg-transparent rounded-[0.06rem] border-0 w-[var(--width-calendar-trigger)]
 hover:border hover:border-solid hover:border-[var(--color-calendar-trigger)]
 `;
