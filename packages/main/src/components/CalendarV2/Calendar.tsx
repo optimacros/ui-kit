@@ -207,46 +207,44 @@ export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...res
 
 export const tableBodyClassName = tw`text-calendar-day cursor-pointer`;
 export const tdClassName = tw`rounded-[0.2rem] hover:bg-calendar-primary-hover hover:text-calendar-primary`;
-export const TableBody = forward<{ onSelect: () => void }, 'tbody'>(
-    ({ onSelect, ...rest }, ref) => {
-        const api = useApi();
-        const handleClick = (value: datepicker.DateValue) => {
-            api.setValue([value]);
-        };
+export const TableBody = forward<{}, 'tbody'>((props, ref) => {
+    const api = useApi();
+    const handleClick = (value: datepicker.DateValue) => {
+        api.setValue([value]);
+    };
 
-        return (
-            <styled.tbody
-                {...rest}
-                {...api.getTableBodyProps({ view: 'day' })}
-                data-scope="calendar"
-                data-part="table-body"
-                ref={ref}
-                className={tableBodyClassName}
-            >
-                {api.weeks.map((week, i) => (
-                    <tr key={i} {...api.getTableRowProps({ view: 'day' })}>
-                        {week.map((value, i) => (
-                            <td
-                                key={i}
-                                {...api.getDayTableCellProps({ value })}
-                                className={tdClassName}
+    return (
+        <styled.tbody
+            {...props}
+            {...api.getTableBodyProps({ view: 'day' })}
+            data-scope="calendar"
+            data-part="table-body"
+            ref={ref}
+            className={tableBodyClassName}
+        >
+            {api.weeks.map((week, i) => (
+                <tr key={i} {...api.getTableRowProps({ view: 'day' })}>
+                    {week.map((value, i) => (
+                        <td
+                            key={i}
+                            {...api.getDayTableCellProps({ value })}
+                            className={tdClassName}
+                        >
+                            <div
+                                {...api.getDayTableCellTriggerProps({
+                                    value,
+                                })}
+                                onClick={() => handleClick(value)}
                             >
-                                <div
-                                    {...api.getDayTableCellTriggerProps({
-                                        value,
-                                    })}
-                                    onClick={() => handleClick(value)}
-                                >
-                                    {value.day}
-                                </div>
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </styled.tbody>
-        );
-    },
-);
+                                {value.day}
+                            </div>
+                        </td>
+                    ))}
+                </tr>
+            ))}
+        </styled.tbody>
+    );
+});
 
 export const footerClassName = tw`flex-grow-0 p-[var(--padding-footer)] text-right`;
 export const Footer = forward<{}, 'div'>((props, ref) => {
