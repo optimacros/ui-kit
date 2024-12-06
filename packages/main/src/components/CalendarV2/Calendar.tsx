@@ -1,9 +1,13 @@
-import React, { ComponentProps, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { time, tw } from '@optimacros/ui-kit-utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as datepicker from '@zag-js/date-picker';
 
-export const { RootProvider, useApi, State } = createReactApiStateContext({
+export const {
+    RootProvider: Root,
+    useApi,
+    State,
+} = createReactApiStateContext({
     api: null as datepicker.Api,
     id: 'calendar',
     machine: datepicker,
@@ -13,12 +17,8 @@ export const { RootProvider, useApi, State } = createReactApiStateContext({
     },
 });
 
-export const Root = ({ state, ...context }: ComponentProps<typeof RootProvider>) => {
-    return <RootProvider {...context} state={state} />;
-};
-
 export const contentClassName = tw`
-w-datepicker-dialog bg-calendar-primary-contrast text-[var(--font-size-calendar)] h-calendar-total 
+w-datepicker-dialog bg-calendar-primary-contrast text-[1.4rem] h-calendar-total 
 leading-[var(--height-calendar-row)] relative text-center bg-calendar-primary-contrast
 `;
 export const Content = forward<{ value?: Date }, 'div'>(({ value, ...rest }, ref) => {
@@ -54,7 +54,7 @@ export const Header = forward<{}, 'header'>((props, ref) => {
     );
 });
 
-export const headerYearsClassName = tw`inline-block text-[var(--font-size-calendar-year)] transition-opacity`;
+export const headerYearsClassName = tw`inline-block text-[1.3rem] opacity-60 leading-none`;
 export const HeaderYears = forward<{ locale?: string }, 'span'>(({ locale, ...rest }, ref) => {
     const api = useApi();
 
@@ -87,11 +87,12 @@ export const HeaderMonths = forward<{ locale?: string }, 'h3'>(({ locale, ...res
             className={headerMonthsClassName}
         >
             {api.valueAsDate[0] &&
-                `${time.getShortMonth(api.valueAsDate[0], locale)} ${api.value[0]?.day}`}
+                `${api.valueAsDate.toLocaleString(locale, { weekday: 'short' })}, ${time.getShortMonth(api.valueAsDate[0], locale)} ${api.value[0]?.day}`}
         </styled.h3>
     );
 });
 
+export const viewControlClassName = tw`p-[var(--unit)] px-[calc(0.5_*_var(--unit))] pb-0`;
 export const ViewControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
@@ -102,6 +103,7 @@ export const ViewControl = forward<{}, 'div'>((props, ref) => {
             data-scope="calendar"
             data-part="view-control"
             ref={ref}
+            className={viewControlClassName}
         />
     );
 });
@@ -180,8 +182,9 @@ export const Table = forward<{}, 'table'>((props, ref) => {
 });
 
 export const tableHeadClassNames = tw`
-text-[var(--font-size-calendar-day)] h-calendar-row leading-[var(--height-calendar-row)] opacity-50
+text-[1.3rem] h-calendar-row leading-[var(--height-calendar-row)] opacity-50
 `;
+export const tableHeadThClassNames = tw`font-normal`;
 export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...rest }, ref) => {
     const api = useApi();
 
@@ -196,7 +199,7 @@ export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...res
         >
             <tr {...api.getTableRowProps({ view: 'day' })}>
                 {api.weekDays.map((day, i) => (
-                    <th scope="col" key={i} aria-label={day.long}>
+                    <th scope="col" key={i} aria-label={day.long} className={tableHeadThClassNames}>
                         {time.getShortDayOfWeek(i, locale)}
                     </th>
                 ))}
@@ -206,7 +209,7 @@ export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...res
 });
 
 export const tableBodyClassName = tw`text-calendar-day cursor-pointer`;
-export const tdClassName = tw`rounded-[0.2rem] hover:bg-calendar-primary-hover hover:text-calendar-primary`;
+export const tdClassName = tw`size-[3.6rem] rounded-[2rem] inline-block hover:bg-calendar-primary-hover hover:text-calendar-primary`;
 export const TableBody = forward<{}, 'tbody'>((props, ref) => {
     const api = useApi();
     const handleClick = (value: datepicker.DateValue) => {
@@ -225,19 +228,16 @@ export const TableBody = forward<{}, 'tbody'>((props, ref) => {
             {api.weeks.map((week, i) => (
                 <tr key={i} {...api.getTableRowProps({ view: 'day' })}>
                     {week.map((value, i) => (
-                        <td
-                            key={i}
-                            {...api.getDayTableCellProps({ value })}
-                            className={tdClassName}
-                        >
-                            <div
+                        <td key={i} {...api.getDayTableCellProps({ value })}>
+                            <span
                                 {...api.getDayTableCellTriggerProps({
                                     value,
                                 })}
                                 onClick={() => handleClick(value)}
+                                className={tdClassName}
                             >
                                 {value.day}
-                            </div>
+                            </span>
                         </td>
                     ))}
                 </tr>

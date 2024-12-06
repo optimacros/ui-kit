@@ -6,7 +6,7 @@ const Wrapper = ({ children }: { children }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
 
-const value = new Date('02.12.2024');
+const value = new Date('12.02.2024');
 const locale = 'ru';
 
 const meta: Meta<typeof Calendar> = {

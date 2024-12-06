@@ -271,12 +271,12 @@
 }
 
 .header {
-  background-color: var(--accent-color);
+  background-color: var(--color-primary);
 }
 
 .day {
   &.active span {
-    background-color: var(--primary-color);
+    background-color: var(--color-primary);
   }
 }
 

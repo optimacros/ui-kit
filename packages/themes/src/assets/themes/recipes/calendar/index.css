@@ -33,7 +33,15 @@
 }
 
 [data-scope='calendar'][data-part='table-body'] {
-  & [aria-selected='true'] {
+  & [aria-selected='true'] span {
     @apply bg-calendar-primary text-calendar-primary-contrast;
+  }
+
+  & [aria-selected='true']:hover {
+    @apply text-calendar-primary-contrast;
+  }
+
+  & [aria-disabled='true'] {
+    @apply opacity-0 pointer-events-none;
   }
 }
