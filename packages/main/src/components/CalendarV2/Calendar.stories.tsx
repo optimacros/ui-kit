@@ -43,7 +43,7 @@ export const Basic = () => {
                     <Calendar.TableBody />
                 </Calendar.Table>
                 <Calendar.Footer>
-                    <Calendar.CanselButton>Cancel</Calendar.CanselButton>
+                    <Calendar.DismissButton>Cancel</Calendar.DismissButton>
                     <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
                 </Calendar.Footer>
             </Calendar.Content>
@@ -73,7 +73,7 @@ export const Selected = () => {
                     <Calendar.TableBody />
                 </Calendar.Table>
                 <Calendar.Footer>
-                    <Calendar.CanselButton>Cancel</Calendar.CanselButton>
+                    <Calendar.DismissButton>Cancel</Calendar.DismissButton>
                     <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
                 </Calendar.Footer>
             </Calendar.Content>
@@ -103,7 +103,7 @@ export const RussianLanguage = () => {
                     <Calendar.TableBody />
                 </Calendar.Table>
                 <Calendar.Footer>
-                    <Calendar.CanselButton>Закрыть</Calendar.CanselButton>
+                    <Calendar.DismissButton>Закрыть</Calendar.DismissButton>
                     <Calendar.SuccessButton>Выбрать</Calendar.SuccessButton>
                 </Calendar.Footer>
             </Calendar.Content>

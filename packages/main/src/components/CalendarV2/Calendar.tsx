@@ -262,23 +262,25 @@ export const Footer = forward<{}, 'div'>((props, ref) => {
 export type DismissButtonProps = {
     onDismiss?: () => void;
 };
-export const cancelButtonClassName = tw`
+export const dismissButtonClassName = tw`
 ml-[var(--padding-footer)] min-w-0 px-[var(--padding-footer)] leading-[var(--height-calendar-button-text)] cursor-pointer
 bg-transparent text-calendar-button-text border-none h-full text-[1.4rem] rounded-[0.1875rem] m-w-calendar-button
 hover:bg-calendar-button-hover focus:bg-calendar-button-focus focus:transparent
 `;
-export const CanselButton = forward<DismissButtonProps, 'button'>(({ onDismiss, ...rest }, ref) => {
-    return (
-        <styled.button
-            {...rest}
-            ref={ref}
-            data-scope="calendar"
-            data-part="cancel-button"
-            onClick={onDismiss}
-            className={cancelButtonClassName}
-        />
-    );
-});
+export const DismissButton = forward<DismissButtonProps, 'button'>(
+    ({ onDismiss, ...rest }, ref) => {
+        return (
+            <styled.button
+                {...rest}
+                ref={ref}
+                data-scope="calendar"
+                data-part="cancel-button"
+                onClick={onDismiss}
+                className={dismissButtonClassName}
+            />
+        );
+    },
+);
 
 export type SuccessButtonProps = {
     onSelect?: (value: Date, event: React.ChangeEvent<HTMLSelectElement>) => void;
