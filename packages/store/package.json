@@ -16,9 +16,7 @@
         "immutable": "4.3.5",
         "proxy-memoize": "3.0.1"
     },
-    "devDependencies": {
-        "@types/lodash-es": "^4.17.12"
-    },
+
     "peerDependencies": {
         "react": "18.2.0"
     }
