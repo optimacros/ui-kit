@@ -15,6 +15,7 @@
         "@optimacros/ui-kit-core": "^1.1.5",
         "@optimacros/ui-kit-types": "^0.0.2",
         "@optimacros/ui-kit-utils": "^0.0.2",
+        "@zag-js/color-picker": "0.77.0",
         "marked": "4.1.0",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",
