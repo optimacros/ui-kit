@@ -40,6 +40,7 @@ export const ICONS_MAP = {
     'edit-pen': 'edit-pen',
     edit: 'edit',
     error: 'error',
+    'eye-drop': 'eye-drop',
     filter: 'filter',
     flexible: 'flexible',
     folder: 'folder',
