@@ -1,11 +1,17 @@
-const exec = require('child_process').exec;
+const { exec } = require('child_process');
 const fs = require('fs');
+const readline = require('readline');
+
 const mainBranchArg = '--main';
 
-const updateLockFileCommand = [
-    `npm i`,
-    `git commit -a -m "chore: update package-lock" | git push --force`,
-].join(' && ');
+const line = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+const updateLockFileCommand = [`npm i`, `git commit -a -m "chore: update package-lock"`].join(
+    ' && ',
+);
 
 const createCommands = (currentBranch, mainBranch) => {
     return [
@@ -29,10 +35,23 @@ function rebase() {
         if (continueCommand) {
             console.info('running update package-lock...');
 
+            fs.rmSync('node_modules', { recursive: true, force: true });
+
             fs.unlink('package-lock.json', () => {
                 exec(updateLockFileCommand, (err, output, stderr) => {
                     console.info(output);
                     console.error(stderr);
+
+                    line.question('push? y/n \n', (answer) => {
+                        if (answer === 'y') {
+                            exec('git push --force', () => {
+                                console.info('done');
+                                line.close();
+                            });
+                        } else {
+                            line.close();
+                        }
+                    });
                 });
             });
         } else {
