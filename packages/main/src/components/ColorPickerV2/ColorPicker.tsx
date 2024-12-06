@@ -102,6 +102,10 @@ export const Swatches = forward<SwatchesProps, 'div'>(
     { displayName: 'Swatches' },
 );
 
+interface PopoverProps extends PropsWithChildren {
+    eyeDropperIcon: React.ReactNode;
+}
+
 export const contentClassName = tw`isolate p-4 bg-[var(--bg)] 
 [&>div]:flex [&>div]:flex-col [&>div]:gap-2`;
 export const areaClassName = tw`h-48 rounded border
@@ -113,8 +117,8 @@ export const sliderThumbClassName = tw`size-[var(--size)] border-2 border-solid 
 export const sliderTrackClassName = tw`h-[var(--height)] rounded`;
 export const eyeDropperTriggerClassName = tw`size-[var(--size)] border flex flex-col items-center justify-center`;
 
-export const Popover = forward<PropsWithChildren, 'div'>(
-    ({ children, ...rest }, ref) => {
+export const Popover = forward<PopoverProps, 'div'>(
+    ({ eyeDropperIcon, children, ...rest }, ref) => {
         const api = useApi();
         return (
             <Portal>
@@ -166,11 +170,11 @@ export const Popover = forward<PropsWithChildren, 'div'>(
                                     {...api.getEyeDropperTriggerProps()}
                                     className={eyeDropperTriggerClassName}
                                 >
-                                    <EyeDropIcon />
+                                    {eyeDropperIcon}
                                 </button>
                             </div>
 
-                            <Show when={api.format.startsWith('hsl')}>
+                            {api.format.startsWith('hsl') && (
                                 <div>
                                     <div>
                                         <input
@@ -205,9 +209,9 @@ export const Popover = forward<PropsWithChildren, 'div'>(
                                         <span>A</span>
                                     </div>
                                 </div>
-                            </Show>
+                            )}
 
-                            <Show when={api.format.startsWith('rgb')}>
+                            {api.format.startsWith('rgb') && (
                                 <div>
                                     <div>
                                         <input
@@ -238,9 +242,9 @@ export const Popover = forward<PropsWithChildren, 'div'>(
                                         <span>A</span>
                                     </div>
                                 </div>
-                            </Show>
+                            )}
 
-                            <Show when={api.format.startsWith('hsb')}>
+                            {api.format.startsWith('hsb') && (
                                 <div>
                                     <div>
                                         <input
@@ -275,7 +279,7 @@ export const Popover = forward<PropsWithChildren, 'div'>(
                                         <span>A</span>
                                     </div>
                                 </div>
-                            </Show>
+                            )}
 
                             {children}
                         </div>
