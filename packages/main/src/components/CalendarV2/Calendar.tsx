@@ -274,7 +274,7 @@ export const DismissButton = forward<DismissButtonProps, 'button'>(
                 {...rest}
                 ref={ref}
                 data-scope="calendar"
-                data-part="cancel-button"
+                data-part="dismiss-button"
                 onClick={onDismiss}
                 className={dismissButtonClassName}
             />
