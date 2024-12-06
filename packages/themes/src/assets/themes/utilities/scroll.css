@@ -40,3 +40,36 @@
     }
   }
 }
+
+[data-role='scroll-container'] {
+  & {
+    scrollbar-gutter: stable;
+  }
+
+  &::-webkit-scrollbar {
+    width: var(--width-scroll);
+    background: var(--scrollbar);
+
+    &::horizontal {
+      border: none;
+      border-top: 1px solid transparent;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: var(--body-bg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    background-clip: padding-box;
+
+    &:hover {
+      background-color: var(--scrollbar-thumb-hover);
+    }
+
+    &:active {
+      background-color: var(--scrollbar-thumb-hover);
+    }
+  }
+}
