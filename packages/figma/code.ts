@@ -179,6 +179,7 @@ function flattenStyleArray(arr) {
 }
 
 const getComponentStyles = (parentName, parentSelectors: Array<string>, component: SceneNode) => {
+    console.log(component);
     const [componentName, componentPart = 'root'] = component.name.replaceAll(' ', '').split('/');
 
     const componentSelector = `[data-scope="${parentName}"][data-part="${componentPart}"]`;
@@ -218,7 +219,32 @@ const getComponentStyles = (parentName, parentSelectors: Array<string>, componen
             .filter(
                 (child: SceneNode) => child.type === 'INSTANCE' && child.name.includes(parentName),
             )
-            .map((child: SceneNode) => getComponentStyles(parentName, variantSelectors, child)),
+            .map((child: SceneNode) => {
+                // TODO: get all attribute states and merge in current
+                const allVariants = figma.currentPage.findOne(
+                    (node) => node.name === child.name && node.type === 'COMPONENT_SET',
+                )?.children;
+
+                if (allVariants) {
+                    const variantStyles = allVariants
+                        .filter(
+                            (variant) =>
+                                variant.variantProperties.variant ===
+                                child.variantProperties.variant,
+                        )
+                        .map((variant: SceneNode) => {
+                            const variantClone = variant.clone();
+
+                            variantClone.name = child.name;
+
+                            return getComponentStyles(parentName, variantSelectors, variantClone);
+                        });
+
+                    return Promise.all(variantStyles);
+                }
+
+                return getComponentStyles(parentName, variantSelectors, child);
+            }),
     );
 
     const componentStyleKey = `${componentName}/${componentPart}`;
@@ -251,7 +277,8 @@ const getComponentStyles = (parentName, parentSelectors: Array<string>, componen
         })
         .then((v) => {
             const config = getExportConfig(componentStyleKey);
-            
+            // get states by external component
+
             if (config.styledBy === 'parent') {
                 const selectors = parentSelectors
                     .map((parentSelector) =>
@@ -264,7 +291,6 @@ const getComponentStyles = (parentName, parentSelectors: Array<string>, componen
                     .flat()
                     .join();
 
-                console.log(selectors);
                 return [selectors, v];
             }
 
