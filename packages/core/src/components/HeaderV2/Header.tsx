@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { tw } from '@optimacros/ui-kit-utils';
 import { forward, styled } from '@optimacros/ui-kit-store';
+import { Menu } from '../Menu';
+export * from '../Menu/Menu';
 
 export type HeaderProps = React.PropsWithChildren;
 
@@ -34,7 +36,7 @@ export const Icon = forward<{}, 'div'>((props, ref) => (
 ));
 
 export const badgeClassName = tw`
-  flex justify-center items-center absolute box-border font-normal text-[0.5rem] size-[0.75rem] rounded-full z-index-high right-0 top-0
+  flex justify-center items-center absolute box-border font-normal text-[0.5rem] size-[0.75rem] rounded-full z-[1] right-0 top-0
   text-notification-badge-text bg-notification-badge transform scale-100 translate-x-[-0.1875rem] translate-y-[0.3125rem]
 `;
 export const Badge = forward<{}, 'div'>((props, ref) => (
@@ -60,4 +62,9 @@ export const Notification = forward<{}, 'div'>((props, ref) => {
             className={notificationClassName}
         />
     );
+});
+
+// TODO Menu
+export const MenuRoot = forward<ComponentProps<typeof Menu.Root>, 'div'>((props, ref) => {
+    return <Menu.Root {...props} data-tag="header" ref={ref} />;
 });
