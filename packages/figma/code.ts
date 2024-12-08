@@ -1,7 +1,8 @@
 //@ts-nocheck
 import tinycolor from 'tinycolor2';
 import * as exportTypeMap from './component-names';
-import { getComponentsStyleSheet } from './exports-config';
+import { getComponentsStyleSheet, getExportConfig } from './exports-config';
+import { SceneNode } from '@figma/plugin-typings/plugin-api-standalone';
 
 //biome-ignore lint: wait
 figma.showUI(__html__, { themeColors: true, height: 400, width: 350 });
@@ -156,6 +157,123 @@ const EXPORT_PROPERTY = 'export';
 
 const EXPORT_ATTRIBUTES = ['aria', 'data'] as const;
 
+function flattenStyleArray(arr) {
+    const result = [];
+
+    function processArray(array) {
+        for (const item of array) {
+            if (Array.isArray(item)) {
+                if (item.length === 2 && typeof item[0] === 'string') {
+                    // If it's a tuple of [selector, styles], add it
+                    result.push(item);
+                } else {
+                    // Otherwise, process nested array
+                    processArray(item);
+                }
+            }
+        }
+    }
+
+    processArray(arr);
+    return result;
+}
+
+const getComponentStyles = (parentName, parentSelectors: Array<string>, component: SceneNode) => {
+    const [componentName, componentPart = 'root'] = component.name.replaceAll(' ', '').split('/');
+
+    const componentSelector = `[data-scope="${parentName}"][data-part="${componentPart}"]`;
+
+    const cssState = component.variantProperties?.[cssStateKey];
+
+    const variantSelector = Object.keys(component.variantProperties)
+        .filter((key) => key !== cssStateKey)
+        .map((key) => {
+            const value = component.variantProperties[key];
+
+            // if no option is provided -> return same selector, it affects parent selector
+            if (value === DEFAULT_VALUE) {
+                return '';
+            }
+
+            return `[data-${key}="${value}"]`;
+        })
+        .join('');
+
+    const attrSelectors = [];
+
+    if (cssState && cssState !== DEFAULT_VALUE) {
+        attrSelectors.push(
+            `:${cssState}`,
+            ...EXPORT_ATTRIBUTES.map((attr) => `[${attr}-${cssState}=true]`),
+        );
+    }
+
+    const variantSelectors =
+        attrSelectors.length === 0
+            ? [`${componentSelector}${variantSelector}`]
+            : attrSelectors.map((s) => `${componentSelector}${variantSelector}${s}`);
+
+    const children = Promise.all(
+        component.children
+            .filter(
+                (child: SceneNode) => child.type === 'INSTANCE' && child.name.includes(parentName),
+            )
+            .map((child: SceneNode) => getComponentStyles(parentName, variantSelectors, child)),
+    );
+
+    const componentStyleKey = `${componentName}/${componentPart}`;
+
+    const styles = component
+        .getCSSAsync()
+        .then((css) => {
+            const text = component.children.find((c) => c.name === 'css-text');
+
+            if (text) {
+                return text.getCSSAsync().then((textCss) => {
+                    const styles = getComponentsStyleSheet(
+                        componentStyleKey,
+                        component.variantProperties,
+                        css,
+                        textCss,
+                    );
+
+                    return styles;
+                });
+            }
+
+            const styles = getComponentsStyleSheet(
+                componentStyleKey,
+                component.variantProperties,
+                css,
+            );
+
+            return styles;
+        })
+        .then((v) => {
+            const config = getExportConfig(componentStyleKey);
+            
+            if (config.styledBy === 'parent') {
+                const selectors = parentSelectors
+                    .map((parentSelector) =>
+                        attrSelectors.length === 0
+                            ? [`${parentSelector} ${componentSelector}`]
+                            : attrSelectors.map(
+                                  (s) => `${parentSelector} ${componentSelector}${s}`,
+                              ),
+                    )
+                    .flat()
+                    .join();
+
+                console.log(selectors);
+                return [selectors, v];
+            }
+
+            return [variantSelectors.join(), v];
+        });
+
+    return Promise.all([styles, children]) as Promise<[string, string]>;
+};
+
 const msgRecord = {
     exportTheme: () => {
         const themeVars = getThemeVariables();
@@ -196,94 +314,36 @@ const msgRecord = {
             const components = figma.currentPage
                 .findAllWithCriteria({ types: ['COMPONENT_SET'] })
                 .map((v) => {
-                    const [componentName, componentPart] = v.name.replaceAll(' ', '').split('/');
+                    // master component is root, inside root detect all the child part styles, how to deal with no child like button
+                    // maybe if parts frame is empty
+                    const [componentName, parentPart] = v.name.replaceAll(' ', '').split('/');
 
-                    if (componentPart === 'root') {
-                        const componentRegexp = new RegExp(
-                            `((\\w*)\\/${componentName}\\/(.*))|(^${componentName}\\/(.*))`,
-                            'g',
-                        );
-
-                        const componentVars = allVars.filter((variable) =>
-                            variable.name.match(componentRegexp),
-                        );
-
-                        const componentVarsCss = `:root{${transformVars(componentVars).join(`;`)}}`;
+                    if (parentPart !== 'root') {
+                        return Promise.resolve('');
                     }
 
+                    const componentRegexp = new RegExp(
+                        `((\\w*)\\/${componentName}\\/(.*))|(^${componentName}\\/(.*))`,
+                        'g',
+                    );
+
+                    const componentVars = allVars.filter((variable) =>
+                        variable.name.match(componentRegexp),
+                    );
+
+                    const componentVarsCss = `:root{${transformVars(componentVars).join(`;`)}}`;
+
+                    // variants of root component
                     const statesCss = v.children
-                        // .filter((component) => config[component.name])
-                        .map((component) => {
-                            const componentSelector = `[data-scope="${componentName}"][data-part="${componentPart}"]`;
-
-                            const cssState = component.variantProperties?.[cssStateKey];
-
-                            const variantSelector = Object.keys(component.variantProperties)
-                                .filter((key) => key !== cssStateKey)
-                                .map((key) => {
-                                    const value = component.variantProperties[key];
-
-                                    // if no option is provided -> return same selector, it affects parent selector
-                                    if (value === DEFAULT_VALUE) {
-                                        return '';
-                                    }
-
-                                    return `[data-${key}="${value}"]`;
-                                })
-                                .join('');
-
-                            const selector = `${componentSelector}${variantSelector}`;
-
-                            const selectors = [];
-
-                            if (cssState && cssState !== DEFAULT_VALUE) {
-                                selectors.push(
-                                    `${selector}:${cssState}`,
-                                    ...EXPORT_ATTRIBUTES.map(
-                                        (attr) => `${selector}[${attr}-${cssState}=true]`,
-                                    ),
-                                );
-                            } else {
-                                selectors.push(selector);
-                            }
-
-                            const styles = component
-                                .getCSSAsync()
-                                .then((css) => {
-                                    const text = component.children.find(
-                                        (c) => c.name === 'css-text',
-                                    );
-
-                                    if (text) {
-                                        return text.getCSSAsync().then((textCss) => {
-                                            const styles = getComponentsStyleSheet(
-                                                `${componentName}/${componentPart}`,
-                                                component.variantProperties,
-                                                css,
-                                                textCss,
-                                            );
-
-                                            return styles;
-                                        });
-                                    }
-
-                                    const styles = getComponentsStyleSheet(
-                                        `${componentName}/${componentPart}`,
-                                        component.variantProperties,
-                                        css,
-                                    );
-
-                                    return styles;
-                                })
-                                .then((v) => {
-                                    return [selectors.join(), v];
-                                });
+                        .map((rootComponent) => {
+                            const styles = getComponentStyles(componentName, '', rootComponent);
 
                             return styles;
-                        });
+                        })
+                        .flat();
 
                     const componentStyleSheet = Promise.all(statesCss).then((styles) => {
-                        const transformedStyles = styles.reduce(
+                        const transformedStyles = flattenStyleArray(styles).reduce(
                             (acc, [key, value]) => acc + `${key}{${value}}`,
                             '',
                         );

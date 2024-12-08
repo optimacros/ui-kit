@@ -20,6 +20,32 @@ export const config = {
             'letter-spacing',
             'line-height',
         ],
+        styledBy: 'self',
+    },
+    'counter/root': {
+        default: 'all',
+        custom: 'all',
+        styledBy: 'self',
+    },
+    'counter/decrease': {
+        default: 'all',
+        custom: ['fill'],
+        styledBy: 'parent',
+    },
+    'counter/increase': {
+        default: 'all',
+        custom: ['fill'],
+        styledBy: 'parent',
+    },
+    'counter/value': {
+        default: 'all',
+        custom: ['font-size', 'font-weight', 'letter-spacing', 'line-height'],
+        styledBy: 'parent',
+    },
+    'menu/list': {
+        default: 'all',
+        custom: ['font-size', 'font-weight', 'letter-spacing', 'line-height'],
+        styledBy: 'parent',
     },
 } as const;
 
@@ -58,6 +84,15 @@ export const getComponentsStyleSheet = (
         ...componentCss,
         ...textCss,
     };
-   
+
     return exportProps.reduce((acc, key) => (css[key] ? acc + `${key}:${css[key]};` : acc), '');
 };
+
+export const getExportConfig = (name: string) =>
+    config[name] as (typeof config)[keyof typeof config];
+
+/**
+ * child component = scope/part variant=root state
+ *
+ *
+ */
