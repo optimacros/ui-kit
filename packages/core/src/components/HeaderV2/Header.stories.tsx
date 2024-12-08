@@ -1,3 +1,5 @@
+import { ICONS_MAP } from '@optimacros/themes';
+import { Icon } from '@optimacros/ui-kit-core';
 import type { ReactNode } from 'react';
 import { Header } from './index';
 
@@ -21,4 +23,17 @@ export default {
 
 export const Base = (props) => {
     return <Header.Root {...props}> Header </Header.Root>;
+};
+
+export const Notification = (props) => {
+    return (
+        <Header.Root {...props}>
+            <Header.Notification>
+                <Header.Badge> 9 </Header.Badge>
+                <Header.Icon>
+                    <Icon value={ICONS_MAP.bell} />
+                </Header.Icon>
+            </Header.Notification>
+        </Header.Root>
+    );
 };

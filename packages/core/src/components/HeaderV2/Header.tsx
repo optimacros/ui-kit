@@ -18,3 +18,46 @@ export const Root = forward<HeaderProps, 'header'>((props, ref) => (
         className={rootClassName}
     />
 ));
+
+export const iconClassName = tw`
+  flex items-center size-[1.125rem]
+  hover:opacity-70 transition-opacity duration-[0.6s] ease
+`;
+export const Icon = forward<{}, 'div'>((props, ref) => (
+    <styled.div
+        {...props}
+        ref={ref}
+        className={iconClassName}
+        data-scope="header"
+        data-part="icon"
+    />
+));
+
+export const badgeClassName = tw`
+  flex justify-center items-center absolute box-border font-normal text-[0.5rem] size-[0.75rem] rounded-full z-index-high right-0 top-0
+  text-notification-badge-text bg-notification-badge transform scale-100 translate-x-[-0.1875rem] translate-y-[0.3125rem]
+`;
+export const Badge = forward<{}, 'div'>((props, ref) => (
+    <styled.div
+        {...props}
+        ref={ref}
+        className={badgeClassName}
+        data-scope="header"
+        data-part="badge"
+    />
+));
+
+export const notificationClassName = tw`
+  relative mr-[0.1875rem] p-[0.3125rem] cursor-pointer text-[--var(--color-white)]
+`;
+export const Notification = forward<{}, 'div'>((props, ref) => {
+    return (
+        <styled.div
+            {...props}
+            data-scope="header"
+            data-part="notification"
+            ref={ref}
+            className={notificationClassName}
+        />
+    );
+});
