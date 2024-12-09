@@ -16,7 +16,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
     return (
         <div
             style={{
-                backgroundColor: 'var(--primary-color)',
+                backgroundColor: '#44b991',
                 color: '#fff',
                 display: 'flex',
                 justifyContent: 'flex-end',
