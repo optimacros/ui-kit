@@ -1,6 +1,8 @@
 :root {
   --height-progress-track: var(--spacing);
   --size-progress-circle: calc(15 * var(--spacing));
+  --size-progress-circle-cancel-trigger: calc(6 * var(--spacing));
+  --size-progress-linear-cancel-trigger: calc(5 * var(--spacing));
   --color-progress-track: var(--color-divider);
   --color-progress-range: var(--color-primary);
   --color-progress-range-disabled: var(--color-divider);
@@ -34,6 +36,17 @@
 
   & [data-part='value-text'] {
     --color: var(--color-progress-value-text);
+  }
+
+  & [data-part='linear-track-wrap'] [data-part='cancel-trigger'] {
+    height: var(--size-progress-linear-cancel-trigger);
+    width: var(--size-progress-linear-cancel-trigger);
+    margin-left: calc(var(--size-progress-linear-cancel-trigger) * 0.5);
+
+    & svg {
+      height: 100%;
+      width: 100%;
+    }
   }
 
   /* circle */
