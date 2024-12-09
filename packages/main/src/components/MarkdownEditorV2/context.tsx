@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import { MarkdownEditorMode, Tabs } from './MarkdownEditor';
-import { marked } from 'marked';
+import { convertStringToMarkdown } from './utils';
 
 export interface MarkdownEditorState {
     value: string;
@@ -31,12 +31,10 @@ export const RootProvider = ({
         [onChange],
     );
 
-    const parse = useCallback((str: string) => {
-        return marked(str, { sanitize: true });
-    }, []);
-
     return (
-        <MarkdownEditorContext.Provider value={{ value, setValue: handleValueChange, parse }}>
+        <MarkdownEditorContext.Provider
+            value={{ value, setValue: handleValueChange, parse: convertStringToMarkdown }}
+        >
             <Tabs.Root value={activeTab}>{children}</Tabs.Root>
         </MarkdownEditorContext.Provider>
     );

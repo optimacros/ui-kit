@@ -1,4 +1,1 @@
-import * as context from './context';
-import * as components from './MarkdownEditor';
-
-export const MarkdownEditor = { ...context, ...components };
+export * as MarkdownEditor from './exports';
