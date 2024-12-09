@@ -15,7 +15,6 @@ export * from './Footer';
 export * from './Header';
 export * from './HeaderMenu';
 export * from './HeaderNavigation';
-export * from './HeaderNotification';
 export * from './HeaderUserMenu';
 export * from './Icon';
 export * from './IconButton';
