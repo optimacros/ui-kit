@@ -3,7 +3,7 @@ import { useApi } from './context';
 import { tw } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 
-export const valueTextClassName = tw`absolute right-0 left-0 
+export const valueTextClassName = tw`absolute right-0 left-0 top-0 bottom-0
 flex items-center justify-center
 text-[var(--color)]`;
 
