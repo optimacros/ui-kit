@@ -2,25 +2,25 @@ import React from 'react';
 import { useApi } from './context';
 import { tw } from '@optimacros/ui-kit-utils';
 import { forward, styled } from '@optimacros/ui-kit-store';
+import { Icon } from '../../Icon';
 
-export const valueTextClassName = tw`absolute right-0 left-0 
-flex items-center justify-center
-text-[var(--color)]`;
+export const cancelTriggerClassName = tw`cursor-pointer transition`;
 
-export const ValueText = forward<React.PropsWithChildren, 'div'>(
+export const CancelTrigger = forward<React.PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
             <styled.div
                 {...rest}
-                className={valueTextClassName}
+                className={cancelTriggerClassName}
                 ref={ref}
-                {...api.getValueTextProps()}
+                data-part="cancel-trigger"
+                onClick={api.onCancel}
             >
-                {`${api.value} / ${api.max} (${api.percentAsString})`}
+                <Icon value="close" />
             </styled.div>
         );
     },
-    { displayName: 'ValueText' },
+    { displayName: 'CancelTrigger' },
 );

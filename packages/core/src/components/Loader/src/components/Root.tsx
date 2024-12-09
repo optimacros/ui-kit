@@ -12,12 +12,13 @@ export type Props = ComponentProps<typeof RootProvider> & {
     /** not implemented yet */
     buffer?: number;
     multicolor?: boolean;
+    onCancel?: () => void;
 };
 
 export const Root = forward<Props, 'div'>(
-    ({ children, value = null, disabled, multicolor, ...context }, ref) => {
+    ({ children, value = null, disabled, multicolor, onCancel, ...context }, ref) => {
         return (
-            <RootProvider {...context}>
+            <RootProvider {...context} state={{ onCancel }}>
                 <RootContent
                     value={value}
                     data-disabled={disabled}

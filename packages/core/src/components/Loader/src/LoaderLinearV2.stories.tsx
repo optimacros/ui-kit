@@ -118,3 +118,22 @@ export const ValueText = () => (
         </Loader.LinearTrack>
     </Loader.Root>
 );
+
+export const CancelTrigger = () => {
+    const handleCancel = () => {
+        console.info('cancel');
+    };
+
+    return (
+        <Loader.Root value={70} onCancel={handleCancel}>
+            <Loader.Label>
+                Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading{' '}
+            </Loader.Label>
+            <Loader.LinearTrack>
+                <Loader.LinearRange />
+            </Loader.LinearTrack>
+        </Loader.Root>
+    );
+};

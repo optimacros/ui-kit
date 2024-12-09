@@ -22,6 +22,7 @@ export const RootContent = forward<Props, 'div'>(
                 className={rootContentClassName}
                 data-scope="progress"
                 data-part="root"
+                data-cancellable={!!api.onCancel}
                 {...rest}
             >
                 {isFunction(children) ? children(api) : children}

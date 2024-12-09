@@ -1,7 +1,7 @@
 import { ArgTypes, Meta } from '@storybook/react';
 
 import { Loader } from './index';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -138,3 +138,41 @@ export const ValueText = () => (
         </Loader.Circle>
     </Loader.Root>
 );
+
+export const CancelTrigger = () => {
+    const [counter, setCounter] = useState(33);
+    const [timer, setTimer] = useState(null);
+
+    useEffect(() => {
+        setTimer(
+            setInterval(() => {
+                setCounter((c) => {
+                    if (c >= 100) {
+                        return 0;
+                    }
+
+                    return c + 1;
+                });
+            }, 100),
+        );
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        clearInterval(timer);
+    }, [timer]);
+
+    return (
+        <Loader.Root value={counter} onCancel={handleCancel}>
+            <Loader.Label>
+                Loading {counter}/100 Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading{' '}
+            </Loader.Label>
+            <Loader.ValueText />
+            <Loader.Circle>
+                <Loader.CircleTrack />
+                <Loader.CircleRange />
+            </Loader.Circle>
+        </Loader.Root>
+    );
+};
