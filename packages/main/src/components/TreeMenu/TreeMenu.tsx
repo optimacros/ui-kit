@@ -27,11 +27,13 @@ export const Tree = forward<{}, 'div'>((props, ref) => {
 });
 
 interface TreeNodeProps {
-    nodeProps: { node: Node; indexPath: number[] };
+    node: Node;
+    indexPath: number[];
 }
 
-export const TreeNode = forward<TreeNodeProps, 'div'>(({ nodeProps, ...rest }, ref) => {
+export const TreeNode = forward<TreeNodeProps, 'div'>(({ node, indexPath, ...rest }, ref) => {
     const api = useApi();
+    const nodeProps = { indexPath, node };
 
     return (
         <styled.div
@@ -48,8 +50,9 @@ export const BranchIcon = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} data-scope="tree-menu" data-part="branch-icon" ref={ref} />;
 });
 
-export const BranchText = forward<TreeNodeProps, 'span'>(({ nodeProps, ...rest }, ref) => {
+export const BranchText = forward<TreeNodeProps, 'span'>(({ node, indexPath, ...rest }, ref) => {
     const api = useApi();
+    const nodeProps = { indexPath, node };
 
     return (
         <styled.span
@@ -62,22 +65,26 @@ export const BranchText = forward<TreeNodeProps, 'span'>(({ nodeProps, ...rest }
     );
 });
 
-export const BranchIndicator = forward<TreeNodeProps, 'span'>(({ nodeProps, ...rest }, ref) => {
-    const api = useApi();
+export const BranchIndicator = forward<TreeNodeProps, 'span'>(
+    ({ node, indexPath, ...rest }, ref) => {
+        const api = useApi();
+        const nodeProps = { indexPath, node };
 
-    return (
-        <styled.span
-            {...rest}
-            {...api.getBranchTextProps(nodeProps)}
-            data-scope="tree-menu"
-            data-part="branch-indicator"
-            ref={ref}
-        />
-    );
-});
+        return (
+            <styled.span
+                {...rest}
+                {...api.getBranchTextProps(nodeProps)}
+                data-scope="tree-menu"
+                data-part="branch-indicator"
+                ref={ref}
+            />
+        );
+    },
+);
 
-export const BranchControl = forward<TreeNodeProps, 'div'>(({ nodeProps, ...rest }, ref) => {
+export const BranchControl = forward<TreeNodeProps, 'div'>(({ node, indexPath, ...rest }, ref) => {
     const api = useApi();
+    const nodeProps = { indexPath, node };
 
     return (
         <styled.div
@@ -89,3 +96,25 @@ export const BranchControl = forward<TreeNodeProps, 'div'>(({ nodeProps, ...rest
         />
     );
 });
+
+export const BranchContent = forward<TreeNodeProps, 'div'>(
+    ({ node, indexPath, children, ...rest }, ref) => {
+        const api = useApi();
+        const nodeProps = { indexPath, node };
+
+        return (
+            <styled.div
+                {...rest}
+                {...api.getBranchContentProps(nodeProps)}
+                data-scope="tree-menu"
+                data-part="branch-content"
+                ref={ref}
+            >
+                <div {...api.getBranchIndentGuideProps(nodeProps)} />
+                {node.children?.map((childNode, index) => (
+                    <TreeNode key={childNode.id} node={childNode} indexPath={[indexPath, index]} />
+                ))}
+            </styled.div>
+        );
+    },
+);
