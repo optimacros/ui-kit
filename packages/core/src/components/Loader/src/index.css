@@ -73,9 +73,9 @@
     margin-bottom: calc(var(--size-progress-circle-cancel-trigger) + (2.5 * var(--spacing)));
   }
 
-  & [data-part='value-text'] {
+  &:has([data-part='circle-wrap']) [data-part='value-text'] {
     height: var(--size-progress-circle);
-    bottom: 0;
+    top: unset;
   }
 
   & [data-part='circle'] {
