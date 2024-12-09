@@ -2,7 +2,7 @@ import { ArgTypes, Meta } from '@storybook/react';
 
 import { Loader } from './index';
 import { useCallback, useEffect, useState } from 'react';
-import { Icon } from '../Icon';
+import { Icon } from '@optimacros-ui/icon';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
