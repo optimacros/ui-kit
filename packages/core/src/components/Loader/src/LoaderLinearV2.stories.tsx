@@ -109,3 +109,12 @@ export const Label = () => {
         </Loader.Root>
     );
 };
+
+export const ValueText = () => (
+    <Loader.Root value={70}>
+        <Loader.LinearTrack>
+            <Loader.ValueText />
+            <Loader.LinearRange />
+        </Loader.LinearTrack>
+    </Loader.Root>
+);

@@ -4,7 +4,7 @@ import { Props as RootProps } from './Root';
 import { isFunction, tw } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 
-export const rootContentClassName = tw`flex items-center flex-col w-full`;
+export const rootContentClassName = tw`relative flex items-center flex-col w-full`;
 
 type Props = Pick<RootProps, 'value' | 'children'>;
 

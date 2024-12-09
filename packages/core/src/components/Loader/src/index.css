@@ -6,6 +6,7 @@
   --color-progress-range-disabled: var(--color-divider);
   --color-progress-buffer-from: var(--color-primary-contrast);
   --color-progress-buffer-to: var(--color-primary);
+  --color-progress-value-text: var(--color-accent);
 }
 
 [data-scope='progress'][data-part='root'] {
@@ -29,6 +30,10 @@
     --from: var(--color-progress-buffer-from);
     --to: var(--color-progress-buffer-to);
     height: var(--height-progress-track);
+  }
+
+  & [data-part='value-text'] {
+    --color: var(--color-progress-value-text);
   }
 
   /* circle */

@@ -3,7 +3,7 @@ import { useApi } from '../context';
 import { tw } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 
-export const linearTrackClassName = tw`w-full bg-[var(--bg)]`;
+export const linearTrackClassName = tw`relative w-full bg-[var(--bg)]`;
 
 export const LinearTrack = forward<React.PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {

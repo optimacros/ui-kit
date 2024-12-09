@@ -128,3 +128,13 @@ export const Multicolor = () => (
         </Loader.Circle>
     </Loader.Root>
 );
+
+export const ValueText = () => (
+    <Loader.Root value={20}>
+        <Loader.ValueText />
+        <Loader.Circle>
+            <Loader.CircleTrack />
+            <Loader.CircleRange />
+        </Loader.Circle>
+    </Loader.Root>
+);
