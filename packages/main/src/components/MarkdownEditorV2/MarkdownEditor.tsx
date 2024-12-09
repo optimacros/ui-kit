@@ -1,8 +1,7 @@
 import { forward, styled } from '@optimacros/ui-kit-store';
 import { RootProvider, useApi } from './context';
 import { ChangeEvent, PropsWithChildren } from 'react';
-// TODO change path
-import { Tabs } from '@optimacros/ui-kit-core/src/components/TabsV2';
+import { Tabs } from '@optimacros/ui-kit-core/src/components/Tabs';
 
 export interface MarkdownEditorProps {
     value?: string;
