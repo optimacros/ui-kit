@@ -2,7 +2,7 @@ import { Divider } from './index';
 import { Orientation } from '../../constants';
 
 export default {
-    title: 'UI Kit core/DividerV2',
+    title: 'UI Kit core/Divider',
     component: Divider,
     tags: ['autodocs'],
     argTypes: {

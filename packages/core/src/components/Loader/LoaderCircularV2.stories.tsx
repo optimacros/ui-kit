@@ -33,7 +33,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta = {
-    title: 'UI Kit core/LoaderV2 Circular',
+    title: 'UI Kit core/Loader/Circular',
     argTypes,
 };
 export default meta;

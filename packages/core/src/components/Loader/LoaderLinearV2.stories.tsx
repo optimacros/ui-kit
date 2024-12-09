@@ -27,7 +27,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta = {
-    title: 'UI Kit core/LoaderV2 Linear',
+    title: 'UI Kit core/Loader/Linear',
     argTypes,
 };
 export default meta;

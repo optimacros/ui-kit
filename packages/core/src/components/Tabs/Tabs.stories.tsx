@@ -8,7 +8,7 @@ import { IconButton } from '../IconButton';
 import { shuffle } from '@optimacros/ui-kit-utils';
 
 export default {
-    title: 'UI Kit core/TabsV2',
+    title: 'UI Kit core/Tabs',
     component: Tabs.Root,
     tags: ['autodocs'],
 };

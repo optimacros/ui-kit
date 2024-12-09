@@ -2,7 +2,7 @@ import { Icon } from '@optimacros/ui-kit-core';
 import { Chip } from './index';
 
 export default {
-    title: 'UI Kit core/ChipV2',
+    title: 'UI Kit core/Chip',
     component: Chip.Root,
     tags: ['autodocs'],
 };

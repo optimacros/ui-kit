@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react';
 import { Footer } from './index';
 
 const meta: Meta<typeof Footer> = {
-    title: 'UI Kit core/Footer V2',
+    title: 'UI Kit core/Footer',
 };
 
 export default meta;

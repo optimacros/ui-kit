@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import { Meta } from '@storybook/react';
 
 export default {
-    title: 'UI Kit core/Tooltip_V2',
+    title: 'UI Kit core/Tooltip',
     component: Tooltip.Root,
     tags: ['autodocs'],
 } as Meta;

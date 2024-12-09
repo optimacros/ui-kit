@@ -8,7 +8,7 @@ const Wrapper = ({ children }: { children }) => (
 );
 
 const meta: Meta<typeof Menu> = {
-    title: 'UI Kit core/MenuV2',
+    title: 'UI Kit core/Menu',
     decorators: [
         (Story) => (
             <Wrapper>

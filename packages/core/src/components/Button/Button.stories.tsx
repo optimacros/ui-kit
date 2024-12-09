@@ -87,7 +87,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Button> = {
-    title: 'UI Kit core/ButtonV2',
+    title: 'UI Kit core/Button',
     component: Button,
     argTypes,
 };

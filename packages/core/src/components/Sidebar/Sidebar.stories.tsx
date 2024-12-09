@@ -13,7 +13,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta = {
-    title: 'UI Kit core/SidebarV2',
+    title: 'UI Kit core/Sidebar',
     argTypes,
 };
 

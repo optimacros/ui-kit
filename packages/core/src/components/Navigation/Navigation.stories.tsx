@@ -8,7 +8,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 export default {
-    title: 'UI Kit core/NavigationV2',
+    title: 'UI Kit core/Navigation',
     component: Navigation.Root,
     tags: ['autodocs'],
     argTypes: {

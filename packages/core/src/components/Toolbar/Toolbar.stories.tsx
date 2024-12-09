@@ -3,7 +3,7 @@ import { Button } from '../Button';
 import { Align } from '../../constants';
 
 export default {
-    title: 'UI Kit core/ToolbarV2',
+    title: 'UI Kit core/Toolbar',
     component: Toolbar.Root,
     tags: ['autodocs'],
     argTypes: {

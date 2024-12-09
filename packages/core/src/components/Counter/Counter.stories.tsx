@@ -9,7 +9,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 export default {
-    title: 'UI Kit core/CounterV2',
+    title: 'UI Kit core/Counter',
     component: Counter,
     tags: ['autodocs'],
     argTypes: {

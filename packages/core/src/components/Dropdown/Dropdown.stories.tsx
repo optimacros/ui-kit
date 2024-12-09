@@ -121,7 +121,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Dropdown> = {
-    title: 'UI Kit core/DropdownV2',
+    title: 'UI Kit core/Dropdown',
     // @ts-ignore
     component: Dropdown.Root,
     argTypes,

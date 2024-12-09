@@ -74,7 +74,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
 );
 const meta: Meta<typeof Select> = {
-    title: 'UI Kit core/SelectV2',
+    title: 'UI Kit core/Select',
     component: Select.Root,
     argTypes,
     decorators: [

@@ -16,6 +16,7 @@ const config: StorybookConfig = {
     viteFinal: (cfg) => {
         return {
             ...cfg,
+
             //@ts-ignore
             plugins: [...cfg.plugins, tsconfigPaths()],
             css: {
@@ -29,6 +30,10 @@ const config: StorybookConfig = {
     typescript: {
         reactDocgen: 'react-docgen-typescript',
     },
+    staticDirs: [
+        '../.storybook/assets',
+        '../packages/themes/src/assets/icons/optimacros/font-icons',
+    ],
 };
 
 export default config;

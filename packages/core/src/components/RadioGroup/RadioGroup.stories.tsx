@@ -1,7 +1,7 @@
 import { RadioGroup } from './index';
 
 export default {
-    title: 'UI Kit core/RadioGroupV2',
+    title: 'UI Kit core/RadioGroup',
     component: RadioGroup.Root,
     tags: ['autodocs'],
     argTypes: {

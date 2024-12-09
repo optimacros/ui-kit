@@ -80,7 +80,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof ButtonMenu> = {
-    title: 'UI Kit core/ButtonMenuV2',
+    title: 'UI Kit core/ButtonMenu',
     argTypes,
 };
 export default meta;

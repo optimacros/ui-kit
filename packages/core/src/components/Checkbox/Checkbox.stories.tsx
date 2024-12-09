@@ -2,7 +2,7 @@ import { Checkbox } from './index';
 import { Tooltip } from '../Tooltip';
 
 export default {
-    title: 'UI Kit core/CheckboxV2',
+    title: 'UI Kit core/Checkbox',
     component: Checkbox.Root,
     tags: ['autodocs'],
     argTypes: {
