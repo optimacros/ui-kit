@@ -17,8 +17,6 @@
         "build:utils": "lerna run build --scope=@optimacros-ui/utils",
         "build:types": "lerna run build --scope=@optimacros-ui/types",
         "build:ui": "lerna run build --parallel --scope @optimacros-ui/kit --scope @optimacros-ui/* --scope @optimacros-ui/themes",
-        "build:test": "lerna run build --scope=@optimacros-ui/tabs",
-
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error",
         "build:storybook": "npm run tailwind:storybook && storybook build",
