@@ -1,8 +1,6 @@
 :root {
   --height-progress-track: var(--spacing);
   --size-progress-circle: calc(15 * var(--spacing));
-  --size-progress-circle-cancel-trigger: calc(6 * var(--spacing));
-  --size-progress-linear-cancel-trigger: calc(5 * var(--spacing));
   --color-progress-track: var(--color-divider);
   --color-progress-range: var(--color-primary);
   --color-progress-range-disabled: var(--color-divider);
@@ -38,39 +36,11 @@
     --color: var(--color-progress-value-text);
   }
 
-  & [data-part='linear-track-wrap'] [data-part='cancel-trigger'] {
-    height: var(--size-progress-linear-cancel-trigger);
-    width: var(--size-progress-linear-cancel-trigger);
-    margin-left: calc(var(--size-progress-linear-cancel-trigger) * 0.5);
-
-    & svg {
-      height: 100%;
-      width: 100%;
-    }
-  }
-
   /* circle */
   & [data-part='circle-wrap'] {
     height: var(--size-progress-circle);
     width: var(--size-progress-circle);
     position: relative;
-
-    & [data-part='cancel-trigger'] {
-      position: absolute;
-      top: calc(var(--size-progress-circle-cancel-trigger) * -1);
-      right: calc(var(--size-progress-circle-cancel-trigger) * -1);
-      height: var(--size-progress-circle-cancel-trigger);
-      width: var(--size-progress-circle-cancel-trigger);
-
-      & svg {
-        height: 100%;
-        width: 100%;
-      }
-    }
-  }
-
-  &[data-cancellable='true']:has([data-part='circle-wrap']) [data-part='label'] {
-    margin-bottom: calc(var(--size-progress-circle-cancel-trigger) + (2.5 * var(--spacing)));
   }
 
   &:has([data-part='circle-wrap']) [data-part='value-text'] {
@@ -127,10 +97,6 @@
       animation: circle-indeterminate-range 2s ease-in-out infinite, circle-indeterminate-color 2s
         ease-in-out infinite;
     }
-  }
-
-  & [data-part='cancel-trigger']:hover svg {
-    color: var(--color-primary);
   }
 }
 

@@ -1,7 +1,7 @@
 import { ArgTypes, Meta } from '@storybook/react';
-
 import { Loader } from './index';
 import { useEffect, useState } from 'react';
+import { Icon } from '../Icon';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -112,6 +112,12 @@ export const Label = () => {
 
 export const ValueText = () => (
     <Loader.Root value={70}>
+        <Loader.Label>
+            Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
+            Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+            Loading Loading Loading Loading{' '}
+        </Loader.Label>
+
         <Loader.LinearTrack>
             <Loader.ValueText />
             <Loader.LinearRange />
@@ -121,7 +127,7 @@ export const ValueText = () => (
 
 export const CancelTrigger = () => {
     const handleCancel = () => {
-        console.info('cancel');
+        alert('cancel');
     };
 
     return (
@@ -131,9 +137,17 @@ export const CancelTrigger = () => {
                 Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
                 Loading Loading Loading Loading Loading{' '}
             </Loader.Label>
-            <Loader.LinearTrack>
-                <Loader.LinearRange />
-            </Loader.LinearTrack>
+
+            <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Loader.LinearTrack>
+                    <Loader.ValueText />
+                    <Loader.LinearRange />
+                </Loader.LinearTrack>
+
+                <Loader.CancelTrigger>
+                    <Icon value="close" style={{ fontSize: 26 }} />
+                </Loader.CancelTrigger>
+            </div>
         </Loader.Root>
     );
 };

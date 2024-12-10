@@ -2,6 +2,7 @@ import { ArgTypes, Meta } from '@storybook/react';
 
 import { Loader } from './index';
 import { useCallback, useEffect, useState } from 'react';
+import { Icon } from '../Icon';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -131,11 +132,27 @@ export const Multicolor = () => (
 
 export const ValueText = () => (
     <Loader.Root value={20}>
-        <Loader.ValueText />
-        <Loader.Circle>
-            <Loader.CircleTrack />
-            <Loader.CircleRange />
-        </Loader.Circle>
+        <Loader.Label>
+            Loading \/100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
+            Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+            Loading Loading Loading Loading{' '}
+        </Loader.Label>
+
+        <div
+            style={{
+                position: 'relative',
+                display: 'flex',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <Loader.ValueText />
+            <Loader.Circle>
+                <Loader.CircleTrack />
+                <Loader.CircleRange />
+            </Loader.Circle>
+        </div>
     </Loader.Root>
 );
 
@@ -168,11 +185,35 @@ export const CancelTrigger = () => {
                 Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
                 Loading Loading Loading Loading Loading Loading Loading{' '}
             </Loader.Label>
-            <Loader.ValueText />
-            <Loader.Circle>
-                <Loader.CircleTrack />
-                <Loader.CircleRange />
-            </Loader.Circle>
+
+            <div
+                style={{
+                    position: 'relative',
+                    display: 'flex',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 30,
+                }}
+            >
+                <Loader.ValueText />
+
+                <div
+                    style={{
+                        position: 'relative',
+                        display: 'flex',
+                    }}
+                >
+                    <Loader.Circle>
+                        <Loader.CircleTrack />
+                        <Loader.CircleRange />
+                    </Loader.Circle>
+
+                    <Loader.CancelTrigger style={{ position: 'absolute', top: -30, right: -30 }}>
+                        <Icon value="close" style={{ fontSize: 32 }} />
+                    </Loader.CancelTrigger>
+                </div>
+            </div>
         </Loader.Root>
     );
 };
