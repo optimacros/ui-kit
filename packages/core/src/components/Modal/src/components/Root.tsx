@@ -15,45 +15,22 @@ interface Props extends React.PropsWithChildren, Partial<Context> {
 }
 
 export const Root = forward<Props, 'div'>(
-    (
-        {
-            children,
-            open,
-            onRequestClose,
-            onInteractOutside,
-            onFocusOutside,
-            onPointerDownOutside,
-            onEscapeKeyDown,
-            onOpenChange,
-            ...rest
-        },
-        ref,
-    ) => {
+    ({ children, open, onRequestClose, onOpenChange, ...rest }, ref) => {
         const callbacks = useMemo(() => {
             const cbs = {
-                onInteractOutside: onInteractOutside || onRequestClose,
-                onFocusOutside: onFocusOutside || onRequestClose,
-                onPointerDownOutside: onPointerDownOutside || onRequestClose,
-                onEscapeKeyDown: onEscapeKeyDown || onRequestClose,
-                onOpenChange:
-                    onOpenChange ||
-                    (onRequestClose &&
-                        ((details) => {
-                            if (!details.open) {
-                                onRequestClose();
-                            }
-                        })),
+                onOpenChange: onOpenChange,
             };
 
+            if (onRequestClose) {
+                cbs.onOpenChange = (details) => {
+                    if (!details.open) {
+                        onRequestClose();
+                    }
+                };
+            }
+
             return cbs;
-        }, [
-            onRequestClose,
-            onInteractOutside,
-            onFocusOutside,
-            onPointerDownOutside,
-            onEscapeKeyDown,
-            onOpenChange,
-        ]);
+        }, [onRequestClose, onOpenChange]);
 
         if (!open) {
             return null;
