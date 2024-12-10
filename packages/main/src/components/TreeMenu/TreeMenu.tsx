@@ -1,26 +1,48 @@
-import { ComponentProps, PropsWithChildren } from 'react';
+import React, { ComponentProps, PropsWithChildren } from 'react';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as treemenu from '@zag-js/tree-view';
-import { collection } from './mock';
+
+interface Node {
+    id: string;
+    name: string;
+    children?: Node[];
+}
+const collection = treemenu.collection<Node>({
+    nodeToValue: (node) => node.id,
+    nodeToString: (node) => node.name,
+    rootNode: {
+        id: 'ROOT',
+        name: '',
+        children: [],
+    },
+});
 
 export const { RootProvider, useApi, State } = createReactApiStateContext({
     api: null as treemenu.Api,
     id: 'tree-menu',
     machine: treemenu,
     initialState: {},
-    defaultContext: { collection },
 });
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => (
-    <RootProvider {...context}>
-        {(api) => (
-            <styled.div {...api.getRootProps()} ref={ref}>
-                {children}
-            </styled.div>
-        )}
-    </RootProvider>
-));
+type MenuItems = ReturnType<typeof treemenu.collection<Node>>;
+export type RootProps = PropsWithChildren<
+    ComponentProps<typeof RootProvider> & {
+        menuItems: MenuItems;
+    }
+>;
+export const Root = forward<RootProps, 'div'>(({ children, menuItems, ...context }, ref) => {
+    collection.rootNode.children = menuItems;
+
+    return (
+        <RootProvider {...context} collection={collection}>
+            {(api) => (
+                <styled.div {...api.getRootProps()} ref={ref}>
+                    {children}
+                </styled.div>
+            )}
+        </RootProvider>
+    );
+});
 
 export const Tree = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
@@ -40,40 +62,48 @@ interface TreeNodeProps {
     node: Node;
     indexPath: number[];
 }
+export const TreeNode = forward<TreeNodeProps, 'div'>(
+    ({ node, indexPath, children, ...rest }, ref) => {
+        const api = useApi();
+        const nodeProps = { indexPath, node };
+        const nodeState = api.getNodeState(nodeProps);
+        const [prevIcon, indicator] = React.Children.toArray(children);
 
-export const TreeNode = forward<TreeNodeProps, 'div'>(({ node, indexPath, ...rest }, ref) => {
-    const api = useApi();
-    const nodeProps = { indexPath, node };
-    const nodeState = api.getNodeState(nodeProps);
-
-    if (nodeState.isBranch) {
+        if (nodeState.isBranch) {
+            return (
+                <styled.div
+                    {...rest}
+                    {...api.getBranchProps(nodeProps)}
+                    data-scope="tree-menu"
+                    data-part="tree-node"
+                    ref={ref}
+                >
+                    <div {...api.getBranchControlProps(nodeProps)}>
+                        {prevIcon}
+                        <span {...api.getBranchTextProps(nodeProps)}>{node.name}</span>
+                        <span {...api.getBranchIndicatorProps(nodeProps)}> {indicator} </span>
+                    </div>
+                    <div {...api.getBranchContentProps(nodeProps)}>
+                        <div {...api.getBranchIndentGuideProps(nodeProps)} />
+                        {node.children?.map((childNode, index) => {
+                            return (
+                                <TreeNode
+                                    key={childNode.id}
+                                    node={childNode}
+                                    indexPath={[...indexPath, index]}
+                                >
+                                    {...children}
+                                </TreeNode>
+                            );
+                        })}
+                    </div>
+                </styled.div>
+            );
+        }
         return (
-            <styled.div
-                {...rest}
-                {...api.getBranchProps(nodeProps)}
-                data-scope="tree-menu"
-                data-part="tree-node"
-                ref={ref}
-            >
-                <div {...api.getBranchControlProps(nodeProps)}>
-                    []
-                    <span {...api.getBranchTextProps(nodeProps)}>{node.name}</span>
-                    <span {...api.getBranchIndicatorProps(nodeProps)}> {' >'} </span>
-                </div>
-                <div {...api.getBranchContentProps(nodeProps)}>
-                    <div {...api.getBranchIndentGuideProps(nodeProps)} />
-                    {node.children?.map((childNode, index) => {
-                        return (
-                            <TreeNode
-                                key={childNode.id}
-                                node={childNode}
-                                indexPath={[...indexPath, index]}
-                            />
-                        );
-                    })}
-                </div>
-            </styled.div>
+            <div {...api.getItemProps(nodeProps)}>
+                {prevIcon} {node.name}
+            </div>
         );
-    }
-    return <div {...api.getItemProps(nodeProps)}>[] {node.name}</div>;
-});
+    },
+);

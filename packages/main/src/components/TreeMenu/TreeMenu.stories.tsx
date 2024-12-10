@@ -1,5 +1,6 @@
+import { Icon } from '@optimacros/ui-kit-core';
 import { TreeMenu } from './index';
-import { collection } from './mock';
+import { menuItems } from './mock';
 
 export default {
     title: 'UI Kit main/TreeMenuV2',
@@ -9,10 +10,13 @@ export default {
 
 export const Basic = () => {
     return (
-        <TreeMenu.Root>
+        <TreeMenu.Root menuItems={menuItems}>
             <TreeMenu.Tree>
-                {collection.rootNode.children.map((node, index) => (
-                    <TreeMenu.TreeNode key={node.id} node={node} indexPath={[index]} />
+                {menuItems.map((node, index) => (
+                    <TreeMenu.TreeNode key={node.id} node={node} indexPath={[index]}>
+                        <Icon value="folder_open" />
+                        <Icon value="chevron_right" />
+                    </TreeMenu.TreeNode>
                 ))}
             </TreeMenu.Tree>
         </TreeMenu.Root>
