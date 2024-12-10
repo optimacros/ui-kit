@@ -17,6 +17,8 @@ export const {
     },
 });
 
+const defaultLocale = 'en';
+
 export const contentClassName = tw`
 w-datepicker-dialog bg-calendar-primary-contrast text-[1.4rem] h-calendar-total 
 leading-[var(--height-calendar-row)] relative text-center bg-calendar-primary-contrast
@@ -55,42 +57,46 @@ export const Header = forward<{}, 'header'>((props, ref) => {
 });
 
 export const headerYearsClassName = tw`inline-block text-[1.3rem] opacity-60 leading-none`;
-export const HeaderYears = forward<{ locale?: string }, 'span'>(({ locale, ...rest }, ref) => {
-    const api = useApi();
+export const HeaderYears = forward<{ locale?: string }, 'span'>(
+    ({ locale = defaultLocale, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <styled.span
-            {...rest}
-            ref={ref}
-            data-scope="calendar"
-            data-part="header-years"
-            className={headerYearsClassName}
-        >
-            {api.value[0]?.year}
-        </styled.span>
-    );
-});
+        return (
+            <styled.span
+                {...rest}
+                ref={ref}
+                data-scope="calendar"
+                data-part="header-years"
+                className={headerYearsClassName}
+            >
+                {api.value[0]?.year}
+            </styled.span>
+        );
+    },
+);
 
 export const headerMonthsClassName = tw`
 text-[3.4rem] font-[var(--font-weight-semi-bold)]
 leading-[var(--size-calendar-month-text)] m-0 capitalize transition-opacity
 `;
-export const HeaderMonths = forward<{ locale?: string }, 'h3'>(({ locale, ...rest }, ref) => {
-    const api = useApi();
+export const HeaderMonths = forward<{ locale?: string }, 'h3'>(
+    ({ locale = defaultLocale, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <styled.h3
-            {...rest}
-            ref={ref}
-            data-scope="calendar"
-            data-part="header-months"
-            className={headerMonthsClassName}
-        >
-            {api.valueAsDate[0] &&
-                `${api.valueAsDate.toLocaleString(locale, { weekday: 'short' })}, ${time.getShortMonth(api.valueAsDate[0], locale)} ${api.value[0]?.day}`}
-        </styled.h3>
-    );
-});
+        return (
+            <styled.h3
+                {...rest}
+                ref={ref}
+                data-scope="calendar"
+                data-part="header-months"
+                className={headerMonthsClassName}
+            >
+                {api.valueAsDate[0] &&
+                    `${api.valueAsDate.toLocaleString(locale, { weekday: 'short' })}, ${time.getShortMonth(api.valueAsDate[0], locale)} ${api.value[0]?.day}`}
+            </styled.h3>
+        );
+    },
+);
 
 export const viewControlClassName = tw`p-[var(--unit)] px-[calc(0.5_*_var(--unit))] pb-0`;
 export const ViewControl = forward<{}, 'div'>((props, ref) => {
@@ -149,21 +155,23 @@ export const NextTrigger = forward<{}, 'button'>((props, ref) => {
 });
 
 export const rangeTextClassName = tw`inline-block font-medium leading-[var(--height-calendar-row)]`;
-export const RangeText = forward<{ locale?: string }, 'span'>(({ locale, ...rest }, ref) => {
-    const api = useApi();
+export const RangeText = forward<{ locale?: string }, 'span'>(
+    ({ locale = defaultLocale, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <styled.span
-            {...rest}
-            data-scope="calendar"
-            data-part="range-text"
-            ref={ref}
-            className={rangeTextClassName}
-        >
-            {`${time.getFullMonth(api.focusedValueAsDate, locale)} ${api.visibleRange.start.year}`}
-        </styled.span>
-    );
-});
+        return (
+            <styled.span
+                {...rest}
+                data-scope="calendar"
+                data-part="range-text"
+                ref={ref}
+                className={rangeTextClassName}
+            >
+                {`${time.getFullMonth(api.focusedValueAsDate, locale)} ${api.visibleRange.start.year}`}
+            </styled.span>
+        );
+    },
+);
 
 export const tableClassName = tw`w-full`;
 export const Table = forward<{}, 'table'>((props, ref) => {
@@ -185,28 +193,35 @@ export const tableHeadClassNames = tw`
 text-[1.3rem] h-calendar-row leading-[var(--height-calendar-row)] opacity-50
 `;
 export const tableHeadThClassNames = tw`font-normal`;
-export const TableHead = forward<{ locale?: string }, 'thead'>(({ locale, ...rest }, ref) => {
-    const api = useApi();
+export const TableHead = forward<{ locale?: string }, 'thead'>(
+    ({ locale = defaultLocale, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <styled.thead
-            {...rest}
-            {...api.getTableHeaderProps({ view: 'day' })}
-            data-scope="calendar"
-            data-part="table-head"
-            ref={ref}
-            className={tableHeadClassNames}
-        >
-            <tr {...api.getTableRowProps({ view: 'day' })}>
-                {api.weekDays.map((day, i) => (
-                    <th scope="col" key={i} aria-label={day.long} className={tableHeadThClassNames}>
-                        {time.getShortDayOfWeek(i, locale)}
-                    </th>
-                ))}
-            </tr>
-        </styled.thead>
-    );
-});
+        return (
+            <styled.thead
+                {...rest}
+                {...api.getTableHeaderProps({ view: 'day' })}
+                data-scope="calendar"
+                data-part="table-head"
+                ref={ref}
+                className={tableHeadClassNames}
+            >
+                <tr {...api.getTableRowProps({ view: 'day' })}>
+                    {api.weekDays.map((day, i) => (
+                        <th
+                            scope="col"
+                            key={i}
+                            aria-label={day.long}
+                            className={tableHeadThClassNames}
+                        >
+                            {time.getShortDayOfWeek(i, locale)}
+                        </th>
+                    ))}
+                </tr>
+            </styled.thead>
+        );
+    },
+);
 
 export const tableBodyClassName = tw`text-calendar-day cursor-pointer`;
 export const tdClassName = tw`size-[3.6rem] rounded-[2rem] inline-block hover:bg-calendar-primary-hover hover:text-calendar-primary`;
