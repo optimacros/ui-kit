@@ -6,8 +6,8 @@ import {
     PayloadAction,
     transformActions,
 } from '../utils';
-import * as $ from '@optimacros/ui-kit-types';
-import * as _ from '@optimacros/ui-kit-utils';
+import * as $ from '@optimacros-ui/types';
+import * as _ from '@optimacros-ui/utils';
 import { Collection, getIn, setIn } from 'immutable';
 
 type MapReactActions<State, Actions extends ActionsMap> = {

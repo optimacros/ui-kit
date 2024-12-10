@@ -2,7 +2,7 @@
 import classnames from 'classnames';
 import { Component } from 'react';
 
-import { time } from '@optimacros/ui-kit-utils';
+import { time } from '@optimacros-ui/utils';
 
 interface Props {
     day?: number;

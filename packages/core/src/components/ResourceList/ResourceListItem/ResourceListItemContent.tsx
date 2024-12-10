@@ -6,8 +6,8 @@ import { ResourceListType } from '../types';
 import { getLeftIcon } from '../utils/getLeftIcon';
 
 import styles from './ResourceListItem.module.css';
-import { Icon } from '../../Icon';
-import { ICONS_MAP } from '@optimacros/themes';
+import { Icon } from '../../Icon/src';
+import { ICONS_MAP } from '@optimacros-ui/themes';
 
 interface ResourceListItemContentProps {
     label: string;

@@ -2,10 +2,10 @@
 Функция для создания стора из zagjs (использовать везде где есть zagjs)
 
 ```tsx
-import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
+import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as toast from '@zag-js/toast';
 import { ReactNode } from 'react';
-import { isFunction, tw } from '@optimacros/ui-kit-utils';
+import { isFunction, tw } from '@optimacros-ui/utils';
 
 export const { Api, Provider, Root, useApi } = createReactApiStateContext({
     api: null as toast.Api,

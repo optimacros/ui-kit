@@ -1,0 +1,26 @@
+:root {
+  --z-index-dialog-backdrop: 1400;
+  --color-dialog-backdrop: #32323233;
+  --color-dialog-bg: var(--color-background);
+}
+
+[data-scope='dialog'] {
+  &[data-part='backdrop'] {
+    --bg: var(--color-dialog-backdrop);
+    --z: var(--z-index-dialog-backdrop);
+  }
+
+  &[data-part='positioner'] {
+    --z: var(--z-index-dialog-backdrop);
+  }
+
+  &[data-part='content'] {
+    --bg: var(--color-dialog-bg);
+  }
+
+  & [data-part='scroll-container-inner'] {
+    scrollbar-gutter: stable;
+    /* у outer pl = 1.5r, pr = 0.5, тут нужно получить 1 вместе со скроллом */
+    padding-right: calc(2.5 * var(--spacing) - var(--width-scroll));
+  }
+}

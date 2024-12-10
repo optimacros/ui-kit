@@ -1,5 +1,5 @@
 //@ts-nocheck
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 import { List } from 'immutable';
 import { filterBy } from './filter';
 import { toCollection } from './utils';

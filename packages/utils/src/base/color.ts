@@ -1,5 +1,5 @@
 // @ts-nocheck
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 
 class ColorUtils {
     convertToFullHex(hex) {

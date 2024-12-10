@@ -1,4 +1,4 @@
-import { isUndefined, keys } from '@optimacros/ui-kit-utils';
+import { isUndefined, keys } from '@optimacros-ui/utils';
 import type React from 'react';
 
 export default {

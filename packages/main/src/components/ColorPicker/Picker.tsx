@@ -1,6 +1,8 @@
+// @ts-nocheck
+import * as _ from '@optimacros-ui/utils';
 import React from 'react';
-import { Toolbar, Button, IconButton } from '@optimacros/ui-kit-core';
-import { isEmpty, toString } from '@optimacros/ui-kit-utils';
+import { Toolbar, Button, IconButton } from '@optimacros-ui/core';
+
 import CustomPicker from './CustomPicker';
 
 import style from './Color.module.css';

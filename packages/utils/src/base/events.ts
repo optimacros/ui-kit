@@ -1,4 +1,4 @@
-import { keys } from '@optimacros/ui-kit-utils';
+import { keys } from '@optimacros-ui/utils';
 
 export const events = {
     getMousePosition(event) {

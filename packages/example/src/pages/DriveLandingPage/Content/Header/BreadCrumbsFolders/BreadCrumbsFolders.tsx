@@ -1,4 +1,4 @@
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import classNames from 'classnames';
 
 import { driveLandingState } from '../../../../../state/DriveLandingState';

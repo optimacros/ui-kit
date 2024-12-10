@@ -1,9 +1,9 @@
 // @ts-nocheck
 import classnames from 'classnames';
 import React, { Component } from 'react';
-import { Input as ThemedInput, ProgressBar as InjectProgressBar } from '@optimacros/ui-kit-core';
+import { Input as ThemedInput, ProgressBar as InjectProgressBar } from '@optimacros-ui/core';
 
-import { events, round, range } from '@optimacros/ui-kit-utils';
+import { events, round, range } from '@optimacros-ui/utils';
 
 export interface SliderProps {
     buffer?: number;

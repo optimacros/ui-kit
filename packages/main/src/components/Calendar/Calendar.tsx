@@ -1,12 +1,12 @@
 // @ts-nocheck
 import classnames from 'classnames';
 import React, { Component } from 'react';
-import { Button } from '@optimacros/ui-kit-core';
+import { Button } from '@optimacros-ui/core';
 
 import { CalendarContent } from './CalendarContent';
 
 import styles from './Calendar.module.css';
-import { mergeStyles, time } from '@optimacros/ui-kit-utils';
+import { mergeStyles, time } from '@optimacros-ui/utils';
 
 interface Props {
     active?: boolean;

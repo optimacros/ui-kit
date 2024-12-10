@@ -1,8 +1,8 @@
 // @ts-nocheck
 import classNames from 'classnames';
 import React from 'react';
-import { Tooltip, Dropdown } from '@optimacros/ui-kit-core';
-import type { Position } from '@optimacros/ui-kit-core';
+import { Tooltip, Dropdown } from '@optimacros-ui/core';
+import type { Position } from '@optimacros-ui/core';
 
 import Picker from './Picker';
 

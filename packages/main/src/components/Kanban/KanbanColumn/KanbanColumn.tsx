@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { FontIcon } from '@optimacros/ui-kit-core';
+import { FontIcon } from '@optimacros-ui/core';
 
 import { isBig, isSmall } from '../kanban-card-sizes';
 import { KanbanColumnCard } from '../KanbanColumnCard';

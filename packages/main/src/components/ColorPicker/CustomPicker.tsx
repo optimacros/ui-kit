@@ -2,7 +2,7 @@ import React from 'react';
 import { CustomPicker } from 'react-color';
 import { Saturation, EditableInput, Hue } from 'react-color/lib/components/common';
 import tinyColor from 'tinycolor2';
-import { replaceStr as replace, toUpper } from '@optimacros/ui-kit-utils';
+import { replaceStr as replace, toUpper } from '@optimacros-ui/utils';
 
 import style from './CustomPicker.module.css';
 

@@ -2,7 +2,7 @@ import { Collection, isIndexed, Range } from 'immutable';
 import * as _ from 'radash';
 import { isFalsey } from '../functions';
 import { changeCase, getValue } from '../object';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 //TODO: provide types
 type ToCollection<T extends $.Tuple.Indexed.Type<any>, Item> = T extends Collection.Indexed<any>

@@ -1,15 +1,15 @@
 // @ts-nocheck
 import classNames from 'classnames';
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { ButtonMenu, Icon, MenuItem } from '@optimacros/ui-kit-core';
+import { ButtonMenu, Icon, MenuItem } from '@optimacros-ui/core';
 
 import { TabHeaderState } from './TabHeaderState';
 import { KEY_CODES } from '../../../constants';
 
 import styles from './TabHeader.module.css';
-import { mergeStyles } from '@optimacros/ui-kit-utils';
+import { mergeStyles } from '@optimacros-ui/utils';
 
 interface Props {
     draggable?: boolean;

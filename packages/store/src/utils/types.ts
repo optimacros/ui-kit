@@ -1,5 +1,5 @@
-import * as $ from '@optimacros/ui-kit-types';
-import { type IndexedUtils } from '@optimacros/ui-kit-utils';
+import * as $ from '@optimacros-ui/types';
+import { type IndexedUtils } from '@optimacros-ui/utils';
 type NoPayload = {
     ok?: true;
 };

@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
-import { IconButton } from '@optimacros/ui-kit-core';
+import { IconButton } from '@optimacros-ui/core';
 
 import CalendarMonth from './CalendarMonth';
-import { range, getAnimationModule, time } from '@optimacros/ui-kit-utils';
+import { range, getAnimationModule, time } from '@optimacros-ui/utils';
 
 const DIRECTION_STEPS = { left: -1, right: 1 };
 const KEYS = {

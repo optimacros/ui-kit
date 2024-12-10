@@ -1,7 +1,7 @@
 import { Set } from 'immutable';
 import { getValue } from '../object';
 import { toCollection } from './utils';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 /**
  *

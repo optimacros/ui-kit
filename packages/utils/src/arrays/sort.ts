@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import { compareValues, CompareValuesArgs } from '../functions';
 import { uniqBy } from './uniq';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 /**
  * @example sortBy([{ or: 2, a: 2 }], 'a:asc', 'a:desc');

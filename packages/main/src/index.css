@@ -1,2 +1,2 @@
-@import '../node_modules/@optimacros/themes/src/assets/themes/default.css';
+@import '../node_modules/@optimacros-ui/themes/src/assets/themes/default.css';
 @config '../tailwind.config.ts';

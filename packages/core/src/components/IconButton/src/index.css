@@ -1,0 +1,36 @@
+[data-scope='button'][data-part='root'][data-tag='icon-button'] {
+  & img {
+    width: var(--font-size-lg);
+    max-width: var(--font-size-lg);
+    max-height: var(--font-size-lg);
+    display: flex;
+  }
+
+  & span[data-scope='icon'] {
+    font-size: var(--font-size-lg);
+  }
+
+  & svg[data-scope='icon'] {
+    width: var(--font-size-lg);
+    height: var(--font-size-lg);
+  }
+
+  &[data-variant='accent'] {
+    &[data-float='flat']:not([disabled]) {
+      --bg: var(--color-icon-button-accent-bg);
+      --bg-hover: var(--color-icon-button-accent-bg);
+      --text: var(--color-icon-button-accent);
+      --border: var(--color-icon-button-accent-border);
+    }
+
+    &[disabled] {
+      &[data-float='flat'] {
+        --bg: transparent;
+      }
+    }
+  }
+
+  &[data-size='md'] {
+    padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2);
+  }
+}
