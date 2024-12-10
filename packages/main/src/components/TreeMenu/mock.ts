@@ -15,4 +15,9 @@ export const menuItems = [
             },
         ],
     },
+    {
+        id: 'src',
+        name: 'src',
+        children: [{ id: 'src/folder', name: 'folder' }],
+    },
 ];
