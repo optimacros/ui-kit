@@ -103,7 +103,7 @@ export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) =>
     );
 });
 
-export const listClassName = 'flex relative z-1 overflow-scroll';
+export const listClassName = 'flex relative z-1 overflow-scroll list-none';
 export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
     const api = useApi();
 

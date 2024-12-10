@@ -1,7 +1,7 @@
 import { ArgTypes } from '@storybook/react';
 
 import { ColorPicker } from './index';
-import { Icon } from '@optimacros/ui-kit-core';
+import { Icon } from '@optimacros-ui/core';
 import { useState } from 'react';
 import { ValueChangeDetails } from '@zag-js/color-picker';
 

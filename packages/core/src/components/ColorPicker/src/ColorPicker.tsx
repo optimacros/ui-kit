@@ -1,8 +1,8 @@
 import * as colorPicker from '@zag-js/color-picker';
-import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
+import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import React, { ComponentProps, PropsWithChildren } from 'react';
 import { Portal } from '@zag-js/react';
-import { tw } from '@optimacros/ui-kit-utils';
+import { tw } from '@optimacros-ui/utils';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as colorPicker.Api,
