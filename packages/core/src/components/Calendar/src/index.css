@@ -1,0 +1,49 @@
+:root {
+  --color-calendar-header-text: var(--color-dark-contrast);
+  --color-calendar-header: var(--color-primary);
+  --width-datepicker-dialog: calc(33 * var(--unit));
+  --font-size-calendar-year: calc(1.3 * var(--unit));
+  --font-size-calendar-month: calc(3.4 * var(--unit));
+  --size-calendar-month-text: calc(4 * var(--unit));
+  --color-calendar-primary: var(--color-primary);
+  --color-calendar-primary-contrast: var(--color-primary-contrast);
+  --font-size-calendar: var(--font-size-small);
+  --color-calendar-primary-hover: color(var(--calendar-primary) a(0.21));
+  --font-size-calendar-day: calc(1.3 * var(--unit));
+  --height-calendar-row: calc(3.6 * var(--unit));
+  --height-trigger-button: calc(3.6 * var(--unit));
+  --height-calendar-total: calc(
+    var(--calendar-row-height) *
+    7 +
+    var(--calendar-title-height) +
+    var(--calendar-day-padding-topbottom) *
+    12
+  );
+
+  --padding-footer: calc(0.8 * var(--unit));
+
+  --color-calendar-button-text: var(--color-grey-900);
+  --color-calendar-button-hover: rgba(33, 33, 33, 0.2);
+  --color-calendar-button-focus: rgba(33, 33, 33, 0.2);
+  --height-calendar-button-text: calc(3.6 * var(--unit));
+  --width-calendar-button: calc(9 * var(--unit));
+
+  --color-calendar-trigger: #d1d1d1;
+  --width-calendar-trigger: calc(3.6 * var(--unit));
+}
+
+[data-scope='calendar'][data-part='table-body'] {
+  & [aria-selected='true'] span {
+    background-color: var(--calendar-primary); /* bg-calendar-primary */
+    color: var(--calendar-primary-contrast); /* text-calendar-primary-contrast */
+  }
+
+  & [aria-selected='true']:hover {
+    color: var(--calendar-primary-contrast); /* text-calendar-primary-contrast */
+  }
+
+  & [aria-disabled='true'] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

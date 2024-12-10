@@ -1,1 +1,1 @@
-export * from '@optimacros/ui-kit-core';
+export * from '@optimacros-ui/core';

@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros/ui-kit",
+    "name": "@optimacros-ui/kit",
     "private": false,
     "version": "1.0.7",
     "main": "dist/index.js",
@@ -11,11 +11,10 @@
         "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
     "dependencies": {
-        "@optimacros/themes": "^0.0.3",
-        "@optimacros/ui-kit-core": "^1.1.5",
-        "@optimacros/ui-kit-types": "^0.0.2",
-        "@optimacros/ui-kit-utils": "^0.0.2",
-        "@zag-js/color-picker": "0.77.0",
+        "@optimacros-ui/themes": "^0.0.3",
+        "@optimacros-ui/core": "^1.1.5",
+        "@optimacros-ui/types": "^0.0.2",
+        "@optimacros-ui/utils": "^0.0.2",
         "marked": "4.1.0",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",

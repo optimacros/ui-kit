@@ -2,7 +2,6 @@
 @import 'tailwindcss/utilities' layer(utilities);
 @import './utilities';
 
-@import './recipes';
 @import './colors.css';
 
 @theme {

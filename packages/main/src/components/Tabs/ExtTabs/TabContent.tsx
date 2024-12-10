@@ -1,8 +1,8 @@
 // @ts-nocheck
 import classNames from 'classnames';
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import { Component, ReactNode } from 'react';
-import { mergeStyles } from '@optimacros/ui-kit-utils';
+import { mergeStyles } from '@optimacros-ui/utils';
 
 import styles from './TabContent.module.css';
 

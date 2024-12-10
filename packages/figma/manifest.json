@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros/ui-kit-figma",
+    "name": "@optimacros-ui/figma",
     "id": "1444228961926391580",
     "api": "1.0.0",
     "main": "dist/code.js",

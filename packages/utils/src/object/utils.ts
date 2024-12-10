@@ -1,4 +1,4 @@
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 import { getIn, merge as ImMerge, mergeDeep, setIn } from 'immutable';
 import { isString } from 'lodash-es';
 

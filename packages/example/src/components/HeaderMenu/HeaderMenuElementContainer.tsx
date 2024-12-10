@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { isEmpty } from '@optimacros/ui-kit-utils';
+import { isEmpty } from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 
 import type { Element } from './HeaderMenuElement';

@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros/ui-kit-example",
+    "name": "@optimacros-ui/example",
     "private": true,
     "version": "0.0.3",
     "type": "module",

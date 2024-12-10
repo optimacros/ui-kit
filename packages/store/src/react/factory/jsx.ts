@@ -1,4 +1,4 @@
-import { capitalize, merge } from '@optimacros/ui-kit-utils';
+import { capitalize, merge } from '@optimacros-ui/utils';
 import {
     Children,
     ComponentPropsWithRef,

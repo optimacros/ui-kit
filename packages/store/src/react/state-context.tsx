@@ -1,4 +1,4 @@
-import { invariant, isFunction } from '@optimacros/ui-kit-utils';
+import { invariant, isFunction } from '@optimacros-ui/utils';
 import { createContext, FC, memo, ReactNode, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';

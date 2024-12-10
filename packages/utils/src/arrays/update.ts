@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import { merge } from '../object';
 import { satisfiesFilterConditions } from './filter';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 type DataPayload<Item> = {
     /** data to update */

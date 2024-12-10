@@ -1,5 +1,5 @@
 import { RenameProps, RenameValues } from './types';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 export function prefixProps<T extends Record<string, any>, P extends string>({
     obj,

@@ -9,7 +9,7 @@ import {
     mapValues,
     memo,
     upperFirst,
-} from '@optimacros/ui-kit-utils';
+} from '@optimacros-ui/utils';
 import { ActionsType, ActionTypeMap, CreateNoopActionsPayload, NoopActionsMap } from './types';
 
 export function getActionsType(value) {

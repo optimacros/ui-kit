@@ -1,4 +1,4 @@
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import {
     ComponentProps,
     createElement,

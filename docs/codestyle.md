@@ -80,8 +80,8 @@ export const Icon = forward<{}, 'div'>((props, ref) => {
 
 ```tsx
 import { ChangeEvent, HTMLAttributes, KeyboardEvent, useCallback, useRef } from 'react';
-import { clsx, isNull, tw } from '@optimacros/ui-kit-utils';
-import { forward, styled } from '@optimacros/ui-kit-store';
+import { clsx, isNull, tw } from '@optimacros-ui/utils';
+import { forward, styled } from '@optimacros-ui/store';
 import { useAutoResize } from './useAutoresize';
 
 export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress'> {}

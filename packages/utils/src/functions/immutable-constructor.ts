@@ -21,7 +21,7 @@ import {
     Set,
     Stack,
 } from 'immutable';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 export const getImmutableConstructor = (value) => {
     if (isRecord(value)) return ImRecord;

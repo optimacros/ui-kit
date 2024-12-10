@@ -1,0 +1,13 @@
+:root {
+  --color-radio: #c1c1c1;
+  --color-radio-inner: var(--color-primary);
+  --color-radio-focus: var(--color-black);
+  --color-radio-checked-focus: var(--color-primary);
+  --color-radio-text: var(--color-black);
+  --color-radio-disabled: #d8d8d8;
+  --size-radio-button: calc(2 * var(--unit));
+  --font-size-radio-text: calc(1.4 * var(--unit));
+  --margin-bottom-radio: calc(1.5 * var(--unit));
+  --margin-radio: calc(2 * var(--unit));
+  --padding-left-label: var(--unit);
+}

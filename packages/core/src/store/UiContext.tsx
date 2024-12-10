@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext } from 'react';
 
-import { invariant } from '@optimacros/ui-kit-utils';
+import { invariant } from '@optimacros-ui/utils';
 
 interface IUiContext {
     iconsSrc: string;

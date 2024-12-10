@@ -1,5 +1,5 @@
 // @ts-nocheck
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import { action, makeObservable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';

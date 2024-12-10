@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEmpty } from '@optimacros/ui-kit-utils';
+import { isEmpty } from '@optimacros-ui/utils';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 

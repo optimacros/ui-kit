@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import { isUndefined } from '@optimacros/ui-kit-utils';
+import { isUndefined } from '@optimacros-ui/utils';
 import type { FC } from 'react';
 
 import { ResourceListItemContent } from './ResourceListItemContent';
 import { ResourceListDynamicStatus, ResourceListElement, ResourceListType } from '../types';
 
 import styles from './ResourceListItem.module.css';
-import { Icon } from '../../Icon';
-import { ICONS_MAP } from '@optimacros/themes';
+import { Icon } from '../../Icon/src';
+import { ICONS_MAP } from '@optimacros-ui/themes';
 
 export interface ResourceListItemProps {
     listItem: ResourceListElement;

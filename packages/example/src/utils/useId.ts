@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 
 // TODO remove in https://rucom.optimacros.com/topic/32457
 export function useId() {

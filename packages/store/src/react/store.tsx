@@ -1,4 +1,4 @@
-import { invariant, mapValues } from '@optimacros/ui-kit-utils';
+import { invariant, mapValues } from '@optimacros-ui/utils';
 import { createContext, FC, memo, ReactNode, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 

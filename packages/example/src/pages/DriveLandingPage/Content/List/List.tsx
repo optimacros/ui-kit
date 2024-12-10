@@ -1,4 +1,4 @@
-import * as _ from '@optimacros/ui-kit-utils';
+import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 
 import { TabTypes, driveLandingState } from '../../../../state/DriveLandingState';

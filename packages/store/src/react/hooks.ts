@@ -1,5 +1,5 @@
 import { ActionCreator } from '../utils';
-import { mapValues } from '@optimacros/ui-kit-utils';
+import { mapValues } from '@optimacros-ui/utils';
 import { mergeDeepWith } from 'immutable';
 import { memoize } from 'proxy-memoize';
 import {

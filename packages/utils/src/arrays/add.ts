@@ -1,6 +1,6 @@
 import { List } from 'immutable';
 import { uniq, uniqBy as uqBy } from './uniq';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 export type AddIndexedPayload<T extends $.Tuple.Indexed.Type<any>> = {
     /**

@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros/themes",
+    "name": "@optimacros-ui/themes",
     "private": false,
     "version": "0.0.3",
     "main": "dist/index.js",

@@ -1,6 +1,6 @@
 import { Collection } from 'immutable';
 import { toCollection } from './utils';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 export function combine2d(list, n = 0, result = [], current = []) {
     if (n === list.length) result.push(current);

@@ -1,4 +1,4 @@
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 import { forwardRef, ForwardRefRenderFunction, memo } from 'react';
 import { JsxElementsKey, PropsWithoutRef, Ref } from './factory';
 import { ElementConfig } from './createReactElement';

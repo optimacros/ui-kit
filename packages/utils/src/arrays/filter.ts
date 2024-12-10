@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import { isPrimitive } from 'radash';
 import { filter } from '../functions';
-import * as $ from '@optimacros/ui-kit-types';
+import * as $ from '@optimacros-ui/types';
 
 function satisfiesFilterPrimitiveConditions<
     T extends $.Primitive,
