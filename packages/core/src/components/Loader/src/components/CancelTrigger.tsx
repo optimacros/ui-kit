@@ -3,7 +3,7 @@ import { useApi } from './context';
 import { forward, styled } from '@optimacros-ui/store';
 import { tw, clsx } from '@optimacros-ui/utils';
 
-export const cancelTriggerClassName = tw`cursor-pointer transition`;
+export const cancelTriggerClassName = tw`flex cursor-pointer transition`;
 
 export const CancelTrigger = forward<React.PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
