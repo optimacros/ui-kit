@@ -151,3 +151,39 @@ export const CancelTrigger = () => {
         </Loader.Root>
     );
 };
+
+export const FloatingCancelTrigger = () => {
+    const handleCancel = () => {
+        alert('cancel');
+    };
+
+    return (
+        <Loader.Root value={70} onCancel={handleCancel}>
+            <Loader.Label>
+                Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading{' '}
+            </Loader.Label>
+
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    boxSizing: 'border-box',
+                    height: 60,
+                    paddingRight: 70,
+                }}
+            >
+                <Loader.LinearTrack>
+                    <Loader.ValueText />
+                    <Loader.LinearRange />
+                </Loader.LinearTrack>
+
+                <Loader.FloatingCancelTrigger>
+                    <Icon value="close" style={{ fontSize: 26 }} />
+                </Loader.FloatingCancelTrigger>
+            </div>
+        </Loader.Root>
+    );
+};

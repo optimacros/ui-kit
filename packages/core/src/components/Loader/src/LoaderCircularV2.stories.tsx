@@ -217,3 +217,65 @@ export const CancelTrigger = () => {
         </Loader.Root>
     );
 };
+
+export const FloatingCancelTrigger = () => {
+    const [counter, setCounter] = useState(33);
+    const [timer, setTimer] = useState(null);
+
+    useEffect(() => {
+        setTimer(
+            setInterval(() => {
+                setCounter((c) => {
+                    if (c >= 100) {
+                        return 0;
+                    }
+
+                    return c + 1;
+                });
+            }, 100),
+        );
+    }, []);
+
+    const handleCancel = useCallback(() => {
+        clearInterval(timer);
+    }, [timer]);
+
+    return (
+        <Loader.Root value={counter} onCancel={handleCancel}>
+            <Loader.Label>
+                Loading {counter}/100 Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                Loading Loading Loading Loading Loading Loading Loading{' '}
+            </Loader.Label>
+
+            <div
+                style={{
+                    position: 'relative',
+                    display: 'flex',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 30,
+                }}
+            >
+                <Loader.ValueText />
+
+                <div
+                    style={{
+                        position: 'relative',
+                        display: 'flex',
+                    }}
+                >
+                    <Loader.Circle>
+                        <Loader.CircleTrack />
+                        <Loader.CircleRange />
+                    </Loader.Circle>
+
+                    <Loader.FloatingCancelTrigger>
+                        <Icon value="close" style={{ fontSize: 32 }} />
+                    </Loader.FloatingCancelTrigger>
+                </div>
+            </div>
+        </Loader.Root>
+    );
+};

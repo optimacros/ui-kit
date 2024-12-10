@@ -98,6 +98,12 @@
         ease-in-out infinite;
     }
   }
+
+  /* circle floating-cancel-trigger */
+  & div:has([data-part='circle']) [data-part='cancel-trigger'][data-state='floating'] {
+    top: 0;
+    transform: translate(100%, -100%);
+  }
 }
 
 @keyframes linear-indeterminate-bar {
