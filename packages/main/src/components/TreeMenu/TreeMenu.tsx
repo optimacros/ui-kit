@@ -2,6 +2,8 @@ import React, { ComponentProps, PropsWithChildren } from 'react';
 import { tw } from '@optimacros/ui-kit-utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as treemenu from '@zag-js/tree-view';
+import { Menu } from '@optimacros/ui-kit-core/src/components/Menu';
+export * from '@optimacros/ui-kit-core/src/components/Menu/Menu';
 
 interface Node {
     id: string;
@@ -31,6 +33,7 @@ export type RootProps = PropsWithChildren<
         menuItems: MenuItems;
     }
 >;
+
 export const Root = forward<RootProps, 'div'>(({ children, menuItems, ...context }, ref) => {
     collection.rootNode.children = menuItems;
 
@@ -57,6 +60,10 @@ export const Tree = forward<{}, 'div'>((props, ref) => {
             ref={ref}
         />
     );
+});
+
+export const PortalRoot = forward<ComponentProps<typeof Menu.Root>, 'div'>((props, ref) => {
+    return <Menu.Root {...props} data-tag="tree-menu" ref={ref} />;
 });
 
 interface TreeNodeProps {

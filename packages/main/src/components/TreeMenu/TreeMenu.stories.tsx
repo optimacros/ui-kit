@@ -1,5 +1,5 @@
-import { Icon } from '@optimacros/ui-kit-core';
 import { ReactNode } from 'react';
+import { Icon } from '@optimacros/ui-kit-core';
 import { TreeMenu } from './index';
 import { menuItems } from './mock';
 
@@ -32,6 +32,31 @@ export const Basic = () => {
                     </TreeMenu.TreeNode>
                 ))}
             </TreeMenu.Tree>
+        </TreeMenu.Root>
+    );
+};
+
+export const WithTrigger = () => {
+    return (
+        <TreeMenu.Root menuItems={menuItems}>
+            <TreeMenu.PortalRoot>
+                <TreeMenu.Trigger asChild>
+                    <div>Click me</div>
+                </TreeMenu.Trigger>
+                <TreeMenu.Positioner>
+                    <TreeMenu.Content>
+                        <TreeMenu.Tree>
+                            {menuItems.map((node, index) => (
+                                <TreeMenu.TreeNode key={node.id} node={node} indexPath={[index]}>
+                                    <Icon value="chevron_right" />
+                                    <Icon value="folder_open" />
+                                    <Icon value="description" />
+                                </TreeMenu.TreeNode>
+                            ))}
+                        </TreeMenu.Tree>
+                    </TreeMenu.Content>
+                </TreeMenu.Positioner>
+            </TreeMenu.PortalRoot>
         </TreeMenu.Root>
     );
 };
