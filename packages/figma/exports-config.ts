@@ -47,6 +47,11 @@ export const config = {
         custom: ['font-size', 'font-weight', 'letter-spacing', 'line-height'],
         styledBy: 'parent',
     },
+    'field/label': {
+        default: 'all',
+        custom: ['font-size', 'font-weight', 'letter-spacing', 'line-height'],
+        styledBy: 'self',
+    },
 } as const;
 
 export const getExportProps = (
