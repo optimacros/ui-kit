@@ -1,9 +1,8 @@
-// @ts-nocheck
-import * as _ from '@optimacros/ui-kit-utils';
 import React from 'react';
 import { CustomPicker } from 'react-color';
 import { Saturation, EditableInput, Hue } from 'react-color/lib/components/common';
 import tinyColor from 'tinycolor2';
+import { replaceStr as replace, toUpper } from '@optimacros/ui-kit-utils';
 
 import style from './CustomPicker.module.css';
 
@@ -153,7 +152,7 @@ class CustomColorPicker extends React.Component<Props, State> {
                     style={inputStyles.rgb}
                 />
 
-                <div className={style.caption}>{_.toUpper(element)}</div>
+                <div className={style.caption}>{toUpper(element)}</div>
             </div>
         );
     }
@@ -163,7 +162,7 @@ class CustomColorPicker extends React.Component<Props, State> {
             <div className={style.inputContainer} data-name="hex">
                 <EditableInput
                     style={inputStyles.hex}
-                    value={_.replace(this.state.hex, '#', '')}
+                    value={replace(this.state.hex, '#', '')}
                     onChange={this.props.onChange}
                 />
 

@@ -26,6 +26,7 @@ const config: StorybookConfig = {
     },
     core: {
         builder: '@storybook/builder-vite',
+        disableWhatsNewNotifications: true,
     },
     typescript: {
         reactDocgen: 'react-docgen-typescript',
