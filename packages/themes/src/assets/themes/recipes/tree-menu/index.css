@@ -1,0 +1,23 @@
+[data-scope='tree-menu'] {
+  & [role='button'] {
+    @apply cursor-pointer;
+  }
+
+  & [data-part='tree-node-no-branch'] {
+    @apply pl-5;
+  }
+
+  & [data-part='branch-control']:hover,
+  [data-part='branch-content'] [data-part='tree-node-no-branch']:hover {
+    @apply bg-green-50;
+  }
+
+  & [data-selected] {
+    &[role='button'],
+    &[role='button']:hover,
+    &[data-part='tree-node-no-branch'],
+    &[data-part='tree-node-no-branch']:hover {
+      @apply bg-green-100;
+    }
+  }
+}

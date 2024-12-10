@@ -1,4 +1,5 @@
 import React, { ComponentProps, PropsWithChildren } from 'react';
+import { tw } from '@optimacros/ui-kit-utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
 import * as treemenu from '@zag-js/tree-view';
 
@@ -62,12 +63,15 @@ interface TreeNodeProps {
     node: Node;
     indexPath: number[];
 }
+const branchIndicatorClassName = tw`
+inline-block data-[state='open']:transform data-[state='open']:rotate-90
+`;
 export const TreeNode = forward<TreeNodeProps, 'div'>(
     ({ node, indexPath, children, ...rest }, ref) => {
         const api = useApi();
         const nodeProps = { indexPath, node };
         const nodeState = api.getNodeState(nodeProps);
-        const [prevIcon, indicator] = React.Children.toArray(children);
+        const [indicator, branchControl, branchContent] = React.Children.toArray(children);
 
         if (nodeState.isBranch) {
             return (
@@ -75,15 +79,36 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                     {...rest}
                     {...api.getBranchProps(nodeProps)}
                     data-scope="tree-menu"
-                    data-part="tree-node"
+                    data-part="tree-node-is-branch"
                     ref={ref}
                 >
-                    <div {...api.getBranchControlProps(nodeProps)}>
-                        {prevIcon}
-                        <span {...api.getBranchTextProps(nodeProps)}>{node.name}</span>
-                        <span {...api.getBranchIndicatorProps(nodeProps)}> {indicator} </span>
+                    <div
+                        {...api.getBranchControlProps(nodeProps)}
+                        data-scope="tree-menu"
+                        data-part="branch-control"
+                    >
+                        {branchControl}
+                        <span
+                            {...api.getBranchTextProps(nodeProps)}
+                            data-scope="tree-menu"
+                            data-part="branch-text"
+                        >
+                            {node.name}
+                        </span>
+                        <span
+                            {...api.getBranchIndicatorProps(nodeProps)}
+                            data-scope="tree-menu"
+                            data-part="branch-indicator"
+                            className={branchIndicatorClassName}
+                        >
+                            {indicator}
+                        </span>
                     </div>
-                    <div {...api.getBranchContentProps(nodeProps)}>
+                    <div
+                        {...api.getBranchContentProps(nodeProps)}
+                        data-scope="tree-menu"
+                        data-part="branch-content"
+                    >
                         <div {...api.getBranchIndentGuideProps(nodeProps)} />
                         {node.children?.map((childNode, index) => {
                             return (
@@ -101,8 +126,12 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
             );
         }
         return (
-            <div {...api.getItemProps(nodeProps)}>
-                {prevIcon} {node.name}
+            <div
+                {...api.getItemProps(nodeProps)}
+                data-scope="tree-menu"
+                data-part="tree-node-no-branch"
+            >
+                {branchContent} {node.name}
             </div>
         );
     },
