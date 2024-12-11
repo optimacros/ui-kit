@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { Icon } from '@optimacros-ui/core';
+import { Meta } from '@storybook/react';
+import { Icon } from '@optimacros-ui/icon';
 import { TreeMenu } from './index';
 import { menuItems } from './mock';
 
@@ -8,7 +9,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 export default {
-    title: 'UI Kit main/TreeMenu',
+    title: 'UI Kit core/TreeMenu',
     component: TreeMenu.Root,
     tags: ['autodocs'],
     decorators: [
@@ -18,7 +19,7 @@ export default {
             </Wrapper>
         ),
     ],
-};
+} as Meta;
 
 export const Basic = () => {
     return (

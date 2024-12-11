@@ -66,6 +66,7 @@
             "@optimacros-ui/tooltip": ["packages/core/src/components/Tooltip/src"],
             "@optimacros-ui/virtual": ["packages/core/src/components/Virtual/src"],
             "@optimacros-ui/calendar": ["packages/core/src/components/Calendar/src"],
+            "@optimacros-ui/tree-menu": ["packages/core/src/components/TreeMenu/src"],
             "@optimacros-ui/core": ["packages/core/src"],
             "@optimacros-ui/kit": ["packages/main/src"],
             "@optimacros-ui/themes": ["packages/themes/src"],

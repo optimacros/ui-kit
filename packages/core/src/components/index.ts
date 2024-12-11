@@ -29,3 +29,4 @@ export * from '@optimacros-ui/toast';
 export * from '@optimacros-ui/toolbar';
 export * from '@optimacros-ui/tooltip';
 export * from '@optimacros-ui/virtual';
+export * from '@optimacros-ui/tree-menu';
