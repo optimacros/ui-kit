@@ -158,7 +158,7 @@ export const FloatingCancelTrigger = () => {
     };
 
     return (
-        <Loader.Root value={70} onCancel={handleCancel}>
+        <Loader.Root value={66} onCancel={handleCancel}>
             <Loader.Label>
                 Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
                 Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
@@ -171,8 +171,8 @@ export const FloatingCancelTrigger = () => {
                     display: 'flex',
                     alignItems: 'center',
                     boxSizing: 'border-box',
-                    height: 60,
-                    paddingRight: 70,
+                    height: 30,
+                    paddingRight: 50,
                 }}
             >
                 <Loader.LinearTrack>
