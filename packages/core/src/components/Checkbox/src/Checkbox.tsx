@@ -23,12 +23,7 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> &
 export const Root = forward<RootProps, 'label'>(({ children, ...context }, ref) => (
     <RootProvider {...context}>
         {(api) => (
-            <styled.label
-                {...api.getRootProps()}
-                ref={ref}
-                key={`item-${context.value}`}
-                className={rootClassName}
-            >
+            <styled.label {...api.getRootProps()} ref={ref} className={rootClassName}>
                 {children}
             </styled.label>
         )}
