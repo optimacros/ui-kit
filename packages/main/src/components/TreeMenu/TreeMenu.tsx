@@ -1,9 +1,9 @@
 import React, { ComponentProps, PropsWithChildren } from 'react';
-import { tw } from '@optimacros/ui-kit-utils';
-import { createReactApiStateContext, forward, styled } from '@optimacros/ui-kit-store';
+import { tw } from '@optimacros-ui/utils';
+import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as treemenu from '@zag-js/tree-view';
-import { Menu } from '@optimacros/ui-kit-core/src/components/Menu';
-export * from '@optimacros/ui-kit-core/src/components/Menu/Menu';
+import { Menu } from '@optimacros-ui/core/src/components/Menu/src';
+export * from '@optimacros-ui/core/src/components/Menu/src/Menu';
 
 interface Node {
     id: string;

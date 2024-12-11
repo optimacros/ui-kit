@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Icon } from '@optimacros/ui-kit-core';
+import { Icon } from '@optimacros-ui/core';
 import { TreeMenu } from './index';
 import { menuItems } from './mock';
 
