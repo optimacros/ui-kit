@@ -17,7 +17,7 @@ export default {
         },
         checked: {
             control: 'boolean',
-            description: 'Is checked',
+            description: 'If `true`, component will be checked',
         },
     },
 };
