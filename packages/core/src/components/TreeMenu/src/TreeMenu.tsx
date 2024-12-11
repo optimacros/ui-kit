@@ -2,9 +2,9 @@ import React, { ComponentProps, PropsWithChildren } from 'react';
 import * as treemenu from '@zag-js/tree-view';
 import { tw } from '@optimacros-ui/utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { Menu } from '@optimacros-ui/menu';
+import { Popover } from '@optimacros-ui/popover';
 
-export const { Trigger, Positioner, Content } = Menu;
+export const { Trigger, Positioner, Content } = Popover;
 
 interface Node {
     id: string;
@@ -63,8 +63,8 @@ export const Tree = forward<{}, 'div'>((props, ref) => {
     );
 });
 
-export const PortalRoot = forward<ComponentProps<typeof Menu.Root>, 'div'>((props, ref) => {
-    return <Menu.Root {...props} data-tag="tree-menu" ref={ref} />;
+export const PortalRoot = forward<ComponentProps<typeof Popover.Root>, 'div'>((props, ref) => {
+    return <Popover.Root {...props} data-tag="tree-menu" ref={ref} />;
 });
 
 interface TreeNodeProps {

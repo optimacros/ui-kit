@@ -1,3 +1,4 @@
+import { Button } from '@optimacros-ui/button';
 import { ReactNode } from 'react';
 import { Meta } from '@storybook/react';
 import { Icon } from '@optimacros-ui/icon';
@@ -42,7 +43,7 @@ export const WithTrigger = () => {
         <TreeMenu.Root menuItems={menuItems}>
             <TreeMenu.PortalRoot>
                 <TreeMenu.Trigger asChild>
-                    <div>Click me</div>
+                    <Button variant="bordered">Click me</Button>
                 </TreeMenu.Trigger>
                 <TreeMenu.Positioner>
                     <TreeMenu.Content>
