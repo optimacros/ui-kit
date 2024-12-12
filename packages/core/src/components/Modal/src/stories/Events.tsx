@@ -1,6 +1,6 @@
 import { Modal } from '../index';
 import { useState } from 'react';
-import { Button } from '../../Button';
+import { Button } from '@optimacros-ui/button';
 
 export const Events = () => {
     const [open, setOpen] = useState(false);
