@@ -1,0 +1,14 @@
+.SliderScale {
+}
+
+.Title {
+  font-size: 12px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.container {
+  margin-right: 0;
+  margin-left: -10px;
+  width: calc(100% - 16px);
+}

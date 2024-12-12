@@ -1,0 +1,163 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--contents-bg);
+  overflow-y: auto;
+}
+
+.mainMini {
+  width: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  transition: background 0.25s;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--contents-mini-hover);
+  }
+}
+
+.toggleBtn {
+  cursor: pointer;
+  margin-right: 5px;
+  flex-shrink: 0;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    box-shadow: 0 0 0 1px var(--contents-toggleBtn-color);
+  }
+}
+
+.toggleBtnIcon {
+  font-size: 18px !important;
+  color: var(--contents-toggleBtn-color);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 5px 12px 5px 12px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  background: var(--contents-bg);
+
+  & .headerTitle {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    &_Text {
+      flex: 1;
+    }
+  }
+
+  & .toggleBtnIcon {
+    &:first-child {
+      margin-right: -14px;
+    }
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    transition: background 0.3s;
+  }
+
+  &__scrolled {
+    &:after {
+      background: var(--light-divider-color);
+    }
+  }
+}
+
+.headerComments {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--light-divider-color);
+  padding-left: 30px;
+}
+
+.headerCommentsTitle {
+  font-size: 14px;
+  padding: 0 15px 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.headerCommentsClose {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--comments-close-hover);
+  }
+}
+
+.headerCommentsCloseIcon {
+  font-size: 18px;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  padding: 14px 0 12px 12px;
+}
+
+.Search {
+  flex-grow: 1;
+
+  &_rightOffset {
+    margin-right: 40px;
+  }
+}
+.HeaderContentContainer {
+  flex-grow: 1;
+}
+
+.SearchContainer {
+  display: flex;
+  align-items: center;
+}
+.SearchInput {
+  width: 100%;
+  height: 28px;
+  border: 1px solid var(--light-divider-color);
+  padding: 0 5px;
+}
+
+.FilterContainer {
+}
+
+.HeaderInnerContainer {
+  flex-grow: 1;
+}
+
+.ContentContainer {
+  flex: 1;
+  width: 100%;
+}
