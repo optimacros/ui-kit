@@ -6,7 +6,4 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     id: 'dialog',
     machine: dialog,
     initialState: null,
-    defaultContext: {
-        'open.controlled': true,
-    },
 });

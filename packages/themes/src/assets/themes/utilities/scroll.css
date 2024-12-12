@@ -42,9 +42,8 @@
 }
 
 [data-role='scroll-container'] {
-  & {
-    scrollbar-gutter: stable;
-  }
+  overflow: auto;
+  scrollbar-gutter: stable;
 
   &::-webkit-scrollbar {
     width: var(--width-scroll);
