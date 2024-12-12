@@ -40,11 +40,11 @@ export default meta;
 
 export const Basic = () => {
     return (
-        <Slider.RootProvider>
+        <Slider.RootProvider value={[67]}>
             {(api) => (
                 <>
                     <div style={{ marginBottom: 50 }}>
-                        <Button onClick={() => api.setValue([12])}>reset</Button>
+                        <Button onClick={() => api.setValue([67])}>reset</Button>
                     </div>
 
                     <Slider.Root>
@@ -59,7 +59,7 @@ export const Basic = () => {
 
 export const Range = () => {
     return (
-        <Slider.RootProvider>
+        <Slider.RootProvider value={[12, 34]}>
             {(api) => (
                 <>
                     <div style={{ marginBottom: 50 }}>
@@ -78,7 +78,7 @@ export const Range = () => {
 
 export const Disabled = () => {
     return (
-        <Slider.RootProvider disabled>
+        <Slider.RootProvider value={[12, 34]} disabled>
             {(api) => (
                 <>
                     <div style={{ marginBottom: 50 }}>
@@ -97,7 +97,7 @@ export const Disabled = () => {
 
 export const CustomMinMax = () => {
     return (
-        <Slider.RootProvider min={-100} max={50}>
+        <Slider.RootProvider value={[12, 34]} min={-100} max={50}>
             {(api) => (
                 <>
                     <div style={{ marginBottom: 50 }}>
