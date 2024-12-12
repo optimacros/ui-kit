@@ -1,5 +1,5 @@
 import React, { ComponentProps, PropsWithChildren } from 'react';
-import * as treemenu from '@zag-js/tree-view';
+import * as treeview from '@zag-js/tree-view';
 import { tw } from '@optimacros-ui/utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
@@ -10,13 +10,13 @@ interface Node {
 }
 
 export const { RootProvider, useApi, State } = createReactApiStateContext({
-    api: null as treemenu.Api,
+    api: null as treeview.Api,
     id: 'tree-view',
-    machine: treemenu,
+    machine: treeview,
     initialState: {},
 });
 
-type MenuItems = ReturnType<typeof treemenu.collection<Node>>;
+type MenuItems = ReturnType<typeof treeview.collection<Node>>;
 export type RootProps = PropsWithChildren<
     ComponentProps<typeof RootProvider> & {
         menuItems: MenuItems;
@@ -24,7 +24,7 @@ export type RootProps = PropsWithChildren<
 >;
 
 export const Root = forward<RootProps, 'div'>(({ children, menuItems, ...context }, ref) => {
-    const collection = treemenu.collection<Node>(menuItems);
+    const collection = treeview.collection<Node>(menuItems);
 
     return (
         <RootProvider {...context} collection={collection}>
@@ -71,7 +71,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                     {...rest}
                     {...api.getBranchProps(nodeProps)}
                     data-scope="tree-view"
-                    data-part="tree-node-is-branch"
+                    data-part="tree-node-branch"
                     ref={ref}
                 >
                     <div
@@ -118,11 +118,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
             );
         }
         return (
-            <div
-                {...api.getItemProps(nodeProps)}
-                data-scope="tree-view"
-                data-part="tree-node-no-branch"
-            >
+            <div {...api.getItemProps(nodeProps)} data-scope="tree-view" data-part="tree-node">
                 {branchContent} {node.name}
             </div>
         );
