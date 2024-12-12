@@ -72,6 +72,8 @@
             "@optimacros-ui/flex": ["packages/core/src/components/Flex/src"],
             "@optimacros-ui/text": ["packages/core/src/components/Text/src"],
             "@optimacros-ui/grid": ["packages/core/src/components/Grid/src"],
+            "@optimacros-ui/stack": ["packages/core/src/components/Stack/src"],
+            "@optimacros-ui/visually-hidden": ["packages/core/src/components/VisuallyHidden/src"],
             "@optimacros-ui/core": ["packages/core/src"],
             "@optimacros-ui/kit": ["packages/main/src"],
             "@optimacros-ui/themes": ["packages/themes/src"],
