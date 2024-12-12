@@ -2,6 +2,7 @@
 @import 'tailwindcss/utilities' layer(utilities);
 @import './utilities';
 
+@import './typography.css';
 @import './colors.css';
 
 @theme {
