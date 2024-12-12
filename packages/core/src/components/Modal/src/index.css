@@ -6,20 +6,80 @@
 
 [data-scope='dialog'] {
   &[data-part='backdrop'] {
-    --bg: var(--color-dialog-backdrop);
-    --z: var(--z-index-dialog-backdrop);
+    position: fixed;
+    z-index: var(--z-index-dialog-backdrop);
+    inset: 0;
+    background-color: var(--color-dialog-backdrop);
   }
 
   &[data-part='positioner'] {
-    --z: var(--z-index-dialog-backdrop);
+    position: fixed;
+    z-index: var(--z-index-dialog-backdrop);
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
   }
 
-  &[data-part='content'] {
-    --bg: var(--color-dialog-bg);
+  & [data-part='content'] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--border-radius);
+    background-color: var(--color-dialog-bg);
+    border: 1px solid var(--divider);
+    max-width: 80vw;
+    max-height: 80vh;
+  }
+
+  & [data-part='header'] {
+    position: relative;
+    padding-left: calc(6 * var(--spacing));
+    padding-right: calc(14 * var(--spacing));
+    padding-top: calc(3.5 * var(--spacing));
+    padding-bottom: calc(3.5 * var(--spacing));
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  & [data-part='title'] {
+    color: var(--color-text);
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & [data-part='footer'] {
+    padding-left: calc(6 * var(--spacing));
+    padding-right: calc(6 * var(--spacing));
+    padding-top: calc(3.5 * var(--spacing));
+    padding-bottom: calc(3.5 * var(--spacing));
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  & [data-part='scroll-container-outer'] {
+    display: flex;
+    padding-left: calc(6 * var(--spacing));
+    padding-right: calc(2 * var(--spacing));
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   & [data-part='scroll-container-inner'] {
-    scrollbar-gutter: stable;
     /* у outer pl = 1.5r, pr = 0.5, тут нужно получить 1 вместе со скроллом */
     padding-right: calc(2.5 * var(--spacing) - var(--width-scroll));
   }
