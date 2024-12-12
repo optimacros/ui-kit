@@ -10,6 +10,9 @@
 Q: something is wrong  
 A: do `node run reinstall`
 
+Q: still not working  
+A: do `ctrl+f5`
+
 ### Linters
 
 #### VSCode
