@@ -1,8 +1,7 @@
 import { ReactNode, useState } from 'react';
-import { Icon } from '@optimacros-ui/core';
 import { Counter } from './index';
-import { Button } from '@optimacros-ui/button';
 import { Navigation } from '@optimacros-ui/navigation';
+import { IconButton } from '@optimacros-ui/icon-button';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ display: 'flex' }}>{children}</div>
@@ -44,13 +43,9 @@ export const State = (props) => {
         setCounter((prev) => ++prev);
     };
 
-    const getIcon = () => {
-        return <Icon value="add" />;
-    };
-
     return (
         <>
-            <Button renderIcon={getIcon} variant="bordered" onClick={onChange} />
+            <IconButton variant="bordered" onClick={onChange} value="add" />
             <Counter {...props} value={counter} maxValue={10} />
         </>
     );

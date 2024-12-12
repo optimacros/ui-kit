@@ -1,5 +1,4 @@
 import { Toast, ToastGroup } from '.';
-import { Icon } from '@optimacros-ui/icon';
 import { IconButton } from '@optimacros-ui/icon-button';
 
 export default {
@@ -42,10 +41,7 @@ export const Base = (props) => {
                             <Toast.Description />
                         </Toast.Content>
                         <Toast.CloseTrigger asChild>
-                            <IconButton
-                                renderIcon={() => <Icon value="close" />}
-                                variant="accent"
-                            />
+                            <IconButton icon="close" variant="accent" />
                         </Toast.CloseTrigger>
                     </Toast.Root>
                 )}

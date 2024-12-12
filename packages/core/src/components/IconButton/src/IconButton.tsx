@@ -1,6 +1,14 @@
 import { Button, ButtonProps } from '@optimacros-ui/button';
-export interface IconButtonProps extends ButtonProps {}
+import { Icon, IconProps } from '@optimacros-ui/icon';
 
-export const IconButton = (props: IconButtonProps) => {
-    return <Button {...props} data-tag="icon-button" />;
+export interface IconButtonProps extends ButtonProps {
+    icon: IconProps['value'];
+}
+
+export const IconButton = ({ children, icon, ...rest }: IconButtonProps) => {
+    return (
+        <Button {...rest} data-tag="icon-button">
+            <Icon value={children ?? icon} />
+        </Button>
+    );
 };

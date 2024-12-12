@@ -2,7 +2,6 @@ import { Meta } from '@storybook/react';
 
 import { FileUpload } from './index';
 import { Button } from '@optimacros-ui/button';
-import { Icon } from '@optimacros-ui/icon';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { ReactNode } from 'react';
 const Wrapper = ({ children }: { children: ReactNode }) => (
@@ -37,12 +36,7 @@ export const Base = () => {
             <FileUpload.Dropzone>Upload</FileUpload.Dropzone>
             <FileUpload.Content>
                 <FileUpload.ClearTrigger as="div">
-                    <IconButton
-                        renderIcon={() => <Icon value={'close'} />}
-                        variant="bordered"
-                        size="xs"
-                        squared
-                    />
+                    <IconButton icon={'close'} variant="bordered" size="xs" squared />
                 </FileUpload.ClearTrigger>
                 <FileUpload.ItemGroupHeader>
                     <span>FileName</span>

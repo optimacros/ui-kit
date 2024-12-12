@@ -14,6 +14,7 @@
         "@optimacros-ui/store": "^0.0.2",
         "@optimacros-ui/types": "^0.0.2",
         "@optimacros-ui/utils": "^0.0.2",
-        "@optimacros-ui/button": "0.0.0"
+        "@optimacros-ui/button": "0.0.0",
+        "@optimacros-ui/icon": "0.0.0"
     }
 }

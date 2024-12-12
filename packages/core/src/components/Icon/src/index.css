@@ -1,0 +1,5 @@
+[data-scope='icon'][data-part='root'][data-tag='container'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

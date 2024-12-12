@@ -53,12 +53,8 @@
   --color-button-inverse-bg: var(--color-background-inverse);
 
   --radius-button: var(--radius-sm);
-  --padding-button: calc(var(--spacing) * 3);
+  --padding-button: var(--spacing-3);
   --font-size-button: var(--font-size-2xl);
-
-  --color-icon-button-accent: #767676;
-  --color-icon-button-accent-border: #dbdbdb;
-  --color-icon-button-accent-bg: #e9e9e9;
 }
 
 [data-scope='button'][data-part='root'] {
@@ -130,11 +126,13 @@
     padding: 0;
 
     &[data-size='xs'] {
-      @apply size-10;
+      width: var(--spacing-10); /* 2.5rem / 40px */
+      height: var(--spacing-10);
     }
 
     &[data-size='md'] {
-      @apply size-14;
+      width: var(--spacing-14); /* 3.5rem / 56px */
+      height: var(--spacing-14);
     }
   }
 
@@ -223,5 +221,62 @@
       --bg: var(--color-button-inverse-bg);
       --bg-hover: var(--color-button-inverse-bg);
     }
+  }
+
+  gap: var(--spacing-1-5);
+  line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  font-size: var(--font-size-button);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  letter-spacing: normal;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+  flex-direction: row;
+  text-transform: none;
+  padding-left: var(--spacing-3);
+  padding-right: var(--spacing-3);
+  user-select: none;
+
+  border-width: var(--spacing-px);
+  border-style: solid;
+  border-color: var(--border);
+  outline-color: var(--outline-color);
+  outline-style: solid;
+  outline-offset: calc(var(--spacing-1) * -1);
+  outline-width: var(--spacing-px);
+
+  color: var(--text);
+  background-color: var(--bg);
+  box-shadow: var(--shadow);
+
+  &:hover {
+    border-color: var(--border-hover);
+    color: var(--text-hover);
+    background-color: var(--bg-hover);
+  }
+
+  &:focus-visible {
+    color: var(--text-focus);
+    background-color: var(--bg-focus);
+    box-shadow: var(--shadow-focus);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: auto;
+  }
+
+  &[data-uppercase='true'] {
+    text-transform: uppercase;
+  }
+
+  &a {
+    text-decoration: none;
   }
 }
