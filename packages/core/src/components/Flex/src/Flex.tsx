@@ -32,8 +32,7 @@ export const Flex = forward<FlexProps, 'div'>(
                 data-justify={justify}
                 data-wrap={wrap}
                 style={{
-                    //@ts-ignore
-                    '--gap': `var(--spacing-${gap})`,
+                    gap: `var(--spacing-${gap})`,
                 }}
                 ref={ref}
             >

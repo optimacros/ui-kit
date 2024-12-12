@@ -1,7 +1,5 @@
 [data-scope='flex'][data-part='root'] {
-  --gap: 0;
   display: flex;
-  gap: var(--gap);
 }
 
 [data-scope='flex'][data-part='root'][data-direction='row'] {
