@@ -32,6 +32,7 @@
         "react-range": "1.8.14",
         "react-transition-group": "4.0.1",
         "@zag-js/date-picker": "0.77.0",
+        "@zag-js/tree-view": "0.77.0",
         "tinycolor2": "1.6.0"
     }
 }
