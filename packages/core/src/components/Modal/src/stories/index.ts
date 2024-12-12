@@ -4,3 +4,4 @@ export * from './CloseOnEscape';
 export * from './CloseOnInteractOutside';
 export * from './PreventScroll';
 export * from './Events';
+export * from './CloseIcon';

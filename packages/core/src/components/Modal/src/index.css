@@ -2,6 +2,7 @@
   --z-index-dialog-backdrop: 1400;
   --color-dialog-backdrop: #32323233;
   --color-dialog-bg: var(--color-background);
+  --height-dialog-header-min-height: calc(12.5 * var(--spacing));
 }
 
 [data-scope='dialog'] {
@@ -44,7 +45,16 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
+    min-height: var(--height-dialog-header-min-height);
     box-sizing: border-box;
+
+    & [data-part='close-trigger'] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: var(--height-dialog-header-min-height);
+      width: var(--height-dialog-header-min-height);
+    }
   }
 
   & [data-part='title'] {

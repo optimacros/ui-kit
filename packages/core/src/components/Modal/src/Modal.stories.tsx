@@ -174,4 +174,5 @@ export {
     CloseOnEscape,
     CloseOnInteractOutside,
     Events,
+    CloseIcon,
 } from './stories';
