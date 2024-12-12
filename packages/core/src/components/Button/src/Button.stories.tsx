@@ -98,10 +98,11 @@ type Story = StoryObj<typeof Button>;
 
 export const Accent: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="bookmark" />;
-        },
-        children: 'bookmark',
+        children: (
+            <>
+                <Icon value="bookmark" /> bookmark
+            </>
+        ),
         variant: 'accent',
     },
 };
@@ -122,28 +123,25 @@ export const Primary: Story = {
 
 export const Flat: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="inbox" />;
-        },
+        children: (
+            <>
+                <Icon value="inbox" /> Inbox
+            </>
+        ),
         float: 'flat',
-        children: 'Inbox',
     },
 };
 
 export const Floating: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="inbox" />;
-        },
+        children: <Icon value="inbox" />,
         float: 'floating',
     },
 };
 
 export const Mini: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="add" />;
-        },
+        children: <Icon value="add" />,
         float: 'floating',
         variant: 'neutral',
         size: 'xs',
@@ -166,10 +164,11 @@ export const Uppercase: Story = {
 
 export const Disabled: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="add" className="size-auto" />;
-        },
-        children: 'Add this',
+        children: (
+            <>
+                <Icon value="add" /> Add this
+            </>
+        ),
         disabled: true,
         variant: 'accent',
     },

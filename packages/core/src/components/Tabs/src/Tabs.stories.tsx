@@ -45,10 +45,8 @@ export const Base = (props) => {
                 <Tabs.List ref={ref}>
                     {tabs.map((tab, i) => (
                         <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
-                            <Button
-                                renderIcon={() => <Icon value="article" />}
-                                variant="transparent"
-                            >
+                            <Button variant="transparent">
+                                <Icon value="article" />
                                 {tab.value}
                             </Button>
                         </Tabs.Trigger>
@@ -56,7 +54,7 @@ export const Base = (props) => {
                 </Tabs.List>
                 <Tabs.Menu.Root>
                     <Tabs.Menu.Trigger asChild>
-                        <IconButton renderIcon={() => <Icon value="settings" />} />
+                        <IconButton icon="settings" />
                     </Tabs.Menu.Trigger>
                     <Tabs.Menu.Content size="sm">
                         <Tabs.HiddenTabsList ref={ref}>
@@ -95,10 +93,8 @@ export const DraggableOrdered = (props) => {
                             key={tab.value}
                             data-index={i}
                         >
-                            <Button
-                                renderIcon={() => <Icon value="article" />}
-                                variant="transparent"
-                            >
+                            <Button variant="transparent">
+                                <Icon value="article" />
                                 {tab.value}
                             </Button>
                         </Tabs.DraggableTrigger>
@@ -127,10 +123,8 @@ export const DraggableSwap = (props) => {
                             key={tab.value}
                             data-index={i}
                         >
-                            <Button
-                                renderIcon={() => <Icon value="article" />}
-                                variant="transparent"
-                            >
+                            <Button variant="transparent">
+                                <Icon value="article" />
                                 {tab.value}
                             </Button>
                         </Tabs.DraggableTrigger>

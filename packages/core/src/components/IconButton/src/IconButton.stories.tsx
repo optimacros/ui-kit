@@ -1,7 +1,6 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
 import { IconButton } from './IconButton';
-import { Icon } from '@optimacros-ui/icon';
 
 const argTypes: Partial<ArgTypes> = {
     accent: {
@@ -98,18 +97,14 @@ type Story = StoryObj<typeof IconButton>;
 
 export const Accent: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="bookmark" />;
-        },
+        icon: 'bookmark',
         variant: 'accent',
     },
 };
 
 export const Bordered: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="bookmark" />;
-        },
+        icon: 'bookmark',
         variant: 'bordered',
     },
 };
@@ -122,27 +117,21 @@ export const Primary: Story = {
 
 export const Flat: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="inbox" />;
-        },
+        icon: 'inbox',
         float: 'flat',
     },
 };
 
 export const Floating: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="inbox" />;
-        },
+        icon: 'inbox',
         float: 'floating',
     },
 };
 
 export const Mini: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="add" />;
-        },
+        icon: 'add',
         float: 'floating',
         variant: 'neutral',
         size: 'xs',
@@ -163,9 +152,7 @@ export const Uppercase: Story = {
 
 export const Disabled: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="add" className="size-auto" />;
-        },
+        icon: 'add',
         disabled: true,
         variant: 'accent',
     },
@@ -183,9 +170,7 @@ export const Warning: Story = {
 
 export const Inverse: Story = {
     args: {
-        renderIcon: () => {
-            return <Icon value="action" />;
-        },
+        icon: 'action',
         inverse: true,
     },
 };
@@ -195,8 +180,6 @@ export const Link: Story = {
         href: 'http://github.com/',
         target: '_blank',
         variant: 'accent',
-        renderIcon: () => {
-            return <Icon value="link" />;
-        },
+        icon: 'link',
     },
 };

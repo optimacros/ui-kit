@@ -90,11 +90,12 @@ const menuItems: Array<menu.ItemProps> = createMenuItems(10);
 export const Basic = () => {
     return (
         <ButtonMenu.Root>
-            <ButtonMenu.Trigger
-                renderIcon={() => <Icon value="print" />}
-                renderToggleIcon={(props) => <Icon {...props} value={'arrow_drop_down'} />}
-            >
-                Menu
+            <ButtonMenu.Trigger>
+                <>
+                    <Icon value="print" />
+                    Menu
+                    <Icon value="arrow_drop_down" />
+                </>
             </ButtonMenu.Trigger>
             <ButtonMenu.Content>
                 {menuItems.map((v) => (
@@ -108,11 +109,12 @@ export const Basic = () => {
 export const Disabled = () => {
     return (
         <ButtonMenu.Root disabled>
-            <ButtonMenu.Trigger
-                renderIcon={() => <Icon value="print" />}
-                renderToggleIcon={(props) => <Icon {...props} value={'arrow_drop_down'} />}
-            >
-                Menu
+            <ButtonMenu.Trigger>
+                <>
+                    <Icon value="print" />
+                    Menu
+                    <Icon value="arrow_drop_down" />
+                </>
             </ButtonMenu.Trigger>
             <ButtonMenu.Content>
                 {menuItems.map((v) => (
@@ -126,12 +128,12 @@ export const Disabled = () => {
 export const Uppercase = () => {
     return (
         <ButtonMenu.Root>
-            <ButtonMenu.Trigger
-                uppercase
-                renderIcon={() => <Icon value="print" />}
-                renderToggleIcon={(props) => <Icon {...props} value={'arrow_drop_down'} />}
-            >
-                Menu
+            <ButtonMenu.Trigger uppercase>
+                <>
+                    <Icon value="print" />
+                    Menu
+                    <Icon value="arrow_drop_down" />
+                </>
             </ButtonMenu.Trigger>
             <ButtonMenu.Content>
                 {menuItems.map((v) => (
@@ -152,14 +154,12 @@ export const WithTooltip = () => {
             >
                 <Tooltip.Trigger asChild>
                     <div>
-                        <ButtonMenu.Trigger
-                            uppercase
-                            renderIcon={() => <Icon value="print" />}
-                            renderToggleIcon={(props) => (
-                                <Icon {...props} value={'arrow_drop_down'} />
-                            )}
-                        >
-                            Menu
+                        <ButtonMenu.Trigger uppercase>
+                            <>
+                                <Icon value="print" />
+                                Menu
+                                <Icon value="arrow_drop_down" />
+                            </>
                         </ButtonMenu.Trigger>
                     </div>
                 </Tooltip.Trigger>
