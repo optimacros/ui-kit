@@ -9,19 +9,9 @@ interface Node {
     children?: Node[];
 }
 
-// const collection = treemenu.collection<Node>({
-//     nodeToValue: (node) => node.id,
-//     nodeToString: (node) => node.name,
-//     rootNode: {
-//         id: 'ROOT',
-//         name: '',
-//         children: [],
-//     },
-// });
-
 export const { RootProvider, useApi, State } = createReactApiStateContext({
     api: null as treemenu.Api,
-    id: 'tree-menu',
+    id: 'tree-view',
     machine: treemenu,
     initialState: {},
 });
@@ -54,7 +44,7 @@ export const Tree = forward<{}, 'div'>((props, ref) => {
         <styled.div
             {...props}
             {...api.getTreeProps()}
-            data-scope="tree-menu"
+            data-scope="tree-view"
             data-part="tree"
             ref={ref}
         />
@@ -80,26 +70,26 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                 <styled.div
                     {...rest}
                     {...api.getBranchProps(nodeProps)}
-                    data-scope="tree-menu"
+                    data-scope="tree-view"
                     data-part="tree-node-is-branch"
                     ref={ref}
                 >
                     <div
                         {...api.getBranchControlProps(nodeProps)}
-                        data-scope="tree-menu"
+                        data-scope="tree-view"
                         data-part="branch-control"
                     >
                         {branchControl}
                         <span
                             {...api.getBranchTextProps(nodeProps)}
-                            data-scope="tree-menu"
+                            data-scope="tree-view"
                             data-part="branch-text"
                         >
                             {node.name}
                         </span>
                         <span
                             {...api.getBranchIndicatorProps(nodeProps)}
-                            data-scope="tree-menu"
+                            data-scope="tree-view"
                             data-part="branch-indicator"
                             className={branchIndicatorClassName}
                         >
@@ -108,7 +98,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                     </div>
                     <div
                         {...api.getBranchContentProps(nodeProps)}
-                        data-scope="tree-menu"
+                        data-scope="tree-view"
                         data-part="branch-content"
                     >
                         <div {...api.getBranchIndentGuideProps(nodeProps)} />
@@ -130,7 +120,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
         return (
             <div
                 {...api.getItemProps(nodeProps)}
-                data-scope="tree-menu"
+                data-scope="tree-view"
                 data-part="tree-node-no-branch"
             >
                 {branchContent} {node.name}
