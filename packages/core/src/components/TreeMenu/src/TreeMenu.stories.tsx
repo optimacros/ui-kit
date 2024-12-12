@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Meta } from '@storybook/react';
 import { Icon } from '@optimacros-ui/icon';
 import { TreeMenu } from './index';
-import { menuItems } from './mock';
+import { createMockMenuItems } from './mock';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
@@ -22,23 +22,9 @@ export default {
     ],
 } as Meta;
 
-export const Basic = () => {
-    return (
-        <TreeMenu.Root menuItems={menuItems}>
-            <TreeMenu.Tree>
-                {menuItems.map((node, index) => (
-                    <TreeMenu.TreeNode key={node.id} node={node} indexPath={[index]}>
-                        <Icon value="chevron_right" />
-                        <Icon value="folder_open" />
-                        <Icon value="description" />
-                    </TreeMenu.TreeNode>
-                ))}
-            </TreeMenu.Tree>
-        </TreeMenu.Root>
-    );
-};
+const menuItems = createMockMenuItems(4);
 
-export const WithTrigger = () => {
+export const Basic = () => {
     return (
         <TreeMenu.Root menuItems={menuItems}>
             <TreeMenu.PortalRoot>
@@ -48,7 +34,7 @@ export const WithTrigger = () => {
                 <TreeMenu.Positioner>
                     <TreeMenu.Content>
                         <TreeMenu.Tree>
-                            {menuItems.map((node, index) => (
+                            {menuItems.rootNode.children.map((node, index) => (
                                 <TreeMenu.TreeNode key={node.id} node={node} indexPath={[index]}>
                                     <Icon value="chevron_right" />
                                     <Icon value="folder_open" />

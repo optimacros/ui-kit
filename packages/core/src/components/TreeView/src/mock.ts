@@ -23,12 +23,12 @@ export const createMockMenuItems = (count: number) => {
                                               id: faker.string.uuid(),
                                               name: faker.word.noun(),
                                           }),
-                                          { count: faker.number.int({ min: 0, max: 2 }) },
+                                          { count: faker.number.int({ min: 1, max: 2 }) },
                                       )
                                     : undefined,
                             };
                         },
-                        { count: faker.number.int({ min: 0, max: 3 }) },
+                        { count: faker.number.int({ min: 0, max: 5 }) },
                     ),
                 }),
                 { count },
