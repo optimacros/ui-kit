@@ -31,3 +31,4 @@ export * from '@optimacros-ui/virtual';
 export * from '@optimacros-ui/tree-menu';
 export * from '@optimacros-ui/tree-view';
 export * from '@optimacros-ui/popover';
+export * from '@optimacros-ui/favourite';

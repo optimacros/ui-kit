@@ -68,6 +68,7 @@
             "@optimacros-ui/tree-menu": ["packages/core/src/components/TreeMenu/src"],
             "@optimacros-ui/tree-view": ["packages/core/src/components/TreeView/src"],
             "@optimacros-ui/popover": ["packages/core/src/components/Popover/src"],
+            "@optimacros-ui/favourite": ["packages/core/src/components/Favourite/src"],
             "@optimacros-ui/flex": ["packages/core/src/components/Flex/src"],
             "@optimacros-ui/text": ["packages/core/src/components/Text/src"],
             "@optimacros-ui/grid": ["packages/core/src/components/Grid/src"],
