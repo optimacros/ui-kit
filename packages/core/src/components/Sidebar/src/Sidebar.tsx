@@ -3,9 +3,19 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import { isFunction } from '@optimacros-ui/utils';
 import { PropsWithChildren, ComponentProps, CSSProperties, FC } from 'react';
 
+type InitialState = {
+    open?: boolean;
+    width?: CSSProperties['width'];
+    position?: 'left' | 'right';
+};
+
+const initialState: InitialState = {
+    position: 'right',
+};
+
 export const { Api, useApi, RootProvider } = createReactApiStateContext({
     id: 'collapsible',
-    initialState: {},
+    initialState,
     api: null as collapsible.Api,
     machine: collapsible,
     useExtendApi: (state, api) => ({ ...api, ...state }),
