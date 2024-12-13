@@ -5,13 +5,13 @@
   --color-checkbox-focus-checked: var(--color-primary);
   --color-checkbox-focus: var(--color-black);
   --color-checkbox-text: var(--color-black);
-  --color-custom: #f2b822;
-  --color-custom-hover: #c79222;
+  --color-checkbox-custom: #f2b822;
+  --color-checkbox-custom-hover: #c79222;
   --color-checkbox-border: rgb(117, 117, 117);
   --size-checkbox-focus: calc(var(--size-checkbox) * 2.3);
   --size-checkbox: calc(1.8 * var(--unit));
   --font-size-checkbox: var(--font-size-small);
-  --font-size-custom: 1.4rem;
+  --font-size-checkbox-custom: 1.4rem;
   --height-checkbox-total: calc(1.8 * var(--unit));
   --margin-bottom-checkbox-field: calc(1.5 * var(--unit));
   --transition-duration-checkbox: 0.2s;
@@ -162,14 +162,14 @@
 [data-scope='checkbox'][data-part='custom-control'] {
   position: relative;
   cursor: pointer;
-  color: var(--color-custom);
+  color: var(--color-checkbox-custom);
 
   & * {
-    font-size: var(--font-size-custom);
+    font-size: var(--font-size-checkbox-custom);
   }
 
   &:hover {
-    color: var(--color-custom-hover);
+    color: var(--color-checkbox-custom-hover);
   }
 }
 
