@@ -4,11 +4,6 @@ import { RootContent } from './RootContent';
 import { forward } from '@optimacros-ui/store';
 
 export type Props = ComponentProps<typeof RootProvider> & {
-    max?: number;
-    min?: number;
-    /** value=null for indeterminate mode */
-    value?: number | null;
-    disabled?: boolean;
     /** not implemented yet */
     buffer?: number;
     multicolor?: boolean;

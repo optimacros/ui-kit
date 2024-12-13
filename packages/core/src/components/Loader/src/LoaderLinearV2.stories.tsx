@@ -4,25 +4,27 @@ import { useEffect, useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 
 const argTypes: Partial<ArgTypes> = {
+    value: {
+        control: 'number',
+        description: 'Value of the current progress. Indeterminate mode if no value is provided',
+        table: { defaultValue: { summary: 'null' } },
+    },
     disabled: {
         control: 'boolean',
         description: 'If `true`, component will be disabled.',
     },
-    value: {
-        control: 'number',
-        description: 'Value of the current progress.',
-    },
     min: {
         control: 'number',
-        description: 'Minimum value permitted.',
+        description: 'The minimum allowed value of the progress bar.',
     },
     max: {
         control: 'number',
-        description: 'Maximum value permitted.',
+        description: 'The maximum allowed value of the progress bar.',
     },
     buffer: {
         control: 'number',
         description: 'Value of a secondary progress bar useful for buffering.',
+        table: { type: { summary: 'not implemented yet' } },
     },
 };
 
