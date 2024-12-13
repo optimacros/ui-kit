@@ -1,9 +1,42 @@
 :root {
   --color-footer: var(--color-text);
   --color-footer-bg: var(--color-accent);
+  --font-size-footer: var(--text-xs);
+  --line-height-footer: var(--text-xs--line-height);
 }
 
 [data-scope='footer'][data-part='root'] {
-  --text: var(--color-footer);
-  --bg: var(--color-footer-bg);
+  box-sizing: border-box;
+  display: flex;
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-left: calc(3 * var(--spacing));
+  padding-right: calc(3 * var(--spacing));
+  min-height: calc(5 * var(--spacing));
+  flex-direction: row;
+  align-items: center;
+  gap: calc(4 * var(--spacing));
+  width: 100%;
+  font-size: var(--font-size-footer);
+  line-height: var(--line-height-footer);
+  color: var(--color-footer);
+  background: var(--color-footer-bg);
+
+  & [data-part='left-col'] {
+    display: flex;
+    flex-shrink: 0;
+    gap: var(--spacing);
+    align-items: center;
+  }
+
+  & [data-part='version'] {
+    font-weight: 700;
+  }
+
+  & [data-part='content'] {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
 }

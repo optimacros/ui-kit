@@ -12,9 +12,14 @@ export const Basic = () => (
     <Footer.Root>
         <Footer.LeftCol>
             <Footer.Version>1.2.3</Footer.Version>
-            <Footer.Copyright>{`©Copyright Optimacros 2018 - ${new Date().getFullYear()}`}</Footer.Copyright>
+            <Footer.Copyright>{`© Copyright Optimacros 2018 - ${new Date().getFullYear()}`}</Footer.Copyright>
         </Footer.LeftCol>
 
-        <Footer.Content>children content</Footer.Content>
+        <Footer.Content>
+            children contentchildren contentchildren contentchildren contentchildren contentchildren
+            contentchildren contentchildren contentchildren contentchildren contentchildren
+            contentchildren contentchildren contentchildren contentchildren contentchildren
+            contentchildren contentchildren contentchildren content
+        </Footer.Content>
     </Footer.Root>
 );
