@@ -1,14 +1,15 @@
 import * as collapsible from '@zag-js/collapsible';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { isFunction } from '@optimacros-ui/utils';
-import { PropsWithChildren, ComponentProps, CSSProperties, FC } from 'react';
+import { isFunction, mergeWith } from '@optimacros-ui/utils';
+import { PropsWithChildren, ComponentProps, CSSProperties, FC, useMemo } from 'react';
 
-type InitialState = {
+interface InitialState {
     width?: CSSProperties['width'];
     position?: 'left' | 'right';
-};
+}
 
 const initialState: InitialState = {
+    width: 300,
     position: 'right',
 };
 
@@ -25,9 +26,11 @@ export type RootProps = ComponentProps<typeof RootProvider> & {
     position?: 'left' | 'right';
 };
 
-export const Root: FC<RootProps> = ({ children, width = 300, position = 'right', ...context }) => {
+export const Root: FC<RootProps> = ({ children, width, position, ...context }) => {
+    const state = useMemo(() => mergeWith(initialState, { position, width }), [position, width]);
+
     return (
-        <RootProvider {...context} state={{ position, width }}>
+        <RootProvider {...context} state={state}>
             {(api) => (isFunction(children) ? children(api) : children)}
         </RootProvider>
     );
