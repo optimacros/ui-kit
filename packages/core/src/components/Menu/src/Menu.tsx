@@ -18,6 +18,10 @@ export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
             return {
                 ...state,
                 ...api,
+                setParent(parent) {
+                    //@ts-ignore
+                    api.machine.setChild(parent);
+                },
             };
         },
     });
@@ -187,5 +191,23 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children },
         <styled.button {...props} ref={ref}>
             {children}
         </styled.button>
+    );
+});
+
+export const SubMenu = forward<
+    { size?: 'sm' | 'md' | 'lg'; orientation?: 'vertical' | 'horizontal' },
+    'div'
+>(({ size = 'md', orientation = 'vertical', ...rest }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.div
+            {...rest}
+            {...api.getContentProps()}
+            data-size={size}
+            data-orientation={orientation}
+            ref={ref}
+            className={contentClassName}
+        />
     );
 });

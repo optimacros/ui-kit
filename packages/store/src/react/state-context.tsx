@@ -3,6 +3,7 @@ import { createContext, FC, memo, ReactNode, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';
 import { createActorApiHook, createMachineApiHook } from './useMachineApi';
+import { StateMachine, Machine as ZagMachine } from '@zag-js/core';
 
 type HooksConfig = object;
 
@@ -176,6 +177,11 @@ type ApiStoreConfig<
     useExtendApi?: (
         state: State,
         api: Api & {
+            machine: ZagMachine<
+                Record<string, any>,
+                StateMachine.StateSchema,
+                StateMachine.AnyEventObject
+            >;
             send: (action: string | { type?: string; value?: any; src?: string }) => void;
         },
         apiState: ApiState,
@@ -225,7 +231,14 @@ export function createReactApiStateContext<
         //@ts-ignore
         const extendedApi = useExtendApi(state, api);
 
-        return extendedApi as ExtApi & { send: (action: string) => void };
+        return extendedApi as ExtApi & {
+            send: (action: string) => void;
+            machine: ZagMachine<
+                Record<string, any>,
+                StateMachine.StateSchema,
+                StateMachine.AnyEventObject
+            >;
+        };
     }
 
     const helpers = createHelpers<State, typeof stateHooks>(id, stateHooks);
@@ -261,12 +274,17 @@ export function createReactApiStateContext<
         state?: State;
         children: ReactNode | ((api: ExtApi) => ReactNode);
     } & MachineCtx<Machine> & { id?: string }) {
-        //@ts-ignore
-        const { api, send, state: apiState } = useMachine({ ...defaultContext, ...context });
+        const {
+            api,
+            send,
+            state: apiState,
+            machine,
+            //@ts-ignore
+        } = useMachine({ ...defaultContext, ...context });
 
         return (
             //@ts-ignore
-            <StoreProvider state={state} api={{ ...api, send }} apiState={apiState}>
+            <StoreProvider state={state} api={{ ...api, send, machine }} apiState={apiState}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
         );
