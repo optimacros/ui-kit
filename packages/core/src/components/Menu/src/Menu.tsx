@@ -37,13 +37,14 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 
 export const itemClassName = tw`py-2 px-3 data-highlighted:bg-[var(--bg-hover)] data-disabled:text-[var(--text-disabled)] cursor-pointer data-disabled:cursor-default select-none flex gap-1 align-center justify-start`;
 export const Item = forward<menu.ItemProps, 'li'>(
-    ({ valueText, closeOnSelect, disabled, value, ...rest }) => {
+    ({ valueText, closeOnSelect, disabled, value, ...rest }, ref) => {
         const api = useApi();
 
         return (
             <styled.li
                 {...rest}
                 {...api.getItemProps({ value, closeOnSelect, disabled, valueText })}
+                ref={ref}
                 className={itemClassName}
             >
                 {valueText}
@@ -173,7 +174,7 @@ export const List = forward<{ children: ReactNode }, 'ul'>(({ children, ...rest 
     );
 });
 
-export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }, ref) => {
     const api = useApi();
     const disabled = api.disabled;
 
@@ -182,5 +183,9 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children })
         [api.getTriggerProps, disabled],
     );
 
-    return <styled.button {...props}>{children}</styled.button>;
+    return (
+        <styled.button {...props} ref={ref}>
+            {children}
+        </styled.button>
+    );
 });

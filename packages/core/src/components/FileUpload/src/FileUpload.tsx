@@ -35,39 +35,45 @@ export const HiddenInput = () => {
     return <styled.input {...api.getHiddenInputProps()} />;
 };
 
-export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
-    const api = useApi();
+export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
 
-    const apiProps = api.getTriggerProps();
+        const apiProps = api.getTriggerProps();
 
-    return (
-        <styled.button {...apiProps} {...rest}>
-            {children}
-        </styled.button>
-    );
-});
+        return (
+            <styled.button {...apiProps} {...rest} ref={ref}>
+                {children}
+            </styled.button>
+        );
+    },
+);
 
 export const clearTriggerClassName = tw` absolute top-1 right-1
 `;
 
-export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
-    const api = useApi();
+export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
 
-    const apiProps = api.getClearTriggerProps();
+        const apiProps = api.getClearTriggerProps();
 
-    return (
-        <styled.button {...apiProps} {...rest} className={clearTriggerClassName}>
-            {children}
-        </styled.button>
-    );
-});
+        return (
+            <styled.button {...apiProps} {...rest} ref={ref} className={clearTriggerClassName}>
+                {children}
+            </styled.button>
+        );
+    },
+);
 
 export const DeleteItemTrigger = forward<{ children: ReactNode }, 'button'>(
-    ({ file, children }: { file: File; children: ReactNode }) => {
+    ({ file, children }: { file: File; children: ReactNode }, ref) => {
         const api = useApi();
 
         return (
-            <styled.button {...api.getItemDeleteTriggerProps({ file })}>{children}</styled.button>
+            <styled.button {...api.getItemDeleteTriggerProps({ file })} ref={ref}>
+                {children}
+            </styled.button>
         );
     },
 );

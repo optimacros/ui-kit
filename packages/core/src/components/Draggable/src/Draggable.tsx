@@ -1,5 +1,5 @@
 import { forward, styled } from '@optimacros-ui/store';
-import { ReactNode } from 'react';
+import { ReactNode, useImperativeHandle } from 'react';
 import {
     DndContext,
     useDraggable,
@@ -16,8 +16,8 @@ export const Item = forward<
     UseDraggableArguments & {
         children: (props: ReturnType<typeof useDraggable> & { id: string }) => ReactNode;
     },
-    'div'
->(({ children, id: baseId, data, disabled, attributes: attr }) => {
+    'li'
+>(({ children, id: baseId, data, disabled, attributes: attr }, ref) => {
     const id = 'draggable-' + baseId;
 
     const draggable = useDraggable({
@@ -27,20 +27,24 @@ export const Item = forward<
         attributes: attr,
     });
 
+    useImperativeHandle(ref, () => draggable.node as unknown as HTMLLIElement);
+
     return children({ id, ...draggable });
 });
 
 export const Root = DndContext;
 
 export const Container = forward<UseDroppableArguments, 'div'>(
-    ({ id, data, resizeObserverConfig, disabled, ...rest }) => {
-        const { setNodeRef: ref } = useDroppable({
+    ({ id, data, resizeObserverConfig, disabled, ...rest }, ref) => {
+        const { setNodeRef, node } = useDroppable({
             id,
             data,
             disabled,
             resizeObserverConfig,
         });
 
-        return <styled.div ref={ref} id={id as string} {...rest} />;
+        useImperativeHandle(ref, () => node as unknown as HTMLDivElement);
+
+        return <styled.div ref={setNodeRef} id={id as string} {...rest} />;
     },
 );

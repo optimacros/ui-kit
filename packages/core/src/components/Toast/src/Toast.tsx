@@ -26,30 +26,37 @@ export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) =>
     );
 });
 
-export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
     const api = useApi();
 
     const apiProps = api.getActionTriggerProps();
 
     return (
-        <styled.button {...apiProps} {...rest}>
+        <styled.button {...apiProps} {...rest} ref={ref}>
             {children}
         </styled.button>
     );
 });
 
 export const closeTriggerClassName = 'bg-[var(--bg)] shrink-0';
-export const CloseTrigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }) => {
-    const api = useApi();
+export const CloseTrigger = forward<{ children: ReactNode }, 'button'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
 
-    const apiProps = { ...api.getCloseTriggerProps(), className: closeTriggerClassName };
+        const apiProps = { ...api.getCloseTriggerProps(), className: closeTriggerClassName };
 
-    return (
-        <styled.button {...apiProps} {...rest} data-toast-part={apiProps['data-part']}>
-            {children}
-        </styled.button>
-    );
-});
+        return (
+            <styled.button
+                {...apiProps}
+                {...rest}
+                ref={ref}
+                data-toast-part={apiProps['data-part']}
+            >
+                {children}
+            </styled.button>
+        );
+    },
+);
 
 export const titleClassName = 'text-base';
 export const Title = forward<{}, 'h3'>((props, ref) => {

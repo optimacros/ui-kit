@@ -7,9 +7,10 @@ export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPres
 
 export const rootClassName = 'relative py-4 has-data-[part=icon]:ml-8 box-border flex group';
 export const Root = forward<{ status?: 'error' | 'readonly' | 'warning' | 'default' }, 'div'>(
-    ({ collapsed, status = 'default', ...rest }) => (
+    ({ collapsed, status = 'default', ...rest }, ref) => (
         <styled.div
             {...rest}
+            ref={ref}
             data-scope="field"
             data-part="root"
             data-collapsed={collapsed}
@@ -227,10 +228,11 @@ export const FloatingLabel = forward<{}, 'label'>(({ className, ...rest }, ref) 
 });
 
 export const hintClassName = 'peer-focus:text-[var(--text-focus)] text-[var(--text)]';
-export const Hint = forward<{}, 'span'>((props) => {
+export const Hint = forward<{}, 'span'>((props, ref) => {
     return (
         <styled.span
             {...props}
+            ref={ref}
             data-scope="field"
             data-part="hint"
             className={props.className ?? hintClassName}
@@ -239,8 +241,8 @@ export const Hint = forward<{}, 'span'>((props) => {
 });
 
 export const floatingHintClassName = clsx(hintClassName, floatingBottomClassName);
-export const FloatingHint = forward<{}, 'span'>((props) => {
-    return <Hint {...props} className={floatingHintClassName} />;
+export const FloatingHint = forward<{}, 'span'>((props, ref) => {
+    return <Hint {...props} ref={ref} className={floatingHintClassName} />;
 });
 
 export const errorClassName =
@@ -259,14 +261,15 @@ export const Error = forward<{ oneLine?: boolean }, 'span'>((props, ref) => {
 });
 
 export const floatingErrorClassName = clsx(errorClassName, floatingBottomClassName);
-export const FloatingError = forward<{}, 'span'>((props) => {
-    return <Error {...props} className={floatingErrorClassName} />;
+export const FloatingError = forward<{}, 'span'>((props, ref) => {
+    return <Error {...props} ref={ref} className={floatingErrorClassName} />;
 });
 
-export const Bar = forward<{}, 'span'>((props) => {
+export const Bar = forward<{}, 'span'>((props, ref) => {
     return (
         <styled.span
             {...props}
+            ref={ref}
             data-scope="field"
             data-part="bar"
             className="before:h-px after:h-px before:bg-[var(--border-focus)] after:bg-[var(--border-focus)]"

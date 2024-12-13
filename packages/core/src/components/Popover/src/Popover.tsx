@@ -15,7 +15,7 @@ export const {
     api: null as popover.Api,
 });
 
-export const Trigger = forward<{ children: ReactNode }, 'button'>((props) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>((props, ref) => {
     const api = useApi();
 
     return (
@@ -24,6 +24,7 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>((props) => {
             data-part="trigger"
             {...api.getTriggerProps()}
             {...props}
+            ref={ref}
         />
     );
 });
