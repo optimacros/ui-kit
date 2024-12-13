@@ -59,6 +59,73 @@ export const Horizontal = () => {
     );
 };
 
+// nested
+const CustomMenu = () => {
+    const api = Menu.useApi();
+    return (
+        <Menu.SubMenuPositioner>
+            <Menu.Content>
+                <Menu.List>
+                    {menuItems.map((v, i) => (
+                        <Menu.Item {...v} />
+                    ))}
+                    <Menu.SubMenuItem
+                        id={`custom-nested`}
+                        parent={api}
+                        item={{
+                            value: 'sub-menu-nested',
+                            valueText: 'nested',
+                        }}
+                        positioning={{
+                            placement: 'right-start',
+                        }}
+                    >
+                        <Menu.SubMenuPositioner>
+                            <Menu.Content>
+                                <Menu.List>
+                                    {menuItems.slice(0, 5).map((v, i) => (
+                                        <Menu.Item {...v} />
+                                    ))}
+                                </Menu.List>
+                            </Menu.Content>
+                        </Menu.SubMenuPositioner>
+                    </Menu.SubMenuItem>
+                </Menu.List>
+            </Menu.Content>
+        </Menu.SubMenuPositioner>
+    );
+};
+
+export const Nested = () => {
+    return (
+        <Menu.Root closeOnSelect={false}>
+            <Menu.Trigger asChild>
+                <div>Click me</div>
+            </Menu.Trigger>
+            <Menu.Api>
+                {(api) => (
+                    <Menu.Positioner>
+                        <Menu.Content>
+                            <Menu.List>
+                                {menuItems.map((v, i) => (
+                                    <Menu.SubMenuItem
+                                        id={`custom-${i}`}
+                                        parent={api}
+                                        item={v}
+                                        closeOnSelect={false}
+                                    >
+                                        <CustomMenu />
+                                    </Menu.SubMenuItem>
+                                ))}
+                            </Menu.List>
+                        </Menu.Content>
+                    </Menu.Positioner>
+                )}
+            </Menu.Api>
+        </Menu.Root>
+    );
+};
+
 export const Group = () => {
     return (
         <Menu.Root>

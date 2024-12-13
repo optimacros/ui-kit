@@ -45,8 +45,13 @@
     --text: var(--color-menu-divider);
   }
 
-  &[data-part='item'] {
+  &[data-part='item'],
+  &[data-part='trigger-item'] {
     --bg-hover: var(--color-menu-item-active-bg);
     --text-disabled: var(--color-menu-item-disabled);
+  }
+
+  &[data-part='positioner'][data-tag='sub-menu'] {
+    --z-index: var(--z-index-higher) !important;
   }
 }

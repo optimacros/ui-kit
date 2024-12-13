@@ -1,11 +1,12 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { tw } from '@optimacros-ui/utils';
+import { isFunction, tw } from '@optimacros-ui/utils';
 import * as menu from '@zag-js/menu';
 import { Portal } from '@zag-js/react';
-import { ComponentProps, ReactNode, useMemo } from 'react';
+import { ComponentProps, ReactNode, useEffect, useMemo } from 'react';
 
 const initialState = {
     disabled: false,
+    parent: null,
 };
 
 export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
@@ -18,16 +19,16 @@ export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
             return {
                 ...state,
                 ...api,
-                setParent(parent) {
-                    //@ts-ignore
-                    api.machine.setChild(parent);
+                setParentNode(parent: typeof api) {
+                    api.setParent(parent.machine);
+                    parent.setChild(api.machine);
                 },
             };
         },
     });
 
 export const Root = ({
-    state,
+    state = initialState,
     ...context
 }: { state: typeof initialState } & ComponentProps<typeof RootProvider>) => {
     return <RootProvider {...context} state={state} />;
@@ -56,6 +57,46 @@ export const Item = forward<menu.ItemProps, 'li'>(
         );
     },
 );
+
+export const NestedItem = forward<{ children: ReactNode; parent: ReturnType<typeof useApi> }, 'li'>(
+    ({ children, parent, ...rest }) => {
+        const api = useApi();
+
+        return (
+            <styled.li {...rest} {...parent.getTriggerItemProps(api)} className={itemClassName}>
+                {children}
+            </styled.li>
+        );
+    },
+);
+
+const SubMenuRoot = forward<{ parent: ReturnType<typeof useApi> }, 'li'>(({ parent, children }) => {
+    const api = useApi();
+
+    useEffect(() => {
+        api && parent && api.setParentNode(parent);
+    }, []);
+
+    return children;
+});
+
+export const SubMenuItem = forward<
+    { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & ComponentProps<typeof Root>,
+    'li'
+>(({ item, parent, children, ...rest }) => {
+    return (
+        <Root {...rest}>
+            {(api) => (
+                <SubMenuRoot parent={parent}>
+                    <styled.li {...parent?.getTriggerItemProps(api)} className={itemClassName}>
+                        {item.valueText}
+                    </styled.li>
+                    {isFunction(children) ? children(api) : children}
+                </SubMenuRoot>
+            )}
+        </Root>
+    );
+});
 
 export const separatorClassName = tw`h-px my-px text-[var(--text)]`;
 export const Separator = () => {
@@ -126,6 +167,10 @@ export const Positioner = forward<{}, 'div'>((props, ref) => {
     );
 });
 
+export const SubMenuPositioner = forward<{}, 'div'>((props, ref) => {
+    return <Positioner {...props} ref={ref} data-tag="sub-menu" />;
+});
+
 export const contentClassName = tw`
     data-[size="sm"]:w-5xs
     data-[size="sm"]:h-2xs
@@ -191,23 +236,5 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children },
         <styled.button {...props} ref={ref}>
             {children}
         </styled.button>
-    );
-});
-
-export const SubMenu = forward<
-    { size?: 'sm' | 'md' | 'lg'; orientation?: 'vertical' | 'horizontal' },
-    'div'
->(({ size = 'md', orientation = 'vertical', ...rest }, ref) => {
-    const api = useApi();
-
-    return (
-        <styled.div
-            {...rest}
-            {...api.getContentProps()}
-            data-size={size}
-            data-orientation={orientation}
-            ref={ref}
-            className={contentClassName}
-        />
     );
 });
