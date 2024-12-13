@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros-ui/core",
+    "name": "@optimacros-ui/kit",
     "private": false,
     "version": "1.1.5",
     "main": "dist/index.js",
@@ -7,9 +7,15 @@
     "types": "dist/index.d.ts",
     "files": ["dist"],
     "scripts": {
-        "build": "tsup --config ./tsup.config.ts"
+        "build": "tsup --config ./tsup.config.ts",
+        "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
-    "dependencies": {},
+    "dependencies": {
+        "react": "18.2.0",
+        "@optimacros-ui/themes": "^0.0.3",
+        "@optimacros-ui/types": "^0.0.2",
+        "@optimacros-ui/utils": "^0.0.2"
+    },
     "devDependencies": {
         "@types/react-modal": "3.16.3",
         "@faker-js/faker": "9.3.0"

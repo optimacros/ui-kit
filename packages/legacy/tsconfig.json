@@ -1,9 +1,4 @@
 {
     "extends": "../../tsconfig.json",
-    "include": ["src"],
-    "compilerOptions": {
-        "paths": {
-            "ui-kit-core": ["./src/core"]
-        }
-    }
+    "include": ["src"]
 }

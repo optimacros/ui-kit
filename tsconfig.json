@@ -80,7 +80,8 @@
             "@optimacros-ui/layout": ["packages/layout/src"],
             "@optimacros-ui/utils": ["packages/utils/src"],
             "@optimacros-ui/store": ["packages/store/src"],
-            "@optimacros-ui/types": ["packages/types/src"]
+            "@optimacros-ui/types": ["packages/types/src"],
+            "ui-kit-core": ["packages/legacy/src/core"]
         }
     },
     "exclude": ["node_modules", "dist"]

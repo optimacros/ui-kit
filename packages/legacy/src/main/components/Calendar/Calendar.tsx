@@ -1,4 +1,3 @@
-// @ts-nocheck
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import { mergeStyles, Button } from 'ui-kit-core';
