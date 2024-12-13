@@ -42,7 +42,7 @@ export const Label = (props) => {
     return (
         <Checkbox.Root checked {...props} onCheckedChange={(d) => console.log(d)} value="d">
             <Checkbox.BoxControl />
-            <Checkbox.Label>gradient</Checkbox.Label>
+            <Checkbox.Label>Option</Checkbox.Label>
         </Checkbox.Root>
     );
 };
@@ -56,9 +56,13 @@ export const Disabled = (props) => {
             <Checkbox.Root disabled checked {...props}>
                 <Checkbox.BoxControl />
             </Checkbox.Root>
+            <Checkbox.Root disabled {...props}>
+                <Checkbox.BoxControl />
+                <Checkbox.Label>Option</Checkbox.Label>
+            </Checkbox.Root>
             <Checkbox.Root disabled checked {...props}>
                 <Checkbox.BoxControl />
-                <Checkbox.Label>gradient</Checkbox.Label>
+                <Checkbox.Label>Option</Checkbox.Label>
             </Checkbox.Root>
         </div>
     );
@@ -73,12 +77,12 @@ export const WithTooltip = (props) => {
                 positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
             >
                 <Tooltip.Trigger asChild>
-                    <div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Checkbox.BoxControl />
-                        <Checkbox.Label>gradient</Checkbox.Label>
+                        <Checkbox.Label>Option</Checkbox.Label>
                     </div>
                 </Tooltip.Trigger>
-                <Tooltip.Content>here we are</Tooltip.Content>
+                <Tooltip.Content>Select current option</Tooltip.Content>
             </Tooltip.Root>
         </Checkbox.Root>
     );
@@ -95,7 +99,7 @@ export const WithForm = (props) => {
         <form
             onSubmit={onSubmit}
             style={{
-                width: '300px',
+                width: '400px',
             }}
         >
             <Field.Root {...props}>
