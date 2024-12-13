@@ -1,15 +1,28 @@
 import { ArgTypes } from '@storybook/react';
 import { Sidebar } from '.';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { times } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 
 const argTypes: Partial<ArgTypes> = {
-    children: {
-        description: 'Content of sidebar',
-        control: 'object',
+    open: {
+        description: 'Whether the collapsible is open when component is loaded',
+        control: 'boolean',
     },
-    className: { table: { disable: true } },
+    disabled: {
+        description: 'Whether the collapsible is disabled',
+        control: 'boolean',
+    },
+    position: {
+        description: 'Sidebar position',
+        control: false,
+        table: { type: { summary: 'left | right' }, defaultValue: { summary: 'right' } },
+    },
+    width: {
+        description: 'Panel width',
+        control: 'object',
+        table: { type: { summary: 'number | string' }, defaultValue: { summary: '300' } },
+    },
 };
 
 const meta = {
@@ -19,90 +32,202 @@ const meta = {
 
 export default meta;
 
-export const Basic = () => {
-    const [open, setOpen] = useState(false);
+export const Basic = {
+    args: {},
+    render: (props) => (
+        <Sidebar.Root {...props}>
+            {(api) => (
+                <>
+                    <button onClick={() => api.setOpen(!api.open)}>open\close</button>
+                    <div
+                        style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: 400,
+                            backgroundColor: 'aliceblue',
+                            marginTop: 20,
+                        }}
+                    >
+                        <Sidebar.Panel>
+                            <Sidebar.Header>
+                                <Sidebar.CloseTrigger>
+                                    <Icon value="keyboard-double-arrow-right" />
+                                </Sidebar.CloseTrigger>
+                            </Sidebar.Header>
 
-    return (
-        <div
-            style={{
-                position: 'relative',
-                width: '100%',
-                height: 400,
-                backgroundColor: 'aliceblue',
-            }}
-        >
-            <button onClick={() => setOpen(!open)}>open\close</button>
+                            <Sidebar.Content>
+                                <div>
+                                    {times(100, (n) => (
+                                        <Fragment key={n}>
+                                            line
+                                            <br />
+                                        </Fragment>
+                                    ))}
+                                </div>
+                            </Sidebar.Content>
+                        </Sidebar.Panel>
 
-            <Sidebar.Root open={open}>
-                <Sidebar.Panel>
-                    <Sidebar.Header>
-                        <Sidebar.CloseTrigger onClick={() => setOpen(false)}>
-                            <Icon value="keyboard-double-arrow-right" />
-                        </Sidebar.CloseTrigger>
-                    </Sidebar.Header>
-
-                    <Sidebar.Content>
-                        <div>
-                            {times(100, (n) => (
-                                <Fragment key={n}>
-                                    line
-                                    <br />
-                                </Fragment>
-                            ))}
-                        </div>
-                    </Sidebar.Content>
-                </Sidebar.Panel>
-
-                <Sidebar.MiniPanel onClick={() => setOpen(true)}>
-                    <Sidebar.Trigger>
-                        <Icon value="keyboard-double-arrow-left" />
-                    </Sidebar.Trigger>
-                </Sidebar.MiniPanel>
-            </Sidebar.Root>
-        </div>
-    );
+                        <Sidebar.MiniPanel>
+                            <Sidebar.Trigger>
+                                <Icon value="keyboard-double-arrow-left" />
+                            </Sidebar.Trigger>
+                        </Sidebar.MiniPanel>
+                    </div>
+                </>
+            )}
+        </Sidebar.Root>
+    ),
 };
 
-export const PositionLeft = () => {
-    const [open, setOpen] = useState(false);
+export const PositionLeft = {
+    args: {
+        open: true,
+        position: 'left',
+    },
+    render: (props) => (
+        <Sidebar.Root {...props}>
+            {(api) => (
+                <>
+                    <button onClick={() => api.setOpen(!api.open)}>open\close</button>
 
-    return (
-        <div
-            style={{
-                position: 'relative',
-                width: '100%',
-                height: 400,
-                backgroundColor: 'aliceblue',
-            }}
-        >
-            <button onClick={() => setOpen(!open)}>open\close</button>
+                    <div
+                        style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: 400,
+                            backgroundColor: 'aliceblue',
+                            marginTop: 20,
+                        }}
+                    >
+                        <Sidebar.Panel>
+                            <Sidebar.Header>
+                                <Sidebar.CloseTrigger>
+                                    <Icon value="keyboard-double-arrow-right" />
+                                </Sidebar.CloseTrigger>
+                            </Sidebar.Header>
 
-            <Sidebar.Root position="left" open={open}>
-                <Sidebar.Panel>
-                    <Sidebar.Header>
-                        <Sidebar.CloseTrigger onClick={() => setOpen(false)}>
-                            <Icon value="keyboard-double-arrow-right" />
-                        </Sidebar.CloseTrigger>
-                    </Sidebar.Header>
+                            <Sidebar.Content>
+                                <div>
+                                    {times(100, (n) => (
+                                        <Fragment key={n}>
+                                            line
+                                            <br />
+                                        </Fragment>
+                                    ))}
+                                </div>
+                            </Sidebar.Content>
+                        </Sidebar.Panel>
 
-                    <Sidebar.Content>
-                        <div>
-                            {times(100, (n) => (
-                                <Fragment key={n}>
-                                    line
-                                    <br />
-                                </Fragment>
-                            ))}
-                        </div>
-                    </Sidebar.Content>
-                </Sidebar.Panel>
+                        <Sidebar.MiniPanel>
+                            <Sidebar.Trigger>
+                                <Icon value="keyboard-double-arrow-left" />
+                            </Sidebar.Trigger>
+                        </Sidebar.MiniPanel>
+                    </div>
+                </>
+            )}
+        </Sidebar.Root>
+    ),
+};
 
-                <Sidebar.MiniPanel onClick={() => setOpen(true)}>
-                    <Sidebar.Trigger>
-                        <Icon value="keyboard-double-arrow-left" />
-                    </Sidebar.Trigger>
-                </Sidebar.MiniPanel>
-            </Sidebar.Root>
-        </div>
-    );
+export const Disabled = {
+    args: {
+        disabled: true,
+    },
+    render: (props) => (
+        <Sidebar.Root {...props}>
+            {(api) => (
+                <>
+                    <button disabled onClick={() => api.setOpen(!api.open)}>
+                        open\close
+                    </button>
+
+                    <div
+                        style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: 400,
+                            backgroundColor: 'aliceblue',
+                            marginTop: 20,
+                        }}
+                    >
+                        <Sidebar.Panel>
+                            <Sidebar.Header>
+                                <Sidebar.CloseTrigger>
+                                    <Icon value="keyboard-double-arrow-right" />
+                                </Sidebar.CloseTrigger>
+                            </Sidebar.Header>
+
+                            <Sidebar.Content>
+                                <div>
+                                    {times(100, (n) => (
+                                        <Fragment key={n}>
+                                            line
+                                            <br />
+                                        </Fragment>
+                                    ))}
+                                </div>
+                            </Sidebar.Content>
+                        </Sidebar.Panel>
+
+                        <Sidebar.MiniPanel>
+                            <Sidebar.Trigger>
+                                <Icon value="keyboard-double-arrow-left" />
+                            </Sidebar.Trigger>
+                        </Sidebar.MiniPanel>
+                    </div>
+                </>
+            )}
+        </Sidebar.Root>
+    ),
+};
+
+export const FullWidth = {
+    args: {
+        width: '100%',
+    },
+    render: (props) => (
+        <Sidebar.Root {...props}>
+            {(api) => (
+                <>
+                    <button onClick={() => api.setOpen(!api.open)}>open\close</button>
+
+                    <div
+                        style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: 400,
+                            backgroundColor: 'aliceblue',
+                            marginTop: 20,
+                        }}
+                    >
+                        <Sidebar.Panel>
+                            <Sidebar.Header>
+                                <Sidebar.CloseTrigger>
+                                    <Icon value="keyboard-double-arrow-right" />
+                                </Sidebar.CloseTrigger>
+                            </Sidebar.Header>
+
+                            <Sidebar.Content>
+                                <div>
+                                    {times(100, (n) => (
+                                        <Fragment key={n}>
+                                            line
+                                            <br />
+                                        </Fragment>
+                                    ))}
+                                </div>
+                            </Sidebar.Content>
+                        </Sidebar.Panel>
+
+                        <Sidebar.MiniPanel>
+                            <Sidebar.Trigger>
+                                <Icon value="keyboard-double-arrow-left" />
+                            </Sidebar.Trigger>
+                        </Sidebar.MiniPanel>
+                    </div>
+                </>
+            )}
+        </Sidebar.Root>
+    ),
 };
