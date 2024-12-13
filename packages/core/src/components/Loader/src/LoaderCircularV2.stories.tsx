@@ -3,33 +3,13 @@ import { ArgTypes, Meta } from '@storybook/react';
 import { Loader } from './index';
 import { useCallback, useEffect, useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
+import LinearStory from './LoaderLinearV2.stories';
 
 const argTypes: Partial<ArgTypes> = {
-    disabled: {
-        control: 'boolean',
-        description: 'If `true`, component will be disabled.',
-    },
-    value: {
-        control: 'number',
-        description: 'Value of the current progress.',
-    },
-    min: {
-        control: 'number',
-        description: 'Minimum value permitted.',
-    },
-    max: {
-        control: 'number',
-        description: 'Maximum value permitted.',
-    },
-    buffer: {
-        control: 'number',
-        description: 'Value of a secondary progress bar useful for buffering.',
-    },
+    ...LinearStory.argTypes,
     multicolor: {
         control: 'boolean',
-        description:
-            ' If `true`, the circular progress bar will be changing its color. ' +
-            'When type is `circular` and node is `indeterminate`.',
+        description: 'The circular progress bar will be changing its color in indeterminate mode.',
     },
 };
 
