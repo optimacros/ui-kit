@@ -4,7 +4,6 @@ import { isFunction } from '@optimacros-ui/utils';
 import { PropsWithChildren, ComponentProps, CSSProperties, FC } from 'react';
 
 type InitialState = {
-    open?: boolean;
     width?: CSSProperties['width'];
     position?: 'left' | 'right';
 };
@@ -21,8 +20,7 @@ export const { Api, useApi, RootProvider } = createReactApiStateContext({
     useExtendApi: (state, api) => ({ ...api, ...state }),
 });
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & {
-    open?: boolean;
+export type RootProps = ComponentProps<typeof RootProvider> & {
     width?: CSSProperties['width'];
     position?: 'left' | 'right';
 };
