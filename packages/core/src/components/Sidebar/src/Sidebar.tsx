@@ -5,7 +5,7 @@ import { PropsWithChildren, ComponentProps, CSSProperties, FC } from 'react';
 
 export const { Api, useApi, RootProvider } = createReactApiStateContext({
     id: 'collapsible',
-    initialState: null,
+    initialState: {},
     api: null as collapsible.Api,
     machine: collapsible,
     useExtendApi: (state, api) => ({ ...api, ...state }),
@@ -17,15 +17,9 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> &
     position?: 'left' | 'right';
 };
 
-export const Root: FC<RootProps> = ({
-    open,
-    children,
-    width = 300,
-    position = 'right',
-    ...context
-}) => {
+export const Root: FC<RootProps> = ({ children, width = 300, position = 'right', ...context }) => {
     return (
-        <RootProvider {...context} state={{ open, position, width }}>
+        <RootProvider {...context} state={{ position, width }}>
             {(api) => (isFunction(children) ? children(api) : children)}
         </RootProvider>
     );
@@ -34,8 +28,6 @@ export const Root: FC<RootProps> = ({
 export const Panel = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
-
-        console.info(api);
 
         return (
             <styled.div
@@ -110,6 +102,7 @@ export const MiniPanel = forward<PropsWithChildren, 'div'>(
                 data-tag="sidebar"
                 data-scope="collapsible"
                 data-part="mini-panel"
+                onClick={() => api.setOpen(true)}
             />
         );
     },
@@ -128,6 +121,7 @@ export const CloseTrigger = forward<PropsWithChildren, 'div'>(
                 data-part="close-trigger"
                 data-position={api.position}
                 ref={ref}
+                onClick={() => api.setOpen(false)}
             >
                 {children}
             </styled.div>

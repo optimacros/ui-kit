@@ -33,49 +33,48 @@ const meta = {
 export default meta;
 
 export const Basic = () => {
-    const [open, setOpen] = useState(false);
-
     return (
-        <>
-            <button onClick={() => setOpen(!open)}>open\close</button>
+        <Sidebar.Root>
+            {(api) => (
+                <>
+                    <button onClick={() => api.setOpen(!api.open)}>open\close</button>
+                    <div
+                        style={{
+                            position: 'relative',
+                            width: '100%',
+                            height: 400,
+                            backgroundColor: 'aliceblue',
+                            marginTop: 20,
+                        }}
+                    >
+                        <Sidebar.Panel>
+                            <Sidebar.Header>
+                                <Sidebar.CloseTrigger>
+                                    <Icon value="keyboard-double-arrow-right" />
+                                </Sidebar.CloseTrigger>
+                            </Sidebar.Header>
 
-            <div
-                style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: 400,
-                    backgroundColor: 'aliceblue',
-                    marginTop: 20,
-                }}
-            >
-                <Sidebar.Root open={open}>
-                    <Sidebar.Panel>
-                        <Sidebar.Header>
-                            <Sidebar.CloseTrigger onClick={() => setOpen(false)}>
-                                <Icon value="keyboard-double-arrow-right" />
-                            </Sidebar.CloseTrigger>
-                        </Sidebar.Header>
+                            <Sidebar.Content>
+                                <div>
+                                    {times(100, (n) => (
+                                        <Fragment key={n}>
+                                            line
+                                            <br />
+                                        </Fragment>
+                                    ))}
+                                </div>
+                            </Sidebar.Content>
+                        </Sidebar.Panel>
 
-                        <Sidebar.Content>
-                            <div>
-                                {times(100, (n) => (
-                                    <Fragment key={n}>
-                                        line
-                                        <br />
-                                    </Fragment>
-                                ))}
-                            </div>
-                        </Sidebar.Content>
-                    </Sidebar.Panel>
-
-                    <Sidebar.MiniPanel onClick={() => setOpen(true)}>
-                        <Sidebar.Trigger>
-                            <Icon value="keyboard-double-arrow-left" />
-                        </Sidebar.Trigger>
-                    </Sidebar.MiniPanel>
-                </Sidebar.Root>
-            </div>
-        </>
+                        <Sidebar.MiniPanel>
+                            <Sidebar.Trigger>
+                                <Icon value="keyboard-double-arrow-left" />
+                            </Sidebar.Trigger>
+                        </Sidebar.MiniPanel>
+                    </div>
+                </>
+            )}
+        </Sidebar.Root>
     );
 };
 
