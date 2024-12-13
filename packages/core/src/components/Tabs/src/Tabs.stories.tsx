@@ -73,7 +73,9 @@ export const Base = (props) => {
                 </Tabs.Menu.Root>
             </div>
             {items.map((item) => (
-                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+                <Tabs.Content value={item.value} key={item.value}>
+                    {item.content}
+                </Tabs.Content>
             ))}
         </Tabs.Root>
     );
@@ -102,7 +104,9 @@ export const DraggableOrdered = (props) => {
                 </Tabs.DraggableList>
             </div>
             {items.map((item) => (
-                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+                <Tabs.Content value={item.value} key={item.value}>
+                    {item.content}
+                </Tabs.Content>
             ))}
         </Tabs.Root>
     );
@@ -132,7 +136,9 @@ export const DraggableSwap = (props) => {
                 </Tabs.DraggableList>
             </div>
             {items.map((item) => (
-                <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+                <Tabs.Content value={item.value} key={item.value}>
+                    {item.content}
+                </Tabs.Content>
             ))}
         </Tabs.Root>
     );

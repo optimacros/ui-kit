@@ -141,7 +141,7 @@ export const List = forward<{ children: (item: unknown) => ReactNode }, 'ul'>(
     },
 );
 
-export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...rest }) => {
+export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...rest }, ref) => {
     const api = useApi();
     const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -159,7 +159,7 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
     }, [api.highlightedItem?.index]);
 
     return (
-        <Virtual.Root data-scope="select" data-part="virtual-list">
+        <Virtual.Root data-scope="select" data-part="virtual-list" ref={ref}>
             <Virtual.List
                 {...rest}
                 data={api.collection.items}

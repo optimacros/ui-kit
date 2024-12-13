@@ -113,7 +113,7 @@ export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
 export const DraggableList = forward<
     { mode?: 'swap' | 'ordered'; setTabs: (prev: (arr: any[]) => any[]) => void },
     'ul'
->(({ setTabs, mode = 'ordered', children, ...rest }) => {
+>(({ setTabs, mode = 'ordered', children, ...rest }, ref) => {
     const id = useId();
 
     function handleDragEnd(event) {
@@ -135,7 +135,9 @@ export const DraggableList = forward<
     return (
         <DraggableComponent.Root onDragEnd={handleDragEnd}>
             <DraggableComponent.Container asChild id={id}>
-                <List {...rest}>{children}</List>
+                <List {...rest} ref={ref}>
+                    {children}
+                </List>
             </DraggableComponent.Container>
         </DraggableComponent.Root>
     );
@@ -174,7 +176,7 @@ export const draggableTriggerClassName = clsx(
 export const DraggableTrigger = forward<
     { children: ReactNode; value: string; disabled?: boolean },
     'li'
->(({ value, disabled, ...rest }) => {
+>(({ value, disabled, ...rest }, ref) => {
     const id = useId();
 
     const api = useApi();
@@ -182,7 +184,7 @@ export const DraggableTrigger = forward<
     const apiProps = api.getTriggerProps({ value, disabled });
 
     return (
-        <DraggableComponent.Item id={id}>
+        <DraggableComponent.Item id={id} ref={ref}>
             {({ setNodeRef, transform, attributes, listeners, isDragging, id: draggableId }) => (
                 <styled.li
                     {...rest}
