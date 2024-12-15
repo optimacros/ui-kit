@@ -3,6 +3,8 @@ import { Meta } from '@storybook/react';
 import { Menu } from './index';
 import { menu } from '.';
 import { createMenuItems } from './mock';
+import { Flex } from '@optimacros-ui/flex';
+
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
 );
@@ -173,31 +175,28 @@ export const Group = () => {
                 <div>Click me</div>
             </Menu.Trigger>
             <Menu.Positioner>
-                <Menu.Content>
-                    <Menu.List>
+                <Menu.Content asChild>
+                    <Flex direction="row">
                         <Menu.Group id="first">
                             <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>
-                            {menuItems.map((v, i) => (
+                            {menuItems.slice(0, 2).map((v, i) => (
                                 <Menu.Item {...v} key={`${v} 1`} value={`${v} 1`} />
                             ))}
                         </Menu.Group>
 
                         <Menu.Group id="second">
                             <Menu.GroupLabel htmlFor="second">second</Menu.GroupLabel>
-                            {menuItems.map((v, i) => (
-                                <>
-                                    <Menu.Item {...v} key={`${v} 2`} value={`${v} 2`} />
-                                    <Menu.Separator />
-                                </>
+                            {menuItems.slice(3, 5).map((v, i) => (
+                                <Menu.Item {...v} key={`${v} 2`} value={`${v} 2`} />
                             ))}
                         </Menu.Group>
                         <Menu.Group id="third">
                             <Menu.GroupLabel htmlFor="third">third</Menu.GroupLabel>
-                            {menuItems.map((v, i) => (
+                            {menuItems.slice(6, 8).map((v, i) => (
                                 <Menu.Item {...v} key={`${v} 3`} value={`${v} 3`} />
                             ))}
                         </Menu.Group>
-                    </Menu.List>
+                    </Flex>
                 </Menu.Content>
             </Menu.Positioner>
         </Menu.Root>

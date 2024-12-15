@@ -100,30 +100,6 @@ export const Separator = () => {
     return <hr {...api.getSeparatorProps()} />;
 };
 
-export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'>(
-    ({ children, id, ...rest }, ref) => {
-        const api = useApi();
-
-        return (
-            <styled.ul ref={ref} {...rest} {...api.getItemGroupProps({ id })}>
-                {children}
-            </styled.ul>
-        );
-    },
-);
-
-export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNode }, 'label'>(
-    ({ children, htmlFor, ...rest }, ref) => {
-        const api = useApi();
-
-        return (
-            <styled.label {...rest} ref={ref} {...api.getItemGroupLabelProps({ htmlFor })}>
-                {children}
-            </styled.label>
-        );
-    },
-);
-
 export const OptionItem = ({
     children,
     renderIndicator,
@@ -190,3 +166,27 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children },
         </styled.button>
     );
 });
+
+export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'>(
+    ({ children, id, ...rest }, ref) => {
+        const api = useApi();
+
+        return (
+            <styled.ul ref={ref} {...rest} {...api.getItemGroupProps({ id })}>
+                {children}
+            </styled.ul>
+        );
+    },
+);
+
+export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNode }, 'label'>(
+    ({ children, htmlFor, ...rest }, ref) => {
+        const api = useApi();
+
+        return (
+            <styled.label {...rest} ref={ref} {...api.getItemGroupLabelProps({ htmlFor })}>
+                {children}
+            </styled.label>
+        );
+    },
+);

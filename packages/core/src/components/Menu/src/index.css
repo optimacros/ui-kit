@@ -84,7 +84,8 @@
     width: var(--size-sm);
   }
 
-  &[data-part='list'] {
+  &[data-part='list'],
+  &[data-part='item-group'] {
     margin: 0;
     padding: 0;
     display: flex;
