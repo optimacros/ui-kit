@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { MarkdownEditorMode, Tabs } from './MarkdownEditor';
 import { convertStringToMarkdown } from './utils';
 
@@ -19,6 +19,13 @@ export const RootProvider = ({
     children,
 }) => {
     const [value, setValue] = useState(valueProp);
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+        if (value !== valueProp) {
+            setValue(valueProp);
+        }
+    }, [valueProp]);
 
     const handleValueChange = useCallback(
         (newValue: string) => {

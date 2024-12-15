@@ -33,12 +33,15 @@ text
 - list`;
 
 export const Basic = () => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(defaultValue);
 
     const handleChange = (v: string) => setValue(v);
 
     return (
         <div style={{ width: '100%', height: 500 }}>
+            <button style={{ marginBottom: 20 }} onClick={() => setValue(defaultValue)}>
+                reset
+            </button>
             <MarkdownEditor.Root value={value} onChange={handleChange}>
                 <MarkdownEditor.Tabs.List>
                     <MarkdownEditor.Tabs.Trigger
