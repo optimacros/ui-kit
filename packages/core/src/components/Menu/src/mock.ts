@@ -6,5 +6,6 @@ export const createMenuItems = (count: number): Array<menu.ItemProps> => {
         valueText: `value ${i}`,
         disabled: i % 2 === 0,
         key: `value ${i}`,
+        closeOnSelect: true,
     }));
 };

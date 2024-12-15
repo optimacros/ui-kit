@@ -4,7 +4,7 @@ import { Menu } from './index';
 import { menu } from '.';
 import { createMenuItems } from './mock';
 const Wrapper = ({ children }: { children }) => (
-    <div style={{ width: '200px', marginLeft: '20px' }}>{children}</div>
+    <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
 );
 
 const meta: Meta<typeof Menu> = {
@@ -46,15 +46,45 @@ export const Horizontal = () => {
             <Menu.Trigger asChild>
                 <div>Click me</div>
             </Menu.Trigger>
-            <Menu.Positioner>
-                <Menu.Content orientation="horizontal">
-                    <Menu.List>
-                        {menuItems.map((v, i) => (
-                            <Menu.Item {...v} />
-                        ))}
-                    </Menu.List>
-                </Menu.Content>
-            </Menu.Positioner>
+            <Menu.Api>
+                {(api) => (
+                    <Menu.Positioner>
+                        <Menu.Content orientation="horizontal">
+                            <Menu.List>
+                                {menuItems.map((v, i) => (
+                                    <Menu.Item {...v} />
+                                ))}
+                                <Menu.SubMenuItem
+                                    parent={api}
+                                    item={{
+                                        value: 'sub-menu-nested',
+                                        valueText: 'nested',
+                                        closeOnSelect: true,
+                                    }}
+                                    positioning={{
+                                        fitViewport: false,
+                                        overlap: false,
+                                    }}
+                                >
+                                    <Menu.SubMenuPositioner>
+                                        <Menu.Content>
+                                            <Menu.List>
+                                                {menuItems.slice(0, 5).map((v, i) => (
+                                                    <Menu.Item
+                                                        {...v}
+                                                        value={v.value}
+                                                        key={v.value + 'sub-sub'}
+                                                    />
+                                                ))}
+                                            </Menu.List>
+                                        </Menu.Content>
+                                    </Menu.SubMenuPositioner>
+                                </Menu.SubMenuItem>
+                            </Menu.List>
+                        </Menu.Content>
+                    </Menu.Positioner>
+                )}
+            </Menu.Api>
         </Menu.Root>
     );
 };
@@ -62,6 +92,7 @@ export const Horizontal = () => {
 // nested
 const CustomMenu = () => {
     const api = Menu.useApi();
+
     return (
         <Menu.SubMenuPositioner>
             <Menu.Content>
@@ -70,21 +101,26 @@ const CustomMenu = () => {
                         <Menu.Item {...v} />
                     ))}
                     <Menu.SubMenuItem
-                        id={`custom-nested`}
                         parent={api}
                         item={{
                             value: 'sub-menu-nested',
                             valueText: 'nested',
+                            closeOnSelect: true,
                         }}
                         positioning={{
-                            placement: 'right-start',
+                            fitViewport: false,
+                            overlap: false,
                         }}
                     >
                         <Menu.SubMenuPositioner>
                             <Menu.Content>
                                 <Menu.List>
                                     {menuItems.slice(0, 5).map((v, i) => (
-                                        <Menu.Item {...v} />
+                                        <Menu.Item
+                                            {...v}
+                                            value={v.value}
+                                            key={v.value + 'sub-sub'}
+                                        />
                                     ))}
                                 </Menu.List>
                             </Menu.Content>
@@ -104,15 +140,19 @@ export const Nested = () => {
             </Menu.Trigger>
             <Menu.Api>
                 {(api) => (
-                    <Menu.Positioner>
+                    <Menu.Positioner portalled>
                         <Menu.Content>
                             <Menu.List>
                                 {menuItems.map((v, i) => (
                                     <Menu.SubMenuItem
-                                        id={`custom-${i}`}
+                                        key={`custom-sub-${i}`}
                                         parent={api}
                                         item={v}
                                         closeOnSelect={false}
+                                        positioning={{
+                                            fitViewport: false,
+                                            overlap: false,
+                                        }}
                                     >
                                         <CustomMenu />
                                     </Menu.SubMenuItem>
