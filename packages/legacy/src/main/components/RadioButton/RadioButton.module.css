@@ -1,0 +1,58 @@
+.field {
+  display: flex;
+  width: fit-content;
+}
+
+.radio {
+  border-color: var(--Checkbox-color);
+  cursor: pointer;
+
+  &:before {
+    background-color: var(--primary-color);
+  }
+}
+
+.radioChecked {
+  border-color: var(--primary-color);
+
+  &:before {
+    background-color: var(--primary-color);
+    animation-duration: 0ms !important;
+  }
+}
+
+.disabled {
+  & > .radio {
+    border-color: var(--Checkbox-color-disabled);
+
+    &:before {
+      display: none !important;
+    }
+  }
+
+  & > .radioChecked {
+    border-color: var(--Checkbox-color-disabled);
+
+    &:before {
+      background-color: var(--Checkbox-color-disabled);
+    }
+  }
+
+  & > .text {
+    color: var(--Checkbox-color-disabled) !important;
+  }
+}
+
+.radio .ripple,
+.radioChecked .ripple {
+  display: none !important;
+}
+
+.text {
+  flex: 1;
+  padding-left: 16px;
+  color: var(--Checkbox-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}

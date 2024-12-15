@@ -1,0 +1,43 @@
+.Container {
+  max-width: 40em;
+  border-bottom: 1px dotted #cdcdcd;
+  margin-top: 5px;
+}
+
+.SelectBoxRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  & > :first-child {
+    flex-grow: 1;
+  }
+}
+
+.SelectedItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.SelectedItem {
+  border: 1px solid var(--input-text-bottom-border-color);
+  border-radius: 3px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 2px;
+  padding: 3px 5px;
+
+  & [data-react-toolbox='button'],
+  & [data-react-toolbox='link'] {
+    margin-left: 5px;
+  }
+}
+
+.RemoveButton {
+  height: auto !important;
+}
