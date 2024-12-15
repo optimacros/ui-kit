@@ -6,11 +6,13 @@ export function createMachineApiHook<
     Machine extends Record<string, any> = NonNullable<unknown>,
 >(machine: Machine) {
     return (context: Ctx) => {
-        const [state, send] = useMachine(machine.machine({ id: useId(), ...context }));
+        const [state, send, stateMachine] = useMachine(
+            machine.machine({ id: useId(), ...context }),
+        );
 
         const api = machine.connect(state, send, normalizeProps);
 
-        return { api, send, state };
+        return { api, send, state, machine: stateMachine };
     };
 }
 

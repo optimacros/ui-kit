@@ -30,9 +30,7 @@ const preview: Preview = {
         (Story) => {
             return (
                 <UiCoreContextWrapper state={{ iconsSrc }}>
-                    <div style={{ padding: '1rem' }}>
-                        <Story />
-                    </div>
+                    <Story />
                 </UiCoreContextWrapper>
             );
         },
