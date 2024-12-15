@@ -1,8 +1,26 @@
 import { useState } from 'react';
 import { MarkdownEditor } from './index';
+import { ArgTypes, Meta } from '@storybook/react';
 
-const meta = {
+const argTypes: Partial<ArgTypes> = {
+    value: {
+        control: 'text',
+        description: 'Current editor value',
+    },
+    disabled: {
+        control: 'boolean',
+        description: 'Whether the editor is disabled',
+    },
+    onChange: {
+        control: false,
+        description: 'Value change handler',
+        table: { type: { summary: '(newValue: string) => void' } },
+    },
+};
+
+const meta: Meta = {
     title: 'UI Kit main/Markdown Editor V2',
+    argTypes,
 };
 export default meta;
 
