@@ -1,4 +1,4 @@
-import { UiCoreContextWrapper } from '../packages/main/src';
+import { UiCoreContextWrapper } from '../packages/core/src';
 import { Preview } from '@storybook/react';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 import { DocsContainer } from '@storybook/blocks';
