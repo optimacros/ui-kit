@@ -61,4 +61,11 @@
     padding: 10px;
     overflow: auto;
   }
+
+  &[data-disabled='true'] {
+    [data-scope='markdown-editor'][data-part='textarea'] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
 }

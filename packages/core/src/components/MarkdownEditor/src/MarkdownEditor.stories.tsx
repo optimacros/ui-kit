@@ -6,6 +6,14 @@ const meta = {
 };
 export default meta;
 
+const defaultValue = `## heading
+
+text
+
+- list
+- list
+- list`;
+
 export const Basic = () => {
     const [value, setValue] = useState('');
 
@@ -14,6 +22,39 @@ export const Basic = () => {
     return (
         <div style={{ width: '100%', height: 500 }}>
             <MarkdownEditor.Root value={value} onChange={handleChange}>
+                <MarkdownEditor.Tabs.List>
+                    <MarkdownEditor.Tabs.Trigger
+                        value={MarkdownEditor.MarkdownEditorMode.EDIT}
+                        key={MarkdownEditor.MarkdownEditorMode.EDIT}
+                    >
+                        edit
+                    </MarkdownEditor.Tabs.Trigger>
+                    <MarkdownEditor.Tabs.Trigger
+                        value={MarkdownEditor.MarkdownEditorMode.PREVIEW}
+                        key={MarkdownEditor.MarkdownEditorMode.PREVIEW}
+                    >
+                        preview
+                    </MarkdownEditor.Tabs.Trigger>
+                    <MarkdownEditor.Tabs.Trigger
+                        value={MarkdownEditor.MarkdownEditorMode.SPLIT}
+                        key={MarkdownEditor.MarkdownEditorMode.SPLIT}
+                    >
+                        split
+                    </MarkdownEditor.Tabs.Trigger>
+                </MarkdownEditor.Tabs.List>
+
+                <MarkdownEditor.Edit />
+                <MarkdownEditor.Preview />
+                <MarkdownEditor.Split />
+            </MarkdownEditor.Root>
+        </div>
+    );
+};
+
+export const Disabled = () => {
+    return (
+        <div style={{ width: '100%', height: 500 }}>
+            <MarkdownEditor.Root value={defaultValue} disabled>
                 <MarkdownEditor.Tabs.List>
                     <MarkdownEditor.Tabs.Trigger
                         value={MarkdownEditor.MarkdownEditorMode.EDIT}
