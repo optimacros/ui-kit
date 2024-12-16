@@ -46,10 +46,10 @@
   --color-menu-primary-shadow-default: var(--color-theme-gray-100);
   --color-menu-primary-border-default: var(--color-theme-gray-100);
   --color-menu-primary-on-default: var(--color-theme-text-primary-default);
-  --color-menu-primary-group-label-defult: var(--color-theme-text-secondary-default);
+  --color-menu-primary-group-label-default: var(--color-theme-text-secondary-default);
   --color-menu-primary-group-label-border-default: var(--color-theme-gray-200);
   --color-menu-primary-divider-default: var(--color-divider-primary-default);
-  --color-menu-primary-item-active: var(--color-pallete-gray-100);
+  --color-menu-primary-item-active: var(--color-theme-primary-50);
   --color-menu-primary-item-disabled: var(--color-theme-disabled-500);
   --color-menu-secondary-item-on-active: var(--color-theme-primary-default);
   --color-menu-secondary-item-border-active: var(--color-theme-primary-400);
@@ -60,8 +60,9 @@
   --color-radio-group-primary-control-default: var(--color-theme-gray-200);
   --color-radio-group-primary-control-on-default: var(--color-theme-primary-default);
   --color-radio-group-primary-control-border-default: var(--color-theme-black);
-  --color-radio-group-primary-control-border-focus: var(--color-theme-primary-default);
+  --color-radio-group-primary-control-border-checked: var(--color-theme-primary-default);
   --color-radio-group-primary-control-border-disabled: var(--color-theme-disabled-default);
+  --color-radio-group-primary-control-checked: var(--color-theme-primary-default);
   --color-sidebar-primary-hover: #ffffff;
   --color-sidebar-primary-focus: #ffffff;
   --color-sidebar-primary-active: #ffffff;
@@ -96,6 +97,8 @@
   --color-field-primary-border-error: var(--color-theme-error-default);
   --color-field-primary-Color: #ffffff;
   --color-field-primary-border-disabled: var(--color-theme-disabled-400);
+  --color-field-primary-icon-default: var(--color-theme-gray-200);
+  --color-field-primary-icon-active: var(--color-theme-primary-default);
   --Color: var(--color-button-bordered-active);
   --color-button-group-primary-border-default: var(--color-theme-primary-default);
   --color-calendar-primary-header-default: var(--color-theme-primary-default);
@@ -118,6 +121,9 @@
   --color-checkbox-primary-box-control-on-default: var(--color-theme-transparent);
   --color-checkbox-primary-label-default: var(--color-theme-text-primary-default);
   --color-checkbox-primary-label-active: var(--color-theme-text-primary-active);
+  --color-checkbox-primary-label-disabled: #ffffff;
+  --color-checkbox-primary-box-control-disabled: var(--color-theme-disabled-default);
+  --color-checkbox-primary-box-control-border-disabled: var(--color-theme-disabled-default);
   --color-chip-primary-default: var(--color-theme-gray-100);
   --color-chip-primary-icon-default: var(--color-theme-gray-400);
   --color-chip-primary-icon-active: var(--color-theme-gray-500);
@@ -166,8 +172,9 @@
   --color-slider-primary-thumb-default: var(--color-theme-white);
   --color-slider-primary-thumb-disabled: var(--color-theme-disabled-400);
   --color-slider-primary-thumb-outline-default: var(--color-button-secondary-default);
-  --color-tabs-primary-tab-on-default: var(--color-theme-primary-default);
-  --color-tabs-primary-tab-border-focus: var(--color-theme-primary-default);
+  --color-tabs-primary-tab-on-active: var(--color-theme-primary-default);
+  --color-tabs-primary-tab-border-active: var(--color-theme-primary-default);
   --color-tabs-primary-tab-border-default: var(--color-divider-primary-default);
-  --color-tabs-primary-tab-shadow-focus: #000000;
+  --color-tabs-primary-tab-shadow-active: #000000;
+  --color-tabs-primary-tab-on-default: var(--color-theme-text-primary-default);
 }

@@ -1,5 +1,5 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { isFunction } from '@optimacros-ui/utils';
+import { isFunction, Orientation } from '@optimacros-ui/utils';
 import * as menu from '@zag-js/menu';
 import { Portal } from '@zag-js/react';
 import { ComponentProps, ReactNode, useEffect, useMemo } from 'react';
@@ -7,6 +7,7 @@ import { ComponentProps, ReactNode, useEffect, useMemo } from 'react';
 const initialState = {
     disabled: false,
     parent: null,
+    orientation: Orientation.Vertical,
 };
 
 export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
@@ -29,9 +30,12 @@ export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
 
 export const Root = ({
     state = initialState,
+    orientation = Orientation.Vertical,
     ...context
-}: { state: typeof initialState } & ComponentProps<typeof RootProvider>) => {
-    return <RootProvider typeahead={false} {...context} state={state} />;
+}: { state: typeof initialState; orientation: Orientation } & ComponentProps<
+    typeof RootProvider
+>) => {
+    return <RootProvider typeahead={false} {...context} state={{ ...state, orientation }} />;
 };
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
@@ -126,10 +130,7 @@ export const SubMenuPositioner = forward<ComponentProps<typeof Positioner>, 'div
     return <Positioner {...props} ref={ref} data-tag="sub-menu" />;
 });
 
-export const Content = forward<
-    { size?: 'sm' | 'md' | 'lg'; orientation?: 'vertical' | 'horizontal' },
-    'div'
->(({ size, orientation = 'vertical', ...rest }, ref) => {
+export const Content = forward<{ size?: 'sm' | 'md' | 'lg' }, 'div'>(({ size, ...rest }, ref) => {
     const api = useApi();
 
     return (
@@ -137,7 +138,7 @@ export const Content = forward<
             {...rest}
             {...api.getContentProps()}
             data-size={size}
-            data-orientation={orientation}
+            data-orientation={api.orientation}
             ref={ref}
         />
     );
@@ -172,7 +173,12 @@ export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'
         const api = useApi();
 
         return (
-            <styled.ul ref={ref} {...rest} {...api.getItemGroupProps({ id })}>
+            <styled.ul
+                ref={ref}
+                {...rest}
+                {...api.getItemGroupProps({ id })}
+                data-orientation={api.orientation}
+            >
                 {children}
             </styled.ul>
         );
