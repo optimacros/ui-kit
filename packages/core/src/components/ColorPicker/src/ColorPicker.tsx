@@ -2,6 +2,7 @@ import * as colorPicker from '@zag-js/color-picker';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import React, { ComponentProps, PropsWithChildren } from 'react';
 import { Portal } from '@zag-js/react';
+import { Field } from '@optimacros-ui/field';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as colorPicker.Api,
@@ -27,8 +28,8 @@ export const Root = forward<RoootProps, 'div'>(
                             <div {...api.getSwatchProps({ value: api.value })} />
                         </button>
                     </div>
-                    <input {...api.getChannelInputProps({ channel: 'hex' })} />
-                    <input {...api.getChannelInputProps({ channel: 'alpha' })} />
+                    <Field.Input {...api.getChannelInputProps({ channel: 'hex' })} />
+                    <Field.Input {...api.getChannelInputProps({ channel: 'alpha' })} />
                 </div>
             </div>
         );
@@ -70,6 +71,7 @@ interface PopoverProps extends PropsWithChildren {
 export const Popover = forward<PopoverProps, 'div'>(
     ({ eyeDropperIcon, children, ...rest }, ref) => {
         const api = useApi();
+
         return (
             <Portal>
                 <div {...rest} ref={ref} {...api.getPositionerProps()}>
