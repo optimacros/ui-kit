@@ -1,4 +1,7 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { ArgTypes, Meta } from '@storybook/react';
+import { ICONS_MAP } from '@optimacros-ui/themes';
+import { Grid } from '@optimacros-ui/grid';
+import { Flex } from '@optimacros-ui/flex';
 
 import { Icon } from './index';
 
@@ -27,32 +30,51 @@ const argTypes: Partial<ArgTypes> = {
     },
 };
 
-const meta: Meta<typeof Icon> = {
+export default {
     title: 'UI Kit core/Icon',
     component: Icon,
+    tags: ['autodocs'],
     argTypes,
-};
-export default meta;
+} as Meta;
 
-type Story = StoryObj<typeof Icon>;
-
-export const Basic: Story = {
+export const Basic = {
     args: {
-        name: 'close',
+        value: 'close',
         alt: 'close icon',
     },
 };
 
-export const WithTooltip: Story = {
+export const IconMap = () => {
+    const onClickHandler = (icon) => {
+        navigator.clipboard.writeText(icon);
+    };
+
+    return (
+        <div style={{ fontSize: '32px' }}>
+            <Grid.Root cols="6" gap="16">
+                {Object.values(ICONS_MAP).map((icon) => (
+                    <div style={{ cursor: 'pointer' }} onClick={() => onClickHandler(icon)}>
+                        <Flex direction="column" gap="4" key={icon}>
+                            <Icon value={icon} />
+                            <div style={{ fontSize: '16px', opacity: '60%' }}>{icon} </div>
+                        </Flex>
+                    </div>
+                ))}
+            </Grid.Root>
+        </div>
+    );
+};
+
+export const WithTooltip = {
     args: {
-        name: 'search',
+        value: 'search',
         title: 'description',
     },
 };
 
-export const CustomStyles: Story = {
+export const CustomStyles = {
     args: {
-        name: 'add',
+        value: 'add',
         title: 'description',
         style: { border: '1px solid black' },
     },
