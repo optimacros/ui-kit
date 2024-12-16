@@ -1,6 +1,5 @@
 import React, { ComponentProps, PropsWithChildren } from 'react';
 import * as treeview from '@zag-js/tree-view';
-import { tw } from '@optimacros-ui/utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
 interface Node {
@@ -55,9 +54,7 @@ interface TreeNodeProps {
     node: Node;
     indexPath: number[];
 }
-const branchIndicatorClassName = tw`
-inline-block data-[state='open']:transform data-[state='open']:rotate-90
-`;
+
 export const TreeNode = forward<TreeNodeProps, 'div'>(
     ({ node, indexPath, children, ...rest }, ref) => {
         const api = useApi();
@@ -91,7 +88,6 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                             {...api.getBranchIndicatorProps(nodeProps)}
                             data-scope="tree-view"
                             data-part="branch-indicator"
-                            className={branchIndicatorClassName}
                         >
                             {indicator}
                         </span>
