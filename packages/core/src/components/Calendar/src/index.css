@@ -1,8 +1,8 @@
 [data-scope='date-picker'] {
   &[data-part='view-control'] {
-    padding-top: var(--spacing-2_5);
-    padding-left: var(--spacing-1_5);
-    padding-right: var(--spacing-1_5);
+    padding-top: var(--spacing-2-5);
+    padding-left: var(--spacing-1-5);
+    padding-right: var(--spacing-1-5);
     padding-bottom: 0;
     display: flex;
     justify-content: space-between;
@@ -15,7 +15,7 @@
 
   &[data-part='header-years'] {
     display: inline-block;
-    font-size: var(--spacing-3_5);
+    font-size: var(--spacing-3-5);
     opacity: 0.6;
     line-height: var(--spacing-4);
   }
@@ -51,7 +51,7 @@
   }
 
   &[data-part='table-head'] {
-    font-size: var(--spacing-3_5);
+    font-size: var(--spacing-3-5);
     height: var(--spacing-9);
     line-height: var(--spacing-9);
     opacity: 0.5;
