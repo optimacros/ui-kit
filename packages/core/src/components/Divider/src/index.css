@@ -1,25 +1,18 @@
-:root {
-  --color-divider: #e8e8e8;
-}
-
 [data-scope='divider'][data-part='root'] {
   display: inline-flex;
   margin: 0;
   padding: 0;
   border: none;
-  background-color: var(--color-divider);
-  transform: translateY(1px);
+  background-color: var(--color-divider-primary-default);
 
   &[data-orientation='vertical'] {
-    height: 18px;
-    min-width: 1px;
-    width: 1px;
-    margin-top: 0;
-    align-self: center;
+    height: var(--spacing-4);
+    min-width: var(--spacing-px);
+    width: var(--spacing-px);
   }
 
   &[data-orientation='horizontal'] {
-    min-width: 20px;
-    height: 1px;
+    min-width: var(--spacing-4);
+    height: var(--spacing-px);
   }
 }

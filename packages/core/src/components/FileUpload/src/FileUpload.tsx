@@ -2,7 +2,7 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import * as fileUpload from '@zag-js/file-upload';
 import { PropTypes } from '@zag-js/react';
 import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
-import { round, sum, tw } from '@optimacros-ui/utils';
+import { round, sum } from '@optimacros-ui/utils';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as fileUpload.Api<PropTypes>,
@@ -18,7 +18,6 @@ export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) =>
             {(api) => (
                 <styled.div
                     {...api.getRootProps()}
-                    className="group"
                     ref={ref}
                     data-empty={api.acceptedFiles.length <= 0}
                 >
@@ -49,9 +48,6 @@ export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(
     },
 );
 
-export const clearTriggerClassName = tw` absolute top-1 right-1
-`;
-
 export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
@@ -59,7 +55,7 @@ export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(
         const apiProps = api.getClearTriggerProps();
 
         return (
-            <styled.button {...apiProps} {...rest} ref={ref} className={clearTriggerClassName}>
+            <styled.button {...apiProps} {...rest} ref={ref}>
                 {children}
             </styled.button>
         );
@@ -78,43 +74,22 @@ export const DeleteItemTrigger = forward<{ children: ReactNode }, 'button'>(
     },
 );
 
-export const contentClassName =
-    'relative text-[var(--text)] border-[var(--border)] border-12 w-full hidden group-data-[empty=false]:flex flex-col';
-
 export const Content = forward<{}, 'div'>((props, ref) => {
-    return (
-        <styled.div
-            {...props}
-            className={contentClassName}
-            ref={ref}
-            data-scope="file-upload"
-            data-part="content"
-        />
-    );
+    return <styled.div {...props} ref={ref} data-scope="file-upload" data-part="content" />;
 });
 
-export const tableClassName = 'gap-1 *:p-2.5 *:odd:w-2/3 *:even:w-1/3 flex w-full';
-
-export const itemGroupHeaderClassName = tw`p-2 text-xl ${tableClassName} font-bold`;
 export const ItemGroupHeader = forward<{}, 'div'>((props, ref) => {
     return (
-        <styled.div
-            {...props}
-            ref={ref}
-            data-scope="file-upload"
-            data-part="item-group-header"
-            className={itemGroupHeaderClassName}
-        />
+        <styled.div {...props} ref={ref} data-scope="file-upload" data-part="item-group-header" />
     );
 });
 
-export const itemGroupClassName = 'p-2  flex-col gap-1 flex list-none';
 export const ItemGroup = forward<{ children: (file: File) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <ul {...api.getItemGroupProps()} {...rest} className={itemGroupClassName} ref={ref}>
+            <ul {...api.getItemGroupProps()} {...rest} ref={ref}>
                 {api.acceptedFiles.map((file) => (
                     <li
                         key={file.name}
@@ -129,23 +104,13 @@ export const ItemGroup = forward<{ children: (file: File) => ReactNode }, 'ul'>(
     },
 );
 
-export const itemClassName = tw`
-    p-2.5 bg-[var(--bg)] text-[var(--text)]
-`;
-
 export const ItemSize = forward<{ file: File }, 'span'>(({ file, ...rest }, ref) => {
     const size = useMemo(() => {
         return calculateFileSize(file.size);
     }, [file.size]);
 
     return (
-        <styled.span
-            {...rest}
-            ref={ref}
-            data-scope="file-upload"
-            data-part="item-size"
-            className={itemClassName}
-        >
+        <styled.span {...rest} ref={ref} data-scope="file-upload" data-part="item-size">
             {size}
         </styled.span>
     );
@@ -153,28 +118,15 @@ export const ItemSize = forward<{ file: File }, 'span'>(({ file, ...rest }, ref)
 
 export const ItemName = forward<{ file: File }, 'span'>(({ file, ...rest }, ref) => {
     return (
-        <styled.span
-            {...rest}
-            ref={ref}
-            data-scope="file-upload"
-            data-part="item-name"
-            className={itemClassName}
-        >
+        <styled.span {...rest} ref={ref} data-scope="file-upload" data-part="item-name">
             {file.name}
         </styled.span>
     );
 });
 
-export const itemInfoClassName = `gap-1 flex ${tableClassName}`;
 export const ItemInfo = forward<{ file: File }, 'div'>(({ file, ...rest }, ref) => {
     return (
-        <styled.div
-            {...rest}
-            ref={ref}
-            data-scope="file-upload"
-            data-part="item-info"
-            className={itemInfoClassName}
-        >
+        <styled.div {...rest} ref={ref} data-scope="file-upload" data-part="item-info">
             <ItemName file={file} />
             <ItemSize file={file} />
         </styled.div>
@@ -197,16 +149,10 @@ export const TotalSize = () => {
     );
 };
 
-export const dropzoneClassName =
-    'bg-[var(--bg)] text-[var(--text)] flex items-center justify-center size-full data-dragging:border-dashed data-dragging:border-[var(--border-active)] border-transparent border-3 group-data-[empty=false]:hidden';
 export const Dropzone = ({ children }) => {
     const api = useApi();
 
-    return (
-        <styled.div {...api.getDropzoneProps()} className={dropzoneClassName}>
-            {children}
-        </styled.div>
-    );
+    return <styled.div {...api.getDropzoneProps()}>{children}</styled.div>;
 };
 
 const symbols = ['B', 'kB', 'MB', 'GB', 'TB'] as const;

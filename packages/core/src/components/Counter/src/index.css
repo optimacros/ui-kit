@@ -1,4 +1,12 @@
-:root {
-  --color-counter: #c3c3c3;
-  --color-counter-text: #fff;
+[data-scope='counter'] {
+  &[data-part='root'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-0_5);
+    font-size: var(--text-xs);
+    color: var(--color-counter-primary-on-default);
+    background-color: var(--color-counter-primary-default);
+  }
 }

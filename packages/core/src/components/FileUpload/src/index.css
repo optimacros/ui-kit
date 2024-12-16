@@ -1,27 +1,70 @@
-:root {
-  --color-file-upload: var(--color-text-secondary);
-  --color-file-upload-border: var(--color-dark-divider);
-  --color-file-upload-item-bg: var(--color-light-highlighted-bg);
-  --color-dropzone-bg: var(--color-light-highlighted-bg);
-  --color-dropzone: var(--color-primary);
-  --color-file-upload-item: var(--color-primary);
-}
-
 [data-scope='file-upload'] {
+  &[data-part='dropzone'] {
+    background-color: var(--color-file-upload-primary-dropzone-default);
+    color: var(--color-file-upload-primary-dropzone-on-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-full);
+    height: var(--size-full);
+    border: 3px solid transparent;
+  }
+
+  &[data-part='clear-trigger'] {
+    position: absolute;
+    top: var(--spacing-1);
+    right: var(--spacing-1);
+  }
+
   &[data-part='content'] {
-    --border: var(--color-file-upload-border);
-    --text: var(--color-file-upload);
+    padding: var(--spacing-2);
+    position: relative;
+    color: var(--color-file-upload-primary-content-on-default);
+    border: 12px solid var(--color-file-upload-primary-content-border-default);
+    width: var(--size-full);
+    display: none;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  &[data-part='item-group'] {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    list-style: none;
   }
 
   &[data-part='item-name'],
   &[data-part='item-size'] {
-    --bg: var(--color-file-upload-item-bg);
-    --text: var(--color-file-upload-item);
+    padding: var(--spacing-2-5);
+    background-color: var(--color-file-upload-primary-item-default);
+    color: var(--color-file-upload-primary-item-on-default);
   }
 
-  &[data-part='dropzone'] {
-    --bg: var(--color-dropzone-bg);
-    --text: var(--color-dropzone);
-    --border-active: var(--color-dropzone);
+  &[data-part='item-info'],
+  &[data-part='item-group-header'] {
+    gap: var(--spacing-1);
+    display: flex;
+    width: var(--size-full);
+
+    & > *:nth-child(odd) {
+      width: var(--size-2-3);
+    }
+
+    & > *:nth-child(even) {
+      width: var(--size-1-3);
+    }
+  }
+
+  &[data-part='root'][data-empty='false'] {
+    & [data-part='content'] {
+      display: flex;
+    }
+
+    & [data-part='dropzone'] {
+      display: none;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Icon } from '@optimacros-ui/core';
+import { Icon } from '@optimacros-ui/icon';
 import { Meta } from '@storybook/react';
 import { Calendar } from './index';
 

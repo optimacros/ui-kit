@@ -3,6 +3,8 @@ import { Meta } from '@storybook/react';
 import { FileUpload } from './index';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
+import { Text } from '@optimacros-ui/text';
+
 import { ReactNode } from 'react';
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '500px', marginLeft: '20px', height: '500px' }}>{children}</div>
@@ -39,8 +41,8 @@ export const Base = () => {
                     <IconButton icon={'close'} variant="bordered" size="xs" squared />
                 </FileUpload.ClearTrigger>
                 <FileUpload.ItemGroupHeader>
-                    <span>FileName</span>
-                    <span>FileSize</span>
+                    <Text.Title as="h3">FileName</Text.Title>
+                    <Text.Title as="h3">FileSize</Text.Title>
                 </FileUpload.ItemGroupHeader>
                 <FileUpload.ItemGroup>
                     {(file) => (

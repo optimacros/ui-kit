@@ -1,9 +1,3 @@
-:root {
-  --color-icon-button-accent: #767676;
-  --color-icon-button-accent-border: #dbdbdb;
-  --color-icon-button-accent-bg: #e9e9e9;
-}
-
 [data-scope='button'][data-part='root'][data-tag='icon-button'] {
   & img {
     width: var(--font-size-lg);
@@ -22,17 +16,12 @@
   }
 
   &[data-variant='accent'] {
-    &[data-float='flat']:not([disabled]) {
-      --bg: var(--color-icon-button-accent-bg);
-      --bg-hover: var(--color-icon-button-accent-bg);
-      --text: var(--color-icon-button-accent);
-      --border: var(--color-icon-button-accent-border);
-    }
+    background: var(--color-icon-button-accent-default);
+    color: var(--color-icon-button-accent-on-default);
+    border-color: var(--color-icon-button-border-default);
 
-    &[disabled] {
-      &[data-float='flat'] {
-        --bg: transparent;
-      }
+    &:disabled {
+      background: transparent;
     }
   }
 

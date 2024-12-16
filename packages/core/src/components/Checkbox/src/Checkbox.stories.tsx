@@ -70,21 +70,21 @@ export const Disabled = (props) => {
 
 export const WithTooltip = (props) => {
     return (
-        <Checkbox.Root {...props}>
-            <Tooltip.Root
-                openDelay={0}
-                closeDelay={0}
-                positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
-            >
-                <Tooltip.Trigger asChild>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Tooltip.Root
+            openDelay={0}
+            closeDelay={0}
+            positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
+        >
+            <Tooltip.Trigger asChild>
+                <div>
+                    <Checkbox.Root {...props}>
                         <Checkbox.BoxControl />
                         <Checkbox.Label>Option</Checkbox.Label>
-                    </div>
-                </Tooltip.Trigger>
-                <Tooltip.Content>Select current option</Tooltip.Content>
-            </Tooltip.Root>
-        </Checkbox.Root>
+                    </Checkbox.Root>
+                </div>
+            </Tooltip.Trigger>
+            <Tooltip.Content>Select current option</Tooltip.Content>
+        </Tooltip.Root>
     );
 };
 
