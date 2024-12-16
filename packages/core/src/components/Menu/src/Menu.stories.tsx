@@ -4,6 +4,7 @@ import { Menu } from './index';
 import { menu } from '.';
 import { createMenuItems } from './mock';
 import { Flex } from '@optimacros-ui/flex';
+import { Orientation } from '@optimacros-ui/utils';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
@@ -44,14 +45,14 @@ export const Basic = () => {
 
 export const Horizontal = () => {
     return (
-        <Menu.Root>
+        <Menu.Root orientation={Orientation.Horizontal}>
             <Menu.Trigger asChild>
                 <div>Click me</div>
             </Menu.Trigger>
             <Menu.Api>
                 {(api) => (
                     <Menu.Positioner>
-                        <Menu.Content orientation="horizontal">
+                        <Menu.Content>
                             <Menu.List>
                                 {menuItems.map((v, i) => (
                                     <Menu.Item {...v} />

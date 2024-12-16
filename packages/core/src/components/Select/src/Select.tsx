@@ -1,9 +1,8 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { clsx, isFunction, tw } from '@optimacros-ui/utils';
+import { isFunction, tw } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
-import { Menu } from '@optimacros-ui/menu';
 import { Virtual } from '@optimacros-ui/virtual';
 
 export const { useApi, RootProvider, Api } = createReactApiStateContext({
@@ -55,18 +54,10 @@ export const HiddenInput = forward<{}, 'select'>((props, ref) => {
     return <styled.select {...props} {...api.getHiddenSelectProps()} ref={ref} />;
 });
 
-export const triggerClassName = tw``;
 export const Trigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.button
-            {...props}
-            {...api.getTriggerProps()}
-            ref={ref}
-            className={triggerClassName}
-        />
-    );
+    return <styled.button {...props} {...api.getTriggerProps()} ref={ref} />;
 });
 
 export const CloseTrigger = forward<{}, 'button'>((props, ref) => {
@@ -97,7 +88,6 @@ export const Positioner = forward<{}, 'div'>((props, ref) => {
     );
 });
 
-export const contentClassName = clsx(Menu.contentClassName, `relative`);
 export const Content = forward<{ size?: 'sm' | 'md' }, 'div'>(({ size = 'md', ...rest }, ref) => {
     const api = useApi();
 
@@ -106,35 +96,24 @@ export const Content = forward<{ size?: 'sm' | 'md' }, 'div'>(({ size = 'md', ..
             {...rest}
             {...api.getContentProps()}
             data-size={size}
-            className={contentClassName}
             data-orientation="vertical"
             ref={ref}
         />
     );
 });
 
-export const valueClassName = tw``;
 export const Value = forward<{}, 'span'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.span {...props} {...api.getValueTextProps()} className={valueClassName} ref={ref} />
-    );
+    return <styled.span {...props} {...api.getValueTextProps()} ref={ref} />;
 });
 
-export const listClassName = Menu.listClassName;
 export const List = forward<{ children: (item: unknown) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.ul
-                {...rest}
-                data-scope="select"
-                data-part="list"
-                className={listClassName}
-                ref={ref}
-            >
+            <styled.ul {...rest} data-scope="select" data-part="list" ref={ref}>
                 {api.collection.items.map(children)}
             </styled.ul>
         );
@@ -163,7 +142,8 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
             <Virtual.List
                 {...rest}
                 data={api.collection.items}
-                className={listClassName}
+                data-scope="select"
+                data-part="list"
                 scrollerRef={useCallback(
                     (ref) =>
                         //@ts-ignore
@@ -179,7 +159,6 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
     );
 });
 
-export const itemClassName = Menu.itemClassName;
 export const Item = forward<
     select.ItemProps & { children: ReactNode | ((props: select.ItemState) => ReactNode) },
     'li'
@@ -187,7 +166,7 @@ export const Item = forward<
     const api = useApi();
     const apiProps = api.getItemProps({ item, persistFocus });
     return (
-        <styled.li {...rest} {...apiProps} className={itemClassName} ref={ref}>
+        <styled.li {...rest} {...apiProps} ref={ref}>
             {isFunction(children) ? children(api.getItemState({ item, persistFocus })) : children}
         </styled.li>
     );
@@ -197,7 +176,6 @@ export const ItemLabel = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} data-scope="select" data-part="item-label" ref={ref} />;
 });
 
-export const itemIndicatorClassName = tw`w-2 h-2`;
 export const ItemIndicator = forward<select.ItemProps, 'span'>(
     ({ item, persistFocus, ...rest }, ref) => {
         const api = useApi();
@@ -206,14 +184,12 @@ export const ItemIndicator = forward<select.ItemProps, 'span'>(
             <styled.span
                 {...rest}
                 {...api.getItemIndicatorProps({ item, persistFocus })}
-                className={itemIndicatorClassName}
                 ref={ref}
             />
         );
     },
 );
 
-export const itemDeleteTriggerClassName = tw``;
 export const ItemDeleteTrigger = forward<select.ItemProps, 'button'>(({ item, ...rest }, ref) => {
     const api = useApi();
 
@@ -227,7 +203,6 @@ export const ItemDeleteTrigger = forward<select.ItemProps, 'button'>(({ item, ..
             data-scope="select"
             data-part="delete-item-trigger"
             ref={ref}
-            className={itemDeleteTriggerClassName}
         />
     );
 });

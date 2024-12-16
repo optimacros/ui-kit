@@ -17,13 +17,9 @@ export const Portal = ({
 }) => {
     const api = useApi();
 
-    return (
-        <>
-            {api.getPlacements().map((placement) => (
-                <div key={placement} {...api.getGroupProps({ placement })}>
-                    {api.getToastsByPlacement(placement).map((toast) => children(toast))}
-                </div>
-            ))}
-        </>
-    );
+    return api.getPlacements().map((placement) => (
+        <div key={placement} {...api.getGroupProps({ placement })}>
+            {api.getToastsByPlacement(placement).map((toast) => children(toast))}
+        </div>
+    ));
 };

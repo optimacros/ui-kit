@@ -1,2 +1,2 @@
-export * as context from './context';
-export * as components from './MarkdownEditor';
+export * from './context';
+export * from './MarkdownEditor';

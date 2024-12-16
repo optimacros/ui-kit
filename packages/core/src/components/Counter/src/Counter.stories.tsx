@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react';
 import { Counter } from './index';
 import { Navigation } from '@optimacros-ui/navigation';
 import { IconButton } from '@optimacros-ui/icon-button';
+import { Flex } from '@optimacros-ui/flex';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ display: 'flex' }}>{children}</div>
@@ -44,10 +45,10 @@ export const State = (props) => {
     };
 
     return (
-        <>
+        <Flex>
             <IconButton variant="bordered" onClick={onChange} value="add" />
             <Counter {...props} value={counter} maxValue={10} />
-        </>
+        </Flex>
     );
 };
 

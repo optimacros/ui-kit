@@ -123,10 +123,6 @@ const ControlTemplate = ({ children, ...rest }) => {
 
             <Select.Positioner>
                 <Select.Content>
-                    <Select.FloatingCloseTrigger>
-                        <Icon value="close" />
-                    </Select.FloatingCloseTrigger>
-
                     <Select.List>
                         {(item) => (
                             <Select.Item item={item} key={item.value}>

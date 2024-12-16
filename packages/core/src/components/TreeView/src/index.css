@@ -1,15 +1,15 @@
 [data-scope='tree-menu'] {
   & [role='button'] {
-    @apply cursor-pointer;
+    cursor: pointer;
   }
 
   & [data-part='tree-node-no-branch'] {
-    @apply pl-5;
+    padding-left: var(--spacing-5);
   }
 
   & [data-part='branch-control']:hover,
   [data-part='branch-content'] [data-part='tree-node-no-branch']:hover {
-    @apply bg-green-50;
+    background-color: var(--color-theme-primary-50);
   }
 
   & [data-selected] {
@@ -17,7 +17,15 @@
     &[role='button']:hover,
     &[data-part='tree-node-no-branch'],
     &[data-part='tree-node-no-branch']:hover {
-      @apply bg-green-100;
+      background-color: var(--color-theme-primary-default);
     }
+  }
+
+  & [data-part='branch-indicator'] {
+    display: inline-block;
+  }
+
+  & [data-part='branch-indicator'][data-state='open'] {
+    transform: rotate(90deg);
   }
 }

@@ -1,13 +1,11 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as tabs from '@zag-js/tabs';
 import {
-    tw,
     isVisibleInParentViewport,
     filter,
     useEventListener,
     round,
     swap,
-    clsx,
     noop,
 } from '@optimacros-ui/utils';
 import {
@@ -88,14 +86,12 @@ export const { Api, Provider, RootProvider, useApi } = createReactApiStateContex
     },
 });
 
-export const rootClassName = tw``;
-
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
     return (
         <RootProvider {...context}>
             {(api) => (
-                <styled.div {...api.getRootProps()} className={rootClassName} ref={ref}>
+                <styled.div {...api.getRootProps()} ref={ref}>
                     {children}
                 </styled.div>
             )}
@@ -103,11 +99,10 @@ export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) =>
     );
 });
 
-export const listClassName = 'flex relative z-1 overflow-scroll list-none';
 export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
     const api = useApi();
 
-    return <styled.ul {...props} {...api.getListProps()} ref={ref} className={listClassName} />;
+    return <styled.ul {...props} {...api.getListProps()} ref={ref} />;
 });
 
 export const DraggableList = forward<
@@ -143,36 +138,16 @@ export const DraggableList = forward<
     );
 });
 
-export const triggerClassName = tw`first:pr-3 last:pl-3 not-last:not-first:px-3
-border-solid border-[var(--border)] border-b-1 cursor-pointer
-data-focus:border-[var(--border-focus)] data-focus:text-[var(--text-focus)]
-data-selected:border-[var(--border-focus)] data-selected:text-[var(--text-focus)] select-none data-focus:shadow-[var(--shadow-focus)]
-outline-none text-sm
-`;
 export const Trigger = forward<{ children: ReactNode; value: string; disabled?: boolean }, 'li'>(
     ({ value, disabled, ...rest }, ref) => {
         const api = useApi();
 
         const apiProps = api.getTriggerProps({ value, disabled });
 
-        return (
-            <styled.li
-                {...rest}
-                {...apiProps}
-                ref={ref}
-                className={triggerClassName}
-                key={`trigger-${value}`}
-            />
-        );
+        return <styled.li {...rest} {...apiProps} ref={ref} key={`trigger-${value}`} />;
     },
 );
 
-export const draggableTriggerClassName = clsx(
-    triggerClassName,
-    `
-    data-[dragging=true]:cursor-grabbing
-`,
-);
 export const DraggableTrigger = forward<
     { children: ReactNode; value: string; disabled?: boolean },
     'li'
@@ -199,7 +174,6 @@ export const DraggableTrigger = forward<
                     }}
                     ref={setNodeRef}
                     style={{ transform: transform && `translateX(${transform.x}px)` }}
-                    className={draggableTriggerClassName}
                     key={`trigger-${value}`}
                 />
             )}

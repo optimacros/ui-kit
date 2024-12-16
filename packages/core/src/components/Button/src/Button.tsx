@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 
-import {} from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 
 export interface ButtonThemeProps {

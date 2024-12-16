@@ -4,34 +4,28 @@ import { IconButton } from '@optimacros-ui/icon-button';
 export default {
     title: 'UI Kit core/Toast',
     component: Toast.Root,
-    tags: ['autodocs'],
-
-    decorators: [
-        (Story) => (
-            <ToastGroup.Root>
-                <Story />
-            </ToastGroup.Root>
-        ),
-    ],
 };
 
 const types = ['info', 'error', 'success'];
 export const Base = (props) => {
-    const api = ToastGroup.useApi();
     return (
-        <>
-            <button
-                onClick={() => {
-                    api.create({
-                        duration: 50000,
-                        title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
-                        type: types[Math.floor(Math.random() * (types.length - 1))],
-                        placement: 'top-end',
-                    });
-                }}
-            >
-                create toast
-            </button>
+        <ToastGroup.Root>
+            <ToastGroup.Api>
+                {(api) => (
+                    <button
+                        onClick={() => {
+                            api.create({
+                                duration: 50000,
+                                title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
+                                type: types[Math.floor(Math.random() * (types.length - 1))],
+                                placement: 'top-end',
+                            });
+                        }}
+                    >
+                        create toast
+                    </button>
+                )}
+            </ToastGroup.Api>
             <ToastGroup.Portal>
                 {(toast) => (
                     <Toast.Root actor={toast}>
@@ -46,6 +40,6 @@ export const Base = (props) => {
                     </Toast.Root>
                 )}
             </ToastGroup.Portal>
-        </>
+        </ToastGroup.Root>
     );
 };
