@@ -1,0 +1,197 @@
+:root {
+  --colors-color-picker-bg-subtle: #ffffff;
+  --colors-color-picker-border-subtle: #edf2f7;
+
+  --size-color-picker-eye-dropper-trigger: 40px;
+  --height-color-picker-area: 200px;
+}
+
+[data-scope='color-picker'] {
+  &,
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  &,
+  *,
+  &::before,
+  *::before,
+  &::after,
+  *::after {
+    border: 0;
+    border-style: solid;
+    border-color: var(--colors-color-picker-border-subtle);
+  }
+
+  :where(*, *::before, *::after),
+  :where(&, &::before, &::after) {
+    border-width: 0;
+    border-style: solid;
+    box-sizing: border-box;
+    word-wrap: break-word;
+  }
+}
+
+[data-scope='color-picker'][data-part='label'] {
+  font-size: var(--text-sm);
+  display: block;
+  margin-bottom: var(--spacing-2);
+}
+
+[data-scope='color-picker'][data-part='label'][data-disabled] {
+  opacity: 0.6;
+}
+
+[data-scope='color-picker'][data-part='label'] > span:first-child {
+  font-weight: 500;
+}
+
+[data-scope='color-picker'][data-part='control'] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+}
+
+[data-scope='color-picker'][data-part='control'] > *:has(> [data-part='trigger']) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1);
+  background: var(--colors-color-picker-bg-subtle);
+  border-width: 1px;
+}
+
+[data-scope='color-picker'][data-part='control'] > input:last-child {
+  max-width: 64px;
+}
+
+[data-scope='color-picker'][data-part='trigger'] {
+  display: flex;
+  background: var(--colors-color-picker-bg-subtle);
+}
+
+[data-scope='color-picker'][data-part='transparency-grid'] {
+  border-radius: 4px;
+}
+
+[data-scope='color-picker'][data-part='swatch'] {
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  flex-shrink: 0;
+}
+
+div:has(> [data-scope='color-picker'][data-part='channel-input'] ~ span) {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+[data-scope='color-picker'][data-part='channel-input'] {
+  border-radius: 4px;
+  width: 100%;
+  border-width: 1px;
+  padding-inline: var(--spacing-2);
+  background: var(--colors-color-picker-bg-subtle);
+  font-size: var(--text-sm);
+  min-height: 32px;
+}
+
+[data-scope='color-picker'][data-part='channel-input'] ~ span {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+[data-scope='color-picker'] {
+  span:has(+ [data-part='channel-input']) {
+    color: red;
+  }
+}
+
+[data-scope='color-picker'][data-part='content'] {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  isolation: isolate;
+  padding: var(--spacing-4);
+  background: var(--colors-color-picker-bg-subtle);
+}
+
+[data-scope='color-picker'][data-part='area']
+  ~ div:not(:nth-child(2)):not([data-part='swatch-group']) {
+  display: flex;
+  width: 100%;
+  gap: var(--spacing-0-5);
+}
+
+[data-scope='color-picker'][data-part='content'] > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+[data-scope='color-picker'][data-part='area'] {
+  height: var(--height-color-picker-area);
+  border-radius: 4px;
+  border-width: 1px;
+}
+
+[data-scope='color-picker'][data-part='area-background'] {
+  height: inherit;
+  border-radius: inherit;
+}
+
+[data-scope='color-picker'][data-part='area-thumb'],
+[data-scope='color-picker'][data-part='channel-slider-thumb'] {
+  border: 2px solid white;
+  border-radius: 99999px;
+  transform: translate(-50%, -50%);
+  box-shadow: black 0px 0px 0px 1px, black 0px 0px 0px 1px inset;
+  width: 1rem;
+  height: 1rem;
+}
+
+[data-scope='color-picker'][data-part='area'] + div {
+  display: flex;
+  gap: var(--spacing-5);
+  margin-block: var(--spacing-2);
+}
+
+[data-scope='color-picker'][data-part='area'] + div > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  flex: 1;
+}
+
+[data-scope='color-picker'][data-part='channel-slider-track'] {
+  height: var(--spacing-3);
+  border-radius: 4px;
+}
+
+[data-scope='color-picker'][data-part='eye-dropper-trigger'] {
+  width: var(--size-color-picker-eye-dropper-trigger);
+  height: var(--size-color-picker-eye-dropper-trigger);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+}
+
+hr:has(+ [data-scope='color-picker'][data-part='swatch-group']) {
+  width: 100%;
+  border-width: 1px;
+  border-color: var(--colors-color-picker-border-subtle);
+}
+
+[data-scope='color-picker'][data-part='swatch-group'] {
+  display: flex;
+  gap: var(--spacing-2-5);
+}
+
+[data-scope='color-picker'][data-part='swatch-trigger'] > div {
+  position: relative;
+}
