@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Text } from '@optimacros-ui/text';
 import { Flex } from '@optimacros-ui/flex';
@@ -32,7 +33,7 @@ export const Deletable = () => {
         <div>
             {isChip ? (
                 <Chip.Root>
-                  <Text.Paragraph>Deletable</Text.Paragraph>
+                    <Text.Paragraph>Deletable</Text.Paragraph>
                     <Chip.Icon>
                         <Icon value="cancel" onClick={onClickHandle} />
                     </Chip.Icon>
@@ -53,16 +54,11 @@ export const WithIcon = () => {
     );
 };
 
-export const Multiple = (props) => {
+export const Multiple = () => {
     return (
         <Flex gap="3" wrap="wrap">
             {new Array(10).fill(0).map(() => (
-                <Chip.Root {...props}>
-                    <Text.Paragraph>Deletable</Text.Paragraph>
-                    <Chip.Icon>
-                        <Icon value="cancel" />
-                    </Chip.Icon>
-                </Chip.Root>
+                <Chip.Root>Base</Chip.Root>
             ))}
         </Flex>
     );
