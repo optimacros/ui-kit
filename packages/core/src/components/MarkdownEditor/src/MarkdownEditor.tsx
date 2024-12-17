@@ -7,6 +7,7 @@ export interface MarkdownEditorProps {
     value?: string;
     onChange?: (value: string) => void;
     activeTab?: MarkdownEditorMode;
+    disabled?: boolean;
 }
 
 export enum MarkdownEditorMode {
@@ -16,9 +17,15 @@ export enum MarkdownEditorMode {
 }
 
 export const Root = forward<PropsWithChildren<MarkdownEditorProps>, 'div'>(
-    ({ children, value, onChange, activeTab, ...rest }, ref) => {
+    ({ children, value, onChange, activeTab, disabled, ...rest }, ref) => {
         return (
-            <styled.div {...rest} ref={ref} data-scope="markdown-editor" data-part="root">
+            <styled.div
+                {...rest}
+                ref={ref}
+                data-scope="markdown-editor"
+                data-part="root"
+                data-disabled={disabled}
+            >
                 <RootProvider value={value} onChange={onChange} activeTab={activeTab}>
                     {children}
                 </RootProvider>
