@@ -53,10 +53,12 @@ export const IconMap = () => {
         <div style={{ fontSize: '32px' }}>
             <Grid.Root cols="6" gap="16">
                 {Object.values(ICONS_MAP).map((icon) => (
-                    <div style={{ cursor: 'pointer' }} onClick={() => onClickHandler(icon)}>
-                        <Flex direction="column" gap="4" key={icon}>
+                    <div key={icon} onDoubleClick={() => onClickHandler(icon)}>
+                        <Flex direction="column" gap="4" align="center">
                             <Icon value={icon} />
-                            <div style={{ fontSize: '16px', opacity: '60%' }}>{icon} </div>
+                            <div style={{ fontSize: '16px', opacity: '60%', background: 'none' }}>
+                                {icon}
+                            </div>
                         </Flex>
                     </div>
                 ))}
