@@ -24,6 +24,24 @@
 }
 
 [data-scope='toast'] {
+  &,
+  & * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  &,
+  &::before,
+  &::after,
+  & *,
+  & *::before,
+  & *::after {
+    border: 0;
+    border-style: solid;
+    border-color: var(--colors-border-subtle);
+  }
+
   &[data-part='root'] {
     display: flex;
     border-radius: var(--radius-sm);
