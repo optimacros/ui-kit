@@ -1,17 +1,38 @@
 :root {
-  --color-toast-cancel: var(--color-palette-red-500);
-  --color-toast-success: var(--color-green-700);
-  --color-toast-warning: var(--color-palette-lime-a200);
-  --color-toast-info: var(--color-deep-orange-800);
-  --color-toast-error: var(--color-amber-600);
-  --color-toast-bg: var(--color-text);
-  --color-toast: var(--color-white);
-  --toast-horizontal-offset: calc(2.4 * var(--unit));
-  --toast-vertical-offset: calc(1.4 * var(--unit));
+  --offset-toast-horizontal: var(--spacing-6);
+  --offset-toast-vertical: var(--spacing-4);
+
+  --color-toast-success-bg: var(--color-pallete-lightgreen-700);
+  --color-toast-success-text: var(--color-pallete-yellow-500);
+  --color-toast-success-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-info-bg: var(--color-pallete-teal-500);
+  --color-toast-info-text: var(--color-pallete-yellow-500);
+  --color-toast-info-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-error-bg: var(--color-pallete-orange-900);
+  --color-toast-error-text: var(--color-pallete-yellow-500);
+  --color-toast-error-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-loading-bg: var(--color-pallete-purple-700);
+  --color-toast-loading-text: var(--color-pallete-yellow-500);
+  --color-toast-loading-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-custom-bg: var(--color-pallete-brown-500);
+  --color-toast-custom-text: var(--color-pallete-yellow-500);
+  --color-toast-custom-close-trigger: var(--color-pallete-blue-100);
 }
 
 [data-scope='toast'] {
   &[data-part='root'] {
+    display: flex;
+    border-radius: var(--radius-sm);
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2) var(--spacing-3);
+    gap: var(--spacing-2);
+    width: var(--size-sm);
+
     translate: var(--x) var(--y);
     scale: var(--scale);
     z-index: var(--z-index);
@@ -19,55 +40,58 @@
     height: var(--height);
     will-change: translate, opacity, scale;
 
-    --bg: var(--color-toast-default);
-    --bg-warning: var(--color-toast-warning-default);
-    --text: var(--color-toast-on-default);
-
     &[data-type='success'] {
-      color: #ffffff;
-      background: var(--color-toast-success);
+      color: var(--color-toast-success-text);
+      background: var(--color-toast-success-bg);
 
       & [data-part='close-trigger'],
       & [data-toast-part='close-trigger'] {
-        --bg: var(--color-toast-success-default);
+        background: var(--color-toast-success-close-trigger);
       }
     }
 
     &[data-type='info'] {
-      background: var(--color-toast-info);
-      color: black;
+      color: var(--color-toast-info-text);
+      background: var(--color-toast-info-bg);
 
       & [data-part='close-trigger'],
       & [data-toast-part='close-trigger'] {
-        --bg: var(--color-toast-cancel-default);
+        background: var(--color-toast-info-close-trigger);
       }
     }
 
     &[data-type='error'] {
-      color: var(--color-toast-error);
-      background: red;
+      color: var(--color-toast-error-text);
+      background: var(--color-toast-error-bg);
 
       & [data-part='close-trigger'],
-      & [data-scope='button'][data-toast-part='close-trigger'] {
-        --bg: var(--color-toast-warning-default);
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-error-close-trigger);
+      }
+    }
+
+    &[data-type='loading'] {
+      color: var(--color-toast-loading-text);
+      background: var(--color-toast-loading-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-loading-close-trigger);
+      }
+    }
+
+    &[data-type='custom'] {
+      color: var(--color-toast-custom-text);
+      background: var(--color-toast-custom-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-custom-close-trigger);
       }
     }
   }
 
-  &[data-part='root'] {
-    display: flex;
-    border-radius: var(--radius-sm);
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-2) var(--spacing-3);
-    background-color: var(--bg);
-    color: var(--text);
-    gap: var(--spacing-2);
-    width: var(--size-sm);
-  }
-
   &[data-part='close-trigger'] {
-    background-color: var(--bg);
     flex-shrink: 0;
   }
 

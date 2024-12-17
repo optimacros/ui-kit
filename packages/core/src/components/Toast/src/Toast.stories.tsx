@@ -135,7 +135,6 @@ export const Base = () => {
                 {(toast) => (
                     <Toast.Root actor={toast}>
                         <Toast.Content>
-                            {toast.id}
                             <Toast.Title />
                             <Toast.Description />
                         </Toast.Content>
