@@ -25,7 +25,6 @@
         "paths": {
             "@optimacros-ui/button": ["packages/core/src/components/Button/src"],
             "@optimacros-ui/button-group": ["packages/core/src/components/ButtonGroup/src"],
-            "@optimacros-ui/button-menu": ["packages/core/src/components/ButtonMenu/src"],
             "@optimacros-ui/checkbox": ["packages/core/src/components/Checkbox/src"],
             "@optimacros-ui/chip": ["packages/core/src/components/Chip/src"],
             "@optimacros-ui/counter": ["packages/core/src/components/Counter/src"],

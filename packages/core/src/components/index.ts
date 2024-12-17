@@ -1,7 +1,6 @@
 export * from '@optimacros-ui/calendar';
 export * from '@optimacros-ui/button';
 export * from '@optimacros-ui/button-group';
-export * from '@optimacros-ui/button-menu';
 export * from '@optimacros-ui/checkbox';
 export * from '@optimacros-ui/chip';
 export * from '@optimacros-ui/counter';

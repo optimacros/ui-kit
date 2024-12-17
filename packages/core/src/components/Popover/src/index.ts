@@ -1,2 +1,1 @@
 export * as Popover from './Popover';
-export * from './Popover';
