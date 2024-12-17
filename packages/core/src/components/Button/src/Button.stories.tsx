@@ -1,204 +1,178 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
-import { Button } from './index';
-import { Icon } from '@optimacros-ui/icon';
-
-const argTypes: Partial<ArgTypes> = {
-    accent: {
-        control: 'boolean',
-        description: 'If `true`, the button will have an accent color.',
-    },
-    primary: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a primary color.',
-    },
-    floating: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a floating look.',
-    },
-    mini: {
-        control: 'boolean',
-        description: 'To be used with floating button. If true, the button will be smaller.',
-    },
-    raised: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a raised look.',
-    },
-    disabled: {
-        control: 'boolean',
-        description: 'If `true`, component will be disabled.',
-    },
-    warning: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a warning look.',
-    },
-    inverse: {
-        control: 'boolean',
-        description:
-            'If `true`, the neutral colors are inverted. Useful to put a button over a dark background.',
-    },
-    gray: {
-        control: 'boolean',
-        description: 'If `true`, the button will have gray color.',
-    },
-    bordered: {
-        control: 'boolean',
-        description: 'If `true`, the button will have border.',
-    },
-    neutral: {
-        control: 'boolean',
-        description: "Set it to `false` if you don't want the neutral styles to be included.",
-    },
-    uppercase: {
-        control: 'boolean',
-        description: 'If `true`, the text inside the button will be in uppercase.    ',
-    },
-    href: {
-        control: 'text',
-        description:
-            'The URL to link to when the button is clicked. ' +
-            'If defined, an `a` element will be used as the root node.',
-    },
-    buttonColor: {
-        control: 'color',
-        description: 'Background for the button.',
-    },
-    fontColor: {
-        control: 'color',
-        description: 'Font color for the button.',
-    },
-    fontSize: {
-        control: 'number',
-        description: 'Font size for the button.',
-    },
-    icon: {
-        control: 'text',
-        description: 'Overwritten description.',
-    },
-    target: {
-        control: 'text',
-        description: 'The `target` attribute value for link button.',
-    },
-    children: {
-        control: 'text',
-        description: 'The text string to use for the name of the button.',
-    },
-    theme: { table: { disable: true } },
-};
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from './Button';
+import { Flex } from '@optimacros-ui/flex';
 
 const meta: Meta<typeof Button> = {
     title: 'UI Kit core/Button',
     component: Button,
-    argTypes,
+    tags: ['autodocs'],
+    argTypes: {
+        variant: {
+            control: 'select',
+            options: ['primary', 'accent', 'bordered', 'neutral', 'transparent'],
+            description: 'Controls the visual style variant of the button',
+            defaultValue: 'primary',
+        },
+        float: {
+            control: 'select',
+            options: ['raised', 'floating', 'flat'],
+            description: 'Determines the elevation style of the button',
+            defaultValue: 'flat',
+        },
+        status: {
+            control: 'select',
+            options: ['warning', 'error', 'success'],
+            description: 'Sets the status/state color of the button',
+        },
+        size: {
+            control: 'select',
+            options: ['xs', 'sm', 'md'],
+            description: 'Controls the size of the button',
+            defaultValue: 'md',
+        },
+        squared: {
+            control: 'boolean',
+            description: 'If true, the button will have square corners instead of rounded ones',
+            defaultValue: false,
+        },
+        uppercase: {
+            control: 'boolean',
+            description: 'If true, the button text will be uppercase',
+            defaultValue: false,
+        },
+        inverse: {
+            control: 'boolean',
+            description: 'If true, the button will use inverse colors for dark themes',
+            defaultValue: false,
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'If true, the button will be disabled',
+            defaultValue: false,
+        },
+        href: {
+            control: 'text',
+            description: 'Optional URL if the button should act as a link',
+        },
+        target: {
+            control: 'text',
+            description: 'Target attribute for link buttons',
+        },
+    },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Button>;
 
-export const Accent: Story = {
+export const Base: Story = {
     args: {
-        children: (
-            <>
-                <Icon value="bookmark" /> bookmark
-            </>
-        ),
-        variant: 'accent',
-    },
-};
-
-export const Bordered: Story = {
-    args: {
-        children: 'Apply',
-        variant: 'bordered',
-    },
-};
-
-export const Primary: Story = {
-    args: {
-        children: 'Apply',
+        children: 'Button',
         variant: 'primary',
+        size: 'md',
     },
 };
 
-export const Flat: Story = {
-    args: {
-        children: (
-            <>
-                <Icon value="inbox" /> Inbox
-            </>
-        ),
-        float: 'flat',
-    },
+export const Variants: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button variant="primary">Primary</Button>
+            <Button variant="accent">Accent</Button>
+            <Button variant="bordered">Bordered</Button>
+            <Button variant="neutral">Neutral</Button>
+            <Button variant="transparent">Transparent</Button>
+        </Flex>
+    ),
 };
 
-export const Floating: Story = {
-    args: {
-        children: <Icon value="inbox" />,
-        float: 'floating',
-    },
+export const FloatStyles: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button float="raised">Raised</Button>
+            <Button float="floating">Floating</Button>
+            <Button float="flat">Flat</Button>
+        </Flex>
+    ),
 };
 
-export const Mini: Story = {
-    args: {
-        children: <Icon value="add" />,
-        float: 'floating',
-        variant: 'neutral',
-        size: 'xs',
-    },
+export const StatusStates: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button status="success">Success</Button>
+            <Button status="warning">Warning</Button>
+            <Button status="error">Error</Button>
+        </Flex>
+    ),
 };
 
-export const Raised: Story = {
-    args: {
-        children: 'Next',
-        float: 'raised',
-    },
+export const Sizes: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button size="xs">Extra Small</Button>
+            <Button size="sm">Small</Button>
+            <Button size="md">Medium</Button>
+        </Flex>
+    ),
 };
 
-export const Uppercase: Story = {
-    args: {
-        children: 'Apply',
-        uppercase: true,
-    },
+export const SquaredButtons: Story = {
+    render: () => (
+        <Flex align="center" gap="8">
+            <Button squared>Squared</Button>
+            <Button squared variant="accent">
+                Accent
+            </Button>
+            <Button squared variant="bordered">
+                Bordered
+            </Button>
+        </Flex>
+    ),
 };
 
-export const Disabled: Story = {
-    args: {
-        children: (
-            <>
-                <Icon value="add" /> Add this
-            </>
-        ),
-        disabled: true,
-        variant: 'accent',
-    },
+export const UppercaseButtons: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button uppercase>Uppercase Text</Button>
+            <Button uppercase variant="accent">
+                Uppercase Accent
+            </Button>
+        </Flex>
+    ),
 };
 
-export const Gray: Story = {
-    args: {
-        children: 'Cancel',
-    },
+export const LinkButtons: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button href="https://example.com">Internal Link</Button>
+            <Button href="https://example.com" target="_blank">
+                External Link
+            </Button>
+        </Flex>
+    ),
 };
 
-export const Warning: Story = {
-    args: {
-        children: 'Delete',
-        status: 'warning',
-    },
+export const DisabledStates: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button disabled>Disabled Primary</Button>
+            <Button disabled variant="accent">
+                Disabled Accent
+            </Button>
+            <Button disabled variant="bordered">
+                Disabled Bordered
+            </Button>
+        </Flex>
+    ),
 };
 
-export const Inverse: Story = {
-    args: {
-        children: 'Delete',
-        inverse: true,
-    },
-};
-
-export const Link: Story = {
-    args: {
-        href: 'http://github.com/',
-        target: '_blank',
-        variant: 'accent',
-        children: 'Github',
-    },
+export const CombinedFeatures: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button variant="accent" float="floating" size="sm" squared uppercase>
+                Combined Features
+            </Button>
+            <Button variant="bordered" status="success" float="raised" size="xs" uppercase>
+                Success State
+            </Button>
+        </Flex>
+    ),
 };
