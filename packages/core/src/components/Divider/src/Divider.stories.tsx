@@ -32,7 +32,7 @@ export const Vertical = (props) => {
     );
 };
 
-export const Horizonatal = (props) => {
+export const Horizontal = (props) => {
     return (
         <div style={{ width: '200px' }}>
             <Flex align="center" direction="column">
