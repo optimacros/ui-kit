@@ -1,3 +1,15 @@
+:root {
+  --color-toast-cancel: var(--color-palette-red-500);
+  --color-toast-success: var(--color-green-700);
+  --color-toast-warning: var(--color-palette-lime-a200);
+  --color-toast-info: var(--color-deep-orange-800);
+  --color-toast-error: var(--color-amber-600);
+  --color-toast-bg: var(--color-text);
+  --color-toast: var(--color-white);
+  --toast-horizontal-offset: calc(2.4 * var(--unit));
+  --toast-vertical-offset: calc(1.4 * var(--unit));
+}
+
 [data-scope='toast'] {
   &[data-part='root'] {
     translate: var(--x) var(--y);
@@ -12,6 +24,9 @@
     --text: var(--color-toast-on-default);
 
     &[data-type='success'] {
+      color: #ffffff;
+      background: var(--color-toast-success);
+
       & [data-part='close-trigger'],
       & [data-toast-part='close-trigger'] {
         --bg: var(--color-toast-success-default);
@@ -19,6 +34,9 @@
     }
 
     &[data-type='info'] {
+      background: var(--color-toast-info);
+      color: black;
+
       & [data-part='close-trigger'],
       & [data-toast-part='close-trigger'] {
         --bg: var(--color-toast-cancel-default);
@@ -26,6 +44,9 @@
     }
 
     &[data-type='error'] {
+      color: var(--color-toast-error);
+      background: red;
+
       & [data-part='close-trigger'],
       & [data-scope='button'][data-toast-part='close-trigger'] {
         --bg: var(--color-toast-warning-default);
