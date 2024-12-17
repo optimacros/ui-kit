@@ -29,6 +29,18 @@
   }
 }
 
+[data-scope='checkbox'][data-part='checked-icon'] {
+  :where([data-state='unchecked']) & {
+    display: none;
+  }
+}
+
+[data-scope='checkbox'][data-part='unchecked-icon'] {
+  :where([data-state='checked']) & {
+    display: none;
+  }
+}
+
 [data-scope='checkbox'][data-part='box-control'] {
   border: var(--spacing-px) solid var(--color-checkbox-primary-box-control-border-default);
   border-radius: var(--spacing-0-5);
