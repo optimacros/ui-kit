@@ -1,36 +1,45 @@
+:root {
+  --offset-toast-horizontal: var(--spacing-6);
+  --offset-toast-vertical: var(--spacing-4);
+
+  --color-toast-success-bg: var(--color-pallete-lightgreen-700);
+  --color-toast-success-text: var(--color-pallete-yellow-500);
+  --color-toast-success-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-info-bg: var(--color-pallete-teal-500);
+  --color-toast-info-text: var(--color-pallete-yellow-500);
+  --color-toast-info-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-error-bg: var(--color-pallete-orange-900);
+  --color-toast-error-text: var(--color-pallete-yellow-500);
+  --color-toast-error-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-loading-bg: var(--color-pallete-purple-700);
+  --color-toast-loading-text: var(--color-pallete-yellow-500);
+  --color-toast-loading-close-trigger: var(--color-pallete-blue-100);
+
+  --color-toast-custom-bg: var(--color-pallete-brown-500);
+  --color-toast-custom-text: var(--color-pallete-yellow-500);
+  --color-toast-custom-close-trigger: var(--color-pallete-blue-100);
+}
+
 [data-scope='toast'] {
-  &[data-part='root'] {
-    translate: var(--x) var(--y);
-    scale: var(--scale);
-    z-index: var(--z-index);
-    opacity: var(--opacity);
-    height: var(--height);
-    will-change: translate, opacity, scale;
+  &,
+  & * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    --bg: var(--color-toast-default);
-    --bg-warning: var(--color-toast-warning-default);
-    --text: var(--color-toast-on-default);
-
-    &[data-type='success'] {
-      & [data-part='close-trigger'],
-      & [data-toast-part='close-trigger'] {
-        --bg: var(--color-toast-success-default);
-      }
-    }
-
-    &[data-type='info'] {
-      & [data-part='close-trigger'],
-      & [data-toast-part='close-trigger'] {
-        --bg: var(--color-toast-cancel-default);
-      }
-    }
-
-    &[data-type='error'] {
-      & [data-part='close-trigger'],
-      & [data-scope='button'][data-toast-part='close-trigger'] {
-        --bg: var(--color-toast-warning-default);
-      }
-    }
+  &,
+  &::before,
+  &::after,
+  & *,
+  & *::before,
+  & *::after {
+    border: 0;
+    border-style: solid;
+    border-color: var(--colors-border-subtle);
   }
 
   &[data-part='root'] {
@@ -39,14 +48,68 @@
     align-items: center;
     justify-content: center;
     padding: var(--spacing-2) var(--spacing-3);
-    background-color: var(--bg);
-    color: var(--text);
     gap: var(--spacing-2);
     width: var(--size-sm);
+
+    translate: var(--x) var(--y);
+    scale: var(--scale);
+    z-index: var(--z-index);
+    opacity: var(--opacity);
+    height: var(--height);
+    will-change: translate, opacity, scale;
+
+    &[data-type='success'] {
+      color: var(--color-toast-success-text);
+      background: var(--color-toast-success-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-success-close-trigger);
+      }
+    }
+
+    &[data-type='info'] {
+      color: var(--color-toast-info-text);
+      background: var(--color-toast-info-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-info-close-trigger);
+      }
+    }
+
+    &[data-type='error'] {
+      color: var(--color-toast-error-text);
+      background: var(--color-toast-error-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-error-close-trigger);
+      }
+    }
+
+    &[data-type='loading'] {
+      color: var(--color-toast-loading-text);
+      background: var(--color-toast-loading-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-loading-close-trigger);
+      }
+    }
+
+    &[data-type='custom'] {
+      color: var(--color-toast-custom-text);
+      background: var(--color-toast-custom-bg);
+
+      & [data-part='close-trigger'],
+      & [data-toast-part='close-trigger'] {
+        background: var(--color-toast-custom-close-trigger);
+      }
+    }
   }
 
   &[data-part='close-trigger'] {
-    background-color: var(--bg);
     flex-shrink: 0;
   }
 

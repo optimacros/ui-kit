@@ -1,8 +1,8 @@
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import * as toast from '@zag-js/toast';
-import { ReactNode } from 'react';
+import { ReactNode, Fragment } from 'react';
 
-export const { Api, Provider, Root, useApi } = createReactApiStateContext({
+export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as toast.GroupApi,
     id: 'toast-group',
     machine: toast.group,
@@ -17,9 +17,15 @@ export const Portal = ({
 }) => {
     const api = useApi();
 
-    return api.getPlacements().map((placement) => (
-        <div key={placement} {...api.getGroupProps({ placement })}>
-            {api.getToastsByPlacement(placement).map((toast) => children(toast))}
-        </div>
-    ));
+    return (
+        <>
+            {api.getPlacements().map((placement) => (
+                <div key={placement} {...api.getGroupProps({ placement })}>
+                    {api.getToastsByPlacement(placement).map((toast) => (
+                        <Fragment key={toast.id}>{children(toast)}</Fragment>
+                    ))}
+                </div>
+            ))}
+        </>
+    );
 };
