@@ -1,5 +1,5 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { isFunction, tw } from '@optimacros-ui/utils';
+import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
@@ -39,13 +39,10 @@ export const Root = forward<RootProps & ComponentProps<typeof RootProvider>, 'di
     },
 );
 
-export const controlClassName = tw`flex`;
 export const Control = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.div {...props} {...api.getControlProps()} ref={ref} className={controlClassName} />
-    );
+    return <styled.div {...props} {...api.getControlProps()} ref={ref} />;
 });
 
 export const HiddenInput = forward<{}, 'select'>((props, ref) => {

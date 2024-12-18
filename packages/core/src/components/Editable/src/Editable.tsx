@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from 'react';
 import * as editable from '@zag-js/editable';
-import { tw } from '@optimacros-ui/utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
@@ -9,10 +8,6 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as editable.Api,
     machine: editable,
 });
-
-export const footerClassName = tw`w-full min-h-5 flex flex-row items-center space-x-4 px-3 py-1 text-xs box-border
-
-text-[var(--text)] bg-[var(--bg)]`;
 
 export const Root = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {

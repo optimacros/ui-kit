@@ -1,5 +1,4 @@
 import { createReactStore, forward, styled } from '@optimacros-ui/store';
-import { tw } from '@optimacros-ui/utils';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import {
     Virtuoso,
@@ -138,21 +137,10 @@ export const Footer = forward<{}, 'div'>((props, ref) => {
     return null;
 });
 
-export const topItemListClassname = tw``;
 function TopItemList(props) {
-    return (
-        <styled.div
-            {...props}
-            className={topItemListClassname}
-            data-scope="virtual"
-            data-part="top-list"
-        />
-    );
+    return <styled.div {...props} data-scope="virtual" data-part="top-list" />;
 }
 
-export const groupClassname = tw``;
 function Group(props) {
-    return (
-        <styled.div {...props} className={groupClassname} data-scope="virtual" data-part="group" />
-    );
+    return <styled.div {...props} data-scope="virtual" data-part="group" />;
 }
