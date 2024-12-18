@@ -12,11 +12,19 @@ export const { useApi, RootProvider, Api } = createReactApiStateContext({
     initialState: null,
 });
 
-export interface RootProps<T extends unknown = unknown> extends select.CollectionOptions<T> {}
+export interface ItemBase {
+    value: string;
+}
+
+export interface RootProps<T extends unknown = ItemBase> extends select.CollectionOptions<T> {
+    // TODO найти, куда оно потерялось из встроенных типов
+    value?: string[];
+    onValueChange?: (details: select.ValueChangeDetails) => void;
+}
 
 export const Root = forward<RootProps & ComponentProps<typeof RootProvider>, 'div'>(
     (props, ref) => {
-        const { items, isItemDisabled, itemToString, itemToValue, ...rest } = props;
+        const { items, isItemDisabled, itemToString, itemToValue, value, ...rest } = props;
 
         const [providerProps, divProps] = select.splitProps(rest as unknown);
 
@@ -45,16 +53,16 @@ export const Control = forward<{}, 'div'>((props, ref) => {
     return <styled.div {...props} {...api.getControlProps()} ref={ref} />;
 });
 
-export const HiddenInput = forward<{}, 'select'>((props, ref) => {
+export const HiddenInput = forward<{}, 'input'>((props, ref) => {
     const api = useApi();
 
-    return <styled.select {...props} {...api.getHiddenSelectProps()} ref={ref} />;
+    return <styled.input {...props} {...api.getHiddenSelectProps()} ref={ref} type="select" />;
 });
 
-export const Trigger = forward<{}, 'button'>((props, ref) => {
+export const Trigger = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.button {...props} {...api.getTriggerProps()} ref={ref} />;
+    return <styled.div {...props} {...api.getTriggerProps()} ref={ref} />;
 });
 
 export const CloseTrigger = forward<{}, 'button'>((props, ref) => {
@@ -105,7 +113,7 @@ export const Value = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} {...api.getValueTextProps()} ref={ref} />;
 });
 
-export const List = forward<{ children: (item: unknown) => ReactNode }, 'ul'>(
+export const List = forward<{ children: (item: ItemBase) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
@@ -157,7 +165,7 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
 });
 
 export const Item = forward<
-    select.ItemProps & { children: ReactNode | ((props: select.ItemState) => ReactNode) },
+    select.ItemProps<ItemBase> & { children: ReactNode | ((props: select.ItemState) => ReactNode) },
     'li'
 >(({ item, persistFocus, children, ...rest }, ref) => {
     const api = useApi();
@@ -173,7 +181,7 @@ export const ItemLabel = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} data-scope="select" data-part="item-label" ref={ref} />;
 });
 
-export const ItemIndicator = forward<select.ItemProps, 'span'>(
+export const ItemIndicator = forward<select.ItemProps<ItemBase>, 'span'>(
     ({ item, persistFocus, ...rest }, ref) => {
         const api = useApi();
 
@@ -187,19 +195,21 @@ export const ItemIndicator = forward<select.ItemProps, 'span'>(
     },
 );
 
-export const ItemDeleteTrigger = forward<select.ItemProps, 'button'>(({ item, ...rest }, ref) => {
-    const api = useApi();
+export const ItemDeleteTrigger = forward<select.ItemProps<ItemBase>, 'button'>(
+    ({ item, ...rest }, ref) => {
+        const api = useApi();
 
-    return (
-        <styled.button
-            {...rest}
-            onClick={(e) => {
-                e.stopPropagation();
-                api.clearValue(item.value);
-            }}
-            data-scope="select"
-            data-part="delete-item-trigger"
-            ref={ref}
-        />
-    );
-});
+        return (
+            <styled.button
+                {...rest}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    api.clearValue(item.value);
+                }}
+                data-scope="select"
+                data-part="delete-item-trigger"
+                ref={ref}
+            />
+        );
+    },
+);

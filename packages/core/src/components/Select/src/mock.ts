@@ -7,3 +7,5 @@ export const createSelectBoxItems = (count: number) => {
         };
     });
 };
+
+export const mockItems = createSelectBoxItems(20);
