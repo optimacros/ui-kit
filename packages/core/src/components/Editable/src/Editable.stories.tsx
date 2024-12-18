@@ -2,6 +2,7 @@ import type { Meta } from '@storybook/react';
 
 import { Editable } from './index';
 import { useState } from 'react';
+import { Flex } from '@optimacros-ui/flex';
 
 const meta: Meta<typeof Editable.RootProvider> = {
     title: 'UI Kit core/Editable',
@@ -28,10 +29,10 @@ export const Basic = () => {
                     {!api.editing ? (
                         <Editable.EditTrigger>Edit</Editable.EditTrigger>
                     ) : (
-                        <div>
+                        <Flex align="center" gap={2}>
                             <Editable.SubmitTrigger>Save</Editable.SubmitTrigger>
                             <Editable.CancelTrigger>Cancel</Editable.CancelTrigger>
-                        </div>
+                        </Flex>
                     )}
                 </Editable.Root>
             )}
@@ -51,10 +52,10 @@ export const TextArea = () => (
                 {!api.editing ? (
                     <Editable.EditTrigger>Edit</Editable.EditTrigger>
                 ) : (
-                    <div>
+                    <Flex align="center" gap={2}>
                         <Editable.SubmitTrigger>Save</Editable.SubmitTrigger>
                         <Editable.CancelTrigger>Cancel</Editable.CancelTrigger>
-                    </div>
+                    </Flex>
                 )}
             </Editable.Root>
         )}
