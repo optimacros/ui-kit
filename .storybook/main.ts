@@ -28,10 +28,7 @@ const config: StorybookConfig = {
     typescript: {
         reactDocgen: 'react-docgen-typescript',
     },
-    staticDirs: [
-        '../.storybook/assets',
-        '../packages/themes/src/assets/icons/optimacros/font-icons',
-    ],
+    staticDirs: ['../.storybook/assets'],
 };
 
 export default config;
