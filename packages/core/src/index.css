@@ -1,3 +1,2 @@
 @import '../node_modules/@optimacros-ui/themes/src/default/tokens.css';
 @import '../node_modules/@optimacros-ui/themes/src/default/component-tokens.css';
-@config '../tailwind.config.ts';
