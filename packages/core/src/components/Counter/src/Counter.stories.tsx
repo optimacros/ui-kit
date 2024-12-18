@@ -12,16 +12,6 @@ export default {
     title: 'UI Kit core/Counter',
     component: Counter,
     tags: ['autodocs'],
-    argTypes: {
-        value: {
-            control: { type: 'number' },
-            description: 'Counter value',
-        },
-        maxValue: {
-            control: { type: 'number' },
-            description: 'Max count to show',
-        },
-    },
     decorators: [
         (Story) => (
             <Wrapper>
@@ -31,40 +21,52 @@ export default {
     ],
 };
 
-export const Base = (props) => {
-    const { value, maxValue } = props;
-
-    return <Counter {...props} value={value ?? 10} maxValue={maxValue} />;
+export const Base = () => {
+    return <Counter.Root> 10 </Counter.Root>;
 };
 
-export const State = (props) => {
+export const InteractiveExample = () => {
     const [counter, setCounter] = useState(1);
 
-    const onChange = () => {
+    const onIncrease = () => {
         setCounter((prev) => ++prev);
     };
 
+    const onDecrease = () => {
+        setCounter((prev) => --prev);
+    };
+
     return (
-        <Flex>
-            <IconButton variant="bordered" onClick={onChange} value="add" />
-            <Counter {...props} value={counter} maxValue={10} />
+        <Flex align="center" gap={2}>
+            <Counter.Button>
+                <IconButton variant="bordered" onClick={onIncrease}>
+                    +
+                </IconButton>
+            </Counter.Button>
+            <Counter.Root> {counter}</Counter.Root>
+            <Counter.Button>
+                <IconButton variant="bordered" onClick={onDecrease}>
+                    -
+                </IconButton>
+            </Counter.Button>
         </Flex>
     );
 };
 
-export const Empty = (props) => {
-    return <Counter {...props} />;
+export const Empty = () => {
+    return <Counter.Root />;
 };
 
-export const MaxValue = (props) => {
-    return <Counter {...props} value={12} maxValue={5} />;
+export const MaxValue = () => {
+    const value = 10;
+    return <Counter.Root>{value > 9 ? '5+' : value} </Counter.Root>;
 };
 
 export const Link = (props) => {
     return (
         <Navigation.Root>
             <a href={'https://google.com'} style={{ textDecoration: 'none' }}>
-                <Counter {...props} value={12} />
+                <Counter.Root> 10 </Counter.Root>
             </a>
         </Navigation.Root>
     );
