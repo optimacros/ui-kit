@@ -6,7 +6,7 @@ export const { RootProvider, useApi } = createReactApiStateContext({
     api: null as checkbox.Api,
     id: 'checkbox',
     machine: checkbox,
-    initialState: { disabled: false },
+    initialState: {},
     defaultContext: {},
 });
 

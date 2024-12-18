@@ -1,22 +1,28 @@
-import { ComponentProps, ReactNode, ChangeEvent } from 'react';
-import { dateLocales } from '@optimacros-ui/utils/src/base/dateLocales';
+import { ReactNode } from 'react';
 import { time } from '@optimacros-ui/utils';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as datepicker from '@zag-js/date-picker';
 
-const initialState = {
-    locale: 'en',
-};
-
-export const { RootProvider, useApi, State, useState } = createReactApiStateContext({
-    api: null as datepicker.Api,
+export const { RootProvider: Root, useApi } = createReactApiStateContext({
     id: 'calendar',
     machine: datepicker,
-    initialState,
-    defaultContext: {
-        open: true,
-        'open.controlled': true,
-        closeOnSelect: false,
+    connect(api, { state, send }, machine) {
+        return {
+            ...api,
+            getDayTableCellTriggerProps({ value }) {
+                return {
+                    ...api.getDayTableCellTriggerProps({ value }),
+                    onClick: () => api.setValue([value]),
+                };
+            },
+            getHeaderYearsProps() {
+                return {
+                    'data-scope': 'date-picker',
+                    'data-part': 'header-years',
+                    children: api.value[0]?.year ?? 'choose date',
+                };
+            },
+        };
     },
 });
 
@@ -39,15 +45,8 @@ export const Root = ({
 
 export const Content = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
-    return (
-        <styled.div
-            {...api.getContentProps()}
-            {...props}
-            data-scope="date-picker"
-            data-part="content"
-            ref={ref}
-        />
-    );
+
+    return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
 });
 
 export const Header = forward<{}, 'header'>((props, ref) => {
@@ -58,13 +57,7 @@ export const HeaderYears = forward<{ locale?: string }, 'span'>(
     ({ locale = 'en', ...rest }, ref) => {
         const api = useApi();
 
-        const text = api.value[0]?.year ?? 'choose date';
-
-        return (
-            <styled.span {...rest} ref={ref} data-scope="date-picker" data-part="header-years">
-                {text}
-            </styled.span>
-        );
+        return <styled.span {...rest} {...api.getHeaderYearsProps()} ref={ref} />;
     },
 );
 
@@ -102,29 +95,13 @@ export const ViewControl = forward<{}, 'div'>((props, ref) => {
 export const PrevTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.button
-            {...props}
-            {...api.getPrevTriggerProps()}
-            data-scope="date-picker"
-            data-part="prev-trigger"
-            ref={ref}
-        />
-    );
+    return <styled.button {...props} {...api.getPrevTriggerProps()} ref={ref} />;
 });
 
 export const NextTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.button
-            {...props}
-            {...api.getNextTriggerProps()}
-            data-scope="date-picker"
-            data-part="next-trigger"
-            ref={ref}
-        />
-    );
+    return <styled.button {...props} {...api.getNextTriggerProps()} ref={ref} />;
 });
 
 export const RangeText = forward<{}, 'span'>((props, ref) => {

@@ -38,7 +38,7 @@ export default meta;
 
 export const Basic = (props) => {
     return (
-        <Calendar.Root {...props}>
+        <Calendar.Root open={true}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
@@ -68,7 +68,7 @@ export const Basic = (props) => {
 
 export const Selected = (props) => {
     return (
-        <Calendar.Root {...props} value={value}>
+        <Calendar.Root value={[value]} open={true}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
@@ -98,7 +98,7 @@ export const Selected = (props) => {
 
 export const LocalizedCalendar = (props) => {
     return (
-        <Calendar.Root {...props} value={value} locale={locale}>
+        <Calendar.Root value={[value]} open={true}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />

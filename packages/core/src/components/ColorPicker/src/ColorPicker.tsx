@@ -8,7 +8,7 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as colorPicker.Api,
     id: 'colorPicker',
     machine: colorPicker,
-    initialState: null,
+    initialState: {},
 });
 
 export type RoootProps = ComponentProps<typeof RootProvider> & PropsWithChildren;

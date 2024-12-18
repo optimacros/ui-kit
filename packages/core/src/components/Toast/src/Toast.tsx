@@ -6,7 +6,7 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as toast.Api,
     id: 'toast',
     machine: toast,
-    initialState: null,
+    initialState: {},
     actor: true,
 });
 

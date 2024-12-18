@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Field } from '@optimacros-ui/core';
 import { Checkbox } from './index';
 import { Tooltip } from '@optimacros-ui/tooltip';
+import { flushSync } from 'react-dom';
 
 export default {
     title: 'UI Kit core/Checkbox',
@@ -30,17 +31,36 @@ export const Base = (props) => {
     );
 };
 
-export const Checked = (props) => {
+export const Controllable = (props) => {
+    const [checked, setValue] = useState(false);
+
     return (
-        <Checkbox.Root checked {...props}>
-            <Checkbox.BoxControl />
-        </Checkbox.Root>
+        <>
+            <Checkbox.Root
+                {...props}
+                checked={checked}
+                onCheckedChange={(v) => {
+                    flushSync(() => setValue(v.checked));
+                }}
+                controllable
+            >
+                <Checkbox.BoxControl />
+            </Checkbox.Root>
+
+            <Button onClick={() => setValue((v) => !v)}>change</Button>
+        </>
     );
 };
 
 export const Label = (props) => {
     return (
-        <Checkbox.Root checked {...props} onCheckedChange={(d) => console.log(d)} value="d">
+        <Checkbox.Root
+            checked
+            {...props}
+            controllable
+            onCheckedChange={(d) => console.log(d)}
+            value="d"
+        >
             <Checkbox.BoxControl />
             <Checkbox.Label>Option</Checkbox.Label>
         </Checkbox.Root>
