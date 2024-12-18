@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import * as editable from '@zag-js/editable';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { Button } from '@optimacros-ui/button';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     id: 'editable',
@@ -73,9 +74,9 @@ export const EditTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <styled.button {...rest} ref={ref} {...api.getEditTriggerProps()}>
+            <Button variant="accent" {...rest} ref={ref} {...api.getEditTriggerProps()}>
                 {children}
-            </styled.button>
+            </Button>
         );
     },
     { displayName: 'EditTrigger' },
@@ -86,9 +87,9 @@ export const SubmitTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <styled.button {...rest} ref={ref} {...api.getSubmitTriggerProps()}>
+            <Button variant="accent" {...rest} ref={ref} {...api.getSubmitTriggerProps()}>
                 {children}
-            </styled.button>
+            </Button>
         );
     },
     { displayName: 'SubmitTrigger' },
@@ -99,9 +100,9 @@ export const CancelTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <styled.button {...rest} ref={ref} {...api.getCancelTriggerProps()}>
+            <Button variant="accent" {...rest} ref={ref} {...api.getCancelTriggerProps()}>
                 {children}
-            </styled.button>
+            </Button>
         );
     },
     { displayName: 'CancelTrigger' },
