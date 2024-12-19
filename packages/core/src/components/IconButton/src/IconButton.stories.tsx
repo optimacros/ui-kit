@@ -1,185 +1,148 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
+import type { Meta, StoryObj } from '@storybook/react';
 import { IconButton } from './IconButton';
-
-const argTypes: Partial<ArgTypes> = {
-    accent: {
-        control: 'boolean',
-        description: 'If `true`, the button will have an accent color.',
-    },
-    primary: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a primary color.',
-    },
-    floating: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a floating look.',
-    },
-    mini: {
-        control: 'boolean',
-        description: 'To be used with floating button. If true, the button will be smaller.',
-    },
-    raised: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a raised look.',
-    },
-    disabled: {
-        control: 'boolean',
-        description: 'If `true`, component will be disabled.',
-    },
-    warning: {
-        control: 'boolean',
-        description: 'If `true`, the button will have a warning look.',
-    },
-    inverse: {
-        control: 'boolean',
-        description:
-            'If `true`, the neutral colors are inverted. Useful to put a button over a dark background.',
-    },
-    gray: {
-        control: 'boolean',
-        description: 'If `true`, the button will have gray color.',
-    },
-    bordered: {
-        control: 'boolean',
-        description: 'If `true`, the button will have border.',
-    },
-    neutral: {
-        control: 'boolean',
-        description: "Set it to `false` if you don't want the neutral styles to be included.",
-    },
-    uppercase: {
-        control: 'boolean',
-        description: 'If `true`, the text inside the button will be in uppercase.    ',
-    },
-    href: {
-        control: 'text',
-        description:
-            'The URL to link to when the button is clicked. ' +
-            'If defined, an `a` element will be used as the root node.',
-    },
-    buttonColor: {
-        control: 'color',
-        description: 'Background for the button.',
-    },
-    fontColor: {
-        control: 'color',
-        description: 'Font color for the button.',
-    },
-    fontSize: {
-        control: 'number',
-        description: 'Font size for the button.',
-    },
-    icon: {
-        control: 'text',
-        description: 'Overwritten description.',
-    },
-    target: {
-        control: 'text',
-        description: 'The `target` attribute value for link button.',
-    },
-    children: {
-        control: 'text',
-        description: 'The text string to use for the name of the button.',
-    },
-    theme: { table: { disable: true } },
-};
+import { Flex } from '@optimacros-ui/flex';
 
 const meta: Meta<typeof IconButton> = {
     title: 'UI Kit core/IconButton',
     component: IconButton,
-    argTypes,
+    tags: ['autodocs'],
+    argTypes: {
+        variant: {
+            control: 'select',
+            options: ['primary', 'accent', 'bordered', 'neutral', 'transparent'],
+            description: 'Controls the visual style variant of the button',
+            defaultValue: 'primary',
+        },
+        float: {
+            control: 'select',
+            options: ['raised', 'floating', 'flat'],
+            description: 'Determines the elevation style of the button',
+            defaultValue: 'flat',
+        },
+        status: {
+            control: 'select',
+            options: ['warning', 'error', 'success'],
+            description: 'Sets the status/state color of the button',
+        },
+        size: {
+            control: 'select',
+            options: ['xs', 'sm', 'md'],
+            description: 'Controls the size of the button',
+            defaultValue: 'md',
+        },
+        icon: {
+            control: 'text',
+            description: 'Icon name to display',
+            defaultValue: 'bookmark',
+        },
+        squared: {
+            control: 'boolean',
+            description: 'If true, the button will have square corners instead of rounded ones',
+            defaultValue: false,
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'If true, the button will be disabled',
+            defaultValue: false,
+        },
+        inverse: {
+            control: 'boolean',
+            description: 'If true, the button will use inverse colors for dark themes',
+            defaultValue: false,
+        },
+    },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof IconButton>;
 
-export const Accent: Story = {
+export const Base: Story = {
     args: {
         icon: 'bookmark',
-        variant: 'accent',
-    },
-};
-
-export const Bordered: Story = {
-    args: {
-        icon: 'bookmark',
-        variant: 'bordered',
-    },
-};
-
-export const Primary: Story = {
-    args: {
         variant: 'primary',
+        size: 'md',
     },
 };
 
-export const Flat: Story = {
-    args: {
-        icon: 'inbox',
-        float: 'flat',
-    },
+export const Variants: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton variant="primary" icon="bookmark" />
+            <IconButton variant="accent" icon="bookmark" />
+            <IconButton variant="bordered" icon="bookmark" />
+            <IconButton variant="neutral" icon="bookmark" />
+            <IconButton variant="transparent" icon="bookmark" />
+        </Flex>
+    ),
 };
 
-export const Floating: Story = {
-    args: {
-        icon: 'inbox',
-        float: 'floating',
-    },
+export const FloatStyles: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton float="raised" icon="bookmark" />
+            <IconButton float="floating" icon="bookmark" />
+            <IconButton float="flat" icon="bookmark" />
+        </Flex>
+    ),
 };
 
-export const Mini: Story = {
-    args: {
-        icon: 'add',
-        float: 'floating',
-        variant: 'neutral',
-        size: 'xs',
-    },
+export const StatusStates: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton status="success" icon="bookmark" />
+            <IconButton status="warning" icon="bookmark" />
+            <IconButton status="error" icon="bookmark" />
+        </Flex>
+    ),
 };
 
-export const Raised: Story = {
-    args: {
-        float: 'raised',
-    },
+export const Sizes: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton size="xs" icon="bookmark" />
+            <IconButton size="sm" icon="bookmark" />
+            <IconButton size="md" icon="bookmark" />
+        </Flex>
+    ),
 };
 
-export const Uppercase: Story = {
-    args: {
-        uppercase: true,
-    },
+export const SquaredButtons: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton squared icon="bookmark" />
+            <IconButton squared variant="accent" icon="bookmark" />
+            <IconButton squared variant="bordered" icon="bookmark" />
+        </Flex>
+    ),
 };
 
-export const Disabled: Story = {
-    args: {
-        icon: 'add',
-        disabled: true,
-        variant: 'accent',
-    },
+export const DisabledStates: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton disabled icon="bookmark" />
+            <IconButton disabled variant="accent" icon="bookmark" />
+            <IconButton disabled variant="bordered" icon="bookmark" />
+        </Flex>
+    ),
 };
 
-export const Gray: Story = {
-    args: {},
+export const MultipleIcons: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton icon="bookmark" variant="primary" />
+            <IconButton icon="star" variant="accent" />
+            <IconButton icon="settings" variant="bordered" />
+            <IconButton icon="notifications" variant="neutral" />
+            <IconButton icon="favorite" variant="transparent" />
+        </Flex>
+    ),
 };
 
-export const Warning: Story = {
-    args: {
-        status: 'warning',
-    },
-};
-
-export const Inverse: Story = {
-    args: {
-        icon: 'action',
-        inverse: true,
-    },
-};
-
-export const Link: Story = {
-    args: {
-        href: 'http://github.com/',
-        target: '_blank',
-        variant: 'accent',
-        icon: 'link',
-    },
+export const CombinedFeatures: Story = {
+    render: () => (
+        <Flex align="center" gap="4">
+            <IconButton variant="accent" float="floating" size="sm" squared icon="bookmark" />
+            <IconButton variant="bordered" status="success" float="raised" size="xs" icon="star" />
+        </Flex>
+    ),
 };
