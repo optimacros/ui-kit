@@ -13,6 +13,12 @@ export const Root = forward<{ orientation: Orientation }, 'div'>(
     ),
 );
 
-export const Item = forward<{}, 'button'>((props, ref) => (
-    <styled.button {...props} ref={ref} data-scope="button-group" data-part="item" />
+export const Item = forward<{ active?: boolean }, 'button'>(({ active = false, ...rest }, ref) => (
+    <styled.button
+        {...rest}
+        ref={ref}
+        data-active={active}
+        data-scope="button-group"
+        data-part="item"
+    />
 ));
