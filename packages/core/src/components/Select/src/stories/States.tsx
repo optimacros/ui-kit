@@ -55,7 +55,7 @@ export const States = () => {
                 <ControlTemplate invalid>
                     <Select.Api>
                         {(api) => (
-                            <ButtonGroup.Root>
+                            <ButtonGroup.Root style={{ border: '1px solid red' }}>
                                 <ButtonGroup.Item>
                                     {api.empty ? 'choose value' : api.valueAsString}
                                 </ButtonGroup.Item>
