@@ -7,7 +7,12 @@
     align-items: center;
   }
 
+  &[data-active='true'] {
+    background: var(--color-button-group-primary-border-default);
+  }
+
   &[data-part='item'] {
+    cursor: pointer;
     flex-grow: 1;
     border: var(--spacing-px) solid transparent;
   }
