@@ -1,0 +1,37 @@
+[data-scope='badge'][data-part='root'] {
+  --badge-offset: -8px;
+  --size: 20px;
+  display: inline-flex;
+  position: relative;
+
+  & [data-part='badge'] {
+    position: absolute;
+    min-width: var(--size);
+    height: var(--size);
+    background-color: #ef4444;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &[data-position='top-right'] {
+      top: var(--badge-offset);
+      right: var(--badge-offset);
+    }
+
+    &[data-position='top-left'] {
+      top: var(--badge-offset);
+      left: var(--badge-offset);
+    }
+
+    &[data-position='bottom-right'] {
+      bottom: var(--badge-offset);
+      right: var(--badge-offset);
+    }
+
+    &[data-position='bottom-left'] {
+      bottom: var(--badge-offset);
+      left: var(--badge-offset);
+    }
+  }
+}
