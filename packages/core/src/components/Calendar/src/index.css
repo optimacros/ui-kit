@@ -68,7 +68,7 @@
     display: inline-block;
     background-color: var(--color-calendar-primary-item-default);
 
-    &[data-selected='true'],
+    &[data-selected],
     &:hover {
       background-color: var(--color-calendar-primary-item-selected-default);
       color: var(--color-calendar-primary-item-selected-on-default);
