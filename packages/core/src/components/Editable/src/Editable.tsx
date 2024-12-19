@@ -4,8 +4,6 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     id: 'editable',
-    initialState: null,
-    api: null as editable.Api,
     machine: editable,
 });
 

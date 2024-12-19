@@ -83,7 +83,8 @@
       box-shadow: var(--shadow-2p);
     }
 
-    &:disabled {
+    &:disabled,
+    &[data-disabled='true'] {
       box-shadow: var(--shadow-2p);
       background: var(--color-button-primary-disabled);
       color: var(--color-button-primary-on-disabled);
@@ -213,9 +214,11 @@
     }
   }
 
-  &:disabled {
+  &:disabled,
+  &[data-disabled='true'] {
     background: transparent;
-    color: var(--color-button-primary-disabled);
+    color: var(--color-button-primary-on-disabled);
+    background: var(--color-button-primary-disabled);
     pointer-events: none;
     cursor: auto;
 

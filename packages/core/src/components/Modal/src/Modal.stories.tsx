@@ -83,7 +83,7 @@ export const Basic = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange}>
+            <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                 </Modal.Header>

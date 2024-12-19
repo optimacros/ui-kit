@@ -13,7 +13,12 @@ export const PreventScroll = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange} preventScroll={false}>
+            <Modal.Root
+                open={open}
+                onOpenChange={handleOpenChange}
+                preventScroll={false}
+                controllable
+            >
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                 </Modal.Header>

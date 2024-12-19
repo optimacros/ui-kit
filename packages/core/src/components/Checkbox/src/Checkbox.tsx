@@ -3,11 +3,8 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import * as checkbox from '@zag-js/checkbox';
 
 export const { RootProvider, useApi } = createReactApiStateContext({
-    api: null as checkbox.Api,
     id: 'checkbox',
     machine: checkbox,
-    initialState: {},
-    defaultContext: {},
 });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & { value: string };

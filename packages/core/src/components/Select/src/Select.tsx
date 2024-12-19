@@ -6,10 +6,8 @@ import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } fr
 import { Virtual } from '@optimacros-ui/virtual';
 
 export const { useApi, RootProvider, Api } = createReactApiStateContext({
-    api: null as select.Api,
     id: 'select',
     machine: select,
-    initialState: null,
 });
 
 export interface RootProps<T extends unknown = unknown> extends select.CollectionOptions<T> {}

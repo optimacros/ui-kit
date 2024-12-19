@@ -25,7 +25,16 @@ export const {
                 return { ...api.getContentProps(), 'data-orientation': state.context.orientation };
             },
             getTriggerProps() {
-                return { ...api.getTriggerProps(), 'data-disabled': state.context.disabled };
+                const props = api.getTriggerProps();
+                return {
+                    ...props,
+                    onClick: (e) => {
+                        if (!state.context.disabled) {
+                            props.onClick(e);
+                        }
+                    },
+                    'data-disabled': state.context.disabled,
+                };
             },
             setParentNode: (parent) => {
                 api.setParent(parent.machine);
@@ -143,11 +152,11 @@ export const List = forward<{ children: ReactNode }, 'ul'>(({ children, ...rest 
     );
 });
 
-export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }, ref) => {
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
     const props = useSelector((state) => state.getTriggerProps());
 
     return (
-        <styled.button {...props} ref={ref}>
+        <styled.button {...rest} {...props} ref={ref}>
             {children}
         </styled.button>
     );

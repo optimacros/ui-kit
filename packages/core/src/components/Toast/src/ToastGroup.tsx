@@ -3,10 +3,8 @@ import * as toast from '@zag-js/toast';
 import { ReactNode, Fragment } from 'react';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
-    api: null as toast.GroupApi,
     id: 'toast-group',
     machine: toast.group,
-    initialState: {},
 });
 
 export const Portal = ({

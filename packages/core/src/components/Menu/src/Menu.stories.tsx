@@ -4,6 +4,7 @@ import { Menu } from './index';
 import { menu } from '.';
 import { createMenuItems } from './mock';
 import { Flex } from '@optimacros-ui/flex';
+import { Button } from '@optimacros-ui/button';
 import { Orientation } from '@optimacros-ui/utils';
 
 const Wrapper = ({ children }: { children }) => (
@@ -53,6 +54,11 @@ const meta: Meta<typeof Menu.Root> = {
             description: 'Whether to prevent scrolling when menu is open',
             defaultValue: false,
         },
+        disabled: {
+            control: 'boolean',
+            description: 'Whether to prevent scrolling when menu is open',
+            defaultValue: false,
+        },
         modal: {
             control: 'boolean',
             description: 'Whether the menu blocks interactions with other elements',
@@ -85,7 +91,7 @@ export const Basic = (props) => {
     return (
         <Menu.Root {...props} controllable>
             <Menu.Trigger asChild>
-                <div>Click me</div>
+                <Button>Click me</Button>
             </Menu.Trigger>
             <Menu.Positioner>
                 <Menu.Content>

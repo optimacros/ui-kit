@@ -5,10 +5,8 @@ import { Portal } from '@zag-js/react';
 import { Field } from '@optimacros-ui/field';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
-    api: null as colorPicker.Api,
-    id: 'colorPicker',
+    id: 'color-picker',
     machine: colorPicker,
-    initialState: {},
 });
 
 export type RoootProps = ComponentProps<typeof RootProvider> & PropsWithChildren;

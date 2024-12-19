@@ -10,9 +10,7 @@ export const {
     RootProvider: Root,
 } = createReactApiStateContext({
     id: 'Tooltip',
-    initialState: {},
     machine: tooltip,
-    api: null as tooltip.Api,
 });
 
 export const Content = ({ children }: { children: ReactNode }) => {

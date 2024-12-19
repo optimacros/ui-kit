@@ -3,10 +3,8 @@ import * as toast from '@zag-js/toast';
 import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
-    api: null as toast.Api,
     id: 'toast',
     machine: toast,
-    initialState: {},
     actor: true,
 });
 

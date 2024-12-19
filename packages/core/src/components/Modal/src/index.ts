@@ -1,3 +1,3 @@
 import './index.css';
 
-export * as Modal from './components';
+export * as Modal from './Modal';
