@@ -1,7 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import * as editable from '@zag-js/editable';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { Button } from '@optimacros-ui/button';
 import { Flex } from '@optimacros-ui/flex';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
@@ -14,9 +13,6 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
 export const Root = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
-
-        console.info(api);
-        console.info(api.getRootProps());
 
         return (
             <styled.div {...rest} ref={ref} {...api.getRootProps()}>
@@ -92,9 +88,9 @@ export const EditTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <Button variant="accent" {...rest} ref={ref} {...api.getEditTriggerProps()}>
+            <styled.button {...rest} ref={ref} {...api.getEditTriggerProps()}>
                 {children}
-            </Button>
+            </styled.button>
         );
     },
     { displayName: 'EditTrigger' },
@@ -105,9 +101,9 @@ export const SubmitTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <Button variant="accent" {...rest} ref={ref} {...api.getSubmitTriggerProps()}>
+            <styled.button {...rest} ref={ref} {...api.getSubmitTriggerProps()}>
                 {children}
-            </Button>
+            </styled.button>
         );
     },
     { displayName: 'SubmitTrigger' },
@@ -118,9 +114,9 @@ export const CancelTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <Button variant="accent" {...rest} ref={ref} {...api.getCancelTriggerProps()}>
+            <styled.button {...rest} ref={ref} {...api.getCancelTriggerProps()}>
                 {children}
-            </Button>
+            </styled.button>
         );
     },
     { displayName: 'CancelTrigger' },
