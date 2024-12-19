@@ -115,7 +115,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
         }
         return (
             <div {...api.getItemProps(nodeProps)} data-scope="tree-view" data-part="tree-node">
-                {branchContent && branchContent} {node.name}
+                {branchContent ? branchContent : null} {node.name}
             </div>
         );
     },
