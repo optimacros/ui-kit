@@ -3,6 +3,7 @@ import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Editable } from '@optimacros-ui/editable';
 import { useState } from 'react';
 import { Flex } from '@optimacros-ui/flex';
+import { Button } from '@optimacros-ui/button';
 
 const argTypes: Partial<ArgTypes> = {
     value: {
@@ -87,11 +88,17 @@ export const Basic: Story = {
                         </Editable.Area>
 
                         {!api.editing ? (
-                            <Editable.EditTrigger>Edit</Editable.EditTrigger>
+                            <Editable.EditTrigger asChild>
+                                <Button variant="accent">Edit</Button>
+                            </Editable.EditTrigger>
                         ) : (
                             <Flex align="center" gap={2}>
-                                <Editable.SubmitTrigger>Save</Editable.SubmitTrigger>
-                                <Editable.CancelTrigger>Cancel</Editable.CancelTrigger>
+                                <Editable.SubmitTrigger asChild>
+                                    <Button variant="accent">Save</Button>
+                                </Editable.SubmitTrigger>
+                                <Editable.CancelTrigger asChild>
+                                    <Button variant="accent">Cancel</Button>
+                                </Editable.CancelTrigger>
                             </Flex>
                         )}
                     </Editable.Root>
@@ -112,11 +119,17 @@ export const TextArea: Story = {
                     </Editable.Area>
 
                     {!api.editing ? (
-                        <Editable.EditTrigger>Edit</Editable.EditTrigger>
+                        <Editable.EditTrigger asChild>
+                            <Button variant="accent">Edit</Button>
+                        </Editable.EditTrigger>
                     ) : (
                         <Flex align="center" gap={2}>
-                            <Editable.SubmitTrigger>Save</Editable.SubmitTrigger>
-                            <Editable.CancelTrigger>Cancel</Editable.CancelTrigger>
+                            <Editable.SubmitTrigger asChild>
+                                <Button variant="accent">Save</Button>
+                            </Editable.SubmitTrigger>
+                            <Editable.CancelTrigger asChild>
+                                <Button variant="accent">Cancel</Button>
+                            </Editable.CancelTrigger>
                         </Flex>
                     )}
                 </Editable.Root>
