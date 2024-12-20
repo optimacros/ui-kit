@@ -3,7 +3,7 @@ import { Icon } from '@optimacros-ui/core';
 import { useState } from 'react';
 import { ValueChangeDetails } from '@zag-js/color-picker';
 
-export const Disabled = () => {
+export const DisableAlpha = () => {
     const [value, setValue] = useState('#005599');
 
     const handleValueChange = ({ value }: ValueChangeDetails) => {
@@ -15,7 +15,8 @@ export const Disabled = () => {
             <ColorPicker.RootProvider
                 value={ColorPicker.parse(value)}
                 onValueChange={handleValueChange}
-                disabled
+                // TODO move to props
+                state={{ disableAlpha: true }}
             >
                 {(api) => (
                     <>

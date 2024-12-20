@@ -41,6 +41,11 @@ const argTypes: Partial<ArgTypes> = {
         description: 'The positioning options for the color picker.',
         table: { type: { summary: 'PositioningOptions' } },
     },
+    disableAlpha: {
+        control: 'boolean',
+        description: 'Whather alpha channel is disabled',
+        table: { defaultValue: { summary: 'false' } },
+    },
 };
 
 const meta = {
@@ -79,7 +84,7 @@ export const Basic = () => {
                     <>
                         <ColorPicker.Root>
                             <ColorPicker.Label>Color</ColorPicker.Label>
-
+                            <ColorPicker.DefaultControl />
                             <ColorPicker.Popover
                                 eyeDropperIcon={<Icon value="eye-drop" />}
                             ></ColorPicker.Popover>
@@ -93,4 +98,12 @@ export const Basic = () => {
     );
 };
 
-export { Swatches, Disabled, ReadOnly, FormatHSBA, Positioning } from './stories';
+export {
+    Swatches,
+    Disabled,
+    ReadOnly,
+    FormatHSBA,
+    Positioning,
+    Original,
+    DisableAlpha,
+} from './stories';

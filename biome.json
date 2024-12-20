@@ -83,7 +83,10 @@
                 "noUnreachableSuper": "error",
                 "noUnsafeFinally": "error",
                 "noUnsafeOptionalChaining": "error",
-                "noUnusedImports": "warn",
+                "noUnusedImports": {
+                    "fix": "none",
+                    "level": "error"
+                },
                 "noUnusedLabels": "warn",
                 "noUnusedVariables": "warn",
                 "useArrayLiterals": "error",

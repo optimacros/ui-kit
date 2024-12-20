@@ -1,14 +1,17 @@
 import * as colorPicker from '@zag-js/color-picker';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import React, { ComponentProps, PropsWithChildren } from 'react';
-import { Portal } from '@zag-js/react';
+import { ComponentProps, PropsWithChildren } from 'react';
 import { Field } from '@optimacros-ui/field';
+import { Flex } from '@optimacros-ui/flex';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     api: null as colorPicker.Api,
     id: 'colorPicker',
     machine: colorPicker,
-    initialState: null,
+    initialState: { disableAlpha: false },
+    useExtendApi: (state, api) => {
+        return { ...api, disableAlpha: state.disableAlpha };
+    },
 });
 
 export type RoootProps = ComponentProps<typeof RootProvider> & PropsWithChildren;
@@ -18,24 +21,62 @@ export const Root = forward<RoootProps, 'div'>(
         const api = useApi();
 
         return (
-            <div {...rest} ref={ref} {...api.getRootProps()}>
+            <styled.div {...rest} ref={ref} {...api.getRootProps()}>
                 {children}
-
-                <div {...api.getControlProps()}>
-                    <div>
-                        <button {...api.getTriggerProps()}>
-                            <div {...api.getTransparencyGridProps({ size: '10px' })} />
-                            <div {...api.getSwatchProps({ value: api.value })} />
-                        </button>
-                    </div>
-                    <Field.Input {...api.getChannelInputProps({ channel: 'hex' })} />
-                    <Field.Input {...api.getChannelInputProps({ channel: 'alpha' })} />
-                </div>
-            </div>
+            </styled.div>
         );
     },
     { displayName: 'ColorPickerRoot' },
 );
+
+export const DefaultControl = forward<{}, 'div'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <Control {...props} ref={ref}>
+            <Flex>
+                <Trigger>
+                    <TransparencyGrid />
+                    <Swatch />
+                </Trigger>
+            </Flex>
+            <Field.Input {...api.getChannelInputProps({ channel: 'hex' })} />
+            {!api.disableAlpha && (
+                <Field.Input {...api.getChannelInputProps({ channel: 'alpha' })} />
+            )}
+        </Control>
+    );
+});
+
+export const Control = forward<{}, 'div'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.div {...props} ref={ref} {...api.getControlProps()} />;
+});
+
+export const Trigger = forward<{}, 'button'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.button {...props} ref={ref} {...api.getTriggerProps()} />;
+});
+
+export interface TransparencyGridProps {
+    size?: colorPicker.TransparencyGridProps['size'];
+}
+
+export const TransparencyGrid = forward<TransparencyGridProps, 'div'>(
+    ({ size = '10px', ...rest }, ref) => {
+        const api = useApi();
+
+        return <styled.div {...rest} ref={ref} {...api.getTransparencyGridProps({ size })} />;
+    },
+);
+
+export const Swatch = forward<{}, 'div'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.div {...props} ref={ref} {...api.getSwatchProps({ value: api.value })} />;
+});
 
 interface SwatchesProps extends PropsWithChildren {
     /** array of colors in hex format */
@@ -62,155 +103,6 @@ export const Swatches = forward<SwatchesProps, 'div'>(
         );
     },
     { displayName: 'Swatches' },
-);
-
-interface PopoverProps extends PropsWithChildren {
-    eyeDropperIcon: React.ReactNode;
-}
-
-export const Popover = forward<PopoverProps, 'div'>(
-    ({ eyeDropperIcon, children, ...rest }, ref) => {
-        const api = useApi();
-
-        return (
-            <Portal>
-                <div {...rest} ref={ref} {...api.getPositionerProps()}>
-                    <div {...api.getContentProps()}>
-                        <div>
-                            <div {...api.getAreaProps()}>
-                                <div {...api.getAreaBackgroundProps()} />
-                                <div {...api.getAreaThumbProps()} />
-                            </div>
-
-                            <div>
-                                <div>
-                                    <div {...api.getChannelSliderProps({ channel: 'hue' })}>
-                                        <div
-                                            {...api.getChannelSliderTrackProps({
-                                                channel: 'hue',
-                                            })}
-                                        />
-                                        <div
-                                            {...api.getChannelSliderThumbProps({
-                                                channel: 'hue',
-                                            })}
-                                        />
-                                    </div>
-
-                                    <div {...api.getChannelSliderProps({ channel: 'alpha' })}>
-                                        <div {...api.getTransparencyGridProps({ size: '12px' })} />
-                                        <div
-                                            {...api.getChannelSliderTrackProps({
-                                                channel: 'alpha',
-                                            })}
-                                        />
-                                        <div
-                                            {...api.getChannelSliderThumbProps({
-                                                channel: 'alpha',
-                                            })}
-                                        />
-                                    </div>
-                                </div>
-                                <button {...api.getEyeDropperTriggerProps()}>
-                                    {eyeDropperIcon}
-                                </button>
-                            </div>
-
-                            {api.format.startsWith('hsl') && (
-                                <div>
-                                    <div>
-                                        <input {...api.getChannelInputProps({ channel: 'hue' })} />
-                                        <span>H</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({
-                                                channel: 'saturation',
-                                            })}
-                                        />
-                                        <span>S</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({
-                                                channel: 'lightness',
-                                            })}
-                                        />
-                                        <span>L</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({ channel: 'alpha' })}
-                                        />
-                                        <span>A</span>
-                                    </div>
-                                </div>
-                            )}
-
-                            {api.format.startsWith('rgb') && (
-                                <div>
-                                    <div>
-                                        <input {...api.getChannelInputProps({ channel: 'red' })} />
-                                        <span>R</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({ channel: 'green' })}
-                                        />
-                                        <span>G</span>
-                                    </div>
-                                    <div>
-                                        <input {...api.getChannelInputProps({ channel: 'blue' })} />
-                                        <span>B</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({ channel: 'alpha' })}
-                                        />
-                                        <span>A</span>
-                                    </div>
-                                </div>
-                            )}
-
-                            {api.format.startsWith('hsb') && (
-                                <div>
-                                    <div>
-                                        <input {...api.getChannelInputProps({ channel: 'hue' })} />
-                                        <span>H</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({
-                                                channel: 'saturation',
-                                            })}
-                                        />
-                                        <span>S</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({
-                                                channel: 'brightness',
-                                            })}
-                                        />
-                                        <span>B</span>
-                                    </div>
-                                    <div>
-                                        <input
-                                            {...api.getChannelInputProps({ channel: 'alpha' })}
-                                        />
-                                        <span>A</span>
-                                    </div>
-                                </div>
-                            )}
-
-                            {children}
-                        </div>
-                    </div>
-                </div>
-            </Portal>
-        );
-    },
-    { displayName: 'Popover' },
 );
 
 export const Label = forward<PropsWithChildren, 'label'>(
