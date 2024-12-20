@@ -11,6 +11,22 @@ export default {
     title: 'UI Kit core/Counter',
     component: Counter,
     tags: ['autodocs'],
+    argTypes: {
+        defaultValue: {
+            control: { type: 'number' },
+            description: 'The default value',
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+        maxValue: {
+            control: { type: 'number' },
+            description: 'The maximum value',
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+    },
     decorators: [
         (Story) => (
             <Wrapper>
