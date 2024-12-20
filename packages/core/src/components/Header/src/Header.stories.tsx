@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { ICONS_MAP } from '@optimacros-ui/themes';
 import { Icon } from '@optimacros-ui/core';
 import { Header } from '.';
+import { Orientation } from '../../../constants';
 import { headerMenuItems } from './mock';
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
@@ -42,7 +43,7 @@ export const Notification = (props) => {
 export const Menu = (props) => {
     return (
         <Header.Root {...props}>
-            <Header.MenuRoot>
+            <Header.MenuRoot orientation={Orientation.Vertical}>
                 <Header.Trigger asChild>
                     <div>User Name</div>
                 </Header.Trigger>
