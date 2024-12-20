@@ -3,10 +3,17 @@ import { isNull } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 import { useAutoResize } from './useAutoresize';
 
-export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress'> {}
+export interface InputProps
+    extends Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'onKeyPress'> {}
 
-export const Root = forward<{ status?: 'error' | 'readonly' | 'warning' | 'default' }, 'div'>(
-    ({ collapsed, status = 'default', ...rest }, ref) => (
+export interface Props {
+    status?: 'error' | 'readonly' | 'warning' | 'default';
+    collapsed?: boolean;
+    required?: boolean;
+}
+
+export const Root = forward<Props, 'div'>(
+    ({ collapsed, status = 'default', required = false, ...rest }, ref) => (
         <styled.div
             {...rest}
             ref={ref}
@@ -14,11 +21,12 @@ export const Root = forward<{ status?: 'error' | 'readonly' | 'warning' | 'defau
             data-part="root"
             data-collapsed={collapsed}
             data-status={status}
+            data-required={required}
         />
     ),
 );
 
-export const Input = forward<{}, 'input'>((props, ref) => {
+export const Input = forward<InputProps, 'input'>((props, ref) => {
     return <styled.input {...props} data-scope="field" data-part="input" ref={ref} />;
 });
 
@@ -144,6 +152,7 @@ export const Counter = forward<
 
 export const Label = forward<{}, 'label'>(({ children, ...rest }, ref) => {
     return (
+        // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
         <styled.label
             {...rest}
             data-scope="field"
@@ -152,9 +161,6 @@ export const Label = forward<{}, 'label'>(({ children, ...rest }, ref) => {
             ref={ref}
         >
             {children}
-            <span data-scope="field" data-part="label-star">
-                *
-            </span>
         </styled.label>
     );
 });
