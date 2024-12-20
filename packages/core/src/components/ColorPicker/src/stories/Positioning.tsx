@@ -28,7 +28,7 @@ export const Positioning = () => {
                     <>
                         <ColorPicker.Root>
                             <ColorPicker.Label>Color</ColorPicker.Label>
-
+                            <ColorPicker.DefaultControl />
                             <ColorPicker.Popover
                                 eyeDropperIcon={<Icon value="eye-drop" />}
                             ></ColorPicker.Popover>

@@ -5,7 +5,7 @@
   overflow: hidden;
 }
 
-:global {
+:root {
   .rc-dropdown > .rc-dropdown-menu-inline,
   .rc-dropdown > .rc-dropdown-menu-vertical,
   .rc-dropdown > .rc-dropdown-menu-vertical-left,
