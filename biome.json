@@ -184,7 +184,7 @@
                 "noClassAssign": "error",
                 "noCommentText": "warn",
                 "noCompareNegZero": "error",
-                "noConsole": { "level": "error", "options": { "allow": ["error"] } },
+                "noConsoleLog": "error",
                 "noControlCharactersInRegex": "warn",
                 "noDebugger": "error",
                 "noDoubleEquals": "off",
