@@ -1,8 +1,7 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { Counter } from './index';
 import { Navigation } from '@optimacros-ui/navigation';
 import { IconButton } from '@optimacros-ui/icon-button';
-import { Flex } from '@optimacros-ui/flex';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ display: 'flex' }}>{children}</div>
@@ -21,53 +20,62 @@ export default {
     ],
 };
 
-export const Base = () => {
-    return <Counter.Root> 10 </Counter.Root>;
-};
-
-export const InteractiveExample = () => {
-    const [counter, setCounter] = useState(1);
-
-    const onIncrease = () => {
-        setCounter((prev) => ++prev);
-    };
-
-    const onDecrease = () => {
-        setCounter((prev) => --prev);
-    };
-
+export const Base = (props) => {
     return (
-        <Flex align="center" gap={2}>
-            <Counter.Button>
-                <IconButton variant="bordered" onClick={onIncrease}>
-                    +
-                </IconButton>
-            </Counter.Button>
-            <Counter.Root> {counter}</Counter.Root>
-            <Counter.Button>
-                <IconButton variant="bordered" onClick={onDecrease}>
-                    -
-                </IconButton>
-            </Counter.Button>
-        </Flex>
+        <Counter.Root {...props}>
+            <Counter.Decrease>
+                <IconButton variant="bordered">-</IconButton>
+            </Counter.Decrease>
+            <Counter.Value />
+            <Counter.Increase>
+                <IconButton variant="bordered">+</IconButton>
+            </Counter.Increase>
+        </Counter.Root>
     );
 };
 
-export const Empty = () => {
-    return <Counter.Root />;
+export const DefaultValue = (props) => {
+    return (
+        <Counter.Root defaultValue={10} {...props}>
+            <Counter.Decrease>
+                <IconButton variant="bordered">-</IconButton>
+            </Counter.Decrease>
+            <Counter.Value />
+            <Counter.Increase>
+                <IconButton variant="bordered">+</IconButton>
+            </Counter.Increase>
+        </Counter.Root>
+    );
 };
 
-export const MaxValue = () => {
-    const value = 10;
-    return <Counter.Root>{value > 9 ? '5+' : value} </Counter.Root>;
+export const MaxValue = (props) => {
+    return (
+        <Counter.Root defaultValue={10} maxValue={5} {...props}>
+            <Counter.Decrease>
+                <IconButton variant="bordered">-</IconButton>
+            </Counter.Decrease>
+            <Counter.Value />
+            <Counter.Increase>
+                <IconButton variant="bordered">+</IconButton>
+            </Counter.Increase>
+        </Counter.Root>
+    );
 };
 
 export const Link = (props) => {
     return (
-        <Navigation.Root>
-            <a href={'https://google.com'} style={{ textDecoration: 'none' }}>
-                <Counter.Root> 10 </Counter.Root>
-            </a>
-        </Navigation.Root>
+        <Counter.Root {...props}>
+            <Counter.Decrease>
+                <IconButton variant="bordered">-</IconButton>
+            </Counter.Decrease>
+            <Navigation.Root>
+                <a href={'https://google.com'} style={{ textDecoration: 'none' }}>
+                    <Counter.Value />
+                </a>
+            </Navigation.Root>
+            <Counter.Increase>
+                <IconButton variant="bordered">+</IconButton>
+            </Counter.Increase>
+        </Counter.Root>
     );
 };
