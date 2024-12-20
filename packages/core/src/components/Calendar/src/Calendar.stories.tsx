@@ -10,7 +10,7 @@ const value = new Date('12.02.2024');
 const locale = 'ru';
 
 const meta: Meta<typeof Calendar> = {
-    title: 'UI Kit main/CalendarV2',
+    title: 'UI Kit core/Calendar',
     decorators: [
         (Story) => (
             <Wrapper>
@@ -18,12 +18,27 @@ const meta: Meta<typeof Calendar> = {
             </Wrapper>
         ),
     ],
+    argTypes: {
+        value: {
+            description: 'The selected date value',
+        },
+        locale: {
+            control: { type: 'radio' },
+            options: ['en', 'ru', 'de', 'no', 'es', 'af', 'ar'],
+            description: 'Locale for date formatting',
+            defaultValue: 'en',
+        },
+        onValueChange: {
+            action: 'valueChanged',
+            description: 'Callback when date selection changes',
+        },
+    },
 };
 export default meta;
 
-export const Basic = () => {
+export const Basic = (props) => {
     return (
-        <Calendar.Root>
+        <Calendar.Root {...props}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
@@ -51,10 +66,10 @@ export const Basic = () => {
     );
 };
 
-export const Selected = () => {
+export const Selected = (props) => {
     return (
-        <Calendar.Root>
-            <Calendar.Content value={value}>
+        <Calendar.Root {...props} value={value}>
+            <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
                     <Calendar.HeaderMonths />
@@ -81,25 +96,25 @@ export const Selected = () => {
     );
 };
 
-export const RussianLanguage = () => {
+export const LocalizedCalendar = (props) => {
     return (
-        <Calendar.Root>
-            <Calendar.Content value={value}>
+        <Calendar.Root {...props} value={value} locale={locale}>
+            <Calendar.Content>
                 <Calendar.Header>
-                    <Calendar.HeaderYears locale={locale} />
-                    <Calendar.HeaderMonths locale={locale} />
+                    <Calendar.HeaderYears />
+                    <Calendar.HeaderMonths />
                 </Calendar.Header>
                 <Calendar.ViewControl>
                     <Calendar.PrevTrigger>
                         <Icon value="chevron_left" />
                     </Calendar.PrevTrigger>
-                    <Calendar.RangeText locale={locale} />
+                    <Calendar.RangeText />
                     <Calendar.NextTrigger>
                         <Icon value="chevron_right" />
                     </Calendar.NextTrigger>
                 </Calendar.ViewControl>
                 <Calendar.Table>
-                    <Calendar.TableHead locale={locale} />
+                    <Calendar.TableHead />
                     <Calendar.TableBody />
                 </Calendar.Table>
                 <Calendar.Footer>
