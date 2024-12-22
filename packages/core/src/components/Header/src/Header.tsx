@@ -2,7 +2,7 @@ import React, { ComponentProps } from 'react';
 import { forward, styled } from '@optimacros-ui/store';
 import { Menu } from '@optimacros-ui/menu';
 
-export { Menu };
+export const { Trigger, Positioner, Content, List, Item } = Menu;
 
 export type HeaderProps = React.PropsWithChildren;
 
