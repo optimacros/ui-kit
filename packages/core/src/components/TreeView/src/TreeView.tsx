@@ -76,7 +76,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                         data-scope="tree-view"
                         data-part="branch-control"
                     >
-                        {branchControl}
+                        {branchControl && branchControl}
                         <span
                             {...api.getBranchTextProps(nodeProps)}
                             data-scope="tree-view"
@@ -105,7 +105,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                                     node={childNode}
                                     indexPath={[...indexPath, index]}
                                 >
-                                    {...children}
+                                    {...React.Children.toArray(children)}
                                 </TreeNode>
                             );
                         })}
@@ -115,7 +115,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
         }
         return (
             <div {...api.getItemProps(nodeProps)} data-scope="tree-view" data-part="tree-node">
-                {branchContent} {node.name}
+                {branchContent ? branchContent : null} {node.name}
             </div>
         );
     },
