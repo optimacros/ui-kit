@@ -80,7 +80,7 @@
         "lightningcss": "1.28.2"
     },
     "lint-staged": {
-        "*": "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+        "*.{js,ts,tsx,css,json}": ["npm run lint:fix"]
     },
     "commitlint": {
         "extends": ["@commitlint/config-conventional"]
