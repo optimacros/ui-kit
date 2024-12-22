@@ -10,6 +10,7 @@ export const ICONS_MAP = {
     all: 'all',
     app: 'app',
     article: 'article',
+    'attach-file': 'attach-file',
     audit: 'audit',
     bell: 'bell',
     blueprint: 'blueprint',
