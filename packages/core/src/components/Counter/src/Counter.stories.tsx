@@ -78,6 +78,20 @@ export const MaxValue = (props) => {
     );
 };
 
+export const Step = (props) => {
+    return (
+        <Counter.Root step={15} {...props}>
+            <Counter.Decrease>
+                <IconButton variant="bordered">-</IconButton>
+            </Counter.Decrease>
+            <Counter.Value />
+            <Counter.Increase>
+                <IconButton variant="bordered">+</IconButton>
+            </Counter.Increase>
+        </Counter.Root>
+    );
+};
+
 export const Link = (props) => {
     return (
         <Counter.Root {...props}>

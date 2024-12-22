@@ -1,8 +1,8 @@
 import { forward, styled } from '@optimacros-ui/store';
 import { RootProvider, useApi } from './context';
 
-export const Root = forward<{ maxValue: number }, 'span'>(
-    ({ defaultValue, maxValue, children, ...rest }, ref) => (
+export const Root = forward<{ maxValue: number; step: number }, 'span'>(
+    ({ defaultValue, maxValue, step, children, ...rest }, ref) => (
         <styled.span
             {...rest}
             ref={ref}
@@ -10,7 +10,7 @@ export const Root = forward<{ maxValue: number }, 'span'>(
             data-part="root"
             data-value={children ? 'full' : 'empty'}
         >
-            <RootProvider defaultValue={defaultValue} maxValue={maxValue}>
+            <RootProvider defaultValue={defaultValue} maxValue={maxValue} step={step}>
                 {children}
             </RootProvider>
         </styled.span>
@@ -18,7 +18,7 @@ export const Root = forward<{ maxValue: number }, 'span'>(
 );
 
 export const Increase = forward<{}, 'span'>((props, ref) => {
-    const { onIncrease } = useApi();
+    const { increase } = useApi();
 
     return (
         <styled.span
@@ -26,13 +26,13 @@ export const Increase = forward<{}, 'span'>((props, ref) => {
             ref={ref}
             data-scope="counter"
             data-part="button"
-            onClick={onIncrease}
+            onClick={increase}
         />
     );
 });
 
 export const Decrease = forward<{}, 'span'>((props, ref) => {
-    const { onDecrease } = useApi();
+    const { decrease } = useApi();
 
     return (
         <styled.span
@@ -40,7 +40,7 @@ export const Decrease = forward<{}, 'span'>((props, ref) => {
             ref={ref}
             data-scope="counter"
             data-part="decrease"
-            onClick={onDecrease}
+            onClick={decrease}
         />
     );
 });
