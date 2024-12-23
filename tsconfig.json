@@ -23,6 +23,14 @@
         "noEmitOnError": true,
         "noEmit": true,
         "paths": {
+            "@optimacros-ui/core": ["packages/core/src"],
+            "@optimacros-ui/kit": ["packages/main/src"],
+            "@optimacros-ui/themes": ["packages/themes/src"],
+            "@optimacros-ui/layout": ["packages/layout/src"],
+            "@optimacros-ui/utils": ["packages/utils/src"],
+            "@optimacros-ui/store": ["packages/store/src"],
+            "@optimacros-ui/types": ["packages/types/src"],
+            "ui-kit-core": ["packages/legacy/src/core"],
             "@optimacros-ui/button": ["packages/core/src/components/Button/src"],
             "@optimacros-ui/button-group": ["packages/core/src/components/ButtonGroup/src"],
             "@optimacros-ui/checkbox": ["packages/core/src/components/Checkbox/src"],
@@ -78,14 +86,7 @@
             "@optimacros-ui/segmented-control": [
                 "packages/core/src/components/SegmentedControl/src"
             ],
-            "@optimacros-ui/core": ["packages/core/src"],
-            "@optimacros-ui/kit": ["packages/main/src"],
-            "@optimacros-ui/themes": ["packages/themes/src"],
-            "@optimacros-ui/layout": ["packages/layout/src"],
-            "@optimacros-ui/utils": ["packages/utils/src"],
-            "@optimacros-ui/store": ["packages/store/src"],
-            "@optimacros-ui/types": ["packages/types/src"],
-            "ui-kit-core": ["packages/legacy/src/core"]
+            "@optimacros-ui/image": ["packages/core/src/components/Image/src"]
         }
     },
     "exclude": ["node_modules", "dist"]
