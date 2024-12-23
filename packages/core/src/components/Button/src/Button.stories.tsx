@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Flex } from '@optimacros-ui/flex';
+import content from './Button?raw';
 
 const meta: Meta<typeof Button> = {
     title: 'UI Kit core/Button',
@@ -58,6 +59,9 @@ const meta: Meta<typeof Button> = {
             control: 'text',
             description: 'Target attribute for link buttons',
         },
+    },
+    parameters: {
+        docs: { source: { code: content } },
     },
 };
 
