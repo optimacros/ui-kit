@@ -93,5 +93,6 @@
             "@optimacros-ui/toggle": ["packages/core/src/components/Toggle/src"]
         }
     },
-    "exclude": ["node_modules", "dist"]
+    "exclude": ["node_modules", "dist"],
+    "include": ["./.storybook/preview.tsx", "./global.d.ts"]
 }
