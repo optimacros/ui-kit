@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { time } from '@optimacros-ui/utils';
+import { ChangeEvent, ReactNode } from 'react';
+import {} from '@internationalized/date';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as datepicker from '@zag-js/date-picker';
 
@@ -9,6 +9,7 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
     connect(api, { state, send }, machine) {
         return {
             ...api,
+            locale: state.context.locale,
             getDayTableCellTriggerProps({ value }) {
                 return {
                     ...api.getDayTableCellTriggerProps({ value }),
@@ -22,26 +23,33 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                     children: api.value[0]?.year ?? 'choose date',
                 };
             },
+            getHeaderMonthsProps() {
+                return {
+                    'data-scope': 'date-picker',
+                    'data-part': 'header-months',
+                    children: api.valueAsDate[0]
+                        ? `${api.valueAsDate.toLocaleString(state.context.locale, { month: 'short' })} ${api.value[0]?.day}, ${api.valueAsDate.toLocaleString(state.context.locale, { weekday: 'short' })}`
+                        : 'choose date',
+                };
+            },
+            getRangeTextProps() {
+                return {
+                    ...api.getRangeTextProps(),
+                    children: `${api.focusedValueAsDate.toLocaleString(state.context.locale, { month: 'long' })} ${api.visibleRange.start.year}`,
+                };
+            },
+            getWeekdayProps(day: datepicker.WeekDay) {
+                return {
+                    'data-scope': 'date-picker',
+                    'data-part': 'weekday',
+                    key: `weekday-${day.value.day}`,
+                    'aria-label': day.long,
+                    children: day.short,
+                };
+            },
         };
     },
 });
-
-export const Root = ({
-    state = initialState,
-    locale,
-    value,
-    ...context
-}: { state: typeof initialState; value?: Date; locale?: keyof typeof dateLocales } & ComponentProps<
-    typeof RootProvider
->) => {
-    return (
-        <RootProvider
-            {...context}
-            value={value && [datepicker.parse(value)]}
-            state={{ ...initialState, locale: locale || initialState.locale }}
-        />
-    );
-};
 
 export const Content = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
@@ -64,32 +72,15 @@ export const HeaderYears = forward<{ locale?: string }, 'span'>(
 export const HeaderMonths = forward<{ children?: (text: string) => ReactNode }, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
-        const { locale } = useState();
 
-        const text = api.valueAsDate[0]
-            ? `${api.valueAsDate.toLocaleString(locale, { weekday: 'short' })}, ${time.getShortMonth(api.valueAsDate[0], locale)} ${api.value[0]?.day}`
-            : 'choose date';
-
-        return (
-            <styled.div {...rest} ref={ref} data-scope="date-picker" data-part="header-months">
-                {children ? children(text) : text}
-            </styled.div>
-        );
+        return <styled.div {...rest} {...api.getHeaderMonthsProps()} ref={ref} />;
     },
 );
 
 export const ViewControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.div
-            {...props}
-            {...api.getViewControlProps({ view: 'year' })}
-            data-scope="date-picker"
-            data-part="view-control"
-            ref={ref}
-        />
-    );
+    return <styled.div {...props} {...api.getViewControlProps({ view: 'year' })} ref={ref} />;
 });
 
 export const PrevTrigger = forward<{}, 'button'>((props, ref) => {
@@ -106,46 +97,24 @@ export const NextTrigger = forward<{}, 'button'>((props, ref) => {
 
 export const RangeText = forward<{}, 'span'>((props, ref) => {
     const api = useApi();
-    const { locale } = useState();
 
-    return (
-        <styled.span {...props} data-scope="date-picker" data-part="range-text" ref={ref}>
-            {`${time.getFullMonth(api.focusedValueAsDate, locale)} ${api.visibleRange.start.year}`}
-        </styled.span>
-    );
+    return <styled.span {...props} {...api.getRangeTextProps()} ref={ref} />;
 });
 
 export const Table = forward<{}, 'table'>((props, ref) => {
     const api = useApi();
 
-    return (
-        <styled.table
-            {...props}
-            {...api.getTableProps({ view: 'day' })}
-            data-scope="date-picker"
-            data-part="table"
-            ref={ref}
-        />
-    );
+    return <styled.table {...props} {...api.getTableProps({ view: 'day' })} ref={ref} />;
 });
 
 export const TableHead = forward<{}, 'thead'>((props, ref) => {
     const api = useApi();
-    const { locale } = useState();
 
     return (
-        <styled.thead
-            {...props}
-            {...api.getTableHeaderProps({ view: 'day' })}
-            data-scope="date-picker"
-            data-part="table-head"
-            ref={ref}
-        >
+        <styled.thead {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
             <tr {...api.getTableRowProps({ view: 'day' })}>
                 {api.weekDays.map((day, i) => (
-                    <th data-scope="date-picker" data-part="weekday" key={i} aria-label={day.long}>
-                        {time.getShortDayOfWeek(i, locale)}
-                    </th>
+                    <th {...api.getWeekdayProps(day)} />
                 ))}
             </tr>
         </styled.thead>
