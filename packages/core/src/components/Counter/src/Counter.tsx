@@ -1,20 +1,56 @@
 import { forward, styled } from '@optimacros-ui/store';
+import { RootProvider, useApi } from './context';
 
-export type CounterProps = {
-    value: number;
-    maxValue?: number;
-};
-
-export const Counter = forward<CounterProps, 'span'>(
-    ({ value, maxValue = Infinity, ...rest }, ref) => (
+export const Root = forward<{ maxValue: number; step: number }, 'span'>(
+    ({ defaultValue, maxValue, step, children, ...rest }, ref) => (
         <styled.span
             {...rest}
             ref={ref}
             data-scope="counter"
             data-part="root"
-            data-value={value ? 'full' : 'empty'}
+            data-value={children ? 'full' : 'empty'}
         >
-            {value}
+            <RootProvider defaultValue={defaultValue} maxValue={maxValue} step={step}>
+                {children}
+            </RootProvider>
         </styled.span>
     ),
 );
+
+export const Increase = forward<{}, 'span'>((props, ref) => {
+    const { increase } = useApi();
+
+    return (
+        <styled.span
+            {...props}
+            ref={ref}
+            data-scope="counter"
+            data-part="button"
+            onClick={increase}
+        />
+    );
+});
+
+export const Decrease = forward<{}, 'span'>((props, ref) => {
+    const { decrease } = useApi();
+
+    return (
+        <styled.span
+            {...props}
+            ref={ref}
+            data-scope="counter"
+            data-part="decrease"
+            onClick={decrease}
+        />
+    );
+});
+
+export const Value = forward<{}, 'span'>((props, ref) => {
+    const { value } = useApi();
+
+    return (
+        <styled.span {...props} ref={ref} data-scope="counter" data-part="value">
+            {value}
+        </styled.span>
+    );
+});
