@@ -1,6 +1,7 @@
 import { UiCoreContextWrapper } from '../packages/core/src';
 import { Preview } from '@storybook/react';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
+import { setFigmaLink } from './figma/utils';
 
 const preview: Preview = {
     parameters: {
@@ -14,7 +15,9 @@ const preview: Preview = {
         },
     },
     decorators: [
-        (Story) => {
+        (Story, ctx) => {
+            setFigmaLink(ctx);
+
             return (
                 <UiCoreContextWrapper state={{ iconsSrc }}>
                     <Story />
