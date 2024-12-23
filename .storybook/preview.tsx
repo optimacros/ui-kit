@@ -4,6 +4,7 @@ import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/inde
 import { useEffect, useRef, useState } from 'react';
 import { waitForPageTrulyReadySB } from './utils-tmp';
 import { withPerformance } from 'storybook-addon-performance';
+import { setFigmaLink } from './utils';
 
 const styles = Promise.all([
     import('../packages/themes/src/default/tokens.css?raw'),
@@ -22,6 +23,11 @@ const preview: Preview = {
         },
     },
     decorators: [
+        (Story, context) => {
+            setFigmaLink(context);
+
+            return Story(context);
+        },
         (Story, context) => {
             const prevValue = useRef(null);
 
