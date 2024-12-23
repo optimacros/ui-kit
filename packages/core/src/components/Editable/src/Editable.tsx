@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import * as editable from '@zag-js/editable';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { Flex } from '@optimacros-ui/flex';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
     id: 'editable',
@@ -12,9 +13,11 @@ export const Root = forward<PropsWithChildren, 'div'>(
         const api = useApi();
 
         return (
-            <div {...rest} ref={ref} {...api.getRootProps()}>
-                <div>{children}</div>
-            </div>
+            <styled.div {...rest} ref={ref} {...api.getRootProps()}>
+                <Flex direction="column" align="start">
+                    {children}
+                </Flex>
+            </styled.div>
         );
     },
     { displayName: 'Root' },
@@ -66,6 +69,16 @@ export const Preview = forward<{}, 'span'>(
         return <styled.span {...props} ref={ref} {...api.getPreviewProps()} />;
     },
     { displayName: 'Preview' },
+);
+
+export const Label = forward<{}, 'label'>(
+    (props, ref) => {
+        const api = useApi();
+
+        // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
+        return <styled.label {...props} ref={ref} {...api.getLabelProps()} />;
+    },
+    { displayName: 'Label' },
 );
 
 export const EditTrigger = forward<PropsWithChildren, 'button'>(
