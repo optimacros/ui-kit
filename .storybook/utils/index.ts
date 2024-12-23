@@ -1,5 +1,5 @@
 import { StoryContext } from '@storybook/react';
-import { storyMapping } from './storyMapping';
+import { storyMapping } from '../figma/storyMapping';
 import { last } from '../../packages/utils/src';
 
 export const setFigmaLink = (ctx: StoryContext) => {
