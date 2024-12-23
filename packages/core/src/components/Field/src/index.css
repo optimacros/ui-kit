@@ -27,10 +27,6 @@
     }
   }
 
-  &[data-part='label-star'] {
-    color: var(--color-field-primary-label-required);
-  }
-
   &[data-part='counter'] {
     position: absolute;
     right: 0;
@@ -96,7 +92,7 @@
     &[data-required='true'] {
       & [data-part='label']::after {
         content: '*';
-        color: red;
+        color: var(--color-field-primary-label-required);
       }
     }
   }
