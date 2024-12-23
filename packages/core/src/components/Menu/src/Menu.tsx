@@ -1,42 +1,48 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { isFunction, Orientation } from '@optimacros-ui/utils';
-import * as menu from '@zag-js/menu';
+import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
-import { ComponentProps, ReactNode, useEffect, useMemo } from 'react';
+import { ComponentProps, ReactNode, useEffect } from 'react';
+import { machine } from './menu.machine';
+import type * as menu from '@zag-js/menu';
 
-const initialState = {
-    disabled: false,
-    parent: null,
-    orientation: Orientation.Vertical,
-};
-
-export const { Api, useApi, State, useMachine, RootProvider, useSelector } =
-    createReactApiStateContext({
-        id: 'menu',
-        initialState,
-        api: null as menu.Api,
-        machine: menu,
-        useExtendApi(state, api) {
-            return {
-                ...state,
-                ...api,
-                setParentNode(parent: typeof api) {
-                    api.setParent(parent.machine);
-                    parent.setChild(api.machine);
-                },
-            };
-        },
-    });
-
-export const Root = ({
-    state = initialState,
-    orientation = Orientation.Vertical,
-    ...context
-}: { state: typeof initialState; orientation: Orientation } & ComponentProps<
-    typeof RootProvider
->) => {
-    return <RootProvider typeahead={false} {...context} state={{ ...state, orientation }} />;
-};
+export const {
+    Api,
+    useApi,
+    RootProvider: Root,
+    useSelector,
+    useProxySelector,
+} = createReactApiStateContext({
+    id: 'menu',
+    machine,
+    connect(api, { state, send }, machine) {
+        return {
+            ...api,
+            orientation: state.context.orientation,
+            setOrientation(orientation) {
+                send({ type: 'ORIENTATION.SET', value: orientation });
+            },
+            getContentProps() {
+                return { ...api.getContentProps(), 'data-orientation': state.context.orientation };
+            },
+            getTriggerProps() {
+                const props = api.getTriggerProps();
+                return {
+                    ...props,
+                    onClick: (e) => {
+                        if (!state.context.disabled) {
+                            props.onClick(e);
+                        }
+                    },
+                    'data-disabled': state.context.disabled,
+                };
+            },
+            setParentNode: (parent) => {
+                api.setParent(parent.machine);
+                parent.setChild(machine);
+            },
+        };
+    },
+});
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
@@ -46,17 +52,19 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 
 export const Item = forward<menu.ItemProps, 'li'>(
     ({ valueText, closeOnSelect, disabled, value, ...rest }, ref) => {
-        const api = useApi();
+        const props = useProxySelector(
+            (api) => api.getItemProps({ value, closeOnSelect, disabled, valueText }),
+            [value, closeOnSelect, disabled, valueText],
+        );
 
         return (
-            <styled.li
-                {...rest}
-                {...api.getItemProps({ value, closeOnSelect, disabled, valueText })}
-                ref={ref}
-            >
+            <styled.li {...rest} {...props} ref={ref}>
                 {valueText}
             </styled.li>
         );
+    },
+    {
+        memoize: true,
     },
 );
 
@@ -131,17 +139,9 @@ export const SubMenuPositioner = forward<ComponentProps<typeof Positioner>, 'div
 });
 
 export const Content = forward<{ size?: 'sm' | 'md' | 'lg' }, 'div'>(({ size, ...rest }, ref) => {
-    const api = useApi();
+    const contentProps = useSelector((state) => state.getContentProps());
 
-    return (
-        <styled.div
-            {...rest}
-            {...api.getContentProps()}
-            data-size={size}
-            data-orientation={api.orientation}
-            ref={ref}
-        />
-    );
+    return <styled.div {...rest} {...contentProps} data-size={size} ref={ref} />;
 });
 
 export const List = forward<{ children: ReactNode }, 'ul'>(({ children, ...rest }, ref) => {
@@ -152,17 +152,11 @@ export const List = forward<{ children: ReactNode }, 'ul'>(({ children, ...rest 
     );
 });
 
-export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children }, ref) => {
-    const api = useApi();
-    const disabled = api.disabled;
-
-    const props = useMemo(
-        () => ({ ...api.getTriggerProps(), disabled }),
-        [api.getTriggerProps, disabled],
-    );
+export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
+    const props = useSelector((state) => state.getTriggerProps());
 
     return (
-        <styled.button {...props} ref={ref}>
+        <styled.button {...rest} {...props} ref={ref}>
             {children}
         </styled.button>
     );

@@ -1,54 +1,102 @@
 import * as collapsible from '@zag-js/collapsible';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { isFunction, mergeWith } from '@optimacros-ui/utils';
-import { PropsWithChildren, ComponentProps, CSSProperties, FC, useMemo } from 'react';
+import {} from '@optimacros-ui/utils';
+import { PropsWithChildren } from 'react';
+import { extendMachine } from '@optimacros-ui/store';
 
-interface InitialState {
-    width?: CSSProperties['width'];
-    position?: 'left' | 'right';
-}
+export const machine = extendMachine(
+    collapsible,
+    {
+        context: {
+            width: 300,
+            position: 'right' as 'left' | 'right',
+        },
+        on: {
+            'WIDTH.SET': { actions: 'setWidth' },
+            'POSITION.SET': { actions: 'setPosition' },
+            TOGGLE: { actions: 'toggle' },
+        },
+    },
+    {
+        actions: {
+            setWidth: (ctx, evt) => {
+                ctx.width = evt.value;
+            },
+            setPosition: (ctx, evt) => {
+                ctx.position = evt.value;
+            },
+            toggle: (ctx, evt) => {
+                ctx.open = !ctx.open;
+            },
+        },
+    },
+);
 
-const initialState: InitialState = {
-    width: 300,
-    position: 'right',
-};
-
-export const { Api, useApi, RootProvider } = createReactApiStateContext({
+export const {
+    Api,
+    useApi,
+    RootProvider: Root,
+} = createReactApiStateContext({
     id: 'collapsible',
-    initialState,
-    api: null as collapsible.Api,
-    machine: collapsible,
-    useExtendApi: (state, api) => ({ ...api, ...state }),
+    machine,
+    connect(api, { state, send }, machine) {
+        return {
+            ...api,
+            setWidth: (value) => send({ type: 'WIDTH.SET', value }),
+            getPanelProps() {
+                return {
+                    ...api.getRootProps(),
+                    'data-tag': 'sidebar',
+                    'data-position': state.context.position,
+                    style: { width: api.open ? state.context.width : 0 },
+                };
+            },
+            getHeaderProps() {
+                return {
+                    'data-tag': 'sidebar',
+                    'data-scope': 'collapsible',
+                    'data-part': 'header',
+                    'data-position': state.context.position,
+                };
+            },
+            getMiniPanelProps() {
+                return {
+                    'data-position': state.context.position,
+                    'data-disabled': state.context.disabled,
+                    'data-tag': 'sidebar',
+                    'data-scope': 'collapsible',
+                    'data-part': 'mini-panel',
+                    onClick: () => api.setOpen(true),
+                };
+            },
+            getCloseTriggerProps() {
+                return {
+                    'data-position': state.context.position,
+                    'data-tag': 'sidebar',
+                    'data-scope': 'collapsible',
+                    'data-part': 'close-trigger',
+                    onClick: () => api.setOpen(false),
+                };
+            },
+            getTriggerProps() {
+                return {
+                    'data-position': state.context.position,
+                    'data-tag': 'sidebar',
+                    'data-scope': 'collapsible',
+                    'data-part': 'trigger',
+                    onClick: () => send('TOGGLE'),
+                };
+            },
+        };
+    },
 });
-
-export type RootProps = ComponentProps<typeof RootProvider> & {
-    width?: CSSProperties['width'];
-    position?: 'left' | 'right';
-};
-
-export const Root: FC<RootProps> = ({ children, width, position, ...context }) => {
-    const state = useMemo(() => mergeWith(initialState, { position, width }), [position, width]);
-
-    return (
-        <RootProvider {...context} state={state}>
-            {(api) => (isFunction(children) ? children(api) : children)}
-        </RootProvider>
-    );
-};
 
 export const Panel = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.div
-                {...rest}
-                {...api.getRootProps()}
-                ref={ref}
-                data-tag="sidebar"
-                data-position={api.position}
-                style={{ width: api.open ? api.width : 0 }}
-            >
+            <styled.div {...rest} {...api.getPanelProps()} ref={ref}>
                 {children}
             </styled.div>
         );
@@ -60,16 +108,7 @@ export const Header = forward<PropsWithChildren, 'div'>(
     (props, ref) => {
         const api = useApi();
 
-        return (
-            <styled.div
-                {...props}
-                ref={ref}
-                data-tag="sidebar"
-                data-scope="collapsible"
-                data-part="header"
-                data-position={api.position}
-            />
-        );
+        return <styled.div {...props} {...api.getHeaderProps()} ref={ref} />;
     },
     { displayName: 'Header' },
 );
@@ -104,18 +143,7 @@ export const MiniPanel = forward<PropsWithChildren, 'div'>(
             return null;
         }
 
-        return (
-            <styled.div
-                {...props}
-                ref={ref}
-                data-position={api.position}
-                data-disabled={api.disabled}
-                data-tag="sidebar"
-                data-scope="collapsible"
-                data-part="mini-panel"
-                onClick={() => api.setOpen(true)}
-            />
-        );
+        return <styled.div {...props} {...api.getMiniPanelProps()} ref={ref} />;
     },
     { displayName: 'MiniPanel' },
 );
@@ -125,15 +153,7 @@ export const CloseTrigger = forward<PropsWithChildren, 'div'>(
         const api = useApi();
 
         return (
-            <styled.div
-                {...rest}
-                data-tag="sidebar"
-                data-scope="collapsible"
-                data-part="close-trigger"
-                data-position={api.position}
-                ref={ref}
-                onClick={() => api.setOpen(false)}
-            >
+            <styled.div {...rest} {...api.getCloseTriggerProps()} ref={ref}>
                 {children}
             </styled.div>
         );
@@ -146,14 +166,7 @@ export const Trigger = forward<PropsWithChildren, 'div'>(
         const api = useApi();
 
         return (
-            <styled.div
-                {...rest}
-                data-tag="sidebar"
-                data-scope="collapsible"
-                data-part="trigger"
-                data-position={api.position}
-                ref={ref}
-            >
+            <styled.div {...rest} {...api.getTriggerProps()} ref={ref}>
                 {children}
             </styled.div>
         );

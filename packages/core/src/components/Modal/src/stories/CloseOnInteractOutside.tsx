@@ -13,7 +13,12 @@ export const CloseOnInteractOutside = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange} closeOnInteractOutside={false}>
+            <Modal.Root
+                open={open}
+                onOpenChange={handleOpenChange}
+                closeOnInteractOutside={false}
+                controllable
+            >
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                 </Modal.Header>

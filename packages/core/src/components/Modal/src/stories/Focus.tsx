@@ -22,6 +22,7 @@ export const Focus = () => {
                 onOpenChange={handleOpenChange}
                 initialFocusEl={initialFocusEl}
                 finalFocusEl={finalFocusEl}
+                controllable
             >
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>

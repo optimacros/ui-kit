@@ -3,11 +3,8 @@ import * as radio from '@zag-js/radio-group';
 import { ComponentProps, PropsWithChildren } from 'react';
 
 export const { RootProvider, useApi, State } = createReactApiStateContext({
-    api: null as radio.Api,
     id: 'radio',
     machine: radio,
-    initialState: { disabled: false },
-    defaultContext: {},
 });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;

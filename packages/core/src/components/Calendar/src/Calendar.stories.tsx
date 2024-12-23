@@ -1,14 +1,35 @@
 import { Icon } from '@optimacros-ui/icon';
 import { Meta } from '@storybook/react';
 import { Calendar } from './index';
-
+import {} from '@internationalized/date';
 const Wrapper = ({ children }: { children }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
 
 const value = new Date('12.02.2024');
 const locale = 'ru';
-
+const locales = [
+    'en-US',
+    'es-ES',
+    'fr-FR',
+    'de-DE',
+    'it-IT',
+    'ja-JP',
+    'zh-CN',
+    'pt-BR',
+    'ru-RU',
+    'ko-KR',
+    'ar-SA',
+    'hi-IN',
+    'nl-NL',
+    'pl-PL',
+    'tr-TR',
+    'vi-VN',
+    'sv-SE',
+    'da-DK',
+    'fi-FI',
+    'nb-NO',
+];
 const meta: Meta<typeof Calendar> = {
     title: 'UI Kit core/Calendar',
     decorators: [
@@ -24,9 +45,9 @@ const meta: Meta<typeof Calendar> = {
         },
         locale: {
             control: { type: 'radio' },
-            options: ['en', 'ru', 'de', 'no', 'es', 'af', 'ar'],
+            options: locales,
             description: 'Locale for date formatting',
-            defaultValue: 'en',
+            defaultValue: 'ru-RU',
         },
         onValueChange: {
             action: 'valueChanged',
@@ -38,7 +59,7 @@ export default meta;
 
 export const Basic = (props) => {
     return (
-        <Calendar.Root {...props}>
+        <Calendar.Root {...props} open={true} closeOnSelect={false}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
@@ -68,7 +89,7 @@ export const Basic = (props) => {
 
 export const Selected = (props) => {
     return (
-        <Calendar.Root {...props} value={value}>
+        <Calendar.Root value={[value]} open={true} closeOnSelect={false}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
@@ -98,7 +119,7 @@ export const Selected = (props) => {
 
 export const LocalizedCalendar = (props) => {
     return (
-        <Calendar.Root {...props} value={value} locale={locale}>
+        <Calendar.Root {...props} value={[value]} open={true} closeOnSelect={false}>
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />

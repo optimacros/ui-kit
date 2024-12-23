@@ -16,40 +16,28 @@ const argTypes: Partial<ArgTypes> = {
 const meta: Meta = {
     title: 'UI Kit core/Loader/Circular',
     argTypes,
+    decorators: [
+        (Story) => (
+            <Loader.Root>
+                <Story />
+            </Loader.Root>
+        ),
+    ],
 };
 export default meta;
 
-export const Basic = () => (
-    <Loader.Root>
+export const Basic = () => {
+    const api = Loader.useApi();
+
+    useEffect(() => {
+        api.start();
+    }, []);
+
+    return (
         <Loader.Circle>
             <Loader.CircleTrack />
             <Loader.CircleRange />
         </Loader.Circle>
-    </Loader.Root>
-);
-
-export const Determinate = () => {
-    const [counter, setCounter] = useState(33);
-
-    useEffect(() => {
-        setInterval(() => {
-            setCounter((c) => {
-                if (c >= 100) {
-                    return 0;
-                }
-
-                return c + 1;
-            });
-        }, 100);
-    }, []);
-
-    return (
-        <Loader.Root value={counter}>
-            <Loader.Circle>
-                <Loader.CircleTrack />
-                <Loader.CircleRange />
-            </Loader.Circle>
-        </Loader.Root>
     );
 };
 
@@ -137,35 +125,20 @@ export const ValueText = () => (
 );
 
 export const CancelTrigger = () => {
-    const [counter, setCounter] = useState(33);
-    const [timer, setTimer] = useState(null);
-
-    useEffect(() => {
-        setTimer(
-            setInterval(() => {
-                setCounter((c) => {
-                    if (c >= 100) {
-                        return 0;
-                    }
-
-                    return c + 1;
-                });
-            }, 100),
-        );
-    }, []);
-
-    const handleCancel = useCallback(() => {
-        clearInterval(timer);
-    }, [timer]);
-
     return (
-        <Loader.Root value={counter} onCancel={handleCancel}>
-            <Loader.Label>
-                Loading {counter}/100 Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading Loading Loading{' '}
-            </Loader.Label>
-
+        <Loader.Root>
+            <Loader.Api>
+                {(api) => (
+                    <>
+                        <div onClick={() => api.start()}>start</div>
+                        <Loader.Label>
+                            Loading {api.value}/100 Loading Loading Loading Loading Loading Loading
+                            Loading Loading Loading Loading Loading Loading Loading Loading Loading
+                            Loading Loading Loading Loading Loading Loading Loading Loading Loading{' '}
+                        </Loader.Label>
+                    </>
+                )}
+            </Loader.Api>
             <div
                 style={{
                     position: 'relative',

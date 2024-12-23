@@ -5,14 +5,11 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 
 export const {
     useApi,
-    State,
     Api,
     RootProvider: Root,
 } = createReactApiStateContext({
     id: 'popover',
-    initialState: {},
     machine: popover,
-    api: null as popover.Api,
 });
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>((props, ref) => {

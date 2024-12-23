@@ -1,9 +1,9 @@
-import { invariant, isFunction } from '@optimacros-ui/utils';
+import { invariant, isFunction, merge } from '@optimacros-ui/utils';
 import { createContext, FC, memo, ReactNode, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';
 import { createActorApiHook, createMachineApiHook } from './useMachineApi';
-import { StateMachine, Machine as ZagMachine } from '@zag-js/core';
+import { createMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
 
 type HooksConfig = object;
 
@@ -29,7 +29,7 @@ function createHooks<State>(
     createSelectorHooks: boolean,
 ): {
     useSelector: <R extends any>(s: (state: State) => R) => R;
-    useProxySelector: <R extends any>(s: (state: State) => R) => R;
+    useProxySelector: <R extends any>(s: (state: State) => R, deps?: any[]) => R;
     StateContext: State;
     useState: () => State;
 };
@@ -146,6 +146,54 @@ export function createReactStateContext<
         Provider: StoreProvider,
     };
 }
+export type AnyOptions = StateMachine.MachineOptions<
+    Record<string, any>,
+    StateMachine.StateSchema,
+    StateMachine.EventObject & { value: any }
+>;
+
+export type AnyConfig = StateMachine.MachineConfig<
+    Record<string, any>,
+    StateMachine.StateSchema,
+    StateMachine.EventObject & { value: any }
+>;
+
+export function extendMachine<
+    T extends { machine: (userContext) => Record<string, any> },
+    State = ReturnType<T['machine']> extends ZagMachine<infer TContext, infer TState, infer TEvents>
+        ? { ctx: TContext; state: TState; evt: TEvents }
+        : NonNullable<unknown>,
+    ConfigCreator extends AnyConfig | ((prev: ReturnType<T['machine']>) => AnyConfig) = (
+        prev: ReturnType<T['machine']>,
+    ) => AnyConfig,
+    Config = ConfigCreator extends () => {} ? ReturnType<ConfigCreator> : ConfigCreator,
+    Options = StateMachine.MachineOptions<
+        Config['context'] & State['ctx'],
+        State['state'],
+        State['evt']
+    >,
+    OptionCreator extends Options | ((prev: ReturnType<T['machine']>) => Options) =
+        | Options
+        | ((prev: ReturnType<T['machine']>) => Options),
+>(stateMachine: T, configCreator: ConfigCreator, optionCreator: OptionCreator) {
+    function machine<C>(userContext: C) {
+        const defaultMachine = stateMachine.machine(userContext);
+        const config = isFunction(configCreator) ? configCreator(defaultMachine) : configCreator;
+        const options = isFunction(optionCreator) ? optionCreator(defaultMachine) : optionCreator;
+
+        return createMachine<Config['context'] & State['ctx'], State['state']>(
+            merge(true, defaultMachine.config, config),
+            merge(true, defaultMachine.options, options),
+        );
+    }
+
+    return {
+        ...stateMachine,
+        machine,
+    };
+}
+
+export type ExtendApiMethod = (api) => void;
 
 type MachineCtx<Machine extends Record<string, any>> = Omit<
     Parameters<Machine['machine']>[0],
@@ -153,153 +201,144 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
 >;
 type ApiStoreConfig<
     ID extends string = string,
-    State extends Record<string, any> = NonNullable<unknown>,
-    Api extends Record<string, any> = NonNullable<unknown>,
     Machine extends Record<string, any> = NonNullable<unknown>,
     Selectors = NonNullable<unknown>,
-    Hooks = NonNullable<unknown>,
-    ExtApi extends Api = Api,
-    ApiState = NonNullable<unknown>,
-> = StoreConfig<ID, State, Selectors, Hooks> & {
+    Api extends Record<string, any> = NonNullable<unknown>,
+> = {
+    id: ID;
     machine: Machine;
-    api: Api;
-    /**
-     * @deprecated
-     * place as div in dom
-     * */
-    rootAsTag?: boolean;
-    /**
-     * @deprecated
-     */
-    useRootProps?: (api: ExtApi) => any;
+
     /** use actor instead of machine */
     actor?: boolean;
-    useExtendApi?: (
-        state: State,
-        api: Api & {
-            machine: ZagMachine<
-                Record<string, any>,
-                StateMachine.StateSchema,
-                StateMachine.AnyEventObject
-            >;
-            send: (action: string | { type?: string; value?: any; src?: string }) => void;
+
+    createConfig?: (initialState: Api) => {
+        selectors?: Selectors;
+    };
+
+    connect?: (
+        api: ReturnType<Machine['connect']>,
+        {
+            state,
+            send,
+        }: {
+            state: ReturnType<Machine['machine']> extends ZagMachine<
+                infer TContext,
+                infer TState,
+                infer TEvent
+            >
+                ? StateMachine.State<TContext, TState, TEvent>
+                : any;
+            send: StateMachine.Send;
         },
-        apiState: ApiState,
-    ) => ExtApi;
-    defaultContext?: MachineCtx<Machine>;
+        machine: ReturnType<Machine['machine']>,
+    ) => Api;
 };
 
 export function createReactApiStateContext<
     ID extends string = string,
-    State extends Record<string, any> = NonNullable<unknown>,
-    Api extends Record<string, any> = NonNullable<unknown>,
     Machine extends Record<string, any> = NonNullable<unknown>,
-    Selectors extends Record<string, Selector<State>> = NonNullable<unknown>,
-    Hooks extends HooksConfig = NonNullable<unknown>,
-    ExtApi extends Api = Api,
-    ApiState extends Record<string, any> = Parameters<Machine['connect']>[0],
->(config: ApiStoreConfig<ID, State, Api, Machine, Selectors, Hooks, ExtApi, ApiState>) {
-    const {
-        initialState,
-        createConfig,
-        id,
-        api,
-        machine,
-        actor,
-        useExtendApi = (state, api) => api,
-        defaultContext = {},
-    } = config;
+    Api extends ReturnType<Machine['connect']> = ReturnType<Machine['connect']>,
+    Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
+    Context = ReturnType<Machine['machine']> extends ZagMachine<infer TContext, infer TState>
+        ? TContext
+        : NonNullable<unknown>,
+>(config: ApiStoreConfig<ID, Machine, Selectors, Api>) {
+    const { createConfig, id, machine, actor, connect = (api) => api } = config;
 
-    const createdConfig = createConfig?.(initialState) ?? {};
+    const createdConfig = createConfig?.({}) ?? {};
 
     const slice = {
         ...config,
         selectors: createdConfig?.selectors,
     };
 
-    const { StateContext, ...stateHooks } = createHooks(`${id}State`, initialState, true);
-    const { StateContext: ApiContext, useState: useBaseApi } = createHooks(`${id}Api`, api);
-    const { StateContext: ApiStateContext, useState: useApiState } = createHooks(
-        `${id}ApiState`,
-        null as ApiState,
-    );
+    const {
+        StateContext: ApiContext,
+        useState: useApi,
+        useProxySelector,
+        useSelector,
+    } = createHooks(`${id}Api`, {} as Api, true);
 
-    function useApi() {
-        const api = useBaseApi();
-        const state = stateHooks.useState();
-
-        //@ts-ignore
-        const extendedApi = useExtendApi(state, api);
-
-        return extendedApi as ExtApi & {
-            send: (action: string) => void;
-            machine: ZagMachine<
-                Record<string, any>,
-                StateMachine.StateSchema,
-                StateMachine.AnyEventObject
-            >;
-        };
-    }
-
-    const helpers = createHelpers<State, typeof stateHooks>(id, stateHooks);
-    const { State: Api } = createHelpers<ExtApi, { useState: typeof useApi }>(`${id}Api`, {
+    const { State: Api } = createHelpers<Api, { useState: typeof useApi }>(`${id}Api`, {
         useState: useApi,
     });
 
     const StoreProvider: FC<{
         children: ReactNode;
-        state?: State;
         api?: Api;
-        apiState?: ApiState;
-    }> = memo(({ children, state = {}, api, apiState }) => {
-        return (
-            <StateContext.Provider value={{ ...initialState, ...state }}>
-                <ApiContext.Provider value={api}>
-                    <ApiStateContext.Provider value={apiState}>{children}</ApiStateContext.Provider>
-                </ApiContext.Provider>
-            </StateContext.Provider>
-        );
+    }> = memo(({ children, api }) => {
+        return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
     });
 
     StoreProvider.displayName = id;
 
-    const useMachine = createMachineApiHook<MachineCtx<Machine>>(machine);
+    const useMachine = createMachineApiHook<MachineCtx<Machine>>(machine, false, connect);
+    const useControllableMachine = createMachineApiHook<MachineCtx<Machine>>(
+        machine,
+        true,
+        connect,
+    );
+
     const useActor = createActorApiHook(machine);
 
-    function RootMachine({
-        children,
-        state = null,
-        ...context
-    }: {
-        state?: State;
-        children: ReactNode | ((api: ExtApi) => ReactNode);
-    } & MachineCtx<Machine> & { id?: string }) {
+    type IRootMachine = {
+        id?: string;
+        children: ReactNode | ((api: Api) => ReactNode);
+        defaultContext: MachineCtx<Machine>;
+    } & Context;
+
+    function ControllableRootMachine({ children, defaultContext, ...context }: IRootMachine) {
+        const {
+            api,
+            send,
+            machine,
+            //@ts-ignore
+        } = useControllableMachine(context, defaultContext);
+
+        return (
+            //@ts-ignore
+            <StoreProvider api={{ ...api, send, machine }}>
+                {isFunction(children) ? children(api) : children}
+            </StoreProvider>
+        );
+    }
+
+    function BaseRootMachine({ children, ...context }: IRootMachine) {
         const {
             api,
             send,
             state: apiState,
             machine,
             //@ts-ignore
-        } = useMachine({ ...defaultContext, ...context });
+        } = useMachine(context);
 
         return (
             //@ts-ignore
-            <StoreProvider state={state} api={{ ...api, send, machine }} apiState={apiState}>
+            <StoreProvider api={{ ...api, send, machine }}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
         );
     }
 
+    function RootMachine({
+        controllable,
+        ...rest
+    }: {
+        /** lets you control component props outside of component context */
+        controllable?: boolean;
+    } & IRootMachine) {
+        return controllable ? <ControllableRootMachine {...rest} /> : <BaseRootMachine {...rest} />;
+    }
+
     function RootActor({
         children,
-        state = null,
         actor,
-    }: { state?: State; children: ReactNode | ((api: ExtApi) => ReactNode); actor: any }) {
-        const { api, send, state: apiState } = useActor(actor);
+    }: { children: ReactNode | ((api: Api) => ReactNode); actor: any }) {
+        const { api, send } = useActor(actor);
 
         return (
             //@ts-ignore
-            <StoreProvider state={state} api={{ ...api, send }} apiState={apiState}>
+            <StoreProvider api={{ ...api, send }}>
                 {isFunction(children) ? children(api) : children}
             </StoreProvider>
         );
@@ -308,14 +347,12 @@ export function createReactApiStateContext<
     const Root = actor ? RootActor : RootMachine;
 
     return {
-        ...helpers,
-        ...stateHooks,
         select: slice.selectors,
         slice,
+        useSelector,
+        useProxySelector,
         Api,
-        useApiState,
         useApi,
-        useMachine,
         RootProvider: Root,
     };
 }

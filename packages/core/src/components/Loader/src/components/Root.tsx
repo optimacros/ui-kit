@@ -1,27 +1,18 @@
 import { ComponentProps } from 'react';
 import { RootProvider } from './context';
-import { RootContent } from './RootContent';
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 
-export type Props = ComponentProps<typeof RootProvider> & {
-    /** not implemented yet */
-    buffer?: number;
-    multicolor?: boolean;
-    onCancel?: () => void;
-};
+export type Props = ComponentProps<typeof RootProvider>;
 
 export const Root = forward<Props, 'div'>(
-    ({ children, value = null, disabled, multicolor, onCancel, ...context }, ref) => {
+    ({ children, ...context }, ref) => {
         return (
-            <RootProvider {...context} state={{ onCancel }}>
-                <RootContent
-                    value={value}
-                    data-disabled={disabled}
-                    data-multicolor={multicolor}
-                    ref={ref}
-                >
-                    {children}
-                </RootContent>
+            <RootProvider {...context}>
+                {(api) => (
+                    <styled.div ref={ref} {...api.getRootProps()}>
+                        {children}
+                    </styled.div>
+                )}
             </RootProvider>
         );
     },

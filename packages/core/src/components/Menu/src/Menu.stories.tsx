@@ -4,14 +4,77 @@ import { Menu } from './index';
 import { menu } from '.';
 import { createMenuItems } from './mock';
 import { Flex } from '@optimacros-ui/flex';
+import { Button } from '@optimacros-ui/button';
 import { Orientation } from '@optimacros-ui/utils';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
 );
 
-const meta: Meta<typeof Menu> = {
+const meta: Meta<typeof Menu.Root> = {
     title: 'UI Kit core/Menu',
+    component: Menu.Root,
+    argTypes: {
+        // Accessibility
+        'aria-label': {
+            control: 'text',
+            description: 'Accessible label for the menu',
+        },
+        closeOnSelect: {
+            control: 'boolean',
+            description: 'Whether to close the menu when an item is selected',
+            defaultValue: true,
+        },
+
+        // Positioning
+        positioning: {
+            control: 'object',
+            description: 'Options for menu positioning relative to trigger',
+            defaultValue: {
+                placement: 'bottom',
+                gutter: 4,
+                offset: 0,
+                strategy: 'absolute',
+            },
+        },
+
+        // Behavior
+        autoFocus: {
+            control: 'boolean',
+            description: 'Whether to focus the menu when opened',
+            defaultValue: true,
+        },
+        loop: {
+            control: 'boolean',
+            description: 'Whether keyboard navigation should loop around',
+            defaultValue: true,
+        },
+        preventScroll: {
+            control: 'boolean',
+            description: 'Whether to prevent scrolling when menu is open',
+            defaultValue: false,
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'Whether to prevent scrolling when menu is open',
+            defaultValue: false,
+        },
+        modal: {
+            control: 'boolean',
+            description: 'Whether the menu blocks interactions with other elements',
+            defaultValue: false,
+        },
+
+        // Typeahead
+        typeahead: {
+            control: 'object',
+            description: 'Options for typeahead functionality',
+            defaultValue: {
+                timeout: 750,
+                loop: true,
+            },
+        },
+    },
     decorators: [
         (Story) => (
             <Wrapper>
@@ -24,11 +87,11 @@ export default meta;
 
 const menuItems: Array<menu.ItemProps> = createMenuItems(10);
 
-export const Basic = () => {
+export const Basic = (props) => {
     return (
-        <Menu.Root>
+        <Menu.Root {...props} controllable>
             <Menu.Trigger asChild>
-                <div>Click me</div>
+                <Button>Click me</Button>
             </Menu.Trigger>
             <Menu.Positioner>
                 <Menu.Content>
@@ -45,10 +108,25 @@ export const Basic = () => {
 
 export const Horizontal = () => {
     return (
-        <Menu.Root orientation={Orientation.Horizontal}>
-            <Menu.Trigger asChild>
+        <Menu.Root>
+            <Menu.Trigger>
                 <div>Click me</div>
             </Menu.Trigger>
+            <Menu.Api>
+                {(api) => (
+                    <div
+                        onClick={() =>
+                            api.setOrientation(
+                                api.orientation === Orientation.Horizontal
+                                    ? Orientation.Vertical
+                                    : Orientation.Horizontal,
+                            )
+                        }
+                    >
+                        Click me
+                    </div>
+                )}
+            </Menu.Api>
             <Menu.Api>
                 {(api) => (
                     <Menu.Positioner>
@@ -206,7 +284,7 @@ export const Group = () => {
 
 export const Disabled = () => {
     return (
-        <Menu.Root closeOnSelect={false}>
+        <Menu.Root closeOnSelect={false} disabled>
             <Menu.Trigger asChild>
                 <div>Click me</div>
             </Menu.Trigger>

@@ -71,7 +71,6 @@ export const Basic = () => {
             </Flex>
 
             <ColorPicker.RootProvider
-                value={ColorPicker.parse(currentValue)}
                 onValueChange={handleValueChange}
                 onValueChangeEnd={handleValueChangeEnd}
             >

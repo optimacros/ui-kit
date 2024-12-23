@@ -20,13 +20,10 @@ import {
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
 
-export const { Api, Provider, RootProvider, useApi } = createReactApiStateContext({
-    api: null as tabs.Api,
+export const { Api, RootProvider, useApi } = createReactApiStateContext({
     id: 'tabs',
     machine: tabs,
-    initialState: null,
-    defaultContext: {},
-    useExtendApi(state, api) {
+    connect(api, { state, send }) {
         const getListNode = () => {
             const list = api.getListProps();
             const containerNode = document.getElementById(list.id);
@@ -37,7 +34,7 @@ export const { Api, Provider, RootProvider, useApi } = createReactApiStateContex
         const scrollTo = (value: string) => {
             const tab = api.getTriggerProps({ value });
 
-            api.send({ type: 'TAB_FOCUS', value });
+            send({ type: 'TAB_FOCUS', value });
 
             document.getElementById(tab.id).scrollIntoView();
         };
@@ -48,7 +45,7 @@ export const { Api, Provider, RootProvider, useApi } = createReactApiStateContex
 
                 api.setValue(value);
             } else {
-                api.send('ENTER');
+                send('ENTER');
             }
         };
 
@@ -68,9 +65,9 @@ export const { Api, Provider, RootProvider, useApi } = createReactApiStateContex
             });
         };
 
-        const last = () => api.send('END');
+        const last = () => send('END');
 
-        const first = () => api.send('HOME');
+        const first = () => send('HOME');
 
         const scrollToActive = () => scrollTo(api.value);
 

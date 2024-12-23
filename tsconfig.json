@@ -74,6 +74,10 @@
             "@optimacros-ui/grid": ["packages/core/src/components/Grid/src"],
             "@optimacros-ui/stack": ["packages/core/src/components/Stack/src"],
             "@optimacros-ui/visually-hidden": ["packages/core/src/components/VisuallyHidden/src"],
+            "@optimacros-ui/badge": ["packages/core/src/components/Badge/src"],
+            "@optimacros-ui/segmented-control": [
+                "packages/core/src/components/SegmentedControl/src"
+            ],
             "@optimacros-ui/core": ["packages/core/src"],
             "@optimacros-ui/kit": ["packages/main/src"],
             "@optimacros-ui/themes": ["packages/themes/src"],

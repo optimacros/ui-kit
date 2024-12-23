@@ -1,13 +1,10 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as fileUpload from '@zag-js/file-upload';
-import { PropTypes } from '@zag-js/react';
 import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
 import { round, sum } from '@optimacros-ui/utils';
 
 export const { Api, RootProvider, useApi } = createReactApiStateContext({
-    api: null as fileUpload.Api<PropTypes>,
     id: 'file-upload',
-    initialState: null,
     machine: fileUpload,
 });
 

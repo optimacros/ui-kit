@@ -13,7 +13,12 @@ export const CloseOnEscape = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange} closeOnEscape={false}>
+            <Modal.Root
+                open={open}
+                onOpenChange={handleOpenChange}
+                closeOnEscape={true}
+                controllable
+            >
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                 </Modal.Header>
