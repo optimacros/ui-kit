@@ -1,5 +1,6 @@
 [data-scope='field'][data-part='input'],
-[data-scope='pin-input'][data-part='input'] {
+[data-scope='pin-input'][data-part='input'],
+[data-scope='number-input'][data-part='input'] {
   box-sizing: border-box;
   border: 0;
   padding: var(--spacing-1) 0;

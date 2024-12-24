@@ -1,6 +1,8 @@
 import { Field } from '.';
 import { ReactNode } from 'react';
 import { Icon } from '@optimacros-ui/icon';
+import { Flex } from '@optimacros-ui/flex';
+import { useFormData } from '@optimacros-ui/utils';
 
 const argTypes = {
     status: {
@@ -40,9 +42,9 @@ export default {
 
 export const Base = (props) => {
     return (
-        <Field.Root {...props}>
+        <Field.Root>
             <Field.FloatingLabel htmlFor="base">label</Field.FloatingLabel>
-            <Field.Input id="base" />
+            <Field.Input id="base" {...props} />
             <Field.FloatingHint>hint do this</Field.FloatingHint>
         </Field.Root>
     );
@@ -152,9 +154,9 @@ export const Counter = (props) => {
 
 export const TextArea = (props) => {
     return (
-        <Field.Root {...props}>
+        <Field.Root>
             <Field.FloatingLabel htmlFor="err2">Error</Field.FloatingLabel>
-            <Field.TextArea id="err2" />
+            <Field.TextArea id="err2" {...props} />
             <Field.FloatingHint>some hint there</Field.FloatingHint>
             <Field.FloatingError>some error there</Field.FloatingError>
         </Field.Root>
@@ -163,11 +165,51 @@ export const TextArea = (props) => {
 
 export const Pin = (props) => {
     return (
-        <Field.Root {...props} style={{ width: 300 }}>
+        <Field.Root style={{ width: 300 }}>
             <Field.FloatingLabel htmlFor="err2">Error</Field.FloatingLabel>
-            <Field.PinInput.Input id="err2" pins={6} />
+            <Field.PinInput.Input id="err2" pins={6} {...props} />
             <Field.FloatingHint>some hint there</Field.FloatingHint>
             <Field.FloatingError>some error there</Field.FloatingError>
         </Field.Root>
+    );
+};
+
+export const NumberInput = (props) => {
+    return (
+        <Field.Root style={{ width: 300 }}>
+            <Field.FloatingLabel htmlFor="err2">Error</Field.FloatingLabel>
+            <Field.NumberInput.Root id="err2" step={5} min={0} value="0" max={100} {...props}>
+                <Flex gap="2" direction="column">
+                    <Flex gap="2">
+                        <Field.NumberInput.Decrement>-</Field.NumberInput.Decrement>
+                        <Field.NumberInput.Input />
+                        <Field.NumberInput.Increment>+</Field.NumberInput.Increment>
+                    </Flex>
+                    <Field.NumberInput.Scrubber />
+                </Flex>
+            </Field.NumberInput.Root>
+            <Field.FloatingHint>some hint there</Field.FloatingHint>
+            <Field.FloatingError>some error there</Field.FloatingError>
+        </Field.Root>
+    );
+};
+/**TODO */
+export const Form = () => {
+    const [value, onChange] = useFormData();
+    return (
+        <>
+            <form onBlur={onChange}>
+                <Base name="input-1" />
+                <Pin name="pin" />
+                <NumberInput
+                    name="number"
+                    formatOptions={{
+                        style: 'currency',
+                        currency: 'USD',
+                    }}
+                />
+            </form>
+            {JSON.stringify(value)}
+        </>
     );
 };
