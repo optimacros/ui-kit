@@ -80,7 +80,13 @@ export const DisableAlpha = {
         );
     },
     parameters: {
-        controls: { exclude: { category: ['Attributes'] } },
         storySource: { source: content /* source */ },
+    },
+    argTypes: {
+        eyeDropperIcon: {
+            table: {
+                disable: true,
+            },
+        },
     },
 };
