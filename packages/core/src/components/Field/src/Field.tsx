@@ -2,6 +2,7 @@ import { ChangeEvent, HTMLAttributes, KeyboardEvent, useCallback, useRef } from 
 import { isNull } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 import { useAutoResize } from './useAutoresize';
+export * as PinInput from './PinInput';
 
 export interface InputProps
     extends Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'onKeyPress'> {}

@@ -160,3 +160,14 @@ export const TextArea = (props) => {
         </Field.Root>
     );
 };
+
+export const Pin = (props) => {
+    return (
+        <Field.Root {...props} style={{ width: 300 }}>
+            <Field.FloatingLabel htmlFor="err2">Error</Field.FloatingLabel>
+            <Field.PinInput.Input id="err2" pins={6} />
+            <Field.FloatingHint>some hint there</Field.FloatingHint>
+            <Field.FloatingError>some error there</Field.FloatingError>
+        </Field.Root>
+    );
+};
