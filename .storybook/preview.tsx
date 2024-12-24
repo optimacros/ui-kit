@@ -11,6 +11,7 @@ const preview: Preview = {
                 color: /(background|color)$/i,
                 date: /Date$/,
             },
+            disableSaveFromUI: true,
         },
     },
     decorators: [
