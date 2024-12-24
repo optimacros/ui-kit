@@ -86,7 +86,8 @@
             "@optimacros-ui/segmented-control": [
                 "packages/core/src/components/SegmentedControl/src"
             ],
-            "@optimacros-ui/image": ["packages/core/src/components/Image/src"]
+            "@optimacros-ui/image": ["packages/core/src/components/Image/src"],
+            "@optimacros-ui/collapsible": ["packages/core/src/components/Collapsible/src"]
         }
     },
     "exclude": ["node_modules", "dist"]
