@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { menu, Menu } from '@optimacros-ui/core';
+import { menu, Menu } from '@optimacros-ui/kit';
 import { Orientation } from '@optimacros-ui/utils';
 import { Button } from '@optimacros-ui/button';
 import { Header } from '@optimacros-ui/header';

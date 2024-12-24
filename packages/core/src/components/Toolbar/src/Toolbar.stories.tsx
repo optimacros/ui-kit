@@ -1,4 +1,4 @@
-import { Checkbox, Field } from '@optimacros-ui/core';
+import { Checkbox, Field } from '@optimacros-ui/kit';
 import { Modal } from '@optimacros-ui/modal';
 import { useState } from 'react';
 import { Toolbar } from './index';

@@ -23,8 +23,8 @@
         "noEmitOnError": true,
         "noEmit": true,
         "paths": {
-            "@optimacros-ui/core": ["packages/core/src"],
-            "@optimacros-ui/kit": ["packages/main/src"],
+            "@optimacros-ui/kit-internal": ["packages/internal/src"],
+            "@optimacros-ui/kit": ["packages/core/src"],
             "@optimacros-ui/themes": ["packages/themes/src"],
             "@optimacros-ui/layout": ["packages/layout/src"],
             "@optimacros-ui/utils": ["packages/utils/src"],

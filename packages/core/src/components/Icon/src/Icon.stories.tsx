@@ -1,5 +1,5 @@
 import { ArgTypes, Meta } from '@storybook/react';
-import { Tooltip } from '@optimacros-ui/core';
+import { Tooltip } from '@optimacros-ui/kit';
 import { ICONS_MAP } from '@optimacros-ui/themes';
 import { Grid } from '@optimacros-ui/grid';
 import { Flex } from '@optimacros-ui/flex';

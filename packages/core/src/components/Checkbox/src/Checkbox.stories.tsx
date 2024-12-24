@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Field } from '@optimacros-ui/core';
+import { Button, Field } from '@optimacros-ui/kit';
 import { Checkbox } from './index';
 import { Tooltip } from '@optimacros-ui/tooltip';
 import { flushSync } from 'react-dom';

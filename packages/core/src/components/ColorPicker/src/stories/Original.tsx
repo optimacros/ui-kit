@@ -1,5 +1,5 @@
 import { ColorPicker } from '../index';
-import { Icon } from '@optimacros-ui/core';
+import { Icon } from '@optimacros-ui/kit';
 import { useState } from 'react';
 import { Flex } from '@optimacros-ui/flex';
 import { Text } from '@optimacros-ui/text';

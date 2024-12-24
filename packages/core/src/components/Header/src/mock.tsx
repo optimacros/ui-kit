@@ -1,4 +1,4 @@
-import { Icon } from '@optimacros-ui/core';
+import { Icon } from '@optimacros-ui/kit';
 
 export const headerMenuItems = [
     {

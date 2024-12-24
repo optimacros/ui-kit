@@ -1,4 +1,4 @@
-import { Tooltip } from '@optimacros-ui/core';
+import { Tooltip } from '@optimacros-ui/kit';
 import { Flex } from '@optimacros-ui/flex';
 import { RadioGroup } from './index';
 

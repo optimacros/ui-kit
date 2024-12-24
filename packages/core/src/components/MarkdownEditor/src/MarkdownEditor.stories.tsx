@@ -19,7 +19,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta = {
-    title: 'UI Kit main/Markdown Editor V2',
+    title: 'Ui kit core/Markdown Editor V2',
     argTypes,
 };
 export default meta;

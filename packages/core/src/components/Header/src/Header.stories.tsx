@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { ICONS_MAP } from '@optimacros-ui/themes';
-import { Icon } from '@optimacros-ui/core';
+import { Icon } from '@optimacros-ui/kit';
 import { Header } from '.';
 import { Orientation } from '../../../constants';
 import { headerMenuItems } from './mock';

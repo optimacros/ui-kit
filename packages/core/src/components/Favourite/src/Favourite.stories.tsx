@@ -1,4 +1,4 @@
-import { Icon } from '@optimacros-ui/core';
+import { Icon } from '@optimacros-ui/kit';
 import { Favourite } from '@optimacros-ui/favourite';
 import { Flex } from '@optimacros-ui/flex';
 

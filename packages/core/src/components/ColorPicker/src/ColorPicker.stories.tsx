@@ -1,7 +1,7 @@
 import { ArgTypes } from '@storybook/react';
 
 import { ColorPicker } from './index';
-import { Icon } from '@optimacros-ui/core';
+import { Icon } from '@optimacros-ui/kit';
 import { useState } from 'react';
 import { ValueChangeDetails } from '@zag-js/color-picker';
 import { Flex } from '@optimacros-ui/flex';
@@ -49,7 +49,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta = {
-    title: 'UI Kit main/Color Picker',
+    title: 'Ui kit core/Color Picker',
     argTypes,
 };
 export default meta;
