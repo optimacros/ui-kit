@@ -1,4 +1,4 @@
-export const storyMapping: Record<string, string | null | undefined> = {
+export const core: Record<string, string | null | undefined> = {
     Button: 'https://www.figma.com/design/KAkmh5DRTDSUx0s7E1NRMt/Optimacros%2FDesign-system?node-id=0-1&p=f&t=SBH71cx2Yt9rgzE8-0',
     ButtonGroup:
         'https://www.figma.com/design/KAkmh5DRTDSUx0s7E1NRMt/Optimacros%2FDesign-system?node-id=2128-984&p=f&t=SBH71cx2Yt9rgzE8-0',
@@ -62,3 +62,5 @@ export const storyMapping: Record<string, string | null | undefined> = {
     Virtual: null,
     VisuallyHidden: null,
 };
+
+export const storyMapping = { core };
