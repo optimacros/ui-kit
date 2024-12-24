@@ -1,0 +1,9 @@
+[data-scope='list'] {
+  &[data-part='root'] {
+    list-style: none;
+  }
+
+  &[data-part='item'] {
+    width: 100%;
+  }
+}

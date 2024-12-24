@@ -1,5 +1,10 @@
 [data-scope='icon'][data-part='root'][data-tag='container'] {
+  --rotate: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+[data-scope='icon'][data-part='root'][data-rotate] {
+  transform: rotate(var(--rotate));
 }

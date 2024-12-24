@@ -13,8 +13,7 @@ export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
                     return {
                         'data-scope': 'collapsible',
                         'data-part': 'indicator',
-                        'data-open': state.context.open,
-                        open: state.context.open,
+                        'data-state': state.context.open ? 'open' : 'closed',
                     };
                 },
             };
@@ -22,11 +21,11 @@ export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
     });
 
 export const Root = forward<ComponentProps<typeof RootProvider>, 'div'>(
-    ({ children, ...context }, ref) => {
+    ({ children, as, ...context }, ref) => {
         return (
             <RootProvider {...context}>
                 {(api) => (
-                    <styled.div {...api.getRootProps()} ref={ref}>
+                    <styled.div {...api.getRootProps()} ref={ref} as={as}>
                         {children}
                     </styled.div>
                 )}

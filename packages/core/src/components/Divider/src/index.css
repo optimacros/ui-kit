@@ -4,6 +4,7 @@
   padding: 0;
   border: none;
   background-color: var(--color-divider-primary-default);
+  flex-shrink: 0;
 
   &[data-orientation='vertical'] {
     height: var(--spacing-4);
