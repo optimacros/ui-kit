@@ -1,9 +1,21 @@
 [data-scope='list'] {
   &[data-part='root'] {
+    position: relative;
+  }
+
+  &[data-part='list'] {
+    padding: 0;
+    margin: 0;
     list-style: none;
   }
 
   &[data-part='item'] {
     width: 100%;
+  }
+
+  &[data-part='header'] {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-index-high);
   }
 }

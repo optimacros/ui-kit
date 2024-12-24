@@ -27,30 +27,33 @@ export const Basic = () => {
                 width: '20rem',
             }}
         >
-            {items.map(({ collapsible, value, key }) => {
-                return (
-                    <>
-                        {!collapsible ? (
-                            <List.Item key={key}>{value}</List.Item>
-                        ) : (
-                            <List.Item key={key}>
-                                <Collapsible.Root key={key}>
-                                    <Collapsible.Trigger asChild>
-                                        <Flex gap="2">
-                                            <Collapsible.Indicator>
-                                                <Icon value="chevron_left" rotate={-90} />
-                                            </Collapsible.Indicator>
-                                            {value}
-                                        </Flex>
-                                    </Collapsible.Trigger>
-                                    <Collapsible.Content>content {value}</Collapsible.Content>
-                                </Collapsible.Root>
-                            </List.Item>
-                        )}
-                        <Divider />
-                    </>
-                );
-            })}
+            <List.Header style={{ background: 'gray' }}>some header</List.Header>
+            <List.List>
+                {items.map(({ collapsible, value, key }) => {
+                    return (
+                        <>
+                            {!collapsible ? (
+                                <List.Item key={key}>{value}</List.Item>
+                            ) : (
+                                <List.Item key={key}>
+                                    <Collapsible.Root key={key}>
+                                        <Collapsible.Trigger asChild>
+                                            <Flex gap="2">
+                                                <Collapsible.Indicator>
+                                                    <Icon value="chevron_left" rotate={-90} />
+                                                </Collapsible.Indicator>
+                                                {value}
+                                            </Flex>
+                                        </Collapsible.Trigger>
+                                        <Collapsible.Content>content {value}</Collapsible.Content>
+                                    </Collapsible.Root>
+                                </List.Item>
+                            )}
+                            <Divider />
+                        </>
+                    );
+                })}
+            </List.List>
         </List.Root>
     );
 };
