@@ -6,37 +6,34 @@ import { useUiCore } from '../../../store';
 
 export interface IconProps {
     value: string | ReactNode;
+    rotate?: number;
 }
 
-export function Icon({ value, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
+export function Icon({ value, rotate, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
     const { iconsSrc } = useUiCore();
+
+    const iconProps = {
+        'data-scope': 'icon',
+        'data-part': 'root',
+        'data-rotate': rotate ?? undefined,
+        style: {
+            '--rotate': `${rotate ?? 0}deg`,
+        },
+    };
 
     if (typeof value === 'string') {
         return isValidIconName(value) ? (
-            <svg
-                width="1em"
-                height="1em"
-                fill="currentColor"
-                {...rest}
-                data-scope="icon"
-                data-part="root"
-            >
+            <svg width="1em" height="1em" fill="currentColor" {...rest} {...iconProps}>
                 <use href={`${iconsSrc}#${value}`} />
             </svg>
         ) : (
-            <FontIcon {...rest} value={value} data-scope="icon" data-part="root" />
+            <FontIcon {...rest} {...iconProps} value={value} />
         );
     }
 
     return (
         //@ts-ignore
-        <styled.div
-            {...rest}
-            className={'flex items-center justify-center'}
-            data-scope="icon"
-            data-part="root"
-            data-tag="container"
-        >
+        <styled.div {...rest} {...iconProps} data-tag="container">
             {value}
         </styled.div>
     );

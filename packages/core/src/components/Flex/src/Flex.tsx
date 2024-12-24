@@ -21,11 +21,13 @@ export const Flex = forward<FlexProps, 'div'>(
             wrap = 'nowrap',
             gap = '0',
             style,
+            ...rest
         },
         ref,
     ) => {
         return (
             <styled.div
+                {...rest}
                 data-scope="flex"
                 data-part="root"
                 data-direction={direction}
