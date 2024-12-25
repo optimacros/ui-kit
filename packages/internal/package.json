@@ -14,6 +14,10 @@
         "@optimacros-ui/themes": "^0.0.3",
         "@optimacros-ui/types": "^0.0.2",
         "@optimacros-ui/utils": "^0.0.2",
-        "@optimacros-ui/kit": "^0.0.1"
+        "@optimacros-ui/kit": "^0.0.1",
+        "@optimacros-ui/markdown-editor": "^0.0.1"
+    },
+    "devDependencies": {
+        "@optimacros-ui/kit-legacy": "^1.1.5"
     }
 }

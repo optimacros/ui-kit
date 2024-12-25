@@ -8,7 +8,7 @@ import { WSTab as Tab, WSTabHeader as TabHeader } from '../WSTabs';
 
 import styles from './MarkdownEditor.module.css';
 
-interface Props {
+export interface Props {
     onChange: (value: string) => void;
     value: string;
     className?: string;
