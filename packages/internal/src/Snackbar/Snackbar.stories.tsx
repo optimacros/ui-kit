@@ -1,6 +1,7 @@
 import * as Stories from './stories';
 import { Snackbar } from '.';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { Snackbar as OriginalSnackbar } from '@optimacros-ui/kit-legacy/src/main/components/Snackbar';
 
 const argTypes: ArgTypes = {
     action: {
@@ -59,13 +60,15 @@ const argTypes: ArgTypes = {
             type: {
                 summary: `{
 accept: 'Added to the root element in case it's accept type',
+cancel: 'Added to the root element in case it's cancel type',
+warning: 'Added to the root element in case it's warning type'
+
 active: 'Added to the root element when its active',
 button: 'Used for the button inside the component',
-cancel: 'Added to the root element in case it's cancel type',
 label: 'Used for the label element',
 portal: 'Used for the portal container element',
 snackbar: 'Used as the className for the root element of the component',
-warning: 'Added to the root element in case it's warning type' }`,
+ }`,
             },
         },
     },
@@ -87,13 +90,14 @@ const meta: Meta<typeof Snackbar> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Snackbar>;
+export type Story = StoryObj<typeof Snackbar>;
 
 export const Basic: Story = {
+    args: { active: true, action: 'action', label: 'label', children: <div>children</div> },
     render: Stories.Basic,
 };
 
-export const Original: Story = {
+export const Original: StoryObj<typeof OriginalSnackbar> = {
     args: {
         children: 'children',
         active: true,
@@ -103,4 +107,26 @@ export const Original: Story = {
         type: 'accept',
     },
     render: Stories.Original,
+};
+
+export const Theme: Story = {
+    args: {
+        active: true,
+        action: 'action',
+        label: 'label',
+        children: <div>children</div>,
+        type: 'accept',
+        className: 'className',
+        theme: {
+            accept: 'accept',
+            cancel: 'cancel',
+            warning: 'warning',
+            active: 'active',
+            button: 'button',
+            label: 'label',
+            portal: 'portal',
+            snackbar: 'snackbar',
+        },
+    },
+    render: Stories.Basic,
 };

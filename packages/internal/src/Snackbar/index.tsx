@@ -1,1 +1,2 @@
-export const Snackbar = () => <div>Snackbar</div>;
+export * from './components/Snackbar';
+export * from './models';

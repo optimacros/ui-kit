@@ -8,12 +8,14 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     actor: true,
 });
 
+export type ToastOptions = toast.Options<any>;
+
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
+export const Root = forward<RootProps, 'div'>(({ children, className, ...context }, ref) => {
     return (
         <RootProvider {...context}>
             {(api) => (
-                <styled.div {...api.getRootProps()} ref={ref}>
+                <styled.div className={className} {...api.getRootProps()} ref={ref}>
                     <styled.span {...api.getGhostBeforeProps()} />
                     {children}
                     <styled.span {...api.getGhostAfterProps()} />
