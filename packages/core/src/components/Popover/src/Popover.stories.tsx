@@ -23,17 +23,33 @@ export const Base = () => {
             </Flex>
             <Popover.Positioner>
                 <Popover.Content>
-                    <Popover.Title> Info </Popover.Title>
-                    <Popover.Description>
-                        This represents your entire organization`s supports cases. To view support
-                        cases that you have opened, visit the support center.
-                    </Popover.Description>
-                    <Toolbar.Root isSmall>
-                        <Popover.CloseTrigger asChild>
-                            <Button>Close</Button>
-                        </Popover.CloseTrigger>
-                        <Button variant="accent">Learn more</Button>
-                    </Toolbar.Root>
+                    <Flex
+                        gap={2}
+                        direction="column"
+                        style={{
+                            maxWidth: '200px',
+                            background: 'rgb(240 240 240)',
+                            padding: 20,
+                            borderRadius: 5,
+                        }}
+                    >
+                        <Popover.Title> Info </Popover.Title>
+                        <Popover.Description>
+                            This represents your entire organization`s supports cases. To view
+                            support cases that you have opened, visit the support center.
+                        </Popover.Description>
+
+                        <Toolbar.Root>
+                            <Flex gap={1}>
+                                <Button variant="accent" size="sm">
+                                    Learn more
+                                </Button>
+                                <Popover.CloseTrigger asChild>
+                                    <Button size="sm">Close</Button>
+                                </Popover.CloseTrigger>
+                            </Flex>
+                        </Toolbar.Root>
+                    </Flex>
                 </Popover.Content>
             </Popover.Positioner>
         </Popover.Root>

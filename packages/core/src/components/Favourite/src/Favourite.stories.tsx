@@ -54,7 +54,6 @@ export const Checked = (props) => {
 export const Label = (props) => {
     return (
         <Favourite.Root {...props}>
-            <Favourite.Label>Favourite</Favourite.Label>
             <Favourite.CustomControl>
                 <Favourite.CheckedIcon>
                     <Icon value="star" />
@@ -63,6 +62,7 @@ export const Label = (props) => {
                     <Icon value="star_border" />
                 </Favourite.UncheckedIcon>
             </Favourite.CustomControl>
+            <Favourite.Label>Favourite</Favourite.Label>
         </Favourite.Root>
     );
 };
@@ -71,7 +71,6 @@ export const Disabled = (props) => {
     return (
         <Flex direction="row" gap="20">
             <Favourite.Root {...props} disabled>
-                <Favourite.Label>Favourite</Favourite.Label>
                 <Favourite.CustomControl>
                     <Favourite.CheckedIcon>
                         <Icon value="star" />
@@ -80,9 +79,9 @@ export const Disabled = (props) => {
                         <Icon value="star_border" />
                     </Favourite.UncheckedIcon>
                 </Favourite.CustomControl>
+                <Favourite.Label>Favourite</Favourite.Label>
             </Favourite.Root>
             <Favourite.Root {...props} checked disabled>
-                <Favourite.Label>Favourite</Favourite.Label>
                 <Favourite.CustomControl>
                     <Favourite.CheckedIcon>
                         <Icon value="star" />
@@ -91,6 +90,7 @@ export const Disabled = (props) => {
                         <Icon value="star_border" />
                     </Favourite.UncheckedIcon>
                 </Favourite.CustomControl>
+                <Favourite.Label>Favourite</Favourite.Label>
             </Favourite.Root>
         </Flex>
     );

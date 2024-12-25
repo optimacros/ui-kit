@@ -8,3 +8,8 @@
 [data-scope='icon'][data-part='root'][data-rotate] {
   transform: rotate(var(--rotate));
 }
+
+[data-scope='icon'][data-part='root'][data-size] {
+  width: var(--size) !important;
+  height: var(--size) !important;
+}

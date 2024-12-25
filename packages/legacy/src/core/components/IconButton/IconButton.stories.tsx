@@ -125,7 +125,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof IconButton> = {
-    title: 'UI Kit core/IconButton',
+    title: 'legacy/IconButton',
     component: IconButton,
     argTypes,
 };

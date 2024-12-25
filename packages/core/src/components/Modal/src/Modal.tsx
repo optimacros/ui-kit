@@ -27,7 +27,11 @@ export const machine = extendMachine(
     }),
 );
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+export const {
+    Api,
+    RootProvider: Root,
+    useApi,
+} = createReactApiStateContext({
     id: 'modal',
     machine,
     connect(api, { state, send }, machine) {
@@ -49,10 +53,14 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     },
 });
 
-export const Root = forward<ComponentProps<typeof RootProvider>, { children }>(
+/**
+ * TODO
+ * Get rid of it
+ * */
+export const CustomRoot = forward<ComponentProps<typeof Root>, { children }>(
     ({ children, ...rest }, ref) => {
         return (
-            <RootProvider {...rest}>
+            <Root {...rest}>
                 {(api) =>
                     api.open && (
                         <Portal>
@@ -65,13 +73,34 @@ export const Root = forward<ComponentProps<typeof RootProvider>, { children }>(
                         </Portal>
                     )
                 }
-            </RootProvider>
+            </Root>
         );
     },
     {
         displayName: 'ModalRoot',
     },
 );
+
+export const Trigger = forward<React.PropsWithChildren, 'button'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.button {...props} {...api.getTriggerProps()} ref={ref} />;
+});
+
+export const Content = forward<React.PropsWithChildren, 'div'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        api.open && (
+            <Portal>
+                <styled.div {...api.getBackdropProps()} />
+                <styled.div {...api.getPositionerProps()}>
+                    <styled.div {...props} {...api.getContentProps()} ref={ref} />
+                </styled.div>
+            </Portal>
+        )
+    );
+});
 
 export const Footer = forward<React.PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => (
@@ -97,14 +126,14 @@ export const Header = forward<React.PropsWithChildren, 'div'>(
     },
 );
 
-export const CloseTrigger = forward<React.PropsWithChildren, 'div'>(
+export const CloseTrigger = forward<React.PropsWithChildren, 'button'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.div ref={ref} {...rest} {...api.getCloseTriggerProps()}>
+            <styled.button ref={ref} {...rest} {...api.getCloseTriggerProps()}>
                 {children}
-            </styled.div>
+            </styled.button>
         );
     },
     {

@@ -1,13 +1,14 @@
 import { Icon } from '@optimacros-ui/icon';
 import { Meta } from '@storybook/react';
 import { Calendar } from './index';
-import {} from '@internationalized/date';
+import { fromDate } from '@internationalized/date';
 const Wrapper = ({ children }: { children }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
 
-const value = new Date('12.02.2024');
+const value = fromDate(new Date('12.02.2024'));
 const locale = 'ru';
+
 const locales = [
     'en-US',
     'es-ES',

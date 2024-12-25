@@ -67,6 +67,9 @@ export const DropZone = () => {
             className="size-full"
         >
             <FileUpload.HiddenInput />
+            <FileUpload.UploadTrigger asChild>
+                <Button variant="bordered">Upload</Button>
+            </FileUpload.UploadTrigger>
             <FileUpload.Dropzone>Upload</FileUpload.Dropzone>
             <FileUpload.Content>
                 <FileUpload.ClearTrigger as="div">

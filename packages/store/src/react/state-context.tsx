@@ -354,5 +354,6 @@ export function createReactApiStateContext<
         Api,
         useApi,
         RootProvider: Root,
+        splitProps: machine.splitProps as Machine['splitProps'],
     };
 }

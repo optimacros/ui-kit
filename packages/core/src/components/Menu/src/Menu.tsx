@@ -33,12 +33,21 @@ export const {
                             props.onClick(e);
                         }
                     },
-                    'data-disabled': state.context.disabled,
+                    'data-disabled': state.context.disabled ?? undefined,
                 };
             },
             setParentNode: (parent) => {
                 api.setParent(parent.machine);
                 parent.setChild(machine);
+            },
+            getTriggerItemProps(parent) {
+                const props = api.getTriggerItemProps(parent);
+
+                return {
+                    ...props,
+                    // some zagjs shit
+                    'data-disabled': props['data-disabled'] === true ? true : undefined,
+                };
             },
         };
     },

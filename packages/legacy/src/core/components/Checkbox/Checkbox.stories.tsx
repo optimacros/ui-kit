@@ -67,7 +67,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Checkbox> = {
-    title: 'UI Kit core/Checkbox',
+    title: 'legacy/Checkbox',
     component: Checkbox,
     argTypes,
 };

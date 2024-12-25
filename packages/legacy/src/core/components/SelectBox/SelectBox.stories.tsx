@@ -67,7 +67,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof SelectBox> = {
-    title: 'UI Kit core/SelectBox',
+    title: 'legacy/SelectBox',
     component: SelectBox,
     argTypes,
 };

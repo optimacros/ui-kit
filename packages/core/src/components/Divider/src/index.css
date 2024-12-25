@@ -10,10 +10,18 @@
     height: var(--spacing-4);
     min-width: var(--spacing-px);
     width: var(--spacing-px);
+
+    &[data-fluid] {
+      height: 100%;
+    }
   }
 
   &[data-orientation='horizontal'] {
     min-width: var(--spacing-4);
     height: var(--spacing-px);
+
+    &[data-fluid] {
+      width: 100%;
+    }
   }
 }

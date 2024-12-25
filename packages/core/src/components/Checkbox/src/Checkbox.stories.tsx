@@ -90,13 +90,9 @@ export const Disabled = (props) => {
 
 export const WithTooltip = (props) => {
     return (
-        <Tooltip.Root
-            openDelay={0}
-            closeDelay={0}
-            positioning={{ offset: { crossAxis: 0, mainAxis: 0 }, placement: 'bottom-start' }}
-        >
+        <Tooltip.Root openDelay={0} closeDelay={0} positioning={{ placement: 'bottom' }}>
             <Tooltip.Trigger asChild>
-                <div>
+                <div style={{ width: 'fit-content' }}>
                     <Checkbox.Root {...props}>
                         <Checkbox.BoxControl />
                         <Checkbox.Label>Option</Checkbox.Label>

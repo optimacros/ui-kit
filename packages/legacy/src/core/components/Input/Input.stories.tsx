@@ -103,7 +103,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Input> = {
-    title: 'UI Kit core/Input',
+    title: 'legacy/Input',
     component: Input,
     argTypes,
 };

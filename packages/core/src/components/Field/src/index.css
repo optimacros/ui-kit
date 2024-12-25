@@ -37,6 +37,18 @@
 }
 
 [data-scope='field'] {
+  &[data-part='input'] {
+    display: flex;
+
+    &:has([data-part='icon']) {
+      justify-content: space-between;
+    }
+  }
+
+  &[data-part='input'][data-tag='trigger'] {
+    cursor: pointer;
+  }
+
   &[data-part='textarea'] {
     border: var(--spacing-px) solid var(--color-field-primary-border-default);
   }
@@ -104,15 +116,14 @@
   &[data-tag='floating-bottom'] {
     position: absolute;
     left: 0;
-    bottom: calc(-1 * var(--spacing-2));
+    bottom: calc(-1 * var(--spacing-1));
     pointer-events: none;
     display: none;
   }
 
   &[data-part='root'] {
     position: relative;
-    padding-top: var(--spacing-4);
-    padding-bottom: var(--spacing-4);
+    padding: var(--spacing-5) 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { forward, styled } from '@optimacros-ui/store';
 
 export interface ButtonThemeProps {
-    variant?: 'primary' | 'accent' | 'bordered' | 'neutral' | 'transparent';
+    variant?: 'primary' | 'accent' | 'bordered' | 'neutral' | 'transparent' | 'gray';
     float?: 'raised' | 'floating' | 'flat';
     status?: 'warning' | 'error' | 'success';
     size?: 'xs' | 'sm' | 'md';

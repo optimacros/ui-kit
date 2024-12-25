@@ -14,7 +14,7 @@ export const CloseIcon = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange} closeOnEscape={false}>
+            <Modal.CustomRoot open={open} onOpenChange={handleOpenChange} closeOnEscape={false}>
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                     <Modal.CloseTrigger>
@@ -31,7 +31,7 @@ export const CloseIcon = () => {
                 <Modal.Footer>
                     <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
         </>
     );
 };

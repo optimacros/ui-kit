@@ -123,19 +123,8 @@ export const Base: Story = {
                     <Select.Content>
                         <Select.List>
                             {(item) => (
-                                <Select.Item item={item} key={item.value}>
-                                    {({ selected }) => (
-                                        <>
-                                            <div>
-                                                {selected ? (
-                                                    <Icon value="check_box" />
-                                                ) : (
-                                                    <Icon value="check_box_outline_blank" />
-                                                )}
-                                            </div>
-                                            <Select.ItemLabel>{item.label}</Select.ItemLabel>
-                                        </>
-                                    )}
+                                <Select.Item item={item} key={item.key}>
+                                    <Select.ItemLabel>{item.label}</Select.ItemLabel>
                                 </Select.Item>
                             )}
                         </Select.List>

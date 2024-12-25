@@ -94,7 +94,7 @@ export const Basic = (props) => {
                 <Button>Click me</Button>
             </Menu.Trigger>
             <Menu.Positioner>
-                <Menu.Content>
+                <Menu.Content size="sm">
                     <Menu.List>
                         {menuItems.map((v, i) => (
                             <Menu.Item {...v} />
@@ -106,7 +106,7 @@ export const Basic = (props) => {
     );
 };
 
-export const Horizontal = () => {
+export const OrientationExample = () => {
     return (
         <Menu.Root>
             <Menu.Trigger>
@@ -123,14 +123,14 @@ export const Horizontal = () => {
                             )
                         }
                     >
-                        Click me
+                        Change orientation
                     </div>
                 )}
             </Menu.Api>
             <Menu.Api>
                 {(api) => (
                     <Menu.Positioner>
-                        <Menu.Content>
+                        <Menu.Content size="sm">
                             <Menu.List>
                                 {menuItems.map((v, i) => (
                                     <Menu.Item {...v} />

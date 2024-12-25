@@ -13,7 +13,7 @@ export const CloseOnInteractOutside = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root
+            <Modal.CustomRoot
                 open={open}
                 onOpenChange={handleOpenChange}
                 closeOnInteractOutside={false}
@@ -32,7 +32,7 @@ export const CloseOnInteractOutside = () => {
                 <Modal.Footer>
                     <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
         </>
     );
 };

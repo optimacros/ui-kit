@@ -37,9 +37,9 @@ export const Horizontal = (props) => {
         <div style={{ width: '200px' }}>
             <Flex align="center" direction="column">
                 <Text.Paragraph>Full width variant below</Text.Paragraph>
-                <Divider orientation={Orientation.Horizontal} {...props} />
+                <Divider orientation={Orientation.Horizontal} fluid {...props} />
                 <Text.Paragraph>Inset variant below</Text.Paragraph>
-                <Divider orientation={Orientation.Horizontal} {...props} />
+                <Divider orientation={Orientation.Horizontal} fluid {...props} />
                 <Text.Paragraph>Middle variant below</Text.Paragraph>
             </Flex>
         </div>

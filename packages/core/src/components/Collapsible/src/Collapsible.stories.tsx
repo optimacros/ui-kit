@@ -4,7 +4,7 @@ import './index.css';
 import { Icon } from '@optimacros-ui/icon';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const ChevronDown = () => <Icon value="arrow-down" className="collapsible-icon" />;
+const ChevronDown = () => <Icon value="chevron_left" className="collapsible-icon" rotate={-90} />;
 
 // Collapsible.stories.tsx
 
@@ -52,33 +52,13 @@ const css = `
 
 /* Animated Collapsible */
 .collapsible-content[data-state='open'] {
-  animation: slideDown 0.2s ease;
+  opacity:1;
+  height: auto;
 }
 
 .collapsible-content[data-state='closed'] {
-  animation: slideUp 0.2s ease;
-}
-
-@keyframes slideDown {
-  from {
-    height: 0;
-    opacity: 0;
-  }
-  to {
-    height: auto;
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    height: auto;
-    opacity: 1;
-  }
-  to {
-    height: 0;
-    opacity: 0;
-  }
+  height:0;
+  opacity:0;
 }
 
 /* Custom Styled Collapsible */

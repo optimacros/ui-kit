@@ -17,3 +17,7 @@
   max-width: var(--spacing-20);
   border-radius: var(--radius-sm);
 }
+
+[data-scope='tooltip'][data-part='trigger'] {
+  width: fit-content;
+}

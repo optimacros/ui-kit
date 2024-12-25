@@ -58,18 +58,88 @@ export const Base = (props) => {
                         <IconButton icon="settings" />
                     </Tabs.Menu.Trigger>
                     <Tabs.Menu.Content size="sm">
-                        <Tabs.HiddenTabsList ref={ref}>
-                            {(props) => (
-                                <Menu.Item
-                                    {...props}
-                                    key={props.value}
-                                    valueText={props.value}
-                                    closeOnSelect
-                                >
-                                    {props.value}
-                                </Menu.Item>
-                            )}
-                        </Tabs.HiddenTabsList>
+                        <Tabs.Menu.List>
+                            <Tabs.HiddenTabsList ref={ref}>
+                                {(props) => (
+                                    <Menu.Item
+                                        {...props}
+                                        key={props.value}
+                                        valueText={props.value}
+                                        closeOnSelect
+                                    >
+                                        {props.value}
+                                    </Menu.Item>
+                                )}
+                            </Tabs.HiddenTabsList>
+                        </Tabs.Menu.List>
+                    </Tabs.Menu.Content>
+                </Tabs.Menu.Root>
+            </div>
+            {items.map((item) => (
+                <Tabs.Content value={item.value} key={item.value}>
+                    {item.content}
+                </Tabs.Content>
+            ))}
+        </Tabs.Root>
+    );
+};
+
+export const Secondary = (props) => {
+    const [tabs, setTabs] = useState(items);
+    const ref = useRef(null);
+
+    return (
+        <Tabs.Root activationMode="manual" deselectable variant="secondary">
+            <Tabs.Api>
+                {(api) => (
+                    <div>
+                        <p>active tab: {api.value}</p>
+                        <div>
+                            <Button
+                                onClick={() => api.open(`tab-${Math.floor(Math.random() * 19)}`)}
+                            >
+                                open random tab
+                            </Button>
+                            <Button onClick={() => api.scrollToActive()}>scroll to active</Button>
+                            <Button onClick={() => api.first()}>select first</Button>
+                            <Button onClick={() => api.last()}>select last</Button>
+                            <Button onClick={() => setTabs((prev) => shuffle(prev))}>
+                                shuffle
+                            </Button>
+                        </div>
+                    </div>
+                )}
+            </Tabs.Api>
+            <div className="flex gap-2">
+                <Tabs.List ref={ref}>
+                    {tabs.map((tab, i) => (
+                        <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                            <Button variant="transparent">
+                                <Icon value="article" />
+                                {tab.value}
+                            </Button>
+                        </Tabs.Trigger>
+                    ))}
+                </Tabs.List>
+                <Tabs.Menu.Root>
+                    <Tabs.Menu.Trigger asChild>
+                        <IconButton icon="settings" />
+                    </Tabs.Menu.Trigger>
+                    <Tabs.Menu.Content size="sm">
+                        <Tabs.Menu.List>
+                            <Tabs.HiddenTabsList ref={ref}>
+                                {(props) => (
+                                    <Menu.Item
+                                        {...props}
+                                        key={props.value}
+                                        valueText={props.value}
+                                        closeOnSelect
+                                    >
+                                        {props.value}
+                                    </Menu.Item>
+                                )}
+                            </Tabs.HiddenTabsList>
+                        </Tabs.Menu.List>
                     </Tabs.Menu.Content>
                 </Tabs.Menu.Root>
             </div>
@@ -125,18 +195,20 @@ export const BaseVertical = (props) => {
                     <IconButton icon="settings" />
                 </Tabs.Menu.Trigger>
                 <Tabs.Menu.Content size="sm">
-                    <Tabs.HiddenTabsList ref={ref}>
-                        {(props) => (
-                            <Menu.Item
-                                {...props}
-                                key={props.value}
-                                valueText={props.value}
-                                closeOnSelect
-                            >
-                                {props.value}
-                            </Menu.Item>
-                        )}
-                    </Tabs.HiddenTabsList>
+                    <Tabs.Menu.List>
+                        <Tabs.HiddenTabsList ref={ref}>
+                            {(props) => (
+                                <Menu.Item
+                                    {...props}
+                                    key={props.value}
+                                    valueText={props.value}
+                                    closeOnSelect
+                                >
+                                    {props.value}
+                                </Menu.Item>
+                            )}
+                        </Tabs.HiddenTabsList>
+                    </Tabs.Menu.List>
                 </Tabs.Menu.Content>
             </Tabs.Menu.Root>
             {items.map((item) => (

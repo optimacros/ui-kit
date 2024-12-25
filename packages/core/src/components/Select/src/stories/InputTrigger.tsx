@@ -11,9 +11,6 @@ export const InputTrigger = {
                     {(api) => (
                         <Field.Root status={api.disabled ? 'readonly' : 'default'}>
                             <Field.FloatingLabel>label</Field.FloatingLabel>
-
-                            <Select.HiddenInput />
-
                             <Field.TriggerInput
                                 {...api.getTriggerProps()}
                                 value={api.empty ? 'choose value' : api.valueAsString}

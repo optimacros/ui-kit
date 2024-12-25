@@ -29,7 +29,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Chip> = {
-    title: 'UI Kit core/Chip',
+    title: 'legacy/Chip',
     component: Chip,
     argTypes,
 };

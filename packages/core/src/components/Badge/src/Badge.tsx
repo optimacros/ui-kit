@@ -12,22 +12,35 @@ interface BadgeProps {
     offset?: number;
     /** The element to wrap with the badge */
     children: ReactNode;
+    /** any size as css value */
+    size: string;
 }
 
-export const Badge = ({ children, count, position = 'top-right', offset }: BadgeProps) => {
+export const Badge = ({
+    children,
+    count,
+    position = 'top-right',
+    offset,
+    style = {},
+    className,
+    size,
+}: BadgeProps) => {
     const showBadge = count !== undefined && count > 0;
 
-    const rootStyle = offset
-        ? {
-              '--badge-offset':
-                  offset < 0
-                      ? `calc(var(--spacing-${offset * -1}) * -1)`
-                      : `var(--spacing-${offset})`,
-          }
-        : {};
+    const rootStyle =
+        offset || size
+            ? {
+                  ...style,
+                  '--size': size,
+                  '--badge-offset':
+                      offset < 0
+                          ? `calc(var(--spacing-${offset * -1}) * -1)`
+                          : `var(--spacing-${offset})`,
+              }
+            : style;
 
     return (
-        <div data-scope="badge" data-part="root" style={rootStyle}>
+        <div data-scope="badge" data-part="root" style={rootStyle} className={className}>
             {children}
             {showBadge && (
                 <div data-scope="badge" data-part="badge" data-position={position}>

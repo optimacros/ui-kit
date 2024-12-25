@@ -49,7 +49,7 @@ export const Basic = () => {
                                     </Collapsible.Root>
                                 </List.Item>
                             )}
-                            <Divider />
+                            <Divider fluid />
                         </>
                     );
                 })}

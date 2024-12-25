@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Text } from '@optimacros-ui/text';
 import { Flex } from '@optimacros-ui/flex';
+import { Modal } from '@optimacros-ui/modal';
 import { Chip } from './index';
 
 const Wrapper = ({ children }: { children }) => <div style={{ width: '130px' }}>{children}</div>;
@@ -51,6 +52,25 @@ export const WithIcon = () => {
             </Chip.Icon>
             With Icon
         </Chip.Root>
+    );
+};
+
+export const Settings = () => {
+    return (
+        <Modal.Root>
+            <Chip.Root>
+                With Icon
+                <Modal.Trigger>
+                    <Chip.Icon>
+                        <Icon value="settings" />
+                    </Chip.Icon>
+                </Modal.Trigger>
+            </Chip.Root>
+            <Modal.Content>
+                <Modal.Title>Great modal</Modal.Title>
+                <Modal.CloseTrigger>close</Modal.CloseTrigger>
+            </Modal.Content>
+        </Modal.Root>
     );
 };
 

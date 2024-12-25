@@ -11,8 +11,6 @@ export const CloseOnSelect = {
                 <Select.Api>
                     {(api) => (
                         <Field.Root status={api.disabled ? 'readonly' : 'default'}>
-                            <Select.HiddenInput />
-
                             <Field.TriggerInput
                                 {...api.getTriggerProps()}
                                 value={api.empty ? 'choose value' : api.valueAsString}

@@ -28,7 +28,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof FontIcon> = {
-    title: 'UI Kit core/FontIcon',
+    title: 'legacy/FontIcon',
     component: FontIcon,
     argTypes,
 };

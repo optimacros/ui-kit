@@ -13,7 +13,7 @@ export const CloseOnEscape = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root
+            <Modal.CustomRoot
                 open={open}
                 onOpenChange={handleOpenChange}
                 closeOnEscape={true}
@@ -32,7 +32,7 @@ export const CloseOnEscape = () => {
                 <Modal.Footer>
                     <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
         </>
     );
 };

@@ -79,7 +79,9 @@ export const Variants: Story = {
             <Button variant="accent">Accent</Button>
             <Button variant="bordered">Bordered</Button>
             <Button variant="neutral">Neutral</Button>
+            <Button variant="gray">Gray</Button>
             <Button variant="transparent">Transparent</Button>
+            <Button inverse>Inverse</Button>
         </Flex>
     ),
 };
@@ -167,7 +169,7 @@ export const DisabledStates: Story = {
 export const CombinedFeatures: Story = {
     render: () => (
         <Flex align="center" gap="4">
-            <Button variant="accent" float="floating" size="sm" squared uppercase>
+            <Button variant="accent" float="floating" size="sm" uppercase>
                 Combined Features
             </Button>
             <Button variant="bordered" status="success" float="raised" size="xs" uppercase>

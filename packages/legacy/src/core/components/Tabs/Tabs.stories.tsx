@@ -27,7 +27,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof Tabs> = {
-    title: 'UI Kit core/Tabs',
+    title: 'legacy/Tabs',
     // @ts-ignore
     component: Tabs,
     argTypes,

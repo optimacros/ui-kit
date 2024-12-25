@@ -4,6 +4,7 @@ import { Icon } from '@optimacros-ui/kit';
 import { Header } from '.';
 import { Orientation } from '../../../constants';
 import { headerMenuItems } from './mock';
+import { Menu } from '@optimacros-ui/menu';
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
     return <div style={{ clipPath: 'xywh(0px 1px 100% 120%)' }}>{children}</div>;
@@ -40,23 +41,23 @@ export const Notification = (props) => {
     );
 };
 
-export const Menu = (props) => {
+export const MenuExample = (props) => {
     return (
         <Header.Root {...props}>
-            <Header.MenuRoot orientation={Orientation.Vertical}>
-                <Header.Trigger asChild>
+            <Menu.Root orientation={Orientation.Vertical}>
+                <Menu.Trigger asChild>
                     <div>User Name</div>
-                </Header.Trigger>
-                <Header.Positioner>
-                    <Header.Content>
-                        <Header.List>
+                </Menu.Trigger>
+                <Menu.Positioner portalled>
+                    <Menu.Content>
+                        <Menu.List>
                             {headerMenuItems.map((item) => (
-                                <Header.Item {...item} />
+                                <Menu.Item {...item} />
                             ))}
-                        </Header.List>
-                    </Header.Content>
-                </Header.Positioner>
-            </Header.MenuRoot>
+                        </Menu.List>
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Menu.Root>
         </Header.Root>
     );
 };

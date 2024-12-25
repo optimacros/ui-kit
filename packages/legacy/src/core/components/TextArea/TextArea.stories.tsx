@@ -16,7 +16,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof TextArea> = {
-    title: 'UI Kit core/TextArea',
+    title: 'legacy/TextArea',
     component: TextArea,
     argTypes,
 };

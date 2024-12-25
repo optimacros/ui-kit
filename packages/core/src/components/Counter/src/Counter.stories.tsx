@@ -40,11 +40,11 @@ export const Base = (props) => {
     return (
         <Counter.Root {...props}>
             <Counter.Decrease>
-                <IconButton variant="bordered">-</IconButton>
+                <IconButton variant="transparent" icon="-" />
             </Counter.Decrease>
             <Counter.Value />
             <Counter.Increase>
-                <IconButton variant="bordered">+</IconButton>
+                <IconButton variant="transparent" icon="+" />
             </Counter.Increase>
         </Counter.Root>
     );
@@ -54,11 +54,11 @@ export const DefaultValue = (props) => {
     return (
         <Counter.Root defaultValue={10} {...props}>
             <Counter.Decrease>
-                <IconButton variant="bordered">-</IconButton>
+                <IconButton variant="transparent" icon="-" />
             </Counter.Decrease>
             <Counter.Value />
             <Counter.Increase>
-                <IconButton variant="bordered">+</IconButton>
+                <IconButton variant="transparent" icon="+" />
             </Counter.Increase>
         </Counter.Root>
     );
@@ -68,11 +68,11 @@ export const MaxValue = (props) => {
     return (
         <Counter.Root defaultValue={10} maxValue={5} {...props}>
             <Counter.Decrease>
-                <IconButton variant="bordered">-</IconButton>
+                <IconButton variant="transparent" icon="-" />
             </Counter.Decrease>
             <Counter.Value />
             <Counter.Increase>
-                <IconButton variant="bordered">+</IconButton>
+                <IconButton variant="transparent" icon="+" />
             </Counter.Increase>
         </Counter.Root>
     );
@@ -82,11 +82,11 @@ export const Step = (props) => {
     return (
         <Counter.Root step={15} {...props}>
             <Counter.Decrease>
-                <IconButton variant="bordered">-</IconButton>
+                <IconButton variant="transparent" icon="-" />
             </Counter.Decrease>
             <Counter.Value />
             <Counter.Increase>
-                <IconButton variant="bordered">+</IconButton>
+                <IconButton variant="transparent" icon="+" />
             </Counter.Increase>
         </Counter.Root>
     );
@@ -96,7 +96,7 @@ export const Link = (props) => {
     return (
         <Counter.Root {...props}>
             <Counter.Decrease>
-                <IconButton variant="bordered">-</IconButton>
+                <IconButton variant="transparent" icon="-" />
             </Counter.Decrease>
             <Navigation.Root>
                 <a href={'https://google.com'} style={{ textDecoration: 'none' }}>
@@ -104,7 +104,7 @@ export const Link = (props) => {
                 </a>
             </Navigation.Root>
             <Counter.Increase>
-                <IconButton variant="bordered">+</IconButton>
+                <IconButton variant="transparent" icon="+" />
             </Counter.Increase>
         </Counter.Root>
     );

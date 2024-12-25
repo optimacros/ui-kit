@@ -17,7 +17,7 @@ export const Focus = () => {
             <Button onClick={() => setOpen(true)}>Open</Button>
             <input placeholder="Enter name..." id="modal-input-3" />
 
-            <Modal.Root
+            <Modal.CustomRoot
                 open={open}
                 onOpenChange={handleOpenChange}
                 initialFocusEl={initialFocusEl}
@@ -38,7 +38,7 @@ export const Focus = () => {
                 <Modal.Footer>
                     <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
         </>
     );
 };

@@ -1,0 +1,18 @@
+[data-scope='checkbox'][data-tag='favourite'] {
+  & [data-part='checked-icon'],
+  & [data-part='unchecked-icon'] {
+    color: var(--color-pallete-yellow-600);
+  }
+
+  &:not(:disabled, [data-disabled]) {
+    & [data-part='checked-icon'],
+    & [data-part='unchecked-icon'] {
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: var(--color-pallete-yellow-700);
+      }
+    }
+  }
+}

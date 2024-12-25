@@ -5,7 +5,7 @@ import * as select from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Virtual } from '@optimacros-ui/virtual';
 
-export const { useApi, RootProvider, Api } = createReactApiStateContext({
+export const { useApi, RootProvider, Api, useProxySelector } = createReactApiStateContext({
     id: 'select',
     machine: select,
 });
@@ -14,36 +14,32 @@ export interface ItemBase {
     value: string;
 }
 
-export interface RootProps<T extends unknown = ItemBase> extends select.CollectionOptions<T> {
-    // TODO найти, куда оно потерялось из встроенных типов
-    value?: string[];
-    onValueChange?: (details: select.ValueChangeDetails) => void;
-}
+export const Root = forward<
+    select.CollectionOptions<ItemBase> & ComponentProps<typeof RootProvider>,
+    'div'
+>((props, ref) => {
+    const { items, isItemDisabled, itemToString, itemToValue, value, controllable, ...rest } =
+        props;
 
-export const Root = forward<RootProps & ComponentProps<typeof RootProvider>, 'div'>(
-    (props, ref) => {
-        const { items, isItemDisabled, itemToString, itemToValue, value, ...rest } = props;
+    const [providerProps, divProps] = select.splitProps(rest as unknown);
 
-        const [providerProps, divProps] = select.splitProps(rest as unknown);
+    const collection = useMemo(
+        () =>
+            select.collection({
+                items,
+                isItemDisabled,
+                itemToString,
+                itemToValue,
+            }),
+        [items, isItemDisabled, itemToString, itemToValue],
+    );
 
-        const collection = useMemo(
-            () =>
-                select.collection({
-                    items,
-                    isItemDisabled,
-                    itemToString,
-                    itemToValue,
-                }),
-            [items, isItemDisabled, itemToString, itemToValue],
-        );
-
-        return (
-            <RootProvider collection={collection} {...providerProps}>
-                {(api) => <styled.div {...divProps} {...api.getRootProps()} ref={ref} />}
-            </RootProvider>
-        );
-    },
-);
+    return (
+        <RootProvider collection={collection} controllable={controllable} {...providerProps}>
+            {(api) => <styled.div {...divProps} {...api.getRootProps()} ref={ref} />}
+        </RootProvider>
+    );
+});
 
 export const Control = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
@@ -91,7 +87,7 @@ export const Positioner = forward<{}, 'div'>((props, ref) => {
     );
 });
 
-export const Content = forward<{ size?: 'sm' | 'md' }, 'div'>(({ size = 'md', ...rest }, ref) => {
+export const Content = forward<{ size?: 'sm' | 'md' }, 'div'>(({ size, ...rest }, ref) => {
     const api = useApi();
 
     return (
@@ -113,11 +109,11 @@ export const Value = forward<{}, 'span'>((props, ref) => {
 
 export const List = forward<{ children: (item: ItemBase) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
-        const api = useApi();
+        const items = useProxySelector((api) => api.collection.items);
 
         return (
             <styled.ul {...rest} data-scope="select" data-part="list" ref={ref}>
-                {api.collection.items.map(children)}
+                {items.map(children)}
             </styled.ul>
         );
     },
@@ -168,6 +164,7 @@ export const Item = forward<
 >(({ item, persistFocus, children, ...rest }, ref) => {
     const api = useApi();
     const apiProps = api.getItemProps({ item, persistFocus });
+
     return (
         <styled.li {...rest} {...apiProps} ref={ref}>
             {isFunction(children) ? children(api.getItemState({ item, persistFocus })) : children}

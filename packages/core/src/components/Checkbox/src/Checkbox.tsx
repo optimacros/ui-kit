@@ -1,22 +1,32 @@
 import { ComponentProps, PropsWithChildren } from 'react';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import * as checkbox from '@zag-js/checkbox';
+import * as machine from '@zag-js/checkbox';
 
-export const { RootProvider, useApi } = createReactApiStateContext({
+export const { RootProvider, useApi, splitProps } = createReactApiStateContext({
     id: 'checkbox',
-    machine: checkbox,
+    machine,
 });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & { value: string };
-export const Root = forward<RootProps, 'label'>(({ children, ...context }, ref) => (
-    <RootProvider {...context}>
-        {(api) => (
-            <styled.label {...api.getRootProps()} data-scope="checkbox" data-part="root" ref={ref}>
-                {children}
-            </styled.label>
-        )}
-    </RootProvider>
-));
+export const Root = forward<RootProps, 'label'>(({ children, ...rest }, ref) => {
+    const [context, props] = splitProps(rest);
+
+    return (
+        <RootProvider {...context}>
+            {(api) => (
+                <styled.label
+                    {...props}
+                    {...api.getRootProps()}
+                    data-scope="checkbox"
+                    data-part="root"
+                    ref={ref}
+                >
+                    {children}
+                </styled.label>
+            )}
+        </RootProvider>
+    );
+});
 
 export const BoxControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();

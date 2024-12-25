@@ -11,14 +11,14 @@ export const defaultContext = {
 };
 
 export const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div style={{ width: '200px' }}>{children}</div>
+    <div style={{ width: '400px' }}>{children}</div>
 );
 
 export const ControlTemplate = ({ children, ...rest }) => {
     return (
-        <Select.Root items={mockItems} {...defaultContext} {...rest}>
+        <Select.Root {...rest} {...defaultContext} items={mockItems}>
             <Flex gap={5} direction="column">
-                <Flex direction="column">
+                <Flex gap={3} wrap="wrap">
                     Selected values:
                     <Select.Api>
                         {(api) =>
@@ -35,7 +35,6 @@ export const ControlTemplate = ({ children, ...rest }) => {
                         }
                     </Select.Api>
                 </Flex>
-
                 <Select.Control>{children}</Select.Control>
             </Flex>
 
@@ -43,7 +42,7 @@ export const ControlTemplate = ({ children, ...rest }) => {
                 <Select.Content>
                     <Select.List>
                         {(item) => (
-                            <Select.Item item={item} key={item.value}>
+                            <Select.Item item={item} key={`select-${item.value}`}>
                                 {({ selected }) => (
                                     <>
                                         <div>

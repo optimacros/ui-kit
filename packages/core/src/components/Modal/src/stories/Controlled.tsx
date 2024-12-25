@@ -16,7 +16,7 @@ export const Controlled = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root
+            <Modal.CustomRoot
                 open={open}
                 onOpenChange={(details) => {
                     flushSync(() => setOpen(details.open));
@@ -33,7 +33,7 @@ export const Controlled = () => {
                 <Modal.Footer>
                     <Modal.CloseTrigger>Close</Modal.CloseTrigger>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
         </>
     );
 };

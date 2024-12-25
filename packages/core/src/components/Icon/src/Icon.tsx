@@ -7,17 +7,21 @@ import { useUiCore } from '../../../store';
 export interface IconProps {
     value: string | ReactNode;
     rotate?: number;
+    /** as spacing variable */
+    size?: string;
 }
 
-export function Icon({ value, rotate, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
+export function Icon({ value, rotate, size, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
     const { iconsSrc } = useUiCore();
 
     const iconProps = {
         'data-scope': 'icon',
         'data-part': 'root',
         'data-rotate': rotate ?? undefined,
+        'data-size': size ?? undefined,
         style: {
             '--rotate': `${rotate ?? 0}deg`,
+            '--size': `var(--spacing-${size})`,
         },
     };
 

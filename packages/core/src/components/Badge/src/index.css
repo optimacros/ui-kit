@@ -8,12 +8,14 @@
     position: absolute;
     min-width: var(--size);
     height: var(--size);
+    border-radius: 50%;
+    padding: 1px;
     background-color: #ef4444;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    font-size: var(--size);
     &[data-position='top-right'] {
       top: var(--badge-offset);
       right: var(--badge-offset);

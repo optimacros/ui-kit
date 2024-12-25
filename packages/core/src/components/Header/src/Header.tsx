@@ -1,8 +1,5 @@
-import React, { ComponentProps } from 'react';
+import React from 'react';
 import { forward, styled } from '@optimacros-ui/store';
-import { Menu } from '@optimacros-ui/menu';
-
-export const { Trigger, Positioner, Content, List, Item } = Menu;
 
 export type HeaderProps = React.PropsWithChildren;
 
@@ -20,9 +17,4 @@ export const Badge = forward<{}, 'div'>((props, ref) => (
 
 export const Notification = forward<{}, 'div'>((props, ref) => {
     return <styled.div {...props} data-scope="header" data-part="notification" ref={ref} />;
-});
-
-// TODO Menu
-export const MenuRoot = forward<ComponentProps<typeof Menu.Root>, 'div'>((props, ref) => {
-    return <Menu.Root {...props} data-tag="header" ref={ref} />;
 });

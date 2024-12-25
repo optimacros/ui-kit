@@ -4,11 +4,14 @@ import { Orientation } from '@optimacros-ui/utils';
 import { Button } from '@optimacros-ui/button';
 import { Header } from '@optimacros-ui/header';
 import { Divider } from '@optimacros-ui/divider';
+import { Icon } from '@optimacros-ui/icon';
+import { Badge } from '@optimacros-ui/badge';
+
 import { Flex } from '@optimacros-ui/flex';
 import { Navigation } from './index';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div style={{ width: '600px' }}>{children}</div>
+    <div style={{ width: '100%' }}>{children}</div>
 );
 
 export default {
@@ -64,27 +67,53 @@ export const Vertical = (props) => {
     );
 };
 
-export const WithHeader = (props) => {
+export const WsFeHeader = (props) => {
     const Item = ({ children }) => (
         <Flex align="center">
-            <a href="#" style={{ textDecoration: 'none', marginLeft: '10px' }}>
+            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
                 {children}
             </a>
         </Flex>
     );
     return (
         <Header.Root>
+            <Flex gap="1">
+                <Icon data-react-toolbox="font-icon" aria-label="" value="menu" />
+                <div>OM CRM ##3.0 New (planar)</div>
+            </Flex>
+            <Divider orientation={Orientation.Vertical} />
             <Navigation.Root {...props} orientation={Orientation.Horizontal}>
-                <Item>Portfolio</Item>
-                <Divider orientation={Orientation.Vertical} />
-                <Item>About</Item>
-                <Divider orientation={Orientation.Vertical} />
-                <Item>Menu</Item>
-                <Divider orientation={Orientation.Vertical} />
-                <Item>Location</Item>
-                <Divider orientation={Orientation.Vertical} />
-                <Item>Contacts</Item>
+                <Flex gap="2">
+                    <Item>Portfolio</Item>
+                    <Item>About</Item>
+                    <Item>Menu</Item>
+                    <Item>Location</Item>
+                    <Item>Contacts</Item>
+                </Flex>
             </Navigation.Root>
+
+            <Divider orientation={Orientation.Vertical} />
+            <Menu.Root>
+                <Menu.Trigger asChild>
+                    <Button variant="transparent" size="sm">
+                        <Badge count={10} position="top-right" size="10px" offset={-1}>
+                            <Icon value="bell" size="4" />
+                        </Badge>
+                        Georgiy Zhuravlev
+                    </Button>
+                </Menu.Trigger>
+                <Menu.Positioner>
+                    <Menu.Content>
+                        <Navigation.Root {...props} orientation={Orientation.Vertical}>
+                            <Menu.List>
+                                {menuItems.map((item) => (
+                                    <Menu.Item {...item} />
+                                ))}
+                            </Menu.List>
+                        </Navigation.Root>
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Menu.Root>
         </Header.Root>
     );
 };

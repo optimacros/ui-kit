@@ -16,6 +16,7 @@
   &[data-part='trigger'] {
     border-style: solid;
     border-color: var(--color-tabs-primary-tab-border-default);
+    border-width: 0;
     border-bottom-width: var(--spacing-px);
     cursor: pointer;
     user-select: none;
@@ -24,15 +25,13 @@
     color: var(--color-tabs-primary-tab-on-default);
   }
 
-  &[data-part='trigger']:first-child {
-    padding-right: var(--spacing-3);
+  &[data-part='root'][data-variant='secondary'] {
+    & [data-part='trigger'] {
+      border-width: var(--spacing-0-5);
+    }
   }
 
-  &[data-part='trigger']:last-child {
-    padding-left: var(--spacing-3);
-  }
-
-  &[data-part='trigger']:not(:first-child):not(:last-child) {
+  &[data-part='trigger'] {
     padding-left: var(--spacing-3);
     padding-right: var(--spacing-3);
   }

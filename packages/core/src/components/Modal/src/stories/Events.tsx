@@ -25,7 +25,7 @@ export const Events = () => {
 
             <div id="lastEventName">lastEventName</div>
 
-            <Modal.Root open={open} {...props}>
+            <Modal.CustomRoot open={open} {...props}>
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                 </Modal.Header>
@@ -39,7 +39,7 @@ export const Events = () => {
                 <Modal.Footer>
                     <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
 
             <div style={{ height: '110vh' }}></div>
         </>

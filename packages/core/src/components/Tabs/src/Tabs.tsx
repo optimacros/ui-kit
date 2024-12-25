@@ -83,12 +83,15 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     },
 });
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
+export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & {
+    variant?: 'primary' | 'secondary';
+};
+
+export const Root = forward<RootProps, 'div'>(({ children, variant, ...context }, ref) => {
     return (
         <RootProvider {...context}>
             {(api) => (
-                <styled.div {...api.getRootProps()} ref={ref}>
+                <styled.div {...api.getRootProps()} ref={ref} data-variant={variant}>
                     {children}
                 </styled.div>
             )}

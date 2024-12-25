@@ -77,7 +77,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof ButtonMenu> = {
-    title: 'UI Kit core/ButtonMenu',
+    title: 'legacy/ButtonMenu',
     component: ButtonMenu,
     argTypes,
 };

@@ -5,7 +5,6 @@ import { mockItems } from '../mock';
 import { defaultContext } from './components';
 import { Flex } from '@optimacros-ui/flex';
 
-// TODO не работает, зависает при выборе чего-либо в селекте. Бесконечные ререндеры. Проверить после обновления зага.
 export const Form = {
     render: (props) => {
         const handleSubmit = (e) => {
@@ -23,8 +22,6 @@ export const Form = {
                         <label htmlFor={defaultContext.name}>Select:</label>
 
                         <Select.Root items={mockItems} {...defaultContext} {...props} form="form">
-                            <Select.HiddenInput />
-
                             <Select.Control>
                                 <Select.Api>
                                     {(api) => (

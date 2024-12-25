@@ -13,7 +13,7 @@ export const PreventScroll = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.Root
+            <Modal.CustomRoot
                 open={open}
                 onOpenChange={handleOpenChange}
                 preventScroll={false}
@@ -32,7 +32,7 @@ export const PreventScroll = () => {
                 <Modal.Footer>
                     <Button onClick={() => setOpen(false)}>Close</Button>
                 </Modal.Footer>
-            </Modal.Root>
+            </Modal.CustomRoot>
 
             <div style={{ height: '110vh' }}></div>
         </>

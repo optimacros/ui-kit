@@ -79,7 +79,7 @@ export const WithModal = (props) => {
         <>
             <Button onClick={() => setOpen(true)}>Open Modal</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange}>
+            <Modal.CustomRoot open={open} onOpenChange={handleOpenChange}>
                 <Modal.Header>
                     <Modal.Title>Edit profile</Modal.Title>
                 </Modal.Header>
@@ -105,7 +105,7 @@ export const WithModal = (props) => {
                         </Button>
                     </Toolbar.Root>
                 </div>
-            </Modal.Root>
+            </Modal.CustomRoot>
         </>
     );
 };

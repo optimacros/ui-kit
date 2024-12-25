@@ -3,7 +3,9 @@
     position: fixed;
     z-index: var(--z-index-highest);
     inset: 0;
+
     background-color: var(--color-modal-primary-backdrop-default);
+    opacity: 0.2;
   }
 
   &[data-part='positioner'] {
@@ -21,9 +23,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-3);
     background-color: var(--color-modal-primary-default);
-    border: var(--spacing-px) solid var(--divider);
+    border: var(--spacing-px) solid var(--color-theme-divider-dark-default);
     max-width: 80vw;
     max-height: 80vh;
   }
