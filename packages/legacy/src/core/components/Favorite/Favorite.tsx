@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import { FontIcon } from 'ui-kit-core';
 
-import { WSCheckbox as Checkbox } from '../../../../../../../components/WSCheckbox';
+import { Checkbox } from '../Checkbox';
 
 import styles from './Favorite.module.css';
 
