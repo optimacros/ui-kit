@@ -6,7 +6,6 @@ import content from './Button?raw';
 const meta: Meta<typeof Button> = {
     title: 'UI Kit core/Button',
     component: Button,
-    tags: ['autodocs'],
     argTypes: {
         variant: {
             control: 'select',
@@ -73,6 +72,9 @@ export const Base: Story = {
         children: 'Button',
         variant: 'primary',
         size: 'md',
+    },
+    parameters: {
+        storySource: { source: content },
     },
 };
 
