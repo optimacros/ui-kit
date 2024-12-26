@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { MarkdownEditor as MDE } from '@optimacros-ui/markdown-editor';
+import { MarkdownEditor as MDE } from '@optimacros-ui/kit/src/components/MarkdownEditor/src';
 
 export interface MarkdownEditorProps {
     onChange: (value: string) => void;
