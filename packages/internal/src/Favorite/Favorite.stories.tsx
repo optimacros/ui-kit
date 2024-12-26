@@ -1,5 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { Favourite } from './index';
+import { Favorite } from './index';
 
 const argTypes: Partial<ArgTypes> = {
     label: {
@@ -15,14 +15,14 @@ const argTypes: Partial<ArgTypes> = {
     },
 };
 
-const meta: Meta<typeof Favourite> = {
-    title: 'UI Kit internal/Favourite',
-    component: Favourite,
+const meta: Meta<typeof Favorite> = {
+    title: 'UI Kit internal/Favorite',
+    component: Favorite,
     argTypes,
 };
 export default meta;
 
-type Story = StoryObj<typeof Favourite>;
+type Story = StoryObj<typeof Favorite>;
 
 export const Basic: Story = {
     args: {},
