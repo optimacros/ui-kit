@@ -96,6 +96,10 @@
   }
 }
 
+[data-scope='checkbox'][data-part='custom-control'] {
+  cursor: pointer;
+}
+
 [data-scope='checkbox'][data-part='label'] {
   cursor: pointer;
   color: var(--color-checkbox-primary-label-default);

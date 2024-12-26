@@ -20,3 +20,4 @@ export { LayoutFixedContainer } from './LayoutFixedContainer';
 export { Tabs } from './Tabs';
 export { Tab } from './Tabs/Tab';
 export { TabHeader } from './Tabs/ExtTabs/TabHeader';
+export { Favorite } from './Favorite';
