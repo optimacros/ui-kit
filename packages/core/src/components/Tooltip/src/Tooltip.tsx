@@ -19,7 +19,7 @@ export const Content = ({ children }: { children: ReactNode }) => {
     return (
         api.open && (
             <div {...api.getPositionerProps()}>
-                <span {...api.getContentProps()}>{children}</span>
+                <div {...api.getContentProps()}>{children}</div>
                 <div {...api.getArrowProps()} className="z-low">
                     <div {...api.getArrowTipProps()} />
                 </div>
@@ -39,3 +39,5 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, .
 });
 
 export interface Props extends ComponentProps<typeof Root> {}
+
+export type { PositioningOptions, Placement } from '@zag-js/tooltip';
