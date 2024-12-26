@@ -1,6 +1,6 @@
-import React, { useRef, MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
+import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
 import { Tooltip } from '@optimacros-ui/tooltip';
-import { Checkbox as CheckboxComponent } from '@optimacros-ui/checkbox';
+import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 
 export interface CheckboxComponentProps extends InitialProps {
     theme: Required<Theme>;
@@ -89,20 +89,18 @@ export const Checkbox: CheckboxProps = ({
                 },
             }}
         >
-            <Tooltip.Trigger asChild>
-                <div>
-                    <CheckboxWrapper
-                        {...otherProps}
-                        onClick={onClick}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                    />
-                </div>
+            <Tooltip.Trigger as="div">
+                <CheckboxComponent
+                    {...otherProps}
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                />
             </Tooltip.Trigger>
             <Tooltip.Content>{tooltipLabel}</Tooltip.Content>
         </Tooltip.Root>
     ) : (
-        <CheckboxWrapper
+        <CheckboxComponent
             {...otherProps}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
@@ -111,7 +109,7 @@ export const Checkbox: CheckboxProps = ({
     );
 };
 
-const CheckboxWrapper: React.PropsWithChildren<CheckboxComponentProps> = ({
+const CheckboxComponent: React.PropsWithChildren<CheckboxComponentProps> = ({
     checked = false,
     children,
     disabled = false,
@@ -123,34 +121,21 @@ const CheckboxWrapper: React.PropsWithChildren<CheckboxComponentProps> = ({
     onClick,
     ...others
 }) => {
-    const inputNode = useRef<HTMLInputElement>(null);
-
     const handleToggle = (event: MouseEvent) => {
-        if (event.pageX !== 0 && event.pageY !== 0) {
-            blur();
-        }
-
         if (onChange && !disabled) {
             onChange(!checked, event);
         }
     };
 
-    const blur = () => {
-        if (inputNode.current) {
-            inputNode.current.blur();
-        }
-    };
-
     return (
-        <CheckboxComponent.Root name={name} checked={checked} disabled={disabled} {...others}>
-            <CheckboxComponent.BoxControl
-                ref={inputNode}
+        <CheckboxCore.Root name={name} checked={checked} disabled={disabled} {...others}>
+            <CheckboxCore.BoxControl
                 onClick={handleToggle}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             />
-            {label && <CheckboxComponent.Label>{label}</CheckboxComponent.Label>}
+            {label && <CheckboxCore.Label>{label}</CheckboxCore.Label>}
             {children}
-        </CheckboxComponent.Root>
+        </CheckboxCore.Root>
     );
 };
