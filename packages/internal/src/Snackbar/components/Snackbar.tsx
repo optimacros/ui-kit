@@ -2,10 +2,10 @@ import { Toast, ToastGroup } from '@optimacros-ui/toast';
 import { Button } from '@optimacros-ui/button';
 import { memo, ReactNode, useEffect } from 'react';
 import { SnackbarType } from '../models';
-import { CloseTrigger } from './CloseTrigger';
 import { isNil } from 'lodash-es';
-import { Label } from './Label';
 import { clsx } from '@optimacros-ui/utils';
+import { Button as DefaultButton } from '@optimacros-ui/button';
+import { Text } from '@optimacros-ui/text';
 
 export interface SnackbarProps {
     action?: string;
@@ -31,7 +31,18 @@ export interface SnackbarProps {
 }
 
 const SnackbarComponent = memo<SnackbarProps>(
-    ({ active, action, Button, onClick, theme, timeout, label, type, children, className }) => {
+    ({
+        active,
+        action,
+        Button = DefaultButton,
+        onClick,
+        theme,
+        timeout,
+        label,
+        type,
+        children,
+        className,
+    }) => {
         const api = ToastGroup.useApi();
 
         const create = () => {
@@ -64,16 +75,22 @@ const SnackbarComponent = memo<SnackbarProps>(
                     {(toast) => (
                         <Toast.Root actor={toast} className={rootClassName}>
                             <Toast.Content className={theme?.snackbar}>
-                                {!isNil(label) && <Label className={theme?.label}>{label}</Label>}
+                                {!isNil(label) && (
+                                    <Text.Paragraph as="span" className={theme?.label}>
+                                        {label}
+                                    </Text.Paragraph>
+                                )}
+
                                 {children}
                             </Toast.Content>
 
-                            <CloseTrigger
-                                action={action}
-                                Button={Button}
-                                onClick={onClick}
-                                className={theme?.button}
-                            />
+                            {!!action && Button && (
+                                <Toast.CloseTrigger asChild>
+                                    <Button onClick={onClick} className={theme?.button}>
+                                        {action}
+                                    </Button>
+                                </Toast.CloseTrigger>
+                            )}
                         </Toast.Root>
                     )}
                 </ToastGroup.Portal>
