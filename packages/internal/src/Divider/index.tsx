@@ -10,3 +10,11 @@ export const Divider: DividerProps = ({ vertical = false }) => {
 
     return <DividerComponent orientation={orientation} />;
 };
+
+export const HorizontalDivider = () => {
+    return <DividerComponent orientation={Orientation.Horizontal} />;
+};
+
+export const VerticalDivider = () => {
+    return <DividerComponent orientation={Orientation.Vertical} />;
+};
