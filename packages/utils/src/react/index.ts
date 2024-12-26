@@ -3,3 +3,4 @@ export * from './useEventListener';
 export * from './useIsomorphicLayoutEffect';
 export * from './useTextShortener';
 export * from './useForm';
+export * from './filter-components';

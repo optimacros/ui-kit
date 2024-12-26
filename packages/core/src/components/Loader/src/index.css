@@ -17,6 +17,7 @@
     width: 100%;
     background-color: var(--color-loader-primary-range-default);
     height: var(--spacing-1);
+    transition: width .1s ease;
 
     &[data-state='indeterminate'] {
       animation: linear-indeterminate-bar 1s linear infinite;
@@ -73,8 +74,9 @@
   & [data-part='circle-range'] {
     stroke: var(--color-loader-primary-range-default);
     stroke-linecap: round;
-    transition-property: stroke-dasharray, stroke;
-    transition-duration: 0.6s;
+    transition-property: stroke-dashoffset;
+    transition-duration: .1s;
+    transition-timing-function: ease;
 
     &[data-state='indeterminate'] {
       animation: circle-indeterminate-range 2s ease-in-out infinite;

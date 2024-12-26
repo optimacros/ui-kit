@@ -2,14 +2,14 @@ import React from 'react';
 import { useApi } from './context';
 import { forward, styled } from '@optimacros-ui/store';
 
-export const CancelTrigger = forward<React.PropsWithChildren, 'div'>(
+export const CancelTrigger = forward<React.PropsWithChildren, 'button'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.div ref={ref} data-part="cancel-trigger" {...rest} onClick={api.onCancel}>
+            <styled.button ref={ref} data-part="cancel-trigger" {...rest} onClick={api.onCancel}>
                 {children}
-            </styled.div>
+            </styled.button>
         );
     },
     { displayName: 'CancelTrigger' },

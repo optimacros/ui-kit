@@ -56,6 +56,7 @@ export const {
 /**
  * TODO
  * Get rid of it
+ * @deprecated
  * */
 export const CustomRoot = forward<ComponentProps<typeof Root>, { children }>(
     ({ children, ...rest }, ref) => {

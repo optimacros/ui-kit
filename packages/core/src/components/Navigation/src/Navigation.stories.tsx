@@ -8,7 +8,7 @@ import { Icon } from '@optimacros-ui/icon';
 import { Badge } from '@optimacros-ui/badge';
 
 import { Flex } from '@optimacros-ui/flex';
-import { Navigation } from './index';
+import { Navigation } from '.';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '100%' }}>{children}</div>
@@ -18,6 +18,9 @@ export default {
     title: 'UI Kit core/Navigation',
     component: Navigation.Root,
     tags: ['autodocs'],
+    parameters: {
+        layout: 'centered',
+    },
     argTypes: {
         orientation: {
             control: 'radio',
@@ -47,8 +50,16 @@ const Children = (
     </>
 );
 
-export const Base = (props) => {
-    return <Navigation.Root {...props}>{Children}</Navigation.Root>;
+export const Base = () => {
+    return (
+        <Navigation.Root>
+            <Button> Portfolio </Button>
+            <Button> About </Button>
+            <Button> Menu </Button>
+            <Button> Location </Button>
+            <Button> Contacts </Button>
+        </Navigation.Root>
+    );
 };
 
 export const Horizontal = (props) => {

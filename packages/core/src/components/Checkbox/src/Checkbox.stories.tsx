@@ -8,19 +8,6 @@ export default {
     title: 'UI Kit core/Checkbox',
     component: Checkbox.Root,
     tags: ['autodocs'],
-    argTypes: {
-        disabled: {
-            control: 'boolean',
-            description: 'If `true`, component will be disabled',
-        },
-        onCheckedChange: {
-            table: { disable: true },
-        },
-        checked: {
-            control: 'boolean',
-            description: 'If `true`, component will be checked',
-        },
-    },
 };
 
 export const Base = (props) => {

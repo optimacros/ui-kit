@@ -1,7 +1,6 @@
 import { ArgTypes, Meta } from '@storybook/react';
-import { Loader } from './index';
-import { useEffect, useState } from 'react';
-import { Icon } from '@optimacros-ui/icon';
+import { Loader } from '.';
+import { useEffect } from 'react';
 
 const argTypes: Partial<ArgTypes> = {
     value: {
@@ -31,161 +30,74 @@ const argTypes: Partial<ArgTypes> = {
 const meta: Meta = {
     title: 'UI Kit core/Loader/Linear',
     argTypes,
+    decorators: [
+        (Story, props) => {
+            return (
+                <Loader.Root {...props.args}>
+                    <Story />
+                </Loader.Root>
+            );
+        },
+    ],
 };
 export default meta;
 
-export const Basic = () => (
-    <Loader.Root>
-        <Loader.LinearTrack>
-            <Loader.LinearRange />
-        </Loader.LinearTrack>
-    </Loader.Root>
-);
-
-export const Determinate = () => {
-    const [counter, setCounter] = useState(33);
+export const Basic = () => {
+    const api = Loader.useApi();
 
     useEffect(() => {
-        setInterval(() => {
-            setCounter((c) => {
-                if (c >= 100) {
-                    return 0;
-                }
-
-                return c + 1;
-            });
-        }, 100);
+        api.start();
     }, []);
 
     return (
-        <Loader.Root value={counter}>
-            <Loader.LinearTrack>
-                <Loader.LinearRange />
-            </Loader.LinearTrack>
-        </Loader.Root>
-    );
-};
-
-export const Disabled = () => (
-    <Loader.Root disabled>
         <Loader.LinearTrack>
             <Loader.LinearRange />
         </Loader.LinearTrack>
-    </Loader.Root>
-);
-
-export const Buffer = () => (
-    <Loader.Root value={50}>
-        <Loader.LinearTrack>
-            <Loader.LinearRange />
-            <Loader.LinearBuffer buffer={70} />
-        </Loader.LinearTrack>
-    </Loader.Root>
-);
-
-export const Label = () => {
-    const [counter, setCounter] = useState(33);
-
-    useEffect(() => {
-        setInterval(() => {
-            setCounter((c) => {
-                if (c >= 100) {
-                    return 0;
-                }
-
-                return c + 1;
-            });
-        }, 100);
-    }, []);
-
-    return (
-        <Loader.Root value={counter}>
-            <Loader.Label>
-                Loading {counter}/100 Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading Loading Loading{' '}
-            </Loader.Label>
-            <Loader.LinearTrack>
-                <Loader.LinearRange />
-            </Loader.LinearTrack>
-        </Loader.Root>
     );
 };
 
-export const ValueText = () => (
-    <Loader.Root value={70}>
-        <Loader.Label>
-            Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
-            Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
-            Loading Loading Loading Loading{' '}
-        </Loader.Label>
-
-        <Loader.LinearTrack>
-            <Loader.ValueText />
-            <Loader.LinearRange />
-        </Loader.LinearTrack>
-    </Loader.Root>
-);
-
-export const CancelTrigger = () => {
-    const handleCancel = () => {
-        alert('cancel');
-    };
-
-    return (
-        <Loader.Root value={70} onCancel={handleCancel}>
-            <Loader.Label>
-                Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading{' '}
-            </Loader.Label>
-
-            <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10 }}>
-                <Loader.LinearTrack>
-                    <Loader.ValueText />
-                    <Loader.LinearRange />
-                </Loader.LinearTrack>
-
-                <Loader.CancelTrigger>
-                    <Icon value="close" style={{ fontSize: 26 }} />
-                </Loader.CancelTrigger>
-            </div>
-        </Loader.Root>
-    );
+export const Disabled = {
+    render: () => <Basic />,
+    args: {
+        disabled: true,
+    },
 };
 
-export const FloatingCancelTrigger = () => {
-    const handleCancel = () => {
-        alert('cancel');
-    };
+export const Buffer = {
+    render: () => <Basic />,
+    args: {
+        value: 33,
+    },
+};
 
-    return (
-        <Loader.Root value={66} onCancel={handleCancel}>
-            <Loader.Label>
-                Loading /100 Loading Loading Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading Loading Loading Loading Loading Loading
-                Loading Loading Loading Loading Loading{' '}
-            </Loader.Label>
+export const Label = {
+    render: () => {
+        const counter = Loader.useProxySelector((state) => state.value);
 
-            <div
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    boxSizing: 'border-box',
-                    height: 30,
-                    paddingRight: 50,
-                }}
-            >
-                <Loader.LinearTrack>
-                    <Loader.ValueText />
-                    <Loader.LinearRange />
-                </Loader.LinearTrack>
+        return (
+            <>
+                <Loader.Label>Loading {counter}/100</Loader.Label>
+                <Basic />
+            </>
+        );
+    },
+    args: {
+        max: 100,
+    },
+};
 
-                <Loader.FloatingCancelTrigger>
-                    <Icon value="close" style={{ fontSize: 26 }} />
-                </Loader.FloatingCancelTrigger>
-            </div>
-        </Loader.Root>
-    );
+export const Infinite = {
+    render: () => {
+        const counter = Loader.useProxySelector((state) => state.value);
+
+        return (
+            <>
+                <Loader.Label>Loading {counter}/100</Loader.Label>
+                <Basic />
+            </>
+        );
+    },
+    args: {
+        infinite: true,
+    },
 };

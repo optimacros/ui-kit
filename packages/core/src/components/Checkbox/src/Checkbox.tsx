@@ -8,25 +8,30 @@ export const { RootProvider, useApi, splitProps } = createReactApiStateContext({
 });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & { value: string };
-export const Root = forward<RootProps, 'label'>(({ children, ...rest }, ref) => {
-    const [context, props] = splitProps(rest);
+export const Root = forward<RootProps, 'label'>(
+    function ({ children, ...rest }, ref) {
+        const [context, props] = splitProps(rest);
 
-    return (
-        <RootProvider {...context}>
-            {(api) => (
-                <styled.label
-                    {...props}
-                    {...api.getRootProps()}
-                    data-scope="checkbox"
-                    data-part="root"
-                    ref={ref}
-                >
-                    {children}
-                </styled.label>
-            )}
-        </RootProvider>
-    );
-});
+        return (
+            <RootProvider {...context}>
+                {(api) => (
+                    <styled.label
+                        {...props}
+                        {...api.getRootProps()}
+                        data-scope="checkbox"
+                        data-part="root"
+                        ref={ref}
+                    >
+                        {children}
+                    </styled.label>
+                )}
+            </RootProvider>
+        );
+    },
+    {
+        displayName: 'Checkbox.Root',
+    },
+);
 
 export const BoxControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();

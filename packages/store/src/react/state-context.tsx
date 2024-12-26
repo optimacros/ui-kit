@@ -182,7 +182,10 @@ export function extendMachine<
         const options = isFunction(optionCreator) ? optionCreator(defaultMachine) : optionCreator;
 
         return createMachine<Config['context'] & State['ctx'], State['state']>(
-            merge(true, defaultMachine.config, config),
+            merge(true, defaultMachine.config, {
+                ...config,
+                context: merge(true, config?.context, userContext),
+            }),
             merge(true, defaultMachine.options, options),
         );
     }

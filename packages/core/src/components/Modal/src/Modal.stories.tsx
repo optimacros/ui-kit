@@ -173,6 +173,4 @@ export {
     PreventScroll,
     CloseOnEscape,
     CloseOnInteractOutside,
-    Events,
-    CloseIcon,
 } from './stories';

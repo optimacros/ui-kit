@@ -9,7 +9,7 @@ export function forward<
     Tag extends JsxElementsKey | NonNullable<unknown> = NonNullable<unknown>,
     P = Tag extends JsxElementsKey ? $.Merge<PropsWithoutRef<Tag>, T> : T,
 >(render: ForwardRefRenderFunction<Ref<Tag>, P>, config?: ElementConfig) {
-    const { displayName, defaultProps, memoize } = config ?? {};
+    const { displayName = '', defaultProps, memoize } = config ?? {};
 
     const Component = forwardRef(render);
 

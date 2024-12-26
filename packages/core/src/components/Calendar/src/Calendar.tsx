@@ -51,15 +51,25 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
     },
 });
 
-export const Content = forward<{}, 'div'>((props, ref) => {
-    const api = useApi();
+export const Content = forward<{}, 'div'>(
+    (props, ref) => {
+        const api = useApi();
 
-    return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
-});
+        return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
+    },
+    {
+        displayName: 'Calendar.Content',
+    },
+);
 
-export const Header = forward<{}, 'header'>((props, ref) => {
-    return <styled.header {...props} ref={ref} data-scope="date-picker" data-part="header" />;
-});
+export const Header = forward<{}, 'header'>(
+    (props, ref) => {
+        return <styled.header {...props} ref={ref} data-scope="date-picker" data-part="header" />;
+    },
+    {
+        displayName: 'CalendarHeader',
+    },
+);
 
 export const HeaderYears = forward<{ locale?: string }, 'span'>(
     ({ locale = 'en', ...rest }, ref) => {

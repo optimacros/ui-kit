@@ -72,7 +72,7 @@ export const Base: Story = {
     },
 };
 
-export const Variants: Story = {
+export const Variants = {
     render: () => (
         <Flex align="center" gap="4">
             <Button variant="primary">Primary</Button>

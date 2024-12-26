@@ -57,22 +57,24 @@ export const Base = (props) => {
                     <Tabs.Menu.Trigger asChild>
                         <IconButton icon="settings" />
                     </Tabs.Menu.Trigger>
-                    <Tabs.Menu.Content size="sm">
-                        <Tabs.Menu.List>
-                            <Tabs.HiddenTabsList ref={ref}>
-                                {(props) => (
-                                    <Menu.Item
-                                        {...props}
-                                        key={props.value}
-                                        valueText={props.value}
-                                        closeOnSelect
-                                    >
-                                        {props.value}
-                                    </Menu.Item>
-                                )}
-                            </Tabs.HiddenTabsList>
-                        </Tabs.Menu.List>
-                    </Tabs.Menu.Content>
+                    <Tabs.Menu.Positioner portalled>
+                        <Tabs.Menu.Content size="sm">
+                            <Tabs.Menu.List>
+                                <Tabs.HiddenTabsList ref={ref}>
+                                    {(props) => (
+                                        <Menu.Item
+                                            {...props}
+                                            key={props.value}
+                                            valueText={props.value}
+                                            closeOnSelect
+                                        >
+                                            {props.value}
+                                        </Menu.Item>
+                                    )}
+                                </Tabs.HiddenTabsList>
+                            </Tabs.Menu.List>
+                        </Tabs.Menu.Content>
+                    </Tabs.Menu.Positioner>
                 </Tabs.Menu.Root>
             </div>
             {items.map((item) => (
@@ -125,22 +127,24 @@ export const Secondary = (props) => {
                     <Tabs.Menu.Trigger asChild>
                         <IconButton icon="settings" />
                     </Tabs.Menu.Trigger>
-                    <Tabs.Menu.Content size="sm">
-                        <Tabs.Menu.List>
-                            <Tabs.HiddenTabsList ref={ref}>
-                                {(props) => (
-                                    <Menu.Item
-                                        {...props}
-                                        key={props.value}
-                                        valueText={props.value}
-                                        closeOnSelect
-                                    >
-                                        {props.value}
-                                    </Menu.Item>
-                                )}
-                            </Tabs.HiddenTabsList>
-                        </Tabs.Menu.List>
-                    </Tabs.Menu.Content>
+                    <Tabs.Menu.Positioner portalled>
+                        <Tabs.Menu.Content size="sm">
+                            <Tabs.Menu.List>
+                                <Tabs.HiddenTabsList ref={ref}>
+                                    {(props) => (
+                                        <Menu.Item
+                                            {...props}
+                                            key={props.value}
+                                            valueText={props.value}
+                                            closeOnSelect
+                                        >
+                                            {props.value}
+                                        </Menu.Item>
+                                    )}
+                                </Tabs.HiddenTabsList>
+                            </Tabs.Menu.List>
+                        </Tabs.Menu.Content>
+                    </Tabs.Menu.Positioner>
                 </Tabs.Menu.Root>
             </div>
             {items.map((item) => (
