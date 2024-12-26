@@ -115,7 +115,6 @@ export const Button: React.FC<ButtonComponentProps> = ({
         >
             {label}
             {icon ? <Icon value={icon} /> : null}
-            {children}
         </ButtonComponent>
     );
 };
