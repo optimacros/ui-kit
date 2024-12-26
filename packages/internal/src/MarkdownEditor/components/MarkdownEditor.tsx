@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo, useRef, KeyboardEvent, EventHandler, useCallback } from 'react';
 import { MarkdownEditor as MDE } from '@optimacros-ui/kit/src/components/MarkdownEditor/src';
 
 import { ResizableBox } from 'react-resizable';
@@ -23,8 +23,54 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
         splitTabLabel = 'Split',
         height,
         resizable,
+        value,
+        onChange,
         ...rest
     }) => {
+        const rootRef = useRef<HTMLDivElement>();
+
+        const handleKeyDown = useCallback<EventHandler<KeyboardEvent<HTMLTextAreaElement>>>(
+            (event) => {
+                if (event.key === 'Tab') {
+                    event.preventDefault();
+
+                    const textArea = event.target as HTMLTextAreaElement;
+
+                    const { selectionStart, selectionEnd } = textArea;
+
+                    onChange(
+                        `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`,
+                    );
+
+                    setTimeout(() => {
+                        textArea.selectionStart = selectionStart + 1;
+                        textArea.selectionEnd = selectionStart + 1;
+                    }, 10);
+                }
+            },
+            [value, onChange],
+        );
+
+        useEffect(() => {
+            if (!rootRef?.current) {
+                return;
+            }
+
+            const textAreaList = [
+                ...rootRef.current.querySelectorAll(`textarea[data-scope='markdown-editor']`),
+            ] as HTMLTextAreaElement[];
+
+            textAreaList.forEach((area) => {
+                area.addEventListener('keydown', handleKeyDown);
+            });
+
+            return () => {
+                textAreaList.forEach((area) => {
+                    area.removeEventListener('keydown', handleKeyDown);
+                });
+            };
+        }, [handleKeyDown]);
+
         const resizableState = useMemo(() => {
             if (!isNumber(height)) {
                 return false;
@@ -42,6 +88,9 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
                 activeTab={MDE.MarkdownEditorMode.SPLIT}
                 data-resizable={resizableState}
                 {...rest}
+                value={value}
+                onChange={onChange}
+                ref={rootRef}
             >
                 <MDE.Tabs.List>
                     <MDE.Tabs.Trigger
