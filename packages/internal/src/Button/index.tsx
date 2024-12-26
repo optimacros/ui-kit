@@ -1,1 +1,121 @@
-export const Button = () => <div>button</div>;
+import React, { type ButtonHTMLAttributes } from 'react';
+import { Button as ButtonComponent } from '@optimacros-ui/button';
+import { Icon } from '@optimacros-ui/icon';
+
+export type ThemeButtonProps = {
+    button: string;
+    icon: string;
+    accent: string;
+    bordered: string;
+    neutral: string;
+    primary: string;
+    flat: string;
+    floating: string;
+    raised: string;
+    inverse: string;
+    mini: string;
+};
+
+export type ButtonTheme = ThemeButtonProps & {
+    Button: string;
+    button_uppercase: string;
+    gray: string;
+    warning: string;
+};
+
+export interface ButtonInitialProps
+    extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+    label: string;
+    icon: string | React.JSX.Element | null;
+    href: string;
+    target: string;
+    gray: boolean;
+    warning: boolean;
+    accent: boolean;
+    neutral: boolean;
+    primary: boolean;
+    bordered: boolean;
+    uppercase: boolean;
+    floating: boolean;
+    raised: boolean;
+    inverse: boolean;
+    mini: boolean;
+    buttonColor: string;
+    fontColor: string;
+    fontSize: string | number;
+    theme: Partial<ThemeButtonProps>;
+}
+
+export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
+    theme: ButtonTheme;
+}
+
+export const Button: React.FC<ButtonComponentProps> = ({
+    className = '',
+    type = 'button',
+    label,
+    icon,
+    href,
+    theme,
+    inverse,
+    mini,
+    neutral,
+    uppercase,
+    gray,
+    warning,
+    buttonColor,
+    fontSize,
+    fontColor,
+    children,
+    accent,
+    primary,
+    bordered,
+    floating,
+    raised,
+    onMouseUp,
+    onMouseLeave,
+    disabled,
+}) => {
+    const getVariant = (): 'primary' | 'accent' | 'bordered' | 'gray' | 'neutral' => {
+        switch (true) {
+            case primary:
+                return 'primary';
+            case accent:
+                return 'accent';
+            case bordered:
+                return 'bordered';
+            case gray:
+                return 'gray';
+            default:
+                return 'neutral';
+        }
+    };
+
+    const getFloatStyles = (): 'raised' | 'floating' | 'flat' => {
+        switch (true) {
+            case raised:
+                return 'raised';
+            case floating:
+                return 'floating';
+            default:
+                return 'flat';
+        }
+    };
+
+    return (
+        <ButtonComponent
+            variant={getVariant()}
+            float={getFloatStyles()}
+            status={warning ? 'warning' : null}
+            href={href ? href : null}
+            size={mini ? 'xs' : 'md'}
+            disabled={disabled}
+            inverse={inverse}
+            uppercase={uppercase}
+        >
+            {label}
+            {icon ? <Icon value={icon} /> : null}
+            {children}
+        </ButtonComponent>
+    );
+};
