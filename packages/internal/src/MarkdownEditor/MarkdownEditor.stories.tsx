@@ -15,7 +15,10 @@ const argTypes: Partial<ArgTypes> = {
         type: { name: 'function', required: true },
         table: { type: { summary: '(value: string) => void' } },
     },
-    height: { control: 'number', description: 'Component height' },
+    height: {
+        control: 'number',
+        description: 'Component initial height. Required for `resizable`',
+    },
     className: {
         control: 'text',
         description: 'Root element className',
@@ -35,9 +38,12 @@ const argTypes: Partial<ArgTypes> = {
         description: 'Split tab label',
         table: { defaultValue: { summary: 'Split' } },
     },
+    resizable: {
+        control: 'boolean',
+        description: 'Enables resize. `height` prop is also required)',
+        table: { type: { summary: `boolean | 'none'` } },
+    },
 };
-
-// resizable?: boolean | string;
 
 const meta: Meta = {
     title: 'UI kit internal/MarkdownEditor',
@@ -72,4 +78,17 @@ export const Original: StoryObj<typeof OriginalMarkdownEditor> = {
         height: 300,
     },
     render: stories.Original,
+};
+
+export const Resizable: Story = {
+    args: {
+        editTabLabel: 'editTabLabel',
+        previewTabLabel: 'previewTabLabel',
+        splitTabLabel: 'splitTabLabel',
+        value: 'value',
+        className: 'className',
+        resizable: true,
+        height: 300,
+    },
+    render: stories.Basic,
 };

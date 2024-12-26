@@ -25,6 +25,7 @@
   }
 
   [data-scope='tabs'][data-part='content'] {
+    height: 100%;
     flex-grow: 1;
     min-height: 0;
     border: 1px solid var(--color-markdown-editor-primary-border-default);
@@ -33,6 +34,7 @@
   [data-scope='markdown-editor'][data-part='split'] {
     display: flex;
     flex-direction: row;
+    justify-content: stretch;
 
     & > div {
       flex-basis: 50%;
