@@ -5,3 +5,4 @@ export * from './Counter';
 export * from './Navigation';
 export * from './Favorite';
 export * from './Divider';
+export * from './Tooltip';
