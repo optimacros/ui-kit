@@ -29,7 +29,7 @@ const argTypes: Partial<ArgTypes> = {
         description: 'Part of the modal which will be used as drag handle',
         table: {
             type: { summary: 'selector' },
-            defaultValue: { summary: `[data-scope='modal'][data-part='header']` },
+            defaultValue: { summary: `[data-scope='dialog'][data-part='header']` },
         },
     },
     headerClassName: { control: 'text', description: 'Header class name' },
