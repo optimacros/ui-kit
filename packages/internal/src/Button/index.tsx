@@ -50,6 +50,37 @@ export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
     theme: ButtonTheme;
 }
 
+const getVariant = (
+    primary: boolean,
+    accent: boolean,
+    bordered: boolean,
+    gray: boolean,
+): 'primary' | 'accent' | 'bordered' | 'gray' | 'neutral' => {
+    switch (true) {
+        case primary:
+            return 'primary';
+        case accent:
+            return 'accent';
+        case bordered:
+            return 'bordered';
+        case gray:
+            return 'gray';
+        default:
+            return 'neutral';
+    }
+};
+
+const getFloatStyles = (raised: boolean, floating: boolean): 'raised' | 'floating' | 'flat' => {
+    switch (true) {
+        case raised:
+            return 'raised';
+        case floating:
+            return 'floating';
+        default:
+            return 'flat';
+    }
+};
+
 export const Button: React.FC<ButtonComponentProps> = ({
     className = '',
     type = 'button',
@@ -76,36 +107,10 @@ export const Button: React.FC<ButtonComponentProps> = ({
     onMouseLeave,
     disabled,
 }) => {
-    const getVariant = (): 'primary' | 'accent' | 'bordered' | 'gray' | 'neutral' => {
-        switch (true) {
-            case primary:
-                return 'primary';
-            case accent:
-                return 'accent';
-            case bordered:
-                return 'bordered';
-            case gray:
-                return 'gray';
-            default:
-                return 'neutral';
-        }
-    };
-
-    const getFloatStyles = (): 'raised' | 'floating' | 'flat' => {
-        switch (true) {
-            case raised:
-                return 'raised';
-            case floating:
-                return 'floating';
-            default:
-                return 'flat';
-        }
-    };
-
     return (
         <ButtonComponent
-            variant={getVariant()}
-            float={getFloatStyles()}
+            variant={getVariant(primary, accent, bordered, gray)}
+            float={getFloatStyles(raised, floating)}
             status={warning ? 'warning' : null}
             href={href ? href : null}
             size={mini ? 'xs' : 'md'}
