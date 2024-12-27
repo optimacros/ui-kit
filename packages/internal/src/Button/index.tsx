@@ -106,6 +106,7 @@ export const Button: React.FC<ButtonComponentProps> = ({
     onMouseUp,
     onMouseLeave,
     disabled,
+    ...rest
 }) => {
     return (
         <ButtonComponent
@@ -117,6 +118,7 @@ export const Button: React.FC<ButtonComponentProps> = ({
             disabled={disabled}
             inverse={inverse}
             uppercase={uppercase}
+            {...rest}
         >
             {label}
             {icon ? <Icon value={icon} /> : null}
