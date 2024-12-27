@@ -1,5 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { Button } from './index.tsx';
+import { Button } from './index';
 
 const argTypes: Partial<ArgTypes> = {
     accent: {
