@@ -81,7 +81,7 @@ const getFloatStyles = (raised: boolean, floating: boolean): 'raised' | 'floatin
     }
 };
 
-export const Button: React.FC<ButtonComponentProps> = ({
+export const Button: ButtonComponentProps = ({
     className = '',
     type = 'button',
     label,
@@ -121,7 +121,7 @@ export const Button: React.FC<ButtonComponentProps> = ({
             {...rest}
         >
             {label}
-            {icon ? <Icon value={icon} /> : null}
+            {icon && typeof icon === 'string' ? <Icon value={icon} /> : icon}
         </ButtonComponent>
     );
 };
