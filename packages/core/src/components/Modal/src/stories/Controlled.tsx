@@ -16,7 +16,7 @@ export const Controlled = () => {
         <>
             <Button onClick={() => setOpen(true)}>Open</Button>
 
-            <Modal.CustomRoot
+            <Modal.Root
                 open={open}
                 onOpenChange={(details) => {
                     flushSync(() => setOpen(details.open));
@@ -24,16 +24,18 @@ export const Controlled = () => {
                 onClose={handleRequestClose}
                 controllable
             >
-                <Modal.Header>
-                    <Modal.Title>Click on overlay</Modal.Title>
-                </Modal.Header>
-                <Modal.ScrollContainer>
-                    <p>Click on overlay</p>
-                </Modal.ScrollContainer>
-                <Modal.Footer>
-                    <Modal.CloseTrigger>Close</Modal.CloseTrigger>
-                </Modal.Footer>
-            </Modal.CustomRoot>
+                <Modal.Content>
+                    <Modal.Header>
+                        <Modal.Title>Click on overlay</Modal.Title>
+                    </Modal.Header>
+                    <Modal.ScrollContainer>
+                        <p>Click on overlay</p>
+                    </Modal.ScrollContainer>
+                    <Modal.Footer>
+                        <Button onClick={() => setOpen(false)}>Close</Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal.Root>
         </>
     );
 };

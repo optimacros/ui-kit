@@ -11,6 +11,7 @@ import { extendMachine } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { ComponentProps } from 'react';
 import React from 'react';
+import { PropsWithChildren } from 'react';
 import { Portal } from '@zag-js/react';
 
 const config = {
@@ -49,23 +50,6 @@ export const {
 } = createReactApiStateContext({
     id: 'modal',
     machine,
-    connect(api, { state, send }, machine) {
-        function close() {
-            api.setOpen(false);
-        }
-
-        return {
-            ...api,
-            close,
-            getCloseTriggerProps() {
-                return {
-                    'data-scope': 'dialog',
-                    'data-part': 'close-trigger',
-                    onClick: close,
-                };
-            },
-        };
-    },
 });
 
 /**
@@ -97,28 +81,33 @@ export const CustomRoot = forward<ComponentProps<typeof Root>, 'div'>(
     },
 );
 
-export const Trigger = forward<React.PropsWithChildren, 'button'>((props, ref) => {
+export const Trigger = forward<PropsWithChildren, 'button'>((props, ref) => {
     const api = useApi();
 
     return <styled.button {...props} {...api.getTriggerProps()} ref={ref} />;
 });
 
-export const Content = forward<React.PropsWithChildren, 'div'>((props, ref) => {
-    const api = useApi();
+export const Content = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
+        const api = useApi();
 
-    return (
-        api.open && (
-            <Portal>
-                <styled.div {...api.getBackdropProps()} />
-                <styled.div {...api.getPositionerProps()}>
-                    <styled.div {...props} {...api.getContentProps()} ref={ref} />
-                </styled.div>
-            </Portal>
-        )
-    );
-});
+        return (
+            api.open && (
+                <Portal>
+                    <styled.div {...api.getBackdropProps()} />
+                    <styled.div {...api.getPositionerProps()}>
+                        <styled.div {...props} {...api.getContentProps()} ref={ref} />
+                    </styled.div>
+                </Portal>
+            )
+        );
+    },
+    {
+        displayName: 'Content',
+    },
+);
 
-export const Footer = forward<React.PropsWithChildren, 'div'>(
+export const Footer = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => (
         <styled.div {...rest} ref={ref} data-part="footer" data-scope="dialog">
             {children}
@@ -129,7 +118,7 @@ export const Footer = forward<React.PropsWithChildren, 'div'>(
     },
 );
 
-export const Header = forward<React.PropsWithChildren, 'div'>(
+export const Header = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {
         return (
             <styled.div {...rest} ref={ref} data-scope="dialog" data-part="header">
@@ -142,7 +131,7 @@ export const Header = forward<React.PropsWithChildren, 'div'>(
     },
 );
 
-export const CloseTrigger = forward<React.PropsWithChildren, 'button'>(
+export const CloseTrigger = forward<PropsWithChildren, 'button'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
@@ -157,7 +146,7 @@ export const CloseTrigger = forward<React.PropsWithChildren, 'button'>(
     },
 );
 
-export const ScrollContainer = forward<React.PropsWithChildren, 'div'>(
+export const ScrollContainer = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => (
         <styled.div ref={ref} {...rest} data-scope="dialog" data-part="scroll-container-outer">
             <styled.div
@@ -174,7 +163,7 @@ export const ScrollContainer = forward<React.PropsWithChildren, 'div'>(
     },
 );
 
-export const Title = forward<React.PropsWithChildren, 'h3'>(
+export const Title = forward<PropsWithChildren, 'h3'>(
     (props, ref) => {
         const api = useApi();
 

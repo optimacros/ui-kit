@@ -11,7 +11,7 @@ const argTypes: Partial<ArgTypes> = {
         control: 'boolean',
         description: 'Whether the dialog is open',
     },
-    'open.controlled': {
+    controllable: {
         control: 'boolean',
         description: 'Whether the dialog is controlled by the user',
     },
@@ -94,86 +94,90 @@ export const Basic = {
                     Open
                 </Button>
 
-                <Modal.CustomRoot open={open} onOpenChange={handleOpenChange} controllable>
-                    <Modal.Header>
-                        <Modal.Title>Edit profile</Modal.Title>
-                    </Modal.Header>
-                    <Modal.ScrollContainer>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                        <p>Make changes to your profile here. Click save when you are done.</p>
-                        <div>
-                            <input placeholder="Enter name..." />
-                            <button>Save</button>
-                        </div>
-                    </Modal.ScrollContainer>
-                    <Modal.Footer>
-                        <Button onClick={() => setOpen(false)}>Close</Button>
-                    </Modal.Footer>
-                </Modal.CustomRoot>
+                <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
+                    <Modal.Content>
+                        <Modal.Header>
+                            <Modal.Title>Edit profile</Modal.Title>
+                        </Modal.Header>
+                        <Modal.ScrollContainer>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                            <p>Make changes to your profile here. Click save when you are done.</p>
+                            <div>
+                                <input placeholder="Enter name..." />
+                                <button>Save</button>
+                            </div>
+                        </Modal.ScrollContainer>
+                        <Modal.Footer>
+                            <Modal.CloseTrigger asChild>
+                                <Button>Close</Button>
+                            </Modal.CloseTrigger>
+                        </Modal.Footer>
+                    </Modal.Content>
+                </Modal.Root>
             </>
         );
     },
@@ -185,4 +189,5 @@ export {
     PreventScroll,
     CloseOnEscape,
     CloseOnInteractOutside,
+    CloseIcon,
 } from './stories';

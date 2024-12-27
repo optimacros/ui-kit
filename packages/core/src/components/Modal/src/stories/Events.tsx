@@ -27,21 +27,25 @@ export const Events = () => {
 
             <div id="lastEventName">lastEventName</div>
 
-            <Modal.CustomRoot open={open} {...props}>
-                <Modal.Header>
-                    <Modal.Title>Edit profile</Modal.Title>
-                </Modal.Header>
-                <Modal.ScrollContainer>
-                    <p>Make changes to your profile here. Click save when you are done.</p>
-                    <div>
-                        <input placeholder="Enter name..." />
-                        <button>Save</button>
-                    </div>
-                </Modal.ScrollContainer>
-                <Modal.Footer>
-                    <Button onClick={() => setOpen(false)}>Close</Button>
-                </Modal.Footer>
-            </Modal.CustomRoot>
+            <Modal.Root open={open} {...props}>
+                <Modal.Content>
+                    <Modal.Header>
+                        <Modal.Title>Edit profile</Modal.Title>
+                    </Modal.Header>
+                    <Modal.ScrollContainer>
+                        <p>Make changes to your profile here. Click save when you are done.</p>
+                        <div>
+                            <input placeholder="Enter name..." />
+                            <button>Save</button>
+                        </div>
+                    </Modal.ScrollContainer>
+                    <Modal.Footer>
+                        <Modal.CloseTrigger asChild>
+                            <Button>Close</Button>
+                        </Modal.CloseTrigger>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal.Root>
 
             <div style={{ height: '110vh' }}></div>
         </>
