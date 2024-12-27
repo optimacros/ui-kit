@@ -1,9 +1,9 @@
-import { Variant } from '@optimacros-ui/button';
+import { Status } from '@optimacros-ui/button';
 import { SnackbarType } from '../models';
 
-export const buttonTypeMapping: Record<SnackbarType, Variant> = {
-    accept: 'primary',
-    cancel: 'primary',
-    warning: 'primary',
-    default: 'primary',
+export const buttonStatusMapping: Record<SnackbarType, Status> = {
+    accept: 'success',
+    cancel: 'error',
+    warning: 'warning',
+    default: null,
 };

@@ -43,9 +43,10 @@ const argTypes: ArgTypes = {
             'Amount of time in milliseconds after the Snackbar will be automatically hidden',
     },
     type: {
-        options: ['accept', 'warning', 'cancel'],
+        options: ['accept', 'warning', 'cancel', 'default'],
         control: { type: 'radio' },
         description: 'Indicates the action type',
+        table: { defaultValue: { summary: 'default' } },
     },
     Button: {
         control: false,

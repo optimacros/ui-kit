@@ -4,10 +4,12 @@ import { forward, styled } from '@optimacros-ui/store';
 
 export type Variant = 'primary' | 'accent' | 'bordered' | 'neutral' | 'transparent' | 'gray';
 
+export type Status = 'warning' | 'error' | 'success';
+
 export interface ButtonThemeProps {
     variant?: Variant;
     float?: 'raised' | 'floating' | 'flat';
-    status?: 'warning' | 'error' | 'success';
+    status?: Status;
     size?: 'xs' | 'sm' | 'md';
     squared?: boolean;
     uppercase?: boolean;

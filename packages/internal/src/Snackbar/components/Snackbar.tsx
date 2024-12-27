@@ -1,11 +1,12 @@
 import { Toast, ToastGroup } from '@optimacros-ui/toast';
 import { Button } from '@optimacros-ui/button';
-import { memo, ReactNode, useEffect } from 'react';
+import { memo, ReactNode, useEffect, useMemo } from 'react';
 import { SnackbarType } from '../models';
 import { isNil } from 'lodash-es';
 import { clsx } from '@optimacros-ui/utils';
 import { Button as DefaultButton } from '@optimacros-ui/button';
 import { Text } from '@optimacros-ui/text';
+import { buttonStatusMapping } from '../settings';
 
 export interface SnackbarProps {
     action?: string;
@@ -69,6 +70,10 @@ const SnackbarComponent = memo<SnackbarProps>(
             className,
         );
 
+        const buttonStatus = useMemo(() => {
+            return buttonStatusMapping[type];
+        }, [type]);
+
         return (
             <>
                 <ToastGroup.Portal className={theme?.portal}>
@@ -86,7 +91,11 @@ const SnackbarComponent = memo<SnackbarProps>(
 
                             {!!action && Button && (
                                 <Toast.CloseTrigger asChild>
-                                    <Button onClick={onClick} className={theme?.button}>
+                                    <Button
+                                        onClick={onClick}
+                                        className={theme?.button}
+                                        status={buttonStatus}
+                                    >
                                         {action}
                                     </Button>
                                 </Toast.CloseTrigger>
