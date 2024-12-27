@@ -79,33 +79,35 @@ export const WithModal = (props) => {
         <>
             <Button onClick={() => setOpen(true)}>Open Modal</Button>
 
-            <Modal.CustomRoot open={open} onOpenChange={handleOpenChange}>
-                <Modal.Header>
-                    <Modal.Title>Edit profile</Modal.Title>
-                </Modal.Header>
-                <Modal.ScrollContainer>
-                    <p>Make changes to your profile here. Click save when you are done.</p>
-                    <div>
-                        <input placeholder="Enter name..." />
-                        <button>Save</button>
+            <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
+                <Modal.Content>
+                    <Modal.Header>
+                        <Modal.Title>Edit profile</Modal.Title>
+                    </Modal.Header>
+                    <Modal.ScrollContainer>
+                        <p>Make changes to your profile here. Click save when you are done.</p>
+                        <div>
+                            <input placeholder="Enter name..." />
+                            <button>Save</button>
+                        </div>
+                        <p>Make changes to your profile here. Click save when you are done.</p>
+                        <div>
+                            <input placeholder="Enter name..." />
+                            <button>Save</button>
+                        </div>
+                    </Modal.ScrollContainer>
+                    <div style={{ padding: '2rem', width: '100%', boxSizing: 'border-box' }}>
+                        <Toolbar.Root {...props} isSmall>
+                            <Button variant="primary" onClick={() => setOpen(false)}>
+                                Cancel
+                            </Button>
+                            <Button variant="accent" onClick={() => setOpen(false)}>
+                                Submit
+                            </Button>
+                        </Toolbar.Root>
                     </div>
-                    <p>Make changes to your profile here. Click save when you are done.</p>
-                    <div>
-                        <input placeholder="Enter name..." />
-                        <button>Save</button>
-                    </div>
-                </Modal.ScrollContainer>
-                <div style={{ padding: '2rem', width: '100%', boxSizing: 'border-box' }}>
-                    <Toolbar.Root {...props} isSmall>
-                        <Button variant="primary" onClick={() => setOpen(false)}>
-                            Cancel
-                        </Button>
-                        <Button variant="accent" onClick={() => setOpen(false)}>
-                            Submit
-                        </Button>
-                    </Toolbar.Root>
-                </div>
-            </Modal.CustomRoot>
+                </Modal.Content>
+            </Modal.Root>
         </>
     );
 };
