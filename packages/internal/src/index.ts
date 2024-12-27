@@ -6,3 +6,4 @@ export * from './Navigation';
 export * from './Favorite';
 export * from './Divider';
 export * from './Tooltip';
+export * from './MarkdownEditor';

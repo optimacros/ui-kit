@@ -57,6 +57,7 @@
                 "packages/core/src/components/LayoutFixedContainer/src"
             ],
             "@optimacros-ui/loader": ["packages/core/src/components/Loader/src"],
+            "@optimacros-ui/markdown-editor": ["packages/core/src/components/MarkdownEditor/src"],
             "@optimacros-ui/memory-counter": ["packages/core/src/components/MemoryCounter/src"],
             "@optimacros-ui/menu": ["packages/core/src/components/Menu/src"],
             "@optimacros-ui/modal": ["packages/core/src/components/Modal/src"],

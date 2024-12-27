@@ -1,0 +1,11 @@
+[data-scope='markdown-editor'][data-part='root'] {
+  .react-resizable {
+    width: 100% !important;
+  }
+}
+
+[data-scope='markdown-editor'][data-part='root'][data-resizable='false'] {
+  .react-resizable-handle {
+    display: none;
+  }
+}
