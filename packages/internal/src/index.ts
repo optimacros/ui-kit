@@ -21,3 +21,4 @@ export * from './RadioGroup';
 export * from './Loader';
 export * from './ProgressBars';
 export * from './FileInput';
+export * from './Modal';
