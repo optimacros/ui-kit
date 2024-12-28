@@ -1,10 +1,11 @@
 //@ts-nocheck
 
-import { ArgTypes, Meta } from '@storybook/react';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Modal } from './index';
 import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { interactionTasks } from './interactions';
+import * as stories from './stories';
 
 const argTypes: Partial<ArgTypes> = {
     open: {
@@ -74,6 +75,8 @@ const meta: Meta<typeof Modal> = {
 };
 
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Basic = {
     parameters: {
@@ -183,11 +186,30 @@ export const Basic = {
     },
 };
 
-export {
-    Controlled,
-    Focus,
-    PreventScroll,
-    CloseOnEscape,
-    CloseOnInteractOutside,
-    CloseIcon,
-} from './stories';
+export const Controlled: Story = {
+    render: stories.Controlled,
+};
+
+export const Focus: Story = {
+    render: stories.Focus,
+};
+
+export const PreventScroll: Story = {
+    render: stories.PreventScroll,
+};
+
+export const CloseOnEscape: Story = {
+    render: stories.CloseOnEscape,
+};
+
+export const CloseOnInteractOutside: Story = {
+    render: stories.CloseOnInteractOutside,
+};
+
+export const CloseIcon: Story = {
+    render: stories.CloseIcon,
+};
+
+export const Draggable: Story = {
+    render: stories.Draggable,
+};

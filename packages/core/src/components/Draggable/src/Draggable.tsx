@@ -9,7 +9,7 @@ export const Item = forward<
     UseDraggableArguments & {
         children: (props: ReturnType<typeof useDraggable> & { id: string }) => ReactNode;
     },
-    {}
+    'div'
 >(({ children, id: baseId, data, disabled, attributes: attr }, ref) => {
     const id = 'draggable-' + baseId;
 
@@ -20,7 +20,7 @@ export const Item = forward<
         attributes: attr,
     });
 
-    useImperativeHandle(ref, () => draggable.node as unknown as HTMLLIElement);
+    useImperativeHandle(ref, () => draggable.node.current as unknown as HTMLDivElement);
 
     return children({ id, ...draggable });
 });
