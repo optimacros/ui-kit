@@ -29,6 +29,7 @@
     border: var(--spacing-px) solid var(--color-theme-divider-dark-default);
     max-width: 80vw;
     max-height: 80vh;
+    box-sizing: border-box;
   }
 
   & [data-part='header'] {
@@ -87,5 +88,9 @@
 
   & [data-part='scroll-container-inner'] {
     padding-right: calc(var(--spacing-2-5) - var(--width-scroll));
+  }
+
+  & [data-draggable-part='handle'] {
+    cursor: move;
   }
 }
