@@ -1,0 +1,91 @@
+[data-scope='dialog'] {
+  &[data-part='backdrop'] {
+    position: fixed;
+    z-index: var(--z-index-highest);
+    inset: 0;
+
+    background-color: var(--color-modal-primary-backdrop-default);
+    opacity: 0.2;
+  }
+
+  &[data-part='positioner'] {
+    position: fixed;
+    z-index: var(--z-index-highest);
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  & [data-part='content'] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-3);
+    background-color: var(--color-modal-primary-default);
+    border: var(--spacing-px) solid var(--color-theme-divider-dark-default);
+    max-width: 80vw;
+    max-height: 80vh;
+  }
+
+  & [data-part='header'] {
+    position: relative;
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-14);
+    padding-top: var(--spacing-3-5);
+    padding-bottom: var(--spacing-3-5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    min-height: var(--spacing-12);
+    box-sizing: border-box;
+
+    & [data-part='close-trigger'] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: var(--spacing-12);
+      width: var(--spacing-12);
+    }
+  }
+
+  & [data-part='title'] {
+    color: var(--color-text);
+    margin: 0;
+    font-size: var(--spacing-5);
+    font-weight: var(--font-weight-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & [data-part='footer'] {
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
+    padding-top: var(--spacing-3-5);
+    padding-bottom: var(--spacing-3-5);
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  & [data-part='scroll-container-outer'] {
+    display: flex;
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-2);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  & [data-part='scroll-container-inner'] {
+    padding-right: calc(var(--spacing-2-5) - var(--width-scroll));
+  }
+}

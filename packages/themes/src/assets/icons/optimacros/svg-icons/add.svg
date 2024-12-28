@@ -1,0 +1,12 @@
+<svg
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M27.4737 2H20.5264V46H27.4737V2Z"
+        id="line-vertical"
+    />
+    <path
+        d="M46 20.5264H2V27.4737H46V20.5264Z"
+        id="line-horizontal"
+    />
+</svg>

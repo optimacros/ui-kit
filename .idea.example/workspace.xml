@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+<component name="PropertiesComponent">
+<![CDATA[ { "keyToString": { "RunOnceActivity.OpenProjectViewOnStart": "true", "RunOnceActivity.ShowReadmeOnStart": "true", "WebServerToolWindowFactoryState": "false", "js.linters.configure.manually.selectedeslint": "true", "node.js.detected.package.standard": "true", "node.js.detected.package.tslint": "true", "node.js.selected.package.eslint": "$PROJECT_DIR$/node_modules/eslint", "node.js.selected.package.standard": "", "node.js.selected.package.tslint": "(autodetect)", "nodejs_package_manager_path": "npm", "settings.editor.selected.configurable": "preferences.fileTypes", "ts.external.directory.path": "$PROJECT_DIR$/node_modules/typescript/lib", "vue.rearranger.settings.migration": "true" } } ]]>
+</component>
+</project>

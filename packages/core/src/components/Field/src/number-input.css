@@ -1,0 +1,7 @@
+[data-scope='number-input'][data-part='scrubber'] {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  min-height: var(--spacing-3);
+  background-color: var(--color-theme-primary-default);
+}

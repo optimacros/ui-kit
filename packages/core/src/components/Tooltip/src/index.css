@@ -1,0 +1,23 @@
+[data-scope='tooltip'][data-part='arrow'] {
+  --arrow-size: var(--spacing-5);
+  --arrow-background: var(--color-tooltip-primary-default);
+
+  &[data-placement='right'] {
+    --arrow-size: var(--spacing-2);
+  }
+}
+
+[data-scope='tooltip'][data-part='content'] {
+  z-index: var(--z-index-normal);
+  position: relative;
+
+  background-color: var(--color-tooltip-primary-default);
+  color: var(--color-tooltip-primary-on-default);
+  padding: var(--spacing-2);
+  max-width: var(--spacing-20);
+  border-radius: var(--radius-sm);
+}
+
+[data-scope='tooltip'][data-part='trigger'] {
+  width: fit-content;
+}

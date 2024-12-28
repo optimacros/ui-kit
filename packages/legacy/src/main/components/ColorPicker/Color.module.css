@@ -1,0 +1,75 @@
+.color {
+  width: 36px;
+  height: 14px;
+  border-radius: 1px;
+}
+
+.Title {
+  font-size: 14px;
+  display: block;
+  line-height: 2;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.swatch {
+  padding: 1px;
+  background: #dcdcdc;
+  border-radius: 1px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.popover {
+  z-index: 2;
+}
+
+.cover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.colorPicker {
+  box-sizing: initial;
+  background: var(--contextMenu-bg);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px;
+
+  & :global(.sketch-picker) {
+    background: var(--contextMenu-bg) !important;
+    box-shadow: none !important;
+  }
+
+  & :global(.flexbox-fix) {
+    border-color: var(--light-divider-color) !important;
+  }
+
+  & :global(.flexbox-fix) span {
+    color: var(--primary-text-color) !important;
+  }
+}
+
+.toolbar {
+  margin-top: 0;
+  padding: 10px;
+}
+
+.button {
+  min-width: 65px;
+  font-size: 1.2rem;
+  height: 30px;
+  line-height: 30px;
+}
+
+.picker {
+  padding: 0;
+}
+
+.SettingsButtonIcon {
+  vertical-align: top;
+}

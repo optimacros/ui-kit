@@ -1,0 +1,10 @@
+[data-scope='popover'] {
+  &[data-part='content'] {
+    text-align: end;
+  }
+
+  & [data-part='title'],
+  & [data-part='description'] {
+    text-align: start;
+  }
+}

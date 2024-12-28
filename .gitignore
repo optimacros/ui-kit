@@ -1,5 +1,4 @@
 .idea
-.vscode
 node_modules*
 bower_components*
 storybook-static*
@@ -20,7 +19,11 @@ reports
 coverage
 
 lib
-/dist
+
+dist
 
 src/version.json
+lerna-debug
 
+.npmrc
+.storybook/assets/output.css

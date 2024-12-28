@@ -1,0 +1,19 @@
+[data-scope='visually-hidden'][data-part='root'] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+/* Avoid VoiceOver bug when text is less than 13px */
+@supports (-webkit-touch-callout: none) {
+  [data-scope='visually-hidden'][data-part='root'] {
+    font-size: 13px;
+  }
+}

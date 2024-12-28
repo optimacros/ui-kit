@@ -1,0 +1,121 @@
+@import '../variables.css';
+@import './config.css';
+
+.tooltip {
+  display: block;
+  font-family: var(--preferred-font);
+  font-size: var(--tooltip-font-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-size-small);
+  max-width: var(--tooltip-max-width);
+  padding: var(--tooltip-margin);
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  text-transform: none;
+  transform: scale(0) translateX(-50%);
+  transform-origin: top left;
+  transition: var(--animation-curve-default) var(--tooltip-animation-duration) transform;
+  z-index: var(--z-index-higher);
+
+  @apply --reset;
+
+  &.tooltipActive {
+    transform: scale(1) translateX(-50%);
+  }
+
+  &.tooltipTop {
+    transform: scale(0) translateX(-50%) translateY(-100%);
+
+    &.tooltipActive {
+      transform: scale(1) translateX(-50%) translateY(-100%);
+    }
+  }
+
+  &.tooltipLeft {
+    transform: scale(0) translateX(-100%) translateY(-50%);
+
+    &.tooltipActive {
+      transform: scale(1) translateX(-100%) translateY(-50%);
+    }
+  }
+
+  &.tooltipRight {
+    transform: scale(0) translateX(0) translateY(-50%);
+
+    &.tooltipActive {
+      transform: scale(1) translateX(0) translateY(-50%);
+    }
+  }
+}
+
+.tooltipInner {
+  background: var(--tooltip-background);
+  border-radius: var(--tooltip-border-radius);
+  color: var(--tooltip-color);
+  display: block;
+  padding: var(--tooltip-padding);
+}
+
+.tooltip {
+  max-width: none;
+  position: absolute;
+  z-index: 9999;
+
+  & .tooltipInner {
+    min-height: 30px;
+    min-width: 70px;
+    padding: 8px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #ffffff;
+    border-radius: var(--border-radius);
+    background: #3b3b3b;
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+
+  &.tooltipRight {
+    &.tooltipActive {
+      transform: scale(1) translateX(-10px) translateY(5px);
+    }
+  }
+}
+
+.tooltipBottom {
+  padding-top: 12px;
+
+  & .tooltipInner:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #3b3b3b transparent;
+  }
+}
+
+.tooltipTop {
+  padding-bottom: 12px;
+
+  & .tooltipInner:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px 8px 0 8px;
+    border-style: solid;
+    border-color: #3b3b3b transparent transparent transparent;
+  }
+}

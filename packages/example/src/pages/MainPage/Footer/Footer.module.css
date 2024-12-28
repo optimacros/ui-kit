@@ -1,0 +1,22 @@
+.Footer {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  color: var(--mainTabs-footer-color);
+  background-color: var(--mainTabs-footer-bg);
+}
+
+.applicationVersion {
+  font-size: 10px;
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+.FooterCopyright {
+  font-size: 10px;
+}
+
+.FooterCounter {
+  font-size: 11px;
+  margin-left: auto;
+}

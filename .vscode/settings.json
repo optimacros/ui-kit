@@ -1,0 +1,16 @@
+{
+    "files.eol": "\n",
+    "css.lint.unknownAtRules": "ignore",
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "quickfix.biome": "always"
+    },
+    "editor.defaultFormatter": "biomejs.biome",
+    "[tailwindcss]": {
+        "editor.defaultFormatter": "bradlc.vscode-tailwindcss"
+    },
+    "tailwindCSS.experimental.classRegex": [["tw\\s\\*/\\s+[\"'`]([^\"'`]*)"], ["tw`([^]*)\\`"]],
+    "tailwindCSS.classAttributes": ["class", "className"],
+    "eslint.enable": false
+}

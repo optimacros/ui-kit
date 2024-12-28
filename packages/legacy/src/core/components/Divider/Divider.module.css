@@ -1,0 +1,21 @@
+@import '../../themes/config.css';
+
+.Divider {
+  display: inline-flex;
+  min-width: 20px;
+  margin: 0;
+  padding: 0;
+  height: 1px;
+  border: none;
+  background-color: var(--dark-divider-color);
+  transform: translateY(-1px);
+
+  &__vertical {
+    height: 18px;
+    min-width: 1px;
+    width: 1px;
+    padding: 0;
+    margin-top: 0;
+    align-self: center;
+  }
+}

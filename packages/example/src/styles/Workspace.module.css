@@ -1,0 +1,21 @@
+/* Main Layout */
+.Wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: auto;
+}
+
+html.printMode {
+  @media print {
+    .Wrapper {
+      height: auto;
+    }
+  }
+}
+
+[data-react-toolbox='navigation'] {
+  & ~ .GridContainer {
+    height: calc(100% - 38px);
+  }
+}

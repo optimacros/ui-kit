@@ -1,0 +1,35 @@
+[data-scope='button-group'] {
+  &[data-part='root'] {
+    display: flex;
+    border: var(--spacing-px) solid var(--color-button-group-primary-border-default);
+    border-radius: var(--radius-sm);
+    justify-content: start;
+    align-items: center;
+  }
+
+  &[data-active='true'] {
+    background: var(--color-button-group-primary-border-default);
+  }
+
+  &[data-part='item'] {
+    cursor: pointer;
+    flex-grow: 1;
+    border: var(--spacing-px) solid transparent;
+  }
+
+  &[data-part='item']:nth-of-type(n + 1):not(:last-of-type) {
+    border-right: var(--spacing-px) solid var(--color-button-group-primary-border-default);
+  }
+
+  &[data-part='root'][data-orientation='vertical'] {
+    flex-direction: column;
+    & [data-part='item'] {
+      width: 100%;
+    }
+
+    & [data-part='item']:nth-of-type(n + 1):not(:last-of-type) {
+      border-right: none;
+      border-bottom: var(--spacing-px) solid var(--color-button-group-primary-border-default);
+    }
+  }
+}

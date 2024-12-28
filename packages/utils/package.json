@@ -1,0 +1,25 @@
+{
+    "name": "@optimacros-ui/utils",
+    "private": false,
+    "version": "0.0.2",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup --config ./tsup.config.ts"
+    },
+    "dependencies": {
+        "@internationalized/date": "3.5.4",
+        "@optimacros-ui/types": "^0.0.2",
+        "immutable": "4.3.5",
+        "lodash-es": "4.17.21",
+        "radash": "12.1.0"
+    },
+    "devDependencies": {
+        "@types/lodash-es": "4.17.12"
+    },
+    "peerDependencies": {
+        "react": "18.2.0"
+    }
+}

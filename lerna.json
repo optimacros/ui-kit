@@ -1,0 +1,20 @@
+{
+    "npmClient": "npm",
+    "packages": ["packages/**"],
+    "version": "independent",
+    "hoist": "**",
+    "publishConfig": {
+        "access": "private"
+    },
+    "forceLocal": true,
+    "useWorkspaces": false,
+    "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+    "command": {
+        "publish": {
+            "message": "chore(release): publish"
+        },
+        "bootstrap": {
+            "npmClientArgs": ["--legacy-peer-deps"]
+        }
+    }
+}

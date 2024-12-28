@@ -1,8 +1,0 @@
-.ButtonMenu {
-    &__showOnlyIcon {
-        & .icon {
-            font-size: 120%;
-            margin-right: 6px !important;
-        }
-    }
-}

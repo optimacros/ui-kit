@@ -14,17 +14,23 @@ workflow:
     - if: ( $CI_PIPELINE_SOURCE == "merge_request_event") # При MR
       variables:
         pr: "true"
+    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # При запуске для тегов, валидный формат: 1.0.0, 2.4.7-dev, 4.3.2-stable
+      variables:
+        pushNexus: "true"
     - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
 
 stages:
   - build
   - test
   - deploy
+  - nexus
 
 build:
   stage: build
   script:
-    - nvm use && npm ci && npm run build-storybook
+    - echo "legacy-peer-deps=true" >> .npmrc
+    - nvm use && npm ci
+    - npm run build:storybook
     - mv storybook-static $CI_PROJECT_NAME
     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
   tags:
@@ -39,6 +45,24 @@ lint-test:
     - ${runner}
   script:
     - nvm use && npm run lint
+
+# push artefacts to nexus
+nexus-push-job:
+  stage: nexus
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - if: ($pushNexus == "true")
+  allow_failure: true
+  needs:
+    - lint-test
+  tags:
+    - ${runner}
+  script:
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
+    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - nvm use && npm ci
+    - echo "y" | npm run publish
 
 #deploy
 deploy:

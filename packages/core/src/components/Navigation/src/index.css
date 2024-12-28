@@ -1,0 +1,22 @@
+[data-scope='navigation'][data-part='root'] {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: var(--spacing-1) 0;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-1);
+  max-width: var(--size-full);
+  box-sizing: border-box;
+  font-family: var(--font-preferred);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+  max-height: var(--size-full);
+}
+
+[data-scope='navigation'][data-part='root'][data-orientation='vertical'] {
+  flex-direction: column;
+  margin-right: 0;
+  margin-bottom: var(--spacing-1);
+}

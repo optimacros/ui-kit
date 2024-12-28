@@ -1,0 +1,149 @@
+/* -------------------------------------------------- */
+/* Header Nav */
+/* -------------------------------------------------- */
+.headerNav {
+  display: inline-block;
+  vertical-align: middle;
+
+  &_List {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &_Item {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1;
+
+    & a,
+    & span {
+      text-decoration: none;
+    }
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+}
+
+/* -------------------------------------------------- */
+/* User Menu */
+/* -------------------------------------------------- */
+.userMenu {
+  display: inline-block;
+  position: relative;
+
+  &_Title {
+    font-size: 14px;
+    line-height: 1.57;
+    white-space: nowrap;
+  }
+
+  &_List {
+    display: none;
+    min-width: 100px;
+    max-height: 650px;
+    max-width: 290px;
+    margin: 0;
+    padding: 8px 0;
+    position: absolute;
+    top: -17px;
+    left: auto;
+    right: -20px;
+    z-index: 1000;
+    border-radius: var(--border-radius);
+    background: var(--UserMenu-bg);
+    box-shadow: 0 8px 16px 0 rgba(83, 94, 110, 0.13), 0 4px 8px 0 rgba(92, 113, 133, 0.25);
+
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    & li {
+      width: 100%;
+      min-height: 0;
+      clear: both;
+      text-align: left;
+      text-transform: none;
+      white-space: nowrap;
+      cursor: pointer;
+      position: relative;
+
+      & > a,
+      & > span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 8px 20px 8px 40px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.57;
+        color: var(--primary-text-color);
+        text-align: right;
+        border-bottom: 1px solid var(--light-divider-color);
+        overflow: hidden;
+
+        &:hover {
+          border-radius: var(--border-radius);
+          background: var(--contextMenu-element-hover);
+        }
+      }
+
+      &:hover {
+        & > .userMenu_List {
+          display: block;
+        }
+      }
+    }
+
+    & .userMenu_Name {
+      font-size: 14px;
+      font-weight: normal;
+      cursor: default;
+
+      & > a,
+      & > span {
+        font-size: 14px;
+        font-weight: normal;
+        color: var(--primary-text-color);
+      }
+    }
+
+    &_SubMenu {
+      right: 100%;
+      top: 0;
+
+      & li > span {
+        padding: 6px 15px;
+      }
+    }
+  }
+
+  &:hover {
+    & > .userMenu_List {
+      display: block;
+      opacity: 1;
+    }
+  }
+}
+
+.Icon {
+  margin-right: 10px;
+  flex-shrink: 0;
+
+  & img {
+    display: block;
+    width: 16px;
+  }
+}
+
+.Label {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  flex-grow: 1;
+  text-align: left;
+}

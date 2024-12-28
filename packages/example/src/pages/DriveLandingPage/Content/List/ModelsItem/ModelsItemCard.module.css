@@ -1,0 +1,206 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 20px 20px;
+  border: 1px solid var(--model-card-border-color);
+  width: calc(33% - 20px);
+  height: 180px;
+  font-size: 16px;
+  position: relative;
+  transition: box-shadow 0.2s linear;
+  cursor: pointer;
+
+  &_active {
+    transition: 0.4s all;
+    box-shadow: 0 16px 24px 0 rgba(83, 94, 110, 0.13);
+    border-color: var(--model-card-border-color-hover);
+  }
+
+  &_offline {
+    background: var(--model-offline-background);
+
+    .Date {
+      color: var(--model-offline-date-color);
+    }
+
+    .DateCreate {
+      color: var(--model-offline-date-color);
+    }
+
+    .DateUpdate {
+      color: var(--model-offline-date-color);
+    }
+  }
+
+  &:hover {
+    border-color: var(--model-card-border-color-hover);
+
+    & .Date {
+      visibility: hidden;
+    }
+
+    & .Size {
+      visibility: hidden;
+    }
+
+    & .Status {
+      visibility: hidden;
+    }
+
+    & .DateCreate {
+      visibility: visible;
+    }
+
+    & .DateUpdate {
+      visibility: visible;
+    }
+
+    & .Favorite {
+      opacity: 1;
+    }
+
+    & .Image {
+      opacity: 0.25;
+    }
+
+    & .PrivateImage {
+      opacity: 0.25;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+.Favorite {
+  opacity: 0;
+  position: absolute;
+  top: 32px;
+  left: 30px;
+  z-index: 1;
+}
+
+.Image {
+  padding: 16px 16px 10px 16px;
+
+  & svg {
+    display: block;
+    max-width: 27px;
+  }
+
+  & path {
+    stroke: var(--model-icon-color) !important;
+  }
+}
+
+.Date {
+  font-size: 12px;
+  color: var(--model-date-color);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.DateCreate {
+  visibility: hidden;
+  font-size: 12px;
+  color: var(--model-date-color);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.DateUpdate {
+  visibility: hidden;
+  font-size: 12px;
+  color: var(--model-date-color);
+  position: absolute;
+  top: 32px;
+  right: 16px;
+}
+
+.Size {
+  position: absolute;
+  right: 16px;
+  top: 32px;
+  font-size: 11px;
+  color: var(--model-size-color);
+}
+
+.PrivateImage {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+
+  & svg {
+    display: block;
+    max-width: 27px;
+  }
+
+  & path {
+    fill: var(--model-icon-color) !important;
+  }
+}
+
+.Status {
+  position: absolute;
+  right: 16px;
+  top: 32px;
+  font-size: 11px;
+  color: var(--model-status-color);
+
+  &_offline {
+    color: red;
+    margin-left: 3px;
+  }
+}
+
+.Caption {
+  flex-grow: 1;
+  padding: 0 16px 12px 16px;
+  margin-top: 13px;
+  display: flex;
+  font-size: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.Name {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  color: var(--model-name-color);
+}
+
+.Tags {
+  width: 100%;
+  margin-top: auto;
+}
+
+.VersionBlock {
+  font-size: 12px;
+  color: var(--model-icon-color);
+  position: absolute;
+  top: 50px;
+  right: 16px;
+}
+
+@media screen and (min-width: 1200px) {
+  .Container {
+    flex-basis: calc(25% - 20px);
+    max-width: calc(25% - 20px);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .Container {
+    flex-basis: calc(20% - 20px);
+    max-width: calc(20% - 20px);
+  }
+}

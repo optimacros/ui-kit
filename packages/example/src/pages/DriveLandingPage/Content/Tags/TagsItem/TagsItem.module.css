@@ -1,0 +1,30 @@
+.Container {
+  position: relative;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: var(--driveLanding-tags-color);
+
+  &:hover {
+    border-color: var(--driveLanding-tags-border-color-hover);
+  }
+
+  &:not(:last-child) {
+    margin-right: 3px;
+  }
+
+  &_active,
+  &_active:hover {
+    border-color: var(--driveLanding-tags-border-color);
+    cursor: default;
+  }
+
+  &_personal {
+    font-weight: 700;
+    color: var(--driveLanding-tags-personal-color);
+  }
+}
+
+.Title {
+  padding: 0 10px 3px;
+  font-size: 15px;
+}

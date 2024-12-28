@@ -1,0 +1,17 @@
+{
+    "name": "@optimacros-ui/types",
+    "version": "0.0.2",
+    "description": "",
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
+    "scripts": {
+        "build": "tsup --config ./tsup.config.ts"
+    },
+    "dependencies": {
+        "ts-toolbelt": "9.6.0",
+        "type-fest": "4.15.0"
+    },
+    "peerDependencies": {
+        "immutable": "4.3.5"
+    }
+}

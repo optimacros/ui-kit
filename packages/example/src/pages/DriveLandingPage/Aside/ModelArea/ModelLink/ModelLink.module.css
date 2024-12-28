@@ -1,0 +1,71 @@
+.Container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 42px;
+  padding: 12px 24px 12px 28px;
+  font-size: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+
+    & .Arrow {
+      opacity: 0.5;
+    }
+  }
+
+  &__active {
+    cursor: default;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      display: block;
+      height: 100%;
+      width: 4px;
+      background: var(--driveLanding-workspace-link-line-bg);
+    }
+
+    & .Arrow {
+      opacity: 1 !important;
+    }
+  }
+
+  &__disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      background: none;
+    }
+
+    & .Arrow {
+      opacity: 0;
+    }
+  }
+}
+
+.Icon {
+  font-size: 18px;
+}
+
+.Link {
+  color: inherit;
+}
+
+.Title {
+  flex: 1;
+  padding-left: 20px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.Arrow {
+  opacity: 0;
+  font-size: 24px;
+}

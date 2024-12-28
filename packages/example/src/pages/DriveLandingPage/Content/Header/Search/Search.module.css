@@ -1,0 +1,78 @@
+.SearchContainer {
+  margin-right: 8px;
+  max-width: 260px;
+}
+
+.Search {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color .2s linear;
+  &__active {
+    border-bottom: 1px solid #c0c0c0;
+
+    & .Icon {
+      color: #525252;
+    }
+  }
+}
+
+.Icon {
+  height: 32px;
+  padding-right: 8px;
+  line-height: 32px;
+  color: #c7c7c7;
+  font-size: 20px;
+}
+
+.IconClose {
+  height: 32px;
+  padding-left: 8px;
+  line-height: 32px;
+  color: #525252;
+  font-size: 20px;
+}
+
+.InputContainer {
+  width: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  opacity: 0;
+  transition: width .3s linear, opacity .2s linear;
+
+  &__active {
+    opacity: 1;
+    width: 260px;
+  }
+}
+
+.ErrorMessage {
+  color: rgb(222, 50, 38);
+  font-size: 12px;
+  line-height: 20px;
+  padding: 4px 0;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* -------------------------------------------------- */
+/* Input Theme */
+/* -------------------------------------------------- */
+.input {
+  flex: 1;
+  transition: width .3s linear;
+}
+
+.inputElement {
+  border-bottom: none;
+  font-size: 14px;
+}
+
+.bar {
+  display: none;
+}

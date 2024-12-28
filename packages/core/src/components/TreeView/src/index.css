@@ -1,0 +1,36 @@
+[data-scope='tree-view'][data-part='root'] {
+  & [role='button'],
+  [data-part='tree-node'] {
+    cursor: pointer;
+  }
+
+  & [data-part='branch-content'] [data-part='tree-node'] {
+    padding-left: var(--spacing-5);
+  }
+
+  & [data-part='branch-content'] [data-part='branch-content'] [data-part='tree-node'] {
+    padding-left: var(--spacing-10);
+  }
+
+  & [data-part='branch-control']:hover,
+  [data-part='branch-content'] [data-part='tree-node']:hover {
+    background-color: var(--color-theme-primary-50);
+  }
+
+  & [data-selected] {
+    &[role='button'],
+    &[role='button']:hover,
+    &[data-part='tree-node'],
+    &[data-part='tree-node']:hover {
+      background-color: var(--color-theme-primary-default);
+    }
+  }
+
+  & [data-part='branch-indicator'] {
+    display: inline-block;
+  }
+
+  & [data-part='branch-indicator'][data-state='open'] {
+    transform: rotate(90deg);
+  }
+}

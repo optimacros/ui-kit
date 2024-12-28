@@ -1,0 +1,15 @@
+.Container {
+  background: var(--driveLanding-leftPanel-bg);
+  display: flex;
+  flex-direction: column;
+  color: var(--driveLanding-leftPanel-color);
+  grid-area: aside;
+  max-height: 100vh;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}

@@ -1,0 +1,19 @@
+{
+    "name": "@optimacros-ui/loader",
+    "private": false,
+    "version": "0.0.0",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup --config ./tsup.config.ts"
+    },
+    "dependencies": {
+        "react": "18.2.0",
+        "@zag-js/progress": "0.77.0",
+        "@optimacros-ui/store": "^0.0.2",
+        "@optimacros-ui/types": "^0.0.2",
+        "@optimacros-ui/utils": "^0.0.2"
+    }
+}

@@ -1,0 +1,257 @@
+/* -------------------------------------------------- */
+/* Material Design Icons */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'),
+    url('./fonts/MaterialIcons-Regular.woff2') format('woff2'),
+    url('./fonts/MaterialIcons-Regular.woff') format('woff'),
+    url('./fonts/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-size: 24px;
+  line-height: 1;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: middle;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/* -------------------------------------------------- */
+/* Basic Style */
+/* -------------------------------------------------- */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  background-color: var(--body-bg);
+  color: var(--primary-text-color);
+
+  font-size: var(--fsz-def);
+  line-height: var(--line-height-def);
+  font-family: var(--ff-def);
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+#modal-root {
+  position: relative;
+  z-index: 999;
+}
+
+html {
+  font-size: 10px;
+  user-select: none;
+
+  & * {
+    user-select: inherit;
+  }
+}
+
+*:focus {
+  outline: none;
+}
+
+body {
+  font-size: 1.2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p,
+button,
+abbr,
+a,
+span,
+small {
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+button {
+  outline: none;
+  appearance: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+input[required]:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+input:not([type='file']),
+textarea {
+  background: var(--input-bg);
+  color: var(--input-color);
+  caret-color: var(--caret-color);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+[data-react-toolbox='input'] input {
+  background: none;
+}
+
+input[type='number'] {
+  -moz-appearance: auto !important;
+  appearance: auto !important;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: inner-spin-button !important;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='search'],
+input[type='password'] {
+  &:focus {
+    outline: none !important;
+    box-shadow: inset 0 0 4px 0 var(--accent-color);
+  }
+}
+
+input[type='checkbox'] {
+  &:focus {
+    ~ [data-react-toolbox='check'] {
+      &:before {
+        background-color: var(--accent-color) !important;
+        opacity: 0.2;
+      }
+    }
+  }
+}
+
+input[type='radio'] {
+  &:focus {
+    ~ [data-react-toolbox='radio'] {
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 0 12px var(--accent-color);
+        border-radius: 50%;
+        opacity: 0.2;
+      }
+    }
+  }
+}
+
+p {
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  margin: 0;
+}
+
+a {
+  color: #03a9f4;
+  text-decoration: underline;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit;
+  margin: 0;
+}
+
+/* -------------------------------------------------- */
+/* Scroll */
+/* -------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  background: var(--scrollbar);
+
+  &:horizontal {
+    border: none;
+    border-top: 1px solid transparent;
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--body-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  background-clip: padding-box;
+
+  &:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  &:active {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+}
+
+/* -------------------------------------------------- */
+/* Global Mixin */
+/* -------------------------------------------------- */
+.clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.hideInPrintMode {
+  @media print {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+.View {
+  cursor: pointer;
+}
+
+.ViewIcon {
+  color: #c7c7c7;
+  font-size: 24px;
+
+  &:hover {
+    color: #dadada;
+  }
+}

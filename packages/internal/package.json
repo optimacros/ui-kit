@@ -1,0 +1,23 @@
+{
+    "name": "@optimacros-ui/kit-internal",
+    "private": false,
+    "version": "0.0.0",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup --config ./tsup.config.ts"
+    },
+    "dependencies": {
+        "@optimacros-ui/kit": "^0.0.1",
+        "@optimacros-ui/themes": "^0.0.3",
+        "@optimacros-ui/types": "^0.0.2",
+        "@optimacros-ui/utils": "^0.0.2",
+        "react": "18.2.0",
+        "react-resizable": "^3.0.5"
+    },
+    "devDependencies": {
+        "@optimacros-ui/kit-legacy": "^1.1.5"
+    }
+}

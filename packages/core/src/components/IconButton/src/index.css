@@ -1,0 +1,31 @@
+[data-scope='button'][data-part='root'][data-tag='icon-button'] {
+  & img {
+    width: var(--font-size-lg);
+    max-width: var(--font-size-lg);
+    max-height: var(--font-size-lg);
+    display: flex;
+  }
+
+  & span[data-scope='icon'] {
+    font-size: var(--font-size-lg);
+  }
+
+  & svg[data-scope='icon'] {
+    width: var(--font-size-lg);
+    height: var(--font-size-lg);
+  }
+
+  &[data-variant='accent'] {
+    background: var(--color-icon-button-accent-default);
+    color: var(--color-icon-button-accent-on-default);
+    border-color: var(--color-icon-button-border-default);
+
+    &:disabled {
+      background: transparent;
+    }
+  }
+
+  &[data-size='md'] {
+    padding: var(--spacing-1-5) var(--spacing-2);
+  }
+}
