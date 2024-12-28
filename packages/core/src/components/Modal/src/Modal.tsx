@@ -2,8 +2,10 @@ import { forward, styled } from '@optimacros-ui/store';
 import * as dialog from '@zag-js/dialog';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useId, useImperativeHandle, useRef } from 'react';
 import { Portal } from '@zag-js/react';
+import { Draggable } from '@optimacros-ui/draggable';
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 
 export const machine = extendMachine(
     dialog,
@@ -33,6 +35,23 @@ export const {
 } = createReactApiStateContext({
     id: 'modal',
     machine,
+    connect(api, { state, send }, machine) {
+        return {
+            ...api,
+            handleDragEnd: () => {
+                const content = document.querySelector(
+                    'div[data-scope="dialog"][data-part="content"]',
+                ) as HTMLDivElement;
+
+                const { top, left, width } = content.getBoundingClientRect();
+
+                content.style.position = 'absolute';
+                content.style.top = `${top}px`;
+                content.style.left = `${left}px`;
+                content.style.width = `${width}px`;
+            },
+        };
+    },
 });
 
 export const Trigger = forward<PropsWithChildren, 'button'>((props, ref) => {
@@ -54,6 +73,62 @@ export const Content = forward<PropsWithChildren, 'div'>(
                     </styled.div>
                 </Portal>
             )
+        );
+    },
+    {
+        displayName: 'Content',
+    },
+);
+
+export const DraggableContent = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
+        const contentRef = useRef<HTMLDivElement>();
+
+        useImperativeHandle(ref, () => contentRef.current);
+
+        const draggableId = useId();
+        const api = useApi();
+
+        const handlePointerDown =
+            (listeners: SyntheticListenerMap) => (e: React.PointerEvent<HTMLDivElement>) => {
+                if (
+                    (e.target as HTMLElement).closest('*[data-draggable-part="handle"]') &&
+                    !(e.target as HTMLElement).closest('*[data-role="close-trigger"]')
+                ) {
+                    listeners.onPointerDown(e);
+                }
+            };
+
+        if (!api.open) {
+            return null;
+        }
+
+        return (
+            <Draggable.Root onDragEnd={api.handleDragEnd} id={draggableId}>
+                <Portal>
+                    <styled.div {...api.getBackdropProps()} />
+                    <styled.div {...api.getPositionerProps()}>
+                        <Draggable.Item ref={contentRef} id={draggableId}>
+                            {({ setNodeRef, transform, attributes, listeners, isDragging }) => (
+                                <styled.div
+                                    {...props}
+                                    {...api.getContentProps()}
+                                    {...attributes}
+                                    data-dragging={isDragging}
+                                    data-draggable-id={draggableId}
+                                    onPointerDown={handlePointerDown(listeners)}
+                                    ref={setNodeRef}
+                                    style={{
+                                        transform:
+                                            transform &&
+                                            `translateX(${transform.x}px) translateY(${transform.y}px)`,
+                                    }}
+                                />
+                            )}
+                        </Draggable.Item>
+                    </styled.div>
+                </Portal>
+            </Draggable.Root>
         );
     },
     {
@@ -90,7 +165,12 @@ export const CloseTrigger = forward<PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <styled.button ref={ref} {...rest} {...api.getCloseTriggerProps()}>
+            <styled.button
+                ref={ref}
+                {...rest}
+                {...api.getCloseTriggerProps()}
+                data-role="close-trigger"
+            >
                 {children}
             </styled.button>
         );
@@ -125,5 +205,14 @@ export const Title = forward<PropsWithChildren, 'h3'>(
     },
     {
         displayName: 'Title',
+    },
+);
+
+export const DragHandle = forward<PropsWithChildren, 'div'>(
+    (props, ref) => (
+        <styled.div {...props} ref={ref} data-scope="dialog" data-draggable-part="handle" />
+    ),
+    {
+        displayName: 'DragHandle',
     },
 );
