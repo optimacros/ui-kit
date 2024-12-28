@@ -2,7 +2,13 @@ import { forward, styled } from '@optimacros-ui/store';
 import * as dialog from '@zag-js/dialog';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
-import React, { PropsWithChildren, useId, useImperativeHandle, useRef } from 'react';
+import React, {
+    ComponentProps,
+    PropsWithChildren,
+    useId,
+    useImperativeHandle,
+    useRef,
+} from 'react';
 import { Portal } from '@zag-js/react';
 import { Draggable } from '@optimacros-ui/draggable';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
@@ -12,7 +18,9 @@ export const machine = extendMachine(
     {
         context: {
             onClose: () => {},
+            controllable: false,
         },
+
         on: {
             'ON_CLOSE.SET': { actions: 'setOnClose' },
         },
@@ -21,6 +29,8 @@ export const machine = extendMachine(
         actions: {
             toggleVisibility(ctx, evt, params) {
                 !ctx.open && ctx.onClose();
+
+                console.info('toggleVisibility', ctx);
 
                 options.actions.toggleVisibility(ctx, evt, params);
             },
@@ -53,6 +63,10 @@ export const {
         };
     },
 });
+
+export type Props = ComponentProps<typeof Root>;
+
+export type OpenChangeDetails = dialog.OpenChangeDetails;
 
 export const Trigger = forward<PropsWithChildren, 'button'>((props, ref) => {
     const api = useApi();
@@ -132,7 +146,7 @@ export const DraggableContent = forward<PropsWithChildren, 'div'>(
         );
     },
     {
-        displayName: 'Content',
+        displayName: 'DraggableContent',
     },
 );
 
