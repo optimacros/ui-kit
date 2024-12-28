@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 
 import { RadioGroup as Base } from './BaseRadioGroup';
-import { Index } from '../RadioButton';
+import { RadioButton } from '../RadioButton';
 
 interface Props {
     options?: any[];
@@ -30,7 +30,7 @@ export class RadioGroup extends Component<Props> {
         return _.map(options, (option, key) => {
             const className = classNames(option.className, classNameButton);
 
-            return <Index {...option} key={key} className={className} theme={theme} />;
+            return <RadioButton {...option} key={key} className={className} theme={theme} />;
         });
     }
 }

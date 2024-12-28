@@ -2,7 +2,7 @@
 import { RadioButton } from './RadioButton';
 
 export default {
-    title: 'ui-kit/RadioButton',
+    title: 'legacy/RadioButton',
     component: RadioButton,
 };
 

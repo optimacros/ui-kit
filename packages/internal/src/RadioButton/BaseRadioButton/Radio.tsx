@@ -14,8 +14,6 @@ export interface RadioProps {
     };
 }
 
-const Radio: RadioProps = ({ checked, onMouseDown, ...other }: any) => (
-    <div onMouseDown={onMouseDown} {...other} />
-);
+const Radio: RadioProps = (props) => <div {...props} />;
 
 export default Radio;
