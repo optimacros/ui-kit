@@ -46,7 +46,7 @@ const RadioButtonComponent: RadioButtonComponentProps = ({
     const handleClick = useCallback(
         (event: MouseEvent<HTMLInputElement>) => {
             if (!disabled && !checked && onChange) {
-                onChange(event, this);
+                onChange(event);
             }
         },
         [checked, disabled, onChange],
