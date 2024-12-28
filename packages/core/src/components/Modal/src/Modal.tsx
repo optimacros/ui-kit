@@ -35,6 +35,8 @@ const options = ({ options }) =>
             toggleVisibility(ctx, evt, params) {
                 !ctx.open && ctx.onClose();
 
+                console.info('toggleVisibility', ctx);
+
                 options.actions.toggleVisibility(ctx, evt, params);
             },
         },
@@ -103,6 +105,9 @@ export const CustomRoot = forward<ComponentProps<typeof Root>, 'div'>(
         displayName: 'ModalRoot',
     },
 );
+export type Props = ComponentProps<typeof Root>;
+
+export type OpenChangeDetails = dialog.OpenChangeDetails;
 
 export const Trigger = forward<PropsWithChildren, 'button'>((props, ref) => {
     const api = useApi();
@@ -182,7 +187,7 @@ export const DraggableContent = forward<PropsWithChildren, 'div'>(
         );
     },
     {
-        displayName: 'Content',
+        displayName: 'DraggableContent',
     },
 );
 

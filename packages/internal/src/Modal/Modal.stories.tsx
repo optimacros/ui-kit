@@ -9,6 +9,11 @@ const argTypes: Partial<ArgTypes> = {
         description: 'Whether modal is open',
         type: { name: 'boolean', required: true },
     },
+    onRequestClose: {
+        control: false,
+        description: 'Callback for close icon click',
+        table: { type: { summary: '() => void' } },
+    },
     title: {
         control: 'text',
         description: 'Title of the modal',
@@ -53,7 +58,7 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 export const Basic: Story = {
-    args: {},
+    args: { isOpen: true, title: 'Title', children: 'chiildren', onRequestClose: () => {} },
     render: stories.Basic,
 };
 
