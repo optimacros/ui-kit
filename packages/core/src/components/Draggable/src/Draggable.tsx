@@ -16,7 +16,7 @@ export const Item = forward<
     UseDraggableArguments & {
         children: (props: ReturnType<typeof useDraggable> & { id: string }) => ReactNode;
     },
-    'li'
+    'div'
 >(({ children, id: baseId, data, disabled, attributes: attr }, ref) => {
     const id = 'draggable-' + baseId;
 
@@ -27,7 +27,7 @@ export const Item = forward<
         attributes: attr,
     });
 
-    useImperativeHandle(ref, () => draggable.node as unknown as HTMLLIElement);
+    useImperativeHandle(ref, () => draggable.node.current as unknown as HTMLDivElement);
 
     return children({ id, ...draggable });
 });
@@ -43,7 +43,7 @@ export const Container = forward<UseDroppableArguments, 'div'>(
             resizeObserverConfig,
         });
 
-        useImperativeHandle(ref, () => node as unknown as HTMLDivElement);
+        useImperativeHandle(ref, () => node.current as unknown as HTMLDivElement);
 
         return <styled.div ref={setNodeRef} id={id as string} {...rest} />;
     },
