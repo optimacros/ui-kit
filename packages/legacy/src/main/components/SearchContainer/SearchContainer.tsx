@@ -4,7 +4,7 @@ import { FontIcon } from 'ui-kit-core';
 
 import styles from './SearchContainer.module.css';
 
-interface Props {
+export interface Props {
     name: string;
     value: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
