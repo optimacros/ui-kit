@@ -35,8 +35,6 @@ const options = ({ options }) =>
             toggleVisibility(ctx, evt, params) {
                 !ctx.open && ctx.onClose();
 
-                console.info('toggleVisibility', ctx);
-
                 options.actions.toggleVisibility(ctx, evt, params);
             },
         },
