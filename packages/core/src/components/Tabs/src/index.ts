@@ -1,3 +1,3 @@
 import './index.css';
 
-export * as Tabs from './Tabs';
+export * as Tabs from './exports';
