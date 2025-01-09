@@ -121,7 +121,7 @@ export const Button: ButtonComponentProps = ({
             {...rest}
         >
             {label}
-            {icon && typeof icon === 'string' ? <Icon value={icon} /> : icon}
+            <Icon value={icon} />
         </ButtonComponent>
     );
 };
