@@ -7,6 +7,7 @@ import { Menu } from '@optimacros-ui/menu';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Flex } from '@optimacros-ui/flex';
 import { shuffle } from '@optimacros-ui/utils';
+import type { Tab } from './models';
 
 export default {
     title: 'UI Kit core/Tabs',
@@ -14,7 +15,7 @@ export default {
     tags: ['autodocs'],
 };
 
-const items = createTabs(20);
+const items: Tab[] = createTabs(20);
 
 export const Base = (props) => {
     const [tabs, setTabs] = useState(items);
