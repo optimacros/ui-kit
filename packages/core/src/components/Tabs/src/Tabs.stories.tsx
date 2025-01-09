@@ -27,6 +27,7 @@ export const Base = (props) => {
                     <div>
                         <p>active tab: {api.value}</p>
                         <div>
+                            <Button onClick={() => api.getTabs()}>get tabs</Button>
                             <Button
                                 onClick={() => api.open(`tab-${Math.floor(Math.random() * 19)}`)}
                             >
