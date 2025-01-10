@@ -6,13 +6,13 @@ import {
     useEventListener,
     round,
     swap,
-    noop,
 } from '@optimacros-ui/utils';
 import {
     ComponentProps,
     PropsWithChildren,
     ReactNode,
     RefObject,
+    useCallback,
     useEffect,
     useId,
     useState,
@@ -25,8 +25,7 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
     machine: tabs,
     connect(api, { state, send }) {
         const getListNode = () => {
-            const list = api.getListProps();
-            const containerNode = document.getElementById(list.id);
+            const containerNode = document.getElementById(`tabs:${state.context.id}:list`);
 
             return containerNode;
         };
@@ -106,34 +105,37 @@ export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
 });
 
 export const DraggableList = forward<
-    { mode?: 'swap' | 'ordered'; setTabs: (prev: (arr: any[]) => any[]) => void },
+    {
+        mode?: 'swap' | 'ordered';
+        setTabs: (prev: (arr: any[]) => any[]) => void;
+        tabs: Array<string>;
+    },
     'ul'
->(({ setTabs, mode = 'ordered', children, ...rest }, ref) => {
-    const id = useId();
+>(({ tabs, mode = 'ordered', children, setTabs, ...rest }, ref) => {
+    const handleDragEnd = useCallback(
+        function (event) {
+            const element = document.querySelector(`[data-draggable-id="${event.active.id}"]`);
+            const currentIndex = parseInt(element.getAttribute('data-index'));
+            const rect = element.getBoundingClientRect();
 
-    function handleDragEnd(event) {
-        const element = document.querySelector(`[data-draggable-id="${event.active.id}"]`);
-        const currentIndex = parseInt(element.getAttribute('data-index'));
-        const rect = element.getBoundingClientRect();
+            const newIndex = round((currentIndex * rect.width + event.delta.x) / rect.width, 0);
 
-        const newIndex = round((currentIndex * rect.width + event.delta.x) / rect.width, 0);
-
-        if (mode === 'swap') {
-            setTabs((prev) => swap(prev, currentIndex, newIndex));
-        } else if (mode === 'ordered') {
-            setTabs((prev) =>
-                prev.toSpliced(currentIndex, 1).toSpliced(newIndex, 0, prev[currentIndex]),
-            );
-        }
-    }
+            if (mode === 'swap') {
+                setTabs((prev) => swap(prev, currentIndex, newIndex));
+            } else if (mode === 'ordered') {
+                setTabs((prev) =>
+                    prev.toSpliced(currentIndex, 1).toSpliced(newIndex, 0, prev[currentIndex]),
+                );
+            }
+        },
+        [setTabs],
+    );
 
     return (
         <DraggableComponent.Root onDragEnd={handleDragEnd}>
-            <DraggableComponent.Container asChild id={id}>
-                <List {...rest} ref={ref}>
-                    {children}
-                </List>
-            </DraggableComponent.Container>
+            <List {...rest} ref={ref}>
+                {children}
+            </List>
         </DraggableComponent.Root>
     );
 });
@@ -157,25 +159,44 @@ export const DraggableTrigger = forward<
     const api = useApi();
 
     const apiProps = api.getTriggerProps({ value, disabled });
-
     return (
-        <DraggableComponent.Item id={id} ref={ref}>
+        <DraggableComponent.Item id={id} ref={ref} data={{ value, disabled }}>
             {({ setNodeRef, transform, attributes, listeners, isDragging, id: draggableId }) => (
-                <styled.li
-                    {...rest}
-                    {...attributes}
-                    {...apiProps}
-                    data-dragging={isDragging}
-                    data-draggable-id={draggableId}
-                    onClick={noop}
-                    onPointerDown={(e) => {
-                        apiProps.onClick(e);
-                        listeners.onPointerDown(e);
-                    }}
-                    ref={setNodeRef}
-                    style={{ transform: transform && `translateX(${transform.x}px)` }}
-                    key={`trigger-${value}`}
-                />
+                <>
+                    <styled.li
+                        {...rest}
+                        {...attributes}
+                        {...apiProps}
+                        data-dragging={isDragging}
+                        data-draggable-id={draggableId}
+                        onClick={apiProps.onClick}
+                        onPointerDown={(e) => {
+                            apiProps.onClick(e);
+                            listeners.onPointerDown(e);
+                        }}
+                        ref={setNodeRef}
+                        key={`trigger-${value}`}
+                    />
+                    {isDragging && (
+                        <DraggableComponent.DragOverlay
+                            data-scope="tabs"
+                            data-part="trigger-overlay"
+                            style={{
+                                transform: transform && `translateX(${transform.x}px)`,
+                                cursor: 'grabbing',
+                            }}
+                        >
+                            <styled.li
+                                {...rest}
+                                data-scope="tabs"
+                                data-part="trigger"
+                                data-focus
+                                key={`trigger-${value}`}
+                                data-dragging={isDragging}
+                            />
+                        </DraggableComponent.DragOverlay>
+                    )}
+                </>
             )}
         </DraggableComponent.Item>
     );

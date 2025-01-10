@@ -42,12 +42,21 @@
     box-shadow: inset 0 0 4px 1px rgba(0, 0, 0, 0.2);
   }
 
-  &[data-part='trigger'][data-selected] {
+  &[data-part='trigger']:is([data-selected], [data-dragging='true']) {
     border-color: var(--color-tabs-primary-tab-border-active);
     color: var(--color-tabs-primary-tab-on-active);
   }
 
-  &[data-part='draggable-trigger'][data-dragging] {
-    cursor: grabbing;
+  &[data-part='trigger-overlay'] {
+    z-index: var(--z-index-highest);
+    font-weight: bold;
+  }
+}
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
