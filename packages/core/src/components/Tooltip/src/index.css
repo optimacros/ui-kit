@@ -1,8 +1,8 @@
 [data-scope='tooltip'][data-part='arrow'] {
-  --arrow-size: var(--spacing-5);
+  --arrow-size: var(--spacing-3);
   --arrow-background: var(--color-tooltip-primary-default);
 
-  &[data-placement='right'] {
+  &:not([data-placement='top'], [data-placement='bottom']) {
     --arrow-size: var(--spacing-2);
   }
 }
