@@ -63,7 +63,7 @@ const argTypesTabs: Partial<ArgTypesType> = {
     onTabSwitch: {
         control: false,
         description:
-            'Callback function that is fired when `Space` or `Enter` keyboard keys pressed',
+            'Callback function that is fired when `Space` or `Enter` keyboard keys pressed. Почему-то используется вместо onChange. Нужно будет поменять на onChange. Этот метод теперь срабатывает только в случае, описанном выше.',
         table: {
             type: { summary: '(index: number) => void' },
         },
@@ -234,7 +234,13 @@ export default meta;
 type Story = StoryObj<typeof Tabs>;
 
 export const Basic: Story = {
-    args: { active: 2 },
+    args: {
+        active: 2,
+        className: 'className',
+        contentClassName: 'contentClassName',
+        headerClassName: 'headerClassName',
+        onTabSwitch: (n) => console.info(n),
+    },
     render: Stories.Basic,
 };
 
