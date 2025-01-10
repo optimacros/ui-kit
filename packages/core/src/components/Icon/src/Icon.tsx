@@ -2,7 +2,7 @@ import { SVGProps, ReactNode } from 'react';
 import { isValidIconName } from '@optimacros-ui/themes';
 import { styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
-import { useUiCore } from '../../../store';
+import { UiKit } from '../../../store';
 
 export interface IconProps {
     value: string | ReactNode;
@@ -12,7 +12,7 @@ export interface IconProps {
 }
 
 export function Icon({ value, rotate, size, ...rest }: SVGProps<SVGSVGElement> & IconProps) {
-    const { iconsSrc } = useUiCore();
+    const iconsSrc = UiKit.useProxySelector((state) => state.iconsSrc);
 
     const iconProps = {
         'data-scope': 'icon',

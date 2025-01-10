@@ -1,6 +1,12 @@
-import { UiCoreContextWrapper } from '../packages/core/src';
+import { UiKit } from '../packages/core/src';
 import { Preview } from '@storybook/react';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
+import { useEffect, useState } from 'react';
+
+const styles = Promise.all([
+    import('../packages/themes/src/default/tokens.css?raw'),
+    import('../packages/themes/src/default/component-tokens.css?raw'),
+]);
 
 const preview: Preview = {
     parameters: {
@@ -15,10 +21,25 @@ const preview: Preview = {
     },
     decorators: [
         (Story) => {
-            return (
-                <UiCoreContextWrapper state={{ iconsSrc }}>
+            const [style, setStyle] = useState(null);
+
+            useEffect(() => {
+                styles.then(([root, theme]) => {
+                    setStyle({ root: root.default, theme: theme.default });
+                });
+            }, []);
+
+            return style ? (
+                <UiKit.Provider
+                    initialState={{
+                        iconsSrc,
+                        styles: style,
+                    }}
+                >
                     <Story />
-                </UiCoreContextWrapper>
+                </UiKit.Provider>
+            ) : (
+                <div>loading</div>
             );
         },
     ],

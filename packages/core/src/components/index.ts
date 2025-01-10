@@ -27,6 +27,7 @@ export * from '@optimacros-ui/tabs';
 export * from '@optimacros-ui/toast';
 export * from '@optimacros-ui/toolbar';
 export * from '@optimacros-ui/tooltip';
+export * from '@optimacros-ui/text';
 export * from '@optimacros-ui/virtual';
 export * from '@optimacros-ui/tree-menu';
 export * from '@optimacros-ui/tree-view';

@@ -11,6 +11,7 @@ export const { useApi, RootProvider, Api, useProxySelector } = createReactApiSta
 });
 
 export interface ItemBase {
+    label?: string;
     value: string;
 }
 

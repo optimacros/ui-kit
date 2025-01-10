@@ -1,5 +1,5 @@
 import { invariant, mapValues } from '@optimacros-ui/utils';
-import { createContext, FC, memo, ReactNode, useContext } from 'react';
+import { createContext, FC, memo, ReactNode, useContext, useLayoutEffect } from 'react';
 import { createProxySelectorHook } from './hooks';
 
 import { ActionCreator, createActionCreator, PayloadAction } from '../utils';
@@ -21,7 +21,7 @@ export interface StoreConfig<
     StoreConf = NonNullable<unknown>,
     Hooks = NonNullable<unknown>,
     /** ----------------- */
-    Actions = NonNullable<unknown>,
+    Actions extends NonNullable<unknown> = NonNullable<unknown>,
     GeneratedActions = NonNullable<unknown>,
 > {
     __actions?: Actions;
@@ -196,7 +196,9 @@ export function createReactStore<
     const reducerActions = {
         //@ts-ignore
         ...actions,
-        ...createdConfig.reducers,
+        ...mapValues<Record<string, (state, action) => void>>(createdConfig.reducers, (call) => {
+            return (state, action) => call(state, action.payload);
+        }),
     };
 
     type ConfigReducers = typeof createdConfig.reducers;
@@ -250,6 +252,7 @@ export function createReactStore<
         state?: InitialState;
         actions?: typeof slice.actions;
         onChange?: (v: InitialState) => void;
+        onStoreCreated?: (state: InitialState, actions: typeof slice.actions) => void;
     }> = memo(
         ({
             children,
@@ -257,13 +260,20 @@ export function createReactStore<
             state: controlledState,
             actions: controlledActions,
             onChange,
+            onStoreCreated,
         }) => {
             const [state, actions] = useStore(initialState, onChange);
+            const storeState = controlledState ?? state;
+            const storeActions = controlledActions ?? actions;
+
+            useLayoutEffect(() => {
+                onStoreCreated?.(storeState, storeActions);
+            }, []);
 
             return (
-                <StateContext.Provider value={controlledState ?? state}>
+                <StateContext.Provider value={storeState}>
                     {/**@ts-ignore*/}
-                    <ActionsContext.Provider value={controlledActions ?? actions}>
+                    <ActionsContext.Provider value={storeActions}>
                         {children}
                     </ActionsContext.Provider>
                 </StateContext.Provider>

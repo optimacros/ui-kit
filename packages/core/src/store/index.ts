@@ -1,1 +1,1 @@
-export * from './UiContext';
+export * as UiKit from './UiContext';
