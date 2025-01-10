@@ -1,29 +1,75 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createReactStore } from '@optimacros-ui/store';
+import { ComponentProps } from 'react';
 
-import { invariant } from '@optimacros-ui/utils';
+export const {
+    useActions,
+    useProxySelector,
+    Provider: BaseProvider,
+    useState,
+    reducerActions,
+} = createReactStore({
+    id: 'ui-kit',
+    initialState: {
+        iconsSrc: '',
+        styles: { root: '', theme: '' },
+    },
+    actions: { keys: ['iconsSrc', 'styles'] },
+    // on first render
+    createConfig(initialState, createdActions) {
+        // call in useEffect to assign default styles (useLayoutEffect)
+        function appendStyles(
+            state: typeof initialState,
+            { id, value }: { id: string; value: string },
+        ) {
+            const head = document.head;
+            let styleTag = head.querySelector(`[id=${id}]`);
 
-interface IUiContext {
-    iconsSrc: string;
-}
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = id;
+                head.appendChild(styleTag);
+            }
 
-const UiContext = createContext<IUiContext | null>(null);
+            styleTag.textContent = value;
+        }
 
-UiContext.displayName = 'UiCoreContext';
+        return {
+            reducers: {
+                appendStyles,
+                setRootStyles(
+                    state: typeof initialState,
+                    payload: (typeof initialState)['styles']['root'],
+                ) {
+                    appendStyles(state, { id: 'optimacros-ui-root-styles', value: payload });
 
-export const UiCoreContextWrapper = ({
-    children,
-    state,
-}: {
-    state: IUiContext;
-    children: ReactNode;
-}) => {
-    return <UiContext.Provider value={state}>{children}</UiContext.Provider>;
+                    return createdActions.setInStyles(state, {
+                        payload: { path: 'root', value: payload },
+                    });
+                },
+                setThemeStyles(
+                    state: typeof initialState,
+                    payload: (typeof initialState)['styles']['theme'],
+                ) {
+                    appendStyles(state, { id: 'optimacros-ui-theme-styles', value: payload });
+
+                    return createdActions.setInStyles(state, {
+                        payload: { path: 'theme', value: payload },
+                    });
+                },
+            },
+        };
+    },
+});
+
+export const Provider = (props: ComponentProps<typeof BaseProvider>) => {
+    return (
+        <BaseProvider
+            {...props}
+            onStoreCreated={(state, actions) => {
+                const { styles } = state;
+                styles.root && actions.setRootStyles(styles.root);
+                styles.theme && actions.setThemeStyles(styles.theme);
+            }}
+        />
+    );
 };
-
-export function useUiCore() {
-    const state = useContext(UiContext);
-
-    invariant(state, 'not in ui core context');
-
-    return state;
-}

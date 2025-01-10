@@ -91,7 +91,8 @@
             "@optimacros-ui/image": ["packages/core/src/components/Image/src"],
             "@optimacros-ui/collapsible": ["packages/core/src/components/Collapsible/src"],
             "@optimacros-ui/switch": ["packages/core/src/components/Switch/src"],
-            "@optimacros-ui/toggle": ["packages/core/src/components/Toggle/src"]
+            "@optimacros-ui/toggle": ["packages/core/src/components/Toggle/src"],
+            "@optimacros-ui/spacer": ["packages/core/src/components/Spacer/src"]
         }
     },
     "exclude": ["node_modules", "dist"],

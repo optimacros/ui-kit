@@ -8,6 +8,7 @@ type FlexProps = {
     justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
     wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
     gap?: string | number;
+    fluid?: boolean;
     className?: string;
 };
 
@@ -21,6 +22,7 @@ export const Flex = forward<FlexProps, 'div'>(
             wrap = 'nowrap',
             gap = '0',
             style,
+            fluid,
             ...rest
         },
         ref,
@@ -34,6 +36,7 @@ export const Flex = forward<FlexProps, 'div'>(
                 data-align={align}
                 data-justify={justify}
                 data-wrap={wrap}
+                data-fluid={fluid}
                 style={{
                     gap: `var(--spacing-${gap})`,
                     ...style,

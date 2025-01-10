@@ -3,7 +3,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 const i = 0;
 const config: StorybookConfig = {
     stories: [
-        '../packages/core/src/components/**/*.stories.@(js|jsx|ts|tsx)',
+        '../packages/core/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../packages/internal/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../packages/legacy/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
