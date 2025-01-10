@@ -6,6 +6,7 @@ export type TextAreaProps = {
     label: string;
     className?: string;
     classNameContainer?: string;
+    id?: string | number;
 };
 
 export const TextArea: TextAreaProps = ({
@@ -13,16 +14,19 @@ export const TextArea: TextAreaProps = ({
     label,
     className,
     classNameContainer,
+    id,
     ...otherProps
 }) => {
-    const id = useId();
+    const generatedId = useId();
 
     return (
         <FieldComponent.Root status={error ? 'error' : 'default'}>
             {label && (
-                <FieldComponent.FloatingLabel htmlFor={id}>{label}</FieldComponent.FloatingLabel>
+                <FieldComponent.FloatingLabel htmlFor={id ?? generatedId}>
+                    {label}
+                </FieldComponent.FloatingLabel>
             )}
-            <FieldComponent.TextArea id={id} {...otherProps} />
+            <FieldComponent.TextArea id={id ?? generatedId} {...otherProps} />
             <FieldComponent.FloatingError>{error}</FieldComponent.FloatingError>
         </FieldComponent.Root>
     );
