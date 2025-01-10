@@ -70,9 +70,10 @@ const argTypesTabs: Partial<ArgTypesType> = {
     },
     onTabPositionChange: {
         control: false,
-        description: 'Callback function that is fired when the tab position changing',
+        description:
+            'Callback function that is fired when the tab position changing. Я поменял - возвращает готовые табы. Используется в 1 месте, несложно переделать',
         table: {
-            type: { summary: '(newIndex: number, oldIndex: number) => void' },
+            type: { summary: '(newTabs: TabProps[]) => void' },
         },
     },
 };
@@ -247,4 +248,14 @@ export const Basic: Story = {
 export const Controlled: Story = {
     args: { active: 1 },
     render: Stories.Controlled,
+};
+
+export const Draggable: Story = {
+    args: {
+        draggable: true,
+        onTabPositionChange: (n, o) => {
+            console.info(`${o} > ${n}`);
+        },
+    },
+    render: Stories.Basic,
 };

@@ -7,6 +7,7 @@ export const Controlled = (props: Partial<TabsProps>) => {
     return (
         <>
             <button onClick={() => setActiveTab(2)}>set active tab to 3</button>
+
             <Tabs {...props} active={activeTab} onChange={setActiveTab}>
                 <Tab title="Item one" icon="favorite">
                     Item one

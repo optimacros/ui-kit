@@ -27,7 +27,7 @@ export interface TabsContainerProps {
     className?: string;
     draggable?: boolean;
     onTabSwitch?: (index: number) => void;
-    onTabPositionChange?: (newIndex: number, oldIndex: number) => void;
+    onTabPositionChange?: (newTabs: TabProps[]) => void;
     hideTabHeader?: boolean;
     headerClassName?: string;
     contentClassName?: string;

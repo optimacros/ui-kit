@@ -19,6 +19,8 @@ const TabsContent = memo<TabsProps>((props) => {
         contentClassName,
         hideTabHeader = false,
         onTabSwitch,
+        draggable,
+        onTabPositionChange,
         ...rest
     } = props;
 
@@ -83,8 +85,16 @@ const TabsContent = memo<TabsProps>((props) => {
     return (
         <>
             {!hideTabHeader && (
-                <Header tabs={tabs} className={headerClassName} onTabSwitch={onTabSwitch} />
+                <Header
+                    tabs={tabs}
+                    className={headerClassName}
+                    onTabSwitch={onTabSwitch}
+                    draggable={draggable}
+                    setTabs={setTabs}
+                    onTabPositionChange={onTabPositionChange}
+                />
             )}
+
             <Content tabs={tabs} className={contentClassName} />
         </>
     );
