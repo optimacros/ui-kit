@@ -1,10 +1,8 @@
 import { memo, ReactElement, useEffect, useState } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
-import { Button } from '@optimacros-ui/button';
-import { Icon } from '@optimacros-ui/icon';
-import { TabProps } from './components/Tab';
-import { TabsContainerProps } from './models';
+import { TabExtended, TabsContainerProps, TabProps } from './models';
+import { Content, Header } from './components';
 
 export interface TabsProps extends Omit<TabsContainerProps, 'active'> {
     children: ReactElement<TabProps> | ReactElement<TabProps>[];
@@ -13,13 +11,22 @@ export interface TabsProps extends Omit<TabsContainerProps, 'active'> {
 }
 
 const TabsContent = memo<TabsProps>((props) => {
-    const { children, active, onChange, ...rest } = props;
+    const {
+        children,
+        active,
+        onChange,
+        headerClassName,
+        contentClassName,
+        hideTabHeader = false,
+        onTabSwitch,
+        ...rest
+    } = props;
 
-    const [tabs, setTabs] = useState<UITabs.Tab[]>([]);
+    const [tabs, setTabs] = useState<TabExtended[]>([]);
 
     const api = UITabs.useApi();
 
-    // convert old tabs to new
+    // array of old tab props
     useEffect(() => {
         const childrenArr = Array.isArray(children) ? children : [children];
 
@@ -28,7 +35,7 @@ const TabsContent = memo<TabsProps>((props) => {
 
             return {
                 value: titleString || child.props.label || index.toString(),
-                content: child.props.children,
+                ...child.props,
             };
         });
 
@@ -75,29 +82,17 @@ const TabsContent = memo<TabsProps>((props) => {
 
     return (
         <>
-            <UITabs.List>
-                {tabs.map((tab, i) => (
-                    <UITabs.Trigger value={tab.value} key={tab.value}>
-                        <Button variant="transparent">
-                            <Icon value="article" />
-                            {tab.value}
-                        </Button>
-                    </UITabs.Trigger>
-                ))}
-            </UITabs.List>
-
-            {tabs.map((tab) => (
-                <UITabs.Content value={tab.value} key={tab.value}>
-                    {tab.content}
-                </UITabs.Content>
-            ))}
+            {!hideTabHeader && (
+                <Header tabs={tabs} className={headerClassName} onTabSwitch={onTabSwitch} />
+            )}
+            <Content tabs={tabs} className={contentClassName} />
         </>
     );
 });
 TabsContent.displayName = 'TabsContent';
 
 export const Tabs = memo<TabsProps>((props) => (
-    <UITabs.Root activationMode="manual">
+    <UITabs.Root activationMode="manual" className={props.className}>
         <TabsContent {...props} />
     </UITabs.Root>
 ));

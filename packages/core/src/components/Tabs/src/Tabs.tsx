@@ -86,22 +86,29 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> &
     variant?: 'primary' | 'secondary';
 };
 
-export const Root = forward<RootProps, 'div'>(({ children, variant, ...context }, ref) => {
-    return (
-        <RootProvider {...context}>
-            {(api) => (
-                <styled.div {...api.getRootProps()} ref={ref} data-variant={variant}>
-                    {children}
-                </styled.div>
-            )}
-        </RootProvider>
-    );
-});
+export const Root = forward<RootProps, 'div'>(
+    ({ children, variant, className, ...context }, ref) => {
+        return (
+            <RootProvider {...context}>
+                {(api) => (
+                    <styled.div
+                        {...api.getRootProps()}
+                        ref={ref}
+                        data-variant={variant}
+                        className={className}
+                    >
+                        {children}
+                    </styled.div>
+                )}
+            </RootProvider>
+        );
+    },
+);
 
 export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
     const api = useApi();
 
-    return <styled.ul {...props} {...api.getListProps()} ref={ref} />;
+    return <styled.ul {...api.getListProps()} {...props} ref={ref} />;
 });
 
 export const DraggableList = forward<

@@ -1,5 +1,4 @@
 import React from 'react';
-import { TabProps } from '../components/Tab';
 
 export interface TabsContainerTheme {
     TabsContainer: string;
@@ -33,4 +32,23 @@ export interface TabsContainerProps {
     headerClassName?: string;
     contentClassName?: string;
     theme?: Partial<TabsContainerTheme>;
+}
+
+export interface TabProps {
+    children: React.ReactNode;
+    counter?: number | undefined;
+    maxCounter?: number | undefined;
+    className?: string;
+    title?: React.JSX.Element | string;
+    onHeaderContextMenu?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    nonDraggable?: boolean;
+    isFixed?: boolean;
+    onDoubleClick?: () => void;
+    icon?: React.JSX.Element | string;
+    disabled?: boolean;
+    label?: string;
+}
+
+export interface TabExtended extends TabProps {
+    value: string;
 }
