@@ -9,3 +9,4 @@ export * from './Tooltip';
 export * from './MarkdownEditor';
 export * from './Snackbar';
 export * from './SearchContainer';
+export * from './IconButton';
