@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Flex } from '@optimacros-ui/flex';
+import { userEvent, within } from '@storybook/test';
 
 const meta: Meta<typeof Button> = {
     title: 'UI Kit core/Button',
@@ -72,11 +73,15 @@ export const Base: Story = {
     },
 };
 
-export const Variants = {
+export const Variants: Story = {
     render: () => (
         <Flex align="center" gap="4">
-            <Button variant="primary">Primary</Button>
-            <Button variant="accent">Accent</Button>
+            <Button variant="primary" data-testid="primary">
+                Primary
+            </Button>
+            <Button variant="accent" data-testid="accent">
+                Accent
+            </Button>
             <Button variant="bordered">Bordered</Button>
             <Button variant="neutral">Neutral</Button>
             <Button variant="gray">Gray</Button>
@@ -84,6 +89,11 @@ export const Variants = {
             <Button inverse>Inverse</Button>
         </Flex>
     ),
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.hover(canvas.getByTestId('primary'));
+    },
 };
 
 export const FloatStyles: Story = {
