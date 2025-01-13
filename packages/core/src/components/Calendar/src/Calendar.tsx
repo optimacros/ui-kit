@@ -74,21 +74,56 @@ export const Header = forward<{}, 'header'>(
 export const HeaderYears = forward<{}, 'span'>((props, ref) => {
     const api = useApi();
 
-    return <styled.span {...props} {...api.getHeaderYearsProps()} ref={ref} />;
-});
+        return (
+            <styled.span
+                {...rest}
+                onClick={() => api.setView('year')}
+                {...api.getHeaderYearsProps()}
+                ref={ref}
+            />
+        );
+    },
+);
 
 export const HeaderMonths = forward<{ children?: (text: string) => ReactNode }, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
-        return <styled.div {...rest} {...api.getHeaderMonthsProps()} ref={ref} />;
+        return (
+            <styled.div
+                {...rest}
+                {...api.getHeaderMonthsProps()}
+                onClick={() => api.setView('day')}
+                ref={ref}
+            />
+        );
     },
 );
 
-export const ViewControl = forward<{}, 'div'>((props, ref) => {
+export const YearsViewControl = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} {...api.getViewControlProps({ view: 'year' })} ref={ref} />;
+    return (
+        <styled.div {...props} hidden={api.view !== 'year'} ref={ref}>
+            <div {...api.getViewControlProps({ view: 'year' })}>
+                <button {...api.getPrevTriggerProps({ view: 'year' })}>Prev</button>
+                <span>
+                    {api.getDecade().start} - {api.getDecade().end}
+                </span>
+                <button {...api.getNextTriggerProps({ view: 'year' })}>Next</button>
+            </div>
+        </styled.div>
+    );
+});
+
+export const DaysViewControl = forward<{}, 'div'>(({ children, ...others }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.div {...others} hidden={api.view !== 'day'} ref={ref}>
+            <div {...api.getViewControlProps({ view: 'year' })}>{children}</div>
+        </styled.div>
+    );
 });
 
 export const PrevTrigger = forward<{}, 'button'>((props, ref) => {
@@ -109,10 +144,60 @@ export const RangeText = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} {...api.getRangeTextProps()} ref={ref} />;
 });
 
+export const YearsTable = forward<{}, 'table'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.table
+            {...props}
+            hidden={api.view !== 'year'}
+            {...api.getTableProps({ view: 'year', columns: 4 })}
+            ref={ref}
+        >
+            <tbody {...api.getTableBodyProps()}>
+                {api.getYearsGrid({ columns: 4 }).map((years, row) => (
+                    <tr key={row} {...api.getTableRowProps({ view: 'year' })}>
+                        {years.map((year, index) => (
+                            <td
+                                key={index}
+                                {...api.getYearTableCellProps({
+                                    ...year,
+                                    columns: 4,
+                                })}
+                                onClick={() => {
+                                    const newDate = year.label + api.valueAsString[0].substring(4);
+                                    api.setValue([datepicker.parse(newDate)]);
+                                    api.setView('day');
+                                }}
+                            >
+                                <div
+                                    {...api.getYearTableCellTriggerProps({
+                                        ...year,
+                                        columns: 4,
+                                    })}
+                                >
+                                    {year.label}
+                                </div>
+                            </td>
+                        ))}
+                    </tr>
+                ))}
+            </tbody>
+        </styled.table>
+    );
+});
+
 export const Table = forward<{}, 'table'>((props, ref) => {
     const api = useApi();
 
-    return <styled.table {...props} {...api.getTableProps({ view: 'day' })} ref={ref} />;
+    return (
+        <styled.table
+            {...props}
+            hidden={api.view !== 'day'}
+            {...api.getTableProps({ view: 'day' })}
+            ref={ref}
+        />
+    );
 });
 
 export const TableHead = forward<{}, 'thead'>((props, ref) => {
@@ -121,7 +206,7 @@ export const TableHead = forward<{}, 'thead'>((props, ref) => {
     return (
         <styled.thead {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
             <tr {...api.getTableRowProps({ view: 'day' })}>
-                {api.weekDays.map((day, i) => (
+                {api.weekDays.map((day) => (
                     <th {...api.getWeekdayProps(day)} />
                 ))}
             </tr>
