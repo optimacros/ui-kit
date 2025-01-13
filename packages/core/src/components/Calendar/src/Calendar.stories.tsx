@@ -178,20 +178,30 @@ export const Basic: StoryObj = {
                         <Calendar.HeaderMonths />
                     </Calendar.Header>
                     <Calendar.DaysViewControl>
-                        <Calendar.PrevTrigger>
+                        <Calendar.DaysPrevTrigger>
                             <Icon value="chevron_left" />
-                        </Calendar.PrevTrigger>
-                        <Calendar.RangeText />
-                        <Calendar.NextTrigger>
+                        </Calendar.DaysPrevTrigger>
+                        <Calendar.DaysRangeText />
+                        <Calendar.DaysNextTrigger>
                             <Icon value="chevron_right" />
-                        </Calendar.NextTrigger>
+                        </Calendar.DaysNextTrigger>
                     </Calendar.DaysViewControl>
-                    <Calendar.YearsViewControl />
-                    <Calendar.YearsTable />
-                    <Calendar.Table>
-                        <Calendar.TableHead />
-                        <Calendar.TableBody />
-                    </Calendar.Table>
+                    <Calendar.YearsViewControl>
+                        <Calendar.YearsPrevTrigger>
+                            <Icon value="chevron_left" />
+                        </Calendar.YearsPrevTrigger>
+                        <Calendar.YearsRangeText />
+                        <Calendar.YearsNextTrigger>
+                            <Icon value="chevron_right" />
+                        </Calendar.YearsNextTrigger>
+                    </Calendar.YearsViewControl>
+                    <Calendar.YearsTable>
+                        <Calendar.YearsTableBody />
+                    </Calendar.YearsTable>
+                    <Calendar.DaysTable>
+                        <Calendar.DaysTableHead />
+                        <Calendar.DaysTableBody />
+                    </Calendar.DaysTable>
                     <Calendar.Footer>
                         <Calendar.DismissButton>Cancel</Calendar.DismissButton>
                         <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
@@ -216,18 +226,18 @@ export const Selected = () => {
                     <Calendar.HeaderMonths />
                 </Calendar.Header>
                 <Calendar.DaysViewControl>
-                    <Calendar.PrevTrigger>
+                    <Calendar.DaysPrevTrigger>
                         <Icon value="chevron_left" />
-                    </Calendar.PrevTrigger>
-                    <Calendar.RangeText />
-                    <Calendar.NextTrigger>
+                    </Calendar.DaysPrevTrigger>
+                    <Calendar.DaysRangeText />
+                    <Calendar.DaysNextTrigger>
                         <Icon value="chevron_right" />
-                    </Calendar.NextTrigger>
+                    </Calendar.DaysNextTrigger>
                 </Calendar.DaysViewControl>
-                <Calendar.Table>
-                    <Calendar.TableHead />
-                    <Calendar.TableBody />
-                </Calendar.Table>
+                <Calendar.DaysTable>
+                    <Calendar.DaysTableHead />
+                    <Calendar.DaysTableBody />
+                </Calendar.DaysTable>
                 <Calendar.Footer>
                     <Calendar.DismissButton>Cancel</Calendar.DismissButton>
                     <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
@@ -252,18 +262,18 @@ export const LocalizedCalendar = (props) => {
                     <Calendar.HeaderMonths />
                 </Calendar.Header>
                 <Calendar.DaysViewControl>
-                    <Calendar.PrevTrigger>
+                    <Calendar.DaysPrevTrigger>
                         <Icon value="chevron_left" />
-                    </Calendar.PrevTrigger>
-                    <Calendar.RangeText />
-                    <Calendar.NextTrigger>
+                    </Calendar.DaysPrevTrigger>
+                    <Calendar.DaysRangeText />
+                    <Calendar.DaysNextTrigger>
                         <Icon value="chevron_right" />
-                    </Calendar.NextTrigger>
+                    </Calendar.DaysNextTrigger>
                 </Calendar.DaysViewControl>
-                <Calendar.Table>
-                    <Calendar.TableHead />
-                    <Calendar.TableBody />
-                </Calendar.Table>
+                <Calendar.DaysTable>
+                    <Calendar.DaysTableHead />
+                    <Calendar.DaysTableBody />
+                </Calendar.DaysTable>
                 <Calendar.Footer>
                     <Calendar.DismissButton>Закрыть</Calendar.DismissButton>
                     <Calendar.SuccessButton>Выбрать</Calendar.SuccessButton>
