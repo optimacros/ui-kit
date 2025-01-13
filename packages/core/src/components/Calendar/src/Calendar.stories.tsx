@@ -7,7 +7,6 @@ const Wrapper = ({ children }: { children }) => (
 );
 
 const value = fromDate(new Date('12.02.2024'));
-const locale = 'ru';
 
 const locales = [
     'en-US',
@@ -166,13 +165,19 @@ export default meta;
 export const Basic: StoryObj = {
     render: (props) => {
         return (
-            <Calendar.Root {...props} value={[value]} open={true} closeOnSelect={false}>
+            <Calendar.Root
+                {...props}
+                value={[value]}
+                open={true}
+                closeOnSelect={false}
+                {...{ 'open.controlled': true }}
+            >
                 <Calendar.Content>
                     <Calendar.Header>
                         <Calendar.HeaderYears />
                         <Calendar.HeaderMonths />
                     </Calendar.Header>
-                    <Calendar.ViewControl>
+                    <Calendar.DaysViewControl>
                         <Calendar.PrevTrigger>
                             <Icon value="chevron_left" />
                         </Calendar.PrevTrigger>
@@ -180,7 +185,9 @@ export const Basic: StoryObj = {
                         <Calendar.NextTrigger>
                             <Icon value="chevron_right" />
                         </Calendar.NextTrigger>
-                    </Calendar.ViewControl>
+                    </Calendar.DaysViewControl>
+                    <Calendar.YearsViewControl />
+                    <Calendar.YearsTable />
                     <Calendar.Table>
                         <Calendar.TableHead />
                         <Calendar.TableBody />
@@ -197,13 +204,18 @@ export const Basic: StoryObj = {
 
 export const Selected = () => {
     return (
-        <Calendar.Root value={[value]} open={true} closeOnSelect={false}>
+        <Calendar.Root
+            value={[value]}
+            open={true}
+            closeOnSelect={false}
+            {...{ 'open.controlled': true }}
+        >
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
                     <Calendar.HeaderMonths />
                 </Calendar.Header>
-                <Calendar.ViewControl>
+                <Calendar.DaysViewControl>
                     <Calendar.PrevTrigger>
                         <Icon value="chevron_left" />
                     </Calendar.PrevTrigger>
@@ -211,7 +223,7 @@ export const Selected = () => {
                     <Calendar.NextTrigger>
                         <Icon value="chevron_right" />
                     </Calendar.NextTrigger>
-                </Calendar.ViewControl>
+                </Calendar.DaysViewControl>
                 <Calendar.Table>
                     <Calendar.TableHead />
                     <Calendar.TableBody />
@@ -227,13 +239,19 @@ export const Selected = () => {
 
 export const LocalizedCalendar = (props) => {
     return (
-        <Calendar.Root {...props} value={[value]} open={true} closeOnSelect={false}>
+        <Calendar.Root
+            {...props}
+            value={[value]}
+            open={true}
+            closeOnSelect={false}
+            {...{ 'open.controlled': true }}
+        >
             <Calendar.Content>
                 <Calendar.Header>
                     <Calendar.HeaderYears />
                     <Calendar.HeaderMonths />
                 </Calendar.Header>
-                <Calendar.ViewControl>
+                <Calendar.DaysViewControl>
                     <Calendar.PrevTrigger>
                         <Icon value="chevron_left" />
                     </Calendar.PrevTrigger>
@@ -241,7 +259,7 @@ export const LocalizedCalendar = (props) => {
                     <Calendar.NextTrigger>
                         <Icon value="chevron_right" />
                     </Calendar.NextTrigger>
-                </Calendar.ViewControl>
+                </Calendar.DaysViewControl>
                 <Calendar.Table>
                     <Calendar.TableHead />
                     <Calendar.TableBody />

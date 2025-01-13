@@ -81,7 +81,7 @@ export class Calendar extends Component<Props, State> {
         return (
             <div data-react-toolbox="dialog" className={className}>
                 <section className={theme.body}>
-                    <header className={headerClassName}>
+                    <header className={headerClassName} style={{ background: 'lightgreen' }}>
                         <span id="years" className={theme.year} onClick={this.handleSwitchDisplay}>
                             {this.state.date.getFullYear()}
                         </span>
