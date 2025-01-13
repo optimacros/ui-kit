@@ -24,7 +24,10 @@ export const ControlTemplate = ({ children, ...rest }) => {
                         {(api) =>
                             api.value.map((value) => {
                                 return (
-                                    <div className="bg-primary p-1.5 rounded-xs">
+                                    <div
+                                        className="bg-primary p-1.5 rounded-xs"
+                                        data-testid="selected-item"
+                                    >
                                         {value}
                                         <Select.ItemDeleteTrigger item={{ value }} asChild>
                                             <IconButton size="sm" squared icon="close" />
@@ -39,10 +42,14 @@ export const ControlTemplate = ({ children, ...rest }) => {
             </Flex>
 
             <Select.Positioner>
-                <Select.Content>
-                    <Select.List>
-                        {(item) => (
-                            <Select.Item item={item} key={`select-${item.value}`}>
+                <Select.Content data-testid="content">
+                    <Select.List data-testid="list">
+                        {(item, i) => (
+                            <Select.Item
+                                item={item}
+                                key={`select-${item.value}`}
+                                data-testid={`item-${i}`}
+                            >
                                 {({ selected }) => (
                                     <>
                                         <div>

@@ -124,7 +124,6 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
     const api = useApi();
     const scrollerRef = useRef<HTMLDivElement>(null);
 
-    //TODO: check if possible to optimize
     useEffect(() => {
         const el = scrollerRef.current?.querySelector(
             `[data-index="${api.highlightedItem?.index}"]`,
@@ -138,7 +137,7 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
     }, [api.highlightedItem?.index]);
 
     return (
-        <Virtual.Root data-scope="select" data-part="virtual-list" ref={ref}>
+        <Virtual.Root data-scope="select" data-part="list" data-tag="virtual" ref={ref}>
             <Virtual.List
                 {...rest}
                 data={api.collection.items}
