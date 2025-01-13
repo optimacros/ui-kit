@@ -102,25 +102,37 @@ export const Calendar: CalendarProps = ({
     };
 
     return (
-        <CalendarComponent.Root open={true} closeOnSelect={false}>
+        <CalendarComponent.Root open={true} closeOnSelect={false} {...{ 'open.controlled': true }}>
             <CalendarComponent.Content>
                 <CalendarComponent.Header>
                     <CalendarComponent.HeaderYears />
                     <CalendarComponent.HeaderMonths />
                 </CalendarComponent.Header>
                 <CalendarComponent.DaysViewControl>
-                    <CalendarComponent.PrevTrigger>
+                    <CalendarComponent.DaysPrevTrigger>
                         <Icon value="chevron_left" />
-                    </CalendarComponent.PrevTrigger>
-                    <CalendarComponent.RangeText />
-                    <CalendarComponent.NextTrigger>
+                    </CalendarComponent.DaysPrevTrigger>
+                    <CalendarComponent.DaysRangeText />
+                    <CalendarComponent.DaysNextTrigger>
                         <Icon value="chevron_right" />
-                    </CalendarComponent.NextTrigger>
+                    </CalendarComponent.DaysNextTrigger>
                 </CalendarComponent.DaysViewControl>
-                <CalendarComponent.Table>
-                    <CalendarComponent.TableHead />
-                    <CalendarComponent.TableBody />
-                </CalendarComponent.Table>
+                <CalendarComponent.YearsViewControl>
+                    <CalendarComponent.YearsPrevTrigger>
+                        <Icon value="chevron_left" />
+                    </CalendarComponent.YearsPrevTrigger>
+                    <CalendarComponent.YearsRangeText />
+                    <CalendarComponent.YearsNextTrigger>
+                        <Icon value="chevron_right" />
+                    </CalendarComponent.YearsNextTrigger>
+                </CalendarComponent.YearsViewControl>
+                <CalendarComponent.YearsTable>
+                    <CalendarComponent.YearsTableBody />
+                </CalendarComponent.YearsTable>
+                <CalendarComponent.DaysTable>
+                    <CalendarComponent.DaysTableHead />
+                    <CalendarComponent.DaysTableBody />
+                </CalendarComponent.DaysTable>
                 <CalendarComponent.Footer>
                     <CalendarComponent.DismissButton>Cancel</CalendarComponent.DismissButton>
                     <CalendarComponent.SuccessButton>Ok</CalendarComponent.SuccessButton>
