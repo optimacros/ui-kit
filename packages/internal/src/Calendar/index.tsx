@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button } from 'ui-kit-core';
 import { time } from '@optimacros-ui/utils';
 import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
+import { fromDate } from '@internationalized/date';
 import { Icon } from '@optimacros-ui/icon';
 
 interface CalendarProps {
@@ -36,26 +36,21 @@ interface CalendarProps {
 
 export const Calendar: CalendarProps = ({
     active = false,
-    cancelLabel = 'Cancel',
     className = '',
+    cancelLabel = 'Cancel',
     okLabel = 'Ok',
+    onSelect,
+    onDismiss,
     value = new Date(),
     locale,
     disabledDates,
     enabledDates,
     maxDate,
     minDate,
-    onSelect,
-    onDismiss,
     autoOk,
     sundayFirstDayOfWeek,
 }) => {
     const [display, setDisplay] = useState<'months' | 'years'>('months');
-    const [date, setDate] = useState<Date>(value || new Date());
-
-    const shortDayOfWeek = time.getShortDayOfWeek(date.getDay(), locale);
-    const shortMonth = time.getShortMonth(date, locale);
-    const currentDate = date.getDate();
 
     const handleNewDate = (newValue: Date, dayClick: boolean) => {
         let newDate = newValue;
@@ -68,7 +63,6 @@ export const Calendar: CalendarProps = ({
             }
         }
 
-        setDate(newDate);
         setDisplay('months');
 
         if (dayClick && autoOk && onSelect) {
@@ -76,33 +70,14 @@ export const Calendar: CalendarProps = ({
         }
     };
 
-    const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        if (onSelect) {
-            onSelect(date, event);
-        }
-    };
-
-    const handleSwitchDisplay = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setDisplay(event.target.id as 'months' | 'years');
-    };
-
-    const renderActions = () => {
-        const actions = [
-            { label: cancelLabel, onClick: onDismiss },
-            { label: okLabel, name: className, onClick: handleSelect },
-        ];
-
-        return actions.length ? (
-            <nav>
-                {actions.map((action, idx) => (
-                    <Button key={idx} {...action} />
-                ))}
-            </nav>
-        ) : null;
-    };
-
     return (
-        <CalendarComponent.Root open={true} closeOnSelect={false} {...{ 'open.controlled': true }}>
+        <CalendarComponent.Root
+            value={[fromDate(value)]}
+            locale={locale}
+            open={true}
+            closeOnSelect={false}
+            {...{ 'open.controlled': true }}
+        >
             <CalendarComponent.Content>
                 <CalendarComponent.Header>
                     <CalendarComponent.HeaderYears />
@@ -134,9 +109,11 @@ export const Calendar: CalendarProps = ({
                     <CalendarComponent.DaysTableBody />
                 </CalendarComponent.DaysTable>
                 <CalendarComponent.Footer>
-                    <CalendarComponent.DismissButton>Cancel</CalendarComponent.DismissButton>
-                    <CalendarComponent.SuccessButton onSelect={(e) => console.log(e)}>
-                        Ok
+                    <CalendarComponent.DismissButton onSelect={onDismiss}>
+                        {cancelLabel}
+                    </CalendarComponent.DismissButton>
+                    <CalendarComponent.SuccessButton onSelect={onSelect}>
+                        {okLabel}
                     </CalendarComponent.SuccessButton>
                 </CalendarComponent.Footer>
             </CalendarComponent.Content>

@@ -26,19 +26,26 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                 };
             },
             getYearTableCellProps({ ...year }: { label: ' string'; value: number }) {
+                const setYear = (year: string) => {
+                    const curCalendarDate = api.valueAsString[0];
+                    const dateWithSelectedYear = getDateWithSelectedYear(curCalendarDate, year);
+                    api.setValue([datepicker.parse(dateWithSelectedYear)]);
+                };
                 return {
                     ...api.getYearTableCellProps({
                         ...year,
                         columns: 4,
                     }),
                     onClick: () => {
-                        const curCalendarDate = api.valueAsString[0];
-                        const dateWithSelectedYear = getDateWithSelectedYear(
-                            curCalendarDate,
-                            year.label,
-                        );
-                        api.setValue([datepicker.parse(dateWithSelectedYear)]);
+                        setYear(year.label);
                         api.setView('day');
+                    },
+                    onKeyDown: (event) => {
+                        if (event.key === 'Enter') {
+                            event.stopPropagation();
+                            setYear(year.label);
+                            api.setView('day');
+                        }
                     },
                 };
             },
@@ -87,7 +94,6 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
 export const Content = forward<{}, 'div'>(
     (props, ref) => {
         const api = useApi();
-
         return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
     },
     {

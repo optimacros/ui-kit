@@ -167,7 +167,6 @@ export const Basic: StoryObj = {
         return (
             <Calendar.Root
                 {...props}
-                value={[value]}
                 open={true}
                 closeOnSelect={false}
                 {...{ 'open.controlled': true }}
@@ -234,6 +233,18 @@ export const Selected = () => {
                         <Icon value="chevron_right" />
                     </Calendar.DaysNextTrigger>
                 </Calendar.DaysViewControl>
+                <Calendar.YearsViewControl>
+                    <Calendar.YearsPrevTrigger>
+                        <Icon value="chevron_left" />
+                    </Calendar.YearsPrevTrigger>
+                    <Calendar.YearsRangeText />
+                    <Calendar.YearsNextTrigger>
+                        <Icon value="chevron_right" />
+                    </Calendar.YearsNextTrigger>
+                </Calendar.YearsViewControl>
+                <Calendar.YearsTable>
+                    <Calendar.YearsTableBody />
+                </Calendar.YearsTable>
                 <Calendar.DaysTable>
                     <Calendar.DaysTableHead />
                     <Calendar.DaysTableBody />
@@ -254,6 +265,7 @@ export const LocalizedCalendar = (props) => {
             value={[value]}
             open={true}
             closeOnSelect={false}
+            locale="ru"
             {...{ 'open.controlled': true }}
         >
             <Calendar.Content>
@@ -270,13 +282,25 @@ export const LocalizedCalendar = (props) => {
                         <Icon value="chevron_right" />
                     </Calendar.DaysNextTrigger>
                 </Calendar.DaysViewControl>
+                <Calendar.YearsViewControl>
+                    <Calendar.YearsPrevTrigger>
+                        <Icon value="chevron_left" />
+                    </Calendar.YearsPrevTrigger>
+                    <Calendar.YearsRangeText />
+                    <Calendar.YearsNextTrigger>
+                        <Icon value="chevron_right" />
+                    </Calendar.YearsNextTrigger>
+                </Calendar.YearsViewControl>
+                <Calendar.YearsTable>
+                    <Calendar.YearsTableBody />
+                </Calendar.YearsTable>
                 <Calendar.DaysTable>
                     <Calendar.DaysTableHead />
                     <Calendar.DaysTableBody />
                 </Calendar.DaysTable>
                 <Calendar.Footer>
-                    <Calendar.DismissButton>Закрыть</Calendar.DismissButton>
-                    <Calendar.SuccessButton>Выбрать</Calendar.SuccessButton>
+                    <Calendar.DismissButton>Cancel</Calendar.DismissButton>
+                    <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
                 </Calendar.Footer>
             </Calendar.Content>
         </Calendar.Root>
