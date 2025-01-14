@@ -3,6 +3,10 @@ import {} from '@internationalized/date';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as datepicker from '@zag-js/date-picker';
 
+export const dateFormatters = (date: Date | string) => {
+    return datepicker.parse(date);
+};
+
 const getDateWithSelectedYear = (initialDate: string, selectedYear: string): string => {
     const curMonthAndDay = new Date().toLocaleDateString('en-CA', {
         month: '2-digit',
@@ -29,7 +33,7 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                 const setYear = (year: string) => {
                     const curCalendarDate = api.valueAsString[0];
                     const dateWithSelectedYear = getDateWithSelectedYear(curCalendarDate, year);
-                    api.setValue([datepicker.parse(dateWithSelectedYear)]);
+                    api.setValue([dateFormatters(dateWithSelectedYear)]);
                 };
                 return {
                     ...api.getYearTableCellProps({

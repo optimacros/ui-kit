@@ -1,7 +1,6 @@
 import React from 'react';
 import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
 import { Icon } from '@optimacros-ui/icon';
-import * as datepicker from '@zag-js/date-picker';
 
 interface CalendarProps {
     active?: boolean;
@@ -33,6 +32,8 @@ interface CalendarProps {
     value?: Date;
 }
 
+const { dateFormatters } = CalendarComponent;
+
 export const Calendar: CalendarProps = ({
     active = false,
     className = '',
@@ -48,14 +49,14 @@ export const Calendar: CalendarProps = ({
 }) => {
     return (
         <CalendarComponent.Root
-            value={[datepicker.parse(value)]}
+            value={[dateFormatters(value)]}
             locale={locale}
             open={true}
             closeOnSelect={false}
             {...{ 'open.controlled': true }}
             startOfWeek={sundayFirstDayOfWeek ? 1 : 0}
-            min={minDate && datepicker.parse(minDate)}
-            max={maxDate && datepicker.parse(maxDate)}
+            min={minDate && dateFormatters(minDate)}
+            max={maxDate && dateFormatters(maxDate)}
         >
             <CalendarComponent.Content>
                 <CalendarComponent.Header>
