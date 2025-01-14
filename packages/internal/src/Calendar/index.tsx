@@ -135,7 +135,9 @@ export const Calendar: CalendarProps = ({
                 </CalendarComponent.DaysTable>
                 <CalendarComponent.Footer>
                     <CalendarComponent.DismissButton>Cancel</CalendarComponent.DismissButton>
-                    <CalendarComponent.SuccessButton>Ok</CalendarComponent.SuccessButton>
+                    <CalendarComponent.SuccessButton onSelect={(e) => console.log(e)}>
+                        Ok
+                    </CalendarComponent.SuccessButton>
                 </CalendarComponent.Footer>
             </CalendarComponent.Content>
         </CalendarComponent.Root>

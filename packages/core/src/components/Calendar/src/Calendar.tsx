@@ -3,6 +3,15 @@ import {} from '@internationalized/date';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as datepicker from '@zag-js/date-picker';
 
+const getDateWithSelectedYear = (initialDate: string, selectedYear: string): string => {
+    const curMonthAndDay = new Date().toLocaleDateString('en-CA', {
+        month: '2-digit',
+        day: '2-digit',
+    });
+
+    return selectedYear + (initialDate ? initialDate.substring(4) : `-${curMonthAndDay}`);
+};
+
 export const { RootProvider: Root, useApi } = createReactApiStateContext({
     id: 'calendar',
     machine: datepicker,
@@ -23,8 +32,12 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                         columns: 4,
                     }),
                     onClick: () => {
-                        const newDate = year.label + api.valueAsString[0].substring(4);
-                        api.setValue([datepicker.parse(newDate)]);
+                        const curCalendarDate = api.valueAsString[0];
+                        const dateWithSelectedYear = getDateWithSelectedYear(
+                            curCalendarDate,
+                            year.label,
+                        );
+                        api.setValue([datepicker.parse(dateWithSelectedYear)]);
                         api.setView('day');
                     },
                 };
@@ -293,7 +306,7 @@ export type SuccessButtonProps = {
 export const SuccessButton = forward<SuccessButtonProps, 'button'>(({ onSelect, ...rest }, ref) => {
     const api = useApi();
     const handleClick = (event: ChangeEvent<HTMLSelectElement>) => {
-        onSelect && onSelect(api.valueAsDate, event);
+        onSelect && onSelect(api.valueAsDate[0], event);
     };
 
     return (
