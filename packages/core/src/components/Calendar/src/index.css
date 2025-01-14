@@ -86,4 +86,8 @@
   &[data-part='weekday'] {
     font-weight: var(--font-weight-normal);
   }
+
+  &[data-disabled] {
+    color: var(--color-calendar-primary-trigger-border-default);
+  }
 }

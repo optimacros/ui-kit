@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { time } from '@optimacros-ui/utils';
+import React from 'react';
 import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
-import { fromDate } from '@internationalized/date';
 import { Icon } from '@optimacros-ui/icon';
+import * as datepicker from '@zag-js/date-picker';
 
 interface CalendarProps {
     active?: boolean;
@@ -43,40 +42,20 @@ export const Calendar: CalendarProps = ({
     onDismiss,
     value = new Date(),
     locale,
-    disabledDates,
-    enabledDates,
-    maxDate,
     minDate,
-    autoOk,
+    maxDate,
     sundayFirstDayOfWeek,
 }) => {
-    const [display, setDisplay] = useState<'months' | 'years'>('months');
-
-    const handleNewDate = (newValue: Date, dayClick: boolean) => {
-        let newDate = newValue;
-
-        if (time.dateOutOfRange(newValue, minDate, maxDate)) {
-            if (maxDate && minDate) {
-                newDate = time.closestDate(newValue, maxDate, minDate);
-            } else {
-                newDate = maxDate || minDate || new Date();
-            }
-        }
-
-        setDisplay('months');
-
-        if (dayClick && autoOk && onSelect) {
-            onSelect(newDate);
-        }
-    };
-
     return (
         <CalendarComponent.Root
-            value={[fromDate(value)]}
+            value={[datepicker.parse(value)]}
             locale={locale}
             open={true}
             closeOnSelect={false}
             {...{ 'open.controlled': true }}
+            startOfWeek={sundayFirstDayOfWeek ? 1 : 0}
+            min={minDate && datepicker.parse(minDate)}
+            max={maxDate && datepicker.parse(maxDate)}
         >
             <CalendarComponent.Content>
                 <CalendarComponent.Header>
@@ -118,35 +97,5 @@ export const Calendar: CalendarProps = ({
                 </CalendarComponent.Footer>
             </CalendarComponent.Content>
         </CalendarComponent.Root>
-        // <div data-react-toolbox="dialog">
-        //     <section>
-        //         <header>
-        //             <span id="years" onClick={handleSwitchDisplay}>
-        //                 {date.getFullYear()}
-        //             </span>
-        //
-        //             <h3 id="months" onClick={handleSwitchDisplay}>
-        //                 {shortDayOfWeek}, {shortMonth} {currentDate}
-        //             </h3>
-        //         </header>
-        //
-        //         <div>
-        //             <CalendarContent
-        //                 disabledDates={disabledDates}
-        //                 display={display}
-        //                 enabledDates={enabledDates}
-        //                 handleSelect={handleSelect}
-        //                 maxDate={maxDate}
-        //                 minDate={minDate}
-        //                 onChange={handleNewDate}
-        //                 selectedDate={date}
-        //                 locale={locale}
-        //                 sundayFirstDayOfWeek={sundayFirstDayOfWeek}
-        //             />
-        //         </div>
-        //     </section>
-        //
-        //     {renderActions()}
-        // </div>
     );
 };

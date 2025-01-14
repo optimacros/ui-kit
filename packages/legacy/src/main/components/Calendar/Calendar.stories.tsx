@@ -13,5 +13,5 @@ export default meta;
 type Story = StoryObj<typeof Calendar>;
 
 export const Basic: Story = {
-    args: { active: true },
+    args: { autoOk: true },
 };

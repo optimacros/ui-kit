@@ -49,6 +49,7 @@ export class Calendar extends Component<Props, State> {
         className: '',
         okLabel: 'Ok',
         value: new Date(),
+        maxDate: new Date(),
     };
 
     state = {
