@@ -14,13 +14,13 @@ type Story = StoryObj<typeof FileInput>;
 
 export const Base: Story = {
     args: {
-        accept: 'image/*',
+        accept: '.zip',
     },
 };
 
 export const DefaultFile: Story = {
     args: {
-        accept: 'text/*',
+        accept: ['.xls', '.xlsx', '.odf', '.csv', '.txt', '.zip'],
         state: {
             file: {
                 lastModified: 11,
