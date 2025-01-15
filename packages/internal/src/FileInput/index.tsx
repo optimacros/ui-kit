@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { FileUpload } from '@optimacros-ui/file-upload';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
@@ -23,7 +24,7 @@ const mimeMap = {
     '.odf': 'application/vnd.oasis.opendocument.spreadsheet',
     '.csv': 'text/csv',
     '.txt': 'text/plain',
-    '.zip': 'application/zip',
+    '.zip': 'zip,application/zip,application/x-zip,application/x-zip-compressed',
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
@@ -32,7 +33,9 @@ const mimeMap = {
 };
 
 function adaptAcceptParam(params) {
-    return params.isArray ? params.map((ext) => mimeMap[ext] || ext).join(',') : mimeMap[params[0]];
+    return Array.isArray(params)
+        ? params.map((ext) => mimeMap[ext] || ext).join(',')
+        : mimeMap[params];
 }
 
 export const FileInput: FileInputProps = ({
@@ -41,17 +44,23 @@ export const FileInput: FileInputProps = ({
     filePreview,
     labelUploadNewFile,
     accept,
+    name,
+    onChange,
     ...otherProps
 }) => {
     const { file, reset } = state || {};
+    const generatedName = useId();
 
     return (
         <FileUpload.Root
             {...otherProps}
             allowDrop
-            maxFiles={1}
+            maxFiles={10}
             accept={adaptAcceptParam(accept)}
-            name="file-input"
+            name={name ?? generatedName}
+            onFileChange={(files) =>
+                onChange && onChange({ target: { files: files.acceptedFiles } })
+            }
         >
             {file && filePreview ? (
                 <>
