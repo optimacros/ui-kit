@@ -17,17 +17,42 @@ interface FileInputProps {
     labelUploadNewFile?: string;
 }
 
+const mimeMap = {
+    '.xls': 'application/vnd.ms-excel',
+    '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    '.odf': 'application/vnd.oasis.opendocument.spreadsheet',
+    '.csv': 'text/csv',
+    '.txt': 'text/plain',
+    '.zip': 'application/zip',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.bmp': 'image/bmp',
+    '.svg': 'image/svg+xml',
+};
+
+function adaptAcceptParam(params) {
+    return params.isArray ? params.map((ext) => mimeMap[ext] || ext).join(',') : mimeMap[params[0]];
+}
+
 export const FileInput: FileInputProps = ({
     state,
     value,
     filePreview,
     labelUploadNewFile,
+    accept,
     ...otherProps
 }) => {
     const { file, reset } = state || {};
 
     return (
-        <FileUpload.Root {...otherProps} allowDrop maxFiles={1} name="file-input">
+        <FileUpload.Root
+            {...otherProps}
+            allowDrop
+            maxFiles={1}
+            accept={adaptAcceptParam(accept)}
+            name="file-input"
+        >
             {file && filePreview ? (
                 <>
                     {reset && (
