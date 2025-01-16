@@ -1,7 +1,7 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
-import { ButtonMenu } from './index';
-import { MenuItem } from '../Menu';
+import { WSButtonMenu as ButtonMenu } from './index';
+import { MenuItem } from '@optimacros-ui/kit-legacy/src/core/components/Menu';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -77,7 +77,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof ButtonMenu> = {
-    title: 'legacy/ButtonMenu',
+    title: 'UI KIT internal/ButtonMenu',
     component: ButtonMenu,
     argTypes,
 };
