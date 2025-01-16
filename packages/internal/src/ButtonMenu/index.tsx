@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, ButtonTheme } from '../Button';
 import { Icon } from '@optimacros-ui/icon';
+import { Menu as MenuComponent } from '@optimacros-ui/menu';
+import { Button, ButtonTheme } from '../Button';
 import { Tooltip, TooltipProps } from '../Tooltip';
 
 export type ButtonMenuTheme = Partial<ButtonTheme>;
@@ -24,7 +25,7 @@ export type Props = {
 
 export type ButtonMenuProps = React.PropsWithChildren<Props>;
 
-export const WSButtonMenu: React.FC<ButtonMenuProps> = (props) => {
+export const ButtonMenu: React.FC<ButtonMenuProps> = (props) => {
     const {
         disabled,
         onVisibleChange,
@@ -52,7 +53,16 @@ export const WSButtonMenu: React.FC<ButtonMenuProps> = (props) => {
 
     const renderButton = () => {
         const iconValue = arrowUp ? 'arrow_drop_up' : 'arrow_drop_down';
-        const content = renderContent(iconValue);
+        const renderContent = () => {
+            return (
+                <>
+                    {!showOnlyIcon && <div>{label}</div>}
+                    <div>
+                        <Icon value={iconValue} />
+                    </div>
+                </>
+            );
+        };
 
         if (tooltip) {
             return (
@@ -71,7 +81,7 @@ export const WSButtonMenu: React.FC<ButtonMenuProps> = (props) => {
                     tooltipPosition={tooltipPosition}
                     tooltipOffset={tooltipOffset}
                 >
-                    {content}
+                    {renderContent()}
                 </Tooltip>
             );
         }
@@ -85,39 +95,23 @@ export const WSButtonMenu: React.FC<ButtonMenuProps> = (props) => {
                 data-label={label}
                 data-name={dataName}
             >
-                {content}
+                {renderContent()}
             </Button>
         );
     };
 
-    const renderContent = (iconValue: string) => {
-        return (
-            <>
-                {!showOnlyIcon && <div>{label}</div>}
-                <div>
-                    <Icon value={iconValue} />
-                </div>
-            </>
-        );
-    };
-
     return (
-        <div>d</div>
-        // <Menu.Root closeOnSelect={closeOnSelect} {...props}>
-        //     <Menu.Positioner>
-        //         <Menu.Content size="sm">{children}</Menu.Content>
-        //     </Menu.Positioner>
-        // </Menu.Root>
-        // <Dropdown
-        //     overlay={renderMenu()}
-        //     trigger={['click']}
-        //     disabled={disabled}
-        //     onVisibleChange={onVisibleChange}
-        //     visible={visible}
-        //     className={classNameDropdownContainer}
-        //     closeOnSelect={closeOnSelect}
-        // >
-        //     {renderButton()}
-        // </Dropdown>
+        <MenuComponent.Root
+            closeOnSelect={closeOnSelect}
+            disabled={disabled}
+            open={visible}
+            {...{ 'open.controlled': visible }}
+            onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
+        >
+            <MenuComponent.Trigger as="div">{renderButton()}</MenuComponent.Trigger>
+            <MenuComponent.Positioner>
+                <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
+            </MenuComponent.Positioner>
+        </MenuComponent.Root>
     );
 };
