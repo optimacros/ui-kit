@@ -121,7 +121,8 @@ export const Button: ButtonComponentProps = ({
             {...rest}
         >
             {label}
-            <Icon value={icon} />
+            {icon && <Icon value={icon} />}
+            {children}
         </ButtonComponent>
     );
 };
