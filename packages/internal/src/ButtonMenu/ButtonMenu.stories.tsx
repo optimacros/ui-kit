@@ -1,7 +1,7 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
-import { WSButtonMenu as ButtonMenu } from './index';
-import { MenuItem } from '@optimacros-ui/kit-legacy/src/core/components/Menu';
+import { ButtonMenu } from './index';
+import { MenuItem, SubMenu } from '../Menu';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -91,12 +91,14 @@ export const Basic: Story = {
         icon: 'print',
         arrowUp: false,
         children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
+            <SubMenu label="2" key="2">
+                <MenuItem key={1}>
+                    <span>Option</span>
+                </MenuItem>
+                <MenuItem key={2}>
+                    <span>Option</span>
+                </MenuItem>
+            </SubMenu>,
         ],
     },
 };
