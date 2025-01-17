@@ -158,16 +158,22 @@ export const Trigger = forward<{ children: ReactNode; value: string; disabled?: 
 );
 
 export const DraggableTrigger = forward<
-    { children: ReactNode; value: string; disabled?: boolean },
+    { children: ReactNode; value: string; disabled?: boolean; nonDraggable?: boolean },
     'li'
->(({ value, disabled, ...rest }, ref) => {
+>(({ value, disabled, nonDraggable, ...rest }, ref) => {
     const id = useId();
 
     const api = useApi();
 
     const apiProps = api.getTriggerProps({ value, disabled });
+
     return (
-        <DraggableComponent.Item id={id} ref={ref} data={{ value, disabled }}>
+        <DraggableComponent.Item
+            id={id}
+            ref={ref}
+            disabled={nonDraggable}
+            data={{ value, disabled }}
+        >
             {({ setNodeRef, transform, attributes, listeners, isDragging, id: draggableId }) => (
                 <>
                     <styled.li
