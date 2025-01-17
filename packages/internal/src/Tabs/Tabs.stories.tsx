@@ -111,20 +111,14 @@ const argTypesTab: Partial<ArgTypesType> = {
     counter: {
         control: 'number',
         description: 'Count to show',
-        table: {
-            type: { summary: 'ReactNode' },
-        },
     },
     maxCounter: {
         control: 'number',
         description: 'Max count to show',
-        table: {
-            type: { summary: 'ReactNode' },
-        },
     },
     nonDraggable: {
         control: 'boolean',
-        description: 'If `true`, tabs is not draggable',
+        description: 'If `true`, tab is not draggable',
         table: {
             defaultValue: { summary: 'false' },
         },
@@ -135,7 +129,7 @@ const argTypesTab: Partial<ArgTypesType> = {
     },
     disabled: {
         control: 'boolean',
-        description: 'If `true`, the component is disabled',
+        description: 'If `true`, tab is disabled',
         table: {
             defaultValue: { summary: 'false' },
         },
@@ -253,9 +247,9 @@ export const Controlled: Story = {
 export const Draggable: Story = {
     args: {
         draggable: true,
-        onTabPositionChange: (n, o) => {
-            console.info(`${o} > ${n}`);
+        onTabPositionChange: (newTabs) => {
+            console.info(`${newTabs.map((t) => t.title || t.label)}`);
         },
     },
-    render: Stories.Basic,
+    render: Stories.Draggable,
 };

@@ -34,9 +34,10 @@ const TabsContent = memo<TabsProps>((props) => {
 
         const tabArr = childrenArr.map((child, index) => {
             const titleString = typeof child.props.title === 'string' && child.props.title;
+            const labelString = typeof child.props.label === 'string' && child.props.label;
 
             return {
-                value: titleString || child.props.label || index.toString(),
+                value: titleString || labelString || index.toString(),
                 ...child.props,
             };
         });

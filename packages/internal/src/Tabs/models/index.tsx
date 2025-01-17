@@ -50,5 +50,5 @@ export interface TabProps {
 }
 
 export interface TabExtended extends TabProps {
-    value: string;
+    value?: string;
 }

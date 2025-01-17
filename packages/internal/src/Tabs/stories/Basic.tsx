@@ -8,6 +8,8 @@ export const Basic = (props: Partial<TabsProps>) => (
         <Tab label="Item two" icon="people">
             Item two
         </Tab>
-        <Tab title="Item three">Item three</Tab>
+        <Tab title="Item three (disabled)" disabled>
+            Item three
+        </Tab>
     </Tabs>
 );
