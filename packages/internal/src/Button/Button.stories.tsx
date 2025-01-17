@@ -81,7 +81,15 @@ const argTypes: Partial<ArgTypes> = {
         control: 'text',
         description: 'The text string to use for the name of the button.',
     },
-    theme: { table: { disable: true } },
+    theme: {
+        description: 'Additional classes to add',
+        table: {
+            type: {
+                summary:
+                    'button, icon, flat, floating, raised, inverse, mini, neutral, accent, primary, bordered',
+            },
+        },
+    },
 };
 
 export const argTypesTheme: Partial<ArgTypes> = {
@@ -135,7 +143,7 @@ const meta: Meta<typeof Button> = {
     title: 'UI kit internal/Button',
     component: Button,
     tags: ['autodocs'],
-    argTypes: { ...argTypes, ...argTypesTheme },
+    argTypes: { ...argTypes /*, ...argTypesTheme*/ },
     excludeStories: ['argTypesTheme'],
 };
 
