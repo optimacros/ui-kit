@@ -3,6 +3,7 @@ import { memo, ReactElement, useEffect, useState } from 'react';
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabExtended, TabsContainerProps, TabProps } from './models';
 import { Content, Header } from './components';
+import { sortBy } from '@optimacros-ui/utils';
 
 export interface TabsProps extends Omit<TabsContainerProps, 'active'> {
     children: ReactElement<TabProps> | ReactElement<TabProps>[];
@@ -21,7 +22,6 @@ const TabsContent = memo<TabsProps>((props) => {
         onTabSwitch,
         draggable,
         onTabPositionChange,
-        ...rest
     } = props;
 
     const [tabs, setTabs] = useState<TabExtended[]>([]);
@@ -32,15 +32,19 @@ const TabsContent = memo<TabsProps>((props) => {
     useEffect(() => {
         const childrenArr = Array.isArray(children) ? children : [children];
 
-        const tabArr = childrenArr.map((child, index) => {
-            const titleString = typeof child.props.title === 'string' && child.props.title;
-            const labelString = typeof child.props.label === 'string' && child.props.label;
+        // fixed tabs are on the left
+        const tabArr = sortBy(
+            childrenArr.map((child, index) => {
+                const titleString = typeof child.props.title === 'string' && child.props.title;
+                const labelString = typeof child.props.label === 'string' && child.props.label;
 
-            return {
-                value: titleString || labelString || index.toString(),
-                ...child.props,
-            };
-        });
+                return {
+                    value: titleString || labelString || index.toString(),
+                    ...child.props,
+                };
+            }),
+            ['isFixed'],
+        );
 
         setTabs(tabArr);
     }, [children]);

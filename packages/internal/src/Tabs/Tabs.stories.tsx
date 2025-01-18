@@ -253,3 +253,8 @@ export const Draggable: Story = {
     },
     render: Stories.Draggable,
 };
+
+export const Scroll: Story = {
+    args: { active: 1 },
+    render: Stories.Scroll,
+};
