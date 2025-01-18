@@ -75,7 +75,13 @@ const HeaderContent = memo<HeaderContentProps>(({ tabs, className, handleKeyDown
                     data-index={index}
                     disabled={tab.disabled}
                 >
-                    <TabContent value={tab.value} className={className} icon={tab.icon} />
+                    <TabContent
+                        value={tab.value}
+                        className={className}
+                        icon={tab.icon}
+                        onHeaderContextMenu={tab.onHeaderContextMenu}
+                        onDoubleClick={tab.onDoubleClick}
+                    />
                 </Tabs.Trigger>
             ))}
         </Tabs.List>
@@ -118,7 +124,13 @@ const DraggableHeaderContent = memo<DraggableHeaderContentProps>(
                         nonDraggable={tab.nonDraggable}
                         disabled={tab.disabled}
                     >
-                        <TabContent value={tab.value} className={className} icon={tab.icon} />
+                        <TabContent
+                            value={tab.value}
+                            className={className}
+                            icon={tab.icon}
+                            onHeaderContextMenu={tab.onHeaderContextMenu}
+                            onDoubleClick={tab.onDoubleClick}
+                        />
                     </Tabs.DraggableTrigger>
                 ))}
             </Tabs.DraggableList>

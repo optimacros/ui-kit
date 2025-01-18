@@ -136,16 +136,16 @@ const argTypesTab: Partial<ArgTypesType> = {
     },
     onHeaderContextMenu: {
         control: false,
-        description: 'Max count to show',
+        description: 'Callback function that is fired on tab header right click',
         table: {
-            type: { summary: '(event: React.MouseEvent<HTMLElement, MouseEvent>, tab) => void' },
+            type: { summary: '(event: React.MouseEvent<HTMLElement, MouseEvent>) => void' },
         },
     },
     onDoubleClick: {
         control: false,
-        description: 'Max count to show',
+        description: 'Callback function that is fired on tab header double click',
         table: {
-            type: { summary: 'ReactNode' },
+            type: { summary: '(event: React.MouseEvent<HTMLElement, MouseEvent>) => void' },
         },
     },
 };
