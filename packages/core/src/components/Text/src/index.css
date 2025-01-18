@@ -34,7 +34,8 @@
   color: var(--color-theme-text-secondary-default);
 }
 
-[data-scope='text'][data-tag='paragraph'] {
+[data-scope='text'][data-tag='paragraph'],
+[data-scope='text'][data-tag='span'] {
   font-size: var(--text-base);
   line-height: var(--text-base-line--height);
   color: var(--color-theme-text-primary-default);
