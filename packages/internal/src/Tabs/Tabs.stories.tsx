@@ -258,3 +258,8 @@ export const Scroll: Story = {
     args: { active: 1 },
     render: Stories.Scroll,
 };
+
+export const TabHeader: Story = {
+    args: { active: 1 },
+    render: Stories.TH,
+};

@@ -131,3 +131,5 @@ export const Tabs = memo<TabsProps>(({ className, theme = {}, ...rest }) => {
     );
 });
 Tabs.displayName = 'Tabs';
+
+export const TabHeader = Tabs;
