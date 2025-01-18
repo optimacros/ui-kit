@@ -21,19 +21,6 @@ export interface TabHeaderTheme {
 
 export interface TabsTheme extends TabsContainerTheme, TabContentTheme, TabHeaderTheme {}
 
-export interface TabsContainerProps {
-    active: number;
-    children: React.ReactElement<TabProps>[] | React.ReactElement<TabProps>;
-    className?: string;
-    draggable?: boolean;
-    onTabSwitch?: (index: number) => void;
-    onTabPositionChange?: (newTabs: TabProps[]) => void;
-    hideTabHeader?: boolean;
-    headerClassName?: string;
-    contentClassName?: string;
-    theme?: Partial<TabsContainerTheme>;
-}
-
 export interface TabProps {
     children: React.ReactNode;
     counter?: number | undefined;
