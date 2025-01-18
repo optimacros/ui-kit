@@ -1,3 +1,2 @@
-export * from './Tab';
 export * from './Content';
-export * from './Header';
+export * from './header/Header';
