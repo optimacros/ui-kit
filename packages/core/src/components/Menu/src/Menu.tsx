@@ -1,7 +1,7 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
-import { ComponentProps, ReactNode, useEffect } from 'react';
+import { ComponentProps, FC, PropsWithChildren, ReactNode, useEffect } from 'react';
 import { machine } from './menu.machine';
 import type * as menu from '@zag-js/menu';
 
@@ -78,18 +78,21 @@ export const Item = forward<menu.ItemProps, 'li'>(
 );
 
 export const NestedItem = forward<{ children: ReactNode; parent: ReturnType<typeof useApi> }, 'li'>(
-    ({ children, parent, ...rest }) => {
+    ({ children, parent, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.li {...rest} {...parent.getTriggerItemProps(api)}>
+            <styled.li {...rest} ref={ref} {...parent.getTriggerItemProps(api)}>
                 {children}
             </styled.li>
         );
     },
 );
 
-const SubMenuRoot = forward<{ parent: ReturnType<typeof useApi> }, 'li'>(({ parent, children }) => {
+const SubMenuRoot: FC<PropsWithChildren<{ parent: ReturnType<typeof useApi> }>> = ({
+    parent,
+    children,
+}) => {
     const api = useApi();
 
     useEffect(() => {
@@ -97,17 +100,19 @@ const SubMenuRoot = forward<{ parent: ReturnType<typeof useApi> }, 'li'>(({ pare
     }, []);
 
     return children;
-});
+};
 
 export const SubMenuItem = forward<
     { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & ComponentProps<typeof Root>,
     'li'
->(({ item, parent, children, ...rest }) => {
+>(({ item, parent, children, ...rest }, ref) => {
     return (
         <Root {...rest}>
             {(api) => (
                 <SubMenuRoot parent={parent}>
-                    <styled.li {...parent?.getTriggerItemProps(api)}>{item.valueText}</styled.li>
+                    <styled.li ref={ref} {...parent?.getTriggerItemProps(api)}>
+                        {item.valueText}
+                    </styled.li>
                     {isFunction(children) ? children(api) : children}
                 </SubMenuRoot>
             )}
