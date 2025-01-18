@@ -22,7 +22,7 @@ export interface TabHeaderTheme {
 export interface TabsTheme extends TabsContainerTheme, TabContentTheme, TabHeaderTheme {}
 
 export interface TabProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     counter?: number | undefined;
     maxCounter?: number | undefined;
     className?: string;
