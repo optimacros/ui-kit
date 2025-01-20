@@ -144,6 +144,7 @@ export const TableBody = forward<{}, 'tbody'>((props, ref) => {
                                 {...api.getDayTableCellTriggerProps({
                                     value,
                                 })}
+                                data-testid="table-cell-trigger"
                             >
                                 {value.day}
                             </span>

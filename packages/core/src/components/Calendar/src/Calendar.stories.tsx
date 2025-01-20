@@ -1,7 +1,9 @@
 import { Icon } from '@optimacros-ui/icon';
-import { StoryObj } from '@storybook/react';
 import { Calendar } from './index';
 import { fromDate } from '@internationalized/date';
+import { within, expect, userEvent, waitFor } from '@storybook/test';
+import { StoryObj } from '@storybook/react';
+
 const Wrapper = ({ children }: { children }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
@@ -168,11 +170,11 @@ export const Basic: StoryObj = {
         return (
             <Calendar.Root {...props} value={[value]} open={true} closeOnSelect={false}>
                 <Calendar.Content>
-                    <Calendar.Header>
+                    <Calendar.Header data-testid="header">
                         <Calendar.HeaderYears />
                         <Calendar.HeaderMonths />
                     </Calendar.Header>
-                    <Calendar.ViewControl>
+                    <Calendar.ViewControl data-testid="view-control">
                         <Calendar.PrevTrigger>
                             <Icon value="chevron_left" />
                         </Calendar.PrevTrigger>
@@ -181,9 +183,9 @@ export const Basic: StoryObj = {
                             <Icon value="chevron_right" />
                         </Calendar.NextTrigger>
                     </Calendar.ViewControl>
-                    <Calendar.Table>
-                        <Calendar.TableHead />
-                        <Calendar.TableBody />
+                    <Calendar.Table data-testid="table">
+                        <Calendar.TableHead data-testid="table-head" />
+                        <Calendar.TableBody data-testid="table-body" />
                     </Calendar.Table>
                     <Calendar.Footer>
                         <Calendar.DismissButton>Cancel</Calendar.DismissButton>
@@ -192,6 +194,17 @@ export const Basic: StoryObj = {
                 </Calendar.Content>
             </Calendar.Root>
         );
+    },
+    play: async ({ canvasElement, step, context }) => {
+        const canvas = within(canvasElement);
+        const body = canvas.getByTestId('table-body');
+        const currentDates = canvas.getAllByTestId('table-cell-trigger');
+        await step('basic check', async () => {
+            await userEvent.click(currentDates[0]);
+            await waitFor(() => expect(currentDates[0]).toHaveAttribute('data-selected'));
+
+            await userEvent.keyboard('[ArrowRight][Enter]');
+        });
     },
 };
 

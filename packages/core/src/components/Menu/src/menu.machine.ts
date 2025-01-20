@@ -8,6 +8,7 @@ export const machine = extendMachine(
         context: {
             orientation: Orientation.Vertical,
             disabled: false,
+            hoverable: false,
         },
         on: {
             'ORIENTATION.SET': { actions: 'setOrientation' },
