@@ -118,9 +118,8 @@ export const Header = forward<{}, 'header'>(
 export const HeaderYears = forward<{}, 'span'>((props, ref) => {
     const api = useApi();
 
-        return <styled.span {...rest} {...api.getHeaderYearsProps()} ref={ref} />;
-    },
-);
+    return <styled.span {...props} {...api.getHeaderYearsProps()} ref={ref} />;
+});
 
 export const HeaderMonths = forward<{ children?: (text: string) => ReactNode }, 'div'>(
     ({ children, ...rest }, ref) => {
