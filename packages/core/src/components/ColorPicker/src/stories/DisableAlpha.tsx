@@ -15,8 +15,7 @@ export const DisableAlpha = () => {
             <ColorPicker.RootProvider
                 value={ColorPicker.parse(value)}
                 onValueChange={handleValueChange}
-                // TODO move to props
-                state={{ disableAlpha: true }}
+                disableAlpha
             >
                 {(api) => (
                     <>
