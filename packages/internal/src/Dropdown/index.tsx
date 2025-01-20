@@ -1,4 +1,4 @@
-import React, { useEffect, useId } from 'react';
+import React, { useEffect } from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 
@@ -8,20 +8,6 @@ interface Props extends RCDropdownProps {
 }
 
 export type DropdownProps = React.PropsWithChildren<Props>;
-
-export const MenuItem = ({ label, value, title, children, onClick, ...restProps }) => {
-    const generatedKey = useId();
-
-    return (
-        <div onClick={onClick}>
-            <Menu.Item
-                {...restProps}
-                valueText={label || title || children}
-                value={value || generatedKey}
-            />
-        </div>
-    );
-};
 
 export const Dropdown: DropdownProps = ({
     visible: propVisible = false,
@@ -74,6 +60,7 @@ export const Dropdown: DropdownProps = ({
     };
 
     const isHoverTrigger = trigger[0] === 'hover';
+    const isMenuInOverlay = overlay?.type?.name === 'Menu';
 
     return (
         <Menu.Root
@@ -105,7 +92,9 @@ export const Dropdown: DropdownProps = ({
                         </Menu.Trigger>
                         <Menu.Positioner>
                             <Menu.Content size="sm">
-                                <Menu.List>{overlay}</Menu.List>
+                                <Menu.List>
+                                    {isMenuInOverlay ? overlay?.props?.children : overlay}
+                                </Menu.List>
                             </Menu.Content>
                         </Menu.Positioner>
                     </>
