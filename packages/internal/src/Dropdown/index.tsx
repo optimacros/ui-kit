@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { useEffect, useId } from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 
@@ -36,24 +36,81 @@ export const Dropdown: DropdownProps = ({
     trigger,
     ...otherProps
 }) => {
+    let closeTimeout;
+
+    useEffect(() => {
+        return clearTimeout(closeTimeout);
+    }, []);
+
+    if (disabled) {
+        return <>{children}</>;
+    }
+
     const handleVisibleChange = ({ open }: { open: boolean }) => {
         if (onVisibleChange) {
             onVisibleChange(open);
         }
     };
 
-    if (disabled) {
-        return <>{children}</>;
-    }
+    const handleMouseEnter = (api) => {
+        clearTimeout(closeTimeout);
+        api.setOpen(true);
+    };
+
+    const handleMouseLeave = (e, api) => {
+        closeTimeout = setTimeout(() => {
+            const cursorX = e.clientX;
+            const cursorY = e.clientY;
+
+            const elementUnderCursor = document.elementFromPoint(cursorX, cursorY);
+
+            const isInMenu =
+                elementUnderCursor && elementUnderCursor.closest('[data-scope="menu"]');
+
+            if (!isInMenu) {
+                api.setOpen(false);
+            }
+        }, 120);
+    };
+
+    const isHoverTrigger = trigger[0] === 'hover';
 
     return (
-        <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange}>
-            <Menu.Trigger asChild>{children}</Menu.Trigger>
-            <Menu.Positioner>
-                <Menu.Content size="sm">
-                    <Menu.List>{overlay}</Menu.List>
-                </Menu.Content>
-            </Menu.Positioner>
+        <Menu.Root
+            {...otherProps}
+            open={visible}
+            onOpenChange={handleVisibleChange}
+            isHoverTrigger={isHoverTrigger}
+        >
+            {(api) => {
+                return isHoverTrigger ? (
+                    <div
+                        style={{ width: 'fit-content' }}
+                        onMouseEnter={() => handleMouseEnter(api)}
+                        onMouseLeave={(e) => handleMouseLeave(e, api)}
+                    >
+                        <Menu.Trigger asChild>
+                            <div>{children}</div>
+                        </Menu.Trigger>
+                        <Menu.Positioner>
+                            <Menu.Content size="sm">
+                                <Menu.List>{overlay}</Menu.List>
+                            </Menu.Content>
+                        </Menu.Positioner>
+                    </div>
+                ) : (
+                    <>
+                        <Menu.Trigger asChild>
+                            <div>{children}</div>
+                        </Menu.Trigger>
+                        <Menu.Positioner>
+                            <Menu.Content size="sm">
+                                <Menu.List>{overlay}</Menu.List>
+                            </Menu.Content>
+                        </Menu.Positioner>
+                    </>
+                );
+            }}
         </Menu.Root>
     );
 };
