@@ -1,6 +1,7 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { Dropdown, MenuItem } from './index';
+import { Dropdown } from './index';
 import { Button } from '../Button';
+import { Menu, MenuItem } from '../Menu';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -163,7 +164,12 @@ export const TriggerClick: Story = {
     args: {
         trigger: ['click'],
         children: <Button label="Users" />,
-        overlay: <OverlayComponent />,
+        overlay: (
+            <Menu>
+                <MenuItem>Item 1</MenuItem>
+                <MenuItem>Item 2</MenuItem>
+            </Menu>
+        ),
     },
 };
 
@@ -178,7 +184,12 @@ export const Disabled: Story = {
 export const Visible: Story = {
     args: {
         children: <Button label="Users" />,
-        overlay: <OverlayComponent />,
+        overlay: (
+            <div>
+                <div>Item 1</div>
+                <div>Item 2</div>
+            </div>
+        ),
         visible: true,
         trigger: ['hover'],
     },
