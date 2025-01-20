@@ -51,6 +51,7 @@ export const EditComponent = forward<{}, 'div'>(
                     data-scope="markdown-editor"
                     data-part="textarea"
                     data-role="scroll-container"
+                    aria-label="textarea"
                 />
             </styled.div>
         );
@@ -83,6 +84,7 @@ export const PreviewComponent = forward<{}, 'div'>(
                 data-scope="markdown-editor"
                 data-part="preview"
                 data-role="scroll-container"
+                aria-label="textarea"
             />
         );
     },

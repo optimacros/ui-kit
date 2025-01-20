@@ -1,7 +1,9 @@
 import { Icon } from '@optimacros-ui/icon';
-import { StoryObj } from '@storybook/react';
 import { Calendar } from './index';
 import { fromDate } from '@internationalized/date';
+import { within, expect, userEvent, waitFor } from '@storybook/test';
+import { StoryObj } from '@storybook/react';
+
 const Wrapper = ({ children }: { children }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
@@ -172,7 +174,7 @@ export const Basic: StoryObj = {
                 {...{ 'open.controlled': true }}
             >
                 <Calendar.Content>
-                    <Calendar.Header>
+                    <Calendar.Header data-testid="header">
                         <Calendar.HeaderYears />
                         <Calendar.HeaderMonths />
                     </Calendar.Header>
@@ -208,6 +210,17 @@ export const Basic: StoryObj = {
                 </Calendar.Content>
             </Calendar.Root>
         );
+    },
+    play: async ({ canvasElement, step, context }) => {
+        const canvas = within(canvasElement);
+        const body = canvas.getByTestId('table-body');
+        const currentDates = canvas.getAllByTestId('table-cell-trigger');
+        await step('basic check', async () => {
+            await userEvent.click(currentDates[0]);
+            await waitFor(() => expect(currentDates[0]).toHaveAttribute('data-selected'));
+
+            await userEvent.keyboard('[ArrowRight][Enter]');
+        });
     },
 };
 

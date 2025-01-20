@@ -3,19 +3,55 @@ import { Button, Field } from '@optimacros-ui/kit';
 import { Checkbox } from './index';
 import { Tooltip } from '@optimacros-ui/tooltip';
 import { flushSync } from 'react-dom';
-
+import { within, expect, userEvent, waitFor, fireEvent, fn } from '@storybook/test';
+import { StoryObj } from '@storybook/react';
 export default {
     title: 'UI Kit core/Checkbox',
     component: Checkbox.Root,
     tags: ['autodocs'],
 };
 
-export const Base = (props) => {
-    return (
-        <Checkbox.Root {...props}>
-            <Checkbox.BoxControl />
-        </Checkbox.Root>
-    );
+export const Base: StoryObj = {
+    render: (props) => {
+        return (
+            <Checkbox.Root {...props} data-testid="checkbox-root" onCheckedChange={fn()}>
+                <Checkbox.BoxControl data-testid="checkbox-control" />
+            </Checkbox.Root>
+        );
+    },
+    play: async ({ canvasElement, step, context }) => {
+        const canvas = within(canvasElement);
+        const root = canvas.getByTestId('checkbox-root');
+        const input = canvas.getByTestId('hidden-input');
+
+        await step('basic check', async () => {
+            expect(root).toHaveAttribute('data-scope', 'checkbox');
+            expect(root).toHaveAttribute('data-state', 'unchecked');
+            expect(input).not.toBeChecked();
+
+            await fireEvent.click(root);
+
+            await waitFor(() => expect(root).toHaveAttribute('data-state', 'checked'));
+
+            await fireEvent.click(root);
+
+            await waitFor(() => expect(root).toHaveAttribute('data-state', 'unchecked'));
+        });
+
+        await step('keyboard', async () => {
+            await waitFor(() => expect(input).toHaveFocus());
+
+            await userEvent.keyboard('[Space/]');
+
+            await waitFor(() => expect(root).toHaveAttribute('data-focus'));
+
+            await waitFor(() => expect(root).toHaveAttribute('data-state', 'checked'));
+
+            await userEvent.click(canvasElement);
+
+            await waitFor(() => expect(input).not.toHaveFocus());
+        });
+    },
 };
 
 export const Controllable = (props) => {
