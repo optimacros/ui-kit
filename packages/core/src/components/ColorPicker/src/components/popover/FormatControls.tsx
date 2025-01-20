@@ -1,12 +1,13 @@
 import { forward } from '@optimacros-ui/store';
 import { useApi } from '../../exports';
+import { Flex } from '@optimacros-ui/flex';
 
 export const HSL = forward<{}, 'div'>(
     (props, ref) => {
         const api = useApi();
 
         return (
-            <div {...props} ref={ref}>
+            <Flex {...props} ref={ref}>
                 <div>
                     <input {...api.getChannelInputProps({ channel: 'hue' })} />
                     <span>H</span>
@@ -33,7 +34,7 @@ export const HSL = forward<{}, 'div'>(
                         <span>A</span>
                     </div>
                 )}
-            </div>
+            </Flex>
         );
     },
     { displayName: 'HSL' },
@@ -44,7 +45,7 @@ export const RGB = forward<{}, 'div'>(
         const api = useApi();
 
         return (
-            <div {...props} ref={ref}>
+            <Flex {...props} ref={ref}>
                 <div>
                     <input {...api.getChannelInputProps({ channel: 'red' })} />
                     <span>R</span>
@@ -63,7 +64,7 @@ export const RGB = forward<{}, 'div'>(
                         <span>A</span>
                     </div>
                 )}
-            </div>
+            </Flex>
         );
     },
     { displayName: 'RGB' },
@@ -74,7 +75,7 @@ export const HSB = forward<{}, 'div'>(
         const api = useApi();
 
         return (
-            <div {...props} ref={ref}>
+            <Flex {...props} ref={ref}>
                 <div>
                     <input {...api.getChannelInputProps({ channel: 'hue' })} />
                     <span>H</span>
@@ -101,8 +102,46 @@ export const HSB = forward<{}, 'div'>(
                         <span>A</span>
                     </div>
                 )}
-            </div>
+            </Flex>
         );
     },
     { displayName: 'HSB' },
+);
+
+export const HEX = forward<{}, 'div'>(
+    (props, ref) => {
+        const api = useApi();
+
+        return (
+            <Flex {...props} ref={ref}>
+                <div>
+                    <input {...api.getChannelInputProps({ channel: 'hue' })} />
+                    <span>H</span>
+                </div>
+                <div>
+                    <input
+                        {...api.getChannelInputProps({
+                            channel: 'saturation',
+                        })}
+                    />
+                    <span>S</span>
+                </div>
+                <div>
+                    <input
+                        {...api.getChannelInputProps({
+                            channel: 'brightness',
+                        })}
+                    />
+                    <span>B</span>
+                </div>
+                {!api.disableAlpha && (
+                    <div>
+                        <input {...api.getChannelInputProps({ channel: 'alpha' })} />
+                        <span>A</span>
+                    </div>
+                )}
+            </Flex>
+        );
+    },
+    { displayName: 'HEX' },
 );
