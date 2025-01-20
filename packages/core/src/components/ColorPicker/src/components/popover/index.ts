@@ -3,3 +3,4 @@ export * from './ChannelSlider';
 export * from './TransparencySlider';
 export * from './Area';
 export * from './PopoverPortal';
+export * from './FormatControls';

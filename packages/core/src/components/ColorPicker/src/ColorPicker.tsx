@@ -83,7 +83,7 @@ export const TransparencyGrid = forward<TransparencyGridProps, 'div'>(
 export const Swatch = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} ref={ref} {...api.getSwatchProps({ value: api.value })} />;
+    return <styled.div ref={ref} {...api.getSwatchProps({ value: api.value })} {...props} />;
 });
 
 interface SwatchesProps extends PropsWithChildren {
