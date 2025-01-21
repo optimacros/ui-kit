@@ -18,6 +18,7 @@
         "build:ui": "lerna run build --parallel --scope @optimacros-ui/kit --scope @optimacros-ui/* --scope @optimacros-ui/themes",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error --config-path=biome-commit.json",
+        "type-check": "tsc --noEmit",
         "build:storybook": "storybook build",
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
