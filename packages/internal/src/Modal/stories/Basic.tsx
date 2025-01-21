@@ -4,7 +4,6 @@ import { Modal, ModalProps } from '..';
 export const Basic = (props: ModalProps) => {
     const [isOpen, setIsOpen] = useState(true);
 
-    // sync with sb control
     useEffect(() => {
         setIsOpen(props.isOpen);
     }, [props.isOpen]);

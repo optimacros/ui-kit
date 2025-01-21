@@ -29,9 +29,12 @@ export function createMachineApiHook<
     const controllableHook = (context: Ctx, defaultContext: Ctx) => {
         const id = useId();
 
-        const [state, send, stateMachine] = useMachine(machine.machine({ id, ...defaultContext }), {
-            context,
-        });
+        const [state, send, stateMachine] = useMachine(
+            machine.machine({ id, ...context, ...defaultContext }),
+            {
+                context,
+            },
+        );
 
         const api = connectApi(state, send, normalizeProps, stateMachine);
 

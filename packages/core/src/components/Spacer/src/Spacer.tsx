@@ -4,7 +4,7 @@ export const Spacer = ({
     orientation = Orientation.Vertical,
     size = 1,
     ...props
-}: { orientation: Orientation; size: number }) => {
+}: { orientation?: 'vertical' | 'horizontal'; size: number }) => {
     const style = {
         display: orientation === 'horizontal' ? 'inline-block' : 'block',
         flexShrink: 0,
