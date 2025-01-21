@@ -2,7 +2,12 @@ import { Modal } from '.';
 import * as stories from './stories';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Modal as OriginalModal } from '@optimacros-ui/kit-legacy/src/main/components/Modal';
+import { faker } from '@faker-js/faker';
+import { Flex } from '@optimacros-ui/flex';
+import { Spacer } from '@optimacros-ui/spacer';
 
+import { Text } from '@optimacros-ui/text';
+import { Orientation } from '@optimacros-ui/utils';
 const argTypes: Partial<ArgTypes> = {
     isOpen: {
         control: 'boolean',
@@ -58,11 +63,26 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 export const Basic: Story = {
-    args: { isOpen: true, title: 'Title', children: 'chiildren', onRequestClose: () => {} },
+    args: {
+        isOpen: true,
+        title: 'Title',
+        children: (
+            <Flex direction="column">
+                <Text.Title>{faker.person.jobTitle()}</Text.Title>
+                <Spacer size={2} orientation={Orientation.Vertical} />
+                <Text.Paragraph>{faker.lorem.paragraphs(5)}</Text.Paragraph>
+                <Spacer size={5} orientation={Orientation.Vertical} />
+                <Text.Title>{faker.person.jobTitle()}</Text.Title>
+                <Spacer size={2} orientation={Orientation.Vertical} />
+                <Text.Paragraph>{faker.lorem.paragraphs(10)}</Text.Paragraph>
+            </Flex>
+        ),
+        onRequestClose: () => {},
+    },
     render: stories.Basic,
 };
 
 export const Original: StoryObj<typeof OriginalModal> = {
-    args: { isOpen: true },
+    args: { isOpen: true, title: 'Title', children: 'chiildren' },
     render: stories.Original,
 };

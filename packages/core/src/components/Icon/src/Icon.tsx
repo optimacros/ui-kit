@@ -9,9 +9,15 @@ export interface IconProps {
     rotate?: number;
     /** as spacing variable */
     size?: string;
+    variant?: 'primary' | 'secondary';
+    /** color as variable */
+    color?: string;
 }
 
-export const Icon = forward<IconProps, 'svg'>(function Icon({ value, rotate, size, ...rest }, ref) {
+export const Icon = forward<IconProps, 'svg'>(function Icon(
+    { value, rotate, size, variant, style, ...rest },
+    ref,
+) {
     const iconsSrc = UiKit.useProxySelector((state) => state.iconsSrc);
 
     const iconProps = {
@@ -19,7 +25,9 @@ export const Icon = forward<IconProps, 'svg'>(function Icon({ value, rotate, siz
         'data-part': 'root',
         'data-rotate': rotate ?? undefined,
         'data-size': size ?? undefined,
+        'data-variant': variant,
         style: {
+            ...(style && style),
             '--rotate': `${rotate ?? 0}deg`,
             '--size': `var(--spacing-${size})`,
         } as Record<string, string>,

@@ -53,6 +53,8 @@ export const {
     Api,
     RootProvider: Root,
     useApi,
+    useSelector,
+    useProxySelector,
 } = createReactApiStateContext({
     id: 'modal',
     machine,
@@ -69,7 +71,6 @@ export const {
                 content.style.position = 'absolute';
                 content.style.top = `${top}px`;
                 content.style.left = `${left}px`;
-                content.style.width = `${width}px`;
             },
         };
     },
