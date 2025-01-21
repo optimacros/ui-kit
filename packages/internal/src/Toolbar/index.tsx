@@ -10,6 +10,8 @@ export interface ToolbarProps extends PropsWithChildren {
 
 export const Toolbar = memo<ToolbarProps>(({ align, className, children }) => (
     <UIToolbar.Root className={className}>
-        <Flex data-align={align}>{children}</Flex>
+        <Flex data-align={align} data-role="toolbar-content">
+            {children}
+        </Flex>
     </UIToolbar.Root>
 ));
