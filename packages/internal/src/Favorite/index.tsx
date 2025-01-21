@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { FC, MouseEvent } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Favourite as FavouriteComponent } from '@optimacros-ui/favourite';
 import { CheckedChangeDetails } from '@zag-js/checkbox';
@@ -10,7 +10,7 @@ interface FavoriteProps {
     className?: string;
 }
 
-export const Favorite: FavoriteProps = ({ label, onChange, ...rest }) => {
+export const Favorite: FC<FavoriteProps> = ({ label, onChange, ...rest }) => {
     const handleClick = (event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
     };

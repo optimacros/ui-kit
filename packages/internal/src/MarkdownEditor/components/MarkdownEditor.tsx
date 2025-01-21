@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useRef, KeyboardEvent, EventHandler, useCallback } from 'react';
+import { memo, useEffect, useMemo, useRef, KeyboardEvent, useCallback } from 'react';
 import { MarkdownEditor as MDE } from '@optimacros-ui/kit/src/components/MarkdownEditor/src';
 
 import { ResizableBox } from 'react-resizable';
@@ -29,9 +29,9 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
     }) => {
         const rootRef = useRef<HTMLDivElement>();
 
-        const handleKeyDown = useCallback<EventHandler<KeyboardEvent<HTMLTextAreaElement>>>(
+        const handleKeyDown = useCallback<EventListener>(
             (event) => {
-                if (event.key === 'Tab') {
+                if ((event as unknown as KeyboardEvent<HTMLTextAreaElement>).key === 'Tab') {
                     event.preventDefault();
 
                     const textArea = event.target as HTMLTextAreaElement;
