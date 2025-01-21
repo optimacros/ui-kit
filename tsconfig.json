@@ -96,5 +96,5 @@
         }
     },
     "exclude": ["node_modules", "dist", "packages/legacy", "packages/example"],
-    "include": ["./.storybook/preview.tsx", "./global.d.ts", "packages"]
+    "include": ["./.storybook/preview.tsx", "./global.d.ts", "packages/**/*"]
 }
