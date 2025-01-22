@@ -1,8 +1,6 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ReactNode, useState } from 'react';
-
-import { SelectBox } from './index';
-import { SelectBoxProps } from './SelectBox';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { SelectBox, SelectBoxProps } from '@optimacros-ui/kit-internal';
 
 const argTypes: Partial<ArgTypes> = {
     allowBlank: {

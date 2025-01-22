@@ -1,8 +1,6 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ReactNode, useState } from 'react';
-
-import { MultipleSelectBoxPanel } from './index';
-import { SelectBoxProps } from '../SelectBox';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { SelectBoxProps, MultipleSelectBoxPanel } from '@optimacros-ui/kit-internal';
 
 const argTypes: Partial<ArgTypes> = {};
 
