@@ -1,110 +1,96 @@
-import { memo, ReactElement, useEffect, useState } from 'react';
+import { memo, ReactElement, useEffect, useMemo } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
-import { TabExtended, TabProps, TabsTheme } from './models';
-import { Content, Header } from './components';
-import { clsx, sortBy } from '@optimacros-ui/utils';
+import { TabProps, TabsTheme } from './models';
+import { Flex } from '@optimacros-ui/flex';
+import { TabButton } from './TabButton';
 
 interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
     theme: Partial<TabsTheme>;
 }
 
-const TabsContent = memo<TabsContentProps>(
-    ({
-        children,
-        active,
-        onChange,
-        headerClassName,
-        contentClassName,
-        hideTabHeader = false,
-        onTabSwitch,
-        draggable,
-        onTabPositionChange,
-        theme,
-    }) => {
-        const [tabs, setTabs] = useState<TabExtended[]>([]);
+const Content = memo(({ className, tabs }) => {
+    return (
+        <Flex className={className}>
+            {tabs.map((tab) => (
+                <UITabs.Content value={tab.value} key={tab.value}>
+                    {tab.children}
+                </UITabs.Content>
+            ))}
+        </Flex>
+    );
+});
 
-        const api = UITabs.useApi();
+Content.displayName = 'Content';
 
-        // array of old tab props
-        useEffect(() => {
-            const childrenArr = Array.isArray(children) ? children : [children];
+const TabsContent = memo<TabsContentProps>(({ children, active }) => {
+    const tabs = UITabs.useProxySelector((api) => api.tabs);
+    const setValue = UITabs.useProxySelector((api) => api.setValueIndex);
+    const draggable = UITabs.useSelector((api) => api.draggable);
+    const setTabs = UITabs.useSelector((api) => api.setTabs);
 
-            // fixed tabs are on the left
-            const tabArr = sortBy(
-                childrenArr.map((child, index) => {
-                    const titleString = typeof child.props.title === 'string' && child.props.title;
-                    const labelString = typeof child.props.label === 'string' && child.props.label;
+    useEffect(() => {
+        setValue(active);
+    }, [active]);
 
-                    return {
-                        value: titleString || labelString || index.toString(),
-                        ...child.props,
-                    };
-                }),
-                ['isFixed'],
-            );
+    const childrenArr = useMemo(() => {
+        // sync tabs without setting em
+        // how to map children without remapping props
+        // no way to register
+        const childrenArr = Array.isArray(children) ? children : [children];
 
-            setTabs(tabArr);
-        }, [children]);
+        const tabArr = childrenArr.map((child, index) => {
+            const titleString = typeof child.props.title === 'string' && child.props.title;
 
-        // handles initial active tab and `active` prop change
-        // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-        useEffect(() => {
-            // not loaded yet
-            if (!tabs?.length) {
-                return;
-            }
+            return {
+                value: titleString || index.toString(),
+                index,
+                ...child.props,
+                title: titleString || undefined,
+                fixed: child.props.isFixed,
+            };
+        });
 
-            // uncontrolled mode
-            if (typeof active !== 'number') {
-                // set initial tab
-                if (api.value === null) {
-                    api.setValue(tabs[0].value);
-                }
+        return tabArr;
+    }, [children]);
 
-                return;
-            }
+    return (
+        <>
+            <UITabs.List>
+                {/** remap children tabs */}
+                {childrenArr.map((tab, index) => {
+                    return !tab.nonDraggable && draggable ? (
+                        <UITabs.DraggableTrigger {...tab} key={tab.value} fixed={tab.isFixed}>
+                            <TabButton
+                                value={tab.value}
+                                icon={tab.icon}
+                                onHeaderContextMenu={tab.onHeaderContextMenu}
+                                onDoubleClick={tab.onDoubleClick}
+                            />
+                        </UITabs.DraggableTrigger>
+                    ) : (
+                        <UITabs.Trigger {...tab} key={tab.value} fixed={tab.isFixed}>
+                            <TabButton
+                                value={tab.value}
+                                icon={tab.icon}
+                                onHeaderContextMenu={tab.onHeaderContextMenu}
+                                onDoubleClick={tab.onDoubleClick}
+                            />
+                        </UITabs.Trigger>
+                    );
+                })}
+            </UITabs.List>
 
-            const activeTab = tabs[active];
-
-            if (activeTab && activeTab.value !== api.value) {
-                api.setValue(activeTab.value);
-            }
-        }, [active, tabs]);
-
-        // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-        useEffect(() => {
-            if (onChange) {
-                const newActiveTabIndex = tabs.findIndex((t) => t.value === api.value);
-
-                if (newActiveTabIndex > -1) {
-                    onChange(newActiveTabIndex);
-                }
-            }
-        }, [api.value, onChange]);
-
-        const headerCN = clsx(headerClassName, theme.TabHeaderContainer);
-        const contentCN = clsx(contentClassName, theme.TabContent);
-
-        return (
-            <>
-                {!hideTabHeader && (
-                    <Header
-                        tabs={tabs}
-                        className={headerCN}
-                        onTabSwitch={onTabSwitch}
-                        draggable={draggable}
-                        setTabs={setTabs}
-                        onTabPositionChange={onTabPositionChange}
-                        theme={theme}
-                    />
-                )}
-
-                <Content tabs={tabs} className={contentCN} theme={theme} />
-            </>
-        );
-    },
-);
+            <Flex>
+                {childrenArr.map((tab) => (
+                    <UITabs.Content value={tab.value} key={tab.value}>
+                        {tab.children}
+                    </UITabs.Content>
+                ))}
+            </Flex>
+        </>
+    );
+});
 TabsContent.displayName = 'TabsContent';
 
 export interface TabsProps {
@@ -121,15 +107,27 @@ export interface TabsProps {
     onChange?: (index: number) => void;
 }
 
-export const Tabs = memo<TabsProps>(({ className, theme = {}, ...rest }) => {
-    const rootCN = clsx(className, theme.TabsContainer);
-
-    return (
-        <UITabs.Root activationMode="manual" className={rootCN}>
-            <TabsContent {...rest} theme={theme} />
-        </UITabs.Root>
-    );
-});
+export const Tabs = memo<TabsProps>(
+    ({ className, theme = {}, onTabPositionChange, draggable, active, ...rest }) => {
+        return (
+            <UITabs.Root
+                activationMode="manual"
+                className={className}
+                //active value as index
+                onValueChange={(d) => {
+                    rest.onTabSwitch(UITabs.getTabIndex(d.value));
+                    rest.onChange(UITabs.getTabIndex(d.value));
+                }}
+                onPositionChange={onTabPositionChange}
+                tabsHidden={rest.hideTabHeader}
+                useWheel
+                draggable={draggable}
+            >
+                <TabsContent {...rest} theme={theme} active={active} />
+            </UITabs.Root>
+        );
+    },
+);
 Tabs.displayName = 'Tabs';
 
 export const TabHeader = Tabs;

@@ -1,3 +1,3 @@
 export * from './Tabs';
-export * from './components/FakeTab';
 export * from './models';
+export * from './Tab';

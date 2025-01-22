@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
+
 import { Tabs } from '.';
 import { Button } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
@@ -25,28 +27,38 @@ export const Base: StoryObj = {
         const ref = useRef(null);
 
         return (
-            <Tabs.Root activationMode="manual" deselectable>
+            <Tabs.Root
+                activationMode="manual"
+                deselectable
+                tabs={tabs}
+                onTabsChange={(t) => flushSync(() => setTabs(t))}
+                controllable
+                useWheel
+            >
                 <Tabs.Api>
                     {(api) => (
                         <div>
                             <p>active tab: {api.value}</p>
                             <div>
-                                <Button onClick={() => api.getTabs()}>get tabs</Button>
-                                <Button
-                                    onClick={() =>
-                                        api.open(`tab-${Math.floor(Math.random() * 19)}`)
-                                    }
-                                >
-                                    open random tab
-                                </Button>
-                                <Button onClick={() => api.scrollToActive()}>
-                                    scroll to active
-                                </Button>
-                                <Button onClick={() => api.first()}>select first</Button>
-                                <Button onClick={() => api.last()}>select last</Button>
-                                <Button onClick={() => setTabs((prev) => shuffle(prev))}>
-                                    shuffle
-                                </Button>
+                                <p>active tab: {api.value}</p>
+                                <div>
+                                    <Button onClick={() => api.getTabs()}>get tabs</Button>
+                                    <Button
+                                        onClick={() =>
+                                            api.open(`tab-${Math.floor(Math.random() * 19)}`)
+                                        }
+                                    >
+                                        open random tab
+                                    </Button>
+                                    <Button onClick={() => api.scrollToActive()}>
+                                        scroll to active
+                                    </Button>
+                                    <Button onClick={() => api.first()}>select first</Button>
+                                    <Button onClick={() => api.last()}>select last</Button>
+                                    <Button onClick={() => setTabs((prev) => shuffle(prev))}>
+                                        shuffle
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -310,9 +322,15 @@ export const DraggableSwap = (props) => {
     const [tabs, setTabs] = useState(items);
 
     return (
-        <Tabs.Root activationMode="manual" deselectable>
+        <Tabs.Root
+            activationMode="manual"
+            deselectable
+            draggableMode="swap"
+            onTabsChange={(tabs) => setTabs(tabs)}
+            draggable
+        >
             <div className="flex gap-2">
-                <Tabs.DraggableList setTabs={setTabs} mode="swap">
+                <Tabs.List>
                     {tabs.map((tab, i) => (
                         <Tabs.DraggableTrigger
                             {...props}
@@ -320,6 +338,7 @@ export const DraggableSwap = (props) => {
                             key={tab.value}
                             data-index={i}
                             data-testid={tab.value}
+                            index={i}
                         >
                             <Button variant="transparent">
                                 <Icon value="article" />
@@ -327,7 +346,7 @@ export const DraggableSwap = (props) => {
                             </Button>
                         </Tabs.DraggableTrigger>
                     ))}
-                </Tabs.DraggableList>
+                </Tabs.List>
             </div>
             {items.map((item) => (
                 <Tabs.Content value={item.value} key={item.value}>

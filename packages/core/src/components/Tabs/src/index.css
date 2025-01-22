@@ -3,7 +3,7 @@
     display: flex;
     position: relative;
     z-index: 1;
-    overflow-x: scroll;
+    overflow-x: auto;
     list-style: none;
 
     &[data-orientation='vertical'] {
@@ -21,7 +21,7 @@
     cursor: pointer;
     user-select: none;
     outline: none;
-    font-size: var(--text-sm);
+    font-size: var(--text-xl);
     color: var(--color-tabs-primary-tab-on-default);
   }
 
