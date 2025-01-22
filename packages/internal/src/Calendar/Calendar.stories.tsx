@@ -1,5 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { Calendar } from './index';
+import { Calendar } from '@optimacros-ui/kit-internal';
 
 const argTypes: Partial<ArgTypes> = {};
 
