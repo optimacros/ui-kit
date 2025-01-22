@@ -33,16 +33,18 @@ export const Loader: LoaderProps = ({
     multicolor = false,
     type = 'linear',
     theme = {},
-    value = 0,
-    buffer = 0,
+    value = null,
+    buffer = null,
     innerRef,
     disabled = false,
 }) => {
+    const isInfinite = !value && !buffer;
+
     return (
         <LoaderComponent.Root
             disabled={disabled}
             value={value || buffer}
-            infinite={!value && !buffer}
+            infinite={isInfinite}
             max={max}
             min={min}
             ref={innerRef}
