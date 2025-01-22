@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
 
-import { Menu, MenuItem, SubMenu } from './index';
+import { Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>

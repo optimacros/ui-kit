@@ -1,7 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
-import { ButtonMenu } from './index';
-import { MenuItem, SubMenu } from '../Menu';
+import { ButtonMenu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
