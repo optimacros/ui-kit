@@ -23,6 +23,10 @@
     outline: none;
     font-size: var(--text-xl);
     color: var(--color-tabs-primary-tab-on-default);
+
+    &[disabled] {
+      color: var(--color-theme-disabled-default);
+    }
   }
 
   &[data-part='root'][data-variant='secondary'] {
