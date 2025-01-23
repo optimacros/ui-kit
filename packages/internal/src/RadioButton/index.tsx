@@ -45,21 +45,52 @@ export const RadioButton: RadioButtonProps = ({
         }
     };
 
+    const state = {
+        'data-state': checked ? 'checked' : 'unchecked',
+        ...(disabled ? { 'data-disabled': true } : {}),
+    };
+
     return (
-        <label onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <input
-                {...others}
-                ref={inputNode}
-                checked={checked}
-                disabled={disabled}
-                name={name}
-                type="radio"
-                onChange={() => {}}
-                onClick={handleClick}
-            />
-            <div checked={checked} disabled={disabled} />
-            {label && <span>{label || placeholder}</span>}
-            {children}
-        </label>
+        <div data-scope="radio-group" data-part="root" {...state}>
+            <label
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                data-scope="radio-group"
+                data-part="item"
+                {...state}
+            >
+                <div
+                    {...others}
+                    role="radio"
+                    aria-checked={checked}
+                    tabIndex={0}
+                    onClick={handleClick}
+                    data-scope="radio-group"
+                    data-part="control"
+                    {...state}
+                />
+                <input
+                    type="radio"
+                    checked={checked}
+                    disabled={disabled}
+                    name={name}
+                    onChange={() => {}}
+                    ref={inputNode}
+                    style={{
+                        position: 'absolute',
+                        opacity: 0,
+                        pointerEvents: 'none',
+                    }}
+                    {...others}
+                />
+                {label && (
+                    <span data-scope="radio-group" data-part="text" {...state}>
+                        {label || placeholder}
+                    </span>
+                )}
+                {children}
+            </label>
+        </div>
     );
 };
