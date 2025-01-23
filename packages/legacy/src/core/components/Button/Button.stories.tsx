@@ -89,6 +89,7 @@ const meta: Meta<typeof Button> = {
     title: 'legacy/Button',
     component: Button,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

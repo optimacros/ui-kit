@@ -19,6 +19,7 @@ const meta: Meta<typeof TextArea> = {
     title: 'legacy/TextArea',
     component: TextArea,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

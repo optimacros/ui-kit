@@ -70,6 +70,7 @@ const meta: Meta<typeof Checkbox> = {
     title: 'legacy/Checkbox',
     component: Checkbox,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

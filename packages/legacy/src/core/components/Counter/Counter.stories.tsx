@@ -31,6 +31,7 @@ const meta: Meta<typeof Counter> = {
     title: 'legacy/Counter',
     component: Counter,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

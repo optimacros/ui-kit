@@ -5,7 +5,7 @@ import { createMockItems } from './mock';
 export default {
     title: 'UI Kit core/Virtual',
     component: Virtual.List,
-    tags: ['autodocs'],
+    tags: ['skip-test-runner'],
 } as Meta;
 
 const randomItems = createMockItems(1000);

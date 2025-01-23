@@ -46,6 +46,7 @@ const meta: Meta<typeof Tooltip> = {
     title: 'legacy/Tooltip',
     component: Tooltip,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

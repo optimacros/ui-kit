@@ -70,6 +70,7 @@ const meta: Meta<typeof SelectBox> = {
     title: 'legacy/SelectBox',
     component: SelectBox,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

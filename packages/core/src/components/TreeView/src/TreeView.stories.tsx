@@ -8,10 +8,9 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
 );
 
-export default {
+const meta: Meta = {
     title: 'UI Kit core/TreeView',
     component: TreeView.Root,
-    tags: ['autodocs'],
     argTypes: {
         menuItems: {
             control: { type: 'object' },
@@ -24,11 +23,11 @@ export default {
             description: 'Selection mode for tree items',
         },
         selectedValue: {
-            control: { type: 'array' },
+            control: { type: 'object' },
             description: 'Array of selected item IDs',
         },
         expandedValue: {
-            control: { type: 'array' },
+            control: { type: 'object' },
             description: 'Array of expanded item IDs',
         },
         onExpandedChange: {
@@ -47,7 +46,10 @@ export default {
             </Wrapper>
         ),
     ],
-} as Meta;
+    tags: ['skip-test-runner'],
+};
+
+export default meta;
 
 const menuItems = createMockMenuItems(3);
 

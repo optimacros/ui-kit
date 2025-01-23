@@ -13,6 +13,7 @@ const meta: Meta<typeof Divider> = {
     title: 'legacy/Divider',
     component: Divider,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

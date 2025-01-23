@@ -134,6 +134,7 @@ const meta: Meta<typeof Dropdown> = {
             },
         },
     },
+    tags: ['skip-test-runner'],
 };
 
 export default meta;

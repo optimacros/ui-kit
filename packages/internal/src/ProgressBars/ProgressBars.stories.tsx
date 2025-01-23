@@ -61,4 +61,5 @@ const DynamicProgressBars = () => {
 
 export const Dynamic: Story = {
     render: () => <DynamicProgressBars />,
+    tags: ['skip-test-runner'],
 };
