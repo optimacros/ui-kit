@@ -12,6 +12,7 @@ const config: StorybookConfig = {
         '@storybook/addon-essentials',
         '@storybook/addon-interactions',
         '@storybook/addon-designs',
+        'storybook-addon-performance',
     ],
     framework: '@storybook/react-vite',
     viteFinal: (cfg) => {
