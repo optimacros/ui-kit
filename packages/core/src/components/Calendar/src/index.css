@@ -11,6 +11,7 @@
 
   &[data-part='header-months'] {
     text-transform: capitalize;
+    cursor: pointer;
   }
 
   &[data-part='header-years'] {
@@ -18,6 +19,7 @@
     font-size: var(--spacing-3-5);
     opacity: 0.6;
     line-height: var(--spacing-4);
+    cursor: pointer;
   }
 
   &[data-part='header'] {
@@ -83,5 +85,9 @@
 
   &[data-part='weekday'] {
     font-weight: var(--font-weight-normal);
+  }
+
+  &[data-disabled] {
+    color: var(--color-calendar-primary-trigger-border-default);
   }
 }

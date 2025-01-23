@@ -3,6 +3,19 @@ import {} from '@internationalized/date';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as datepicker from '@zag-js/date-picker';
 
+export const dateFormatters = (date: Date | string) => {
+    return datepicker.parse(date);
+};
+
+const getDateWithSelectedYear = (initialDate: string, selectedYear: string): string => {
+    const curMonthAndDay = new Date().toLocaleDateString('en-CA', {
+        month: '2-digit',
+        day: '2-digit',
+    });
+
+    return selectedYear + (initialDate ? initialDate.substring(4) : `-${curMonthAndDay}`);
+};
+
 export const { RootProvider: Root, useApi } = createReactApiStateContext({
     id: 'calendar',
     machine: datepicker,
@@ -16,11 +29,36 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                     onClick: () => api.setValue([value]),
                 };
             },
+            getYearTableCellProps({ ...year }: { label: ' string'; value: number }) {
+                const setYear = (year: string) => {
+                    const curCalendarDate = api.valueAsString[0];
+                    const dateWithSelectedYear = getDateWithSelectedYear(curCalendarDate, year);
+                    api.setValue([dateFormatters(dateWithSelectedYear)]);
+                };
+                return {
+                    ...api.getYearTableCellProps({
+                        ...year,
+                        columns: 4,
+                    }),
+                    onClick: () => {
+                        setYear(year.label);
+                        api.setView('day');
+                    },
+                    onKeyDown: (event) => {
+                        if (event.key === 'Enter') {
+                            event.stopPropagation();
+                            setYear(year.label);
+                            api.setView('day');
+                        }
+                    },
+                };
+            },
             getHeaderYearsProps() {
                 return {
                     'data-scope': 'date-picker',
                     'data-part': 'header-years',
                     children: api.value[0]?.year ?? 'choose date',
+                    onClick: () => api.setView('year'),
                 };
             },
             getHeaderMonthsProps() {
@@ -30,6 +68,7 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                     children: api.valueAsDate[0]
                         ? `${api.valueAsDate.toLocaleString(state.context.locale, { month: 'short' })} ${api.value[0]?.day}, ${api.valueAsDate.toLocaleString(state.context.locale, { weekday: 'short' })}`
                         : 'choose date',
+                    onClick: () => api.setView('day'),
                 };
             },
             getRangeTextProps() {
@@ -47,6 +86,11 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                     children: day.short,
                 };
             },
+            getVisibility(params: string) {
+                return {
+                    hidden: api.view !== params,
+                };
+            },
         };
     },
 });
@@ -54,7 +98,6 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
 export const Content = forward<{}, 'div'>(
     (props, ref) => {
         const api = useApi();
-
         return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
     },
     {
@@ -62,6 +105,7 @@ export const Content = forward<{}, 'div'>(
     },
 );
 
+// Header
 export const Header = forward<{}, 'header'>(
     (props, ref) => {
         return <styled.header {...props} ref={ref} data-scope="date-picker" data-part="header" />;
@@ -85,43 +129,55 @@ export const HeaderMonths = forward<{ children?: (text: string) => ReactNode }, 
     },
 );
 
-export const ViewControl = forward<{}, 'div'>((props, ref) => {
+// Days Content
+export const DaysViewControl = forward<{}, 'div'>(({ children, ...others }, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} {...api.getViewControlProps({ view: 'year' })} ref={ref} />;
+    return (
+        <styled.div {...others} {...api.getVisibility('day')} ref={ref}>
+            <div {...api.getViewControlProps({ view: 'year' })}>{children}</div>
+        </styled.div>
+    );
 });
 
-export const PrevTrigger = forward<{}, 'button'>((props, ref) => {
+export const DaysPrevTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
     return <styled.button {...props} {...api.getPrevTriggerProps()} ref={ref} />;
 });
 
-export const NextTrigger = forward<{}, 'button'>((props, ref) => {
+export const DaysNextTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
     return <styled.button {...props} {...api.getNextTriggerProps()} ref={ref} />;
 });
 
-export const RangeText = forward<{}, 'span'>((props, ref) => {
+export const DaysRangeText = forward<{}, 'span'>((props, ref) => {
     const api = useApi();
 
     return <styled.span {...props} {...api.getRangeTextProps()} ref={ref} />;
 });
 
-export const Table = forward<{}, 'table'>((props, ref) => {
+export const DaysTable = forward<{}, 'table'>((props, ref) => {
     const api = useApi();
 
-    return <styled.table {...props} {...api.getTableProps({ view: 'day' })} ref={ref} />;
+    return (
+        <styled.table
+            {...props}
+            {...api.getVisibility('day')}
+            {...api.getTableProps({ view: 'day' })}
+            ref={ref}
+        />
+    );
 });
 
-export const TableHead = forward<{}, 'thead'>((props, ref) => {
+export const DaysTableHead = forward<{}, 'thead'>((props, ref) => {
     const api = useApi();
 
     return (
         <styled.thead {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
             <tr {...api.getTableRowProps({ view: 'day' })}>
-                {api.weekDays.map((day, i) => (
+                {api.weekDays.map((day) => (
                     <th {...api.getWeekdayProps(day)} />
                 ))}
             </tr>
@@ -129,7 +185,7 @@ export const TableHead = forward<{}, 'thead'>((props, ref) => {
     );
 });
 
-export const TableBody = forward<{}, 'tbody'>((props, ref) => {
+export const DaysTableBody = forward<{}, 'tbody'>((props, ref) => {
     const api = useApi();
 
     return (
@@ -153,6 +209,83 @@ export const TableBody = forward<{}, 'tbody'>((props, ref) => {
     );
 });
 
+//Years content
+export const YearsViewControl = forward<{}, 'div'>(({ children, ...other }, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.div {...other} {...api.getVisibility('year')} ref={ref}>
+            <div {...api.getViewControlProps({ view: 'year' })}>{children}</div>
+        </styled.div>
+    );
+});
+
+export const YearsPrevTrigger = forward<{}, 'button'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.button {...props} {...api.getPrevTriggerProps({ view: 'year' })} ref={ref} />;
+});
+
+export const YearsNextTrigger = forward<{}, 'button'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.button {...props} {...api.getNextTriggerProps({ view: 'year' })} ref={ref} />;
+});
+
+export const YearsRangeText = forward<{}, 'span'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.span {...props} ref={ref}>
+            {api.getDecade().start} - {api.getDecade().end}
+        </styled.span>
+    );
+});
+
+export const YearsTable = forward<{}, 'table'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.table
+            {...props}
+            {...api.getVisibility('year')}
+            {...api.getTableProps({ view: 'year', columns: 4 })}
+            ref={ref}
+        />
+    );
+});
+
+export const YearsTableBody = forward<{}, 'tbody'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.tbody {...props} {...api.getTableBodyProps({ view: 'day' })} ref={ref}>
+            {api.getYearsGrid({ columns: 4 }).map((years, row) => (
+                <tr key={row} {...api.getTableRowProps({ view: 'year' })}>
+                    {years.map((year, index) => (
+                        <td
+                            key={index}
+                            {...api.getYearTableCellProps({
+                                ...year,
+                            })}
+                        >
+                            <div
+                                {...api.getYearTableCellTriggerProps({
+                                    ...year,
+                                    columns: 4,
+                                })}
+                            >
+                                {year.label}
+                            </div>
+                        </td>
+                    ))}
+                </tr>
+            ))}
+        </styled.tbody>
+    );
+});
+
+// Footer
 export const Footer = forward<{}, 'div'>((props, ref) => {
     return <styled.div {...props} ref={ref} data-scope="date-picker" data-part="footer" />;
 });
@@ -182,7 +315,7 @@ export type SuccessButtonProps = {
 export const SuccessButton = forward<SuccessButtonProps, 'button'>(({ onSelect, ...rest }, ref) => {
     const api = useApi();
     const handleClick = (event: ChangeEvent<HTMLSelectElement>) => {
-        onSelect && onSelect(api.valueAsDate, event);
+        onSelect && onSelect(api.valueAsDate[0], event);
     };
 
     return (
