@@ -20,7 +20,7 @@
         "strictNullChecks": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "emitDeclarationOnly": true,
+        "emitDeclarationOnly": false,
         "noEmitOnError": true,
         "noEmit": true,
         "paths": {
@@ -95,6 +95,6 @@
             "@optimacros-ui/spacer": ["packages/core/src/components/Spacer/src"]
         }
     },
-    "exclude": ["node_modules", "dist"],
-    "include": ["./.storybook/preview.tsx", "./global.d.ts"]
+    "exclude": ["node_modules", "dist", "packages/legacy", "packages/example"],
+    "include": ["./.storybook/preview.tsx", "./global.d.ts", "packages/**/*"]
 }
