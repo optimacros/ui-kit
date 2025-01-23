@@ -26,7 +26,7 @@ export type LoaderProps = {
     disabled?: boolean;
 };
 
-export const Loader: LoaderProps = ({
+export const Loader = ({
     min = 0,
     max = 100,
     mode = 'indeterminate',
@@ -37,7 +37,7 @@ export const Loader: LoaderProps = ({
     buffer = null,
     innerRef,
     disabled = false,
-}) => {
+}: LoaderProps) => {
     const isInfinite = !value && !buffer;
 
     return (
