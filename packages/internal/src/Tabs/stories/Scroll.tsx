@@ -2,7 +2,13 @@ import { Tabs, Tab, TabsProps } from '../';
 
 export const Scroll = (props: Partial<TabsProps>) => (
     <Tabs {...props} draggable>
-        <Tab title="Item one fixed" icon="favorite" isFixed>
+        <Tab title="store" icon="favorite" isFixed>
+            Item one
+        </Tab>
+        <Tab title="market" icon="favorite" isFixed>
+            Item one
+        </Tab>
+        <Tab title="stock" icon="favorite" isFixed>
             Item one
         </Tab>
         <Tab title="Item two" icon="people">

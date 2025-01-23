@@ -137,7 +137,12 @@ export const Secondary = (props) => {
             <div className="flex gap-2">
                 <Tabs.List ref={ref}>
                     {tabs.map((tab, i) => (
-                        <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                        <Tabs.Trigger
+                            {...props}
+                            value={tab.value}
+                            key={tab.value}
+                            disabled={i % 2 === 0}
+                        >
                             <Button variant="transparent">
                                 <Icon value="article" />
                                 {tab.value}

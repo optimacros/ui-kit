@@ -81,9 +81,9 @@ const Template: Story = {
                 onTabPositionChange={handleTabPositionChange}
                 onChange={(activeTabNumber: number) => setActiveTab(activeTabNumber)}
             >
-                {tabs.map((tab) => {
+                {tabs.map((tab, i) => {
                     return (
-                        <Tab title={tab} key={tab}>
+                        <Tab title={tab} key={tab} isFixed={i % 2 !== 0}>
                             {tab}
                         </Tab>
                     );

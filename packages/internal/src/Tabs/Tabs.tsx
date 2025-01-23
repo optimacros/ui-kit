@@ -1,9 +1,10 @@
-import { memo, ReactElement, useEffect, useState } from 'react';
+import { memo, ReactElement, useEffect, useState, Children, useMemo } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
 import { Flex } from '@optimacros-ui/flex';
 import { TabButton } from './TabButton';
+import { flushSync } from 'react-dom';
 
 interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
     theme: Partial<TabsTheme>;
@@ -23,63 +24,51 @@ const Content = memo(({ className, tabs }) => {
 
 Content.displayName = 'Content';
 
-const TabsContent = memo<TabsContentProps>(({ children, active }) => {
-    const [localTabs, setLocalTabs] = useState([]);
-    const tabs = UITabs.useProxySelector((api) => api.tabs);
+const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) => {
     const setValue = UITabs.useProxySelector((api) => api.setValueIndex);
     const draggable = UITabs.useSelector((api) => api.draggable);
-    const setTabs = UITabs.useSelector((api) => api.setTabs);
 
     useEffect(() => {
         setValue(active);
     }, [active]);
 
-    useEffect(() => {
-        // sync tabs without setting em
-        // how to map children without remapping props
-        // no way to register
-        const childrenArr = Array.isArray(children) ? children : [children];
-
-        const tabArr = childrenArr.map((child, index) => {
-            const titleString = typeof child.props.title === 'string' && child.props.title;
-
-            return {
-                value: titleString || index.toString(),
-                index,
-                ...child.props,
-                title: titleString || undefined,
-                fixed: child.props.isFixed,
-            };
-        });
-
-        setLocalTabs(tabArr);
-    }, [children]);
-
-    useEffect(() => {
-        setTabs(localTabs);
-    }, [localTabs]);
-
     return (
         <>
             <UITabs.List>
-                {/** remap children tabs */}
                 {tabs.map((tab, index) => {
-                    return !tab.nonDraggable && draggable ? (
-                        <UITabs.DraggableTrigger {...tab} key={tab.value} fixed={tab.isFixed}>
+                    const { fixed, disabled, value } = tab;
+
+                    const meta = tabsMeta[value];
+
+                    return draggable ? (
+                        <UITabs.DraggableTrigger
+                            value={value}
+                            disabled={disabled}
+                            key={value}
+                            fixed={fixed}
+                            index={index}
+                            nonDraggable={meta.nonDraggable}
+                        >
                             <TabButton
-                                value={tab.value}
-                                icon={tab.icon}
-                                onHeaderContextMenu={tab.onHeaderContextMenu}
-                                onDoubleClick={tab.onDoubleClick}
+                                value={meta.title}
+                                icon={meta.icon}
+                                onHeaderContextMenu={meta.onHeaderContextMenu}
+                                onDoubleClick={meta.onDoubleClick}
                             />
                         </UITabs.DraggableTrigger>
                     ) : (
-                        <UITabs.Trigger {...tab} key={tab.value} fixed={tab.isFixed}>
+                        <UITabs.Trigger
+                            value={value}
+                            disabled={disabled}
+                            key={value}
+                            fixed={fixed}
+                            index={index}
+                        >
                             <TabButton
-                                value={tab.value}
-                                icon={tab.icon}
-                                onHeaderContextMenu={tab.onHeaderContextMenu}
-                                onDoubleClick={tab.onDoubleClick}
+                                value={meta.title}
+                                icon={meta.icon}
+                                onHeaderContextMenu={meta.onHeaderContextMenu}
+                                onDoubleClick={meta.onDoubleClick}
                             />
                         </UITabs.Trigger>
                     );
@@ -89,7 +78,7 @@ const TabsContent = memo<TabsContentProps>(({ children, active }) => {
             <Flex>
                 {tabs.map((tab) => (
                     <UITabs.Content value={tab.value} key={tab.value}>
-                        {tab.children}
+                        {tabsMeta[tab.value].children}
                     </UITabs.Content>
                 ))}
             </Flex>
@@ -113,12 +102,55 @@ export interface TabsProps {
 }
 
 export const Tabs = memo<TabsProps>(
-    ({ className, theme = {}, onTabPositionChange, draggable, active, ...rest }) => {
+    ({ className, theme = {}, onTabPositionChange, draggable, active, children, ...rest }) => {
+        const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
+
+        const [tabs, setTabs] = useState(() =>
+            childrenArr.map(({ props }) => {
+                const { isFixed, title: propsTitle, disabled } = props;
+
+                const title = typeof propsTitle === 'string' && propsTitle;
+                const value = title;
+
+                return {
+                    value,
+                    fixed: isFixed,
+                    disabled,
+                };
+            }),
+        );
+
+        const tabsMeta = useMemo(() => {
+            return childrenArr.reduce((acc, { props }, index) => {
+                const {
+                    icon,
+                    title: propsTitle,
+                    onDoubleClick,
+                    nonDraggable,
+                    onHeaderContextMenu,
+                    children,
+                } = props;
+
+                const title = typeof propsTitle === 'string' && propsTitle;
+                const value = title ?? index.toString();
+
+                acc[value] = {
+                    children,
+                    icon,
+                    onDoubleClick,
+                    nonDraggable,
+                    onHeaderContextMenu,
+                    title,
+                };
+
+                return acc;
+            }, {});
+        }, [children]);
+
         return (
             <UITabs.Root
                 activationMode="manual"
                 className={className}
-                //active value as index
                 onValueChange={(d) => {
                     rest.onTabSwitch(UITabs.getTabIndex(d.value));
                     rest.onChange(UITabs.getTabIndex(d.value));
@@ -127,8 +159,10 @@ export const Tabs = memo<TabsProps>(
                 tabsHidden={rest.hideTabHeader}
                 useWheel
                 draggable={draggable}
+                draggableMode="ordered"
+                onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
             >
-                <TabsContent {...rest} theme={theme} active={active} />
+                <TabsContent {...rest} theme={theme} active={active} tabs={tabs} meta={tabsMeta} />
             </UITabs.Root>
         );
     },

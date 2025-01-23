@@ -123,6 +123,8 @@ const machine = extendMachine(
                             .toSpliced(newIndex, 0, ctx.tabs[currentIndex]),
                     });
                 }
+
+                raf(() => ctx.onPositionChange(ctx.tabs));
             },
             syncTabs: (ctx, { hiddenOnly }: { hiddenOnly: boolean }, { send }) => {
                 const containerNode = document.getElementById(`tabs:${ctx.id}:list`);
@@ -132,7 +134,7 @@ const machine = extendMachine(
                 for (const tab of containerNode.children) {
                     const tabProps = {
                         value: tab.getAttribute('data-value'),
-                        disabled: tab.getAttribute('data-disabled'),
+                        disabled: typeof tab.getAttribute('data-disabled') === 'string' && true,
                         fixed: tab.getAttribute('data-fixed'),
                         index: parseInt(tab.getAttribute('data-index')),
                     };
@@ -272,6 +274,7 @@ export interface Tab {
     disabled?: boolean;
     value: string;
     index: number;
+    meta?: Record<string, any>;
 }
 
 export const Trigger = forward<{ children: ReactNode } & Tab, 'li'>(
@@ -284,63 +287,62 @@ export const Trigger = forward<{ children: ReactNode } & Tab, 'li'>(
     },
 );
 
-export const DraggableTrigger = forward<{ children: ReactNode } & Tab, 'li'>(
-    ({ value, disabled, fixed, index, ...rest }, ref) => {
-        const id = useId();
+export const DraggableTrigger = forward<
+    { children: ReactNode; nonDraggable?: boolean } & Tab,
+    'li'
+>(({ value, disabled, fixed, index, nonDraggable = false, ...rest }, ref) => {
+    const id = useId();
 
-        const api = useApi();
+    const api = useApi();
 
-        const apiProps = api.getTriggerProps({ value, disabled, fixed, index });
+    const apiProps = api.getTriggerProps({ value, disabled, fixed, index });
 
-        return (
-            <DraggableComponent.Item id={id} ref={ref} data={{ value, disabled, fixed, index }}>
-                {({
-                    setNodeRef,
-                    transform,
-                    attributes,
-                    listeners,
-                    isDragging,
-                    id: draggableId,
-                }) => (
-                    <>
-                        <styled.li
-                            {...rest}
-                            {...attributes}
-                            {...apiProps}
-                            data-dragging={isDragging}
-                            data-draggable-id={draggableId}
-                            onPointerDown={(e) => {
-                                apiProps.onClick(e);
-                                listeners.onPointerDown(e);
+    return (
+        <DraggableComponent.Item
+            id={id}
+            ref={ref}
+            data={{ value, disabled, fixed, index }}
+            disabled={nonDraggable}
+        >
+            {({ setNodeRef, transform, attributes, listeners, isDragging, id: draggableId }) => (
+                <>
+                    <styled.li
+                        {...rest}
+                        {...attributes}
+                        {...apiProps}
+                        data-dragging={isDragging}
+                        data-draggable-id={draggableId}
+                        onPointerDown={(e) => {
+                            apiProps.onClick(e);
+                            listeners.onPointerDown(e);
+                        }}
+                        ref={setNodeRef}
+                        key={`trigger-${value}`}
+                    />
+                    {isDragging && (
+                        <DraggableComponent.DragOverlay
+                            data-scope="tabs"
+                            data-part="trigger-overlay"
+                            style={{
+                                transform: transform && `translateX(${transform.x}px)`,
+                                cursor: 'grabbing',
                             }}
-                            ref={setNodeRef}
-                            key={`trigger-${value}`}
-                        />
-                        {isDragging && (
-                            <DraggableComponent.DragOverlay
+                        >
+                            <styled.li
+                                {...rest}
                                 data-scope="tabs"
-                                data-part="trigger-overlay"
-                                style={{
-                                    transform: transform && `translateX(${transform.x}px)`,
-                                    cursor: 'grabbing',
-                                }}
-                            >
-                                <styled.li
-                                    {...rest}
-                                    data-scope="tabs"
-                                    data-part="trigger"
-                                    data-focus
-                                    key={`trigger-${value}`}
-                                    data-dragging={isDragging}
-                                />
-                            </DraggableComponent.DragOverlay>
-                        )}
-                    </>
-                )}
-            </DraggableComponent.Item>
-        );
-    },
-);
+                                data-part="trigger"
+                                data-focus
+                                key={`trigger-${value}`}
+                                data-dragging={isDragging}
+                            />
+                        </DraggableComponent.DragOverlay>
+                    )}
+                </>
+            )}
+        </DraggableComponent.Item>
+    );
+});
 
 export const Content = forward<{ children: ReactNode; value: string }, 'div'>(
     ({ value, ...rest }, ref) => {

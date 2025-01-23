@@ -18,7 +18,7 @@ export const Controlled = (props: Partial<TabsProps>) => {
                 <Tab title="Item one" icon="favorite">
                     Item one
                 </Tab>
-                <Tab label="Item two" icon="people">
+                <Tab title="Item two" icon="people">
                     Item two
                 </Tab>
                 <Tab title="Item three">Item three</Tab>
