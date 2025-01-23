@@ -1,7 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-
-import { ButtonMenu } from './index';
-import { MenuItem } from '../Menu';
+import { ButtonMenu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -77,7 +75,7 @@ const argTypes: Partial<ArgTypes> = {
 };
 
 const meta: Meta<typeof ButtonMenu> = {
-    title: 'legacy/ButtonMenu',
+    title: 'UI KIT internal/ButtonMenu',
     component: ButtonMenu,
     argTypes,
 };
@@ -91,12 +89,14 @@ export const Basic: Story = {
         icon: 'print',
         arrowUp: false,
         children: [
-            <MenuItem key={1}>
-                <span>Option</span>
-            </MenuItem>,
-            <MenuItem key={2}>
-                <span>Option</span>
-            </MenuItem>,
+            <SubMenu label="2" key="2">
+                <MenuItem key={1}>
+                    <span>Option</span>
+                </MenuItem>
+                <MenuItem key={2}>
+                    <span>Option</span>
+                </MenuItem>
+            </SubMenu>,
         ],
     },
 };
