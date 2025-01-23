@@ -11,14 +11,15 @@ export const InputTrigger = {
                     {(api) => (
                         <Field.Root status={api.disabled ? 'readonly' : 'default'}>
                             <Field.FloatingLabel>label</Field.FloatingLabel>
-                            <Field.TriggerInput
-                                {...api.getTriggerProps()}
-                                value={api.empty ? 'choose value' : api.valueAsString}
-                            >
-                                <Field.Icon>
-                                    <Icon value={'arrow_drop_down'} />
-                                </Field.Icon>
-                            </Field.TriggerInput>
+                            <Select.Trigger {...api.getTriggerProps()}>
+                                <Field.TriggerInput
+                                    value={api.empty ? 'choose value' : api.valueAsString}
+                                >
+                                    <Field.Icon>
+                                        <Icon value={'arrow_drop_down'} />
+                                    </Field.Icon>
+                                </Field.TriggerInput>
+                            </Select.Trigger>
                         </Field.Root>
                     )}
                 </Select.Api>
