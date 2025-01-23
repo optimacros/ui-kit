@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect, useMemo } from 'react';
+import { memo, ReactElement, useEffect, useState } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
@@ -24,6 +24,7 @@ const Content = memo(({ className, tabs }) => {
 Content.displayName = 'Content';
 
 const TabsContent = memo<TabsContentProps>(({ children, active }) => {
+    const [localTabs, setLocalTabs] = useState([]);
     const tabs = UITabs.useProxySelector((api) => api.tabs);
     const setValue = UITabs.useProxySelector((api) => api.setValueIndex);
     const draggable = UITabs.useSelector((api) => api.draggable);
@@ -33,7 +34,7 @@ const TabsContent = memo<TabsContentProps>(({ children, active }) => {
         setValue(active);
     }, [active]);
 
-    const childrenArr = useMemo(() => {
+    useEffect(() => {
         // sync tabs without setting em
         // how to map children without remapping props
         // no way to register
@@ -51,14 +52,18 @@ const TabsContent = memo<TabsContentProps>(({ children, active }) => {
             };
         });
 
-        return tabArr;
+        setLocalTabs(tabArr);
     }, [children]);
+
+    useEffect(() => {
+        setTabs(localTabs);
+    }, [localTabs]);
 
     return (
         <>
             <UITabs.List>
                 {/** remap children tabs */}
-                {childrenArr.map((tab, index) => {
+                {tabs.map((tab, index) => {
                     return !tab.nonDraggable && draggable ? (
                         <UITabs.DraggableTrigger {...tab} key={tab.value} fixed={tab.isFixed}>
                             <TabButton
@@ -82,7 +87,7 @@ const TabsContent = memo<TabsContentProps>(({ children, active }) => {
             </UITabs.List>
 
             <Flex>
-                {childrenArr.map((tab) => (
+                {tabs.map((tab) => (
                     <UITabs.Content value={tab.value} key={tab.value}>
                         {tab.children}
                     </UITabs.Content>
