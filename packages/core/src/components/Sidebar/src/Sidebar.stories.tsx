@@ -1,8 +1,9 @@
-import { ArgTypes } from '@storybook/react';
+import { ArgTypes, StoryObj, Meta } from '@storybook/react';
 import { Sidebar } from '.';
 import { Fragment } from 'react';
-import { times } from '@optimacros-ui/utils';
+import { sleep, times } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
+import { userEvent, waitFor, expect } from '@storybook/test';
 
 const argTypes: Partial<ArgTypes> = {
     open: {
@@ -25,15 +26,47 @@ const argTypes: Partial<ArgTypes> = {
     },
 };
 
-const meta = {
+const meta: Meta<typeof Sidebar.Root> = {
     title: 'UI Kit core/Sidebar',
+    component: Sidebar.Root,
     argTypes,
 };
 
 export default meta;
 
-export const Basic = {
+type Story = StoryObj<typeof Sidebar.Root>;
+
+export const Basic: Story = {
     args: {},
+    play: async ({ globals, canvasElement }) => {
+        if (!globals.test) {
+            return;
+        }
+
+        let trigger: HTMLDivElement;
+
+        await waitFor(() => {
+            trigger = canvasElement.querySelector(
+                'div[data-scope="collapsible"][data-tag="sidebar"] div[data-scope="collapsible"][data-part="trigger"]',
+            );
+
+            expect(trigger).toBeInTheDocument();
+        });
+
+        await userEvent.click(trigger);
+
+        await waitFor(() => {
+            const sidebar = canvasElement.querySelector(
+                'div[data-scope="collapsible"][data-part="root"][data-tag="sidebar"]',
+            );
+
+            expect(sidebar).toHaveAttribute('data-state', 'open');
+        });
+
+        await sleep(1000);
+
+        await window.takeScreenshot?.('open');
+    },
     render: (props) => (
         <Sidebar.Root {...props}>
             <Sidebar.Trigger>open\close</Sidebar.Trigger>

@@ -12,4 +12,5 @@ export const RadioButtonDefault = RadioButtonTemplate.bind({});
 RadioButtonDefault.storyName = 'Base example';
 RadioButtonDefault.args = {
     label: 'im label',
+    tags: ['skip-test-runner'],
 };

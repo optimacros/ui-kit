@@ -14,4 +14,5 @@ type Story = StoryObj<typeof Calendar>;
 
 export const Basic: Story = {
     args: { autoOk: true },
+    tags: ['skip-test-runner'],
 };

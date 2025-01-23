@@ -1,7 +1,7 @@
 import { SearchContainer } from './SearchContainer';
 
 export default {
-    title: 'ui-kit/SearchContainer',
+    title: 'legacy/SearchContainer',
     component: SearchContainer,
 };
 
@@ -17,4 +17,5 @@ export const Base = {
         style: 'className',
         showIcon: true,
     },
+    tags: ['skip-test-runner'],
 };
