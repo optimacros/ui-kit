@@ -62,3 +62,5 @@ export const Loader: LoaderProps = ({
         </LoaderComponent.Root>
     );
 };
+
+export const ProgressBar = Loader;
