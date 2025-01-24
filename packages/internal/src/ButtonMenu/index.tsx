@@ -1,8 +1,8 @@
 import React from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
-import { Button, ButtonTheme } from '../Button';
-import { Tooltip, TooltipProps } from '../Tooltip';
+import { Button, ButtonTheme } from '@optimacros-ui/kit-internal';
+import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 
 export type ButtonMenuTheme = Partial<ButtonTheme>;
 

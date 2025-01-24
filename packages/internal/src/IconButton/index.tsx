@@ -1,6 +1,10 @@
-import { TooltipProps } from '../Tooltip';
-import { Tooltip } from '@optimacros-ui/tooltip';
-import { Button, type ButtonInitialProps, type ThemeButtonProps } from '../Button';
+import {
+    Button,
+    type ButtonInitialProps,
+    type ThemeButtonProps,
+    Tooltip,
+    TooltipProps,
+} from '@optimacros-ui/kit-internal';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
@@ -14,7 +18,7 @@ export interface IconBtnProps extends IconButtonProps {
     theme: IconButtonTheme & { toggle: string };
 }
 
-export const IconButton: IconButtonProps = ({
+export const IconButton = ({
     children,
     label,
     theme,
@@ -27,25 +31,25 @@ export const IconButton: IconButtonProps = ({
     onMouseLeave,
     className,
     ...otherProps
-}) => {
-    return tooltip ? (
-        //TODO: need to use internal tooltip
-        <Tooltip.Root
-            openDelay={tooltipDelay}
-            positioning={{
-                placement: tooltipPosition,
-                offset: {
-                    crossAxis: tooltipOffset,
-                    mainAxis: tooltipOffset,
-                },
+}: IconButtonProps) => {
+    return (
+        <Tooltip
+            composedComponent={Button}
+            composedComponentProps={{
+                ...otherProps,
+                'data-label': label,
             }}
+            onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            className={className}
+            tooltip={label ?? tooltip}
+            tooltipDelay={tooltipDelay}
+            tooltipPosition={tooltipPosition}
+            tooltipOffset={tooltipOffset}
+            theme={theme}
         >
-            <Tooltip.Trigger as="div">
-                <Button {...otherProps} />
-            </Tooltip.Trigger>
-            <Tooltip.Content>{tooltip}</Tooltip.Content>
-        </Tooltip.Root>
-    ) : (
-        <Button {...otherProps} />
+            {children}
+        </Tooltip>
     );
 };

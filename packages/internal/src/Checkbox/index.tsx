@@ -1,5 +1,5 @@
 import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
-import { Tooltip } from '@optimacros-ui/tooltip';
+import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 
 export interface CheckboxComponentProps extends InitialProps {
@@ -62,7 +62,7 @@ export type InitialProps = {
 
 export type CheckboxProps = React.PropsWithChildren<InitialProps>;
 
-export const Checkbox: CheckboxProps = ({
+export const Checkbox = ({
     tooltipLabel,
     theme,
     tooltipDelay,
@@ -73,43 +73,33 @@ export const Checkbox: CheckboxProps = ({
     onMouseLeave,
     className,
     ...otherProps
-}) => {
+}: CheckboxProps) => {
     return tooltipLabel ? (
-        //TODO: need to use internal tooltip
-        <Tooltip.Root
+        <Tooltip
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            openDelay={tooltipDelay}
-            positioning={{
-                placement: tooltipPosition,
-                offset: {
-                    crossAxis: tooltipOffset,
-                    mainAxis: tooltipOffset,
-                },
-            }}
-        >
-            <Tooltip.Trigger as="div">
-                <CheckboxComponent
-                    {...otherProps}
-                    onClick={onClick}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                />
-            </Tooltip.Trigger>
-            <Tooltip.Content>{tooltipLabel}</Tooltip.Content>
-        </Tooltip.Root>
+            className={className}
+            theme={theme}
+            tooltip={tooltipLabel}
+            tooltipDelay={tooltipDelay}
+            tooltipPosition={tooltipPosition}
+            tooltipOffset={tooltipOffset}
+            composedComponent={CheckboxComponent}
+            composedComponentProps={otherProps}
+        />
     ) : (
         <CheckboxComponent
             {...otherProps}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            className={className}
         />
     );
 };
 
-const CheckboxComponent: React.PropsWithChildren<CheckboxComponentProps> = ({
+const CheckboxComponent = ({
     checked = false,
     children,
     disabled = false,
@@ -120,7 +110,7 @@ const CheckboxComponent: React.PropsWithChildren<CheckboxComponentProps> = ({
     onMouseLeave,
     onClick,
     ...others
-}) => {
+}: React.PropsWithChildren<CheckboxComponentProps>) => {
     const handleToggle = (event: MouseEvent) => {
         if (onChange && !disabled) {
             onChange(!checked, event);
@@ -128,14 +118,16 @@ const CheckboxComponent: React.PropsWithChildren<CheckboxComponentProps> = ({
     };
 
     return (
-        <CheckboxCore.Root name={name} checked={checked} disabled={disabled} {...others}>
-            <CheckboxCore.BoxControl
-                onClick={handleToggle}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-            />
-            {label && <CheckboxCore.Label>{label}</CheckboxCore.Label>}
-            {children}
-        </CheckboxCore.Root>
+        <div>
+            <CheckboxCore.Root name={name} checked={checked} disabled={disabled} {...others}>
+                <CheckboxCore.BoxControl
+                    onClick={handleToggle}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                />
+                {label && <CheckboxCore.Label>{label}</CheckboxCore.Label>}
+                {children}
+            </CheckboxCore.Root>
+        </div>
     );
 };

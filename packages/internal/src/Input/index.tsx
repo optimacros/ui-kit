@@ -61,7 +61,7 @@ const getStatus = (error: boolean, readOnly: boolean, warning: boolean) => {
     }
 };
 
-export const Input: InputProps = ({
+export const Input = ({
     value,
     role = 'input',
     type = 'text',
@@ -87,7 +87,7 @@ export const Input: InputProps = ({
     readOnly = false,
     autoFocus,
     ...others
-}) => {
+}: InputProps) => {
     const elementProps: TextareaHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
         type: HTMLInputTypeAttribute;
     } = {

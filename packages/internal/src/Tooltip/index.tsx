@@ -34,6 +34,10 @@ type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosi
 const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme, tooltipPosition }) => {
     const api = UITooltip.useApi();
 
+    if (!tooltip) {
+        return null;
+    }
+
     const positionClass = `tooltip${tooltipPosition.charAt(0).toUpperCase() + tooltipPosition.slice(1)}`;
 
     const cn = clsx(theme?.tooltip, api.open && theme?.tooltipActive, theme?.[positionClass]);

@@ -81,7 +81,7 @@ const getFloatStyles = (raised: boolean, floating: boolean): 'raised' | 'floatin
     }
 };
 
-export const Button: ButtonComponentProps = ({
+export const Button = ({
     className = '',
     type = 'button',
     label,
@@ -107,7 +107,7 @@ export const Button: ButtonComponentProps = ({
     onMouseLeave,
     disabled,
     ...rest
-}) => {
+}: ButtonComponentProps) => {
     return (
         <ButtonComponent
             variant={getVariant(primary, accent, bordered, gray)}

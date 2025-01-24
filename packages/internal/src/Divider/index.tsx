@@ -5,7 +5,7 @@ type DividerProps = {
     vertical?: boolean;
 };
 
-export const Divider: DividerProps = ({ vertical = false }) => {
+export const Divider = ({ vertical = false }: DividerProps) => {
     const orientation = vertical ? Orientation.Vertical : Orientation.Horizontal;
 
     return <DividerComponent orientation={orientation} />;
