@@ -56,11 +56,11 @@ export const WithModal: Story = {
         const handleOpenChange = (details) => {
             setOpen(details.open);
         };
+
         return (
             <>
                 <Button onClick={() => setOpen(true)}>Open Modal</Button>
-
-                <Modal.CustomRoot open={open} onOpenChange={handleOpenChange}>
+                <Modal.CustomRoot open={open} onOpenChange={handleOpenChange} controllable>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
                     </Modal.Header>
