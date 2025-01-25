@@ -1,11 +1,5 @@
-const exec = require('child_process').exec;
+const { exec } = require('./exec');
 
-exec('lerna bootstrap', (err, output, stderr) => {
-    console.info(output);
-    console.error(stderr);
-});
+exec('lerna bootstrap');
 
-exec('npx playwright install chromium', (err, output, stderr) => {
-    console.info(output);
-    console.error(stderr);
-});
+exec('npx playwright install chromium');
