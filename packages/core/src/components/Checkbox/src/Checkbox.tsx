@@ -46,7 +46,13 @@ export const BoxControl = forward<{}, 'div'>((props, ref) => {
             data-scope="checkbox"
             data-part="box-control"
         >
-            <input {...apiHiddenInputProps} />
+            <input
+                data-testid="hidden-input"
+                data-scope="checkbox"
+                data-part="hidden-input"
+                {...apiHiddenInputProps}
+                role="checkbox"
+            />
         </styled.div>
     );
 });

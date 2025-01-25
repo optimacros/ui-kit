@@ -57,38 +57,41 @@ export const Base = () => {
     );
 };
 
-export const DropZone = () => {
-    return (
-        <FileUpload.Root
-            accept="image/*"
-            allowDrop
-            maxFiles={5}
-            name="file-input"
-            className="size-full"
-        >
-            <FileUpload.HiddenInput />
-            <FileUpload.UploadTrigger asChild>
-                <Button variant="bordered">Upload</Button>
-            </FileUpload.UploadTrigger>
-            <FileUpload.Dropzone>Upload</FileUpload.Dropzone>
-            <FileUpload.Content>
-                <FileUpload.ClearTrigger as="div">
-                    <IconButton icon="close" variant="bordered" size="xs" squared />
-                </FileUpload.ClearTrigger>
-                <FileUpload.ItemGroupHeader>
-                    <Text.Title as="h3">FileName</Text.Title>
-                    <Text.Title as="h3">FileSize</Text.Title>
-                </FileUpload.ItemGroupHeader>
-                <FileUpload.ItemGroup>
-                    {(file) => (
-                        <>
-                            <FileUpload.ItemInfo file={file} />
-                        </>
-                    )}
-                </FileUpload.ItemGroup>
-            </FileUpload.Content>
-        </FileUpload.Root>
-    );
+export const DropZone = {
+    render: () => {
+        return (
+            <FileUpload.Root
+                accept="text/plain"
+                allowDrop
+                maxFiles={5}
+                name="file-input"
+                className="size-full"
+                style={{ height: '100%' }}
+            >
+                <FileUpload.HiddenInput />
+                <FileUpload.UploadTrigger asChild>
+                    <Button variant="bordered">Upload</Button>
+                </FileUpload.UploadTrigger>
+                <FileUpload.Dropzone data-testid="dropzone">Upload</FileUpload.Dropzone>
+                <FileUpload.Content>
+                    <FileUpload.ClearTrigger as="div">
+                        <IconButton icon="close" variant="bordered" size="xs" squared />
+                    </FileUpload.ClearTrigger>
+                    <FileUpload.ItemGroupHeader>
+                        <Text.Title as="h3">FileName</Text.Title>
+                        <Text.Title as="h3">FileSize</Text.Title>
+                    </FileUpload.ItemGroupHeader>
+                    <FileUpload.ItemGroup>
+                        {(file) => (
+                            <>
+                                <FileUpload.ItemInfo file={file} />
+                            </>
+                        )}
+                    </FileUpload.ItemGroup>
+                </FileUpload.Content>
+            </FileUpload.Root>
+        );
+    },
 };
 
 export const WithForm = () => {

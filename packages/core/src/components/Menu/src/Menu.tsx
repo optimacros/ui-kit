@@ -26,6 +26,7 @@ export const {
             },
             getTriggerProps() {
                 const props = api.getTriggerProps();
+
                 return {
                     ...props,
                     onClick: (e) => {
@@ -34,6 +35,12 @@ export const {
                         }
                     },
                     'data-disabled': state.context.disabled ?? undefined,
+                };
+            },
+            getItemProps(props: menu.ItemProps) {
+                return {
+                    ...api.getItemProps(props),
+                    title: props.valueText,
                 };
             },
             setParentNode: (parent) => {
@@ -107,7 +114,9 @@ export const SubMenuItem = forward<
         <Root {...rest}>
             {(api) => (
                 <SubMenuRoot parent={parent}>
-                    <styled.li {...parent?.getTriggerItemProps(api)}>{item.valueText}</styled.li>
+                    <styled.li {...parent?.getTriggerItemProps(api)} title={item.valueText}>
+                        {item.valueText}
+                    </styled.li>
                     {isFunction(children) ? children(api) : children}
                 </SubMenuRoot>
             )}
@@ -165,7 +174,7 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, .
     const props = useSelector((state) => state.getTriggerProps());
 
     return (
-        <styled.button {...rest} {...props} ref={ref}>
+        <styled.button {...rest} {...props} ref={ref} role="button">
             {children}
         </styled.button>
     );

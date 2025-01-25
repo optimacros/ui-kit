@@ -6,6 +6,7 @@ import { createMenuItems } from './mock';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
 import { Orientation } from '@optimacros-ui/utils';
+import { within, expect, userEvent, waitFor, fireEvent, fn } from '@storybook/test';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
@@ -87,23 +88,61 @@ export default meta;
 
 const menuItems: Array<menu.ItemProps> = createMenuItems(10);
 
-export const Basic = (props) => {
-    return (
-        <Menu.Root {...props} controllable>
-            <Menu.Trigger asChild>
-                <Button>Click me</Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-                <Menu.Content size="sm">
-                    <Menu.List>
-                        {menuItems.map((v, i) => (
-                            <Menu.Item {...v} />
-                        ))}
-                    </Menu.List>
-                </Menu.Content>
-            </Menu.Positioner>
-        </Menu.Root>
-    );
+export const Basic = {
+    render: (props) => {
+        return (
+            <Menu.Root {...props} onOpenChange={fn()}>
+                <Menu.Trigger asChild>
+                    <Button data-testid="trigger">Click me</Button>
+                </Menu.Trigger>
+                <Menu.Positioner>
+                    <Menu.Content size="sm" data-testid="menu-content">
+                        <Menu.List data-testid="menu-list">
+                            {menuItems.map((v, i) => (
+                                <Menu.Item {...v} title={v.valueText} />
+                            ))}
+                        </Menu.List>
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Menu.Root>
+        );
+    },
+    play: async ({ canvasElement, step, context }) => {
+        const canvas = within(canvasElement);
+
+        const user = userEvent.setup();
+
+        // Open menu with keyboard
+        const trigger = canvas.getByTestId('trigger');
+        const menu = canvas.getByTestId('menu-content');
+
+        await step('select item', async () => {
+            await fireEvent.click(trigger);
+
+            await waitFor(() => expect(menu).toHaveAttribute('data-state', 'open'));
+
+            await user.click(within(menu).getByTitle(menuItems[0].valueText));
+
+            expect(menu).not.toBeVisible();
+        });
+
+        await step('keyboard navigation', async () => {
+            await fireEvent.click(trigger);
+
+            await waitFor(() => expect(menu).toHaveAttribute('data-state', 'open'));
+
+            await user.keyboard('{ArrowDown}');
+            await user.keyboard('{ArrowDown}');
+            await user.keyboard('{ArrowDown}');
+
+            const focusedItem = document.activeElement;
+            expect(focusedItem).toHaveTextContent(menuItems[2].valueText);
+
+            await user.keyboard('{Enter}');
+
+            expect(menu).not.toBeVisible();
+        });
+    },
 };
 
 export const OrientationExample = () => {
@@ -171,15 +210,15 @@ export const OrientationExample = () => {
 };
 
 // nested
-const CustomMenu = () => {
+const CustomMenu = ({ value }) => {
     const api = Menu.useApi();
 
     return (
         <Menu.SubMenuPositioner>
-            <Menu.Content>
+            <Menu.Content data-testid={'nested-menu-' + value}>
                 <Menu.List>
                     {menuItems.map((v, i) => (
-                        <Menu.Item {...v} />
+                        <Menu.Item {...v} value={value + i} valueText={value + i} />
                     ))}
                     <Menu.SubMenuItem
                         parent={api}
@@ -199,7 +238,8 @@ const CustomMenu = () => {
                                     {menuItems.slice(0, 5).map((v, i) => (
                                         <Menu.Item
                                             {...v}
-                                            value={v.value}
+                                            value={v.value + 'sub'}
+                                            valueText={v.value + 'sub'}
                                             key={v.value + 'sub-sub'}
                                         />
                                     ))}
@@ -213,38 +253,62 @@ const CustomMenu = () => {
     );
 };
 
-export const Nested = () => {
-    return (
-        <Menu.Root closeOnSelect={false}>
-            <Menu.Trigger asChild>
-                <div>Click me</div>
-            </Menu.Trigger>
-            <Menu.Api>
-                {(api) => (
-                    <Menu.Positioner portalled>
-                        <Menu.Content>
-                            <Menu.List>
-                                {menuItems.map((v, i) => (
-                                    <Menu.SubMenuItem
-                                        key={`custom-sub-${i}`}
-                                        parent={api}
-                                        item={v}
-                                        closeOnSelect={false}
-                                        positioning={{
-                                            fitViewport: false,
-                                            overlap: false,
-                                        }}
-                                    >
-                                        <CustomMenu />
-                                    </Menu.SubMenuItem>
-                                ))}
-                            </Menu.List>
-                        </Menu.Content>
-                    </Menu.Positioner>
-                )}
-            </Menu.Api>
-        </Menu.Root>
-    );
+export const Nested = {
+    render: () => {
+        return (
+            <Menu.Root closeOnSelect={false}>
+                <Menu.Trigger asChild>
+                    <div data-testid="trigger">Click me</div>
+                </Menu.Trigger>
+                <Menu.Api>
+                    {(api) => (
+                        <Menu.Positioner portalled>
+                            <Menu.Content data-testid="menu-content">
+                                <Menu.List>
+                                    {menuItems.map((v, i) => (
+                                        <Menu.SubMenuItem
+                                            key={`custom-sub-${i}`}
+                                            parent={api}
+                                            item={v}
+                                            closeOnSelect={false}
+                                            positioning={{
+                                                fitViewport: false,
+                                                overlap: false,
+                                            }}
+                                        >
+                                            <CustomMenu value={v.value} />
+                                        </Menu.SubMenuItem>
+                                    ))}
+                                </Menu.List>
+                            </Menu.Content>
+                        </Menu.Positioner>
+                    )}
+                </Menu.Api>
+            </Menu.Root>
+        );
+    },
+    play: async ({ canvasElement, step, context }) => {
+        const canvas = within(canvasElement);
+
+        const user = userEvent.setup();
+
+        // Open menu with keyboard
+        const trigger = canvas.getByTestId('trigger');
+        const menu = within(document).getByTestId('menu-content');
+
+        await step('select item', async () => {
+            await fireEvent.click(trigger);
+
+            await waitFor(() => expect(menu).toHaveAttribute('data-state', 'open'));
+
+            const nestedMenuTrigger = within(menu).getByTitle(menuItems[0].valueText);
+
+            await user.hover(nestedMenuTrigger);
+
+            await waitFor(() => expect(nestedMenuTrigger).toHaveAttribute('data-state', 'open'));
+            // expect(menu).not.toBeVisible();
+        });
+    },
 };
 
 export const Group = () => {

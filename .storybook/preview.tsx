@@ -39,7 +39,7 @@ const preview: Preview = {
                     <Story />
                 </UiKit.Provider>
             ) : (
-                <div>loading</div>
+                <Story />
             );
         },
     ],

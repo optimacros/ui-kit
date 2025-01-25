@@ -9,12 +9,13 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext({
 });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
+export const Root = forward<RootProps, 'div'>(({ children, style, ...context }, ref) => {
     return (
         <RootProvider {...context}>
             {(api) => (
                 <styled.div
                     {...api.getRootProps()}
+                    style={style}
                     ref={ref}
                     data-empty={api.acceptedFiles.length <= 0}
                 >
@@ -146,10 +147,14 @@ export const TotalSize = () => {
     );
 };
 
-export const Dropzone = ({ children }) => {
+export const Dropzone = ({ children, ...rest }) => {
     const api = useApi();
 
-    return <styled.div {...api.getDropzoneProps()}>{children}</styled.div>;
+    return (
+        <styled.div {...rest} {...api.getDropzoneProps()}>
+            {children}
+        </styled.div>
+    );
 };
 
 const symbols = ['B', 'kB', 'MB', 'GB', 'TB'] as const;
