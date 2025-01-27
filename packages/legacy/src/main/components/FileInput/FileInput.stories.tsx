@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { FileInput } from '@optimacros-ui/kit-internal';
-import { ReactNode, useState } from 'react';
+import { FileInput } from './index';
 
 const argTypes: Partial<ArgTypes> = {};
 
 const meta: Meta<typeof FileInput> = {
-    title: 'UI Kit internal/FileInput',
+    title: 'legacy/FileInput',
     component: FileInput,
     argTypes,
 };
@@ -13,19 +13,11 @@ export default meta;
 
 type Story = StoryObj<typeof FileInput>;
 
-const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div style={{ width: '500px', marginLeft: '20px', height: '500px' }}>{children}</div>
-);
-
 export const BaseTrigger: Story = {
     args: {
         accept: '.zip',
         state: {
-            file: {
-                lastModified: 11,
-                name: 'Default file',
-                size: 2000000000000,
-            },
+            file: {},
             reset: () => {},
         },
         filePreview: false,
@@ -77,9 +69,5 @@ const InputFileState = () => {
 };
 
 export const Dynamic: Story = {
-    render: () => (
-        <Wrapper>
-            <InputFileState />
-        </Wrapper>
-    ),
+    render: () => <InputFileState />,
 };

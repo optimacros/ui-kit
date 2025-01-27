@@ -89,11 +89,7 @@ export const ItemGroup = forward<{ children: (file: File) => ReactNode }, 'ul'>(
         return (
             <ul {...api.getItemGroupProps()} {...rest} ref={ref}>
                 {api.acceptedFiles.map((file) => (
-                    <li
-                        key={file.name}
-                        {...api.getItemProps({ file })}
-                        className="font-bold text-base"
-                    >
+                    <li key={file.name} {...api.getItemProps({ file })}>
                         {children(file)}
                     </li>
                 ))}
