@@ -20,7 +20,7 @@ const source = [
 ];
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div style={{ width: '200px' }}>{children}</div>
+    <div style={{ width: '400px' }}>{children}</div>
 );
 
 const Template: Story = {
