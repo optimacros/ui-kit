@@ -1,36 +1,50 @@
 import * as collapsible from '@zag-js/collapsible';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import {
+    createReactApiStateContext,
+    ExtendedMachine,
+    forward,
+    MachineConfig,
+    MachineOptions,
+    styled,
+} from '@optimacros-ui/store';
 import {} from '@optimacros-ui/utils';
 import { PropsWithChildren } from 'react';
 import { extendMachine } from '@optimacros-ui/store';
 
-export const machine = extendMachine(
-    collapsible,
-    {
-        context: {
-            width: 300,
-            position: 'right' as 'left' | 'right',
+const config = {
+    context: {
+        width: 300,
+        position: 'right' as 'left' | 'right',
+    },
+    on: {
+        'WIDTH.SET': { actions: 'setWidth' },
+        'POSITION.SET': { actions: 'setPosition' },
+        TOGGLE: { actions: 'toggle' },
+    },
+} satisfies MachineConfig<collapsible.Service>;
+
+const options = {
+    actions: {
+        setWidth: (ctx, evt) => {
+            ctx.width = evt.value;
         },
-        on: {
-            'WIDTH.SET': { actions: 'setWidth' },
-            'POSITION.SET': { actions: 'setPosition' },
-            TOGGLE: { actions: 'toggle' },
+        setPosition: (ctx, evt) => {
+            ctx.position = evt.value;
+        },
+        toggle: (ctx, evt) => {
+            ctx.open = !ctx.open;
         },
     },
-    {
-        actions: {
-            setWidth: (ctx, evt) => {
-                ctx.width = evt.value;
-            },
-            setPosition: (ctx, evt) => {
-                ctx.position = evt.value;
-            },
-            toggle: (ctx, evt) => {
-                ctx.open = !ctx.open;
-            },
-        },
-    },
-);
+} satisfies MachineOptions<collapsible.Service, collapsible.Context, typeof config>;
+
+export const machine: ExtendedMachine<
+    typeof collapsible,
+    collapsible.Service,
+    collapsible.Context,
+    typeof config
+> = extendMachine(collapsible, config, options);
+
+export type Machine = typeof machine;
 
 export const {
     Api,
