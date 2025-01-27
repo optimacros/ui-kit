@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children, isValidElement } from 'react';
 import { RadioGroup as RadioGroupComponent } from '@optimacros-ui/radio-group';
 
 interface RadioGroupProps {
@@ -6,21 +6,20 @@ interface RadioGroupProps {
     classNameButton?: string;
     children?: React.ReactNode;
     theme?: Record<string, string>;
+    onChange?: RadioGroupComponent.RootProps['onValueChange'];
 }
 
-export const RadioGroup: RadioGroupProps = ({ options, children, onChange, ...other }) => {
-    const content = options || children;
-
-    const isButtonContent = content[0]?.type?.name === 'RadioButton';
+export const RadioGroup = ({ options, children, onChange, ...rest }: RadioGroupProps) => {
+    const content = options || Children.toArray(children);
 
     return (
         <>
-            <RadioGroupComponent.Root
-                {...other}
-                onValueChange={({ value }) => onChange && onChange(value)}
-            >
-                {content.map((props) => {
-                    const propsSource = isButtonContent ? props?.props : props;
+            <RadioGroupComponent.Root {...rest} onValueChange={({ value }) => onChange?.(value)}>
+                {content.map((component) => {
+                    const isComponent = isValidElement(component);
+
+                    const propsSource = isComponent ? component?.props : component;
+
                     const { label, value } = propsSource;
 
                     return (
