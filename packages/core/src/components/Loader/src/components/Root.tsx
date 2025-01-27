@@ -7,7 +7,7 @@ export type Props = ComponentProps<typeof RootProvider>;
 export const Root = forward<Props, 'div'>(
     ({ children, ...context }, ref) => {
         return (
-            <RootProvider {...context} indeterminate={null}>
+            <RootProvider {...context}>
                 {(api) => (
                     <styled.div ref={ref} {...api.getRootProps()}>
                         {children}
