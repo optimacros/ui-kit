@@ -107,7 +107,14 @@ export const Basic = {
             </Menu.Root>
         );
     },
-    play: async ({ canvasElement, step, context }) => {
+    play: async ({ canvasElement, step, globals }) => {
+        if (!globals.test) {
+            return;
+        }
+
+        await window.waitForPageTrulyReady?.();
+        await window.takeScreenshot?.();
+
         const canvas = within(canvasElement);
 
         const user = userEvent.setup();
@@ -121,7 +128,11 @@ export const Basic = {
 
             await waitFor(() => expect(menu).toHaveAttribute('data-state', 'open'));
 
-            await user.click(within(menu).getByTitle(menuItems[0].valueText));
+            await window.takeScreenshot?.('open menu');
+
+            const firstEnabledMenuItemValue = menuItems.find((item) => !item.disabled).valueText;
+
+            await user.click(within(menu).getByTitle(firstEnabledMenuItemValue));
 
             expect(menu).not.toBeVisible();
         });
@@ -137,6 +148,8 @@ export const Basic = {
 
             const focusedItem = document.activeElement;
             expect(focusedItem).toHaveTextContent(menuItems[2].valueText);
+
+            await window.takeScreenshot?.('navigate with keyboard');
 
             await user.keyboard('{Enter}');
 
@@ -287,26 +300,41 @@ export const Nested = {
             </Menu.Root>
         );
     },
-    play: async ({ canvasElement, step, context }) => {
+    play: async ({ canvasElement, step, globals }) => {
+        if (!globals.test) {
+            return;
+        }
+
+        await window.waitForPageTrulyReady?.();
+
         const canvas = within(canvasElement);
 
         const user = userEvent.setup();
 
         // Open menu with keyboard
         const trigger = canvas.getByTestId('trigger');
-        const menu = within(document).getByTestId('menu-content');
+        const menu = within(document.body).getByTestId('menu-content');
 
         await step('select item', async () => {
+            const menuItemIndex = 0;
+
             await fireEvent.click(trigger);
 
             await waitFor(() => expect(menu).toHaveAttribute('data-state', 'open'));
 
-            const nestedMenuTrigger = within(menu).getByTitle(menuItems[0].valueText);
+            const nestedMenuTrigger = within(menu).getByTitle(menuItems[menuItemIndex].valueText);
 
             await user.hover(nestedMenuTrigger);
 
-            await waitFor(() => expect(nestedMenuTrigger).toHaveAttribute('data-state', 'open'));
-            // expect(menu).not.toBeVisible();
+            await waitFor(() => {
+                const nestedMenuContent = within(menu).getByTestId(
+                    `nested-menu-value ${menuItemIndex}`,
+                );
+
+                expect(nestedMenuContent).toHaveAttribute('data-state', 'open');
+            });
+
+            await window.takeScreenshot?.('open nested menu');
         });
     },
 };
