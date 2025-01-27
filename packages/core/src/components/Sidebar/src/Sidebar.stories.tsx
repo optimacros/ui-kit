@@ -49,14 +49,7 @@ export const Basic: Story = {
         const canvas = within(canvasElement);
 
         await waitFor(async () => {
-            let trigger = canvas.getByTestId('open-trigger');
-
-            expect(trigger).toBeInTheDocument();
-
-            await userEvent.click(trigger);
-
-            // TODO (в компоненте) триггер нужно жать 2 раза и в процессе он меняется
-            trigger = canvas.getByTestId('open-trigger');
+            const trigger = canvas.getByTestId('open-trigger');
 
             expect(trigger).toBeInTheDocument();
 
@@ -216,43 +209,8 @@ export const Disabled = {
 
 export const FullWidth = {
     args: {
+        open: true,
         width: '100%',
-    },
-    play: async ({ globals, canvasElement }) => {
-        if (!globals.test) {
-            return;
-        }
-
-        await window.waitForPageTrulyReady?.();
-
-        const canvas = within(canvasElement);
-
-        await waitFor(async () => {
-            let trigger = canvas.getByTestId('open-trigger');
-
-            expect(trigger).toBeInTheDocument();
-
-            await userEvent.click(trigger);
-
-            // TODO (в компоненте) триггер нужно жать 2 раза и в процессе он меняется
-            trigger = canvas.getByTestId('open-trigger');
-
-            expect(trigger).toBeInTheDocument();
-
-            await userEvent.click(trigger);
-        });
-
-        await waitFor(() => {
-            const sidebar = canvasElement.querySelector(
-                'div[data-scope="collapsible"][data-part="root"][data-tag="sidebar"]',
-            );
-
-            expect(sidebar).toHaveAttribute('data-state', 'open');
-        });
-
-        await sleep(1000);
-
-        await window.takeScreenshot?.();
     },
     render: (props) => (
         <Sidebar.Root {...props}>
