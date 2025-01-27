@@ -65,7 +65,7 @@ export const ColorPicker = memo<ColorPickerProps>(
                     <Title title={title} tooltip={tooltip} tooltipPosition={tooltipPosition} />
                 )}
 
-                <UIColorPicker.RootProvider disabled={disabled} format="rgba" disableAlpha>
+                <UIColorPicker.RootProvider format="rgba" disabled={disabled}>
                     <UIColorPicker.Root>
                         <ColorPickerComponent color={hexColor} name={name} onChange={onChange} />
                     </UIColorPicker.Root>
