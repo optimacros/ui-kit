@@ -72,6 +72,11 @@ const ThemeMenu = () => {
 
 export const Base = () => {
     const currentTheme = UiKit.useProxySelector((s) => s.styles.root);
+
+    if (!currentTheme) {
+        return null;
+    }
+
     return (
         <>
             <Header.Root
