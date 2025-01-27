@@ -19,7 +19,6 @@
         "build:ui": "lerna run build --parallel --scope @optimacros-ui/kit --scope @optimacros-ui/* --scope @optimacros-ui/themes",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error --config-path=biome-commit.json",
-        "type-check": "tsc --noEmit",
         "build:storybook": "storybook build",
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
@@ -29,7 +28,10 @@
         "unpublish": "npm unpublish @optimacros-ui/kit",
         "rebase": "node ./scripts/rebase.js --main=main",
         "rebase:continue": "npm run rebase -- --continue",
-        "reinstall": "node ./scripts/reinstall.js"
+        "reinstall": "node ./scripts/reinstall.js",
+        "type-check": "node ./scripts/type-check-directory.mjs",
+        "type-check:core": "node ./scripts/type-check-directory.mjs --path ./packages/core/src/**/*.{ts,tsx}",
+        "type-check:store": "node ./scripts/type-check-directory.mjs --path ./packages/store/src/**/*.{ts,tsx}"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
@@ -83,7 +85,7 @@
         "vite-tsconfig-paths": "4.3.2"
     },
     "lint-staged": {
-        "**/*.{ts,tsx}": ["node ./scripts/type-check.mjs"],
+        "**/*.{ts,tsx}": ["node ./scripts/type-check-lint.mjs"],
         "*.{js,ts,tsx,css,json}": [
             "biome check --write --no-errors-on-unmatched --log-level=error --diagnostic-level=error --config-path=biome-commit.json"
         ]

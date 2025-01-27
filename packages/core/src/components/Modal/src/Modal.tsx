@@ -1,4 +1,10 @@
-import { forward, styled } from '@optimacros-ui/store';
+import {
+    ExtendedMachine,
+    forward,
+    MachineConfig,
+    MachineOptions,
+    styled,
+} from '@optimacros-ui/store';
 import * as dialog from '@zag-js/dialog';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
@@ -6,17 +12,17 @@ import { ComponentProps } from 'react';
 import React from 'react';
 import { Portal } from '@zag-js/react';
 
-export const machine = extendMachine(
-    dialog,
-    {
-        context: {
-            onClose: () => {},
-        },
-        on: {
-            'ON_CLOSE.SET': { actions: 'setOnClose' },
-        },
+const config = {
+    context: {
+        onClose: () => {},
     },
-    ({ options }) => ({
+    on: {
+        'ON_CLOSE.SET': { actions: 'setOnClose' },
+    },
+} satisfies MachineConfig<dialog.Service>;
+
+const options = ({ options }) =>
+    ({
         actions: {
             toggleVisibility(ctx, evt, params) {
                 !ctx.open && ctx.onClose();
@@ -24,8 +30,16 @@ export const machine = extendMachine(
                 options.actions.toggleVisibility(ctx, evt, params);
             },
         },
-    }),
-);
+    }) satisfies MachineOptions<dialog.Service, dialog.Context, typeof config>;
+
+export const machine: ExtendedMachine<
+    typeof dialog,
+    dialog.Service,
+    dialog.Context,
+    typeof config
+> = extendMachine(dialog, config, options);
+
+export type Machine = typeof machine;
 
 export const {
     Api,

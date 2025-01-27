@@ -30,7 +30,7 @@ export const {
                 return {
                     ...props,
                     onClick: (e) => {
-                        if (!state.context.disabled && !state.context.isHoverTrigger) {
+                        if (!state.context.disabled && !state.context.hoverable) {
                             props.onClick(e);
                         }
                     },

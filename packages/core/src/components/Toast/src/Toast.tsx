@@ -2,10 +2,13 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import * as toast from '@zag-js/toast';
 import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+export const {
+    Api,
+    RootActorProvider: RootProvider,
+    useApi,
+} = createReactApiStateContext({
     id: 'toast',
     machine: toast,
-    actor: true,
 });
 
 export type ToastOptions = toast.Options<any>;
@@ -61,7 +64,7 @@ export const Title = forward<{}, 'h3'>((props, ref) => {
 
     return (
         <styled.h3 {...props} {...api.getTitleProps()} ref={ref}>
-            {api.title}
+            {api.title as string}
         </styled.h3>
     );
 });
@@ -71,7 +74,7 @@ export const Description = forward<{}, 'p'>((props, ref) => {
 
     return (
         <styled.p {...api.getDescriptionProps()} {...props} ref={ref}>
-            {api.description}
+            {api.description as string}
         </styled.p>
     );
 });

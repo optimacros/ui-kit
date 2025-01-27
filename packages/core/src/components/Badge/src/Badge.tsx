@@ -14,6 +14,8 @@ interface BadgeProps {
     children: ReactNode;
     /** any size as css value */
     size: string;
+    style: object;
+    className?: string;
 }
 
 export const Badge = ({

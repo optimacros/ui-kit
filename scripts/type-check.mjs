@@ -1,7 +1,7 @@
 import ts from 'typescript';
 import path from 'path';
 
-function compile(fileName, options) {
+export function compile(fileName, options) {
     const program = ts.createProgram(fileName, options);
     const emitResult = program.emit();
 
@@ -27,10 +27,7 @@ function compile(fileName, options) {
     process.exit(exitCode);
 }
 
-process.argv.slice(2).forEach((file) => {
-    // TODO: fix all ts errors
-    return;
-
+export function checkFile(file) {
     const configPath = ts.findConfigFile(file, ts.sys.fileExists, 'tsconfig.json');
 
     // Read tsconfig.json file
@@ -44,4 +41,4 @@ process.argv.slice(2).forEach((file) => {
     );
 
     compile([file], parsedTsconfig.options);
-});
+}

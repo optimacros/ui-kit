@@ -1,9 +1,10 @@
 import { invariant, isFunction, merge } from '@optimacros-ui/utils';
-import { createContext, FC, memo, ReactNode, useContext } from 'react';
+import { createContext, FC, memo, ReactNode, Context, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';
 import { createActorApiHook, createMachineApiHook } from './useMachineApi';
-import { createMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
+import { AnyMachine, createMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
+import * as $ from '@optimacros-ui/types';
 
 type HooksConfig = object;
 
@@ -30,7 +31,7 @@ function createHooks<State>(
 ): {
     useSelector: <R extends any>(s: (state: State) => R) => R;
     useProxySelector: <R extends any>(s: (state: State) => R, deps?: any[]) => R;
-    StateContext: State;
+    StateContext: Context<State>;
     useState: () => State;
 };
 
@@ -158,30 +159,81 @@ export type AnyConfig = StateMachine.MachineConfig<
     StateMachine.EventObject & { value: any }
 >;
 
-export function extendMachine<
-    T extends { machine: (userContext) => Record<string, any> },
-    State = ReturnType<T['machine']> extends ZagMachine<infer TContext, infer TState, infer TEvents>
-        ? { ctx: TContext; state: TState; evt: TEvents }
-        : NonNullable<unknown>,
-    ConfigCreator extends AnyConfig | ((prev: ReturnType<T['machine']>) => AnyConfig) = (
-        prev: ReturnType<T['machine']>,
-    ) => AnyConfig,
-    Config = ConfigCreator extends () => {} ? ReturnType<ConfigCreator> : ConfigCreator,
-    Options = StateMachine.MachineOptions<
-        Config['context'] & State['ctx'],
-        State['state'],
-        State['evt']
+export type MachineState<Machine> = Machine extends ZagMachine<
+    infer MachineContext,
+    infer MachineState,
+    any
+>
+    ? MachineState
+    : NonNullable<unknown>;
+
+export type MachineEvent<Machine> = Machine extends ZagMachine<
+    infer MachineContext,
+    any,
+    infer MachineEvent
+>
+    ? MachineEvent
+    : NonNullable<unknown>;
+
+export type MachineConfig<Service> = AnyConfig | ((prev: Service) => AnyConfig);
+export type MachineOptions<
+    Service extends AnyMachine,
+    Context,
+    Config extends AnyConfig,
+    Options extends StateMachine.MachineOptions<
+        Context & Config['context'],
+        MachineState<Service>,
+        MachineEvent<Service>
+    > = StateMachine.MachineOptions<
+        Context & Config['context'],
+        MachineState<Service>,
+        MachineEvent<Service>
     >,
-    OptionCreator extends Options | ((prev: ReturnType<T['machine']>) => Options) =
+> = Options | ((prev: Service) => Options);
+
+export type ExtendedMachine<
+    Module,
+    Service extends AnyMachine,
+    Context extends Record<string, any>,
+    ConfigCreator extends AnyConfig | ((prev: Service) => AnyConfig) = AnyConfig,
+    Config extends ConfigCreator extends () => {}
+        ? ReturnType<ConfigCreator>
+        : ConfigCreator = ConfigCreator extends () => {}
+        ? ReturnType<ConfigCreator>
+        : ConfigCreator,
+> = Omit<Module, 'machine'> & {
+    machine: (
+        //@ts-ignore
+        userContext: Context & Config['context'],
+        //@ts-ignore
+    ) => ZagMachine<Context & Config['context'], MachineState<Service>, MachineEvent<Service>>;
+};
+
+export function extendMachine<
+    Module,
+    Service extends AnyMachine,
+    Context extends Record<string, any>,
+    State extends Record<string, any>,
+    Event extends Record<string, any>,
+    ConfigCreator extends AnyConfig | ((prev: Service) => AnyConfig) = AnyConfig,
+    Config = ConfigCreator extends () => {} ? ReturnType<ConfigCreator> : ConfigCreator,
+    //@ts-ignore
+    Options = StateMachine.MachineOptions<Config['context'] & Context, State, Event>,
+    OptionCreator extends Options | ((prev: Service) => Options) =
         | Options
-        | ((prev: ReturnType<T['machine']>) => Options),
+        | ((prev: Service) => Options),
+    T extends { machine: (userContext) => Service } = {
+        machine: (userContext) => Service;
+    },
 >(stateMachine: T, configCreator: ConfigCreator, optionCreator: OptionCreator) {
     function machine<C>(userContext: C) {
         const defaultMachine = stateMachine.machine(userContext);
-        const config = isFunction(configCreator) ? configCreator(defaultMachine) : configCreator;
+        const config: AnyConfig = isFunction(configCreator)
+            ? configCreator(defaultMachine)
+            : configCreator;
         const options = isFunction(optionCreator) ? optionCreator(defaultMachine) : optionCreator;
 
-        return createMachine<Config['context'] & State['ctx'], State['state']>(
+        return createMachine(
             merge(true, defaultMachine.config, {
                 ...config,
                 context: merge(true, config?.context, userContext),
@@ -190,10 +242,16 @@ export function extendMachine<
         );
     }
 
-    return {
+    //@ts-ignore
+    const result: Module & {
+        //@ts-ignore
+        machine: (userContext: Context & Config['context']) => Record<string, any>;
+    } = {
         ...stateMachine,
         machine,
     };
+
+    return result;
 }
 
 export type ExtendApiMethod = (api) => void;
@@ -202,23 +260,10 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
     Parameters<Machine['machine']>[0],
     'id'
 >;
-type ApiStoreConfig<
-    ID extends string = string,
-    Machine extends Record<string, any> = NonNullable<unknown>,
-    Selectors = NonNullable<unknown>,
-    Api extends Record<string, any> = NonNullable<unknown>,
-> = {
-    id: ID;
-    machine: Machine;
 
-    /** use actor instead of machine */
-    actor?: boolean;
-
-    createConfig?: (initialState: Api) => {
-        selectors?: Selectors;
-    };
-
-    connect?: (
+export function createReactApiStateContext<
+    Machine extends Record<string, any>,
+    Connect extends (
         api: ReturnType<Machine['connect']>,
         {
             state,
@@ -234,21 +279,22 @@ type ApiStoreConfig<
             send: StateMachine.Send;
         },
         machine: ReturnType<Machine['machine']>,
-    ) => Api;
-};
-
-export function createReactApiStateContext<
+    ) => Record<string, any>,
+    Context extends Record<string, any> = NonNullable<unknown>,
     ID extends string = string,
-    Machine extends Record<string, any> = NonNullable<unknown>,
-    Api extends ReturnType<Machine['connect']> = ReturnType<Machine['connect']>,
+    Api = $.If.NullishOrAny<ReturnType<Connect>, ReturnType<Machine['connect']>>,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
-    Context = ReturnType<Machine['machine']> extends ZagMachine<infer TContext, infer TState>
-        ? TContext
-        : NonNullable<unknown>,
->(config: ApiStoreConfig<ID, Machine, Selectors, Api>) {
-    const { createConfig, id, machine, actor, connect = (api) => api } = config;
+>(config: {
+    id: ID;
+    machine: Machine;
+    createConfig?: (initialState: Api) => {
+        selectors?: Selectors;
+    };
+    connect?: Connect;
+}) {
+    const { createConfig, id, machine, connect = (api) => api } = config;
 
-    const createdConfig = createConfig?.({}) ?? {};
+    const createdConfig = createConfig?.({} as Api) ?? {};
 
     const slice = {
         ...config,
@@ -275,10 +321,17 @@ export function createReactApiStateContext<
 
     StoreProvider.displayName = id;
 
-    const useMachine = createMachineApiHook<MachineCtx<Machine>>(machine, false, connect);
+    const useMachine = createMachineApiHook<MachineCtx<Machine>>(
+        machine,
+        false,
+        //@ts-ignore
+        connect,
+    );
+
     const useControllableMachine = createMachineApiHook<MachineCtx<Machine>>(
         machine,
         true,
+        //@ts-ignore
         connect,
     );
 
@@ -330,6 +383,7 @@ export function createReactApiStateContext<
         /** lets you control component props outside of component context */
         controllable?: boolean;
     } & IRootMachine) {
+        //@ts-ignore
         return controllable ? <ControllableRootMachine {...rest} /> : <BaseRootMachine {...rest} />;
     }
 
@@ -347,8 +401,6 @@ export function createReactApiStateContext<
         );
     }
 
-    const Root = actor ? RootActor : RootMachine;
-
     return {
         select: slice.selectors,
         slice,
@@ -356,7 +408,8 @@ export function createReactApiStateContext<
         useProxySelector,
         Api,
         useApi,
-        RootProvider: Root,
+        RootProvider: RootMachine,
+        RootActorProvider: RootActor,
         splitProps: machine.splitProps as Machine['splitProps'],
     };
 }

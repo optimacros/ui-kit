@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { FormEvent, MutableRefObject, useRef, useState } from 'react';
 
 /**

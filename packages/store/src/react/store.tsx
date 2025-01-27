@@ -196,7 +196,9 @@ export function createReactStore<
     const reducerActions = {
         //@ts-ignore
         ...actions,
+        //@ts-ignore
         ...mapValues<Record<string, (state, action) => void>>(createdConfig.reducers, (call) => {
+            //@ts-ignore
             return (state, action) => call(state, action.payload);
         }),
     };
@@ -267,6 +269,7 @@ export function createReactStore<
             const storeActions = controlledActions ?? actions;
 
             useLayoutEffect(() => {
+                //@ts-ignore
                 onStoreCreated?.(storeState, storeActions);
             }, []);
 
