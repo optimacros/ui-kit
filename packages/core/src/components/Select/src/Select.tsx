@@ -10,6 +10,7 @@ export const { useApi, RootProvider, Api, useProxySelector } = createReactApiSta
     machine: select,
 });
 
+// TODO сделать чтобы select.collection сохранял key у итемов
 export interface ItemBase {
     label?: string;
     value: string;

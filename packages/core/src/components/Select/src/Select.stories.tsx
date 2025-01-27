@@ -123,7 +123,7 @@ export const Base: Story = {
                     <Select.Content>
                         <Select.List>
                             {(item) => (
-                                <Select.Item item={item} key={item.key}>
+                                <Select.Item item={item} key={item.value}>
                                     <Select.ItemLabel>{item.label}</Select.ItemLabel>
                                 </Select.Item>
                             )}
