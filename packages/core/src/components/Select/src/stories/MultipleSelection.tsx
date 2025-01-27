@@ -14,7 +14,7 @@ export const MultipleSelection: StoryObj = {
                 <Select.Api>
                     {(api) => (
                         <Field.Root status={api.disabled ? 'readonly' : 'default'}>
-                            <Select.Trigger {...api.getTriggerProps()}>
+                            <Select.Trigger {...api.getTriggerProps()} data-testid="trigger">
                                 <Field.TriggerInput
                                     value={api.empty ? 'choose value' : api.valueAsString}
                                 >
@@ -29,7 +29,14 @@ export const MultipleSelection: StoryObj = {
             </ControlTemplate>
         );
     },
-    play: async ({ step, canvasElement }) => {
+    play: async ({ globals, step, canvasElement }) => {
+        if (!globals.test) {
+            return;
+        }
+
+        await window.waitForPageTrulyReady?.();
+        await window.takeScreenshot?.();
+
         const canvas = within(canvasElement);
         const content = within(document.body).getByTestId('content');
         const list = within(document.body).getByTestId('list');
@@ -44,7 +51,9 @@ export const MultipleSelection: StoryObj = {
             });
         });
 
-        await step('choose', async () => {
+        await window.takeScreenshot?.('open');
+
+        await step('select all items', async () => {
             for (const item of list.childNodes) {
                 await fireEvent.click(item);
 
@@ -54,6 +63,8 @@ export const MultipleSelection: StoryObj = {
             }
         });
 
+        await window.takeScreenshot?.('select all items');
+
         await step('close', async () => {
             fireEvent.click(trigger);
 
@@ -61,5 +72,7 @@ export const MultipleSelection: StoryObj = {
                 expect(content).toHaveAttribute('data-state', 'closed');
             });
         });
+
+        await window.takeScreenshot?.('close');
     },
 };
