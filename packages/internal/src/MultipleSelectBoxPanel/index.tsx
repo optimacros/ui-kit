@@ -16,7 +16,7 @@ interface MultipleSelectBoxPanelProps {
     removeLabel?: string;
 }
 
-export const MultipleSelectBoxPanel: MultipleSelectBoxPanelProps = ({
+export const MultipleSelectBoxPanel = ({
     className,
     selectedItems,
     onSelectedItem,
@@ -25,7 +25,7 @@ export const MultipleSelectBoxPanel: MultipleSelectBoxPanelProps = ({
     addLabel = 'Add',
     removeLabel = 'Remove',
     ...otherProps
-}) => {
+}: MultipleSelectBoxPanelProps) => {
     const renderItem = (item: Item) => (
         <div key={`${item.value}${item.label}`}>
             <div>{item.label}</div>

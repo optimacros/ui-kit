@@ -18,3 +18,5 @@ export * from './SelectBox';
 export * from './MultipleSelectBoxPanel';
 export * from './RadioButton';
 export * from './RadioGroup';
+export * from './Loader';
+export * from './ProgressBars';
