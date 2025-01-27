@@ -90,7 +90,7 @@ export const Tooltip = memo<TooltipProps>((props) => {
         >
             <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
 
-            <UITooltip.Trigger asChild>
+            <UITooltip.Trigger as="div">
                 <RootElement
                     composedComponent={composedComponent}
                     composedComponentProps={composedComponentProps}

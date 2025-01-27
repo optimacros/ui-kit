@@ -1,10 +1,13 @@
 import {
-    Button,
     type ButtonInitialProps,
     type ThemeButtonProps,
     Tooltip,
     TooltipProps,
+    getVariant,
+    getFloatStyles,
 } from '@optimacros-ui/kit-internal';
+import { IconButton as IconButtonCore } from '@optimacros-ui/icon-button';
+import { Icon } from '@optimacros-ui/icon';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
@@ -34,7 +37,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
     return (
         <Tooltip
-            composedComponent={Button}
+            composedComponent={IconButtonComponent}
             composedComponentProps={{
                 ...otherProps,
                 'data-label': label,
@@ -51,5 +54,51 @@ export const IconButton = ({
         >
             {children}
         </Tooltip>
+    );
+};
+
+const IconButtonComponent = ({
+    className = '',
+    type = 'button',
+    label,
+    icon,
+    href,
+    theme,
+    inverse,
+    mini,
+    neutral,
+    uppercase,
+    gray,
+    warning,
+    buttonColor,
+    fontSize,
+    fontColor,
+    children,
+    accent,
+    primary,
+    bordered,
+    floating,
+    raised,
+    onMouseUp,
+    onMouseLeave,
+    disabled,
+    ...rest
+}: IconBtnProps) => {
+    return (
+        <IconButtonCore
+            variant={getVariant(primary, accent, bordered, gray)}
+            float={getFloatStyles(raised, floating)}
+            status={warning ? 'warning' : null}
+            href={href ? href : null}
+            size={mini ? 'xs' : 'md'}
+            disabled={disabled}
+            inverse={inverse}
+            uppercase={uppercase}
+            {...rest}
+        >
+            {label}
+            {icon && <Icon value={icon} />}
+            {children}
+        </IconButtonCore>
     );
 };
