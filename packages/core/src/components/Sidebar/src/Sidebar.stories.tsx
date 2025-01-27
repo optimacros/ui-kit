@@ -3,7 +3,7 @@ import { Sidebar } from '.';
 import { Fragment } from 'react';
 import { sleep, times } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
-import { userEvent, waitFor, expect } from '@storybook/test';
+import { userEvent, waitFor, expect, within } from '@storybook/test';
 
 const argTypes: Partial<ArgTypes> = {
     open: {
@@ -43,17 +43,25 @@ export const Basic: Story = {
             return;
         }
 
-        let trigger: HTMLDivElement;
+        await window.waitForPageTrulyReady?.();
+        await window.takeScreenshot?.();
 
-        await waitFor(() => {
-            trigger = canvasElement.querySelector(
-                'div[data-scope="collapsible"][data-tag="sidebar"] div[data-scope="collapsible"][data-part="trigger"]',
-            );
+        const canvas = within(canvasElement);
+
+        await waitFor(async () => {
+            let trigger = canvas.getByTestId('open-trigger');
 
             expect(trigger).toBeInTheDocument();
-        });
 
-        await userEvent.click(trigger);
+            await userEvent.click(trigger);
+
+            // TODO (в компоненте) триггер нужно жать 2 раза и в процессе он меняется
+            trigger = canvas.getByTestId('open-trigger');
+
+            expect(trigger).toBeInTheDocument();
+
+            await userEvent.click(trigger);
+        });
 
         await waitFor(() => {
             const sidebar = canvasElement.querySelector(
@@ -99,7 +107,7 @@ export const Basic: Story = {
                 </Sidebar.Panel>
 
                 <Sidebar.MiniPanel>
-                    <Sidebar.Trigger>
+                    <Sidebar.Trigger data-testid="open-trigger">
                         <Icon value="keyboard-double-arrow-left" />
                     </Sidebar.Trigger>
                 </Sidebar.MiniPanel>
@@ -115,46 +123,41 @@ export const PositionLeft = {
     },
     render: (props) => (
         <Sidebar.Root {...props}>
-            {(api) => (
-                <>
-                    <button onClick={() => api.setOpen(!api.open)}>open\close</button>
+            <Sidebar.Trigger>open\close</Sidebar.Trigger>
+            <div
+                style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: 400,
+                    backgroundColor: 'aliceblue',
+                    marginTop: 20,
+                }}
+            >
+                <Sidebar.Panel>
+                    <Sidebar.Header>
+                        <Sidebar.CloseTrigger>
+                            <Icon value="keyboard-double-arrow-right" />
+                        </Sidebar.CloseTrigger>
+                    </Sidebar.Header>
 
-                    <div
-                        style={{
-                            position: 'relative',
-                            width: '100%',
-                            height: 400,
-                            backgroundColor: 'aliceblue',
-                            marginTop: 20,
-                        }}
-                    >
-                        <Sidebar.Panel>
-                            <Sidebar.Header>
-                                <Sidebar.CloseTrigger>
-                                    <Icon value="keyboard-double-arrow-right" />
-                                </Sidebar.CloseTrigger>
-                            </Sidebar.Header>
+                    <Sidebar.Content>
+                        <div>
+                            {times(100, (n) => (
+                                <Fragment key={n}>
+                                    line
+                                    <br />
+                                </Fragment>
+                            ))}
+                        </div>
+                    </Sidebar.Content>
+                </Sidebar.Panel>
 
-                            <Sidebar.Content>
-                                <div>
-                                    {times(100, (n) => (
-                                        <Fragment key={n}>
-                                            line
-                                            <br />
-                                        </Fragment>
-                                    ))}
-                                </div>
-                            </Sidebar.Content>
-                        </Sidebar.Panel>
-
-                        <Sidebar.MiniPanel>
-                            <Sidebar.Trigger>
-                                <Icon value="keyboard-double-arrow-left" />
-                            </Sidebar.Trigger>
-                        </Sidebar.MiniPanel>
-                    </div>
-                </>
-            )}
+                <Sidebar.MiniPanel>
+                    <Sidebar.Trigger data-testid="open-trigger">
+                        <Icon value="keyboard-double-arrow-left" />
+                    </Sidebar.Trigger>
+                </Sidebar.MiniPanel>
+            </div>
         </Sidebar.Root>
     ),
 };
@@ -215,8 +218,44 @@ export const FullWidth = {
     args: {
         width: '100%',
     },
+    play: async ({ globals, canvasElement }) => {
+        if (!globals.test) {
+            return;
+        }
+
+        await window.waitForPageTrulyReady?.();
+
+        const canvas = within(canvasElement);
+
+        await waitFor(async () => {
+            let trigger = canvas.getByTestId('open-trigger');
+
+            expect(trigger).toBeInTheDocument();
+
+            await userEvent.click(trigger);
+
+            // TODO (в компоненте) триггер нужно жать 2 раза и в процессе он меняется
+            trigger = canvas.getByTestId('open-trigger');
+
+            expect(trigger).toBeInTheDocument();
+
+            await userEvent.click(trigger);
+        });
+
+        await waitFor(() => {
+            const sidebar = canvasElement.querySelector(
+                'div[data-scope="collapsible"][data-part="root"][data-tag="sidebar"]',
+            );
+
+            expect(sidebar).toHaveAttribute('data-state', 'open');
+        });
+
+        await sleep(1000);
+
+        await window.takeScreenshot?.();
+    },
     render: (props) => (
-        <Sidebar.Root defaultContext={props}>
+        <Sidebar.Root {...props}>
             {(api) => (
                 <>
                     <button onClick={() => api.setOpen(!api.open)}>open\close</button>
@@ -250,7 +289,7 @@ export const FullWidth = {
                         </Sidebar.Panel>
 
                         <Sidebar.MiniPanel>
-                            <Sidebar.Trigger>
+                            <Sidebar.Trigger data-testid="open-trigger">
                                 <Icon value="keyboard-double-arrow-left" />
                             </Sidebar.Trigger>
                         </Sidebar.MiniPanel>
