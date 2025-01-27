@@ -9,7 +9,7 @@ interface Props extends RCDropdownProps {
 
 export type DropdownProps = React.PropsWithChildren<Props>;
 
-export const Dropdown: DropdownProps = ({
+export const Dropdown = ({
     visible: propVisible = false,
     onVisibleChange,
     closeOnSelect = true,
@@ -21,7 +21,7 @@ export const Dropdown: DropdownProps = ({
     visible,
     trigger,
     ...otherProps
-}) => {
+}: DropdownProps) => {
     let closeTimeout;
 
     useEffect(() => {

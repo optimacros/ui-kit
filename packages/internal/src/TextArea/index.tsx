@@ -9,14 +9,14 @@ export type TextAreaProps = {
     id?: string | number;
 };
 
-export const TextArea: TextAreaProps = ({
+export const TextArea = ({
     error,
     label,
     className,
     classNameContainer,
     id,
     ...otherProps
-}) => {
+}: TextAreaProps) => {
     const generatedId = useId();
 
     return (

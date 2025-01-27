@@ -34,7 +34,7 @@ interface CalendarProps {
 
 const { dateFormatters } = CalendarComponent;
 
-export const Calendar: CalendarProps = ({
+export const Calendar = ({
     active = false,
     className = '',
     cancelLabel = 'Cancel',
@@ -46,7 +46,7 @@ export const Calendar: CalendarProps = ({
     minDate,
     maxDate,
     sundayFirstDayOfWeek,
-}) => {
+}: CalendarProps) => {
     return (
         <CalendarComponent.Root
             value={[dateFormatters(value)]}
