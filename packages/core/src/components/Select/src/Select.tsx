@@ -19,8 +19,7 @@ export const Root = forward<
     select.CollectionOptions<ItemBase> & ComponentProps<typeof RootProvider>,
     'div'
 >((props, ref) => {
-    const { items, isItemDisabled, itemToString, itemToValue, value, controllable, ...rest } =
-        props;
+    const { items, isItemDisabled, itemToString, itemToValue, controllable, ...rest } = props;
 
     const [providerProps, divProps] = select.splitProps(rest as unknown);
 

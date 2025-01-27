@@ -1,6 +1,8 @@
 import React from 'react';
-import { SelectBox as BaseSelectBox } from '../SelectBox';
-import type { SelectBoxProps as BaseSelectBoxProps } from '../SelectBox';
+import {
+    SelectBox as BaseSelectBox,
+    type SelectBoxProps as BaseSelectBoxProps,
+} from '@optimacros-ui/kit-internal';
 
 export interface SelectBoxProps extends Omit<BaseSelectBoxProps, 'source'> {
     options?: { [key: string]: string | number }[];

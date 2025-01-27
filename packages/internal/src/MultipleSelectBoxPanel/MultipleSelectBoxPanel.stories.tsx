@@ -1,6 +1,6 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useMemo } from 'react';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { SelectBoxProps, MultipleSelectBoxPanel } from '@optimacros-ui/kit-internal';
+import { SelectBoxProps, MultipleSelectBoxPanel, Item } from '@optimacros-ui/kit-internal';
 
 const argTypes: Partial<ArgTypes> = {};
 
@@ -24,20 +24,52 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 const Template: Story = {
-    render: ({ ...args }) => {
-        const [value, setValue] = useState<SelectBoxProps['value']>(1);
+    render: () => {
+        const [selectedItem, setSelectedItem] = useState<SelectBoxProps['value']>(1);
+        const [addedItems, setAddedItems] = useState<Item[]>([]);
 
-        return <MultipleSelectBoxPanel {...args} value={value} onChange={(val) => setValue(val)} />;
+        const onAddItem = () => {
+            if (!selectedItem) {
+                return;
+            }
+
+            const sourceItem: Item = source.find((item) => item.value === selectedItem);
+
+            setAddedItems((prev) => [...prev, sourceItem]);
+            setSelectedItem(null);
+        };
+
+        const onDeleteItem = (deselectItem: Item) => {
+            setAddedItems((prevItems) => prevItems.filter((item) => item !== deselectItem));
+        };
+
+        const onSelect = (selectedItem: number | string) => {
+            setSelectedItem(selectedItem);
+        };
+
+        const getOptions = useMemo((): Item[] => {
+            return source.filter((sourceItem) => {
+                return !addedItems.some((addedItem) => addedItem.value === sourceItem.value);
+            });
+        }, [addedItems]);
+
+        return (
+            <MultipleSelectBoxPanel
+                label="title MultipleSelectBoxPanel"
+                options={getOptions}
+                value={selectedItem}
+                selectedItems={addedItems}
+                onSelectedItem={onAddItem}
+                onDeselectItem={onDeleteItem}
+                onChange={onSelect}
+                disabledSelect={source.length <= 0}
+            />
+        );
     },
 };
 
 export const Basic: Story = {
     ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-    },
     decorators: [
         // eslint-disable-next-line new-cap
         (Story) => <Wrapper>{Story()}</Wrapper>,
