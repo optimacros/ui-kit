@@ -1,6 +1,9 @@
 import ts from 'typescript';
 import path from 'path';
 
+export const ignoreFiles = ['.stories'];
+export const ignoreDirectories = ['node_modules', 'stories'];
+
 export function compile(fileName, options) {
     const program = ts.createProgram(fileName, options);
     const emitResult = program.emit();
