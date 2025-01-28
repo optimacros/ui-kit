@@ -34,7 +34,7 @@ export class FileInput extends React.Component<Props> {
             <div className={styles.UploadFieldContainer}>
                 <div className={styles.UploadField}>
                     <div className={styles.UploadField_Label}>{this.props.labelUploadNewFile}</div>
-
+                    Upload
                     <input type="file" size={100} {...otherProps} />
                 </div>
             </div>
