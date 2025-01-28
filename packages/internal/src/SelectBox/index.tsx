@@ -69,7 +69,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
     onChange,
     required,
     error,
-    ...otherProps
+    ...rest
 }) => {
     const handleChange = (newValue) => {
         const updatedValueArr = newValue.value;
@@ -88,7 +88,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                     items={source || options}
                     value={value}
                     onValueChange={handleChange}
-                    {...otherProps}
+                    {...rest}
                 >
                     <Select.Control>
                         <Select.Api>
@@ -136,7 +136,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                     value={value}
                     onValueChange={handleChange}
                     multiple={true}
-                    {...otherProps}
+                    {...rest}
                 >
                     <Flex gap={5} direction="column">
                         <Flex gap={3} wrap="wrap">
@@ -145,7 +145,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                                 {(api) =>
                                     api.value.map((value, i) => {
                                         return (
-                                            <div className="bg-primary p-1.5 rounded-xs" key={i}>
+                                            <div key={i}>
                                                 {value}
                                                 <Select.ItemDeleteTrigger item={{ value }} asChild>
                                                     <IconButton size="sm" squared icon="close" />
@@ -173,7 +173,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                                                 }
                                             >
                                                 <Field.Icon>
-                                                    <Icon value={'arrow_drop_down'} />
+                                                    <Icon value="arrow_drop_down" />
                                                 </Field.Icon>
                                             </Field.TriggerInput>
                                         </Select.Trigger>
