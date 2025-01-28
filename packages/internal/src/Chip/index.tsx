@@ -20,7 +20,7 @@ export type Props = {
 
 export type ChipProps = React.PropsWithChildren<Props>;
 
-export const Chip: ChipProps = ({
+export const Chip = ({
     children,
     className = '',
     deletable = false,
@@ -29,7 +29,7 @@ export const Chip: ChipProps = ({
     theme: customTheme = {},
     customDeleteIcon,
     ...other
-}) => {
+}: ChipProps) => {
     const renderDeleteIcon = (): ReactNode => {
         if (customDeleteIcon) {
             return (
