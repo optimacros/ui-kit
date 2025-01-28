@@ -1,7 +1,7 @@
 import { UiKit } from '../packages/core/src';
 import { Preview } from '@storybook/react';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { waitForPageTrulyReadySB } from './utils-tmp';
 
 const styles = Promise.all([
@@ -21,6 +21,25 @@ const preview: Preview = {
         },
     },
     decorators: [
+        (Story, context) => {
+            const prevValue = useRef(null);
+
+            useEffect(() => {
+                let needReload = false;
+
+                if (prevValue.current !== null && prevValue.current !== context.globals.test) {
+                    needReload = true;
+                }
+
+                prevValue.current = context.globals.test;
+
+                if (needReload) {
+                    window.location.reload();
+                }
+            }, [context.globals.test]);
+
+            return Story(context);
+        },
         (Story, context) => {
             if (!window.waitForPageTrulyReady) {
                 window.waitForPageTrulyReady = waitForPageTrulyReadySB;
