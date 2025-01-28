@@ -1,4 +1,6 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { isFunction } from '@optimacros-ui/utils';
+
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/collapsible';
 
@@ -26,7 +28,7 @@ export const Root = forward<ComponentProps<typeof RootProvider>, 'div'>(
             <RootProvider {...context}>
                 {(api) => (
                     <styled.div {...api.getRootProps()} ref={ref} as={as}>
-                        {children}
+                        {isFunction(children) ? children(api) : children}
                     </styled.div>
                 )}
             </RootProvider>

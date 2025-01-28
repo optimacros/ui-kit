@@ -279,6 +279,22 @@ export function createReactApiStateContext<
             send: StateMachine.Send;
         },
         machine: ReturnType<Machine['machine']>,
+    ) => Record<string, any> = (
+        api: ReturnType<Machine['connect']>,
+        {
+            state,
+            send,
+        }: {
+            state: ReturnType<Machine['machine']> extends ZagMachine<
+                infer TContext,
+                infer TState,
+                infer TEvent
+            >
+                ? StateMachine.State<TContext, TState, TEvent>
+                : any;
+            send: StateMachine.Send;
+        },
+        machine: ReturnType<Machine['machine']>,
     ) => Record<string, any>,
     Context extends Record<string, any> = NonNullable<unknown>,
     ID extends string = string,

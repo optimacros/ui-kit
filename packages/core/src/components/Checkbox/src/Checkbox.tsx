@@ -10,6 +10,7 @@ export const { RootProvider, useApi, splitProps } = createReactApiStateContext({
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & { value: string };
 export const Root = forward<RootProps, 'label'>(
     function ({ children, ...rest }, ref) {
+        //@ts-ignore
         const [context, props] = splitProps(rest);
 
         return (
