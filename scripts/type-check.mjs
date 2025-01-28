@@ -1,15 +1,21 @@
 import ts from 'typescript';
 import path from 'path';
 
+const globalsPath = path.join(process.cwd(), 'scripts', 'import-globals.ts');
+
 export const ignoreFiles = ['.stories'];
 export const ignoreDirectories = ['node_modules', 'stories'];
 
 export function compile(fileName, options) {
-    const program = ts.createProgram(fileName, options);
+    const program = ts.createProgram([globalsPath, ...fileName], options);
     const emitResult = program.emit();
     const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
 
-    const logs = allDiagnostics.map((diagnostic) => {
+    const filteredDiagnostics = allDiagnostics.filter(
+        (d) => d.file && d.file.fileName === fileName[0],
+    );
+
+    const logs = filteredDiagnostics.map((diagnostic) => {
         if (diagnostic.file) {
             const { line, character } = ts.getLineAndCharacterOfPosition(
                 diagnostic.file,
