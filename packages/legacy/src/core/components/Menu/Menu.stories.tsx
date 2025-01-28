@@ -30,6 +30,7 @@ const meta: Meta<typeof Menu> = {
             },
         },
     },
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

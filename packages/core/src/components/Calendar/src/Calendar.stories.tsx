@@ -199,10 +199,12 @@ export const Basic: StoryObj = {
                     <Calendar.YearsTable>
                         <Calendar.YearsTableBody />
                     </Calendar.YearsTable>
+
                     <Calendar.DaysTable>
                         <Calendar.DaysTableHead />
-                        <Calendar.DaysTableBody />
+                        <Calendar.DaysTableBody data-testid="table-body" />
                     </Calendar.DaysTable>
+
                     <Calendar.Footer>
                         <Calendar.DismissButton>Cancel</Calendar.DismissButton>
                         <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
@@ -211,16 +213,46 @@ export const Basic: StoryObj = {
             </Calendar.Root>
         );
     },
-    play: async ({ canvasElement, step, context }) => {
+    play: async ({ globals, canvasElement, step, context }) => {
+        if (!globals.test) {
+            return;
+        }
+
+        await window.waitForPageTrulyReady?.();
+        await window.takeScreenshot?.();
+
         const canvas = within(canvasElement);
-        const body = canvas.getByTestId('table-body');
-        const currentDates = canvas.getAllByTestId('table-cell-trigger');
-        await step('basic check', async () => {
-            await userEvent.click(currentDates[0]);
-            await waitFor(() => expect(currentDates[0]).toHaveAttribute('data-selected'));
+
+        await step('select date by click', async () => {
+            const firstDateElement = canvas.getAllByTestId('table-cell-trigger')[0];
+
+            const valueAttr = firstDateElement.dataset.value;
+
+            await userEvent.click(firstDateElement);
+
+            await waitFor(() => {
+                const dateElement = canvasElement.querySelector(`span[data-value="${valueAttr}"]`);
+
+                expect(dateElement).toHaveAttribute('data-selected');
+            });
+        });
+
+        await window.takeScreenshot?.('select date by click');
+
+        await step('navigate dates by keyboard', async () => {
+            const activeDateCell = canvasElement.querySelector(
+                '[data-part="table"][data-view="day"] [data-part="table-cell"][aria-selected="true"]',
+            );
+            const nextDateCell = activeDateCell.nextSibling as HTMLTableCellElement;
 
             await userEvent.keyboard('[ArrowRight][Enter]');
+
+            await waitFor(() => {
+                expect(nextDateCell).toHaveAttribute('aria-selected', 'true');
+            });
         });
+
+        await window.takeScreenshot?.('navigate dates by keyboard');
     },
 };
 

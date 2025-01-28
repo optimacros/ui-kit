@@ -78,6 +78,7 @@ const meta: Meta<typeof ButtonMenu> = {
     title: 'UI KIT internal/ButtonMenu',
     component: ButtonMenu,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

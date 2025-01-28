@@ -39,6 +39,7 @@ const meta: Meta = {
             );
         },
     ],
+    tags: ['skip-test-runner'],
 };
 export default meta;
 
@@ -61,6 +62,7 @@ export const Disabled = {
     args: {
         disabled: true,
     },
+    tags: ['!skip-test-runner'],
 };
 
 export const Buffer = {

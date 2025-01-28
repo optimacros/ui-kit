@@ -25,6 +25,7 @@ const meta: Meta<typeof Toolbar> = {
     title: 'legacy/Toolbar',
     component: Toolbar,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

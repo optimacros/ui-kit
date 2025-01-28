@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-const i = 0;
+
 const config: StorybookConfig = {
     stories: [
         '../packages/core/src/**/*.stories.@(js|jsx|ts|tsx)',
@@ -18,7 +18,6 @@ const config: StorybookConfig = {
         return {
             ...cfg,
 
-            //@ts-ignore
             plugins: [...cfg.plugins, tsconfigPaths()],
             css: {
                 transformer: 'lightningcss',

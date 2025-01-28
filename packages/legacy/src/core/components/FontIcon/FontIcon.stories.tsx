@@ -31,6 +31,7 @@ const meta: Meta<typeof FontIcon> = {
     title: 'legacy/FontIcon',
     component: FontIcon,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

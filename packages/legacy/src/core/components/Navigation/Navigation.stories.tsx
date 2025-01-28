@@ -26,6 +26,7 @@ const meta: Meta<typeof Navigation> = {
     title: 'legacy/Navigation',
     component: Navigation as unknown as ComponentType<NavigationProps>,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

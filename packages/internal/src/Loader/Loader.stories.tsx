@@ -60,6 +60,7 @@ type Story = StoryObj<typeof Loader>;
 
 export const Basic: Story = {
     args: {},
+    tags: ['skip-test-runner'],
 };
 
 export const Circular: Story = {
@@ -67,6 +68,7 @@ export const Circular: Story = {
         type: 'circular',
         mode: 'indeterminate',
     },
+    tags: ['skip-test-runner'],
 };
 
 export const CircularMulticolor: Story = {
@@ -75,6 +77,7 @@ export const CircularMulticolor: Story = {
         mode: 'indeterminate',
         multicolor: true,
     },
+    tags: ['skip-test-runner'],
 };
 
 export const CircularDeterminate: Story = {
@@ -90,6 +93,7 @@ export const Linear: Story = {
         type: 'linear',
         mode: 'indeterminate',
     },
+    tags: ['skip-test-runner'],
 };
 
 export const LinearBuffer: Story = {

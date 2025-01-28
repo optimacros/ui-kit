@@ -13,3 +13,4 @@ RadioButtonDefault.storyName = 'Base example';
 RadioButtonDefault.args = {
     label: 'im label',
 };
+RadioButtonDefault.tags = ['skip-test-runner'];

@@ -13,5 +13,7 @@ export default meta;
 type Story = StoryObj<typeof Calendar>;
 
 export const Basic: Story = {
-    args: {},
+    args: {
+        value: new Date('2025-01-27T12:00:00'),
+    },
 };

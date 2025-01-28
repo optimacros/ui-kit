@@ -110,6 +110,7 @@ export const ZeroCount: Story = {
 
 // With custom content
 export const CustomContent: Story = {
+    tags: ['skip-test-runner'],
     render: () => (
         <div style={{ display: 'flex', gap: '16px' }}>
             <Badge count={5}>

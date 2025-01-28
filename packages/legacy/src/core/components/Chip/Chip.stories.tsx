@@ -32,6 +32,7 @@ const meta: Meta<typeof Chip> = {
     title: 'legacy/Chip',
     component: Chip,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

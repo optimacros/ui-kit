@@ -95,6 +95,7 @@
             "@optimacros-ui/spacer": ["packages/core/src/components/Spacer/src"]
         }
     },
-    "exclude": ["node_modules", "dist", "packages/legacy", "packages/example"],
-    "include": ["./.storybook/preview.tsx", "./global.d.ts", "packages/**/*"]
+    "exclude": ["node_modules", "dist"],
+    "include": ["./.storybook/**/*"],
+    "files": ["./global.d.ts"]
 }

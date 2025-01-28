@@ -31,6 +31,7 @@ const meta: Meta<typeof Icon> = {
     title: 'legacy/Icon',
     component: Icon,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

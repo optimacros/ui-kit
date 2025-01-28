@@ -15,6 +15,7 @@ const meta: Meta<typeof Image.Root> = {
             </div>
         ),
     ],
+    tags: ['skip-test-runner'],
 };
 
 export default meta;

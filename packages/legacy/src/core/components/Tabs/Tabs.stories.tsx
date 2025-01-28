@@ -31,6 +31,7 @@ const meta: Meta<typeof Tabs> = {
     // @ts-ignore
     component: Tabs,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

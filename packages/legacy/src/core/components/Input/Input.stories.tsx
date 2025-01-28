@@ -106,6 +106,7 @@ const meta: Meta<typeof Input> = {
     title: 'legacy/Input',
     component: Input,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

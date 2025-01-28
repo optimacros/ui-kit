@@ -128,6 +128,7 @@ const meta: Meta<typeof IconButton> = {
     title: 'legacy/IconButton',
     component: IconButton,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

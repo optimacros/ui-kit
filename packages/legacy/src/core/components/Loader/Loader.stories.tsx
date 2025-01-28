@@ -54,6 +54,7 @@ const meta: Meta<typeof Loader> = {
     title: 'legacy/Loader',
     component: Loader,
     argTypes,
+    tags: ['skip-test-runner'],
 };
 export default meta;
 

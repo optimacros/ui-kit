@@ -1,7 +1,8 @@
 import { UiKit } from '../packages/core/src';
 import { Preview } from '@storybook/react';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { waitForPageTrulyReadySB } from './utils-tmp';
 
 const styles = Promise.all([
     import('../packages/themes/src/default/tokens.css?raw'),
@@ -20,6 +21,36 @@ const preview: Preview = {
         },
     },
     decorators: [
+        (Story, context) => {
+            const prevValue = useRef(null);
+
+            useEffect(() => {
+                let needReload = false;
+
+                if (prevValue.current !== null && prevValue.current !== context.globals.test) {
+                    needReload = true;
+                }
+
+                prevValue.current = context.globals.test;
+
+                if (needReload) {
+                    window.location.reload();
+                }
+            }, [context.globals.test]);
+
+            return Story(context);
+        },
+        (Story, context) => {
+            if (!window.waitForPageTrulyReady) {
+                window.waitForPageTrulyReady = waitForPageTrulyReadySB;
+            }
+
+            if (context.playFunction) {
+                context.tags.push('hasPlayFunction');
+            }
+
+            return Story(context);
+        },
         (Story) => {
             const [style, setStyle] = useState(null);
 
@@ -44,6 +75,23 @@ const preview: Preview = {
         },
     ],
     tags: ['autodocs'],
+    globalTypes: {
+        test: {
+            description: 'Whether play functions enabled or not',
+            toolbar: {
+                title: 'Test',
+                icon: 'play',
+                items: [
+                    { value: true, title: 'Yes play' },
+                    { value: false, title: 'No play' },
+                ],
+                dynamicTitle: true,
+            },
+        },
+    },
+    initialGlobals: {
+        test: window.navigator.userAgent.match(/HeadlessChrome/),
+    },
 };
 
 export default preview;

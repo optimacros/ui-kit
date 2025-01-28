@@ -24,7 +24,7 @@ export const ControlTemplate = ({ children, ...rest }) => {
                         {(api) =>
                             api.value.map((value) => {
                                 return (
-                                    <div data-testid="selected-item">
+                                    <div data-testid="selected-item" key={value}>
                                         {value}
                                         <Select.ItemDeleteTrigger item={{ value }} asChild>
                                             <IconButton size="sm" squared icon="close" />
