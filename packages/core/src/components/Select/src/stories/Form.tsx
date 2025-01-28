@@ -31,7 +31,7 @@ export const Form = {
                                                 className="data-[active=true]:rotate-180"
                                                 data-active={api.open}
                                             >
-                                                <Icon value={'arrow_drop_down'} />
+                                                <Icon value="arrow_drop_down" />
                                             </div>
                                         </Button>
                                     )}
