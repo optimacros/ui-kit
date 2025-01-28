@@ -1,6 +1,5 @@
 // @ts-nocheck
 import classNames from 'classnames';
-import { observer } from 'mobx-react';
 import React from 'react';
 import { Range } from 'react-range';
 import { getStepDecimals } from 'react-range/lib/utils';
@@ -28,7 +27,6 @@ interface Props {
     onFinalChange: () => void;
 }
 
-@observer
 export class RangeSlider extends React.Component<Props> {
     _rangeValuesItemRef = React.createRef();
 

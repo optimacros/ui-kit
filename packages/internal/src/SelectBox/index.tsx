@@ -81,12 +81,14 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
         }
     };
 
+    const values = Array.isArray(value) ? value : [value];
+
     return (
         <>
             {!multiSelect ? (
                 <Select.Root
                     items={source || options}
-                    value={value}
+                    value={values}
                     onValueChange={handleChange}
                     {...rest}
                 >
@@ -106,7 +108,7 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                                             value={api.empty ? 'choose value' : api.valueAsString}
                                         >
                                             <Field.Icon>
-                                                <Icon value={'arrow_drop_down'} />
+                                                <Icon value="arrow_drop_down" />
                                             </Field.Icon>
                                         </Field.TriggerInput>
                                         {error && <span>{error}</span>}
