@@ -4,10 +4,9 @@ import path from 'path';
 export function compile(fileName, options) {
     const program = ts.createProgram(fileName, options);
     const emitResult = program.emit();
-
     const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
 
-    allDiagnostics.forEach((diagnostic) => {
+    const logs = allDiagnostics.map((diagnostic) => {
         if (diagnostic.file) {
             const { line, character } = ts.getLineAndCharacterOfPosition(
                 diagnostic.file,
@@ -16,20 +15,17 @@ export function compile(fileName, options) {
 
             const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
 
-            console.info(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+            return `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`;
         } else {
-            console.info(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
+            return ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
         }
     });
 
-    const exitCode = allDiagnostics.length > 0 ? 1 : 0;
-    console.info(`Process exiting with code '${exitCode}'.`);
-    process.exit(exitCode);
+    return logs;
 }
 
-export function checkFile(file) {
-    const configPath = ts.findConfigFile(file, ts.sys.fileExists, 'tsconfig.json');
-
+export function parseTsConfig(tsPath) {
+    const configPath = ts.findConfigFile(tsPath, ts.sys.fileExists, 'tsconfig.json');
     // Read tsconfig.json file
     const tsconfigFile = ts.readConfigFile(configPath, ts.sys.readFile);
 
@@ -40,5 +36,16 @@ export function checkFile(file) {
         path.dirname(configPath),
     );
 
-    compile([file], parsedTsconfig.options);
+    return parsedTsconfig;
+}
+
+export function checkFile(file) {
+    const result = compile([file], parseTsConfig(file).options);
+
+    if (result.length > 0) {
+        console.info(result.join('\n'));
+        process.exit(1);
+    }
+
+    process.exit(0);
 }

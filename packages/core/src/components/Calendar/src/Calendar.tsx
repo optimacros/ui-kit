@@ -16,7 +16,7 @@ const getDateWithSelectedYear = (initialDate: string, selectedYear: string): str
     return selectedYear + (initialDate ? initialDate.substring(4) : `-${curMonthAndDay}`);
 };
 
-export const { RootProvider: Root, useApi } = createReactApiStateContext({
+export const { RootProvider: Root, useApi } = createReactApiStateContext<typeof datepicker>({
     id: 'calendar',
     machine: datepicker,
     connect(api, { state, send }, machine) {
@@ -33,6 +33,7 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                 const setYear = (year: string) => {
                     const curCalendarDate = api.valueAsString[0];
                     const dateWithSelectedYear = getDateWithSelectedYear(curCalendarDate, year);
+                    //@ts-ignore
                     api.setValue([dateFormatters(dateWithSelectedYear)]);
                 };
                 return {
@@ -66,7 +67,7 @@ export const { RootProvider: Root, useApi } = createReactApiStateContext({
                     'data-scope': 'date-picker',
                     'data-part': 'header-months',
                     children: api.valueAsDate[0]
-                        ? `${api.valueAsDate.toLocaleString(state.context.locale, { month: 'short' })} ${api.value[0]?.day}, ${api.valueAsDate.toLocaleString(state.context.locale, { weekday: 'short' })}`
+                        ? `${api.valueAsDate[0].toLocaleString(state.context.locale, { month: 'short' })} ${api.value[0]?.day}, ${api.valueAsDate[0].toLocaleString(state.context.locale, { weekday: 'short' })}`
                         : 'choose date',
                     onClick: () => api.setView('day'),
                 };
@@ -315,7 +316,8 @@ export type SuccessButtonProps = {
 
 export const SuccessButton = forward<SuccessButtonProps, 'button'>(({ onSelect, ...rest }, ref) => {
     const api = useApi();
-    const handleClick = (event: ChangeEvent<HTMLSelectElement>) => {
+
+    const handleClick = (event) => {
         onSelect && onSelect(api.valueAsDate[0], event);
     };
 
