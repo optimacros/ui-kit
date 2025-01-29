@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState } from 'react';
 import { Button, Field } from '@optimacros-ui/kit';
 import { Checkbox } from './index';
@@ -113,7 +114,7 @@ export const Disabled = (props) => {
 
 export const WithTooltip = (props) => {
     return (
-        <Tooltip.Root openDelay={0} closeDelay={0} positioning={{ placement: 'bottom' }}>
+        <Tooltip.Root openDelay={50} closeDelay={50} positioning={{ placement: 'bottom' }}>
             <Tooltip.Trigger asChild>
                 <div style={{ width: 'fit-content' }}>
                     <Checkbox.Root {...props}>

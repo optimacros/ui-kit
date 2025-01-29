@@ -260,6 +260,23 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
     Parameters<Machine['machine']>[0],
     'id'
 >;
+export type ConnectMachine<Machine extends Record<string, any>, R = Record<string, any>> = (
+    api: ReturnType<Machine['connect']>,
+    {
+        state,
+        send,
+    }: {
+        state: ReturnType<Machine['machine']> extends ZagMachine<
+            infer TContext,
+            infer TState,
+            infer TEvent
+        >
+            ? StateMachine.State<TContext, TState, TEvent>
+            : any;
+        send: StateMachine.Send;
+    },
+    machine: ReturnType<Machine['machine']>,
+) => R;
 
 export function createReactApiStateContext<
     Machine extends Record<string, any>,
@@ -296,9 +313,9 @@ export function createReactApiStateContext<
         },
         machine: ReturnType<Machine['machine']>,
     ) => Record<string, any>,
-    Context extends Record<string, any> = NonNullable<unknown>,
+    Context extends Record<string, any> = MachineCtx<Machine>,
     ID extends string = string,
-    Api = $.If.NullishOrAny<ReturnType<Connect>, ReturnType<Machine['connect']>>,
+    Api = $.If.NullishOrAny<ReturnType<Connect>, ReturnType<Machine['machine']>>,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
 >(config: {
     id: ID;
@@ -356,7 +373,7 @@ export function createReactApiStateContext<
     type IRootMachine = {
         id?: string;
         children: ReactNode | ((api: Api) => ReactNode);
-        defaultContext: MachineCtx<Machine>;
+        defaultContext?: MachineCtx<Machine>;
     } & Context;
 
     function ControllableRootMachine({ children, defaultContext, ...context }: IRootMachine) {

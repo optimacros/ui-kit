@@ -1,10 +1,11 @@
 import {
+    ConnectMachine,
     ExtendedMachine,
     extendMachine,
     MachineConfig,
     MachineOptions,
 } from '@optimacros-ui/store';
-import { Orientation } from '@optimacros-ui/utils';
+import { omit, Orientation } from '@optimacros-ui/utils';
 import * as zagMenu from '@zag-js/menu';
 
 const config = {
@@ -16,6 +17,7 @@ const config = {
     on: {
         'ORIENTATION.SET': { actions: 'setOrientation' },
         'DISABLED.SET': { actions: 'setDisabled' },
+        'SUBMENU.SET': { actions: 'setSubmenuVisible' },
     },
 } satisfies MachineConfig<zagMenu.Service>;
 
@@ -38,3 +40,60 @@ export const machine: ExtendedMachine<
 > = extendMachine(zagMenu, config, options);
 
 export type Machine = typeof machine;
+
+export const connect: ConnectMachine<Machine> = (api, { state, send }, machine) => {
+    return {
+        ...api,
+        orientation: state.context.orientation,
+        isSubmenuVisible: state.context.isSubmenuVisible,
+        setOrientation(orientation) {
+            send({ type: 'ORIENTATION.SET', value: orientation });
+        },
+        setSubmenuVisible(value: boolean) {
+            send({ type: 'SUBMENU.SET', value });
+        },
+        getContentProps() {
+            return { ...api.getContentProps(), 'data-orientation': state.context.orientation };
+        },
+        getTriggerProps() {
+            const props = api.getTriggerProps();
+
+            return {
+                ...props,
+                onClick: (e) => {
+                    if (!state.context.disabled && !state.context.hoverable) {
+                        props.onClick(e);
+                    }
+                },
+                'data-disabled': state.context.disabled ?? undefined,
+            };
+        },
+        getItemProps(props: zagMenu.ItemProps) {
+            return {
+                ...api.getItemProps(props),
+                title: props.valueText,
+            };
+        },
+        setParentNode: (parent) => {
+            api.setParent(parent.machine);
+            parent.setChild(machine);
+        },
+        getTriggerItemProps(parent) {
+            const props = api.getTriggerItemProps(parent);
+
+            if (!state.context.hoverable) {
+                return {
+                    ...omit(props, ['onPointerDown', 'onPointerLeave', 'onPointerMove']),
+                    // some zagjs shit
+                    'data-disabled': props['data-disabled'] === true ? true : undefined,
+                };
+            }
+
+            return {
+                ...props,
+                // some zagjs shit
+                'data-disabled': props['data-disabled'] === true ? true : undefined,
+            };
+        },
+    };
+};

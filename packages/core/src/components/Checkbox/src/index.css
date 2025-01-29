@@ -44,7 +44,7 @@
 }
 
 [data-scope='checkbox'][data-part='box-control'] {
-  border: var(--spacing-px) solid var(--color-checkbox-primary-box-control-border-default);
+  border: var(--spacing-0-5) solid var(--color-checkbox-primary-box-control-border-default);
   border-radius: var(--spacing-0-5);
   cursor: pointer;
   display: inline-block;
@@ -82,7 +82,7 @@
       left: 0;
       right: 0;
       top: 0;
-      bottom: 0;
+      bottom: var(--spacing-0-5);
       margin: auto;
       position: absolute;
       transform: rotate(45deg);
