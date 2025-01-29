@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { events, Input as ThemedInput } from 'ui-kit-core';
+import { events } from 'ui-kit-core';
 import { Slider } from '@optimacros-ui/slider';
-
-// import { round, range } from '../../utils/react-toolbox-utils/utils';
-// import { ProgressBar as InjectProgressBar } from '../ProgressBar';
 
 export interface SliderProps {
     buffer?: number;
@@ -40,8 +37,6 @@ export interface SliderProps {
         Title?: string;
     };
     value?: number;
-    // ProgressBar?: typeof InjectProgressBar;
-    Input?: typeof ThemedInput;
 }
 
 interface State {
@@ -82,27 +77,9 @@ class SliderComponent extends Component<SliderProps, State> {
         sliderStart: 0,
     };
 
-    inputNode: HTMLInputElement | null | undefined;
-
-    // progressbarNode: InjectProgressBar | null | undefined;
-
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
         this.handleResize();
-    }
-
-    componentDidUpdate(prevProps: SliderProps, prevState: State) {
-        if (prevState.inputFocused && this.props.value !== prevProps.value) {
-            this.setState({ inputValue: this.valueForInput(this.props.value) });
-        }
-
-        // if (this.state.pressed !== prevState.pressed) {
-        //     if (this.state.pressed) {
-        //         this.props.onDragStart();
-        //     } else {
-        //         this.props.onDragStop();
-        //     }
-        // }
     }
 
     componentWillUnmount() {
@@ -155,48 +132,9 @@ class SliderComponent extends Component<SliderProps, State> {
                         {/*    value={this.props.value}*/}
                         {/*    buffer={this.props.buffer}*/}
                         {/*/>*/}
-                        {this.renderSnaps()}
                     </div>
                 </div>
-
-                {this.renderInput()}
             </div>
-        );
-    }
-
-    renderSnaps() {
-        if (!this.props.snaps) {
-            return;
-        }
-
-        return (
-            <div>
-                snaps
-                {/*{range(0, (this.props.max - this.props.min) / this.props.step).map((i) => (*/}
-                {/*    <div key={`span-${i}`} className={this.props.theme.snap} />*/}
-                {/*))}*/}
-            </div>
-        );
-    }
-
-    renderInput() {
-        const { Input, editable, theme, disabled, value } = this.props;
-
-        if (!editable || !Input) {
-            return;
-        }
-
-        return (
-            <Input
-                // innerRef={(node) => {
-                //     this.inputNode = node;
-                // }}
-                disabled={disabled}
-                onFocus={this.handleInputFocus}
-                onChange={this.handleInputChange}
-                onBlur={this.handleInputBlur}
-                value={this.state.inputFocused ? this.state.inputValue : this.valueForInput(value)}
-            />
         );
     }
 
@@ -387,11 +325,6 @@ class SliderComponent extends Component<SliderProps, State> {
     }
 }
 
-// editable: false,
-// onDragStart: () => {},
-// onDragStop: () => {},
-// snaps: false,
-
 export const SliderScale = ({
     value = 0,
     onChange,
@@ -401,14 +334,22 @@ export const SliderScale = ({
     step = 0.01,
     pinned = false,
     snaps = false,
+    onDragStart = () => {},
+    onDragStop = () => {},
+    editable = false,
     ...rest
 }: SliderProps) => {
     const formatedValue = Array.isArray(value) ? value : [value];
 
+    const handleChange = ({ value }: { value: number }) => {
+        onChange?.(value[0]);
+    };
+
     return (
         <Slider.Root
             value={formatedValue}
-            onValueChange={onChange}
+            onValueChange={handleChange}
+            onValueChangeEnd={onDragStop}
             buffer={buffer}
             min={min}
             max={max}
@@ -423,7 +364,7 @@ export const SliderScale = ({
                         {snaps && <Slider.Markers />}
                         <Slider.Range />
                     </Slider.Track>
-                    <Slider.Thumb />
+                    <Slider.Thumb onMouseDown={onDragStart} />
                 </Slider.Control>
             </Slider.Container>
         </Slider.Root>
