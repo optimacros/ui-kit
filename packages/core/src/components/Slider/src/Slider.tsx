@@ -1,39 +1,47 @@
-import { forward, styled } from '@optimacros-ui/store';
 import { PropsWithChildren, ComponentProps } from 'react';
-
+import { forward, styled } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import * as slider from '@zag-js/slider';
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+const getSliderMarkers = (min: number, max: number, step: number) => {
+    const points = [];
+    for (let value = min; value <= max; value += step) {
+        points.push(value);
+    }
+    return points;
+};
+
+export const {
+    Api,
+    RootProvider: Root,
+    useApi,
+} = createReactApiStateContext({
     id: 'slider',
     machine: slider,
+    connect(api, { state }) {
+        return {
+            ...api,
+            displayName: 'SliderRoot',
+            markers: getSliderMarkers(state.context.min, state.context.max, state.context.step),
+        };
+    },
 });
 
-export type Props = PropsWithChildren & ComponentProps<typeof RootProvider>;
+export type Props = PropsWithChildren & ComponentProps<typeof Root>;
 
-export const Root = forward<Props, 'div'>(
+export const Container = forward<Props, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
             <styled.div {...rest} {...api.getRootProps()} ref={ref}>
-                <InfoContainer>{children}</InfoContainer>
-
-                <Control>
-                    <Track>
-                        <Range />
-                    </Track>
-
-                    {map(api.value, (_, index) => (
-                        <Thumb key={index} index={index} />
-                    ))}
-                </Control>
+                {children}
             </styled.div>
         );
     },
     {
-        displayName: 'SliderRoot',
+        displayName: 'SliderContainer',
     },
 );
 
@@ -68,7 +76,7 @@ export const Output = forward<{}, 'output'>(
     },
 );
 
-const Control = forward<PropsWithChildren, 'div'>(
+export const Control = forward<PropsWithChildren, 'div'>(
     (props, ref) => {
         const api = useApi();
 
@@ -99,24 +107,37 @@ export const Range = forward<PropsWithChildren, 'div'>(
     },
 );
 
-interface ThumbProps extends PropsWithChildren {
-    index: number;
-}
-
-export const Thumb = forward<ThumbProps, 'div'>(
-    ({ index, ...rest }, ref) => {
+export const Thumb = forward<PropsWithChildren, 'div'>(
+    ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.div {...rest} {...api.getThumbProps({ index })} ref={ref}>
-                <styled.input {...api.getHiddenInputProps({ index })} />
-            </styled.div>
+            <>
+                {map(api.value, (_, index) => (
+                    <styled.div {...rest} {...api.getThumbProps({ index })} ref={ref}>
+                        {children}
+                        <styled.input {...api.getHiddenInputProps({ index })} />
+                    </styled.div>
+                ))}
+            </>
         );
     },
     {
         displayName: 'Thumb',
     },
 );
+
+export const Markers = forward<PropsWithChildren, 'div'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <styled.div {...props} ref={ref} {...api.getMarkerGroupProps()}>
+            {api.markers.map((point) => (
+                <div key={point} {...api.getMarkerProps({ value: point })} />
+            ))}
+        </styled.div>
+    );
+});
 
 export const Track = forward<PropsWithChildren, 'div'>(
     (props, ref) => {

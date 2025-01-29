@@ -1,10 +1,9 @@
-// @ts-nocheck
-import classnames from 'classnames';
 import React, { Component } from 'react';
 import { events, Input as ThemedInput } from 'ui-kit-core';
+import { Slider } from '@optimacros-ui/slider';
 
-import { round, range } from '../../utils/react-toolbox-utils/utils';
-import { ProgressBar as InjectProgressBar } from '../ProgressBar';
+// import { round, range } from '../../utils/react-toolbox-utils/utils';
+// import { ProgressBar as InjectProgressBar } from '../ProgressBar';
 
 export interface SliderProps {
     buffer?: number;
@@ -41,7 +40,7 @@ export interface SliderProps {
         Title?: string;
     };
     value?: number;
-    ProgressBar?: typeof InjectProgressBar;
+    // ProgressBar?: typeof InjectProgressBar;
     Input?: typeof ThemedInput;
 }
 
@@ -85,15 +84,11 @@ class SliderComponent extends Component<SliderProps, State> {
 
     inputNode: HTMLInputElement | null | undefined;
 
-    progressbarNode: InjectProgressBar | null | undefined;
+    // progressbarNode: InjectProgressBar | null | undefined;
 
     componentDidMount() {
-        // window.addEventListener('resize', this.handleResize);
-        // this.handleResize();
-    }
-
-    shouldComponentUpdate(nextProps: SliderProps, nextState: State) {
-        return this.state.inputFocused || !nextState.inputFocused;
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
     }
 
     componentDidUpdate(prevProps: SliderProps, prevState: State) {
@@ -101,13 +96,13 @@ class SliderComponent extends Component<SliderProps, State> {
             this.setState({ inputValue: this.valueForInput(this.props.value) });
         }
 
-        if (this.state.pressed !== prevState.pressed) {
-            if (this.state.pressed) {
-                this.props.onDragStart();
-            } else {
-                this.props.onDragStop();
-            }
-        }
+        // if (this.state.pressed !== prevState.pressed) {
+        //     if (this.state.pressed) {
+        //         this.props.onDragStart();
+        //     } else {
+        //         this.props.onDragStop();
+        //     }
+        // }
     }
 
     componentWillUnmount() {
@@ -118,68 +113,48 @@ class SliderComponent extends Component<SliderProps, State> {
     }
 
     render() {
-        const { ProgressBar, theme } = this.props;
         const knobStyles = { left: `${this.knobOffset()}%` };
-        const className = classnames(
-            theme.slider,
-            {
-                [theme.editable]: this.props.editable,
-                [theme.disabled]: this.props.disabled,
-                [theme.pinned]: this.props.pinned,
-                [theme.pressed]: this.state.pressed,
-                [theme.ring]: this.props.value === this.props.min,
-            },
-            this.props.className,
-        );
 
         return (
             <div
-                className={className}
                 disabled={this.props.disabled}
                 data-react-toolbox="slider"
                 onBlur={this.handleSliderBlur}
                 onFocus={this.handleSliderFocus}
-                style={this.props.style}
                 name={this.props.name}
                 data-max={this.props.dataMax}
                 value={parseInt(this.props.value, 10)}
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                 tabIndex={0}
             >
                 <div
-                    ref={(node) => {
-                        this.sliderNode = node;
-                    }}
-                    className={theme.container}
+                    // ref={(node) => {
+                    //     this.sliderNode = node;
+                    // }}
                     onMouseDown={this.handleMouseDown}
                     onTouchStart={this.handleTouchStart}
                 >
                     <div
-                        ref={(node) => {
-                            this.knobNode = node;
-                        }}
-                        className={theme.knob}
+                        // ref={(node) => {
+                        //     this.knobNode = node;
+                        // }}
                         onMouseDown={this.handleMouseDown}
                         onTouchStart={this.handleTouchStart}
                         style={knobStyles}
                     >
-                        <div
-                            className={theme.innerknob}
-                            data-value={parseInt(this.props.value, 10)}
-                        />
+                        <div data-value={parseInt(this.props.value, 10)} />
                     </div>
 
-                    <div className={theme.progress}>
-                        <ProgressBar
-                            disabled={this.props.disabled}
-                            innerRef={this.progressbarRef}
-                            className={theme.innerprogress}
-                            max={this.props.max}
-                            min={this.props.min}
-                            mode="determinate"
-                            value={this.props.value}
-                            buffer={this.props.buffer}
-                        />
+                    <div>
+                        {/*<ProgressBar*/}
+                        {/*    disabled={this.props.disabled}*/}
+                        {/*    innerRef={this.progressbarRef}*/}
+                        {/*    className={theme.innerprogress}*/}
+                        {/*    max={this.props.max}*/}
+                        {/*    min={this.props.min}*/}
+                        {/*    mode="determinate"*/}
+                        {/*    value={this.props.value}*/}
+                        {/*    buffer={this.props.buffer}*/}
+                        {/*/>*/}
                         {this.renderSnaps()}
                     </div>
                 </div>
@@ -195,10 +170,11 @@ class SliderComponent extends Component<SliderProps, State> {
         }
 
         return (
-            <div className={this.props.theme.snaps}>
-                {range(0, (this.props.max - this.props.min) / this.props.step).map((i) => (
-                    <div key={`span-${i}`} className={this.props.theme.snap} />
-                ))}
+            <div>
+                snaps
+                {/*{range(0, (this.props.max - this.props.min) / this.props.step).map((i) => (*/}
+                {/*    <div key={`span-${i}`} className={this.props.theme.snap} />*/}
+                {/*))}*/}
             </div>
         );
     }
@@ -212,10 +188,9 @@ class SliderComponent extends Component<SliderProps, State> {
 
         return (
             <Input
-                innerRef={(node) => {
-                    this.inputNode = node;
-                }}
-                className={theme.input}
+                // innerRef={(node) => {
+                //     this.inputNode = node;
+                // }}
                 disabled={disabled}
                 onFocus={this.handleInputFocus}
                 onChange={this.handleInputChange}
@@ -320,7 +295,8 @@ class SliderComponent extends Component<SliderProps, State> {
             return;
         }
 
-        const { left, right } = progressbarNode.getBoundingClientRect();
+        // const { left, right } = progressbarNode.getBoundingClientRect();
+        const { left, right } = { left: 10, right: 1 };
 
         const cb = callback || (() => {});
 
@@ -400,7 +376,8 @@ class SliderComponent extends Component<SliderProps, State> {
             return this.props.max;
         }
 
-        return round(value, this.stepDecimals());
+        // return round(value, this.stepDecimals());
+        return 10;
     }
 
     valueForInput(value) {
@@ -410,11 +387,45 @@ class SliderComponent extends Component<SliderProps, State> {
     }
 }
 
-const Slider: React.FC<SliderProps> = (props) => (
-    <SliderComponent {...props} ProgressBar={InjectProgressBar} Input={ThemedInput} />
-);
+// editable: false,
+// onDragStart: () => {},
+// onDragStop: () => {},
+// snaps: false,
 
-const ThemedSlider: React.FC<SliderProps> = (props) => <Slider {...props} />;
+export const SliderScale = ({
+    value = 0,
+    onChange,
+    buffer = 0,
+    min = 0,
+    max = 100,
+    step = 0.01,
+    pinned = false,
+    snaps = false,
+    ...rest
+}: SliderProps) => {
+    const formatedValue = Array.isArray(value) ? value : [value];
 
-export default ThemedSlider;
-export { Slider };
+    return (
+        <Slider.Root
+            value={formatedValue}
+            onValueChange={onChange}
+            buffer={buffer}
+            min={min}
+            max={max}
+            step={step}
+            invalid
+            {...rest}
+        >
+            <Slider.Container>
+                {pinned && <Slider.Output />}
+                <Slider.Control>
+                    <Slider.Track>
+                        {snaps && <Slider.Markers />}
+                        <Slider.Range />
+                    </Slider.Track>
+                    <Slider.Thumb />
+                </Slider.Control>
+            </Slider.Container>
+        </Slider.Root>
+    );
+};
