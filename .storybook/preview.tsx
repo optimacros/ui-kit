@@ -24,11 +24,6 @@ const preview: Preview = {
     },
     decorators: [
         (Story, context) => {
-            setFigmaLink(context);
-
-            return Story(context);
-        },
-        (Story, context) => {
             const prevValue = useRef(null);
 
             useEffect(() => {
@@ -48,6 +43,8 @@ const preview: Preview = {
             return Story(context);
         },
         (Story, context) => {
+            setFigmaLink(context);
+
             if (!window.waitForPageTrulyReady) {
                 window.waitForPageTrulyReady = waitForPageTrulyReadySB;
             }
