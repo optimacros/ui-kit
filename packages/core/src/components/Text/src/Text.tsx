@@ -31,3 +31,7 @@ export const Markdown = forward<TextProps, 'div'>(({ children, ...rest }, ref) =
 export const Title = forward<TextProps, 'h1'>((props, ref) => (
     <styled.h1 {...props} ref={ref} data-scope="text" data-part="root" data-tag="title" />
 ));
+
+export const Span = forward<TextProps, 'span'>((props, ref) => (
+    <styled.span {...props} ref={ref} data-scope="text" data-part="root" data-tag="span" />
+));
