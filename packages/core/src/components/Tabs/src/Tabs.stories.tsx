@@ -256,16 +256,22 @@ export const DraggableOrdered: StoryObj = {
         const [tabs, setTabs] = useState(items);
 
         return (
-            <Tabs.Root activationMode="manual" deselectable>
+            <Tabs.Root
+                activationMode="manual"
+                deselectable
+                onTabsChange={(tabs) => setTabs(tabs)}
+                draggable
+            >
                 <div className="flex gap-2">
-                    <Tabs.DraggableList setTabs={setTabs} data-testid="list">
+                    <Tabs.List>
                         {tabs.map((tab, i) => (
                             <Tabs.DraggableTrigger
-                                {...props}
+                                {...tab}
                                 value={tab.value}
                                 key={tab.value}
                                 data-index={i}
                                 data-testid={tab.value}
+                                index={i}
                             >
                                 <Button variant="transparent">
                                     <Icon value="article" />
@@ -273,7 +279,7 @@ export const DraggableOrdered: StoryObj = {
                                 </Button>
                             </Tabs.DraggableTrigger>
                         ))}
-                    </Tabs.DraggableList>
+                    </Tabs.List>
                 </div>
                 {items.map((item) => (
                     <Tabs.Content value={item.value} key={item.value}>
@@ -338,7 +344,7 @@ export const DraggableSwap = (props) => {
                 <Tabs.List>
                     {tabs.map((tab, i) => (
                         <Tabs.DraggableTrigger
-                            {...props}
+                            {...tab}
                             value={tab.value}
                             key={tab.value}
                             data-index={i}
