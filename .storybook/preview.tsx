@@ -3,6 +3,7 @@ import { Preview } from '@storybook/react';
 import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 import { useEffect, useRef, useState } from 'react';
 import { waitForPageTrulyReadySB } from './utils-tmp';
+import { withPerformance } from 'storybook-addon-performance';
 
 const styles = Promise.all([
     import('../packages/themes/src/default/tokens.css?raw'),
@@ -51,6 +52,7 @@ const preview: Preview = {
 
             return Story(context);
         },
+        withPerformance,
         (Story) => {
             const [style, setStyle] = useState(null);
 
