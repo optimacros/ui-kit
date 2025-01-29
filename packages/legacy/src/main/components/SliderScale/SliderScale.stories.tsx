@@ -21,8 +21,9 @@ export const Basic: Story = {
         max: 10,
         buffer: 0,
         step: 1,
-        pinned: true,
-        snaps: true,
+        pinned: false,
+        snaps: false,
+        editable: true,
     },
     render: (args) => {
         const [value, setValue] = useState<number>(1);

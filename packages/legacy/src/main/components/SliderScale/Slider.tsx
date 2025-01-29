@@ -88,8 +88,8 @@ class SliderComponent extends Component<SliderProps, State> {
     progressbarNode: InjectProgressBar | null | undefined;
 
     componentDidMount() {
-        // window.addEventListener('resize', this.handleResize);
-        // this.handleResize();
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
     }
 
     shouldComponentUpdate(nextProps: SliderProps, nextState: State) {

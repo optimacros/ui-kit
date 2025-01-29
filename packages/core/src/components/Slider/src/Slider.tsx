@@ -1,10 +1,10 @@
-import { PropsWithChildren, ComponentProps } from 'react';
+import { PropsWithChildren, ComponentProps, useMemo } from 'react';
 import { forward, styled } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import * as slider from '@zag-js/slider';
 
-const getSliderMarkers = (min: number, max: number, step: number) => {
+const getSliderMarkers = (min: number, max: number, step: number): number[] => {
     const points = [];
     for (let value = min; value <= max; value += step) {
         points.push(value);
@@ -23,7 +23,10 @@ export const {
         return {
             ...api,
             displayName: 'SliderRoot',
-            markers: getSliderMarkers(state.context.min, state.context.max, state.context.step),
+            markers: useMemo(
+                () => getSliderMarkers(state.context.min, state.context.max, state.context.step),
+                [state.context.min, state.context.max, state.context.step],
+            ),
         };
     },
 });
@@ -114,8 +117,7 @@ export const Thumb = forward<PropsWithChildren, 'div'>(
         return (
             <>
                 {map(api.value, (_, index) => (
-                    <styled.div {...rest} {...api.getThumbProps({ index })} ref={ref}>
-                        {children}
+                    <styled.div key={index} {...rest} {...api.getThumbProps({ index })} ref={ref}>
                         <styled.input {...api.getHiddenInputProps({ index })} />
                     </styled.div>
                 ))}
@@ -127,17 +129,22 @@ export const Thumb = forward<PropsWithChildren, 'div'>(
     },
 );
 
-export const Markers = forward<PropsWithChildren, 'div'>((props, ref) => {
-    const api = useApi();
+export const Markers = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
+        const api = useApi();
 
-    return (
-        <styled.div {...props} ref={ref} {...api.getMarkerGroupProps()}>
-            {api.markers.map((point) => (
-                <div key={point} {...api.getMarkerProps({ value: point })} />
-            ))}
-        </styled.div>
-    );
-});
+        return (
+            <styled.div {...props} ref={ref} {...api.getMarkerGroupProps()}>
+                {api.markers.map((point) => (
+                    <div key={point} {...api.getMarkerProps({ value: point })} />
+                ))}
+            </styled.div>
+        );
+    },
+    {
+        displayName: 'Markers',
+    },
+);
 
 export const Track = forward<PropsWithChildren, 'div'>(
     (props, ref) => {
