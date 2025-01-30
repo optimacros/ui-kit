@@ -9,19 +9,23 @@ import { Menu } from '@optimacros-ui/menu';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Flex } from '@optimacros-ui/flex';
 import { shuffle } from '@optimacros-ui/utils';
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import { userEvent, within } from '@storybook/test';
 import type { Tab } from './models';
 
-export default {
+const meta: Meta<typeof Tabs.Root> = {
     title: 'UI Kit core/Tabs',
     component: Tabs.Root,
     tags: ['autodocs'],
 };
 
+export default meta;
+
 const items: Tab[] = createTabs(20);
 
-export const Base: StoryObj = {
+type Story = StoryObj<typeof Tabs.Root>;
+
+export const Base: Story = {
     render: (props) => {
         const [tabs, setTabs] = useState(items);
         const ref = useRef(null);
@@ -34,6 +38,7 @@ export const Base: StoryObj = {
                 onTabsChange={(t) => flushSync(() => setTabs(t))}
                 controllable
                 useWheel
+                {...props}
             >
                 <Tabs.Api>
                     {(api) => (
@@ -66,7 +71,7 @@ export const Base: StoryObj = {
                 <div className="flex gap-2">
                     <Tabs.List ref={ref}>
                         {tabs.map((tab, i) => (
-                            <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                            <Tabs.Trigger value={tab.value} key={tab.value}>
                                 <Button variant="transparent">
                                     <Icon value="article" />
                                     {tab.value}
@@ -251,7 +256,7 @@ export const BaseVertical = (props) => {
     );
 };
 
-export const DraggableOrdered: StoryObj = {
+export const DraggableOrdered: Story = {
     render: (props) => {
         const [tabs, setTabs] = useState(items);
 
@@ -289,7 +294,11 @@ export const DraggableOrdered: StoryObj = {
             </Tabs.Root>
         );
     },
-    play: async ({ canvasElement, step }) => {
+    play: async ({ globals, canvasElement, step }) => {
+        if (!globals.test) {
+            return;
+        }
+
         const canvas = within(canvasElement);
         try {
             step(`drag`, async () => {
