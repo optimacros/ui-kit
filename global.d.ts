@@ -19,5 +19,11 @@ declare module globalThis {
         /** Performs all possible (feel free to add new) checks to determine if the page is ready
          */
         waitForPageTrulyReady?: () => Promise<void>;
+        testing: {
+            /** Story props */
+            args: Record<any, any>;
+            updateArgs: (newArgs: Record<any, any>) => void;
+            resetArgs: (argNames?: string[]) => void;
+        };
     }
 }

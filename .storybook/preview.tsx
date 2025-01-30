@@ -4,6 +4,7 @@ import iconsSrc from '../packages/themes/src/assets/icons/optimacros/sprite/inde
 import { useEffect, useRef, useState } from 'react';
 import { waitForPageTrulyReadySB } from './utils-tmp';
 import { withPerformance } from 'storybook-addon-performance';
+import { useArgs } from '@storybook/preview-api';
 
 const styles = Promise.all([
     import('../packages/themes/src/default/tokens.css?raw'),
@@ -22,6 +23,7 @@ const preview: Preview = {
         },
     },
     decorators: [
+        // Reload story on toolbar/Test change
         (Story, context) => {
             const prevValue = useRef(null);
 
@@ -41,9 +43,16 @@ const preview: Preview = {
 
             return Story(context);
         },
+        // Testing
         (Story, context) => {
-            if (!window.waitForPageTrulyReady) {
-                window.waitForPageTrulyReady = waitForPageTrulyReadySB;
+            const [args, updateArgs, resetArgs] = useArgs();
+
+            if (!globalThis.testing) {
+                globalThis.testing = { args, updateArgs, resetArgs };
+            }
+
+            if (!globalThis.waitForPageTrulyReady) {
+                globalThis.waitForPageTrulyReady = waitForPageTrulyReadySB;
             }
 
             if (context.playFunction) {
@@ -52,7 +61,7 @@ const preview: Preview = {
 
             return Story(context);
         },
-        withPerformance,
+        // Load theme
         (Story) => {
             const [style, setStyle] = useState(null);
 
@@ -75,6 +84,7 @@ const preview: Preview = {
                 <Story />
             );
         },
+        withPerformance,
     ],
     tags: ['autodocs'],
     globalTypes: {
