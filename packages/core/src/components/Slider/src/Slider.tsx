@@ -4,14 +4,6 @@ import { map } from '@optimacros-ui/utils';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import * as slider from '@zag-js/slider';
 
-const getSliderMarkers = (min: number, max: number, step: number): number[] => {
-    const points = [];
-    for (let value = min; value <= max; value += step) {
-        points.push(value);
-    }
-    return points;
-};
-
 export const {
     Api,
     RootProvider: Root,
@@ -22,11 +14,9 @@ export const {
     connect(api, { state }) {
         return {
             ...api,
-            displayName: 'SliderRoot',
-            markers: useMemo(
-                () => getSliderMarkers(state.context.min, state.context.max, state.context.step),
-                [state.context.min, state.context.max, state.context.step],
-            ),
+            min: state.context.min,
+            max: state.context.max,
+            step: state.context.step,
         };
     },
 });
@@ -99,6 +89,17 @@ export const InfoContainer = forward<PropsWithChildren, 'div'>(
     },
 );
 
+export const Track = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
+        const api = useApi();
+
+        return <styled.div {...props} {...api.getTrackProps()} ref={ref} />;
+    },
+    {
+        displayName: 'Track',
+    },
+);
+
 export const Range = forward<PropsWithChildren, 'div'>(
     (props, ref) => {
         const api = useApi();
@@ -107,6 +108,34 @@ export const Range = forward<PropsWithChildren, 'div'>(
     },
     {
         displayName: 'Range',
+    },
+);
+
+const getSliderMarkers = (min: number, max: number, step: number): number[] => {
+    const points = [];
+    for (let value = min; value <= max; value += step) {
+        points.push(value);
+    }
+    return points;
+};
+
+export const Markers = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
+        const api = useApi();
+        const { min, max, step } = api;
+
+        const markers = useMemo(() => getSliderMarkers(min, max, step), [min, max, step]);
+
+        return (
+            <styled.div {...props} ref={ref} {...api.getMarkerGroupProps()}>
+                {markers.map((point) => (
+                    <div key={point} {...api.getMarkerProps({ value: point })} />
+                ))}
+            </styled.div>
+        );
+    },
+    {
+        displayName: 'Markers',
     },
 );
 
@@ -126,33 +155,5 @@ export const Thumb = forward<PropsWithChildren, 'div'>(
     },
     {
         displayName: 'Thumb',
-    },
-);
-
-export const Markers = forward<PropsWithChildren, 'div'>(
-    (props, ref) => {
-        const api = useApi();
-
-        return (
-            <styled.div {...props} ref={ref} {...api.getMarkerGroupProps()}>
-                {api.markers.map((point) => (
-                    <div key={point} {...api.getMarkerProps({ value: point })} />
-                ))}
-            </styled.div>
-        );
-    },
-    {
-        displayName: 'Markers',
-    },
-);
-
-export const Track = forward<PropsWithChildren, 'div'>(
-    (props, ref) => {
-        const api = useApi();
-
-        return <styled.div {...props} {...api.getTrackProps()} ref={ref} />;
-    },
-    {
-        displayName: 'Track',
     },
 );
