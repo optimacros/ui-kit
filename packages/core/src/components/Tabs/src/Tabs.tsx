@@ -5,6 +5,8 @@ import { ComponentProps, PropsWithChildren, ReactNode, useEffect, useId } from '
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { raf } from '@zag-js/dom-query';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
+import { Tab } from './models';
+
 const machine = extendMachine(
     tabs,
     {
@@ -269,15 +271,7 @@ export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
     return <styled.ul {...listProps} {...props} ref={ref} />;
 });
 
-export interface Tab {
-    fixed?: boolean;
-    disabled?: boolean;
-    value: string;
-    index: number;
-    meta?: Record<string, any>;
-}
-
-export const Trigger = forward<{ children: ReactNode } & Tab, 'li'>(
+export const Trigger = forward<{ children: ReactNode } & Omit<Tab, 'content'>, 'li'>(
     ({ value, disabled, fixed, index, ...rest }, ref) => {
         const api = useApi();
 
@@ -288,9 +282,9 @@ export const Trigger = forward<{ children: ReactNode } & Tab, 'li'>(
 );
 
 export const DraggableTrigger = forward<
-    { children: ReactNode; nonDraggable?: boolean } & Tab,
+    { children: ReactNode; nonDraggable?: boolean } & Omit<Tab, 'content'>,
     'li'
->(({ value, disabled, fixed, index, nonDraggable = false, ...rest }, ref) => {
+>(({ value, disabled, fixed, index, nonDraggable = false, content, ...rest }, ref) => {
     const id = useId();
 
     const api = useApi();
@@ -381,5 +375,7 @@ export const HiddenTabsList = forward<
         syncHiddenTabs();
     }, [tabs]);
 
-    return hiddenTabs.map((tab) => children({ ...tab, onClickCapture: () => open(tab.value) }));
+    return hiddenTabs.map((tab, i) =>
+        children({ ...tab, onClickCapture: () => open(tab.value), index: i }),
+    );
 });

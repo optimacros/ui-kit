@@ -70,8 +70,8 @@ export const Base: Story = {
                 </Tabs.Api>
                 <div className="flex gap-2">
                     <Tabs.List ref={ref}>
-                        {tabs.map((tab, i) => (
-                            <Tabs.Trigger value={tab.value} key={tab.value}>
+                        {tabs.map((tab) => (
+                            <Tabs.Trigger value={tab.value} key={tab.value} index={tab.index}>
                                 <Button variant="transparent">
                                     <Icon value="article" />
                                     {tab.value}
@@ -216,8 +216,8 @@ export const BaseVertical = (props) => {
             </Tabs.Api>
             <Flex gap="2">
                 <Tabs.List ref={ref} style={{ height: '10rem' }}>
-                    {tabs.map((tab, i) => (
-                        <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                    {tabs.map((tab) => (
+                        <Tabs.Trigger value={tab.value} key={tab.value} index={tab.index}>
                             <Button variant="transparent">
                                 <Icon value="article" />
                                 {tab.value}
@@ -269,14 +269,13 @@ export const DraggableOrdered: Story = {
             >
                 <div className="flex gap-2">
                     <Tabs.List>
-                        {tabs.map((tab, i) => (
+                        {tabs.map((tab) => (
                             <Tabs.DraggableTrigger
-                                {...tab}
                                 value={tab.value}
                                 key={tab.value}
-                                data-index={i}
+                                data-index={tab.index}
                                 data-testid={tab.value}
-                                index={i}
+                                index={tab.index}
                             >
                                 <Button variant="transparent">
                                     <Icon value="article" />
@@ -351,14 +350,13 @@ export const DraggableSwap = (props) => {
         >
             <div className="flex gap-2">
                 <Tabs.List>
-                    {tabs.map((tab, i) => (
+                    {tabs.map((tab) => (
                         <Tabs.DraggableTrigger
-                            {...tab}
                             value={tab.value}
                             key={tab.value}
-                            data-index={i}
+                            data-index={tab.index}
                             data-testid={tab.value}
-                            index={i}
+                            index={tab.index}
                         >
                             <Button variant="transparent">
                                 <Icon value="article" />
