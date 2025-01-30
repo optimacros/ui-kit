@@ -242,6 +242,7 @@ export const Root = forward<RootProps, 'div'>(
     ({ children, variant, className, ...context }, ref) => {
         return (
             <RootProvider {...context}>
+                {/* @ts-ignore */}
                 <BaseRoot variant={variant} ref={ref}>
                     {children}
                 </BaseRoot>
@@ -381,5 +382,7 @@ export const HiddenTabsList = forward<
         syncHiddenTabs();
     }, [tabs]);
 
-    return hiddenTabs.map((tab) => children({ ...tab, onClickCapture: () => open(tab.value) }));
+    return hiddenTabs.map((tab, index) =>
+        children({ ...tab, onClickCapture: () => open(tab.value), index }),
+    );
 });
