@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Flex } from '@optimacros-ui/flex';
 import { userEvent, within } from '@storybook/test';
+import content from './Button?raw';
 
 const meta: Meta<typeof Button> = {
     title: 'UI Kit core/Button',
     component: Button,
-    tags: ['autodocs'],
     argTypes: {
         variant: {
             control: 'select',
@@ -60,6 +60,9 @@ const meta: Meta<typeof Button> = {
             description: 'Target attribute for link buttons',
         },
     },
+    parameters: {
+        docs: { source: { code: content } },
+    },
 };
 
 export default meta;
@@ -70,6 +73,9 @@ export const Base: Story = {
         children: 'Button',
         variant: 'primary',
         size: 'md',
+    },
+    parameters: {
+        storySource: { source: content },
     },
 };
 
