@@ -1,8 +1,8 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
-import { ComponentProps, FC, PropsWithChildren, ReactNode, useEffect } from 'react';
-import { machine } from './menu.machine';
+import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren } from 'react';
+import { machine, connect } from './menu.machine';
 import type * as menu from '@zag-js/menu';
 
 export const {
@@ -14,50 +14,7 @@ export const {
 } = createReactApiStateContext({
     id: 'menu',
     machine,
-    connect(api, { state, send }, machine) {
-        return {
-            ...api,
-            orientation: state.context.orientation,
-            setOrientation(orientation) {
-                send({ type: 'ORIENTATION.SET', value: orientation });
-            },
-            getContentProps() {
-                return { ...api.getContentProps(), 'data-orientation': state.context.orientation };
-            },
-            getTriggerProps() {
-                const props = api.getTriggerProps();
-
-                return {
-                    ...props,
-                    onClick: (e) => {
-                        if (!state.context.disabled && !state.context.hoverable) {
-                            props.onClick(e);
-                        }
-                    },
-                    'data-disabled': state.context.disabled ?? undefined,
-                };
-            },
-            getItemProps(props: menu.ItemProps) {
-                return {
-                    ...api.getItemProps(props),
-                    title: props.valueText,
-                };
-            },
-            setParentNode: (parent) => {
-                api.setParent(parent.machine);
-                parent.setChild(machine);
-            },
-            getTriggerItemProps(parent) {
-                const props = api.getTriggerItemProps(parent);
-
-                return {
-                    ...props,
-                    // some zagjs shit
-                    'data-disabled': props['data-disabled'] === true ? true : undefined,
-                };
-            },
-        };
-    },
+    connect,
 });
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
@@ -103,7 +60,15 @@ const SubMenuRoot: FC<PropsWithChildren<{ parent: ReturnType<typeof useApi> }>> 
     const api = useApi();
 
     useEffect(() => {
-        api && parent && api.setParentNode(parent);
+        const timeout = setTimeout(() => {
+            if (api && parent) {
+                api.setParentNode(parent);
+            }
+        }, 0);
+
+        return () => {
+            clearTimeout(timeout);
+        };
     }, []);
 
     return children;
