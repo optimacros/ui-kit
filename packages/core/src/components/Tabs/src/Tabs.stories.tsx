@@ -8,7 +8,7 @@ import { createTabs } from './mock';
 import { Menu } from '@optimacros-ui/menu';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Flex } from '@optimacros-ui/flex';
-import { shuffle } from '@optimacros-ui/utils';
+import { shuffle, sleep } from '@optimacros-ui/utils';
 import { StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/test';
 import type { Tab } from './models';
@@ -22,6 +22,38 @@ export default {
 const items: Tab[] = createTabs(20);
 
 export const Base: StoryObj = {
+    args: {
+        value: 'tab-2',
+        onValueChange: (details) => {
+            console.info('change 1', details);
+        },
+    },
+    play: async ({ canvasElement, step }) => {
+        const canvas = within(canvasElement);
+
+        const rndButton = canvas.getByTestId('rnd-button');
+
+        await step('step 1', async () => {
+            await sleep(3000);
+
+            window.testing.updateArgs({
+                value: 'tab-5',
+                onValueChange: (details) => {
+                    console.info('change 2', details);
+                },
+            });
+
+            await sleep(3000);
+
+            userEvent.click(rndButton);
+
+            window.testing.resetArgs();
+
+            await sleep(3000);
+
+            userEvent.click(rndButton);
+        });
+    },
     render: (props) => {
         const [tabs, setTabs] = useState(items);
         const ref = useRef(null);
@@ -47,6 +79,7 @@ export const Base: StoryObj = {
                                         onClick={() =>
                                             api.open(`tab-${Math.floor(Math.random() * 19)}`)
                                         }
+                                        data-testid="rnd-button"
                                     >
                                         open random tab
                                     </Button>

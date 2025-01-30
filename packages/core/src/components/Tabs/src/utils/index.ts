@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { isUndefined } from '@optimacros-ui/utils';
 
+// TODO unused?
 export const scrollToActiveTab = () => {
     if (!this.tabsScrollerNode || !this.activeTab) {
         return;
