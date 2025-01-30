@@ -17,15 +17,17 @@ type Story = StoryObj<typeof SliderScale>;
 export const Basic: Story = {
     args: {
         name: 'axisFontSize',
+        label: 'Font Size',
         min: 8,
         max: 64,
-        step: 20,
+        step: 2,
         disabled: false,
         pinned: true,
         snaps: true,
+        editable: false,
     },
     render: (args) => {
-        const [value, setValue] = useState<number>(10);
+        const [value, setValue] = useState<number>(12);
         return <SliderScale {...args} value={value} onChange={(value) => setValue(value)} />;
     },
 };
