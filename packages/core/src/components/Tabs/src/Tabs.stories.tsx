@@ -1,74 +1,74 @@
-import { useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
+import { useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 
-import { Tabs } from '.';
-import { Button } from '@optimacros-ui/button';
-import { Icon } from '@optimacros-ui/icon';
-import { createTabs } from './mock';
-import { Menu } from '@optimacros-ui/menu';
-import { IconButton } from '@optimacros-ui/icon-button';
-import { Flex } from '@optimacros-ui/flex';
-import { shuffle, sleep } from '@optimacros-ui/utils';
-import { StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/test';
-import type { Tab } from './models';
+import { Tabs } from '.'
+import { Button } from '@optimacros-ui/button'
+import { Icon } from '@optimacros-ui/icon'
+import { createTabs } from './mock'
+import { Menu } from '@optimacros-ui/menu'
+import { IconButton } from '@optimacros-ui/icon-button'
+import { Flex } from '@optimacros-ui/flex'
+import { shuffle, sleep } from '@optimacros-ui/utils'
+import { StoryObj } from '@storybook/react'
+import { userEvent, within } from '@storybook/test'
+import type { Tab } from './models'
 
 export default {
     title: 'UI Kit core/Tabs',
     component: Tabs.Root,
     tags: ['autodocs'],
-};
+}
 
-const items: Tab[] = createTabs(20);
+const items: Tab[] = createTabs(20)
 
 export const Base: StoryObj = {
     args: {
         value: 'tab-2',
-        onValueChange: (details) => {
-            console.info('change 1', details);
+        onValueChange: details => {
+            console.info('change 1', details)
         },
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
+        const canvas = within(canvasElement)
 
-        const rndButton = canvas.getByTestId('rnd-button');
+        const rndButton = canvas.getByTestId('rnd-button')
 
         await step('step 1', async () => {
-            await sleep(3000);
+            await sleep(3000)
 
             window.testing.updateArgs({
                 value: 'tab-5',
-                onValueChange: (details) => {
-                    console.info('change 2', details);
+                onValueChange: details => {
+                    console.info('change 2', details)
                 },
-            });
+            })
 
-            await sleep(3000);
+            await sleep(3000)
 
-            userEvent.click(rndButton);
+            userEvent.click(rndButton)
 
-            window.testing.resetArgs();
+            window.testing.resetArgs()
 
-            await sleep(3000);
+            await sleep(3000)
 
-            userEvent.click(rndButton);
-        });
+            userEvent.click(rndButton)
+        })
     },
-    render: (props) => {
-        const [tabs, setTabs] = useState(items);
-        const ref = useRef(null);
+    render: props => {
+        const [tabs, setTabs] = useState(items)
+        const ref = useRef(null)
 
         return (
             <Tabs.Root
                 activationMode="manual"
                 deselectable
                 tabs={tabs}
-                onTabsChange={(t) => flushSync(() => setTabs(t))}
+                onTabsChange={t => flushSync(() => setTabs(t))}
                 controllable
                 useWheel
             >
                 <Tabs.Api>
-                    {(api) => (
+                    {api => (
                         <div>
                             <p>active tab: {api.value}</p>
                             <div>
@@ -88,7 +88,7 @@ export const Base: StoryObj = {
                                     </Button>
                                     <Button onClick={() => api.first()}>select first</Button>
                                     <Button onClick={() => api.last()}>select last</Button>
-                                    <Button onClick={() => setTabs((prev) => shuffle(prev))}>
+                                    <Button onClick={() => setTabs(prev => shuffle(prev))}>
                                         shuffle
                                     </Button>
                                 </div>
@@ -99,7 +99,11 @@ export const Base: StoryObj = {
                 <div className="flex gap-2">
                     <Tabs.List ref={ref}>
                         {tabs.map((tab, i) => (
-                            <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                            <Tabs.Trigger
+                                {...props}
+                                value={tab.value}
+                                key={tab.value}
+                            >
                                 <Button variant="transparent">
                                     <Icon value="article" />
                                     {tab.value}
@@ -115,7 +119,7 @@ export const Base: StoryObj = {
                             <Tabs.Menu.Content size="sm">
                                 <Tabs.Menu.List>
                                     <Tabs.HiddenTabsList ref={ref}>
-                                        {(props) => (
+                                        {props => (
                                             <Menu.Item
                                                 {...props}
                                                 key={props.value}
@@ -131,24 +135,31 @@ export const Base: StoryObj = {
                         </Tabs.Menu.Positioner>
                     </Tabs.Menu.Root>
                 </div>
-                {items.map((item) => (
-                    <Tabs.Content value={item.value} key={item.value}>
+                {items.map(item => (
+                    <Tabs.Content
+                        value={item.value}
+                        key={item.value}
+                    >
                         {item.content}
                     </Tabs.Content>
                 ))}
             </Tabs.Root>
-        );
+        )
     },
-};
+}
 
-export const Secondary = (props) => {
-    const [tabs, setTabs] = useState(items);
-    const ref = useRef(null);
+export const Secondary = props => {
+    const [tabs, setTabs] = useState(items)
+    const ref = useRef(null)
 
     return (
-        <Tabs.Root activationMode="manual" deselectable variant="secondary">
+        <Tabs.Root
+            activationMode="manual"
+            deselectable
+            variant="secondary"
+        >
             <Tabs.Api>
-                {(api) => (
+                {api => (
                     <div>
                         <p>active tab: {api.value}</p>
                         <div>
@@ -160,9 +171,7 @@ export const Secondary = (props) => {
                             <Button onClick={() => api.scrollToActive()}>scroll to active</Button>
                             <Button onClick={() => api.first()}>select first</Button>
                             <Button onClick={() => api.last()}>select last</Button>
-                            <Button onClick={() => setTabs((prev) => shuffle(prev))}>
-                                shuffle
-                            </Button>
+                            <Button onClick={() => setTabs(prev => shuffle(prev))}>shuffle</Button>
                         </div>
                     </div>
                 )}
@@ -191,7 +200,7 @@ export const Secondary = (props) => {
                         <Tabs.Menu.Content size="sm">
                             <Tabs.Menu.List>
                                 <Tabs.HiddenTabsList ref={ref}>
-                                    {(props) => (
+                                    {props => (
                                         <Menu.Item
                                             {...props}
                                             key={props.value}
@@ -207,23 +216,30 @@ export const Secondary = (props) => {
                     </Tabs.Menu.Positioner>
                 </Tabs.Menu.Root>
             </div>
-            {items.map((item) => (
-                <Tabs.Content value={item.value} key={item.value}>
+            {items.map(item => (
+                <Tabs.Content
+                    value={item.value}
+                    key={item.value}
+                >
                     {item.content}
                 </Tabs.Content>
             ))}
         </Tabs.Root>
-    );
-};
+    )
+}
 
-export const BaseVertical = (props) => {
-    const [tabs, setTabs] = useState(items);
-    const ref = useRef(null);
+export const BaseVertical = props => {
+    const [tabs, setTabs] = useState(items)
+    const ref = useRef(null)
 
     return (
-        <Tabs.Root activationMode="manual" deselectable orientation="vertical">
+        <Tabs.Root
+            activationMode="manual"
+            deselectable
+            orientation="vertical"
+        >
             <Tabs.Api>
-                {(api) => (
+                {api => (
                     <div>
                         <p>active tab: {api.value}</p>
                         <div>
@@ -235,17 +251,22 @@ export const BaseVertical = (props) => {
                             <Button onClick={() => api.scrollToActive()}>scroll to active</Button>
                             <Button onClick={() => api.first()}>select first</Button>
                             <Button onClick={() => api.last()}>select last</Button>
-                            <Button onClick={() => setTabs((prev) => shuffle(prev))}>
-                                shuffle
-                            </Button>
+                            <Button onClick={() => setTabs(prev => shuffle(prev))}>shuffle</Button>
                         </div>
                     </div>
                 )}
             </Tabs.Api>
             <Flex gap="2">
-                <Tabs.List ref={ref} style={{ height: '10rem' }}>
+                <Tabs.List
+                    ref={ref}
+                    style={{ height: '10rem' }}
+                >
                     {tabs.map((tab, i) => (
-                        <Tabs.Trigger {...props} value={tab.value} key={tab.value}>
+                        <Tabs.Trigger
+                            {...props}
+                            value={tab.value}
+                            key={tab.value}
+                        >
                             <Button variant="transparent">
                                 <Icon value="article" />
                                 {tab.value}
@@ -261,7 +282,7 @@ export const BaseVertical = (props) => {
                 <Tabs.Menu.Content size="sm">
                     <Tabs.Menu.List>
                         <Tabs.HiddenTabsList ref={ref}>
-                            {(props) => (
+                            {props => (
                                 <Menu.Item
                                     {...props}
                                     key={props.value}
@@ -275,24 +296,27 @@ export const BaseVertical = (props) => {
                     </Tabs.Menu.List>
                 </Tabs.Menu.Content>
             </Tabs.Menu.Root>
-            {items.map((item) => (
-                <Tabs.Content value={item.value} key={item.value}>
+            {items.map(item => (
+                <Tabs.Content
+                    value={item.value}
+                    key={item.value}
+                >
                     {item.content}
                 </Tabs.Content>
             ))}
         </Tabs.Root>
-    );
-};
+    )
+}
 
 export const DraggableOrdered: StoryObj = {
-    render: (props) => {
-        const [tabs, setTabs] = useState(items);
+    render: props => {
+        const [tabs, setTabs] = useState(items)
 
         return (
             <Tabs.Root
                 activationMode="manual"
                 deselectable
-                onTabsChange={(tabs) => setTabs(tabs)}
+                onTabsChange={tabs => setTabs(tabs)}
                 draggable
             >
                 <div className="flex gap-2">
@@ -314,28 +338,31 @@ export const DraggableOrdered: StoryObj = {
                         ))}
                     </Tabs.List>
                 </div>
-                {items.map((item) => (
-                    <Tabs.Content value={item.value} key={item.value}>
+                {items.map(item => (
+                    <Tabs.Content
+                        value={item.value}
+                        key={item.value}
+                    >
                         {item.content}
                     </Tabs.Content>
                 ))}
             </Tabs.Root>
-        );
+        )
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
+        const canvas = within(canvasElement)
         try {
             step(`drag`, async () => {
                 await Promise.all(
                     items.map((item, i) => {
-                        const target = canvas.getByTestId(item.value);
+                        const target = canvas.getByTestId(item.value)
 
-                        const { width } = target.getBoundingClientRect();
+                        const { width } = target.getBoundingClientRect()
 
-                        const targetX = width * 2.1;
+                        const targetX = width * 2.1
 
                         if (i % 2 === 0) {
-                            return userEvent.click(target);
+                            return userEvent.click(target)
                         }
 
                         return userEvent.pointer([
@@ -351,26 +378,26 @@ export const DraggableOrdered: StoryObj = {
                                 target,
                                 coords: { x: targetX, y: 0 },
                             },
-                        ]);
+                        ])
                     }),
-                );
-            });
+                )
+            })
 
-            return;
+            return
         } catch (e) {}
     },
-};
+}
 
 //TODO: fix scroll problem
-export const DraggableSwap = (props) => {
-    const [tabs, setTabs] = useState(items);
+export const DraggableSwap = props => {
+    const [tabs, setTabs] = useState(items)
 
     return (
         <Tabs.Root
             activationMode="manual"
             deselectable
             draggableMode="swap"
-            onTabsChange={(tabs) => setTabs(tabs)}
+            onTabsChange={tabs => setTabs(tabs)}
             draggable
         >
             <div className="flex gap-2">
@@ -392,11 +419,14 @@ export const DraggableSwap = (props) => {
                     ))}
                 </Tabs.List>
             </div>
-            {items.map((item) => (
-                <Tabs.Content value={item.value} key={item.value}>
+            {items.map(item => (
+                <Tabs.Content
+                    value={item.value}
+                    key={item.value}
+                >
                     {item.content}
                 </Tabs.Content>
             ))}
         </Tabs.Root>
-    );
-};
+    )
+}
