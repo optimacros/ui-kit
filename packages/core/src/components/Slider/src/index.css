@@ -35,7 +35,6 @@
 
   &[data-part='range'] {
     height: 100%;
-    z-index: 2;
     border-radius: var(--radius-full);
     background-color: var(--color-slider-primary-range-default);
 
@@ -45,7 +44,6 @@
   }
 
   &[data-part='thumb'] {
-    z-index: 3;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     display: flex;
     align-items: center;
@@ -66,7 +64,6 @@
 
   &[data-part='marker'] {
     flex: 1;
-    z-index: 1;
 
     &::after {
       background-color: var(--color-slider-primary-range-default);
