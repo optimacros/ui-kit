@@ -1,4 +1,7 @@
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
+import { Tabs } from '..';
+
+export type TabsProps = ComponentProps<typeof Tabs.RootProvider>;
 
 export interface Tab {
     /** Tab title */
@@ -13,5 +16,7 @@ export interface Tab {
     /** да, просто запусти мап и добавь индекс к своим табам */
     index: number;
 }
+
+export type DraggableMode = 'ordered' | 'swap';
 
 export type { ValueChangeDetails } from '@zag-js/tabs';

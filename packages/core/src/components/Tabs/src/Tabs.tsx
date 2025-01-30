@@ -5,7 +5,7 @@ import { ComponentProps, PropsWithChildren, ReactNode, useEffect, useId } from '
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { raf } from '@zag-js/dom-query';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
-import { Tab } from './models';
+import { DraggableMode, Tab } from './models';
 
 const machine = extendMachine(
     tabs,
@@ -16,7 +16,7 @@ const machine = extendMachine(
             tabs: [] as Array<Tab>,
             /** array of tabs not visible in list */
             hiddenTabs: [] as Array<Tab>,
-            draggableMode: 'ordered' as 'ordered' | 'swap',
+            draggableMode: 'ordered' as DraggableMode,
             /** whether tabs are draggable or partially draggable */
             draggable: false,
             /** whether tabs are hidden */
