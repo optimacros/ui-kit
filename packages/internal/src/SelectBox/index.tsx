@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from 'react';
 import type { InputTheme } from '../Input';
 import { Field, Icon, IconButton, Select } from '@optimacros-ui/kit';

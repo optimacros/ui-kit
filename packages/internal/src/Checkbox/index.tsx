@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/kit';

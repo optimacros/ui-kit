@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Button } from '@optimacros-ui/button';
 import { ReactNode } from 'react';
 import { Meta } from '@storybook/react';

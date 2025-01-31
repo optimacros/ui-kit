@@ -7,7 +7,6 @@ export default defineConfig({
     clean: true,
     treeshake: true,
     target: 'es2020',
-    //temporary
     dts: true,
     splitting: true,
     platform: 'browser',

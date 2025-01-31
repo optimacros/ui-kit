@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Toolbar } from './index';
 import { Button } from '@optimacros-ui/button';

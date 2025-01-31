@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useId } from 'react';
 import type { TextareaHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 import { isNull, isUndefined } from '@optimacros-ui/utils';

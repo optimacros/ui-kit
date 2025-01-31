@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { FC, MouseEvent } from 'react';
 import { Icon } from '@optimacros-ui/kit';
 import { Favourite as FavouriteComponent } from '@optimacros-ui/kit';

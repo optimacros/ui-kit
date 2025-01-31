@@ -1,4 +1,4 @@
-import { Tab } from './models';
+import { Tab } from './Tabs';
 
 export const createTabs = (count: number): Tab[] => {
     return new Array(count)

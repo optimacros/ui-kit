@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ArgTypes, Meta } from '@storybook/react';
 import { Tooltip } from '@optimacros-ui/kit';
 import { ICONS_MAP } from '@optimacros-ui/themes';

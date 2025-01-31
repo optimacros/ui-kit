@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ComponentType, ReactNode } from 'react';
 

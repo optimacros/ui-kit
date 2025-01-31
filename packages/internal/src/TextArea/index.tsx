@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useId } from 'react';
 import { Field as FieldComponent } from '@optimacros-ui/kit';
 

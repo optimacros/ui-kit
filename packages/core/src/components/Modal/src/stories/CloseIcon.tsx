@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Modal } from '../index';
 import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';

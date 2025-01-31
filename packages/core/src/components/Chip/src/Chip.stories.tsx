@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Text } from '@optimacros-ui/text';

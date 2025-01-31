@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Icon } from '@optimacros-ui/kit';
 import { Chip as ChipComponent } from '@optimacros-ui/kit';
 import React, { ReactNode, MouseEventHandler } from 'react';

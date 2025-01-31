@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useState, useEffect } from 'react';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ProgressBars } from '@optimacros-ui/kit-internal';

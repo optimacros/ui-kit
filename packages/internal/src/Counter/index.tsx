@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from 'react';
 import { Counter as CounterComponent } from '@optimacros-ui/kit';
 

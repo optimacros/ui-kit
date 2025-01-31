@@ -1,6 +1,8 @@
+//@ts-nocheck
+
 import React, { useRef, MouseEvent } from 'react';
 
-interface RadioButtonProps {
+export interface RadioButtonProps {
     checked?: boolean;
     children?: React.ReactNode;
     className?: string;

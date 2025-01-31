@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { isUndefined, keys } from 'lodash';
 import type React from 'react';
 

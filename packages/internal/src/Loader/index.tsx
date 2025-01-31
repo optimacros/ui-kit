@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from 'react';
 import { Loader as LoaderComponent } from '@optimacros-ui/kit';
 

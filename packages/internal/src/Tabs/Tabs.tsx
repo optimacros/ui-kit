@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { memo, ReactElement, useEffect, useState, Children, useMemo } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/kit';

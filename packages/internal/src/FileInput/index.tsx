@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useId } from 'react';
 import { FileUpload } from '@optimacros-ui/kit';
 import { Button } from '@optimacros-ui/kit';

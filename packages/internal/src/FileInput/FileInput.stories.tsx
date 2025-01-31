@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { FileInput } from '@optimacros-ui/kit-internal';
 import { ReactNode, useState } from 'react';

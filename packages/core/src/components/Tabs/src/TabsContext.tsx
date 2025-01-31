@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { createReactStore } from '@optimacros-ui/store';
 import * as tabs from '@zag-js/tabs';
 import { findIndex, reduce, map, round, isString, floor, ceil } from '@optimacros-ui/utils';

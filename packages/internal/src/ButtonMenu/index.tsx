@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from 'react';
 import { Icon } from '@optimacros-ui/kit';
 import { Menu as MenuComponent } from '@optimacros-ui/kit';

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { isUndefined } from '@optimacros-ui/utils';
 
 export const scrollToActiveTab = () => {

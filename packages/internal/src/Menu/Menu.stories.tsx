@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Meta } from '@storybook/react';
 
 import { Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';

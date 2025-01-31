@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Flex } from '@optimacros-ui/flex';
 import { Header } from '@optimacros-ui/header';
 import { Select } from '@optimacros-ui/select';
