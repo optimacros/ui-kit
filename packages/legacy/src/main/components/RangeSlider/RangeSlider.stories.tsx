@@ -1,7 +1,7 @@
+// @ts-nocheck
 import { useState } from 'react';
 import { ArgTypes, Meta } from '@storybook/react';
 import { RangeSlider } from './index';
-import { ValueChangeDetails } from '@zag-js/slider';
 
 const argTypes: Partial<ArgTypes> = {
     value: {
@@ -56,8 +56,8 @@ export default meta;
 export const Basic = () => {
     const [values, setValues] = useState([7, 35]);
 
-    const handleChange = (details: ValueChangeDetails) => {
-        setValues(details);
+    const handleChange = (values: number[]) => {
+        setValues(values);
     };
 
     return (
@@ -66,12 +66,16 @@ export const Basic = () => {
             min={1}
             max={80}
             values={values}
-            // customValues={[2, 6]}
-            // rangeValues={[1, 2, 3, 4, 5, 6, 7, 9, 12, 30, 40, 50, 60]}
+            // =>
+            customValues={[2, 6]}
+            rangeValues={[1, 2, 3]}
             hasRangeValues={true}
+            // <=
             color="blue"
-            onChange={(e) => handleChange(e)}
-            onFinalChange={(e) => console.log(e)}
+            classNameTrack=""
+            designTheme={() => {}}
+            onChange={handleChange}
+            onFinalChange={() => {}}
         />
     );
 };
