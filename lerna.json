@@ -10,11 +10,16 @@
     "useWorkspaces": false,
     "$schema": "node_modules/lerna/schemas/lerna-schema.json",
     "command": {
+        "version": {
+            "message": "chore(release): publish",
+            "conventionalCommits": true
+        },
         "publish": {
             "message": "chore(release): publish"
         },
         "bootstrap": {
             "npmClientArgs": ["--legacy-peer-deps"]
         }
-    }
+    },
+    "changelogPreset": "react"
 }
