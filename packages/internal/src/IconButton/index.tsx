@@ -6,12 +6,12 @@ import {
     getVariant,
     getFloatStyles,
 } from '@optimacros-ui/kit-internal';
-import { IconButton as IconButtonCore } from '@optimacros-ui/icon-button';
-import { Icon } from '@optimacros-ui/icon';
+import { IconButton as IconButtonCore } from '@optimacros-ui/kit';
+import { Icon } from '@optimacros-ui/kit';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
-export interface Props extends Partial<ButtonInitialProps> {
+interface Props extends Partial<ButtonInitialProps> {
     theme: Partial<IconButtonTheme>;
 }
 

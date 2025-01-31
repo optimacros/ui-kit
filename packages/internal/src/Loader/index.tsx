@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader as LoaderComponent } from '@optimacros-ui/loader';
+import { Loader as LoaderComponent } from '@optimacros-ui/kit';
 
 export type Theme = {
     buffer?: string;

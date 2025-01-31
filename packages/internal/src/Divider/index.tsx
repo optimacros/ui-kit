@@ -1,4 +1,4 @@
-import { Divider as DividerComponent } from '@optimacros-ui/divider';
+import { Divider as DividerComponent } from '@optimacros-ui/kit';
 import { Orientation } from '@optimacros-ui/utils';
 
 type DividerProps = {

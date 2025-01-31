@@ -17,6 +17,8 @@ export const {
     connect,
 });
 
+export type RootProps = ComponentProps<typeof Root>;
+
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
 

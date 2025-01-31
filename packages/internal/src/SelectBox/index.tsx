@@ -1,7 +1,7 @@
 import React from 'react';
 import type { InputTheme } from '../Input';
 import { Field, Icon, IconButton, Select } from '@optimacros-ui/kit';
-import { Flex } from '@optimacros-ui/flex';
+import { Flex } from '@optimacros-ui/kit';
 
 export type SelectBoxTheme = {
     active: string;

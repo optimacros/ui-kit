@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { TabExtended } from './models';
-import { Flex } from '@optimacros-ui/flex';
+import { Flex } from '@optimacros-ui/kit';
 import { Counter } from './Counter';
-import { Icon } from '@optimacros-ui/icon';
+import { Icon } from '@optimacros-ui/kit';
 import { TabsProps } from './Tabs';
 
 interface Props

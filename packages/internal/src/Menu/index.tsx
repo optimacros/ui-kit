@@ -1,5 +1,5 @@
 import React, { useId } from 'react';
-import { Menu as MenuComponent } from '@optimacros-ui/menu';
+import { Menu as MenuComponent } from '@optimacros-ui/kit';
 
 interface Props {
     title: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Counter as CounterComponent } from '@optimacros-ui/counter';
+import { Counter as CounterComponent } from '@optimacros-ui/kit';
 
 export type NavigationComponentProps = React.PropsWithChildren<{
     route: Record<string, any>;

@@ -1,4 +1,4 @@
-import { Loader } from '@optimacros-ui/loader';
+import { Loader } from '@optimacros-ui/kit';
 
 interface ProgressBar {
     start: () => void;

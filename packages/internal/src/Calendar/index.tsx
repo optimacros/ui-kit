@@ -1,6 +1,6 @@
 import React from 'react';
-import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
-import { Icon } from '@optimacros-ui/icon';
+import { Calendar as CalendarComponent } from '@optimacros-ui/kit';
+import { Icon } from '@optimacros-ui/kit';
 
 interface CalendarProps {
     active?: boolean;

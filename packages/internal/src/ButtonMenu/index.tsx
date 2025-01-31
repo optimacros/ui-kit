@@ -1,6 +1,6 @@
 import React from 'react';
-import { Icon } from '@optimacros-ui/icon';
-import { Menu as MenuComponent } from '@optimacros-ui/menu';
+import { Icon } from '@optimacros-ui/kit';
+import { Menu as MenuComponent } from '@optimacros-ui/kit';
 import { Button, ButtonTheme } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 

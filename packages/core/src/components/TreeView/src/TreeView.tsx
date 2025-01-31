@@ -2,13 +2,13 @@ import React, { ComponentProps, PropsWithChildren } from 'react';
 import * as treeview from '@zag-js/tree-view';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
-interface Node {
+export interface Node {
     id: string;
     name: string;
     children?: Node[];
 }
 
-export const { RootProvider, useApi } = createReactApiStateContext({
+export const { RootProvider, useApi } = createReactApiStateContext<typeof treeview>({
     id: 'tree-view',
     machine: treeview,
 });
@@ -48,7 +48,7 @@ export const Tree = forward<{}, 'div'>((props, ref) => {
     );
 });
 
-interface TreeNodeProps {
+export interface TreeNodeProps {
     node: Node;
     indexPath: number[];
 }

@@ -1,9 +1,9 @@
 import { useId } from 'react';
-import { FileUpload } from '@optimacros-ui/file-upload';
-import { Button } from '@optimacros-ui/button';
-import { IconButton } from '@optimacros-ui/icon-button';
-import { Text } from '@optimacros-ui/text';
-import { adaptAcceptParam } from '@optimacros-ui/utils/src/file';
+import { FileUpload } from '@optimacros-ui/kit';
+import { Button } from '@optimacros-ui/kit';
+import { IconButton } from '@optimacros-ui/kit';
+import { Text } from '@optimacros-ui/kit';
+import { adaptAcceptParam } from '@optimacros-ui/utils';
 
 interface FileInputProps {
     state: {

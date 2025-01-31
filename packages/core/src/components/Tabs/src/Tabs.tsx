@@ -273,7 +273,7 @@ export interface Tab {
     fixed?: boolean;
     disabled?: boolean;
     value: string;
-    index: number;
+    index?: number;
     meta?: Record<string, any>;
 }
 

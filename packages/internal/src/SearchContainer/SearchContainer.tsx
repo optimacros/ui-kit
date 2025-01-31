@@ -1,5 +1,5 @@
-import { Field } from '@optimacros-ui/field';
-import { Icon } from '@optimacros-ui/icon';
+import { Field } from '@optimacros-ui/kit';
+import { Icon } from '@optimacros-ui/kit';
 import { memo, ChangeEvent, KeyboardEvent } from 'react';
 
 export interface SearchContainerProps {

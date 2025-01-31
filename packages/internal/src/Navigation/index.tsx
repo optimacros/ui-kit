@@ -1,6 +1,6 @@
 import React from 'react';
 import { Orientation } from '@optimacros-ui/utils';
-import { Navigation as NavigationComponent } from '@optimacros-ui/navigation';
+import { Navigation as NavigationComponent } from '@optimacros-ui/kit';
 
 type NavigationTheme = {
     horizontal: string;
@@ -14,7 +14,7 @@ type BaseNavigationProps = {
     wrap?: boolean;
 };
 
-export interface Props extends Omit<BaseNavigationProps, 'theme'> {
+interface Props extends Omit<BaseNavigationProps, 'theme'> {
     theme?: Partial<NavigationTheme>;
 }
 
