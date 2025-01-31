@@ -1,0 +1,31 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.0.0 (2025-01-31)
+
+* test: generate image snapshots ([4bd1e80](https://gitlab.optimacros.com/fe/ui-kit/commit/4bd1e80))
+* feat(loader): add FloatingCancelTrigger ([f8b1476](https://gitlab.optimacros.com/fe/ui-kit/commit/f8b1476))
+* feat(loader): add ValueText and CancelTrigger ([764e815](https://gitlab.optimacros.com/fe/ui-kit/commit/764e815))
+* feat(loader): add ValueText and CancelTrigger ([862c60e](https://gitlab.optimacros.com/fe/ui-kit/commit/862c60e))
+* feat(loader): add ValueText component ([c28a5ee](https://gitlab.optimacros.com/fe/ui-kit/commit/c28a5ee))
+* feat(loader): add ValueText component ([7659184](https://gitlab.optimacros.com/fe/ui-kit/commit/7659184))
+* feat(loader): update docs ([6bbcbd9](https://gitlab.optimacros.com/fe/ui-kit/commit/6bbcbd9))
+* feat(monorepo): added monorepo ([1a4fa98](https://gitlab.optimacros.com/fe/ui-kit/commit/1a4fa98))
+* feat(packages): migration to individual components ([2fbb32f](https://gitlab.optimacros.com/fe/ui-kit/commit/2fbb32f))
+* feat(state-context): rewrite ([1ca44ee](https://gitlab.optimacros.com/fe/ui-kit/commit/1ca44ee))
+* feat(styles): changes ([6fac204](https://gitlab.optimacros.com/fe/ui-kit/commit/6fac204))
+* feat(type-check): refactor ([62a00d8](https://gitlab.optimacros.com/fe/ui-kit/commit/62a00d8))
+* feat(utils): created package ([a43542e](https://gitlab.optimacros.com/fe/ui-kit/commit/a43542e))
+* fix: fixed build errors ([9baa950](https://gitlab.optimacros.com/fe/ui-kit/commit/9baa950))
+* fix(components): a lot of fixing ([8756599](https://gitlab.optimacros.com/fe/ui-kit/commit/8756599))
+* fix(loader): fix merge ([4f7099a](https://gitlab.optimacros.com/fe/ui-kit/commit/4f7099a))
+* fix(loader): fix ValueText position ([935bd73](https://gitlab.optimacros.com/fe/ui-kit/commit/935bd73))
+* fix(loader): fix ValueText position ([2cc5521](https://gitlab.optimacros.com/fe/ui-kit/commit/2cc5521))
+* fix(storybook): build ([a28792d](https://gitlab.optimacros.com/fe/ui-kit/commit/a28792d))
+* refactor(loader): change CancelTrigger and ValueText styling ([3be3711](https://gitlab.optimacros.com/fe/ui-kit/commit/3be3711))
+* refactor(loader): change CancelTrigger and ValueText styling ([b2eff65](https://gitlab.optimacros.com/fe/ui-kit/commit/b2eff65))
+* refactor(loader): convert tw styles into css ([1fa6c5b](https://gitlab.optimacros.com/fe/ui-kit/commit/1fa6c5b))
+* chore: update package-lock ([a93ea70](https://gitlab.optimacros.com/fe/ui-kit/commit/a93ea70))
+* chore(ui-kit): migrate components ([3437b2d](https://gitlab.optimacros.com/fe/ui-kit/commit/3437b2d))

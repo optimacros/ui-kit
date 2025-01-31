@@ -1,0 +1,35 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.0.0 (2025-01-31)
+
+* feat(test): added tests ([208c941](https://gitlab.optimacros.com/fe/ui-kit/commit/208c941))
+* fix(components): a lot of fixing ([8756599](https://gitlab.optimacros.com/fe/ui-kit/commit/8756599))
+* fix(snackbar): button status ([6b7ec23](https://gitlab.optimacros.com/fe/ui-kit/commit/6b7ec23))
+* fix(snackbar): minor fixes ([edcbaf1](https://gitlab.optimacros.com/fe/ui-kit/commit/edcbaf1))
+
+
+
+## <small>1.0.7-storybook-v3 (2024-12-25)</small>
+
+* fix: temp ([ee8fef1](https://gitlab.optimacros.com/fe/ui-kit/commit/ee8fef1))
+* fix(button): added old button ([6fb4b4f](https://gitlab.optimacros.com/fe/ui-kit/commit/6fb4b4f))
+* fix(storybook): build ([a28792d](https://gitlab.optimacros.com/fe/ui-kit/commit/a28792d))
+* fix(storybook): fix storybook config ([75d086a](https://gitlab.optimacros.com/fe/ui-kit/commit/75d086a))
+* fix(styles): styles and bugs ([7c64d4c](https://gitlab.optimacros.com/fe/ui-kit/commit/7c64d4c))
+* feat: button ([a3cb99c](https://gitlab.optimacros.com/fe/ui-kit/commit/a3cb99c))
+* feat: commit ([28278c5](https://gitlab.optimacros.com/fe/ui-kit/commit/28278c5))
+* feat: temp ([20fc49b](https://gitlab.optimacros.com/fe/ui-kit/commit/20fc49b))
+* feat(button): changed butoon and iconbutton ([50ebb4d](https://gitlab.optimacros.com/fe/ui-kit/commit/50ebb4d))
+* feat(components): refactor + tabs ([7ee8f2a](https://gitlab.optimacros.com/fe/ui-kit/commit/7ee8f2a))
+* feat(monorepo): added monorepo ([1a4fa98](https://gitlab.optimacros.com/fe/ui-kit/commit/1a4fa98))
+* feat(packages): migration to individual components ([2fbb32f](https://gitlab.optimacros.com/fe/ui-kit/commit/2fbb32f))
+* feat(state-context): added functionality ([864f6e4](https://gitlab.optimacros.com/fe/ui-kit/commit/864f6e4))
+* feat(styles): changes ([6fac204](https://gitlab.optimacros.com/fe/ui-kit/commit/6fac204))
+* feat(tabs): added methods ([1c9c9ec](https://gitlab.optimacros.com/fe/ui-kit/commit/1c9c9ec))
+* feat(tabs): hidden ([72631bf](https://gitlab.optimacros.com/fe/ui-kit/commit/72631bf))
+* feat(utils): created package ([a43542e](https://gitlab.optimacros.com/fe/ui-kit/commit/a43542e))
+* UKF-212 Btn ([e92b1ed](https://gitlab.optimacros.com/fe/ui-kit/commit/e92b1ed))
+* chore(ui-kit): migrate components ([3437b2d](https://gitlab.optimacros.com/fe/ui-kit/commit/3437b2d))

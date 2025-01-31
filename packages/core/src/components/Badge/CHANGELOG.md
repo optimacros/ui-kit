@@ -1,0 +1,18 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.0.0 (2025-01-31)
+
+* test: generate image snapshots ([4bd1e80](https://gitlab.optimacros.com/fe/ui-kit/commit/4bd1e80))
+* feat(type-check): refactor ([62a00d8](https://gitlab.optimacros.com/fe/ui-kit/commit/62a00d8))
+* fix: few minor ts fixes ([7cf47e7](https://gitlab.optimacros.com/fe/ui-kit/commit/7cf47e7))
+
+
+
+## <small>1.0.7-storybook-v3 (2024-12-25)</small>
+
+* fix(styles): styles and bugs ([7c64d4c](https://gitlab.optimacros.com/fe/ui-kit/commit/7c64d4c))
+* feat(badge): added badge ([62ee5b3](https://gitlab.optimacros.com/fe/ui-kit/commit/62ee5b3))
+* feat(segmented-control): added ([f82676e](https://gitlab.optimacros.com/fe/ui-kit/commit/f82676e))
