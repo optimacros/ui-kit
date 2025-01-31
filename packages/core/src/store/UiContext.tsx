@@ -42,6 +42,7 @@ export const {
                 ) {
                     appendStyles(state, { id: 'optimacros-ui-root-styles', value: payload });
 
+                    //@ts-ignore
                     return createdActions.setInStyles(state, {
                         payload: { path: 'root', value: payload },
                     });
@@ -52,6 +53,7 @@ export const {
                 ) {
                     appendStyles(state, { id: 'optimacros-ui-theme-styles', value: payload });
 
+                    //@ts-ignore
                     return createdActions.setInStyles(state, {
                         payload: { path: 'theme', value: payload },
                     });

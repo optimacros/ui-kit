@@ -33,9 +33,6 @@ const config: StorybookConfig = {
         reactDocgen: 'react-docgen-typescript',
     },
     staticDirs: [{ from: '../packages/themes/src', to: 'assets/themes' }],
-    features: {
-        interactionsDebugger: true,
-    },
 };
 
 export default config;

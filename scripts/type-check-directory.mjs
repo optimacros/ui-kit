@@ -4,19 +4,16 @@ import path from 'path';
 import { compile, parseTsConfig } from './type-check.mjs';
 
 const pathIndex = process.argv.slice(2).findIndex((v) => v === '--dir') + 1;
-const [dirPath, extensionsPath] = process.argv.slice(2).at(pathIndex).split('/**/*');
+const dirPath = process.argv.slice(2).at(pathIndex);
 
-const extensions = extensionsPath
-    .split(',')
-    .map((v) => v.replace('{', '').replace('}', '').replaceAll(' ', ''));
+const extensions = ['.ts', '.tsx'];
 
 // filter
-const tsConfig = parseTsConfig(dirPath);
+const tsConfig = parseTsConfig('tsconfig.json');
 
 const result = compile(
     tsConfig.fileNames.filter(
-        (file) =>
-            extensions.some((v) => `.${v}` === path.extname(file)) && !file.includes('stories'),
+        (file) => extensions.some((v) => v === path.extname(file)) && !file.includes('stories'),
     ),
     tsConfig.options,
 );
@@ -31,4 +28,3 @@ if (result.length > 0) {
 
 console.info('no errors found, success');
 process.exit(0);
-// getFiles(dirPath).then((files) => compile(files, tsConfig));

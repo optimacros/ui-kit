@@ -15,7 +15,7 @@ export const CancelTrigger = forward<React.PropsWithChildren, 'button'>(
     { displayName: 'CancelTrigger' },
 );
 
-export const FloatingCancelTrigger = forward<React.PropsWithChildren, 'div'>(
+export const FloatingCancelTrigger = forward<React.PropsWithChildren, 'button'>(
     (props, ref) => <CancelTrigger {...props} ref={ref} data-state="floating" />,
     { displayName: 'FloatingCancelTrigger' },
 );

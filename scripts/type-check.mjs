@@ -3,8 +3,8 @@ import path from 'path';
 
 const globalsPath = path.join(process.cwd(), 'scripts', 'import-globals.ts');
 
-export const ignoreFiles = ['.stories'];
-export const ignoreDirectories = ['node_modules', 'stories'];
+export const ignoreFiles = [];
+export const ignoreDirectories = ['node_modules'];
 
 export function compile(fileName, options) {
     const program = ts.createProgram([globalsPath, ...fileName], options);

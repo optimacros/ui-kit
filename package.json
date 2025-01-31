@@ -31,9 +31,7 @@
         "rebase": "node ./scripts/rebase.js --main=main",
         "rebase:continue": "npm run rebase -- --continue",
         "reinstall": "node ./scripts/reinstall.js",
-        "type-check": "node ./scripts/type-check-directory.mjs packages/**/*.{ts,tsx}",
-        "type-check:core": "node ./scripts/type-check-directory.mjs --dir packages/core/**/*.{ts,tsx}",
-        "type-check:store": "node ./scripts/type-check-directory.mjs --dir packages/store/**/*.{ts,tsx}"
+        "type:check": "tsc --pretty --noEmit"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",

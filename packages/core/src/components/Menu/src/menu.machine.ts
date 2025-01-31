@@ -45,7 +45,6 @@ export const connect: ConnectMachine<Machine> = (api, { state, send }, machine) 
     return {
         ...api,
         orientation: state.context.orientation,
-        isSubmenuVisible: state.context.isSubmenuVisible,
         setOrientation(orientation) {
             send({ type: 'ORIENTATION.SET', value: orientation });
         },

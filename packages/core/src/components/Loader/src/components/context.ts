@@ -35,7 +35,7 @@ const options = {
                 return;
             }
 
-            if (ctx.isAtMax && !ctx.infinite) {
+            if (ctx.max === ctx.value && !ctx.infinite) {
                 ctx.value = 0;
             }
 
@@ -44,7 +44,7 @@ const options = {
             const timer = setInterval(() => {
                 ctx.value += ctx.step;
 
-                if (ctx.isAtMax) {
+                if (ctx.max === ctx.value) {
                     if (!ctx.infinite) {
                         send('STOP');
                     } else {
