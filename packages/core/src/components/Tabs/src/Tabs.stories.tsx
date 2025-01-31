@@ -12,14 +12,20 @@ const argTypes: Partial<ArgTypes> = {
         table: {
             type: { summary: 'Tab[]' },
         },
+        type: { name: 'array', required: true, value: null },
     },
-    value: { control: 'text', description: 'Active tab id' },
+    value: {
+        control: 'text',
+        description: 'Active tab id',
+        type: { name: 'string', required: true },
+    },
     onValueChange: {
         control: false,
         description: 'Callback called on tab (de)select',
         table: {
             type: { summary: '(newActiveTabId?: string) => void' },
         },
+        type: { name: 'function', required: true },
     },
     onPositionChange: {
         control: false,
@@ -28,9 +34,41 @@ const argTypes: Partial<ArgTypes> = {
             type: { summary: '(newTabs: Tab[]) => void' },
         },
     },
+    activationMode: {
+        control: 'select',
+        options: ['manual', 'automatic'],
+        description:
+            'The activation mode of the tabs. Can be `manual` or `automatic` - `manual`: Tabs are activated when clicked or press `enter` key. - `automatic`: Tabs are activated when receiving focus',
+        table: {
+            type: { summary: 'manual | automatic' },
+            defaultValue: { summary: 'automatic' },
+        },
+    },
+    loopFocus: {
+        control: 'boolean',
+        description:
+            'Whether the keyboard navigation will loop from last tab to first, and vice versa',
+        table: {
+            defaultValue: { summary: 'true' },
+        },
+    },
     deselectable: {
         control: 'boolean',
         description: 'Whether tab can be deselected',
+        table: {
+            defaultValue: { summary: 'false' },
+        },
+    },
+    tabsHidden: {
+        control: 'boolean',
+        description: 'Whether tabs are hidden',
+        table: {
+            defaultValue: { summary: 'false' },
+        },
+    },
+    useWheel: {
+        control: 'boolean',
+        description: 'Whether wheel scroll is enabled',
         table: {
             defaultValue: { summary: 'false' },
         },
@@ -53,14 +91,12 @@ const argTypes: Partial<ArgTypes> = {
             defaultValue: { summary: 'horizontal' },
         },
     },
-    activationMode: {
-        control: 'select',
-        options: ['manual', 'automatic'],
+    draggable: {
+        control: 'boolean',
         description:
-            'The activation mode of the tabs. Can be `manual` or `automatic` - `manual`: Tabs are activated when clicked or press `enter` key. - `automatic`: Tabs are activated when receiving focus',
+            'Whether tabs are draggable. `onTabsChange` should be provided and `tabs` must be updated',
         table: {
-            type: { summary: 'manual | automatic' },
-            defaultValue: { summary: 'manual' },
+            defaultValue: { summary: 'false' },
         },
     },
     draggableMode: {
@@ -70,27 +106,6 @@ const argTypes: Partial<ArgTypes> = {
         table: {
             type: { summary: 'DraggableMode' },
             defaultValue: { summary: 'ordered' },
-        },
-    },
-    draggable: {
-        control: 'boolean',
-        description: 'Whether tabs are draggable',
-        table: {
-            defaultValue: { summary: 'false' },
-        },
-    },
-    tabsHidden: {
-        control: 'boolean',
-        description: 'Whether tabs are hidden',
-        table: {
-            defaultValue: { summary: 'false' },
-        },
-    },
-    useWheel: {
-        control: 'boolean',
-        description: 'Whether wheel scroll is enabled',
-        table: {
-            defaultValue: { summary: 'false' },
         },
     },
 };
@@ -103,29 +118,27 @@ const meta: Meta<typeof Tabs.Root> = {
 
 export default meta;
 
-const items: Tab[] = createTabs(20);
+const items: Tab[] = createTabs();
 
 type Story = StoryObj<typeof Tabs.Root>;
 
 export const Base: Story = {
     args: {
         tabs: items,
+        value: items[0].id,
         activationMode: 'manual',
+        loopFocus: true,
         deselectable: true,
-        controllable: true,
         useWheel: true,
-        variant: 'primary',
+        tabsHidden: true,
     },
     render: stories.Base,
 };
 
-export const Secondary: Story = {
+export const VariantSecondary: Story = {
     args: {
         tabs: items,
-        activationMode: 'manual',
-        deselectable: true,
-        controllable: true,
-        useWheel: true,
+        value: items[0].id,
         variant: 'secondary',
     },
     render: stories.Base,
@@ -134,10 +147,7 @@ export const Secondary: Story = {
 export const BaseVertical: Story = {
     args: {
         tabs: items,
-        activationMode: 'manual',
-        deselectable: true,
-        controllable: true,
-        useWheel: true,
+        value: items[0].id,
         orientation: 'vertical',
     },
     render: stories.BaseVertical,
@@ -146,10 +156,7 @@ export const BaseVertical: Story = {
 export const DraggableOrdered: Story = {
     args: {
         tabs: items,
-        activationMode: 'manual',
-        deselectable: true,
-        controllable: true,
-        useWheel: true,
+        value: items[0].id,
         draggable: true,
         draggableMode: 'ordered',
     },
@@ -157,14 +164,10 @@ export const DraggableOrdered: Story = {
     play: scenarios.draggable,
 };
 
-//TODO: fix scroll problem
 export const DraggableSwap: Story = {
     args: {
         tabs: items,
-        activationMode: 'manual',
-        deselectable: true,
-        controllable: true,
-        useWheel: true,
+        value: items[0].id,
         draggable: true,
         draggableMode: 'swap',
     },

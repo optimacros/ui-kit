@@ -1,59 +1,42 @@
 import { useState } from 'react';
-import { flushSync } from 'react-dom';
 
 import { Tabs } from '../';
 import { Button } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
-import { Menu } from '@optimacros-ui/menu';
-import { IconButton } from '@optimacros-ui/icon-button';
 import { Tab, TabsProps } from '../models';
-import { Controls } from './components';
 import { Flex } from '@optimacros-ui/flex';
 
-export const BaseVertical = (props: TabsProps) => {
-    const [tabs, setTabs] = useState<Tab[]>(props.tabs);
+export const BaseVertical = ({ tabs: tabsProp, value: valueProp, ...rest }: TabsProps) => {
+    const [tabs] = useState<Tab[]>(tabsProp);
+    const [value, setValue] = useState(valueProp);
+
+    const handleValueChange = (newValue: string) => {
+        setValue(newValue);
+    };
 
     return (
-        <Tabs.Root onTabsChange={(t) => flushSync(() => setTabs(t))} {...props}>
-            <Controls setTabs={setTabs} />
-
+        <Tabs.Root {...rest} tabs={tabs} value={value} onValueChange={handleValueChange}>
             <Flex gap="2">
                 <Tabs.List style={{ height: '10rem' }}>
                     {tabs.map((tab) => (
-                        <Tabs.Trigger value={tab.value} key={tab.value} index={tab.index}>
+                        <Tabs.Trigger
+                            key={tab.id}
+                            id={tab.id}
+                            fixed={tab.fixed}
+                            disabled={tab.disabled}
+                        >
                             <Button variant="transparent">
                                 <Icon value="article" />
-                                {tab.value}
+                                {tab.title}
                             </Button>
                         </Tabs.Trigger>
                     ))}
                 </Tabs.List>
             </Flex>
-            <Tabs.Menu.Root>
-                <Tabs.Menu.Trigger asChild>
-                    <IconButton icon="settings" />
-                </Tabs.Menu.Trigger>
-                <Tabs.Menu.Content size="sm">
-                    <Tabs.Menu.List>
-                        <Tabs.HiddenTabsList>
-                            {(props) => (
-                                <Menu.Item
-                                    {...props}
-                                    key={props.value}
-                                    valueText={props.value}
-                                    closeOnSelect
-                                >
-                                    {props.value}
-                                </Menu.Item>
-                            )}
-                        </Tabs.HiddenTabsList>
-                    </Tabs.Menu.List>
-                </Tabs.Menu.Content>
-            </Tabs.Menu.Root>
 
-            {tabs.map((item) => (
-                <Tabs.Content value={item.value} key={item.value}>
-                    {item.content}
+            {tabs.map((tab) => (
+                <Tabs.Content key={tab.id} id={tab.id}>
+                    {tab.content}
                 </Tabs.Content>
             ))}
         </Tabs.Root>

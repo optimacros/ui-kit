@@ -4,8 +4,10 @@ import { Tabs } from '..';
 export type TabsProps = ComponentProps<typeof Tabs.RootProvider>;
 
 export interface Tab {
-    /** Tab title */
-    value: string;
+    /** Tab id */
+    id: string;
+    /** Tab title content*/
+    title: ReactNode;
     /** Tab content */
     content: ReactNode;
     meta?: Record<string, any>;
@@ -13,8 +15,6 @@ export interface Tab {
     fixed?: boolean;
     /** Tab is disabled */
     disabled?: boolean;
-    /** да, просто запусти мап и добавь индекс к своим табам */
-    index: number;
 }
 
 export type DraggableMode = 'ordered' | 'swap';
