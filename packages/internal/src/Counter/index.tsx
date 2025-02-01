@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React from 'react';
-import { Counter as CounterComponent } from '@optimacros-ui/kit';
+import { Counter as CounterComponent } from '@optimacros-ui/counter';
 
 export type NavigationComponentProps = React.PropsWithChildren<{
     route: Record<string, any>;

@@ -2,8 +2,11 @@
 
 import React from 'react';
 import type { InputTheme } from '../Input';
-import { Field, Icon, IconButton, Select } from '@optimacros-ui/kit';
-import { Flex } from '@optimacros-ui/kit';
+import { Field } from '@optimacros-ui/field';
+import { Icon } from '@optimacros-ui/icon';
+import { IconButton } from '@optimacros-ui/icon-button';
+import { Select } from '@optimacros-ui/select';
+import { Flex } from '@optimacros-ui/flex';
 
 export type SelectBoxTheme = {
     active: string;

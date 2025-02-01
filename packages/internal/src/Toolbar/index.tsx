@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
-import { Toolbar as UIToolbar } from '@optimacros-ui/kit';
-import { Flex } from '@optimacros-ui/kit';
+import { Toolbar as UIToolbar } from '@optimacros-ui/toolbar';
+import { Flex } from '@optimacros-ui/flex';
 import { Align } from '@optimacros-ui/utils';
 
 export interface ToolbarProps extends PropsWithChildren {

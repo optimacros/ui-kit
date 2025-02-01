@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, { useEffect } from 'react';
-import { Menu } from '@optimacros-ui/kit';
+import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 
 interface Props extends RCDropdownProps {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from 'react';
-import { IconButton } from '@optimacros-ui/kit';
-import { Flex } from '@optimacros-ui/kit';
+import { IconButton } from '@optimacros-ui/icon-button';
+import { Flex } from '@optimacros-ui/flex';
 import { SelectBox, type SelectBoxProps as BaseSelectBoxProps } from '@optimacros-ui/kit-internal';
 
 export interface Item {

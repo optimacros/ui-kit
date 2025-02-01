@@ -8,8 +8,8 @@ import {
     getVariant,
     getFloatStyles,
 } from '@optimacros-ui/kit-internal';
-import { IconButton as IconButtonCore } from '@optimacros-ui/kit';
-import { Icon } from '@optimacros-ui/kit';
+import { IconButton as IconButtonCore } from '@optimacros-ui/icon-button';
+import { Icon } from '@optimacros-ui/icon';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 

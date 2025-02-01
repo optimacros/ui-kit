@@ -1,9 +1,9 @@
 //@ts-nocheck
 
 import React from 'react';
-import { Loader as LoaderComponent } from '@optimacros-ui/kit';
+import { Loader as LoaderComponent } from '@optimacros-ui/loader';
 
-export type Theme = {
+export type LoaderTheme = {
     buffer?: string;
     circle?: string;
     circular?: string;
@@ -23,7 +23,7 @@ export type LoaderProps = {
     type?: 'linear' | 'circular';
     value?: number;
     multicolor?: boolean;
-    theme?: Theme;
+    theme?: LoaderTheme;
     innerRef?: React.RefObject<HTMLDivElement>;
     disabled?: boolean;
 };

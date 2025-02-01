@@ -2,9 +2,9 @@
 
 import { memo, ReactElement, useEffect, useState, Children, useMemo } from 'react';
 
-import { Tabs as UITabs } from '@optimacros-ui/kit';
+import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
-import { Flex } from '@optimacros-ui/kit';
+import { Flex } from '@optimacros-ui/flex';
 import { TabButton } from './TabButton';
 import { flushSync } from 'react-dom';
 

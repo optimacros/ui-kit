@@ -1,4 +1,4 @@
-import { Tooltip as UITooltip } from '@optimacros-ui/kit';
+import { Tooltip as UITooltip } from '@optimacros-ui/tooltip';
 import {
     ComponentClass,
     FC,
@@ -11,9 +11,9 @@ import {
 import { TooltipPosition, TooltipTheme } from './models';
 import { RootElement } from './components/RootElement';
 import { clsx, includes, isNumber } from '@optimacros-ui/utils';
-import { Text } from '@optimacros-ui/kit';
+import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
-import { Flex } from '@optimacros-ui/kit';
+import { Flex } from '@optimacros-ui/flex';
 
 export interface TooltipProps extends PropsWithChildren {
     className?: string;

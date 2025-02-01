@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, { Children, isValidElement } from 'react';
-import { RadioGroup as RadioGroupComponent } from '@optimacros-ui/kit';
+import { RadioGroup as RadioGroupComponent } from '@optimacros-ui/radio-group';
 
 interface RadioGroupProps {
     options?: any[];

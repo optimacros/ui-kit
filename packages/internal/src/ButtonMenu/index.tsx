@@ -1,14 +1,14 @@
 //@ts-nocheck
 
 import React from 'react';
-import { Icon } from '@optimacros-ui/kit';
-import { Menu as MenuComponent } from '@optimacros-ui/kit';
+import { Icon } from '@optimacros-ui/icon';
+import { Menu as MenuComponent } from '@optimacros-ui/menu';
 import { Button, ButtonTheme } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 
 export type ButtonMenuTheme = Partial<ButtonTheme>;
 
-export type Props = {
+type Props = {
     label?: string;
     disabled?: boolean;
     className?: string;

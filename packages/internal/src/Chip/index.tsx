@@ -1,7 +1,7 @@
 //@ts-nocheck
 
-import { Icon } from '@optimacros-ui/kit';
-import { Chip as ChipComponent } from '@optimacros-ui/kit';
+import { Icon } from '@optimacros-ui/icon';
+import { Chip as ChipComponent } from '@optimacros-ui/chip';
 import React, { ReactNode, MouseEventHandler } from 'react';
 
 export type ChipTheme = {

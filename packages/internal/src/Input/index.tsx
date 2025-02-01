@@ -3,8 +3,8 @@
 import React, { useId } from 'react';
 import type { TextareaHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
 import { isNull, isUndefined } from '@optimacros-ui/utils';
-import { Icon } from '@optimacros-ui/kit';
-import { Field } from '@optimacros-ui/kit';
+import { Icon } from '@optimacros-ui/icon';
+import { Field } from '@optimacros-ui/field';
 
 export type InputTheme = {
     bar: string;

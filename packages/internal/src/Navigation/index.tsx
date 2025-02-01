@@ -1,6 +1,6 @@
 import React from 'react';
 import { Orientation } from '@optimacros-ui/utils';
-import { Navigation as NavigationComponent } from '@optimacros-ui/kit';
+import { Navigation as NavigationComponent } from '@optimacros-ui/navigation';
 
 type NavigationTheme = {
     horizontal: string;

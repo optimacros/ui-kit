@@ -1,6 +1,6 @@
 import React, { type ButtonHTMLAttributes } from 'react';
-import { Button as ButtonComponent } from '@optimacros-ui/kit';
-import { Icon } from '@optimacros-ui/kit';
+import { Button as ButtonComponent } from '@optimacros-ui/button';
+import { Icon } from '@optimacros-ui/icon';
 
 export type ThemeButtonProps = {
     button: string;

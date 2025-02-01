@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, { useId } from 'react';
-import { Field as FieldComponent } from '@optimacros-ui/kit';
+import { Field as FieldComponent } from '@optimacros-ui/field';
 
 export type TextAreaProps = {
     error?: React.ReactNode;

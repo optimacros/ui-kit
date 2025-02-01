@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import React, { useId } from 'react';
-import { Menu as MenuComponent } from '@optimacros-ui/kit';
+import { Menu as MenuComponent } from '@optimacros-ui/menu';
 
 interface Props {
     title: string;

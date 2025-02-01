@@ -2,7 +2,7 @@
 
 import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
 import { Tooltip } from '@optimacros-ui/kit-internal';
-import { Checkbox as CheckboxCore } from '@optimacros-ui/kit';
+import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 
 export interface CheckboxComponentProps extends InitialProps {
     theme: Required<CheckboxTheme>;

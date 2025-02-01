@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import { Loader } from '@optimacros-ui/kit';
+import { Loader } from '@optimacros-ui/loader';
 
 interface ProgressBar {
     start: () => void;
