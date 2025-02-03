@@ -76,7 +76,9 @@ nexus-push-job:
     - if: ($pushNexus == "true")
   allow_failure: true
   needs:
-    - lint-test
+    - lint
+    - typescript
+    - storybook
   tags:
     - ${runner}
   script:
