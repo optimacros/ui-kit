@@ -21,7 +21,9 @@ workflow:
 
 stages:
   - build
-  - test
+  - lint
+  - typescript-test
+  - storybook-test
   - deploy
   - nexus
 
@@ -37,14 +39,33 @@ build:
     - ${runner}
 
 # tests
-lint-test:
-  stage: test
+lint:
+  stage: lint
   variables:
     GIT_STRATEGY: none
   tags:
     - ${runner}
   script:
     - nvm use && npm run lint
+
+typescript:
+  stage: typescript-test
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ${runner}
+  script:
+    - nvm use && npm run type:check
+
+storybook:
+  stage: storybook-test
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ${runner}
+  script:
+  # TODO
+    - nvm use
 
 # push artefacts to nexus
 nexus-push-job:
