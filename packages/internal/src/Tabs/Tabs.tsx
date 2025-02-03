@@ -14,33 +14,16 @@ interface Props {
 
 const TabsContent = memo<Props>(
     ({ theme, headerClassName: headerClassNameProp, contentClassName: contentClassNameProp }) => {
-        const draggable = UITabs.useSelector((api) => api.draggable);
-
         const headerClassName = clsx(headerClassNameProp, theme.TabHeaderContainer);
         const contentContainerClassName = clsx(contentClassNameProp, theme.TabContent);
 
         return (
             <>
-                <UITabs.List className={headerClassName}>
+                <UITabs.List className={headerClassName} as="nav">
                     {(tabs) =>
-                        (tabs as TabExtended[]).map((tab) => {
-                            const { id, disabled, meta } = tab;
-
-                            return draggable ? (
-                                <UITabs.DraggableTrigger
-                                    key={id}
-                                    id={id}
-                                    disabled={disabled}
-                                    nonDraggable={meta.nonDraggable}
-                                >
-                                    <TabButton tab={tab} theme={theme} />
-                                </UITabs.DraggableTrigger>
-                            ) : (
-                                <UITabs.Trigger key={id} id={id} disabled={disabled}>
-                                    <TabButton tab={tab} theme={theme} />
-                                </UITabs.Trigger>
-                            );
-                        })
+                        (tabs as TabExtended[]).map((tab) => (
+                            <TabButton key={tab.id} tab={tab} theme={theme} />
+                        ))
                     }
                 </UITabs.List>
 
