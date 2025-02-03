@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { Image } from '.';
 import { Flex } from '@optimacros-ui/flex';

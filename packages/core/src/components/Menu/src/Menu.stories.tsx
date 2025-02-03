@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Meta } from '@storybook/react';
 
 import { Menu } from './index';

@@ -14,7 +14,7 @@ type BaseNavigationProps = {
     wrap?: boolean;
 };
 
-export interface Props extends Omit<BaseNavigationProps, 'theme'> {
+interface Props extends Omit<BaseNavigationProps, 'theme'> {
     theme?: Partial<NavigationTheme>;
 }
 

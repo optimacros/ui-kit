@@ -1,2 +1,2 @@
-export * from './MemoryCounter.tsx';
-export * from './types.ts';
+export * from './MemoryCounter';
+export * from './types';

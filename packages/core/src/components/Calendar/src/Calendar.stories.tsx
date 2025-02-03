@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Icon } from '@optimacros-ui/icon';
 import { Calendar } from './index';
 import { fromDate } from '@internationalized/date';

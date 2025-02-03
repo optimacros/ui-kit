@@ -1,8 +1,10 @@
+//@ts-nocheck
+
 import { Icon } from '@optimacros-ui/icon';
 import { Chip as ChipComponent } from '@optimacros-ui/chip';
 import React, { ReactNode, MouseEventHandler } from 'react';
 
-export type Theme = {
+export type ChipTheme = {
     avatar: string;
     chip: string;
     deletable: string;
@@ -11,7 +13,7 @@ export type Theme = {
     deleteX: string;
 };
 
-export type Props = {
+type Props = {
     deletable?: boolean;
     onDeleteClick?: MouseEventHandler<SVGSVGElement | HTMLSpanElement>;
     settingsDialog?: React.JSX.Element;

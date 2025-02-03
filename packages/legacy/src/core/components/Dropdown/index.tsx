@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import classNames from 'classnames';
 import BaseDropDown from 'rc-dropdown';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';

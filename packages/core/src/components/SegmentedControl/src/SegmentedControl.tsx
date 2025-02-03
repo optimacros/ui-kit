@@ -2,7 +2,7 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import * as radio from '@zag-js/radio-group';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export const { RootProvider, useApi, State } = createReactApiStateContext({
+export const { RootProvider, useApi } = createReactApiStateContext({
     id: 'radio',
     machine: radio,
     connect(api, { state, send }, machine) {

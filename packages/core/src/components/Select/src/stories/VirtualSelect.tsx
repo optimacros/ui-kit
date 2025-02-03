@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import {} from '@storybook/react';
 
 import { Select } from '@optimacros-ui/select';

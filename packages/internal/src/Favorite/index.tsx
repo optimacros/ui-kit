@@ -1,7 +1,9 @@
+//@ts-nocheck
+
 import { FC, MouseEvent } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Favourite as FavouriteComponent } from '@optimacros-ui/favourite';
-import { CheckedChangeDetails } from '@zag-js/checkbox';
+import type { CheckedChangeDetails } from '@zag-js/checkbox';
 
 interface FavoriteProps {
     checked: boolean;

@@ -2,7 +2,7 @@ import { Toast, ToastGroup } from '@optimacros-ui/toast';
 import { Button } from '@optimacros-ui/button';
 import { memo, ReactNode, useEffect, useMemo } from 'react';
 import { SnackbarType } from '../models';
-import { isNil } from 'lodash-es';
+import { isNil } from '@optimacros-ui/utils';
 import { clsx } from '@optimacros-ui/utils';
 import { Button as DefaultButton } from '@optimacros-ui/button';
 import { Text } from '@optimacros-ui/text';

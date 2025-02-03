@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useRef, KeyboardEvent, useCallback } from 'react';
-import { MarkdownEditor as MDE } from '@optimacros-ui/kit/src/components/MarkdownEditor/src';
+import { MarkdownEditor as MDE } from '@optimacros-ui/markdown-editor';
 
 import { ResizableBox } from 'react-resizable';
 import 'node_modules/react-resizable/css/styles.css';

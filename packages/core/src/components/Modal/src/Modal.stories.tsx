@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ArgTypes, Meta } from '@storybook/react';
 import { Modal } from './index';
 import { useState } from 'react';

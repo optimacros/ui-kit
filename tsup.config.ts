@@ -7,8 +7,7 @@ export default defineConfig({
     clean: true,
     treeshake: true,
     target: 'es2020',
-    //temporary
-    dts: false,
+    dts: true,
     splitting: true,
     platform: 'browser',
     outDir: 'dist',
@@ -16,4 +15,8 @@ export default defineConfig({
     loader: {
         '.css': 'local-css',
     },
+    minifySyntax: true,
+    minify: true,
+    minifyWhitespace: true,
+    minifyIdentifiers: true,
 });

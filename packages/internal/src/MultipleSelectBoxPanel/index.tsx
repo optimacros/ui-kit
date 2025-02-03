@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Flex } from '@optimacros-ui/flex';

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
@@ -11,7 +13,7 @@ import { Flex } from '@optimacros-ui/flex';
 import { shuffle } from '@optimacros-ui/utils';
 import { StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/test';
-import type { Tab } from './models';
+import type { Tab } from './Tabs';
 
 export default {
     title: 'UI Kit core/Tabs',

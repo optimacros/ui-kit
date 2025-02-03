@@ -19,7 +19,7 @@ reports
 coverage
 
 lib
-
+logs
 dist
 
 src/version.json

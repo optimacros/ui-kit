@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react';
 import { RootProvider, useProxySelector } from './context';
 import { forward, styled } from '@optimacros-ui/store';
+import { isFunction } from '@optimacros-ui/utils';
 
 export type Props = ComponentProps<typeof RootProvider>;
 
@@ -10,7 +11,7 @@ export const Root = forward<Props, 'div'>(
             <RootProvider {...context}>
                 {(api) => (
                     <styled.div ref={ref} {...api.getRootProps()}>
-                        {children}
+                        {isFunction(children) ? children(api) : children}
                     </styled.div>
                 )}
             </RootProvider>

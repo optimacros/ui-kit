@@ -13,10 +13,10 @@
         "@optimacros-ui/types": "^0.0.2",
         "@optimacros-ui/utils": "^0.0.2",
         "@zag-js/react": "0.77.0",
+        "@zag-js/core": "0.77.0",
         "immutable": "4.3.5",
         "proxy-memoize": "3.0.1"
     },
-
     "peerDependencies": {
         "react": "18.2.0"
     }

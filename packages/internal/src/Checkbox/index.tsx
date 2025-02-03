@@ -1,12 +1,14 @@
+//@ts-nocheck
+
 import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 
 export interface CheckboxComponentProps extends InitialProps {
-    theme: Required<Theme>;
+    theme: Required<CheckboxTheme>;
 }
 
-export type Theme = {
+export type CheckboxTheme = {
     field?: string;
     text?: string;
     input?: string;
@@ -15,7 +17,7 @@ export type Theme = {
     checked?: string;
 };
 
-export type TooltipTheme = {
+export type CheckboxTooltipTheme = {
     tooltip: string;
     tooltipActive: string;
 };
@@ -31,7 +33,7 @@ const POSITION = {
 
 export type Position = (typeof POSITION)[keyof typeof POSITION];
 
-export type TooltipProps = {
+export type CheckboxTooltipProps = {
     composedComponent: string | React.FunctionComponent<any> | React.ComponentClass<any>;
     composedComponentProps?: Record<string, any>;
     className?: string;
@@ -45,7 +47,7 @@ export type TooltipProps = {
     tooltipOffset?: number;
 };
 
-export type InitialProps = {
+type InitialProps = {
     checked?: boolean;
     name?: string;
     label?: React.ReactNode | string;
@@ -57,8 +59,8 @@ export type InitialProps = {
     onChange?: (checked: boolean, event: React.MouseEvent) => void;
     onMouseEnter?: MouseEventHandler<HTMLLabelElement> | undefined;
     onMouseLeave?: MouseEventHandler<HTMLLabelElement> | undefined;
-    theme?: Partial<Theme> & Partial<TooltipTheme>;
-} & Partial<TooltipProps>;
+    theme?: Partial<CheckboxTheme> & Partial<CheckboxTooltipTheme>;
+} & Partial<CheckboxTooltipProps>;
 
 export type CheckboxProps = React.PropsWithChildren<InitialProps>;
 

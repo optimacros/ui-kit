@@ -8,6 +8,7 @@ import {
 import * as dialog from '@zag-js/dialog';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
+import { isFunction } from '@optimacros-ui/utils';
 import { ComponentProps } from 'react';
 import React from 'react';
 import { Portal } from '@zag-js/react';
@@ -72,7 +73,7 @@ export const {
  * Get rid of it
  * @deprecated
  * */
-export const CustomRoot = forward<ComponentProps<typeof Root>, { children }>(
+export const CustomRoot = forward<ComponentProps<typeof Root>, 'div'>(
     ({ children, ...rest }, ref) => {
         return (
             <Root {...rest}>
@@ -82,7 +83,7 @@ export const CustomRoot = forward<ComponentProps<typeof Root>, { children }>(
                             <styled.div {...api.getBackdropProps()} />
                             <styled.div {...api.getPositionerProps()}>
                                 <styled.div {...api.getContentProps()} ref={ref}>
-                                    {children}
+                                    {isFunction(children) ? children(api) : children}
                                 </styled.div>
                             </styled.div>
                         </Portal>

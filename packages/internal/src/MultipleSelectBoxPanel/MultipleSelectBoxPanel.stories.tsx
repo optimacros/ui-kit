@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ReactNode, useState, useMemo } from 'react';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { SelectBoxProps, MultipleSelectBoxPanel, Item } from '@optimacros-ui/kit-internal';

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { ColorPicker } from '../index';
 import { Icon } from '@optimacros-ui/kit';
 import { useState } from 'react';

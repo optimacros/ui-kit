@@ -8,7 +8,7 @@ export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
         machine,
     });
 
-export const Input = forward<ComponentProps<typeof RootProvider> & { pins?: number }, {}>(
+export const Input = forward<ComponentProps<typeof RootProvider> & { pins?: number }, 'input'>(
     ({ children, pins = 4, name, ...context }, ref) => {
         return (
             <RootProvider {...context}>

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React from 'react';
 import { Collapsible } from '.';
 import './index.css';

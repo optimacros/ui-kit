@@ -1,6 +1,7 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { ComponentProps } from 'react';
 import * as avatar from '@zag-js/avatar';
+import { isFunction } from '@optimacros-ui/utils';
 
 export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
     createReactApiStateContext({
@@ -47,7 +48,7 @@ export const Root = forward<
                     className={className}
                     data-aspect-ratio={ratio}
                 >
-                    {children}
+                    {isFunction(children) ? children(api) : children}
                 </styled.div>
             )}
         </RootProvider>

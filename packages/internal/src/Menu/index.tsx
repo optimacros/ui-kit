@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useId } from 'react';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 

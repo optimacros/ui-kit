@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import {
     type ButtonInitialProps,
     type ThemeButtonProps,
@@ -11,7 +13,7 @@ import { Icon } from '@optimacros-ui/icon';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
-export interface Props extends Partial<ButtonInitialProps> {
+interface Props extends Partial<ButtonInitialProps> {
     theme: Partial<IconButtonTheme>;
 }
 

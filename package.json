@@ -7,9 +7,11 @@
         "start": "npm run start:storybook",
         "start:storybook": "storybook dev --no-open -p 6006",
         "start:figma": "lerna run start --scope=@optimacros-ui/figma",
-        "build": "lerna run build --scope=@optimacros-ui/kit && npm run tailwind:build",
+        "build": "lerna run build --scope=@optimacros-ui/*",
+        "build:components": "lerna run build --scope @optimacros-ui/* --ignore=@optimacros-ui/{kit,store,utils,figma,kit-internal,kit-legacy,types,themes}",
         "build:core": "lerna run build --scope=@optimacros-ui/kit",
         "build:legacy": "lerna run build --scope=@optimacros-ui/kit-legacy",
+        "build:internal": "lerna run build --scope=@optimacros-ui/kit-internal",
         "build:example": "lerna run build --scope=@optimacros-ui/example",
         "build:themes": "lerna run build --scope=@optimacros-ui/themes",
         "build:store": "lerna run build --scope=@optimacros-ui/store",
@@ -26,14 +28,11 @@
         "clean": "lerna clean",
         "postinstall": "node ./scripts/postinstall.js",
         "publish": "npm run build:ui && lerna publish from-package",
-        "version": "lerna version && npm run lint:fix",
         "unpublish": "npm unpublish @optimacros-ui/kit",
         "rebase": "node ./scripts/rebase.js --main=main",
         "rebase:continue": "npm run rebase -- --continue",
         "reinstall": "node ./scripts/reinstall.js",
-        "type-check": "node ./scripts/type-check-directory.mjs packages/**/*.{ts,tsx}",
-        "type-check:core": "node ./scripts/type-check-directory.mjs --dir packages/core/**/*.{ts,tsx}",
-        "type-check:store": "node ./scripts/type-check-directory.mjs --dir packages/store/**/*.{ts,tsx}"
+        "type:check": "tsc --pretty --noEmit"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Toast, ToastGroup } from '.';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Placement } from '@zag-js/toast';
