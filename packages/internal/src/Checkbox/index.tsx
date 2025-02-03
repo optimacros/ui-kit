@@ -1,12 +1,6 @@
-//@ts-nocheck
-
 import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
-
-export interface CheckboxComponentProps extends InitialProps {
-    theme: Required<CheckboxTheme>;
-}
 
 export type CheckboxTheme = {
     field?: string;
@@ -97,6 +91,7 @@ export const Checkbox = ({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             className={className}
+            theme={theme}
         />
     );
 };
@@ -112,7 +107,7 @@ const CheckboxComponent = ({
     onMouseLeave,
     onClick,
     ...rest
-}: React.PropsWithChildren<CheckboxComponentProps>) => {
+}: React.PropsWithChildren<InitialProps>) => {
     const handleToggle = (event: MouseEvent) => {
         if (onChange && !disabled) {
             onChange(!checked, event);
