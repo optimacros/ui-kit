@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { Button as ButtonComponent } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
 import { forward } from '@optimacros-ui/store';
@@ -46,10 +46,6 @@ export interface ButtonInitialProps {
     theme: Partial<ThemeButtonProps>;
 }
 
-export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
-    theme: ButtonTheme;
-}
-
 export const getVariant = (
     primary: boolean,
     accent: boolean,
@@ -87,7 +83,12 @@ export const getFloatStyles = (
     }
 };
 
-export const Button = forward<ButtonComponentProps, 'button'>(
+export const Button = forward<
+    Partial<ButtonInitialProps> & {
+        theme: ButtonTheme;
+    },
+    'button'
+>(
     (
         {
             type = 'button',
@@ -143,3 +144,5 @@ export const Button = forward<ButtonComponentProps, 'button'>(
         );
     },
 );
+
+export type ButtonComponentProps = ComponentProps<typeof Button>;
