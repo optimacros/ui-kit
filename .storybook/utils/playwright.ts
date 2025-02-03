@@ -1,5 +1,5 @@
 import { waitForPageReady } from '@storybook/test-runner';
-import { Page } from 'playwright';
+import type { Page } from 'playwright';
 
 export const waitForPageTrulyReadyPW = async (page: Page) => {
     // вся эта срань потенциально нужна, чтобы дождаться загрузки всего, что загружается
