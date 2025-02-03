@@ -38,7 +38,7 @@ export const Popover = memo<PopoverProps>(
         };
 
         const handleSettingsOk = () => {
-            onClickSettingsIcon();
+            onClickSettingsIcon?.();
             handleCancel();
         };
 
