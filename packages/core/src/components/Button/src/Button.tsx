@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, MouseEventHandler } from 'react';
 
 import { forward, styled } from '@optimacros-ui/store';
 
@@ -22,6 +22,7 @@ export interface ButtonProps extends ButtonThemeProps {
     href?: string;
     target?: string;
     children?: ReactNode;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button = forward<ButtonProps, 'button'>((props: ButtonProps, ref) => {
