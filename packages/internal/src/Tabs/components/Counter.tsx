@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { TabExtended } from './models';
+import { TabProps } from '../models';
 import { Text } from '@optimacros-ui/text';
 
-interface Props extends Pick<TabExtended, 'counter' | 'maxCounter'> {
+interface Props extends Pick<TabProps, 'counter' | 'maxCounter'> {
     className?: string;
 }
 

@@ -1,4 +1,19 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { Tabs } from '@optimacros-ui/tabs';
+
+export interface TabsProps {
+    className?: string;
+    draggable?: boolean;
+    onTabSwitch?: (index: number) => void;
+    onTabPositionChange?: (newTabs: TabProps[]) => void;
+    hideTabHeader?: boolean;
+    headerClassName?: string;
+    contentClassName?: string;
+    theme?: Partial<TabsTheme>;
+    children: ReactElement<TabProps> | ReactElement<TabProps>[];
+    active?: number;
+    onChange?: (index: number) => void;
+}
 
 export interface TabsContainerTheme {
     TabsContainer: string;
@@ -19,7 +34,7 @@ export interface TabHeaderTheme {
     TabButton__draggable: string;
 }
 
-export interface TabsTheme extends TabsContainerTheme, TabContentTheme, TabHeaderTheme {}
+export type TabsTheme = Partial<TabsContainerTheme & TabContentTheme & TabHeaderTheme>;
 
 export interface TabProps {
     children?: React.ReactNode;
@@ -36,6 +51,6 @@ export interface TabProps {
     label?: string;
 }
 
-export interface TabExtended extends TabProps {
-    value?: string;
+export interface TabExtended extends Tabs.Tab {
+    meta: TabProps;
 }

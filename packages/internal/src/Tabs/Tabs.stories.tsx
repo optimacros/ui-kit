@@ -233,10 +233,22 @@ type Story = StoryObj<typeof Tabs>;
 export const Basic: Story = {
     args: {
         active: 2,
+        onChange: undefined,
         className: 'className',
         contentClassName: 'contentClassName',
         headerClassName: 'headerClassName',
-        onTabSwitch: (n) => console.info(n),
+        theme: {
+            TabsContainer: 'TabsContainer',
+            TabContent: 'TabContent',
+            TabContent_Inner: 'TabContent_Inner',
+            TabHeaderContainer: 'TabHeaderContainer',
+            TabButton: 'TabButton',
+            TabButton_Inner: 'TabButton_Inner',
+            TabButton_Content: 'TabButton_Content',
+            TabButton__active: 'TabButton__active',
+            TabButton__disabled: 'TabButton__disabled',
+            TabButton__draggable: 'TabButton__draggable',
+        },
     },
     render: Stories.Basic,
 };
@@ -246,18 +258,21 @@ export const Controlled: Story = {
     render: Stories.Controlled,
 };
 
+export const Counter: Story = {
+    args: { active: 1, onChange: undefined },
+    render: Stories.Counter,
+};
+
 export const Draggable: Story = {
     args: {
         draggable: true,
-        onTabPositionChange: (newTabs) => {
-            console.info(`${newTabs.map((t) => t.title || t.label)}`);
-        },
+        onTabPositionChange: undefined,
     },
     render: Stories.Draggable,
 };
 
 export const Scroll: Story = {
-    args: { active: 1 },
+    args: { active: 1, onChange: undefined },
     render: Stories.Scroll,
 };
 

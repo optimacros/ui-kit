@@ -9,7 +9,7 @@ export const TH = (props: Partial<TabsProps>) => {
     };
 
     return (
-        <TabHeader {...props} active={activeTab} onTabSwitch={handleTabSwitch}>
+        <TabHeader {...props} active={activeTab} onChange={handleTabSwitch}>
             <Tab title="editTabLabel" />
             <Tab title="previewTabLabel" />
             <Tab title="splitTabLabel" />

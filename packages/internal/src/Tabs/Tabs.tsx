@@ -1,170 +1,146 @@
-//@ts-nocheck
-
-import { memo, ReactElement, useEffect, useState, Children, useMemo } from 'react';
+import { memo, ReactElement, useEffect, useState, Children } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
-import { TabProps, TabsTheme } from './models';
+import { TabExtended, TabProps, TabsProps, TabsTheme } from './models';
+import { TabButton } from './components';
+import { clsx } from '@optimacros-ui/utils';
 import { Flex } from '@optimacros-ui/flex';
-import { TabButton } from './TabButton';
-import { flushSync } from 'react-dom';
 
-interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
-    theme: Partial<TabsTheme>;
+interface Props {
+    theme: TabsTheme;
+    headerClassName: TabsProps['headerClassName'];
+    contentClassName: TabsProps['contentClassName'];
 }
 
-const Content = memo(({ className, tabs }) => {
-    return (
-        <Flex className={className}>
-            {tabs.map((tab) => (
-                <UITabs.Content value={tab.value} key={tab.value}>
-                    {tab.children}
-                </UITabs.Content>
-            ))}
-        </Flex>
-    );
-});
+const TabsContent = memo<Props>(
+    ({ theme, headerClassName: headerClassNameProp, contentClassName: contentClassNameProp }) => {
+        const draggable = UITabs.useSelector((api) => api.draggable);
 
-Content.displayName = 'Content';
+        const headerClassName = clsx(headerClassNameProp, theme.TabHeaderContainer);
+        const contentContainerClassName = clsx(contentClassNameProp, theme.TabContent);
 
-const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) => {
-    const setValue = UITabs.useProxySelector((api) => api.setValueIndex);
-    const draggable = UITabs.useSelector((api) => api.draggable);
+        return (
+            <>
+                <UITabs.List className={headerClassName}>
+                    {(tabs) =>
+                        (tabs as TabExtended[]).map((tab) => {
+                            const { id, disabled, meta } = tab;
 
-    useEffect(() => {
-        setValue(active);
-    }, [active]);
+                            return draggable ? (
+                                <UITabs.DraggableTrigger
+                                    key={id}
+                                    id={id}
+                                    disabled={disabled}
+                                    nonDraggable={meta.nonDraggable}
+                                >
+                                    <TabButton tab={tab} theme={theme} />
+                                </UITabs.DraggableTrigger>
+                            ) : (
+                                <UITabs.Trigger key={id} id={id} disabled={disabled}>
+                                    <TabButton tab={tab} theme={theme} />
+                                </UITabs.Trigger>
+                            );
+                        })
+                    }
+                </UITabs.List>
 
-    return (
-        <>
-            <UITabs.List>
-                {tabs.map((tab, index) => {
-                    const { fixed, disabled, value } = tab;
-
-                    const meta = tabsMeta[value];
-
-                    return draggable ? (
-                        <UITabs.DraggableTrigger
-                            value={value}
-                            disabled={disabled}
-                            key={value}
-                            fixed={fixed}
-                            index={index}
-                            nonDraggable={meta.nonDraggable}
-                        >
-                            <TabButton
-                                value={meta.title}
-                                icon={meta.icon}
-                                onHeaderContextMenu={meta.onHeaderContextMenu}
-                                onDoubleClick={meta.onDoubleClick}
-                            />
-                        </UITabs.DraggableTrigger>
-                    ) : (
-                        <UITabs.Trigger
-                            value={value}
-                            disabled={disabled}
-                            key={value}
-                            fixed={fixed}
-                            index={index}
-                        >
-                            <TabButton
-                                value={meta.title}
-                                icon={meta.icon}
-                                onHeaderContextMenu={meta.onHeaderContextMenu}
-                                onDoubleClick={meta.onDoubleClick}
-                            />
-                        </UITabs.Trigger>
-                    );
-                })}
-            </UITabs.List>
-
-            <Flex>
-                {tabs.map((tab) => (
-                    <UITabs.Content value={tab.value} key={tab.value}>
-                        {tabsMeta[tab.value].children}
-                    </UITabs.Content>
-                ))}
-            </Flex>
-        </>
-    );
-});
+                <UITabs.ContentContainer className={contentContainerClassName}>
+                    {(tab) => (
+                        <Flex className={theme.TabContent_Inner}>
+                            <UITabs.Content id={tab.id} key={tab.id}>
+                                {tab.content}
+                            </UITabs.Content>
+                        </Flex>
+                    )}
+                </UITabs.ContentContainer>
+            </>
+        );
+    },
+);
 TabsContent.displayName = 'TabsContent';
 
-export interface TabsProps {
-    className?: string;
-    draggable?: boolean;
-    onTabSwitch?: (index: number) => void;
-    onTabPositionChange?: (newTabs: TabProps[]) => void;
-    hideTabHeader?: boolean;
-    headerClassName?: string;
-    contentClassName?: string;
-    theme?: Partial<TabsTheme>;
-    children: ReactElement<TabProps> | ReactElement<TabProps>[];
-    active?: number;
-    onChange?: (index: number) => void;
-}
-
 export const Tabs = memo<TabsProps>(
-    ({ className, theme = {}, onTabPositionChange, draggable, active, children, ...rest }) => {
-        const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
+    ({
+        className: classNameProp,
+        headerClassName,
+        contentClassName,
+        theme = {},
+        onTabPositionChange,
+        draggable,
+        active,
+        children,
+        onChange,
+        ...rest
+    }) => {
+        const [activeTab, setActiveTab] = useState<string>();
+        const [tabs, setTabs] = useState<TabExtended[]>([]);
 
-        const [tabs, setTabs] = useState(() =>
-            childrenArr.map(({ props }) => {
-                const { isFixed, title: propsTitle, disabled } = props;
+        useEffect(() => {
+            const newTabId = Number.isInteger(active) ? active.toString() : undefined;
 
-                const title = typeof propsTitle === 'string' && propsTitle;
-                const value = title;
+            setActiveTab(newTabId);
+        }, [active]);
 
-                return {
-                    value,
-                    fixed: isFixed,
+        useEffect(() => {
+            const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
+
+            const coreTabs = childrenArr.map(({ props }, index) => {
+                const { isFixed: fixed, disabled, children: content } = props;
+
+                const tabCore: UITabs.Tab = {
+                    id: index.toString(),
+                    title: props.title || props.label,
+                    content,
+                    fixed,
                     disabled,
                 };
-            }),
-        );
 
-        const tabsMeta = useMemo(() => {
-            return childrenArr.reduce((acc, { props }, index) => {
-                const {
-                    icon,
-                    title: propsTitle,
-                    onDoubleClick,
-                    nonDraggable,
-                    onHeaderContextMenu,
-                    children,
-                } = props;
+                return { ...tabCore, meta: props };
+            });
 
-                const title = typeof propsTitle === 'string' && propsTitle;
-                const value = title ?? index.toString();
-
-                acc[value] = {
-                    children,
-                    icon,
-                    onDoubleClick,
-                    nonDraggable,
-                    onHeaderContextMenu,
-                    title,
-                };
-
-                return acc;
-            }, {});
+            setTabs(coreTabs);
         }, [children]);
+
+        const handleTabChange = (newTabId: string) => {
+            // controlled
+            if (onChange) {
+                onChange(+newTabId);
+                // uncontrolled
+            } else {
+                setActiveTab(newTabId);
+            }
+        };
+
+        const handleTabsChange = (newTabs: TabExtended[]) => {
+            // controlled
+            if (onTabPositionChange) {
+                onTabPositionChange(newTabs.map((t) => t.meta));
+                // uncontrolled
+            } else {
+                setTabs(newTabs);
+            }
+        };
+
+        const className = clsx(classNameProp, theme.TabsContainer);
 
         return (
             <UITabs.Root
+                tabs={tabs}
+                value={activeTab}
                 activationMode="manual"
                 className={className}
-                onValueChange={(d) => {
-                    rest.onTabSwitch(UITabs.getTabIndex(d.value));
-                    rest.onChange(UITabs.getTabIndex(d.value));
-                }}
-                onPositionChange={onTabPositionChange}
+                onValueChange={handleTabChange}
+                onTabsChange={handleTabsChange}
                 tabsHidden={rest.hideTabHeader}
                 useWheel
                 draggable={draggable}
                 draggableMode="ordered"
-                onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
             >
-                <TabsContent {...rest} theme={theme} active={active} tabs={tabs} meta={tabsMeta} />
+                <TabsContent
+                    theme={theme}
+                    headerClassName={headerClassName}
+                    contentClassName={contentClassName}
+                />
             </UITabs.Root>
         );
     },
