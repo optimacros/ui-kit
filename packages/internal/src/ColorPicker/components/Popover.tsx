@@ -1,42 +1,111 @@
-import { memo, useCallback } from 'react';
-import { ColorPicker as UIColorPicker } from '@optimacros-ui/color-picker';
+import { memo } from 'react';
+import { ColorPicker, ColorPicker as UIColorPicker } from '@optimacros-ui/color-picker';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
+import { IconButton } from '@optimacros-ui/icon-button';
+import { Tooltip } from '@optimacros-ui/tooltip';
+import { Divider } from '@optimacros-ui/divider';
+import { Orientation } from '@optimacros-ui/utils';
 import { HexInput } from './HexInput';
+import { ColorPickerProps } from '../ColorPicker';
 import { RGBInput } from '.';
 
-interface Props {
+interface PopoverProps
+    extends Omit<ColorPickerProps, 'disabled' | 'title' | 'color' | 'name' | 'onChange'> {
     onOk: () => void;
 }
 
-export const Popover = memo<Props>(({ onOk }) => {
-    const api = UIColorPicker.useApi();
+export const Popover = memo<PopoverProps>(
+    ({
+        onOk,
+        cancelLabel,
+        applyLabel,
+        showSettings,
+        colorSettingsLabel,
+        onClickSettingsIcon,
+        presetColors,
+        recentColors,
+    }) => {
+        const api = UIColorPicker.useApi();
 
-    const handleCancel = useCallback(() => {
-        api.setOpen(false);
-    }, [api.setOpen]);
+        const handleCancel = () => {
+            api.setOpen(false);
+        };
 
-    const handleOk = useCallback(() => {
-        handleCancel();
-        onOk();
-    }, [handleCancel, onOk]);
+        const handleOk = () => {
+            handleCancel();
+            onOk();
+        };
 
-    return (
-        <UIColorPicker.PopoverPortal>
-            <UIColorPicker.Area />
-            <UIColorPicker.ChannelSlider />
+        const handleSettingsOk = () => {
+            onClickSettingsIcon();
+            handleCancel();
+        };
 
-            <Flex justify="between" gap={2}>
-                <HexInput />
+        const SettingsBtn = <IconButton onClick={handleSettingsOk} icon="settings" />;
 
-                <RGBInput />
+        const Toolbar = (
+            <Flex gap={3} justify="end">
+                <Button onClick={handleCancel}>{cancelLabel}</Button>
+                <Button onClick={handleOk} variant="accent">
+                    {applyLabel}
+                </Button>
             </Flex>
+        );
 
-            <Flex>
-                <Button onClick={handleCancel}>Cancel</Button>
-                <Button onClick={handleOk}>OK</Button>
-            </Flex>
-        </UIColorPicker.PopoverPortal>
-    );
-});
+        const isColorsPanel = presetColors || recentColors;
+
+        return (
+            <UIColorPicker.PopoverPortal>
+                <UIColorPicker.Area />
+                <UIColorPicker.ChannelSlider />
+
+                <Flex justify="between" gap={2}>
+                    <HexInput />
+                    <RGBInput />
+                </Flex>
+
+                {isColorsPanel && (
+                    <Flex direction="column" gap={3}>
+                        {presetColors && (
+                            <>
+                                <Divider
+                                    orientation={Orientation.Horizontal}
+                                    style={{ width: '100%' }}
+                                />
+                                <ColorPicker.Swatches presets={presetColors} />
+                            </>
+                        )}
+                        {recentColors && (
+                            <>
+                                <Divider
+                                    orientation={Orientation.Horizontal}
+                                    style={{ width: '100%' }}
+                                />
+                                <ColorPicker.Swatches presets={recentColors} />
+                            </>
+                        )}
+                    </Flex>
+                )}
+
+                {showSettings ? (
+                    <Flex align="center" justify="between">
+                        {colorSettingsLabel ? (
+                            <Tooltip.Root>
+                                <Tooltip.Trigger as="div">{SettingsBtn}</Tooltip.Trigger>
+                                <Tooltip.Content>{colorSettingsLabel}</Tooltip.Content>
+                            </Tooltip.Root>
+                        ) : (
+                            SettingsBtn
+                        )}
+                        {Toolbar}
+                    </Flex>
+                ) : (
+                    <>{Toolbar}</>
+                )}
+            </UIColorPicker.PopoverPortal>
+        );
+    },
+);
+
 Popover.displayName = 'Popover';

@@ -24,7 +24,7 @@ export const Title = memo<Props>(({ title, tooltip, tooltipPosition }) => {
     if (tooltip) {
         return (
             <Tooltip.Root positioning={positioning}>
-                <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
+                <Tooltip.Trigger as="div">{content}</Tooltip.Trigger>
 
                 <Tooltip.Content>{tooltip}</Tooltip.Content>
             </Tooltip.Root>
