@@ -50,6 +50,12 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
         },
         ref,
     ) => {
+        const style = {
+            backgroundColor: buttonColor,
+            color: fontColor,
+            fontSize,
+        };
+
         return (
             <IconButtonCore
                 variant={getVariant(primary, accent, bordered, gray, neutral)}
@@ -61,6 +67,7 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
                 inverse={inverse}
                 uppercase={uppercase}
                 icon={icon}
+                style={style}
                 {...rest}
                 ref={ref}
             />

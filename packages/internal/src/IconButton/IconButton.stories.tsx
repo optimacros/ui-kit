@@ -76,9 +76,6 @@ const argTypes: Partial<ArgTypes> = {
     className: {
         table: { disable: true },
     },
-    theme: {
-        table: { disable: true },
-    },
     children: {
         table: { disable: true },
     },
@@ -91,35 +88,46 @@ const argTypes: Partial<ArgTypes> = {
     onMouseUp: {
         table: { disable: true },
     },
-    gray: {
-        table: { disable: true },
-    },
-    warning: {
-        table: { disable: true },
-    },
-    uppercase: {
-        table: { disable: true },
+    floating: {
+        control: 'boolean',
+        description: 'If `true`, the button will have a floating look.',
     },
     mini: {
-        table: { disable: true },
-    },
-    flat: {
-        table: { disable: true },
-    },
-    floating: {
-        table: { disable: true },
+        control: 'boolean',
+        description: 'To be used with floating button. If true, the button will be smaller.',
     },
     raised: {
-        table: { disable: true },
+        control: 'boolean',
+        description: 'If `true`, the button will have a raised look.',
+    },
+    warning: {
+        control: 'boolean',
+        description: 'If `true`, the button will have a warning look.',
+    },
+    gray: {
+        control: 'boolean',
+        description: 'If `true`, the button will have gray color.',
     },
     buttonColor: {
-        table: { disable: true },
+        control: 'color',
+        description: 'Background for the button.',
     },
     fontColor: {
-        table: { disable: true },
+        control: 'color',
+        description: 'Font color for the button.',
     },
     fontSize: {
-        table: { disable: true },
+        control: 'number',
+        description: 'Font size for the button.',
+    },
+    theme: {
+        description: 'Additional classes to add',
+        table: {
+            type: {
+                summary:
+                    'button, icon, flat, floating, raised, inverse, mini, neutral, accent, primary, bordered',
+            },
+        },
     },
 };
 
@@ -192,5 +200,66 @@ export const WithTooltip: Story = {
         tooltipDelay: 50,
         tooltipPosition: 'right',
         tooltipOffset: 0,
+    },
+};
+
+export const InverseOnDark: Story = {
+    args: {
+        icon: '🌙',
+        label: 'Dark Mode',
+        inverse: true,
+        tooltip: 'Toggle dark mode',
+    },
+    parameters: {
+        backgrounds: {
+            default: 'dark',
+        },
+    },
+};
+
+export const CustomTooltipDelay: Story = {
+    args: {
+        icon: '⏱️',
+        label: 'Timer',
+        tooltip: 'This tooltip has a 2 second delay',
+        tooltipDelay: 300,
+        tooltipPosition: 'bottom',
+    },
+};
+
+export const TooltipWithOffset: Story = {
+    args: {
+        icon: '📏',
+        label: 'Measure',
+        tooltip: 'This tooltip has an offset',
+        tooltipPosition: 'bottom',
+        tooltipOffset: 20,
+    },
+};
+
+export const NonNeutral: Story = {
+    args: {
+        icon: '🎨',
+        label: 'Theme',
+        neutral: false,
+        primary: true,
+        tooltip: 'Change theme',
+    },
+};
+
+export const ComplexExample: Story = {
+    args: {
+        icon: '🚀',
+        label: 'Launch',
+        primary: true,
+        bordered: true,
+        tooltip: 'Launch the application',
+        tooltipPosition: 'right',
+        tooltipDelay: 300,
+        tooltipOffset: 10,
+        buttonColor: '#6366f1',
+        fontColor: '#ffffff',
+        fontSize: 16,
+        uppercase: true,
     },
 };
