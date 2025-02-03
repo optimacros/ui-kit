@@ -29,7 +29,7 @@
         "postinstall": "node ./scripts/postinstall.js",
         "publish": "npm run build:ui && lerna publish from-package",
         "unpublish": "npm unpublish @optimacros-ui/kit",
-        "rebase": "node ./scripts/rebase.js --main=main",
+        "rebase": "node ./scripts/rebase.js --main=2.0.1",
         "rebase:continue": "npm run rebase -- --continue",
         "reinstall": "node ./scripts/reinstall.js",
         "type:check": "tsc --pretty --noEmit"
