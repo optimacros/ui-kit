@@ -91,8 +91,7 @@
         "vite-tsconfig-paths": "4.3.2"
     },
     "lint-staged": {
-        "**/*.{ts,tsx}": ["node ./scripts/type-check-lint.mjs"],
-        "*.{js,ts,tsx,css,json}": [
+        "*.{ts,tsx,js,ts,tsx,css,json}": [
             "biome check --write --log-level=error --diagnostic-level=error --no-errors-on-unmatched --config-path=biome-commit.json"
         ]
     },
