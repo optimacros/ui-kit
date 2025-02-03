@@ -90,6 +90,7 @@
                 "noUnusedLabels": "warn",
                 "noUnusedVariables": "warn",
                 "useArrayLiterals": "error",
+                "noUnusedFunctionParameters": "warn",
                 "useExhaustiveDependencies": "warn",
                 "useHookAtTopLevel": "error",
                 "useIsNan": "error",
@@ -225,8 +226,6 @@
             "./node_modules",
             "build/*",
             "**/config-overrides.js",
-            "src/react-app-env.d.ts",
-            "src/components/WSIcon/icons/*",
             "packages/figma"
         ]
     },

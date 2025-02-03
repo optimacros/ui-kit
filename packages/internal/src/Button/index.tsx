@@ -1,6 +1,7 @@
-import React, { type ButtonHTMLAttributes } from 'react';
+import React, { ComponentProps } from 'react';
 import { Button as ButtonComponent } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
+import { forward } from '@optimacros-ui/store';
 
 export type ThemeButtonProps = {
     button: string;
@@ -23,8 +24,7 @@ export type ButtonTheme = ThemeButtonProps & {
     warning: string;
 };
 
-export interface ButtonInitialProps
-    extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
+export interface ButtonInitialProps {
     label: string;
     icon: string | React.JSX.Element | null;
     href: string;
@@ -46,15 +46,12 @@ export interface ButtonInitialProps
     theme: Partial<ThemeButtonProps>;
 }
 
-export interface ButtonComponentProps extends Partial<ButtonInitialProps> {
-    theme: ButtonTheme;
-}
-
 export const getVariant = (
     primary: boolean,
     accent: boolean,
     bordered: boolean,
     gray: boolean,
+    neutral: boolean,
 ): 'primary' | 'accent' | 'bordered' | 'gray' | 'neutral' => {
     switch (true) {
         case primary:
@@ -65,6 +62,8 @@ export const getVariant = (
             return 'bordered';
         case gray:
             return 'gray';
+        case neutral:
+            return 'neutral';
         default:
             return 'neutral';
     }
@@ -84,48 +83,66 @@ export const getFloatStyles = (
     }
 };
 
-export const Button = ({
-    className = '',
-    type = 'button',
-    label,
-    icon,
-    href,
-    theme,
-    inverse,
-    mini,
-    neutral,
-    uppercase,
-    gray,
-    warning,
-    buttonColor,
-    fontSize,
-    fontColor,
-    children,
-    accent,
-    primary,
-    bordered,
-    floating,
-    raised,
-    onMouseUp,
-    onMouseLeave,
-    disabled,
-    ...rest
-}: ButtonComponentProps) => {
-    return (
-        <ButtonComponent
-            variant={getVariant(primary, accent, bordered, gray)}
-            float={getFloatStyles(raised, floating)}
-            status={warning ? 'warning' : null}
-            href={href ? href : null}
-            size={mini ? 'xs' : 'md'}
-            disabled={disabled}
-            inverse={inverse}
-            uppercase={uppercase}
-            {...rest}
-        >
-            {label}
-            {icon && <Icon value={icon} />}
-            {children}
-        </ButtonComponent>
-    );
-};
+export const Button = forward<
+    Partial<ButtonInitialProps> & {
+        theme: ButtonTheme;
+    },
+    'button'
+>(
+    (
+        {
+            type = 'button',
+            label,
+            icon,
+            href,
+            theme,
+            inverse,
+            mini,
+            neutral,
+            uppercase,
+            gray,
+            warning,
+            buttonColor,
+            fontSize,
+            fontColor,
+            children,
+            accent,
+            primary,
+            bordered,
+            floating,
+            raised,
+            disabled,
+            ...rest
+        },
+        ref,
+    ) => {
+        const style = {
+            backgroundColor: buttonColor,
+            color: fontColor,
+            fontSize,
+        };
+
+        return (
+            <ButtonComponent
+                variant={getVariant(primary, accent, bordered, gray, neutral)}
+                float={getFloatStyles(raised, floating)}
+                status={warning ? 'error' : null}
+                href={href ? href : null}
+                size={mini ? 'xs' : 'md'}
+                disabled={disabled}
+                inverse={inverse}
+                uppercase={uppercase}
+                style={style}
+                ref={ref}
+                type={type}
+                {...rest}
+            >
+                {label}
+                {icon && <Icon value={icon} />}
+                {children}
+            </ButtonComponent>
+        );
+    },
+);
+
+export type ButtonComponentProps = ComponentProps<typeof Button>;

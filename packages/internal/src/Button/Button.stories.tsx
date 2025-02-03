@@ -151,45 +151,29 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Accent: Story = {
+export const Default: Story = {
     args: {
-        icon: 'bookmark',
-        label: 'Bookmark',
-        accent: true,
-    },
-};
-
-export const Bordered: Story = {
-    args: {
-        label: 'Apply',
-        bordered: true,
+        label: 'Button',
     },
 };
 
 export const Primary: Story = {
     args: {
-        label: 'Apply',
+        label: 'Primary Button',
         primary: true,
     },
 };
 
-export const Flat: Story = {
+export const Accent: Story = {
     args: {
-        icon: 'inbox',
-        label: 'Inbox',
+        label: 'Accent Button',
+        accent: true,
     },
 };
 
-export const Floating: Story = {
+export const FloatingMini: Story = {
     args: {
-        icon: 'add',
-        floating: true,
-    },
-};
-
-export const Mini: Story = {
-    args: {
-        icon: 'add',
+        label: '+',
         floating: true,
         mini: true,
     },
@@ -197,63 +181,78 @@ export const Mini: Story = {
 
 export const Raised: Story = {
     args: {
-        label: 'Next',
+        label: 'Raised Button',
         raised: true,
-    },
-};
-
-export const Uppercase: Story = {
-    args: {
-        label: 'Apply',
-        uppercase: true,
-    },
-};
-
-export const Disabled: Story = {
-    args: {
-        icon: 'add',
-        label: 'Add this',
-        disabled: true,
-        accent: true,
-    },
-};
-
-export const Gray: Story = {
-    args: {
-        label: 'Cancel',
-        gray: true,
     },
 };
 
 export const Warning: Story = {
     args: {
-        label: 'Delete',
+        label: 'Warning Button',
         warning: true,
     },
 };
 
-export const Inverse: Story = {
+export const Disabled: Story = {
     args: {
-        label: 'Delete',
+        label: 'Disabled Button',
+        disabled: true,
+    },
+};
+
+export const InverseOnDark: Story = {
+    args: {
+        label: 'Inverse Button',
         inverse: true,
-        buttonColor: 'black',
+    },
+    parameters: {
+        backgrounds: {
+            default: 'dark',
+        },
     },
 };
 
-export const Styled: Story = {
+export const GrayBordered: Story = {
     args: {
-        label: 'Remove',
-        buttonColor: 'purple',
-        fontColor: 'white',
-        fontSize: 14,
+        label: 'Gray Bordered Button',
+        gray: true,
+        bordered: true,
     },
 };
 
-export const Link: Story = {
+export const CustomStyles: Story = {
     args: {
-        href: 'http://github.com/',
+        label: 'Custom Button',
+        buttonColor: '#6366f1',
+        fontColor: '#ffffff',
+        fontSize: 16,
+        uppercase: true,
+    },
+};
+
+export const LinkButton: Story = {
+    args: {
+        label: 'Link Button',
+        href: 'https://example.com',
         target: '_blank',
-        accent: true,
-        label: 'Github',
+    },
+};
+
+export const IconButton: Story = {
+    args: {
+        label: 'Icon Button',
+        icon: '👋',
+    },
+};
+
+export const AllFeatures: Story = {
+    args: {
+        label: 'Kitchen Sink',
+        primary: true,
+        raised: true,
+        bordered: true,
+        uppercase: true,
+        fontSize: 14,
+        icon: '🚀',
     },
 };
