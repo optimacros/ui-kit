@@ -28,13 +28,14 @@ export type SelectBoxTheme = {
 
 type SelectBoxSourceLabel = keyof SelectBoxProps['source'][number];
 type SelectBoxSourceValue = SelectBoxProps['source'][number][SelectBoxSourceLabel];
+type SourceItem = { [key: string]: any };
 
 export interface SelectBoxProps {
     theme?: Partial<SelectBoxTheme & InputTheme>;
     multiSelect?: boolean;
     onChange?: (value: string | number | (string | number)[]) => void;
     options: any[];
-    source: { [key: string]: any }[];
+    source: SourceItem[];
     labelKey?: string;
     valueKey?: string;
     name?: string;
@@ -63,7 +64,7 @@ const getStatus = (disabled: boolean, error: boolean) => {
     }
 };
 
-export const SelectBox: React.FC<SelectBoxProps> = ({
+export const SelectBox = ({
     label,
     className,
     multiSelect,
@@ -74,8 +75,10 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
     onChange,
     required,
     error,
+    labelKey,
+    valueKey,
     ...rest
-}) => {
+}: SelectBoxProps) => {
     const handleChange = (newValue) => {
         const updatedValueArr = newValue.value;
 
@@ -86,13 +89,21 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
         }
     };
 
+    const itemToString = (item: SourceItem) => item[labelKey];
+    const itemToValue = (item: SourceItem) => item[valueKey];
+
+    const curValue = Array.isArray(value) ? value : [value];
+
     return (
         <>
             {!multiSelect ? (
+                // @ts-ignore
                 <Select.Root
                     items={source || options}
-                    value={value}
+                    value={curValue}
                     onValueChange={handleChange}
+                    itemToString={itemToString}
+                    itemToValue={itemToValue}
                     {...rest}
                 >
                     <Select.Control>
@@ -101,7 +112,6 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                                 <Field.Root
                                     status={getStatus(api.disabled, Boolean(error))}
                                     required={required}
-                                    invalid={error}
                                 >
                                     <Select.Trigger>
                                         {label && (
@@ -124,8 +134,11 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                     <Select.Positioner>
                         <Select.Content>
                             <Select.List>
-                                {(item) => (
-                                    <Select.Item item={item} key={item.key || item.value}>
+                                {(item: SourceItem) => (
+                                    <Select.Item
+                                        item={item as Select.ItemBase}
+                                        key={item.key || item.value}
+                                    >
                                         <Select.ItemLabel>
                                             {item.label || item.title}
                                         </Select.ItemLabel>
@@ -136,11 +149,14 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
                     </Select.Positioner>
                 </Select.Root>
             ) : (
+                // @ts-ignore
                 <Select.Root
                     items={source || options}
-                    value={value}
+                    value={curValue}
                     onValueChange={handleChange}
                     multiple={true}
+                    itemToString={itemToString}
+                    itemToValue={itemToValue}
                     {...rest}
                 >
                     <Flex gap={5} direction="column">
