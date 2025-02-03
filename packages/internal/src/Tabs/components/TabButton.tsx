@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const TabButton = memo<Props>(({ tab, theme }) => {
-    const { meta, disabled } = tab;
+    const { id, meta, disabled } = tab;
     const {
         title,
         label,
@@ -44,22 +44,37 @@ export const TabButton = memo<Props>(({ tab, theme }) => {
 
     const titleAttr = typeof title === 'string' ? title : label;
 
-    return (
-        <Flex
-            align="center"
-            title={titleAttr}
-            onContextMenu={onHeaderContextMenu}
-            onDoubleClick={onDoubleClick}
-            className={className}
-        >
-            <Flex className={TabButton_Inner}>
-                <Flex className={TabButton_Content}>
-                    {!!icon && <Icon value={icon} />}
-                    {titleAttr}
-                    {!isNaN(counter) && <Counter counter={counter} maxCounter={maxCounter} />}
-                </Flex>
+    const content = (
+        <Flex className={TabButton_Inner}>
+            <Flex className={TabButton_Content}>
+                {!!icon && <Icon value={icon} />}
+                {titleAttr}
+                {!isNaN(counter) && <Counter counter={counter} maxCounter={maxCounter} />}
             </Flex>
         </Flex>
     );
+
+    const triggerProps = {
+        id,
+        disabled,
+        title: titleAttr,
+        onContextMenu: onHeaderContextMenu,
+        onDoubleClick,
+        className,
+    };
+
+    if (dragEnabled) {
+        return (
+            <Tabs.DraggableTrigger nonDraggable={meta.nonDraggable} as="div" {...triggerProps}>
+                {content}
+            </Tabs.DraggableTrigger>
+        );
+    } else {
+        return (
+            <Tabs.Trigger as="div" {...triggerProps}>
+                {content}
+            </Tabs.Trigger>
+        );
+    }
 });
 TabButton.displayName = 'TabButton';
