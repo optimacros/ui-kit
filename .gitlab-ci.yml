@@ -64,8 +64,9 @@ storybook:
   tags:
     - ${runner}
   script:
-  # TODO
-    - nvm use
+    - nvm use 
+    # - npm run start
+    # - npm run test-storybook
 
 # push artefacts to nexus
 nexus-push-job:

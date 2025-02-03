@@ -1,6 +1,7 @@
-import { TestRunnerConfig, getStoryContext } from '@storybook/test-runner';
+import { type TestRunnerConfig, getStoryContext } from '@storybook/test-runner';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
-import { waitForPageTrulyReadyPW } from './utils/playwright';
+//@ts-ignore
+import { waitForPageTrulyReadyPW } from './utils/playwright.ts';
 // import { sleep } from '../packages/utils/src';
 
 const customSnapshotsDir = `${process.cwd()}/.storybook/__snapshots__`;
