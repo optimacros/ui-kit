@@ -39,7 +39,13 @@ export const Root = forward<RootProps, 'div'>(
     ({ children, variant, className, tabs, value, ...context }, ref) => {
         return (
             <RootProvider {...context}>
-                <BaseRoot variant={variant} ref={ref} tabs={tabs} value={value}>
+                <BaseRoot
+                    variant={variant}
+                    ref={ref}
+                    tabs={tabs}
+                    value={value}
+                    className={className}
+                >
                     {children}
                 </BaseRoot>
             </RootProvider>
@@ -117,7 +123,10 @@ export const DraggableTrigger = forward<
                         data-draggable-id={draggableId}
                         onPointerDown={(e) => {
                             apiProps.onClick(e);
-                            listeners.onPointerDown(e);
+
+                            if (listeners) {
+                                listeners.onPointerDown(e);
+                            }
                         }}
                         ref={setNodeRef}
                         key={id}
@@ -148,11 +157,11 @@ export const DraggableTrigger = forward<
 });
 
 export const ContentContainer = forward<{ children: (tab: Tab) => ReactNode }, 'div'>(
-    ({ children }, ref) => {
+    ({ children, ...rest }, ref) => {
         const activeTab = useSelector((api) => api.getActiveTab());
 
         return (
-            <styled.div data-scope="tabs" data-role="content-container" ref={ref}>
+            <styled.div {...rest} data-scope="tabs" data-role="content-container" ref={ref}>
                 {activeTab && children(activeTab)}
             </styled.div>
         );

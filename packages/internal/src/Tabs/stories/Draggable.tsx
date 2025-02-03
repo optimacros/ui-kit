@@ -1,7 +1,7 @@
 import { Tabs, Tab, TabsProps } from '../';
 
 export const Draggable = (props: Partial<TabsProps>) => (
-    <Tabs {...props} onTabPositionChange={(d) => console.info(d)}>
+    <Tabs {...props}>
         <Tab title="Item one" icon="favorite">
             Item one content
         </Tab>

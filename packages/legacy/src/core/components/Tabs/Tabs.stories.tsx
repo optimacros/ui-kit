@@ -95,7 +95,23 @@ const Template: Story = {
 
 export const Basic: Story = {
     ...BasicTemplate,
-    args: {},
+    args: {
+        className: 'className',
+        contentClassName: 'contentClassName',
+        headerClassName: 'headerClassName',
+        theme: {
+            TabsContainer: 'TabsContainer',
+            TabContent: 'TabContent',
+            TabContent_Inner: 'TabContent_Inner',
+            TabHeaderContainer: 'TabHeaderContainer',
+            TabButton: 'TabButton',
+            TabButton_Inner: 'TabButton_Inner',
+            TabButton_Content: 'TabButton_Content',
+            TabButton__active: 'TabButton__active',
+            TabButton__disabled: 'TabButton__disabled',
+            TabButton__draggable: 'TabButton__draggable',
+        },
+    },
 };
 
 export const Draggable: Story = {
