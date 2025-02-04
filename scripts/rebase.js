@@ -28,6 +28,7 @@ function rebase() {
         .replace(`${mainBranchArg}=`, '');
 
     const continueCommand = process.argv.find((v) => v.includes('continue'));
+    const mrCommand = process.argv.find((v) => v.includes('mr'));
 
     exec('git branch --show-current', (e, currentBranch) => {
         const commands = createCommands(currentBranch.replace('\n', ''), mainBranch);
@@ -41,17 +42,23 @@ function rebase() {
                 exec(updateLockFileCommand, (err, output, stderr) => {
                     console.info(output);
                     console.error(stderr);
-
-                    line.question('push? y/n \n', (answer) => {
-                        if (answer === 'y') {
-                            exec('git push --force', () => {
-                                console.info('done');
+                    if (!mrCommand) {
+                        line.question('push? y/n \n', (answer) => {
+                            if (answer === 'y') {
+                                exec('git push --force', () => {
+                                    console.info('done');
+                                    line.close();
+                                });
+                            } else {
                                 line.close();
-                            });
-                        } else {
+                            }
+                        });
+                    } else {
+                        exec('npm run create:mr', () => {
+                            console.info('done');
                             line.close();
-                        }
-                    });
+                        });
+                    }
                 });
             });
         } else {
