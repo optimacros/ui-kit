@@ -1,11 +1,10 @@
 import { UiKit } from '../../../packages/core/src';
-import { Preview } from '@storybook/react';
+import { Args, Preview } from '@storybook/react';
 import iconsSrc from '../../../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 import { useEffect, useRef, useState } from 'react';
 import { waitForPageTrulyReadySB } from '../../utils-tmp';
 import { withPerformance } from 'storybook-addon-performance';
 import { setFigmaLink } from '../../utils';
-import { useArgs } from '@storybook/preview-api';
 
 const styles = Promise.all([
     import('../../../packages/themes/src/default/tokens.css?raw'),
@@ -44,15 +43,25 @@ const previewDev: Preview = {
 
             return Story(context);
         },
-        // Testing
+        // Testing args
+        (Story, context) => {
+            const [refresh, setRefresh] = useState(false);
+
+            // Force zag components to handle props update
+            Object.assign(context.args, { controllable: true });
+
+            const updateArgs = (args: Partial<Args>) => {
+                Object.assign(context.args, args);
+                setRefresh(!refresh);
+            };
+
+            globalThis.testing = { args: context.args, updateArgs };
+
+            return <Story __refresh={refresh} />;
+        },
+        // Testing misc
         (Story, context) => {
             setFigmaLink(context);
-
-            const [args, updateArgs, resetArgs] = useArgs();
-
-            if (!globalThis.testing) {
-                globalThis.testing = { args, updateArgs, resetArgs };
-            }
 
             if (!globalThis.waitForPageTrulyReady) {
                 globalThis.waitForPageTrulyReady = waitForPageTrulyReadySB;
