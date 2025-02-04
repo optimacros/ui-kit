@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { ArgTypes, Meta } from '@storybook/react';
 import { Modal } from './index';
 import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';

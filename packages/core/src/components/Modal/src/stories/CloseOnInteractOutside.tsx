@@ -1,14 +1,12 @@
-//@ts-nocheck
-
-import { Modal } from '../index';
 import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
+import { Modal } from '../index';
 
 export const CloseOnInteractOutside = () => {
     const [open, setOpen] = useState(false);
 
-    const handleOpenChange = (details) => {
-        setOpen(details.open);
+    const handleOpenChange = ({ open }: { open: boolean }) => {
+        setOpen(open);
     };
 
     return (
