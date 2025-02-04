@@ -29,12 +29,12 @@
         "postinstall": "node ./scripts/postinstall.js",
         "publish": "npm run build:ui && lerna publish from-package",
         "unpublish": "npm unpublish @optimacros-ui/kit",
+        "create:mr": "npm run type:check && node ./scripts/create-mr.js",
         "rebase": "node ./scripts/rebase.js --main=main",
         "rebase:continue": "npm run rebase -- --continue",
         "rebase:create-mr": "npm run rebase -- --continue --mr",
         "reinstall": "node ./scripts/reinstall.js",
-        "type:check": "tsc --pretty --noEmit",
-        "create:mr": "npm run type:check && node ./scripts/create-mr.js"
+        "type:check": "tsc --pretty --noEmit"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
