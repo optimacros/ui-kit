@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Meta } from '@storybook/react';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Button } from '@optimacros-ui/button';
