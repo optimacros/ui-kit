@@ -23,7 +23,6 @@ declare module globalThis {
             /** Story props */
             args: Record<any, any>;
             updateArgs: (newArgs: Record<any, any>) => void;
-            resetArgs: (argNames?: string[]) => void;
         };
     }
 }
