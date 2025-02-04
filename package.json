@@ -33,7 +33,7 @@
         "rebase:continue": "npm run rebase -- --continue",
         "reinstall": "node ./scripts/reinstall.js",
         "type:check": "tsc --pretty --noEmit",
-        "create:mr": "node ./scripts/create-mr.js"
+        "create:mr": "npm run type:check && node ./scripts/create-mr.js"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
