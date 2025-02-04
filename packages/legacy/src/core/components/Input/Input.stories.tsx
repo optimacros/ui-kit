@@ -125,7 +125,11 @@ export const Basic: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -138,7 +142,11 @@ export const Required: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -151,7 +159,11 @@ export const Disabled: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -165,7 +177,11 @@ export const Error: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -179,7 +195,11 @@ export const Multiline: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -192,7 +212,11 @@ export const Readonly: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -205,7 +229,11 @@ export const AutoFocus: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -218,7 +246,11 @@ export const Hint: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -231,7 +263,11 @@ export const MaxLength: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -244,7 +280,11 @@ export const Icon: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -256,6 +296,10 @@ export const Radio: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <div style={{ width: '40px' }}>{Story()}</div>,
+        (Story) => (
+            <div style={{ width: '40px' }}>
+                <Story />
+            </div>
+        ),
     ],
 };

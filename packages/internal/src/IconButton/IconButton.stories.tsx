@@ -170,7 +170,7 @@ export const Inverse: Story = {
         // eslint-disable-next-line new-cap
         (Story) => (
             <div style={{ backgroundColor: 'black', width: 'fit-content', borderRadius: '4px' }}>
-                {Story()}
+                <Story />
             </div>
         ),
     ],

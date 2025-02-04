@@ -57,7 +57,11 @@ export const Basic: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -68,7 +72,11 @@ export const MaxValue: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -80,6 +88,10 @@ export const NavigationLink: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
