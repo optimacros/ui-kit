@@ -26,7 +26,7 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 };
 
 export const Item = forward<menu.ItemProps, 'li'>(
-    ({ valueText, closeOnSelect, disabled, value, ...rest }, ref) => {
+    ({ valueText, children, closeOnSelect, disabled, value, ...rest }, ref) => {
         const props = useProxySelector(
             (api) => api.getItemProps({ value, closeOnSelect, disabled, valueText }),
             [value, closeOnSelect, disabled, valueText],
@@ -34,7 +34,7 @@ export const Item = forward<menu.ItemProps, 'li'>(
 
         return (
             <styled.li {...rest} {...props} ref={ref}>
-                {valueText}
+                {children}
             </styled.li>
         );
     },

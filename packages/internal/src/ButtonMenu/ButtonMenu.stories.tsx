@@ -90,16 +90,19 @@ export const Basic: Story = {
         label: 'Menu',
         icon: 'print',
         arrowUp: false,
-        children: [
-            <SubMenu label="2" key="2">
-                <MenuItem key={1}>
-                    <span>Option</span>
-                </MenuItem>
-                <MenuItem key={2}>
-                    <span>Option</span>
-                </MenuItem>
-            </SubMenu>,
-        ],
+        children: (
+            <>
+                <SubMenu label="2" key="2">
+                    <MenuItem key={1}>
+                        <span>Option</span>
+                    </MenuItem>
+                    <MenuItem key={2}>
+                        <span>Option</span>
+                    </MenuItem>
+                </SubMenu>
+                ,
+            </>
+        ),
     },
 };
 

@@ -1,18 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Menu, MenuItem } from '.';
+import { Menu, MenuItem, MenuTrigger } from '.';
 import { action } from '@storybook/addon-actions';
+import { VisuallyHidden } from '@optimacros-ui/visually-hidden';
 
+const Wrapper = ({ children }: { children }) => (
+    <div style={{ width: '500px', height: '25vh', position: 'relative' }}>{children}</div>
+);
 const meta: Meta<typeof MenuItem> = {
     title: 'UI Kit internal/Menu/MenuItem',
     component: MenuItem,
-    parameters: {
-        layout: 'centered',
-    },
     tags: ['autodocs'],
     argTypes: {
         title: {
             control: 'text',
             description: 'The title of the menu item',
+        },
+        label: {
+            control: 'text',
+            description: 'WS_FE legacy thing, deprecated',
+            table: { disable: true },
         },
         key: {
             control: 'text',
@@ -20,7 +26,7 @@ const meta: Meta<typeof MenuItem> = {
         },
         value: {
             control: 'text',
-            description: 'Optional value associated with the item',
+            description: 'Value associated with the item',
         },
         onClick: {
             description: 'Function called when menu item is clicked',
@@ -32,9 +38,17 @@ const meta: Meta<typeof MenuItem> = {
     decorators: [
         (Story) => {
             return (
-                <Menu>
-                    <Story />
-                </Menu>
+                <Wrapper>
+                    <Menu
+                        renderTrigger={() => (
+                            <VisuallyHidden>
+                                <MenuTrigger>hidden trigger</MenuTrigger>
+                            </VisuallyHidden>
+                        )}
+                    >
+                        <Story />
+                    </Menu>
+                </Wrapper>
             );
         },
     ],
@@ -56,9 +70,7 @@ export const Basic: Story = {
 // MenuItem with label for additional context
 export const WithLabel: Story = {
     args: {
-        title: 'Settings',
         key: 'settings',
-        label: 'Application preferences',
         onClick: action('onClick'),
         children: (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -74,9 +86,7 @@ export const WithLabel: Story = {
 // MenuItem with value showing selected option
 export const WithValue: Story = {
     args: {
-        title: 'Language',
         key: 'language',
-        label: 'Current language',
         value: 'English',
         onClick: action('onClick'),
         children: (
@@ -91,9 +101,7 @@ export const WithValue: Story = {
 // MenuItem with icon and text
 export const WithIcon: Story = {
     args: {
-        title: 'Notifications',
         key: 'notifications',
-        label: 'Manage notifications',
         onClick: action('onClick'),
         children: (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -107,9 +115,7 @@ export const WithIcon: Story = {
 // MenuItem with complex content
 export const ComplexContent: Story = {
     args: {
-        title: 'Profile',
         key: 'profile',
-        label: 'User profile information',
         onClick: action('onClick'),
         children: (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '4px' }}>
@@ -138,9 +144,7 @@ export const ComplexContent: Story = {
 // MenuItem with badge and value
 export const WithBadge: Story = {
     args: {
-        title: 'Messages',
         key: 'messages',
-        label: 'Unread messages',
         value: '3',
         onClick: action('onClick'),
         children: (
@@ -175,9 +179,7 @@ export const WithBadge: Story = {
 // MenuItem with progress indicator
 export const WithProgress: Story = {
     args: {
-        title: 'Upload Progress',
         key: 'upload',
-        label: 'File upload status',
         value: '75%',
         onClick: action('onClick'),
         children: (
@@ -215,37 +217,13 @@ export const Destructive: Story = {
         key: 'delete',
         label: 'Permanently delete your account',
         onClick: action('onClick'),
-        children: (
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: '#ef4444',
-                }}
-            >
-                <span>🗑️</span>
-                <span>Delete Account</span>
-                <span
-                    style={{
-                        fontSize: '0.875rem',
-                        color: '#ef4444',
-                        opacity: 0.8,
-                    }}
-                >
-                    (Permanent Action)
-                </span>
-            </div>
-        ),
     },
 };
 
 // MenuItem with keyboard shortcut
 export const WithShortcut: Story = {
     args: {
-        title: 'Save',
         key: 'save',
-        label: 'Save changes',
         onClick: action('onClick'),
         children: (
             <div

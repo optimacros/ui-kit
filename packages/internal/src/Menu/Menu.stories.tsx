@@ -2,19 +2,17 @@
 
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
+import { Menu, MenuItem, MenuTrigger, SubMenu } from '@optimacros-ui/kit-internal';
 import { action } from '@storybook/addon-actions';
-
+import { useEffect, useState } from 'react';
+import { VisuallyHidden } from '@optimacros-ui/visually-hidden';
 const Wrapper = ({ children }: { children }) => (
-    <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
+    <div style={{ width: '500px', height: '25vh', position: 'relative' }}>{children}</div>
 );
 
 const meta: Meta<typeof Menu> = {
     title: 'UI Kit internal/Menu/Menu',
     component: Menu,
-    parameters: {
-        layout: 'centered',
-    },
     tags: ['autodocs'],
     decorators: [
         (Story) => (
@@ -23,14 +21,22 @@ const meta: Meta<typeof Menu> = {
             </Wrapper>
         ),
     ],
+    args: {
+        // just an anchor
+        renderTrigger: () => (
+            <VisuallyHidden>
+                <MenuTrigger>hidden trigger</MenuTrigger>
+            </VisuallyHidden>
+        ),
+    },
 };
 export default meta;
 
 type Story = StoryObj<typeof Menu>;
 
-export const Basic = (props) => {
+export const NestedMenu = (props) => {
     return (
-        <Menu>
+        <Menu {...props}>
             <MenuItem label="1" key="1">
                 1
             </MenuItem>
@@ -105,43 +111,25 @@ export const Basic = (props) => {
 };
 
 export const SimpleMenu: Story = {
-    render: () => (
-        <Menu>
-            <MenuItem title="Home" key="home" onClick={action('clicked Home')}>
-                Home
-            </MenuItem>
-            <MenuItem title="Profile" key="profile" onClick={action('clicked Profile')}>
-                Profile
-            </MenuItem>
-            <MenuItem title="Settings" key="settings" onClick={action('clicked Settings')}>
-                Settings
-            </MenuItem>
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem title="Home" key="home" onClick={action('clicked Home')} />
+            <MenuItem title="Profile" key="profile" onClick={action('clicked Profile')} />
+            <MenuItem title="Settings" key="settings" onClick={action('clicked Settings')} />
         </Menu>
     ),
 };
 
 export const WithLabelsAndValues: Story = {
-    render: () => (
-        <Menu>
-            <MenuItem
-                title="Language"
-                key="language"
-                label="Select your preferred language"
-                value="English"
-                onClick={action('clicked Language')}
-            >
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="language" value="English" onClick={action('clicked Language')}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px' }}>
                     <span>Language</span>
                     <span style={{ color: '#6b7280' }}>English</span>
                 </div>
             </MenuItem>
-            <MenuItem
-                title="Theme"
-                key="theme"
-                label="Choose application theme"
-                value="Light"
-                onClick={action('clicked Theme')}
-            >
+            <MenuItem key="theme" value="Light" onClick={action('clicked Theme')}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px' }}>
                     <span>Theme</span>
                     <span style={{ color: '#6b7280' }}>Light</span>
@@ -152,14 +140,9 @@ export const WithLabelsAndValues: Story = {
 };
 
 export const UserMenu: Story = {
-    render: () => (
-        <Menu>
-            <MenuItem
-                title="Profile"
-                key="profile"
-                label="View and edit profile"
-                onClick={action('clicked Profile')}
-            >
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="profile" onClick={action('clicked Profile')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px' }}>
                     <div
                         style={{
@@ -182,18 +165,13 @@ export const UserMenu: Story = {
                     </div>
                 </div>
             </MenuItem>
-            <MenuItem
-                title="Account"
-                key="account"
-                label="Manage your account"
-                onClick={action('clicked Account')}
-            >
+            <MenuItem key="account" onClick={action('clicked Account')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span>⚙️</span>
                     <span>Account Settings</span>
                 </div>
             </MenuItem>
-            <MenuItem title="Logout" key="logout" onClick={action('clicked Logout')}>
+            <MenuItem key="logout" onClick={action('clicked Logout')}>
                 <div
                     style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444' }}
                 >
@@ -206,86 +184,84 @@ export const UserMenu: Story = {
 };
 
 export const NotificationMenu: Story = {
-    render: () => (
-        <Menu>
-            <MenuItem
-                title="Messages"
-                key="messages"
-                label="3 unread messages"
-                value="3"
-                onClick={action('clicked Messages')}
-            >
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        width: '200px',
-                    }}
-                >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span>✉️</span>
-                        <span>Messages</span>
-                    </div>
+    render: (props) => {
+        const [count, setCount] = useState(0);
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+                setCount((prevCount) => prevCount + 1);
+            }, 1000);
+
+            return () => {
+                if (interval) {
+                    clearInterval(interval);
+                }
+            };
+        }, []);
+
+        return (
+            <Menu {...props}>
+                <MenuItem key="messages" value="3" onClick={action('clicked Messages')}>
                     <div
                         style={{
-                            backgroundColor: '#ef4444',
-                            color: 'white',
-                            borderRadius: '9999px',
-                            padding: '2px 8px',
-                            fontSize: '0.75rem',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '200px',
                         }}
                     >
-                        3
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>✉️</span>
+                            <span>Messages</span>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: '#ef4444',
+                                color: 'white',
+                                borderRadius: '9999px',
+                                padding: '2px 8px',
+                                fontSize: '0.75rem',
+                            }}
+                        >
+                            3
+                        </div>
                     </div>
-                </div>
-            </MenuItem>
-            <MenuItem
-                title="Tasks"
-                key="tasks"
-                label="5 pending tasks"
-                value="5"
-                onClick={action('clicked Tasks')}
-            >
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        width: '200px',
-                    }}
-                >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span>📋</span>
-                        <span>Tasks</span>
-                    </div>
+                </MenuItem>
+                <MenuItem key="tasks" value="5" onClick={action('clicked Tasks')}>
                     <div
                         style={{
-                            backgroundColor: '#eab308',
-                            color: 'white',
-                            borderRadius: '9999px',
-                            padding: '2px 8px',
-                            fontSize: '0.75rem',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '200px',
                         }}
                     >
-                        5
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>📋</span>
+                            <span>Tasks</span>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: '#eab308',
+                                color: 'white',
+                                borderRadius: '9999px',
+                                padding: '2px 8px',
+                                fontSize: '0.75rem',
+                            }}
+                        >
+                            ${count}
+                        </div>
                     </div>
-                </div>
-            </MenuItem>
-        </Menu>
-    ),
+                </MenuItem>
+            </Menu>
+        );
+    },
 };
 
 export const SettingsMenu: Story = {
-    render: () => (
-        <Menu>
-            <MenuItem
-                title="Storage"
-                key="storage"
-                label="Storage usage information"
-                value="75%"
-                onClick={action('clicked Storage')}
-            >
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="storage" value="75%" onClick={action('clicked Storage')}>
                 <div style={{ width: '200px', padding: '8px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <span>Storage Used</span>
@@ -310,23 +286,13 @@ export const SettingsMenu: Story = {
                     </div>
                 </div>
             </MenuItem>
-            <MenuItem
-                title="Notifications"
-                key="notifications"
-                label="Notification preferences"
-                onClick={action('clicked Notifications')}
-            >
+            <MenuItem key="notifications" onClick={action('clicked Notifications')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span>🔔</span>
                     <span>Notification Settings</span>
                 </div>
             </MenuItem>
-            <MenuItem
-                title="Privacy"
-                key="privacy"
-                label="Privacy and security"
-                onClick={action('clicked Privacy')}
-            >
+            <MenuItem key="privacy" onClick={action('clicked Privacy')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span>🔒</span>
                     <span>Privacy Settings</span>
@@ -337,14 +303,9 @@ export const SettingsMenu: Story = {
 };
 
 export const AccountActions: Story = {
-    render: () => (
-        <Menu>
-            <MenuItem
-                title="Upgrade"
-                key="upgrade"
-                label="Upgrade to Pro"
-                onClick={action('clicked Upgrade')}
-            >
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="upgrade" onClick={action('clicked Upgrade')}>
                 <div
                     style={{
                         display: 'flex',
@@ -357,23 +318,13 @@ export const AccountActions: Story = {
                     <span>Upgrade to Pro</span>
                 </div>
             </MenuItem>
-            <MenuItem
-                title="Export"
-                key="export"
-                label="Export your data"
-                onClick={action('clicked Export')}
-            >
+            <MenuItem key="export" onClick={action('clicked Export')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span>📤</span>
                     <span>Export Data</span>
                 </div>
             </MenuItem>
-            <MenuItem
-                title="Delete"
-                key="delete"
-                label="Delete your account"
-                onClick={action('clicked Delete')}
-            >
+            <MenuItem key="delete" onClick={action('clicked Delete')}>
                 <div
                     style={{
                         display: 'flex',

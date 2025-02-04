@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { Icon } from '@optimacros-ui/icon';
-import { Menu as MenuComponent } from '@optimacros-ui/menu';
-import { Button, ButtonTheme } from '@optimacros-ui/kit-internal';
+import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
-
 export type ButtonMenuTheme = Partial<ButtonTheme>;
 
 type Props = {
@@ -103,17 +101,16 @@ export const ButtonMenu: React.FC<ButtonMenuProps> = (props) => {
     };
 
     return (
-        <MenuComponent.Root
+        <Menu
             closeOnSelect={closeOnSelect}
             disabled={disabled}
             open={visible}
-            {...{ 'open.controlled': visible }}
+            {...{ 'open.controlled': false }}
+            renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
+            controllable
         >
-            <MenuComponent.Trigger as="div">{renderButton()}</MenuComponent.Trigger>
-            <MenuComponent.Positioner>
-                <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
-            </MenuComponent.Positioner>
-        </MenuComponent.Root>
+            {children}
+        </Menu>
     );
 };

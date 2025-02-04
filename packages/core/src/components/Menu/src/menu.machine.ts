@@ -60,7 +60,7 @@ export const connect: ConnectMachine<Machine> = (api, { state, send }, machine) 
             return {
                 ...props,
                 onClick: (e) => {
-                    if (!state.context.disabled && !state.context.hoverable) {
+                    if (!state.context.disabled) {
                         props.onClick(e);
                     }
                 },
