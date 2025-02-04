@@ -60,8 +60,9 @@ export const WithModal: Story = {
         };
 
         return (
-            <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
-                <Modal.Content>
+            <>
+                <Button onClick={() => setOpen(true)}>Open Modal</Button>
+                <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
                     </Modal.Header>
@@ -87,8 +88,8 @@ export const WithModal: Story = {
                             </Button>
                         </Toolbar.Root>
                     </div>
-                </Modal.Content>
-            </Modal.Root>
+                </Modal.Root>
+            </>
         );
     },
 };
