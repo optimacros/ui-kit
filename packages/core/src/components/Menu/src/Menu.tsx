@@ -1,7 +1,7 @@
+import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren } from 'react';
+import { Portal } from '@zag-js/react';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
-import { Portal } from '@zag-js/react';
-import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren } from 'react';
 import { machine, connect } from './menu.machine';
 import type * as menu from '@zag-js/menu';
 

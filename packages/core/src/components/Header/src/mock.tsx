@@ -1,5 +1,3 @@
-import { Icon } from '@optimacros-ui/kit';
-
 export const headerMenuItems = [
     {
         key: '11',
@@ -10,34 +8,19 @@ export const headerMenuItems = [
     {
         key: '12',
         value: '12',
-        valueText: (
-            <span>
-                <Icon value="help_outline" />
-                App version
-            </span>
-        ),
+        valueText: 'App version',
         disabled: false,
     },
     {
         key: '13',
         value: '13',
-        valueText: (
-            <span>
-                <Icon value="settings" />
-                Settings
-            </span>
-        ),
+        valueText: 'Settings',
         disabled: false,
     },
     {
         key: '14',
         value: '14',
-        valueText: (
-            <span>
-                <Icon value="input" />
-                Log Out
-            </span>
-        ),
+        valueText: 'Log Out',
         disabled: false,
     },
 ];

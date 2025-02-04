@@ -1,30 +1,36 @@
 //@ts-nocheck
 
 import React, { ReactNode, useId } from 'react';
+import React, { MouseEventHandler, useId } from 'react';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 
-interface Props {
+interface MenuItemProps {
     title?: string;
-    key: string;
     label?: string;
     value?: string;
-    onClick: (event: MouseEvent) => void;
-    children: React.ReactNode;
+    onClick?: MouseEventHandler<HTMLDivElement>;
+    children?: React.ReactNode;
+    disabled?: boolean;
 }
 
-export const MenuItem = ({ label, title, value, children, onClick, ...restProps }: Props) => {
+const normalizeChildren = (children: React.ReactNode): string =>
+    React.isValidElement(children) ? children.props?.children : String(children);
+
+export const MenuItem = ({ label, title, value, children, onClick, disabled }: MenuItemProps) => {
     const generatedKey = useId();
 
     return (
         <div onClick={onClick}>
-            <MenuComponent.Item {...restProps} value={value || generatedKey}>
-                {label || title || children}
-            </MenuComponent.Item>
+            <MenuComponent.Item
+                disabled={disabled}
+                valueText={label || title || normalizeChildren(children)}
+                value={value || generatedKey}
+            />
         </div>
     );
 };
 
-export const SubMenu = ({ label, title, value, children }) => {
+export const SubMenu = ({ label, title, value, children }: MenuItemProps) => {
     const api = MenuComponent.useApi();
     const generatedKey = useId();
 
@@ -33,7 +39,7 @@ export const SubMenu = ({ label, title, value, children }) => {
             parent={api}
             item={{
                 value: value || generatedKey,
-                valueText: label || title || children,
+                valueText: label || title || normalizeChildren(children),
                 closeOnSelect: true,
             }}
             closeOnSelect={false}
