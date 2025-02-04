@@ -3,7 +3,7 @@ import { Icon, IconProps } from '@optimacros-ui/icon';
 import { forward } from '@optimacros-ui/store';
 
 export interface IconButtonProps extends ButtonProps {
-    icon: IconProps['value'];
+    icon?: IconProps['value'];
 }
 
 export const IconButton = forward<IconButtonProps, 'button'>(({ children, icon, ...rest }, ref) => {

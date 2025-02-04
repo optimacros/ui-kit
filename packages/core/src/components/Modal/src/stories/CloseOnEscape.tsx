@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../index';
 import { Button } from '@optimacros-ui/button';
-import { IconButton } from '@optimacros-ui/icon-button';
 
 export const CloseOnEscape = () => {
     const [open, setOpen] = useState(false);

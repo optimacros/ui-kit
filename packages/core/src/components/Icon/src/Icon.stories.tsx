@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { ArgTypes, Meta } from '@storybook/react';
 import { Tooltip } from '@optimacros-ui/kit';
 import { ICONS_MAP } from '@optimacros-ui/themes';
@@ -10,7 +8,6 @@ import { Popover } from '@optimacros-ui/popover';
 import { Toolbar } from '@optimacros-ui/toolbar';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
-
 import { Icon } from './index';
 
 const argTypes: Partial<ArgTypes> = {
@@ -103,7 +100,7 @@ export const WithButton = () => {
             <Flex align="center">
                 <Text.Paragraph>Support cases</Text.Paragraph>
                 <Popover.Trigger asChild>
-                    <IconButton> info </IconButton>
+                    <IconButton icon="info" />
                 </Popover.Trigger>
             </Flex>
             <Popover.Positioner>
