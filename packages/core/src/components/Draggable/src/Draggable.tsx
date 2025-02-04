@@ -9,7 +9,7 @@ export const Item = forward<
     UseDraggableArguments & {
         children: (props: ReturnType<typeof useDraggable> & { id: string }) => ReactNode;
     },
-    'div'
+    {}
 >(({ children, id: baseId, data, disabled, attributes: attr }, ref) => {
     const id = 'draggable-' + baseId;
 

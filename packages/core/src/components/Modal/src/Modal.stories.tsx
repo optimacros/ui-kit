@@ -72,6 +72,7 @@ const argTypes: Partial<ArgTypes> = {
 const meta: Meta<typeof Modal> = {
     title: 'UI Kit core/Modal',
     argTypes,
+    decorators: [(Story) => <Story />],
 };
 
 export default meta;

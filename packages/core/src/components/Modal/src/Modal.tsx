@@ -18,11 +18,12 @@ import React, {
 import { Portal } from '@zag-js/react';
 import { Draggable } from '@optimacros-ui/draggable';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
-import { isFunction } from '@optimacros-ui/utils';
 
 const config = {
     context: {
         onClose: () => {},
+    } as {
+        onClose?: () => void;
     },
     on: {
         'ON_CLOSE.SET': { actions: 'setOnClose' },
@@ -76,34 +77,6 @@ export const {
     },
 });
 
-/**
- * TODO
- * Get rid of it
- * @deprecated
- * */
-export const CustomRoot = forward<ComponentProps<typeof Root>, 'div'>(
-    ({ children, ...rest }, ref) => {
-        return (
-            <Root {...rest}>
-                {(api) =>
-                    api.open && (
-                        <Portal>
-                            <styled.div {...api.getBackdropProps()} />
-                            <styled.div {...api.getPositionerProps()}>
-                                <styled.div {...api.getContentProps()} ref={ref}>
-                                    {isFunction(children) ? children(api) : children}
-                                </styled.div>
-                            </styled.div>
-                        </Portal>
-                    )
-                }
-            </Root>
-        );
-    },
-    {
-        displayName: 'ModalRoot',
-    },
-);
 export type Props = ComponentProps<typeof Root>;
 
 export type OpenChangeDetails = dialog.OpenChangeDetails;

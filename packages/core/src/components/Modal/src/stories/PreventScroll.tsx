@@ -4,7 +4,7 @@ import { Modal } from '../index';
 import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 
-export const PreventScroll = () => {
+export const PreventScroll = (props) => {
     const [open, setOpen] = useState(false);
 
     const handleOpenChange = (details) => {
@@ -16,6 +16,7 @@ export const PreventScroll = () => {
             <Button onClick={() => setOpen(true)}>Open</Button>
 
             <Modal.Root
+                {...props}
                 open={open}
                 onOpenChange={handleOpenChange}
                 preventScroll={false}
