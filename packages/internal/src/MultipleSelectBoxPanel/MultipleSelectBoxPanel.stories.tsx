@@ -74,6 +74,10 @@ export const Basic: Story = {
     ...Template,
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };

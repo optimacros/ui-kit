@@ -116,7 +116,11 @@ export const Basic: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -130,7 +134,11 @@ export const Multi: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -144,7 +152,11 @@ export const Disabled: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -158,7 +170,11 @@ export const Error: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -172,7 +188,11 @@ export const Required: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };
 
@@ -187,6 +207,10 @@ export const Custom: Story = {
     },
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
 };

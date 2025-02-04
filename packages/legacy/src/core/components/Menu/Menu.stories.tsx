@@ -44,7 +44,11 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
 export const Basic: Story = {
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
     args: {
         mode: 'inline',
@@ -59,7 +63,11 @@ export const Basic: Story = {
 export const DisabledMenuItem: Story = {
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
     args: {
         mode: 'inline',
@@ -76,7 +84,7 @@ export const DisabledMenuItem: Story = {
 // todo - uncomment, when update rc-menu, mode 'vertical' -> error rc-menu
 // export const MenuWithSubMenu: Story = {
 //     decorators: [
-//         (Story) => <Wrapper>{Story()}</Wrapper>,
+//         (Story) => <Wrapper><Story /></Wrapper>,
 //     ],
 //     args: {
 //         mode: "vertical",
@@ -102,7 +110,11 @@ export const DisabledMenuItem: Story = {
 export const MenuWithSubGroup: Story = {
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
     args: {
         mode: 'inline',
@@ -129,7 +141,11 @@ export const MenuWithSubGroup: Story = {
 export const Inline: Story = {
     decorators: [
         // eslint-disable-next-line new-cap
-        (Story) => <Wrapper>{Story()}</Wrapper>,
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
     ],
     args: {
         mode: 'inline',
