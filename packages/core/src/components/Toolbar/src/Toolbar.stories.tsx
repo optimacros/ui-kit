@@ -60,9 +60,8 @@ export const WithModal: Story = {
         };
 
         return (
-            <>
-                <Button onClick={() => setOpen(true)}>Open Modal</Button>
-                <Modal.CustomRoot open={open} onOpenChange={handleOpenChange} controllable>
+            <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
+                <Modal.Content>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
                     </Modal.Header>
@@ -79,7 +78,7 @@ export const WithModal: Story = {
                         </div>
                     </Modal.ScrollContainer>
                     <div style={{ padding: '2rem', width: '100%', boxSizing: 'border-box' }}>
-                        <Toolbar.Root {...props}>
+                        <Toolbar.Root {...props} isSmall>
                             <Button variant="primary" onClick={() => setOpen(false)}>
                                 Cancel
                             </Button>
@@ -88,8 +87,8 @@ export const WithModal: Story = {
                             </Button>
                         </Toolbar.Root>
                     </div>
-                </Modal.CustomRoot>
-            </>
+                </Modal.Content>
+            </Modal.Root>
         );
     },
 };

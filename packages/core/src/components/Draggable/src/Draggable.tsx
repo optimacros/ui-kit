@@ -20,7 +20,7 @@ export const Item = forward<
         attributes: attr,
     });
 
-    useImperativeHandle(ref, () => draggable.node as unknown as HTMLLIElement);
+    useImperativeHandle(ref, () => draggable.node.current as unknown as HTMLDivElement);
 
     return children({ id, ...draggable });
 });

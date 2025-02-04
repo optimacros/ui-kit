@@ -1,44 +1,10 @@
-@theme {
+:root {
   --body-bg: #ffffff;
   --scrollbar: #e5e5e5;
   --scrollbar-thumb: #cdcdcd;
   --scrollbar-thumb-hover: #b3b3b3;
 
   --width-scroll: var(--spacing-2);
-}
-
-@utility scroll {
-  & {
-    overflow: auto;
-    scrollbar-gutter: stable;
-  }
-
-  &::-webkit-scrollbar {
-    width: var(--width-scroll);
-    background: var(--scrollbar);
-
-    &::horizontal {
-      border: none;
-      border-top: 1px solid transparent;
-    }
-  }
-
-  &::-webkit-scrollbar-corner {
-    background: var(--body-bg);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb);
-    background-clip: padding-box;
-
-    &:hover {
-      background-color: var(--scrollbar-thumb-hover);
-    }
-
-    &:active {
-      background-color: var(--scrollbar-thumb-hover);
-    }
-  }
 }
 
 [data-role='scroll-container'] {

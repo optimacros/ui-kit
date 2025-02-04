@@ -19,51 +19,46 @@
     width: 100vw;
   }
 
-  & [data-part='content'] {
+  &[data-part='content'] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: var(--spacing-4);
     border-radius: var(--radius-sm);
-    padding: var(--spacing-3);
+    padding: var(--spacing-3-5) var(--spacing-3);
     background-color: var(--color-modal-primary-default);
     border: var(--spacing-px) solid var(--color-theme-divider-dark-default);
     max-width: 80vw;
     max-height: 80vh;
+    box-sizing: border-box;
   }
 
-  & [data-part='header'] {
+  &[data-part='header'] {
     position: relative;
-    padding-left: var(--spacing-6);
-    padding-right: var(--spacing-14);
-    padding-top: var(--spacing-3-5);
-    padding-bottom: var(--spacing-3-5);
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     min-height: var(--spacing-12);
     box-sizing: border-box;
 
-    & [data-part='close-trigger'] {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: var(--spacing-12);
-      width: var(--spacing-12);
+    & [data-role='close-trigger'] {
+      color: var(--color-theme-gray-200);
     }
   }
 
-  & [data-part='title'] {
+  &[data-part='title'] {
     color: var(--color-text);
     margin: 0;
-    font-size: var(--spacing-5);
+    font-size: var(--text-3xl);
     font-weight: var(--font-weight-bold);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  & [data-part='footer'] {
+  &[data-part='footer'] {
     padding-left: var(--spacing-6);
     padding-right: var(--spacing-6);
     padding-top: var(--spacing-3-5);
@@ -76,16 +71,19 @@
     box-sizing: border-box;
   }
 
-  & [data-part='scroll-container-outer'] {
+  &[data-part='scroll-container-outer'] {
     display: flex;
-    padding-left: var(--spacing-6);
-    padding-right: var(--spacing-2);
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
   }
 
-  & [data-part='scroll-container-inner'] {
+  &[data-part='scroll-container-inner'] {
     padding-right: calc(var(--spacing-2-5) - var(--width-scroll));
+    overflow: auto;
+  }
+
+  &[data-draggable-part='handle'] {
+    cursor: move;
   }
 }
