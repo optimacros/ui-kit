@@ -1,6 +1,7 @@
 const { exec } = require('child_process');
 const fs = require('fs');
 const readline = require('readline');
+const { spawn } = require('./spawn');
 
 const mainBranchArg = '--main';
 
@@ -36,29 +37,37 @@ function rebase() {
         if (continueCommand) {
             console.info('running update package-lock...');
 
+            console.info('removing node_modules');
             fs.rmSync('node_modules', { recursive: true, force: true });
 
+            console.info('removing package-lock.json');
             fs.unlink('package-lock.json', () => {
-                exec(updateLockFileCommand, (err, output, stderr) => {
-                    console.info(output);
-                    console.error(stderr);
-                    if (!mrCommand) {
-                        line.question('push? y/n \n', (answer) => {
-                            if (answer === 'y') {
-                                exec('git push --force', () => {
-                                    console.info('done');
+                spawn('npm', ['i'], {
+                    onClose: () => {
+                        if (!mrCommand) {
+                            line.question('push? y/n \n', (answer) => {
+                                if (answer === 'y') {
+                                    exec('git commit -a -m "chore: update package-lock"', () => {
+                                        spawn('git', ['push', '--force'], {
+                                            onClose: () => {
+                                                line.close();
+                                            },
+                                        });
+                                    });
+                                } else {
                                     line.close();
+                                }
+                            });
+                        } else {
+                            exec('git commit -a -m "chore: created mr"', () => {
+                                spawn('npm', ['run', 'create:mr'], {
+                                    onClose: () => {
+                                        line.close();
+                                    },
                                 });
-                            } else {
-                                line.close();
-                            }
-                        });
-                    } else {
-                        exec('npm run create:mr', () => {
-                            console.info('done');
-                            line.close();
-                        });
-                    }
+                            });
+                        }
+                    },
                 });
             });
         } else {
