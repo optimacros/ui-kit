@@ -1,5 +1,7 @@
-import configProd from './config/prod/main';
-import configDev from './config/dev/main';
+//@ts-ignore
+import configProd from './config/prod/main.ts';
+//@ts-ignore
+import configDev from './config/dev/main.ts';
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const isProd = process.env.NODE_ENV === 'production';

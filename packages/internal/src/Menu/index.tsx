@@ -1,6 +1,6 @@
 //@ts-nocheck
 
-import React, { useId } from 'react';
+import React, { ReactNode, useId } from 'react';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 
 interface Props {
@@ -51,7 +51,7 @@ export const SubMenu = ({ label, title, value, children }) => {
     );
 };
 
-export const Menu = (props: Props) => {
+export const Menu = (props: { children: ReactNode }) => {
     const { children } = props;
 
     return (
@@ -62,7 +62,7 @@ export const Menu = (props: Props) => {
             {...{ 'open.controlled': true }}
         >
             <MenuComponent.Positioner>
-                <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
+                <MenuComponent.Content>{children}</MenuComponent.Content>
             </MenuComponent.Positioner>
         </MenuComponent.Root>
     );
