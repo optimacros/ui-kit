@@ -2,7 +2,7 @@ import { ComponentProps, PropsWithChildren } from 'react';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as machine from '@zag-js/checkbox';
 
-export const { RootProvider, useApi, splitProps } = createReactApiStateContext({
+export const { RootProvider, useApi, splitProps } = createReactApiStateContext<typeof machine>({
     id: 'checkbox',
     machine,
 });
