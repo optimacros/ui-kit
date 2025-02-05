@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React, { Children, isValidElement } from 'react';
 import { RadioGroup as RadioGroupComponent } from '@optimacros-ui/radio-group';
 
@@ -8,7 +6,7 @@ interface RadioGroupProps {
     classNameButton?: string;
     children?: React.ReactNode;
     theme?: Record<string, string>;
-    onChange?: RadioGroupComponent.RootProps['onValueChange'];
+    onChange?: (value: string) => void;
 }
 
 export const RadioGroup = ({ options, children, onChange, ...rest }: RadioGroupProps) => {
@@ -16,7 +14,10 @@ export const RadioGroup = ({ options, children, onChange, ...rest }: RadioGroupP
 
     return (
         <>
-            <RadioGroupComponent.Root {...rest} onValueChange={({ value }) => onChange?.(value)}>
+            <RadioGroupComponent.Root
+                {...rest}
+                onValueChange={({ value }: { value: string }) => onChange?.(value)}
+            >
                 {content.map((component) => {
                     const isComponent = isValidElement(component);
 
