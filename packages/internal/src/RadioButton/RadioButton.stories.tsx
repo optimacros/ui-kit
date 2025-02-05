@@ -12,11 +12,11 @@ const meta: Meta<typeof RadioButton> = {
     argTypes: {
         checked: {
             control: 'boolean',
-            description: 'The controlled checked state of the checkbox',
+            description: 'The controlled checked state of the radio button',
         },
         children: {
             control: false,
-            description: 'The content to be rendered inside the checkbox',
+            description: 'The content to be rendered inside the radio button',
         },
         className: {
             control: 'text',
@@ -24,12 +24,12 @@ const meta: Meta<typeof RadioButton> = {
         },
         disabled: {
             control: 'boolean',
-            description: 'Whether the checkbox is disabled',
+            description: 'Whether the radio button is disabled',
             defaultValue: false,
         },
         label: {
             control: 'text',
-            description: 'Label text or node to display next to checkbox',
+            description: 'Label text or node to display next to radio button',
         },
         name: {
             control: 'text',
@@ -53,21 +53,15 @@ const meta: Meta<typeof RadioButton> = {
         },
         onMouseEnter: {
             action: 'mouseEntered',
-            description: 'Handler called when mouse enters checkbox',
+            description: 'Handler called when mouse enters radio button',
         },
         onMouseLeave: {
             action: 'mouseLeft',
-            description: 'Handler called when mouse leaves checkbox',
+            description: 'Handler called when mouse leaves radio button',
         },
         theme: {
             control: 'object',
             description: 'Theme customization object',
-            defaultValue: {
-                disabled: '',
-                field: '',
-                input: '',
-                text: '',
-            },
         },
         value: {
             control: 'text',

@@ -1,31 +1,72 @@
 // @ts-nocheck
-import { RadioGroup } from './index';
-import { RadioButton } from '@optimacros-ui/kit-internal';
 
-export default {
-    title: 'ui kit internal/RadioGroup',
+import type { Meta, StoryObj } from '@storybook/react';
+import { RadioButton } from '../RadioButton';
+import { RadioGroup } from '.';
+
+const meta: Meta<typeof RadioGroup> = {
+    title: 'UI Kit internal/RadioGroup',
     component: RadioGroup,
+    tags: ['autodocs'],
+    argTypes: {
+        options: {
+            control: 'object',
+            description: 'Array of options for radio buttons',
+        },
+        classNameButton: {
+            control: 'text',
+            description: 'Additional CSS class for radio buttons',
+        },
+        children: {
+            control: false,
+            description: 'Custom content inside radio group',
+        },
+        theme: {
+            control: 'object',
+            description: 'Theme customization object',
+        },
+        onChange: {
+            action: 'changed',
+            description: 'Handler called when selection changes',
+        },
+    },
 };
 
-const RadioGroupTemplate = (args) => <RadioGroup {...args} />;
+export default meta;
 
-export const RadioGroupDefault = RadioGroupTemplate.bind({});
-RadioGroupDefault.storyName = 'Base example';
-RadioGroupDefault.args = {
-    value: 1,
-    options: [
-        { label: 'im label', value: 0 },
-        { label: 'im label 1', value: 1 },
-        { label: 'im label 2', value: 2 },
-    ],
+type Story = StoryObj<typeof RadioGroup>;
+
+export const Basic: Story = {
+    args: {
+        options: [
+            { value: '1', label: 'Option 1' },
+            { value: '2', label: 'Option 2' },
+            { value: '3', label: 'Option 3' },
+        ],
+    },
 };
 
-export const RadioGroupBtns = RadioGroupTemplate.bind({});
-RadioGroupBtns.storyName = 'Button options';
-RadioGroupBtns.args = {
-    value: 1,
-    options: [
-        <RadioButton label="Radio 1" value="radio1" />,
-        <RadioButton label="Radio 2" value="radio2" />,
-    ],
+export const WithRadioButton: Story = {
+    args: {
+        options: [
+            <RadioButton label="Radio 1" value="1" />,
+            <RadioButton label="Radio 2" value="2" />,
+        ],
+    },
+};
+
+export const WithChildren: Story = {
+    args: {
+        children: [<div label="Radio 1" value="1" />, <div label="Radio 2" value="2" />],
+    },
+};
+
+export const WithCustomOptions: Story = {
+    args: {
+        options: [
+            { value: 'apple', label: '🍎 Apple' },
+            { value: 'banana', label: '🍌 Banana' },
+            { value: 'orange', label: '🍊 Orange' },
+        ],
+    },
 };
