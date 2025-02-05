@@ -1,49 +1,66 @@
-//@ts-nocheck
-
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { ComponentType, ReactNode } from 'react';
-
-import { Navigation, NavigationProps } from './index';
-import { Button } from '../Button';
-
-const argTypes: Partial<ArgTypes> = {
-    wrap: {
-        control: 'boolean',
-        description: 'If `true`, navigation items can wrap onto multiple lines. ',
-    },
-    type: {
-        control: 'radio',
-        options: ['horizontal', 'vertical'],
-        table: {
-            defaultValue: { summary: 'horizontal' },
-        },
-        description: 'Type of the navigation.',
-    },
-    theme: { table: { disable: true } },
-    className: { table: { disable: true } },
-    children: { table: { disable: true } },
-};
+import { ReactNode } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import { Button } from '@optimacros-ui/button';
+import { Navigation } from './index';
 
 const meta: Meta<typeof Navigation> = {
-    title: 'ui kit internal/Navigation',
-    component: Navigation as unknown as ComponentType<NavigationProps>,
-    argTypes,
+    title: 'UI Kit internal/Navigation',
+    component: Navigation,
+    tags: ['autodocs'],
+    argTypes: {
+        type: {
+            control: { type: 'radio' },
+            options: ['horizontal', 'vertical'],
+            description: 'Layout orientation of the navigation',
+        },
+        theme: {
+            control: 'object',
+            description: 'Theme customization object',
+        },
+        className: {
+            control: 'text',
+            description: 'Additional CSS class',
+        },
+        wrap: {
+            control: 'boolean',
+            description: 'Whether navigation items can wrap to multiple lines',
+        },
+    },
 };
+
 export default meta;
 
-type Story = StoryObj<NavigationProps>;
+type Story = StoryObj<typeof Navigation>;
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '300px' }}>{children}</div>
 );
+
+export const Basic: Story = {
+    args: {
+        type: 'horizontal',
+        children: (
+            <>
+                <Button>Portfolio</Button>
+                <Button>About</Button>
+                <Button>Menu</Button>
+                <Button>Location</Button>
+                <Button>Contact</Button>
+            </>
+        ),
+    },
+};
 
 export const Horizontal: Story = {
     args: {
         type: 'horizontal',
         children: (
             <>
-                <Button label="Portfolio" />
-                <Button label="About" />
+                <Button>Portfolio</Button>
+                <Button>About</Button>
+                <Button>Menu</Button>
+                <Button>Location</Button>
+                <Button>Contact</Button>
             </>
         ),
     },
@@ -54,8 +71,8 @@ export const Vertical: Story = {
         type: 'vertical',
         children: (
             <>
-                <Button label="Portfolio" />
-                <Button label="About" />
+                <Button>Portfolio</Button>
+                <Button>About</Button>
             </>
         ),
     },
@@ -64,14 +81,13 @@ export const Vertical: Story = {
 export const Wrap: Story = {
     args: {
         type: 'horizontal',
-        wrap: true,
         children: (
             <>
-                <Button label="Portfolio" />
-                <Button label="About" />
-                <Button label="Menu" />
-                <Button label="Location" />
-                <Button label="Contact" />
+                <Button>Portfolio</Button>
+                <Button>About</Button>
+                <Button>Menu</Button>
+                <Button>Location</Button>
+                <Button>Contact</Button>
             </>
         ),
     },
