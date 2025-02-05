@@ -83,6 +83,15 @@ Tags: ${new Array(3)
 `;
 };
 
+const tabs: MarkdownEditor.Tabs.Tab[] = [
+    { id: MarkdownEditor.MarkdownEditorMode.EDIT, title: MarkdownEditor.MarkdownEditorMode.EDIT },
+    {
+        id: MarkdownEditor.MarkdownEditorMode.PREVIEW,
+        title: MarkdownEditor.MarkdownEditorMode.PREVIEW,
+    },
+    { id: MarkdownEditor.MarkdownEditorMode.SPLIT, title: MarkdownEditor.MarkdownEditorMode.SPLIT },
+];
+
 export const Basic: StoryObj = {
     render: () => {
         const [value, setValue] = useState('');
@@ -98,39 +107,34 @@ export const Basic: StoryObj = {
                 >
                     reset
                 </button>
-                <MarkdownEditor.Root value={value} onChange={handleChange}>
+
+                <MarkdownEditor.Root value={value} onChange={handleChange} tabs={tabs}>
                     <MarkdownEditor.Tabs.List>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            key={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            data-testid="edit-trigger"
-                        >
-                            edit
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            key={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            data-testid="preview-trigger"
-                        >
-                            preview
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            key={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            data-testid="split-trigger"
-                        >
-                            split
-                        </MarkdownEditor.Tabs.Trigger>
+                        {(tabs) =>
+                            tabs.map((tab) => (
+                                <MarkdownEditor.Tabs.Trigger
+                                    key={tab.id}
+                                    id={tab.id}
+                                    data-testid={`${tab.id}-trigger`}
+                                >
+                                    {tab.title}
+                                </MarkdownEditor.Tabs.Trigger>
+                            ))
+                        }
                     </MarkdownEditor.Tabs.List>
 
-                    <MarkdownEditor.Edit data-testid="edit-tab" />
-                    <MarkdownEditor.Preview data-testid="preview-tab" />
-                    <MarkdownEditor.Split data-testid="split-tab" />
+                    <MarkdownEditor.Edit id={MarkdownEditor.MarkdownEditorMode.EDIT} />
+                    <MarkdownEditor.Preview id={MarkdownEditor.MarkdownEditorMode.PREVIEW} />
+                    <MarkdownEditor.Split id={MarkdownEditor.MarkdownEditorMode.SPLIT} />
                 </MarkdownEditor.Root>
             </div>
         );
     },
-    play: async ({ canvasElement, step, context }) => {
+    play: async ({ canvasElement, step, globals }) => {
+        if (!globals.test) {
+            return;
+        }
+
         const canvas = within(canvasElement);
         const editTrigger = canvas.getByTestId('edit-trigger');
         const previewTrigger = canvas.getByTestId('preview-trigger');
@@ -174,39 +178,42 @@ export const Disabled = {
     render: () => {
         return (
             <div style={{ width: '100%', height: 500 }}>
-                <MarkdownEditor.Root value={defaultValue} disabled>
+                <MarkdownEditor.Root value={defaultValue} disabled tabs={tabs}>
                     <MarkdownEditor.Tabs.List>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            key={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            data-testid="edit-trigger"
-                        >
-                            edit
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            key={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            data-testid="preview-trigger"
-                        >
-                            preview
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            key={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            data-testid="split-trigger"
-                        >
-                            split
-                        </MarkdownEditor.Tabs.Trigger>
+                        {(tabs) =>
+                            tabs.map((tab) => (
+                                <MarkdownEditor.Tabs.Trigger
+                                    key={tab.id}
+                                    id={tab.id}
+                                    data-testid={`${tab.id}-trigger`}
+                                >
+                                    {tab.title}
+                                </MarkdownEditor.Tabs.Trigger>
+                            ))
+                        }
                     </MarkdownEditor.Tabs.List>
 
-                    <MarkdownEditor.Edit data-testid="edit-tab" />
-                    <MarkdownEditor.Preview data-testid="preview-tab" />
-                    <MarkdownEditor.Split data-testid="split-tab" />
+                    <MarkdownEditor.Edit
+                        id={MarkdownEditor.MarkdownEditorMode.EDIT}
+                        data-testid="edit-tab"
+                    />
+                    <MarkdownEditor.Preview
+                        id={MarkdownEditor.MarkdownEditorMode.PREVIEW}
+                        data-testid="preview-tab"
+                    />
+                    <MarkdownEditor.Split
+                        id={MarkdownEditor.MarkdownEditorMode.SPLIT}
+                        data-testid="split-tab"
+                    />
                 </MarkdownEditor.Root>
             </div>
         );
     },
-    play: async ({ canvasElement, step, context }) => {
+    play: async ({ canvasElement, step, globals }) => {
+        if (!globals.test) {
+            return;
+        }
+
         const canvas = within(canvasElement);
         const editTrigger = canvas.getByTestId('edit-trigger');
         const previewTrigger = canvas.getByTestId('preview-trigger');

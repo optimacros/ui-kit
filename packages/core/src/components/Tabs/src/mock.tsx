@@ -1,9 +1,9 @@
-import { Tab } from './Tabs';
+import { Tabs } from './';
 
-export const createTabs = (): Tab[] => {
-    const tabs: Tab[] = new Array(20)
+export const createTabs = (): Tabs.Tab[] => {
+    const tabs: Tabs.Tab[] = new Array(20)
         .fill(0)
-        .map((_, i) => ({ id: `tab-${i}`, title: `title-${i}`, content: <p>tab {i} content</p> }));
+        .map((_, i) => ({ id: `tab-${i}`, title: `title-${i}` }));
 
     tabs[10].fixed = true;
     tabs[15].fixed = true;
