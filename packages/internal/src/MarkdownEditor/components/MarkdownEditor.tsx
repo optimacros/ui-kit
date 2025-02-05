@@ -31,9 +31,9 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
 
         const tabs = useMemo<MDE.Tabs.Tab[]>(() => {
             return [
-                { id: editTabLabel, title: editTabLabel },
-                { id: previewTabLabel, title: previewTabLabel },
-                { id: splitTabLabel, title: splitTabLabel },
+                { id: MDE.MarkdownEditorMode.EDIT, title: editTabLabel },
+                { id: MDE.MarkdownEditorMode.PREVIEW, title: previewTabLabel },
+                { id: MDE.MarkdownEditorMode.SPLIT, title: splitTabLabel },
             ];
         }, [editTabLabel, previewTabLabel, splitTabLabel]);
 
@@ -112,9 +112,9 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
                 </MDE.Tabs.List>
 
                 <ResizableBox axis="y" width={500} height={height} minConstraints={[150, 150]}>
-                    <MDE.Edit id={tabs[0].id} />
-                    <MDE.Preview id={tabs[1].id} />
-                    <MDE.Split id={tabs[2].id} />
+                    <MDE.Edit />
+                    <MDE.Preview />
+                    <MDE.Split />
                 </ResizableBox>
             </MDE.Root>
         );

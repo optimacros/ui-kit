@@ -4,6 +4,8 @@ import iconsSrc from '../../../packages/themes/src/assets/icons/optimacros/sprit
 import { useEffect, useRef, useState } from 'react';
 import { withPerformance } from 'storybook-addon-performance';
 import { setFigmaLink } from '../../utils';
+import { waitForPageTrulyReadySB } from '.storybook/utils-tmp';
+import { useArgs } from 'storybook/internal/preview-api';
 
 const styles = Promise.all([
     import('../../../packages/themes/src/default/tokens.css?raw'),
@@ -46,21 +48,21 @@ const previewDev: Preview = {
         (Story, context) => {
             setFigmaLink(context);
 
-            // const [args, updateArgs, resetArgs] = useArgs();
+            const [args, updateArgs, resetArgs] = useArgs();
 
-            // if (!globalThis.testing) {
-            //     globalThis.testing = { args, updateArgs, resetArgs };
-            // }
+            if (!globalThis.testing) {
+                globalThis.testing = { args, updateArgs, resetArgs };
+            }
 
-            // if (!globalThis.waitForPageTrulyReady) {
-            //     globalThis.waitForPageTrulyReady = waitForPageTrulyReadySB;
-            // }
+            if (!globalThis.waitForPageTrulyReady) {
+                globalThis.waitForPageTrulyReady = waitForPageTrulyReadySB;
+            }
 
-            // if (context.playFunction) {
-            //     context.tags.push('hasPlayFunction');
-            // }
+            if (context.playFunction && !context.tags.includes('hasPlayFunction')) {
+                context.tags.push('hasPlayFunction');
+            }
 
-            return Story(context);
+            return <Story />;
         },
         withPerformance,
         // Load theme

@@ -123,9 +123,9 @@ export const Basic: StoryObj = {
                         }
                     </MarkdownEditor.Tabs.List>
 
-                    <MarkdownEditor.Edit id={MarkdownEditor.MarkdownEditorMode.EDIT} />
-                    <MarkdownEditor.Preview id={MarkdownEditor.MarkdownEditorMode.PREVIEW} />
-                    <MarkdownEditor.Split id={MarkdownEditor.MarkdownEditorMode.SPLIT} />
+                    <MarkdownEditor.Edit />
+                    <MarkdownEditor.Preview />
+                    <MarkdownEditor.Split />
                 </MarkdownEditor.Root>
             </div>
         );

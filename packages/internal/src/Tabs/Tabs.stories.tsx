@@ -265,6 +265,7 @@ export const Counter: Story = {
 
 export const Draggable: Story = {
     args: {
+        active: 1,
         draggable: true,
         onTabPositionChange: undefined,
     },
