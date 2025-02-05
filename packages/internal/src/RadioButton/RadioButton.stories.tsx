@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from '@optimacros-ui/flex';

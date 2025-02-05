@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import type { Meta, StoryObj } from '@storybook/react';
 import { RadioButton } from '../RadioButton';
 import { RadioGroup } from '.';
@@ -51,8 +49,8 @@ export const Basic: Story = {
 export const WithRadioButton: Story = {
     args: {
         children: [
-            <RadioButton label="Radio 1" value="1" />,
-            <RadioButton label="Radio 2" value="2" />,
+            <RadioButton key={1} label="Radio 1" value="1" />,
+            <RadioButton key={2} label="Radio 2" value="2" />,
         ],
     },
 };
