@@ -62,21 +62,26 @@ export const Basic = () => {
     };
 
     return (
-        <Slider.RootProvider value={value} onValueChange={handleChange} invalid>
+        <Slider.Root value={value} onValueChange={handleChange} invalid>
             {(api) => (
                 <>
                     <div style={{ marginBottom: 50 }}>
                         <Button onClick={() => api.setValue([67])}>reset</Button>
                     </div>
-
-                    <Slider.Root>
+                    <Slider.Container>
                         <Slider.Label>Quantity</Slider.Label>
                         <Slider.Output />
-                    </Slider.Root>
+                        <Slider.Control>
+                            <Slider.Track>
+                                <Slider.Range />
+                            </Slider.Track>
+                            <Slider.Thumb />
+                        </Slider.Control>
+                    </Slider.Container>
                 </>
             )}
-        </Slider.RootProvider>
+        </Slider.Root>
     );
 };
 
-export { Range, Disabled, CustomMinMax, Step, MinStep } from './stories';
+export { Range, Disabled, CustomMinMax, Step, MinStep, Markers } from './stories';

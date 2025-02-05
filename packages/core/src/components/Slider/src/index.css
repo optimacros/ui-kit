@@ -1,5 +1,5 @@
 [data-scope='slider'] {
-  &[data-part='root'] {
+  &[data-part='container'] {
     width: 100%;
   }
 
@@ -60,5 +60,18 @@
 
   &[data-part='thumb']:is(:focus, [data-focus]) {
     outline: 2px solid var(--color-slider-primary-thumb-outline-default);
+  }
+
+  &[data-part='marker'] {
+    flex: 1;
+
+    &::after {
+      background-color: var(--color-slider-primary-range-default);
+      border-radius: 50%;
+      content: '';
+      display: block;
+      height: var(--spacing-1);
+      width: var(--spacing-1);
+    }
   }
 }

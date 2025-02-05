@@ -1,39 +1,43 @@
+import { PropsWithChildren, ComponentProps, useMemo } from 'react';
 import { forward, styled } from '@optimacros-ui/store';
-import { PropsWithChildren, ComponentProps } from 'react';
-
 import { map } from '@optimacros-ui/utils';
 import { createReactApiStateContext } from '@optimacros-ui/store';
 import * as slider from '@zag-js/slider';
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+export const {
+    Api,
+    RootProvider: Root,
+    useApi,
+    useProxySelector,
+    useSelector,
+} = createReactApiStateContext({
     id: 'slider',
     machine: slider,
+    connect(api, { state }) {
+        return {
+            ...api,
+            min: state.context.min,
+            max: state.context.max,
+            step: state.context.step,
+        };
+    },
 });
 
-export type Props = PropsWithChildren & ComponentProps<typeof RootProvider>;
+export type ContainerProps = PropsWithChildren &
+    Omit<ComponentProps<typeof Root>, 'aria-label' | 'aria-labelledby'>;
 
-export const Root = forward<Props, 'div'>(
+export const Container = forward<ContainerProps, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
             <styled.div {...rest} {...api.getRootProps()} ref={ref}>
-                <InfoContainer>{children}</InfoContainer>
-
-                <Control>
-                    <Track>
-                        <Range />
-                    </Track>
-
-                    {map(api.value, (_, index) => (
-                        <Thumb key={index} index={index} />
-                    ))}
-                </Control>
+                {children}
             </styled.div>
         );
     },
     {
-        displayName: 'SliderRoot',
+        displayName: 'SliderContainer',
     },
 );
 
@@ -68,7 +72,7 @@ export const Output = forward<{}, 'output'>(
     },
 );
 
-const Control = forward<PropsWithChildren, 'div'>(
+export const Control = forward<PropsWithChildren, 'div'>(
     (props, ref) => {
         const api = useApi();
 
@@ -88,6 +92,17 @@ export const InfoContainer = forward<PropsWithChildren, 'div'>(
     },
 );
 
+export const Track = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
+        const api = useApi();
+
+        return <styled.div {...props} {...api.getTrackProps()} ref={ref} />;
+    },
+    {
+        displayName: 'Track',
+    },
+);
+
 export const Range = forward<PropsWithChildren, 'div'>(
     (props, ref) => {
         const api = useApi();
@@ -99,32 +114,49 @@ export const Range = forward<PropsWithChildren, 'div'>(
     },
 );
 
-interface ThumbProps extends PropsWithChildren {
-    index: number;
-}
+const getSliderMarkers = (min: number, max: number, step: number): number[] => {
+    const points = [];
+    for (let value = min; value <= max; value += step) {
+        points.push(value);
+    }
+    return points;
+};
 
-export const Thumb = forward<ThumbProps, 'div'>(
-    ({ index, ...rest }, ref) => {
+export const Markers = forward<PropsWithChildren, 'div'>(
+    (props, ref) => {
         const api = useApi();
+        const { min, max, step } = api;
+
+        const markers = useMemo(() => getSliderMarkers(min, max, step), [min, max, step]);
 
         return (
-            <styled.div {...rest} {...api.getThumbProps({ index })} ref={ref}>
-                <styled.input {...api.getHiddenInputProps({ index })} />
+            <styled.div {...props} ref={ref} {...api.getMarkerGroupProps()}>
+                {markers.map((point) => (
+                    <div key={point} {...api.getMarkerProps({ value: point })} />
+                ))}
             </styled.div>
         );
     },
     {
-        displayName: 'Thumb',
+        displayName: 'Markers',
     },
 );
 
-export const Track = forward<PropsWithChildren, 'div'>(
-    (props, ref) => {
+export const Thumb = forward<PropsWithChildren, 'div'>(
+    ({ children, ...rest }, ref) => {
         const api = useApi();
 
-        return <styled.div {...props} {...api.getTrackProps()} ref={ref} />;
+        return (
+            <>
+                {map(api.value, (_, index) => (
+                    <styled.div key={index} {...rest} {...api.getThumbProps({ index })} ref={ref}>
+                        <styled.input {...api.getHiddenInputProps({ index })} />
+                    </styled.div>
+                ))}
+            </>
+        );
     },
     {
-        displayName: 'Track',
+        displayName: 'Thumb',
     },
 );
