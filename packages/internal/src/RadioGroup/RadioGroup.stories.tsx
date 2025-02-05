@@ -36,28 +36,24 @@ export default meta;
 
 type Story = StoryObj<typeof RadioGroup>;
 
+const defaultOptions = [
+    { value: '1', label: 'Option 1' },
+    { value: '2', label: 'Option 2' },
+    { value: '3', label: 'Option 3' },
+];
+
 export const Basic: Story = {
     args: {
-        options: [
-            { value: '1', label: 'Option 1' },
-            { value: '2', label: 'Option 2' },
-            { value: '3', label: 'Option 3' },
-        ],
+        options: defaultOptions,
     },
 };
 
 export const WithRadioButton: Story = {
     args: {
-        options: [
+        children: [
             <RadioButton label="Radio 1" value="1" />,
             <RadioButton label="Radio 2" value="2" />,
         ],
-    },
-};
-
-export const WithChildren: Story = {
-    args: {
-        children: [<div label="Radio 1" value="1" />, <div label="Radio 2" value="2" />],
     },
 };
 
