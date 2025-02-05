@@ -4,6 +4,8 @@ import {
     extendMachine,
     MachineConfig,
     MachineOptions,
+    UserContext,
+    UserState,
 } from '@optimacros-ui/store';
 import { omit, Orientation } from '@optimacros-ui/utils';
 import * as zagMenu from '@zag-js/menu';
@@ -13,6 +15,10 @@ const config = {
         orientation: Orientation.Vertical,
         disabled: false,
         hoverable: false,
+    } as {
+        orientation?: string;
+        disabled?: boolean;
+        hoverable?: boolean;
     },
     on: {
         'ORIENTATION.SET': { actions: 'setOrientation' },
@@ -20,19 +26,6 @@ const config = {
         'SUBMENU.SET': { actions: 'setSubmenuVisible' },
     },
 } satisfies MachineConfig<zagMenu.Service>;
-
-interface IMenuContext {
-    context: {
-        orientation?: string;
-        disabled?: boolean;
-        hoverable?: boolean;
-    };
-    on: {
-        'ORIENTATION.SET': { actions: string };
-        'DISABLED.SET': { actions: string };
-        'SUBMENU.SET': { actions: string };
-    };
-}
 
 const options = {
     actions: {
@@ -43,18 +36,24 @@ const options = {
             ctx.disabled = evt.value;
         },
     },
-} satisfies MachineOptions<zagMenu.Service, zagMenu.Context, IMenuContext>;
+} satisfies MachineOptions<zagMenu.Service, zagMenu.Context, typeof config>;
 
-export const machine: ExtendedMachine<typeof zagMenu, zagMenu.Service, zagMenu.Context> =
-    extendMachine(zagMenu, config, options);
+type State = UserState<typeof zagMenu>;
+type Context = UserContext<zagMenu.Context, typeof config>;
+
+export const machine = extendMachine(zagMenu, config, options) satisfies ExtendedMachine<
+    typeof zagMenu,
+    Context,
+    State
+>;
 
 export type Machine = typeof machine;
 
-export const connect: ConnectMachine<Machine> = (api, { state, send }, machine) => {
+export const connect = ((api, { state, send }, machine) => {
     return {
         ...api,
         orientation: state.context.orientation,
-        setOrientation(orientation) {
+        setOrientation(orientation: string) {
             send({ type: 'ORIENTATION.SET', value: orientation });
         },
         setSubmenuVisible(value: boolean) {
@@ -104,4 +103,4 @@ export const connect: ConnectMachine<Machine> = (api, { state, send }, machine) 
             };
         },
     };
-};
+}) satisfies ConnectMachine<zagMenu.Api, Context, State>;

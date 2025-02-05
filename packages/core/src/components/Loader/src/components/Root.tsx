@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import { RootProvider, useProxySelector } from './context';
+import { RootProvider, useSelector } from './context';
 import { forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
@@ -21,7 +21,7 @@ export const Root = forward<Props, 'div'>(
 );
 
 export const StartTrigger = forward<{}, 'button'>((props, ref) => {
-    const start = useProxySelector((state) => state.start);
+    const start = useSelector((state) => state.start);
     return (
         <styled.button
             {...props}

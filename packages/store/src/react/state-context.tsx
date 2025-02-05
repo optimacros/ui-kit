@@ -191,22 +191,17 @@ export type MachineOptions<
     >,
 > = Options | ((prev: Service) => Options);
 
-export type ExtendedMachine<
+export type UserContext<ZagCtx, Config extends AnyConfig> = $.Merge<ZagCtx, Config['context']>;
+export type UserState<Module extends Record<string, any>> = $.Merge<
+    MachineState<ReturnType<Module['machine']>>,
+    {}
+>;
+
+export type ExtendedMachine<Module, Context extends Record<string, any>, State> = Omit<
     Module,
-    Service extends AnyMachine,
-    Context extends Record<string, any>,
-    ConfigCreator extends AnyConfig | ((prev: Service) => AnyConfig) = AnyConfig,
-    Config extends ConfigCreator extends () => {}
-        ? ReturnType<ConfigCreator>
-        : ConfigCreator = ConfigCreator extends () => {}
-        ? ReturnType<ConfigCreator>
-        : ConfigCreator,
-> = Omit<Module, 'machine'> & {
-    machine: (
-        //@ts-ignore
-        userContext: Context & Config['context'],
-        //@ts-ignore
-    ) => ZagMachine<Context & Config['context'], MachineState<Service>, MachineEvent<Service>>;
+    'machine'
+> & {
+    machine: (userContext: Context) => ZagMachine<Context, State, StateMachine.Send>;
 };
 
 export function extendMachine<
@@ -260,22 +255,21 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
     Parameters<Machine['machine']>[0],
     'id'
 >;
-export type ConnectMachine<Machine extends Record<string, any>, R = Record<string, any>> = (
-    api: ReturnType<Machine['connect']>,
+export type ConnectMachine<
+    Api extends Record<string, any>,
+    Context extends Record<string, any>,
+    State extends Record<string, any>,
+    R = Record<string, any>,
+> = (
+    api: Api,
     {
         state,
         send,
     }: {
-        state: ReturnType<Machine['machine']> extends ZagMachine<
-            infer TContext,
-            infer TState,
-            infer TEvent
-        >
-            ? StateMachine.State<TContext, TState, TEvent>
-            : any;
+        state: StateMachine.State<Context, State>;
         send: StateMachine.Send;
     },
-    machine: ReturnType<Machine['machine']>,
+    machine: Record<string, any>,
 ) => R;
 
 export function createReactApiStateContext<
@@ -296,7 +290,7 @@ export function createReactApiStateContext<
             send: StateMachine.Send;
         },
         machine: ReturnType<Machine['machine']>,
-    ) => Record<string, any> = (
+    ) => any = (
         api: ReturnType<Machine['connect']>,
         {
             state,
@@ -312,7 +306,7 @@ export function createReactApiStateContext<
             send: StateMachine.Send;
         },
         machine: ReturnType<Machine['machine']>,
-    ) => Record<string, any>,
+    ) => any,
     Context extends Record<string, any> = MachineCtx<Machine>,
     ID extends string = string,
     Api = $.If.NullishOrAny<ReturnType<Connect>, ReturnType<Machine['machine']>>,

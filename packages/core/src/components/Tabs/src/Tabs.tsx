@@ -5,6 +5,7 @@ import { ComponentProps, PropsWithChildren, ReactNode, useEffect, useId } from '
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { raf } from '@zag-js/dom-query';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
+
 const machine = extendMachine(
     tabs,
     {
@@ -160,6 +161,7 @@ const machine = extendMachine(
         },
     },
 );
+
 export const { Api, RootProvider, useApi, useProxySelector, useSelector } =
     createReactApiStateContext({
         id: 'tabs',
