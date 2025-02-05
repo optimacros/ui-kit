@@ -34,9 +34,9 @@ export const { Api, RootProvider, useApi } = createReactApiStateContext<typeof m
     },
 });
 
-export type RoootProps = ComponentProps<typeof RootProvider> & PropsWithChildren;
+export type RootProps = ComponentProps<typeof RootProvider> & PropsWithChildren;
 
-export const Root = forward<RoootProps, 'div'>(
+export const Root = forward<RootProps, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 
@@ -95,7 +95,7 @@ export const TransparencyGrid = forward<TransparencyGridProps, 'div'>(
 export const Swatch = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} ref={ref} {...api.getSwatchProps({ value: api.value })} />;
+    return <styled.div ref={ref} {...api.getSwatchProps({ value: api.value })} {...props} />;
 });
 
 interface SwatchesProps extends PropsWithChildren {
