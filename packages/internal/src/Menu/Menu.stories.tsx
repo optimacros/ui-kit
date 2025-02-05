@@ -1,17 +1,19 @@
 //@ts-nocheck
 
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
-import { Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
-
+import { Menu, MenuItem, MenuTrigger, SubMenu } from '@optimacros-ui/kit-internal';
+import { action } from '@storybook/addon-actions';
+import { useEffect, useState } from 'react';
+import { VisuallyHidden } from '@optimacros-ui/visually-hidden';
 const Wrapper = ({ children }: { children }) => (
-    <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
+    <div style={{ width: '500px', height: '25vh', position: 'relative' }}>{children}</div>
 );
 
 const meta: Meta<typeof Menu> = {
-    title: 'UI Kit internal/Menu',
+    title: 'UI Kit internal/Menu/Menu',
     component: Menu,
-    argTypes: {},
+    tags: ['autodocs'],
     decorators: [
         (Story) => (
             <Wrapper>
@@ -19,12 +21,22 @@ const meta: Meta<typeof Menu> = {
             </Wrapper>
         ),
     ],
+    args: {
+        // just an anchor
+        renderTrigger: () => (
+            <VisuallyHidden>
+                <MenuTrigger>hidden trigger</MenuTrigger>
+            </VisuallyHidden>
+        ),
+    },
 };
 export default meta;
 
-export const Basic = (props) => {
+type Story = StoryObj<typeof Menu>;
+
+export const NestedMenu = (props) => {
     return (
-        <Menu>
+        <Menu {...props}>
             <MenuItem label="1" key="1">
                 1
             </MenuItem>
@@ -96,4 +108,235 @@ export const Basic = (props) => {
             </SubMenu>
         </Menu>
     );
+};
+
+export const SimpleMenu: Story = {
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem title="Home" key="home" onClick={action('clicked Home')} />
+            <MenuItem title="Profile" key="profile" onClick={action('clicked Profile')} />
+            <MenuItem title="Settings" key="settings" onClick={action('clicked Settings')} />
+        </Menu>
+    ),
+};
+
+export const WithLabelsAndValues: Story = {
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="language" value="English" onClick={action('clicked Language')}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px' }}>
+                    <span>Language</span>
+                    <span style={{ color: '#6b7280' }}>English</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="theme" value="Light" onClick={action('clicked Theme')}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px' }}>
+                    <span>Theme</span>
+                    <span style={{ color: '#6b7280' }}>Light</span>
+                </div>
+            </MenuItem>
+        </Menu>
+    ),
+};
+
+export const UserMenu: Story = {
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="profile" onClick={action('clicked Profile')}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px' }}>
+                    <div
+                        style={{
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '50%',
+                            backgroundColor: '#e2e8f0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        👤
+                    </div>
+                    <div>
+                        <div style={{ fontWeight: 'bold' }}>John Doe</div>
+                        <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                            john@example.com
+                        </div>
+                    </div>
+                </div>
+            </MenuItem>
+            <MenuItem key="account" onClick={action('clicked Account')}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>⚙️</span>
+                    <span>Account Settings</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="logout" onClick={action('clicked Logout')}>
+                <div
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444' }}
+                >
+                    <span>🚪</span>
+                    <span>Sign Out</span>
+                </div>
+            </MenuItem>
+        </Menu>
+    ),
+};
+
+export const NotificationMenu: Story = {
+    render: (props) => {
+        const [count, setCount] = useState(0);
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+                setCount((prevCount) => prevCount + 1);
+            }, 1000);
+
+            return () => {
+                if (interval) {
+                    clearInterval(interval);
+                }
+            };
+        }, []);
+
+        return (
+            <Menu {...props}>
+                <MenuItem key="messages" value="3" onClick={action('clicked Messages')}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '200px',
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>✉️</span>
+                            <span>Messages</span>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: '#ef4444',
+                                color: 'white',
+                                borderRadius: '9999px',
+                                padding: '2px 8px',
+                                fontSize: '0.75rem',
+                            }}
+                        >
+                            3
+                        </div>
+                    </div>
+                </MenuItem>
+                <MenuItem key="tasks" value="5" onClick={action('clicked Tasks')}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '200px',
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>📋</span>
+                            <span>Tasks</span>
+                        </div>
+                        <div
+                            style={{
+                                backgroundColor: '#eab308',
+                                color: 'white',
+                                borderRadius: '9999px',
+                                padding: '2px 8px',
+                                fontSize: '0.75rem',
+                            }}
+                        >
+                            ${count}
+                        </div>
+                    </div>
+                </MenuItem>
+            </Menu>
+        );
+    },
+};
+
+export const SettingsMenu: Story = {
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="storage" value="75%" onClick={action('clicked Storage')}>
+                <div style={{ width: '200px', padding: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>Storage Used</span>
+                        <span>75%</span>
+                    </div>
+                    <div
+                        style={{
+                            height: '4px',
+                            backgroundColor: '#e2e8f0',
+                            borderRadius: '2px',
+                            marginTop: '8px',
+                        }}
+                    >
+                        <div
+                            style={{
+                                width: '75%',
+                                height: '100%',
+                                backgroundColor: '#3b82f6',
+                                borderRadius: '2px',
+                            }}
+                        />
+                    </div>
+                </div>
+            </MenuItem>
+            <MenuItem key="notifications" onClick={action('clicked Notifications')}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>🔔</span>
+                    <span>Notification Settings</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="privacy" onClick={action('clicked Privacy')}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>🔒</span>
+                    <span>Privacy Settings</span>
+                </div>
+            </MenuItem>
+        </Menu>
+    ),
+};
+
+export const AccountActions: Story = {
+    render: (props) => (
+        <Menu {...props}>
+            <MenuItem key="upgrade" onClick={action('clicked Upgrade')}>
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: '#3b82f6',
+                    }}
+                >
+                    <span>⭐</span>
+                    <span>Upgrade to Pro</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="export" onClick={action('clicked Export')}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>📤</span>
+                    <span>Export Data</span>
+                </div>
+            </MenuItem>
+            <MenuItem key="delete" onClick={action('clicked Delete')}>
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: '#ef4444',
+                    }}
+                >
+                    <span>🗑️</span>
+                    <span>Delete Account</span>
+                </div>
+            </MenuItem>
+        </Menu>
+    ),
 };

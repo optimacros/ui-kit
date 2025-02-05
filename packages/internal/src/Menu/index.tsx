@@ -1,10 +1,10 @@
 //@ts-nocheck
 
-import React, { useId } from 'react';
+import React, { ReactNode, useId } from 'react';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 
 interface Props {
-    title: string;
+    title?: string;
     key: string;
     label?: string;
     value?: string;
@@ -17,11 +17,9 @@ export const MenuItem = ({ label, title, value, children, onClick, ...restProps 
 
     return (
         <div onClick={onClick}>
-            <MenuComponent.Item
-                {...restProps}
-                valueText={label || title || children}
-                value={value || generatedKey}
-            />
+            <MenuComponent.Item {...restProps} value={value || generatedKey}>
+                {label || title || children}
+            </MenuComponent.Item>
         </div>
     );
 };
@@ -43,6 +41,7 @@ export const SubMenu = ({ label, title, value, children }) => {
                 fitViewport: false,
                 overlap: false,
             }}
+            hoverable
         >
             <MenuComponent.SubMenuPositioner>
                 <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
@@ -51,16 +50,20 @@ export const SubMenu = ({ label, title, value, children }) => {
     );
 };
 
-export const Menu = (props: Props) => {
-    const { children } = props;
+export const MenuTrigger = MenuComponent.Trigger;
+
+export const Menu = (props: { children: ReactNode; renderTrigger?: () => ReactNode }) => {
+    const { children, renderTrigger, ...rest } = props;
 
     return (
         <MenuComponent.Root
             closeOnSelect={false}
-            {...props}
-            open={true}
+            open
+            hoverable
             {...{ 'open.controlled': true }}
+            {...rest}
         >
+            {renderTrigger?.()}
             <MenuComponent.Positioner>
                 <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
             </MenuComponent.Positioner>

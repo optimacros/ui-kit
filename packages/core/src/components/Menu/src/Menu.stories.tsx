@@ -9,6 +9,7 @@ import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
 import { Orientation } from '@optimacros-ui/utils';
 import { within, expect, userEvent, waitFor, fireEvent, fn } from '@storybook/test';
+import { Spacer } from '@optimacros-ui/spacer';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', height: '100vh', marginLeft: '20px' }}>{children}</div>
@@ -101,7 +102,9 @@ export const Basic = {
                     <Menu.Content size="sm" data-testid="menu-content">
                         <Menu.List data-testid="menu-list">
                             {menuItems.map((v, i) => (
-                                <Menu.Item {...v} title={v.valueText} />
+                                <Menu.Item {...v} title={v.valueText}>
+                                    {v.valueText}
+                                </Menu.Item>
                             ))}
                         </Menu.List>
                     </Menu.Content>
@@ -187,7 +190,7 @@ export const OrientationExample = () => {
                         <Menu.Content size="sm">
                             <Menu.List>
                                 {menuItems.map((v, i) => (
-                                    <Menu.Item {...v} />
+                                    <Menu.Item {...v}>{v.valueText}</Menu.Item>
                                 ))}
                                 <Menu.SubMenuItem
                                     parent={api}
@@ -209,7 +212,9 @@ export const OrientationExample = () => {
                                                         {...v}
                                                         value={v.value}
                                                         key={v.value + 'sub-sub'}
-                                                    />
+                                                    >
+                                                        {v.valueText}
+                                                    </Menu.Item>
                                                 ))}
                                             </Menu.List>
                                         </Menu.Content>
@@ -233,7 +238,9 @@ const CustomMenu = ({ value }) => {
             <Menu.Content data-testid={'nested-menu-' + value}>
                 <Menu.List>
                     {menuItems.map((v, i) => (
-                        <Menu.Item {...v} value={value + i} valueText={value + i} />
+                        <Menu.Item {...v} value={value + i} valueText={value + i}>
+                            {value + i}
+                        </Menu.Item>
                     ))}
                     <Menu.SubMenuItem
                         parent={api}
@@ -256,7 +263,9 @@ const CustomMenu = ({ value }) => {
                                             value={v.value + 'sub'}
                                             valueText={v.value + 'sub'}
                                             key={v.value + 'sub-sub'}
-                                        />
+                                        >
+                                            {v.value}
+                                        </Menu.Item>
                                     ))}
                                 </Menu.List>
                             </Menu.Content>
@@ -349,24 +358,35 @@ export const Group = () => {
             </Menu.Trigger>
             <Menu.Positioner>
                 <Menu.Content asChild>
-                    <Flex direction="row">
+                    <Flex direction="column">
                         <Menu.Group id="first">
                             <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>
                             {menuItems.slice(0, 2).map((v, i) => (
-                                <Menu.Item {...v} key={`${v} 1`} value={`${v} 1`} />
+                                <Menu.Item {...v} key={`${v} 1`} value={`${v} 1`}>
+                                    {v.valueText}
+                                </Menu.Item>
                             ))}
                         </Menu.Group>
+
+                        <Spacer size={3} orientation="vertical" />
 
                         <Menu.Group id="second">
                             <Menu.GroupLabel htmlFor="second">second</Menu.GroupLabel>
                             {menuItems.slice(3, 5).map((v, i) => (
-                                <Menu.Item {...v} key={`${v} 2`} value={`${v} 2`} />
+                                <Menu.Item {...v} key={`${v} 2`} value={`${v} 2`}>
+                                    {v.valueText}
+                                </Menu.Item>
                             ))}
                         </Menu.Group>
+
+                        <Spacer size={3} orientation="vertical" />
+
                         <Menu.Group id="third">
                             <Menu.GroupLabel htmlFor="third">third</Menu.GroupLabel>
                             {menuItems.slice(6, 8).map((v, i) => (
-                                <Menu.Item {...v} key={`${v} 3`} value={`${v} 3`} />
+                                <Menu.Item {...v} key={`${v} 3`} value={`${v} 3`}>
+                                    {v.valueText}
+                                </Menu.Item>
                             ))}
                         </Menu.Group>
                     </Flex>
@@ -386,7 +406,9 @@ export const Disabled = () => {
                 <Menu.Content>
                     <Menu.List>
                         {menuItems.map((v, i) => (
-                            <Menu.Item {...v} disabled={i % 2 === 0} />
+                            <Menu.Item {...v} disabled={i % 2 === 0}>
+                                {v.valueText}
+                            </Menu.Item>
                         ))}
                     </Menu.List>
                 </Menu.Content>

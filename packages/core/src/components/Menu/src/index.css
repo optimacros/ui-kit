@@ -35,20 +35,16 @@
 
   &[data-part='content'][data-size='sm'] {
     width: var(--size-4xs);
-    height: var(--size-2xs);
 
     &[data-orientation='horizontal'] {
-      height: auto;
       width: var(--size-2xs);
     }
   }
 
   &[data-part='content'][data-size='md'] {
     width: var(--size-xs);
-    height: var(--size-sm);
 
     &[data-orientation='horizontal'] {
-      height: auto;
       max-width: var(--size-sm);
     }
   }

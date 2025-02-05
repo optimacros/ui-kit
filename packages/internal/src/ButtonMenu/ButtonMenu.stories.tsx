@@ -1,6 +1,7 @@
 //@ts-nocheck
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ButtonMenu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
+import { Flex } from '@optimacros-ui/flex';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -79,8 +80,18 @@ const meta: Meta<typeof ButtonMenu> = {
     title: 'UI KIT internal/ButtonMenu',
     component: ButtonMenu,
     argTypes,
-    tags: ['skip-test-runner'],
+    tags: ['skip-test-runner', 'autodocs'],
+    decorators: [
+        (Story) => {
+            return (
+                <Flex style={{ width: '500px', height: '150px' }}>
+                    <Story />
+                </Flex>
+            );
+        },
+    ],
 };
+
 export default meta;
 
 type Story = StoryObj<typeof ButtonMenu>;
@@ -90,16 +101,18 @@ export const Basic: Story = {
         label: 'Menu',
         icon: 'print',
         arrowUp: false,
-        children: [
-            <SubMenu label="2" key="2">
-                <MenuItem key={1}>
-                    <span>Option</span>
-                </MenuItem>
-                <MenuItem key={2}>
-                    <span>Option</span>
-                </MenuItem>
-            </SubMenu>,
-        ],
+        children: (
+            <>
+                <SubMenu label="2" key="2">
+                    <MenuItem key={1}>
+                        <span>Option</span>
+                    </MenuItem>
+                    <MenuItem key={2}>
+                        <span>Option</span>
+                    </MenuItem>
+                </SubMenu>
+            </>
+        ),
     },
 };
 
