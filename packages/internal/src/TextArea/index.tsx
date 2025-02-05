@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React, { useId } from 'react';
 import { Field as FieldComponent } from '@optimacros-ui/field';
 
@@ -9,7 +7,7 @@ export type TextAreaProps = {
     label?: string;
     className?: string;
     classNameContainer?: string;
-    id?: string | number;
+    id?: string;
     readonly?: boolean;
 };
 
@@ -36,13 +34,13 @@ export const TextArea = ({
     const generatedId = useId();
 
     return (
-        <FieldComponent.Root status={getStatus(!!error, readonly)}>
+        <FieldComponent.Root status={getStatus(!!error, readonly)} className={classNameContainer}>
             {label && (
                 <FieldComponent.FloatingLabel htmlFor={id ?? generatedId}>
                     {label}
                 </FieldComponent.FloatingLabel>
             )}
-            <FieldComponent.TextArea id={id ?? generatedId} value={value} />
+            <FieldComponent.TextArea id={id ?? generatedId} value={value} className={className} />
             <FieldComponent.FloatingError>{error}</FieldComponent.FloatingError>
         </FieldComponent.Root>
     );
