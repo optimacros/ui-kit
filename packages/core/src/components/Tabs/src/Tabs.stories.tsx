@@ -1,9 +1,8 @@
 import { StoryObj, Meta, ArgTypes } from '@storybook/react';
-import type { Tab } from './models';
 import * as stories from './stories';
-import * as scenarios from './__test__/scenarios';
+import * as scenarios from './__tests__/scenarios';
 import { Tabs } from '.';
-import { createTabs } from './mock';
+import { tabs } from './mock';
 
 const argTypes: Partial<ArgTypes> = {
     tabs: {
@@ -118,14 +117,12 @@ const meta: Meta<typeof Tabs.Root> = {
 
 export default meta;
 
-const items: Tab[] = createTabs();
-
 type Story = StoryObj<typeof Tabs.Root>;
 
 export const Base: Story = {
     args: {
-        tabs: items,
-        value: items[0].id,
+        tabs: tabs,
+        value: tabs[0].id,
         activationMode: 'manual',
         loopFocus: true,
         deselectable: true,
@@ -135,10 +132,23 @@ export const Base: Story = {
     render: stories.Base,
 };
 
+export const BaseAllContentRendered: Story = {
+    args: {
+        tabs: tabs,
+        value: tabs[0].id,
+        activationMode: 'manual',
+        loopFocus: true,
+        deselectable: true,
+        useWheel: true,
+        tabsHidden: true,
+    },
+    render: stories.BaseAllContentRendered,
+};
+
 export const VariantSecondary: Story = {
     args: {
-        tabs: items,
-        value: items[0].id,
+        tabs: tabs,
+        value: tabs[0].id,
         variant: 'secondary',
     },
     render: stories.Base,
@@ -146,8 +156,8 @@ export const VariantSecondary: Story = {
 
 export const BaseVertical: Story = {
     args: {
-        tabs: items,
-        value: items[0].id,
+        tabs: tabs,
+        value: tabs[0].id,
         orientation: 'vertical',
     },
     render: stories.BaseVertical,
@@ -155,8 +165,8 @@ export const BaseVertical: Story = {
 
 export const DraggableOrdered: Story = {
     args: {
-        tabs: items,
-        value: items[0].id,
+        tabs: tabs,
+        value: tabs[0].id,
         draggable: true,
         draggableMode: 'ordered',
     },
@@ -166,8 +176,8 @@ export const DraggableOrdered: Story = {
 
 export const DraggableSwap: Story = {
     args: {
-        tabs: items,
-        value: items[0].id,
+        tabs: tabs,
+        value: tabs[0].id,
         draggable: true,
         draggableMode: 'swap',
     },

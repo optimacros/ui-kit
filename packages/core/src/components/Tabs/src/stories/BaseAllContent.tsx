@@ -7,7 +7,11 @@ import { Tab, TabsProps } from '../models';
 import { Controls } from './components';
 import { Flex } from '../../../Flex/src/Flex';
 
-export const Base = ({ tabs: tabsProp, value: valueProp, ...rest }: TabsProps) => {
+export const BaseAllContentRendered = ({
+    tabs: tabsProp,
+    value: valueProp,
+    ...rest
+}: TabsProps) => {
     const [value, setValue] = useState(valueProp);
     const [tabs, setTabs] = useState<Tab[]>(tabsProp);
 
@@ -17,7 +21,7 @@ export const Base = ({ tabs: tabsProp, value: valueProp, ...rest }: TabsProps) =
 
     return (
         <Flex gap="2" direction="column">
-            <span>В этом примере рендерится только активный таб</span>
+            <span>В этом примере рендерится (с аттрибутом hidden) весь контент всех табов</span>
 
             <Tabs.Root {...rest} tabs={tabs} value={value} onValueChange={handleValueChange}>
                 <Flex gap="2" direction="column">
@@ -41,13 +45,11 @@ export const Base = ({ tabs: tabsProp, value: valueProp, ...rest }: TabsProps) =
                         }
                     </Tabs.List>
 
-                    <Tabs.ContentContainer>
-                        {(tab) => (
-                            <Tabs.Content id={tab.id}>
-                                <p>tab {tab.id} content</p>
-                            </Tabs.Content>
-                        )}
-                    </Tabs.ContentContainer>
+                    {tabs.map((tab) => (
+                        <Tabs.Content id={tab.id} key={tab.id}>
+                            <p>tab {tab.id} content</p>
+                        </Tabs.Content>
+                    ))}
                 </Flex>
             </Tabs.Root>
         </Flex>

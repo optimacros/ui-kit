@@ -60,9 +60,9 @@ export const EditComponent = forward<{}, 'div'>(
     { displayName: 'EditComponent' },
 );
 
-export const Edit = forward<{ id: string }, 'div'>(
-    ({ id, ...props }, ref) => (
-        <Tabs.Content id={id}>
+export const Edit = forward<{}, 'div'>(
+    (props, ref) => (
+        <Tabs.Content id={MarkdownEditorMode.EDIT}>
             <EditComponent {...props} ref={ref} />
         </Tabs.Content>
     ),
@@ -92,18 +92,18 @@ export const PreviewComponent = forward<{}, 'div'>(
     { displayName: 'PreviewComponent' },
 );
 
-export const Preview = forward<{ id: string }, 'div'>(
-    ({ id, ...props }, ref) => (
-        <Tabs.Content id={id}>
+export const Preview = forward<{}, 'div'>(
+    (props, ref) => (
+        <Tabs.Content id={MarkdownEditorMode.PREVIEW}>
             <PreviewComponent {...props} ref={ref} />
         </Tabs.Content>
     ),
     { displayName: 'Preview' },
 );
 
-export const Split = forward<{ id: string }, 'div'>(
-    ({ id, ...props }, ref) => (
-        <Tabs.Content id={id}>
+export const Split = forward<{}, 'div'>(
+    (props, ref) => (
+        <Tabs.Content id={MarkdownEditorMode.SPLIT}>
             <styled.div {...props} ref={ref} data-scope="markdown-editor" data-part="split">
                 <EditComponent />
                 <PreviewComponent />

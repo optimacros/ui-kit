@@ -3,13 +3,13 @@ import { Tabs, Tab, TabsProps } from '../';
 export const Scroll = (props: Partial<TabsProps>) => (
     <Tabs {...props} draggable>
         <Tab title="store" icon="favorite" isFixed>
-            Item one
+            Item store
         </Tab>
         <Tab title="market" icon="favorite" isFixed>
-            Item one
+            Item market
         </Tab>
         <Tab title="stock" icon="favorite" isFixed>
-            Item one
+            Item stock
         </Tab>
         <Tab title="Item two" icon="people">
             Item two

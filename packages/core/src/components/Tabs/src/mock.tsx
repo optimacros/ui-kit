@@ -12,3 +12,5 @@ export const createTabs = (): Tabs.Tab[] => {
 
     return tabs;
 };
+
+export const tabs = createTabs();
