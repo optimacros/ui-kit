@@ -188,7 +188,9 @@ export const OrientationExample = () => {
                         <Menu.Content size="sm">
                             <Menu.List>
                                 {menuItems.map((v, i) => (
-                                    <Menu.Item key={i} {...v}>{v.valueText}</Menu.Item>
+                                    <Menu.Item key={i} {...v}>
+                                        {v.valueText}
+                                    </Menu.Item>
                                 ))}
                                 <Menu.SubMenuItem
                                     parent={api}
