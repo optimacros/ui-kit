@@ -8,6 +8,8 @@ export const {
     Api,
     RootProvider: Root,
     useApi,
+    useProxySelector,
+    useSelector,
 } = createReactApiStateContext({
     id: 'slider',
     machine: slider,
@@ -21,9 +23,10 @@ export const {
     },
 });
 
-export type Props = PropsWithChildren & ComponentProps<typeof Root>;
+export type ContainerProps = PropsWithChildren &
+    Omit<ComponentProps<typeof Root>, 'aria-label' | 'aria-labelledby'>;
 
-export const Container = forward<Props, 'div'>(
+export const Container = forward<ContainerProps, 'div'>(
     ({ children, ...rest }, ref) => {
         const api = useApi();
 

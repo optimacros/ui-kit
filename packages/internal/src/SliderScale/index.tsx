@@ -1,7 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Slider } from '@optimacros-ui/slider';
 import { Field } from '@optimacros-ui/field';
-import { Flex } from '@optimacros-ui/flex';
 
 export interface SliderProps {
     buffer?: number;
@@ -41,6 +40,35 @@ export interface SliderProps {
     label?: string;
 }
 
+const Input = ({ min, max, defaultValue }) => {
+    const [inputValue, setInputValue] = useState(() => defaultValue);
+    const { value, setValue } = Slider.useSelector((s) => s);
+
+    useEffect(() => {
+        value && setInputValue(() => value[0].toString());
+    }, [value]);
+
+    return (
+        <Field.Root id="slider-scale-input">
+            <Field.Input
+                type="number"
+                max={max}
+                min={min}
+                value={inputValue}
+                onChange={({ target: { value } }) => setInputValue(() => value)}
+                onBlur={({ target: { valueAsNumber } }) => setValue([valueAsNumber])}
+                onKeyDown={({ key, target }) => {
+                    if (key === 'Enter') {
+                        //@ts-ignore
+                        setValue([target?.valueAsNumber]);
+                    }
+                }}
+                data-arrows-hidden
+            />
+        </Field.Root>
+    );
+};
+
 export const SliderScale = ({
     value = 0,
     onChange,
@@ -58,7 +86,7 @@ export const SliderScale = ({
 }: SliderProps) => {
     const formatedValue = Array.isArray(value) ? value : [value];
 
-    const handleSliderChange = ({ value }: { value: number }) => {
+    const handleSliderChange = ({ value }: { value: Array<number> }) => {
         onChange?.(value[0]);
     };
 
@@ -71,53 +99,27 @@ export const SliderScale = ({
             value={formatedValue}
             onValueChange={handleSliderChange}
             onValueChangeEnd={onDragStop}
-            buffer={buffer}
             min={min}
             max={max}
             step={step}
-            invalid
-            label
+            onFocusChange={() => {}}
+            controllable
             {...rest}
         >
-            {(api) => {
-                const curVal = api.value[0];
-                return (
-                    <Slider.Container>
-                        {label && <Slider.Label>{label}</Slider.Label>}
-                        {isOutput && <Slider.Output />}
-                        {isInput && (
-                            <Field.Root
-                                key={curVal}
-                                style={{ width: 40 }}
-                                onChange={({
-                                    target: { value },
-                                }: ChangeEvent<HTMLInputElement>) => {
-                                    api.setValue([+value ?? min]);
-                                }}
-                            >
-                                <Field.NumberInput.Root
-                                    id="input"
-                                    step={step}
-                                    min={min}
-                                    value={curVal}
-                                    max={max}
-                                >
-                                    <Flex gap="2">
-                                        <Field.NumberInput.Input />
-                                    </Flex>
-                                </Field.NumberInput.Root>
-                            </Field.Root>
-                        )}
-                        <Slider.Control>
-                            <Slider.Track>
-                                {isMarkers && <Slider.Markers />}
-                                <Slider.Range />
-                            </Slider.Track>
-                            <Slider.Thumb onMouseDown={onDragStart} />
-                        </Slider.Control>
-                    </Slider.Container>
-                );
-            }}
+            <Slider.Container>
+                {label && <Slider.Label>{label}</Slider.Label>}
+                {isOutput && <Slider.Output />}
+                {isInput && (
+                    <Input defaultValue={formatedValue[0].toString()} max={max} min={min} />
+                )}
+                <Slider.Control>
+                    <Slider.Track>
+                        {isMarkers && <Slider.Markers />}
+                        <Slider.Range />
+                    </Slider.Track>
+                    <Slider.Thumb onMouseDown={onDragStart} />
+                </Slider.Control>
+            </Slider.Container>
         </Slider.Root>
     );
 };

@@ -9,6 +9,7 @@ const meta: Meta<typeof SliderScale> = {
     component: SliderScale,
     argTypes,
     tags: ['skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 export default meta;
 

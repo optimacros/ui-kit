@@ -41,3 +41,44 @@
     }
   }
 }
+
+/* Method 1: Using ::-webkit-inner-spin-button and ::-webkit-outer-spin-button */
+[data-arrows-hidden] {
+  /* For Chrome, Safari, Edge, Opera */
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
+}
+
+[data-arrows-hidden]::-webkit-inner-spin-button,
+[data-arrows-hidden]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Method 2: Using appearance and browser-specific selectors */
+[data-arrows-hidden] {
+  /* Modern browsers */
+  appearance: textfield;
+
+  /* Firefox */
+  -moz-appearance: textfield;
+
+  /* Safari and Chrome */
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+  }
+}
+
+/* Method 3: Using [type="number"] selector */
+input[type='number'].hide-spinners {
+  -moz-appearance: textfield;
+}
+
+input[type='number'].hide-spinners::-webkit-outer-spin-button,
+input[type='number'].hide-spinners::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -4,7 +4,7 @@ import { ComponentProps } from 'react';
 import './number-input.css';
 
 export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext({
+    createReactApiStateContext<typeof machine>({
         id: 'number-input',
         machine,
     });
