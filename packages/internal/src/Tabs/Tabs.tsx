@@ -31,7 +31,7 @@ const TabsContent = memo<Props>(
                     {(tab) => (
                         <Flex className={theme.TabContent_Inner}>
                             <UITabs.Content id={tab.id} key={tab.id}>
-                                {tab.content}
+                                {tab.meta.children}
                             </UITabs.Content>
                         </Flex>
                     )}
@@ -68,12 +68,11 @@ export const Tabs = memo<TabsProps>(
             const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
 
             const coreTabs = childrenArr.map(({ props }, index) => {
-                const { isFixed: fixed, disabled, children: content } = props;
+                const { isFixed: fixed, disabled } = props;
 
                 const tabCore: UITabs.Tab = {
                     id: index.toString(),
                     title: props.title || props.label,
-                    content,
                     fixed,
                     disabled,
                 };

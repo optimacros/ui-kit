@@ -6,8 +6,9 @@ import { Tabs } from '@optimacros-ui/tabs';
 export interface MarkdownEditorProps {
     value?: string;
     onChange?: (value: string) => void;
-    activeTab?: MarkdownEditorMode;
+    activeTab?: string;
     disabled?: boolean;
+    tabs: Tabs.Tab[];
 }
 
 export enum MarkdownEditorMode {
@@ -17,7 +18,7 @@ export enum MarkdownEditorMode {
 }
 
 export const Root = forward<PropsWithChildren<MarkdownEditorProps>, 'div'>(
-    ({ children, value, onChange, activeTab, disabled, ...rest }, ref) => {
+    ({ children, value, onChange, activeTab, disabled, tabs, ...rest }, ref) => {
         return (
             <styled.div
                 {...rest}
@@ -26,7 +27,7 @@ export const Root = forward<PropsWithChildren<MarkdownEditorProps>, 'div'>(
                 data-part="root"
                 data-disabled={disabled}
             >
-                <RootProvider value={value} onChange={onChange} activeTab={activeTab}>
+                <RootProvider value={value} onChange={onChange} activeTab={activeTab} tabs={tabs}>
                     {children}
                 </RootProvider>
             </styled.div>
@@ -59,9 +60,9 @@ export const EditComponent = forward<{}, 'div'>(
     { displayName: 'EditComponent' },
 );
 
-export const Edit = forward<{}, 'div'>(
-    (props, ref) => (
-        <Tabs.Content value={MarkdownEditorMode.EDIT}>
+export const Edit = forward<{ id: string }, 'div'>(
+    ({ id, ...props }, ref) => (
+        <Tabs.Content id={id}>
             <EditComponent {...props} ref={ref} />
         </Tabs.Content>
     ),
@@ -91,18 +92,18 @@ export const PreviewComponent = forward<{}, 'div'>(
     { displayName: 'PreviewComponent' },
 );
 
-export const Preview = forward<{}, 'div'>(
-    (props, ref) => (
-        <Tabs.Content value={MarkdownEditorMode.PREVIEW}>
+export const Preview = forward<{ id: string }, 'div'>(
+    ({ id, ...props }, ref) => (
+        <Tabs.Content id={id}>
             <PreviewComponent {...props} ref={ref} />
         </Tabs.Content>
     ),
     { displayName: 'Preview' },
 );
 
-export const Split = forward<{}, 'div'>(
-    (props, ref) => (
-        <Tabs.Content value={MarkdownEditorMode.SPLIT}>
+export const Split = forward<{ id: string }, 'div'>(
+    ({ id, ...props }, ref) => (
+        <Tabs.Content id={id}>
             <styled.div {...props} ref={ref} data-scope="markdown-editor" data-part="split">
                 <EditComponent />
                 <PreviewComponent />

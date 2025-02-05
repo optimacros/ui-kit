@@ -39,7 +39,11 @@ export const Base = ({ tabs: tabsProp, value: valueProp, ...rest }: TabsProps) =
                 </Tabs.List>
 
                 <Tabs.ContentContainer>
-                    {(tab) => <Tabs.Content id={tab.id}>{tab.content}</Tabs.Content>}
+                    {(tab) => (
+                        <Tabs.Content id={tab.id}>
+                            <p>tab {tab.id} content</p>
+                        </Tabs.Content>
+                    )}
                 </Tabs.ContentContainer>
             </Flex>
         </Tabs.Root>

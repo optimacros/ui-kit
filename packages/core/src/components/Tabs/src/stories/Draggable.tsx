@@ -45,7 +45,11 @@ export const Draggable = ({ tabs: tabsProp, value: valueProp, ...rest }: TabsPro
             </Tabs.List>
 
             <Tabs.ContentContainer>
-                {(tab) => <Tabs.Content id={tab.id}>{tab.content}</Tabs.Content>}
+                {(tab) => (
+                    <Tabs.Content id={tab.id}>
+                        <p>tab {tab.id} content</p>
+                    </Tabs.Content>
+                )}
             </Tabs.ContentContainer>
         </Tabs.Root>
     );

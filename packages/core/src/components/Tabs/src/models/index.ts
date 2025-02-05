@@ -8,8 +8,6 @@ export interface Tab {
     id: string;
     /** Tab title content*/
     title: ReactNode;
-    /** Tab content */
-    content: ReactNode;
     meta?: Record<string, any>;
     /** Tab is always aligned to the left */
     fixed?: boolean;

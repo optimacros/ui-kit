@@ -29,6 +29,14 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
     }) => {
         const rootRef = useRef<HTMLDivElement>();
 
+        const tabs = useMemo<MDE.Tabs.Tab[]>(() => {
+            return [
+                { id: editTabLabel, title: editTabLabel },
+                { id: previewTabLabel, title: previewTabLabel },
+                { id: splitTabLabel, title: splitTabLabel },
+            ];
+        }, [editTabLabel, previewTabLabel, splitTabLabel]);
+
         const handleKeyDown = useCallback<EventListener>(
             (event) => {
                 if ((event as unknown as KeyboardEvent<HTMLTextAreaElement>).key === 'Tab') {
@@ -85,38 +93,28 @@ export const MarkdownEditor = memo<MarkdownEditorProps>(
 
         return (
             <MDE.Root
-                activeTab={MDE.MarkdownEditorMode.SPLIT}
+                activeTab={tabs[0].id}
                 data-resizable={resizableState}
                 {...rest}
                 value={value}
                 onChange={onChange}
                 ref={rootRef}
+                tabs={tabs}
             >
                 <MDE.Tabs.List>
-                    <MDE.Tabs.Trigger
-                        value={MDE.MarkdownEditorMode.EDIT}
-                        key={MDE.MarkdownEditorMode.EDIT}
-                    >
-                        {editTabLabel}
-                    </MDE.Tabs.Trigger>
-                    <MDE.Tabs.Trigger
-                        value={MDE.MarkdownEditorMode.PREVIEW}
-                        key={MDE.MarkdownEditorMode.PREVIEW}
-                    >
-                        {previewTabLabel}
-                    </MDE.Tabs.Trigger>
-                    <MDE.Tabs.Trigger
-                        value={MDE.MarkdownEditorMode.SPLIT}
-                        key={MDE.MarkdownEditorMode.SPLIT}
-                    >
-                        {splitTabLabel}
-                    </MDE.Tabs.Trigger>
+                    {(tabs) =>
+                        tabs.map((tab) => (
+                            <MDE.Tabs.Trigger id={tab.id} key={tab.id}>
+                                {tab.title}
+                            </MDE.Tabs.Trigger>
+                        ))
+                    }
                 </MDE.Tabs.List>
 
                 <ResizableBox axis="y" width={500} height={height} minConstraints={[150, 150]}>
-                    <MDE.Edit />
-                    <MDE.Preview />
-                    <MDE.Split />
+                    <MDE.Edit id={tabs[0].id} />
+                    <MDE.Preview id={tabs[1].id} />
+                    <MDE.Split id={tabs[2].id} />
                 </ResizableBox>
             </MDE.Root>
         );
