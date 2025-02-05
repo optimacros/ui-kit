@@ -2,15 +2,15 @@ import { ComponentProps, PropsWithChildren } from 'react';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import * as machine from '@zag-js/checkbox';
 
-export const { RootProvider, useApi, splitProps } = createReactApiStateContext({
+export const { RootProvider, useApi, splitProps } = createReactApiStateContext<typeof machine>({
     id: 'checkbox',
     machine,
 });
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & { value: string };
+export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
+
 export const Root = forward<RootProps, 'label'>(
     function ({ children, ...rest }, ref) {
-        //@ts-ignore
         const [context, props] = splitProps(rest);
 
         return (

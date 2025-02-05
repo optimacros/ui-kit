@@ -1,11 +1,11 @@
-//@ts-nocheck
 import { useState } from 'react';
-import { Button, Field } from '@optimacros-ui/kit';
-import { Checkbox } from './index';
-import { Tooltip } from '@optimacros-ui/tooltip';
 import { flushSync } from 'react-dom';
 import { within, expect, userEvent, waitFor, fireEvent, fn } from '@storybook/test';
 import { StoryObj } from '@storybook/react';
+import { Button, Field } from '@optimacros-ui/kit';
+import { Tooltip } from '@optimacros-ui/tooltip';
+import { Checkbox } from './index';
+
 export default {
     title: 'UI Kit core/Checkbox',
     component: Checkbox.Root,
@@ -20,7 +20,7 @@ export const Base: StoryObj = {
             </Checkbox.Root>
         );
     },
-    play: async ({ canvasElement, step, context }) => {
+    play: async ({ canvasElement, step }) => {
         const canvas = within(canvasElement);
         const root = canvas.getByTestId('checkbox-root');
         const input = canvas.getByTestId('hidden-input');
@@ -63,8 +63,8 @@ export const Controllable = (props) => {
             <Checkbox.Root
                 {...props}
                 checked={checked}
-                onCheckedChange={(v) => {
-                    flushSync(() => setValue(v.checked));
+                onCheckedChange={({ checked }: { checked: boolean }) => {
+                    flushSync(() => setValue(checked));
                 }}
                 controllable
             >
@@ -153,7 +153,7 @@ export const WithForm = (props) => {
             <Checkbox.Root
                 {...props}
                 checked={agreement}
-                onCheckedChange={({ checked }) => setAgreement(checked)}
+                onCheckedChange={({ checked }: { checked: boolean }) => setAgreement(checked)}
             >
                 <Checkbox.BoxControl />
                 <Checkbox.Label>I agree to the processing of personal data</Checkbox.Label>

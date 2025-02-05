@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Menu, MenuItem, MenuTrigger } from '.';
-import { action } from '@storybook/addon-actions';
 import { VisuallyHidden } from '@optimacros-ui/visually-hidden';
+import { action } from '@storybook/addon-actions';
+import { Menu, MenuItem, MenuTrigger } from '.';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '500px', height: '25vh', position: 'relative' }}>{children}</div>
@@ -157,7 +157,7 @@ export const WithBadge: Story = {
                 }}
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span>✉️</span>
+                    <span>✉</span>
                     <span>Messages</span>
                 </div>
                 <div

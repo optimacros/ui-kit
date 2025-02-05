@@ -1,9 +1,7 @@
-//@ts-nocheck
-
-import { Modal } from '../index';
 import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
+import { Modal } from '../index';
 
 export const CloseIcon = () => {
     const [open, setOpen] = useState(false);

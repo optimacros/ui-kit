@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Modal } from './index';
 import { useState } from 'react';
@@ -88,8 +86,8 @@ export const Basic = {
     render: () => {
         const [open, setOpen] = useState(false);
 
-        const handleOpenChange = (details) => {
-            setOpen(details.open);
+        const handleOpenChange = ({ open }: { open: boolean }) => {
+            setOpen(open);
         };
 
         return (

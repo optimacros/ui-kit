@@ -1,8 +1,6 @@
-//@ts-nocheck
-
+import { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from '.';
-import { ReactNode } from 'react';
 
 const meta: Meta<typeof Flex> = {
     title: 'Ui kit core/Flex',
@@ -110,9 +108,7 @@ export const Gallery: Story = {
         children: (
             <>
                 {Array.from({ length: 6 }, (_, i) => (
-                    <Box key={i} style={{ flex: '1 1 200px' }}>
-                        Image {i + 1}
-                    </Box>
+                    <Box key={i}>Image {i + 1}</Box>
                 ))}
             </>
         ),

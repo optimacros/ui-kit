@@ -1,14 +1,12 @@
-//@ts-nocheck
-
-import { Modal } from '../index';
 import { useState } from 'react';
+import { Modal } from '../index';
 import { Button } from '@optimacros-ui/button';
 
 export const CloseOnEscape = () => {
     const [open, setOpen] = useState(false);
 
-    const handleOpenChange = (details) => {
-        setOpen(details.open);
+    const handleOpenChange = ({ open }: { open: boolean }) => {
+        setOpen(open);
     };
 
     return (

@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Text } from '@optimacros-ui/text';
@@ -79,8 +77,8 @@ export const Settings = () => {
 export const Multiple = () => {
     return (
         <Flex gap="3" wrap="wrap">
-            {new Array(10).fill(0).map(() => (
-                <Chip.Root>Base</Chip.Root>
+            {new Array(10).fill(0).map((_, i) => (
+                <Chip.Root key={i}>Base</Chip.Root>
             ))}
         </Flex>
     );

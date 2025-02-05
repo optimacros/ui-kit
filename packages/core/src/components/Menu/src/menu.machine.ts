@@ -21,6 +21,19 @@ const config = {
     },
 } satisfies MachineConfig<zagMenu.Service>;
 
+interface IMenuContext {
+    context: {
+        orientation?: string;
+        disabled?: boolean;
+        hoverable?: boolean;
+    };
+    on: {
+        'ORIENTATION.SET': { actions: string };
+        'DISABLED.SET': { actions: string };
+        'SUBMENU.SET': { actions: string };
+    };
+}
+
 const options = {
     actions: {
         setOrientation: (ctx, evt) => {
@@ -30,14 +43,10 @@ const options = {
             ctx.disabled = evt.value;
         },
     },
-} satisfies MachineOptions<zagMenu.Service, zagMenu.Context, typeof config>;
+} satisfies MachineOptions<zagMenu.Service, zagMenu.Context, IMenuContext>;
 
-export const machine: ExtendedMachine<
-    typeof zagMenu,
-    zagMenu.Service,
-    zagMenu.Context,
-    typeof config
-> = extendMachine(zagMenu, config, options);
+export const machine: ExtendedMachine<typeof zagMenu, zagMenu.Service, zagMenu.Context> =
+    extendMachine(zagMenu, config, options);
 
 export type Machine = typeof machine;
 

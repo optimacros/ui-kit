@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Meta } from '@storybook/react';
 
 import { Menu } from './index';
@@ -102,7 +100,7 @@ export const Basic = {
                     <Menu.Content size="sm" data-testid="menu-content">
                         <Menu.List data-testid="menu-list">
                             {menuItems.map((v, i) => (
-                                <Menu.Item {...v} title={v.valueText}>
+                                <Menu.Item key={i} {...v} title={v.valueText}>
                                     {v.valueText}
                                 </Menu.Item>
                             ))}
@@ -190,7 +188,9 @@ export const OrientationExample = () => {
                         <Menu.Content size="sm">
                             <Menu.List>
                                 {menuItems.map((v, i) => (
-                                    <Menu.Item {...v}>{v.valueText}</Menu.Item>
+                                    <Menu.Item key={i} {...v}>
+                                        {v.valueText}
+                                    </Menu.Item>
                                 ))}
                                 <Menu.SubMenuItem
                                     parent={api}
@@ -238,7 +238,7 @@ const CustomMenu = ({ value }) => {
             <Menu.Content data-testid={'nested-menu-' + value}>
                 <Menu.List>
                     {menuItems.map((v, i) => (
-                        <Menu.Item {...v} value={value + i} valueText={value + i}>
+                        <Menu.Item key={i} {...v} value={value + i} valueText={value + i}>
                             {value + i}
                         </Menu.Item>
                     ))}
@@ -406,7 +406,7 @@ export const Disabled = () => {
                 <Menu.Content>
                     <Menu.List>
                         {menuItems.map((v, i) => (
-                            <Menu.Item {...v} disabled={i % 2 === 0}>
+                            <Menu.Item key={i} {...v} disabled={i % 2 === 0}>
                                 {v.valueText}
                             </Menu.Item>
                         ))}

@@ -1,7 +1,11 @@
 import { forward, styled } from '@optimacros-ui/store';
 import { Orientation } from '@optimacros-ui/utils';
 
-export const Root = forward<{ orientation: Orientation }, 'div'>(
+export interface ButtonGroupProps {
+    orientation?: Orientation;
+}
+
+export const Root = forward<ButtonGroupProps, 'div'>(
     ({ orientation = Orientation.Horizontal, ...rest }, ref) => (
         <styled.div
             {...rest}

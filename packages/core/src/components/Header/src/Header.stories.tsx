@@ -1,12 +1,10 @@
-//@ts-nocheck
-
 import type { ReactNode } from 'react';
 import { ICONS_MAP } from '@optimacros-ui/themes';
 import { Icon } from '@optimacros-ui/kit';
-import { Header } from '.';
+import { Menu } from '@optimacros-ui/menu';
 import { Orientation } from '../../../constants';
 import { headerMenuItems } from './mock';
-import { Menu } from '@optimacros-ui/menu';
+import { Header } from '.';
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
     return <div style={{ clipPath: 'xywh(0px 1px 100% 120%)' }}>{children}</div>;
@@ -53,8 +51,8 @@ export const MenuExample = (props) => {
                 <Menu.Positioner portalled>
                     <Menu.Content>
                         <Menu.List>
-                            {headerMenuItems.map((item) => (
-                                <Menu.Item {...item} />
+                            {headerMenuItems.map((item, i) => (
+                                <Menu.Item key={i} {...item} />
                             ))}
                         </Menu.List>
                     </Menu.Content>

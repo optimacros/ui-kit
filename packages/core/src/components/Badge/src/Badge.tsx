@@ -13,8 +13,8 @@ interface BadgeProps {
     /** The element to wrap with the badge */
     children: ReactNode;
     /** any size as css value */
-    size: string;
-    style: object;
+    size?: string;
+    style?: object;
     className?: string;
 }
 

@@ -1,8 +1,7 @@
-//@ts-nocheck
-
+import { CSSProperties } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Image } from '.';
 import { Flex } from '@optimacros-ui/flex';
+import { Image } from '.';
 
 const meta: Meta<typeof Image.Root> = {
     title: 'Ui kit core/Image',
@@ -26,7 +25,7 @@ type Story = StoryObj<typeof Image.Root>;
 // Basic usage with all subcomponents
 export const Basic: Story = {
     render: () => (
-        <Image.Root>
+        <Image.Root ratio="square">
             <Image.Image src="https://picsum.photos/800/600" alt="Random landscape" />
             <Image.Fallback>Loading...</Image.Fallback>
         </Image.Root>
@@ -71,7 +70,11 @@ export const AspectRatios = () => {
 
     // Custom aspect ratio
     const CustomRatioImage = () => (
-        <Image.Root className="image-root" ratio="custom" style={{ '--aspect-ratio': '70%' }}>
+        <Image.Root
+            className="image-root"
+            ratio="custom"
+            style={{ '--aspect-ratio': '70%' } as CSSProperties}
+        >
             <Image.Image
                 className="image"
                 src="https://picsum.photos/id/1019/1000/700"
@@ -143,6 +146,7 @@ export const Gallery: Story = {
                 >
                     {galleryImages.map((img, index) => (
                         <Image.Root
+                            ratio="square"
                             key={img.id}
                             style={{
                                 position: 'relative',
@@ -233,9 +237,9 @@ export const Gallery: Story = {
 // Shows fallback when image fails to load
 export const WithError: Story = {
     render: () => (
-        <Image.Root>
+        <Image.Root ratio="square">
             <Image.Image src="invalid-url.jpg" alt="Invalid image" />
-            <Image.Fallback>⚠️ Failed to load image</Image.Fallback>
+            <Image.Fallback>! Failed to load image</Image.Fallback>
         </Image.Root>
     ),
 };
@@ -243,7 +247,7 @@ export const WithError: Story = {
 // Custom dimensions
 export const CustomSize: Story = {
     render: () => (
-        <Image.Root style={{ width: '300px', height: '200px' }}>
+        <Image.Root style={{ width: '300px', height: '200px' }} ratio="square">
             <Image.Image
                 src="https://picsum.photos/id/1018/800/600"
                 alt="Mountain landscape"
@@ -257,22 +261,14 @@ export const CustomSize: Story = {
 export const Avatar: Story = {
     render: () => (
         <Flex gap={3}>
-            <Image.Root style={{ width: 100 }}>
+            <Image.Root style={{ width: 100 }} ratio="square">
                 <Image.Avatar
                     src="https://picsum.photos/id/1018/800/600"
                     alt="Mountain landscape"
                 />
                 <Image.Fallback>Loading...</Image.Fallback>
             </Image.Root>
-            <Image.Root style={{ width: 100 }}>
-                <Image.Avatar
-                    src="https://picsum.photos/id/1018/800/600"
-                    alt="Mountain landscape"
-                />
-                <Image.Fallback>Loading...</Image.Fallback>
-            </Image.Root>
-
-            <Image.Root style={{ width: 100 }}>
+            <Image.Root style={{ width: 100 }} ratio="square">
                 <Image.Avatar
                     src="https://picsum.photos/id/1018/800/600"
                     alt="Mountain landscape"
@@ -280,7 +276,15 @@ export const Avatar: Story = {
                 <Image.Fallback>Loading...</Image.Fallback>
             </Image.Root>
 
-            <Image.Root style={{ width: 100 }}>
+            <Image.Root style={{ width: 100 }} ratio="square">
+                <Image.Avatar
+                    src="https://picsum.photos/id/1018/800/600"
+                    alt="Mountain landscape"
+                />
+                <Image.Fallback>Loading...</Image.Fallback>
+            </Image.Root>
+
+            <Image.Root style={{ width: 100 }} ratio="square">
                 <Image.Avatar
                     src="https://picsum.photos/id/1018/800/600"
                     alt="Mountain landscape"
@@ -294,7 +298,7 @@ export const Avatar: Story = {
 // Custom fallback content
 export const CustomFallback: Story = {
     render: () => (
-        <Image.Root>
+        <Image.Root ratio="square">
             <Image.Image src="invalid-url.jpg" alt="Invalid image" />
             <Image.Fallback>
                 <div
@@ -308,7 +312,7 @@ export const CustomFallback: Story = {
                         gap: '0.5rem',
                     }}
                 >
-                    <span style={{ fontSize: '2rem' }}>🖼️</span>
+                    <span style={{ fontSize: '2rem' }}>🖼</span>
                     <span>Image unavailable</span>
                 </div>
             </Image.Fallback>
@@ -328,7 +332,11 @@ export const LoadingStates: Story = {
         return (
             <div style={{ display: 'flex', gap: '1rem' }}>
                 {images.map((src, index) => (
-                    <Image.Root key={index} style={{ width: '200px', height: '150px' }}>
+                    <Image.Root
+                        key={index}
+                        style={{ width: '200px', height: '150px' }}
+                        ratio="square"
+                    >
                         <Image.Image src={src} alt={`Image ${index + 1}`} />
                         <Image.Fallback>
                             {index === 2 ? '❌ Error' : '⌛ Loading...'}
@@ -344,6 +352,7 @@ export const LoadingStates: Story = {
 export const Styled: Story = {
     render: () => (
         <Image.Root
+            ratio="square"
             style={{
                 border: '2px solid #e5e7eb',
                 borderRadius: '8px',

@@ -1,11 +1,11 @@
 //@ts-nocheck
 
+import { useEffect, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-
 import { Menu, MenuItem, MenuTrigger, SubMenu } from '@optimacros-ui/kit-internal';
 import { action } from '@storybook/addon-actions';
-import { useEffect, useState } from 'react';
 import { VisuallyHidden } from '@optimacros-ui/visually-hidden';
+
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '500px', height: '25vh', position: 'relative' }}>{children}</div>
 );
@@ -167,7 +167,7 @@ export const UserMenu: Story = {
             </MenuItem>
             <MenuItem key="account" onClick={action('clicked Account')}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span>⚙️</span>
+                    <span>⚙</span>
                     <span>Account Settings</span>
                 </div>
             </MenuItem>
@@ -211,7 +211,7 @@ export const NotificationMenu: Story = {
                         }}
                     >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span>✉️</span>
+                            <span>✉</span>
                             <span>Messages</span>
                         </div>
                         <div
@@ -333,7 +333,7 @@ export const AccountActions: Story = {
                         color: '#ef4444',
                     }}
                 >
-                    <span>🗑️</span>
+                    <span>🗑</span>
                     <span>Delete Account</span>
                 </div>
             </MenuItem>

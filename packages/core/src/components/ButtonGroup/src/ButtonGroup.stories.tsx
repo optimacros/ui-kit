@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ButtonGroup } from '.';
 import { Flex } from '@optimacros-ui/flex';
 import { Icon } from '@optimacros-ui/icon';
 import { Orientation } from '@optimacros-ui/utils';
+import { ButtonGroup } from '.';
 
 const meta: Meta<typeof ButtonGroup.Root> = {
     title: 'UI Kit core/ButtonGroup',

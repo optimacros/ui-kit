@@ -1,7 +1,7 @@
-import { Modal } from '../index';
 import { useState } from 'react';
-import { Button } from '@optimacros-ui/button';
 import { flushSync } from 'react-dom';
+import { Button } from '@optimacros-ui/button';
+import { Modal } from '../index';
 
 export const Controlled = () => {
     const [open, setOpen] = useState(false);

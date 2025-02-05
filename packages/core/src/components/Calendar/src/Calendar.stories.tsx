@@ -1,16 +1,14 @@
-//@ts-nocheck
-
+import { StoryObj } from '@storybook/react';
 import { Icon } from '@optimacros-ui/icon';
-import { Calendar } from './index';
 import { fromDate } from '@internationalized/date';
 import { within, expect, userEvent, waitFor } from '@storybook/test';
-import { StoryObj } from '@storybook/react';
+import { Calendar } from './index';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
 
-const value = fromDate(new Date('12.02.2024'));
+const value = fromDate(new Date('12.02.2024'), 'UTC');
 
 const locales = [
     'en-US',
