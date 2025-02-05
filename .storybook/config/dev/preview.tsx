@@ -67,7 +67,7 @@ const previewDev: Preview = {
                 globalThis.waitForPageTrulyReady = waitForPageTrulyReadySB;
             }
 
-            if (context.playFunction) {
+            if (context.playFunction && !context.tags.includes('hasPlayFunction')) {
                 context.tags.push('hasPlayFunction');
             }
 
