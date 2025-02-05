@@ -157,3 +157,51 @@ const RadioGroupState = () => {
 export const RadioGroup: Story = {
     render: () => <RadioGroupState />,
 };
+
+const EventsState = () => {
+    const [selectedValue, setSelectedValue] = useState<string | null>(null);
+    const [lastEvent, setLastEvent] = useState<string | null>(null);
+
+    const handleChangeValue = (selectedValue: string) => {
+        setSelectedValue(selectedValue);
+    };
+
+    const handleChangeEvent = (lastEvent: string) => {
+        setLastEvent(lastEvent);
+    };
+
+    const eventsProps = {
+        onFocus: () => handleChangeEvent('Focused'),
+        onBlur: () => handleChangeEvent('Blurred'),
+        onMouseEnter: () => handleChangeEvent('Mouse Enter'),
+        onMouseLeave: () => handleChangeEvent('Mouse Leave'),
+    };
+
+    return (
+        <Flex gap={4} direction="column">
+            <Flex gap={2}>Last event: {lastEvent} </Flex>
+            <Flex direction="column" gap="2">
+                <RadioButton
+                    {...eventsProps}
+                    name="group"
+                    value="option1"
+                    label="Option 1"
+                    checked={selectedValue === 'option1'}
+                    onChange={() => handleChangeValue('option1')}
+                />
+                <RadioButton
+                    {...eventsProps}
+                    name="group"
+                    value="option2"
+                    label="Option 2"
+                    checked={selectedValue === 'option2'}
+                    onChange={() => handleChangeValue('option2')}
+                />
+            </Flex>
+        </Flex>
+    );
+};
+
+export const WithEvents: Story = {
+    render: () => <EventsState />,
+};

@@ -41,7 +41,7 @@ export const RadioButton: RadioButtonProps = ({
 }) => {
     const inputNode = useRef<HTMLInputElement | null>(null);
 
-    const handleClick = (event: MouseEvent<HTMLInputElement>) => {
+    const handleChange = (event: MouseEvent<HTMLInputElement>) => {
         if (!disabled && !checked && onChange) {
             onChange(event);
         }
@@ -67,7 +67,6 @@ export const RadioButton: RadioButtonProps = ({
                     role="radio"
                     aria-checked={checked}
                     tabIndex={0}
-                    onClick={handleClick}
                     data-scope="radio-group"
                     data-part="control"
                     {...state}
@@ -77,7 +76,7 @@ export const RadioButton: RadioButtonProps = ({
                     checked={checked}
                     disabled={disabled}
                     name={name}
-                    onChange={() => {}}
+                    onChange={handleChange}
                     ref={inputNode}
                     style={{
                         position: 'absolute',
