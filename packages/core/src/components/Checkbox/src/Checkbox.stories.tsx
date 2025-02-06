@@ -1,171 +1,227 @@
-import { useState } from 'react';
-import { flushSync } from 'react-dom';
-import { within, expect, userEvent, waitFor, fireEvent, fn } from '@storybook/test';
-import { StoryObj } from '@storybook/react';
+import { ComponentProps, useState } from 'react';
+import { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import { Button, Field } from '@optimacros-ui/kit';
 import { Tooltip } from '@optimacros-ui/tooltip';
 import { Checkbox } from './index';
+import { CheckedChangeDetails } from '@zag-js/checkbox';
+import * as scenarios from './__tests__/scenarios';
 
-export default {
-    title: 'UI Kit core/Checkbox',
-    component: Checkbox.Root,
-    tags: ['autodocs'],
+const argTypes: ArgTypes<ComponentProps<typeof Checkbox.Root>> = {
+    checked: {
+        control: false,
+        description: 'The checked state of the checkbox',
+        table: { type: { summary: 'CheckedState' } },
+    },
+    onCheckedChange: {
+        control: false,
+        description: 'The callback invoked when the checked state changes',
+        table: { type: { summary: '(details: CheckedChangeDetails) => void' } },
+    },
+    disabled: {
+        control: 'boolean',
+        description: `Whether the checkbox is disabled`,
+        table: { defaultValue: { summary: 'false' } },
+    },
+    invalid: {
+        control: 'boolean',
+        description: `Whether the checkbox is invalid`,
+        table: { defaultValue: { summary: 'false' } },
+    },
+    required: {
+        control: 'boolean',
+        description: `Whether the checkbox is required`,
+        table: { defaultValue: { summary: 'false' } },
+    },
+    readOnly: {
+        control: 'boolean',
+        description: `Whether the checkbox is read-only`,
+        table: { defaultValue: { summary: 'false' } },
+    },
+    name: {
+        control: 'text',
+        description: `The name of the input field in a checkbox. Useful for form submission`,
+        table: { category: 'form' },
+    },
+    form: {
+        control: 'text',
+        description: `The id of the form that the checkbox belongs to`,
+        table: { category: 'form' },
+    },
+    value: {
+        control: 'text',
+        description: `The value of checkbox input. Useful for form submission`,
+        table: { category: 'form' },
+    },
+    as: { table: { disable: true } },
+    asChild: { table: { disable: true } },
+    children: { table: { disable: true } },
+    controllable: { table: { disable: true } },
+    id: { table: { disable: true } },
+    defaultContext: { table: { disable: true } },
 };
 
-export const Base: StoryObj = {
+const meta: Meta<typeof Checkbox.Root> = {
+    title: 'UI Kit core/Checkbox',
+    component: Checkbox.Root,
+    argTypes,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Checkbox.Root>;
+
+export const Base: Story = {
+    args: {},
     render: (props) => {
         return (
-            <Checkbox.Root {...props} data-testid="checkbox-root" onCheckedChange={fn()}>
+            <Checkbox.Root {...props} data-testid="checkbox-root">
                 <Checkbox.BoxControl data-testid="checkbox-control" />
             </Checkbox.Root>
         );
     },
-    play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
-        const root = canvas.getByTestId('checkbox-root');
-        const input = canvas.getByTestId('hidden-input');
+    play: scenarios.base,
+};
 
-        await step('basic check', async () => {
-            expect(root).toHaveAttribute('data-scope', 'checkbox');
-            expect(root).toHaveAttribute('data-state', 'unchecked');
-            expect(input).not.toBeChecked();
+export const Controllable: Story = {
+    args: { controllable: true, checked: false },
+    render: ({ checked: checkedProp, ...rest }) => {
+        const [checked, setValue] = useState(checkedProp);
 
-            await fireEvent.click(root);
+        const handleCheckedChange = (details: CheckedChangeDetails) => {
+            setValue(details.checked);
+        };
 
-            await waitFor(() => expect(root).toHaveAttribute('data-state', 'checked'));
+        return (
+            <>
+                <Checkbox.Root
+                    {...rest}
+                    checked={checked}
+                    onCheckedChange={handleCheckedChange}
+                    data-testid="checkbox-root"
+                >
+                    <Checkbox.BoxControl data-testid="checkbox-control" />
+                </Checkbox.Root>
 
-            await fireEvent.click(root);
+                <Button
+                    onClick={() =>
+                        setValue((v) => {
+                            if (typeof v === 'boolean') {
+                                return !v;
+                            }
 
-            await waitFor(() => expect(root).toHaveAttribute('data-state', 'unchecked'));
-        });
-
-        await step('keyboard', async () => {
-            await waitFor(() => expect(input).toHaveFocus());
-
-            await userEvent.keyboard('[Space/]');
-
-            await waitFor(() => expect(root).toHaveAttribute('data-focus'));
-
-            await waitFor(() => expect(root).toHaveAttribute('data-state', 'checked'));
-
-            await userEvent.click(canvasElement);
-
-            await waitFor(() => expect(input).not.toHaveFocus());
-        });
+                            return 'indeterminate';
+                        })
+                    }
+                >
+                    change
+                </Button>
+            </>
+        );
     },
 };
 
-export const Controllable = (props) => {
-    const [checked, setValue] = useState(false);
+export const Label: Story = {
+    args: {},
+    render: (props) => {
+        return (
+            <Checkbox.Root {...props}>
+                <Checkbox.BoxControl />
+                <Checkbox.Label>Option</Checkbox.Label>
+            </Checkbox.Root>
+        );
+    },
+};
 
-    return (
-        <>
-            <Checkbox.Root
-                {...props}
-                checked={checked}
-                onCheckedChange={({ checked }: { checked: boolean }) => {
-                    flushSync(() => setValue(checked));
+export const Disabled: Story = {
+    args: { disabled: true },
+    render: (props) => {
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <Checkbox.Root {...props}>
+                    <Checkbox.BoxControl />
+                </Checkbox.Root>
+                <Checkbox.Root checked {...props}>
+                    <Checkbox.BoxControl />
+                </Checkbox.Root>
+                <Checkbox.Root {...props}>
+                    <Checkbox.BoxControl />
+                    <Checkbox.Label>Option</Checkbox.Label>
+                </Checkbox.Root>
+                <Checkbox.Root checked {...props}>
+                    <Checkbox.BoxControl />
+                    <Checkbox.Label>Option</Checkbox.Label>
+                </Checkbox.Root>
+            </div>
+        );
+    },
+};
+
+export const WithTooltip: Story = {
+    render: (props) => {
+        return (
+            <Tooltip.Root openDelay={50} closeDelay={50} positioning={{ placement: 'bottom' }}>
+                <Tooltip.Trigger asChild>
+                    <div style={{ width: 'fit-content' }}>
+                        <Checkbox.Root {...props} data-testid="checkbox-root">
+                            <Checkbox.BoxControl data-testid="checkbox-control" />
+                            <Checkbox.Label>Option</Checkbox.Label>
+                        </Checkbox.Root>
+                    </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Select current option</Tooltip.Content>
+            </Tooltip.Root>
+        );
+    },
+    play: scenarios.tooltip,
+};
+
+export const WithForm: Story = {
+    args: { form: 'formId', name: 'checkBoxName' },
+    render: (props) => {
+        const [agreement, setAgreement] = useState(false);
+
+        const onSubmit = (event) => {
+            event.preventDefault();
+
+            // @ts-expect-error
+            console.info(document.formName.checkBoxName.value);
+        };
+
+        return (
+            <form
+                id={props.form}
+                name="formName"
+                onSubmit={onSubmit}
+                style={{
+                    width: '400px',
                 }}
-                controllable
             >
-                <Checkbox.BoxControl />
-            </Checkbox.Root>
-
-            <Button onClick={() => setValue((v) => !v)}>change</Button>
-        </>
-    );
-};
-
-export const Label = (props) => {
-    return (
-        <Checkbox.Root
-            checked
-            {...props}
-            controllable
-            onCheckedChange={(d) => console.log(d)}
-            value="d"
-        >
-            <Checkbox.BoxControl />
-            <Checkbox.Label>Option</Checkbox.Label>
-        </Checkbox.Root>
-    );
-};
-
-export const Disabled = (props) => {
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <Checkbox.Root disabled {...props}>
-                <Checkbox.BoxControl />
-            </Checkbox.Root>
-            <Checkbox.Root disabled checked {...props}>
-                <Checkbox.BoxControl />
-            </Checkbox.Root>
-            <Checkbox.Root disabled {...props}>
-                <Checkbox.BoxControl />
-                <Checkbox.Label>Option</Checkbox.Label>
-            </Checkbox.Root>
-            <Checkbox.Root disabled checked {...props}>
-                <Checkbox.BoxControl />
-                <Checkbox.Label>Option</Checkbox.Label>
-            </Checkbox.Root>
-        </div>
-    );
-};
-
-export const WithTooltip = (props) => {
-    return (
-        <Tooltip.Root openDelay={50} closeDelay={50} positioning={{ placement: 'bottom' }}>
-            <Tooltip.Trigger asChild>
-                <div style={{ width: 'fit-content' }}>
-                    <Checkbox.Root {...props}>
-                        <Checkbox.BoxControl />
-                        <Checkbox.Label>Option</Checkbox.Label>
-                    </Checkbox.Root>
-                </div>
-            </Tooltip.Trigger>
-            <Tooltip.Content>Select current option</Tooltip.Content>
-        </Tooltip.Root>
-    );
-};
-
-export const WithForm = (props) => {
-    const [agreement, setAgreement] = useState(false);
-
-    const onSubmit = (event) => {
-        event.preventDefault();
-    };
-
-    return (
-        <form
-            onSubmit={onSubmit}
-            style={{
-                width: '400px',
-            }}
-        >
-            <Field.Root {...props}>
-                <Field.FloatingLabel htmlFor="fn">First Name</Field.FloatingLabel>
-                <Field.Input id="fn" />
-            </Field.Root>
-            <Field.Root {...props}>
-                <Field.FloatingLabel htmlFor="ln">Last Name</Field.FloatingLabel>
-                <Field.Input id="ln" />
-            </Field.Root>
-            <Checkbox.Root
-                {...props}
-                checked={agreement}
-                onCheckedChange={({ checked }: { checked: boolean }) => setAgreement(checked)}
-            >
-                <Checkbox.BoxControl />
-                <Checkbox.Label>I agree to the processing of personal data</Checkbox.Label>
-            </Checkbox.Root>
-            <Button
-                style={{ marginTop: '20px' }}
-                type="submit"
-                variant="bordered"
-                disabled={!agreement}
-            >
-                Send
-            </Button>
-        </form>
-    );
+                <Field.Root>
+                    <Field.FloatingLabel htmlFor="fn">First Name</Field.FloatingLabel>
+                    <Field.Input id="fn" />
+                </Field.Root>
+                <Field.Root>
+                    <Field.FloatingLabel htmlFor="ln">Last Name</Field.FloatingLabel>
+                    <Field.Input id="ln" />
+                </Field.Root>
+                <Checkbox.Root
+                    {...props}
+                    checked={agreement}
+                    onCheckedChange={({ checked }: { checked: boolean }) => setAgreement(checked)}
+                    value={agreement ? 'yes checked' : 'no checked'}
+                >
+                    <Checkbox.BoxControl />
+                    <Checkbox.Label>I agree to the processing of personal data</Checkbox.Label>
+                </Checkbox.Root>
+                <Button
+                    style={{ marginTop: '20px' }}
+                    type="submit"
+                    variant="bordered"
+                    disabled={!agreement}
+                >
+                    Send
+                </Button>
+            </form>
+        );
+    },
 };
