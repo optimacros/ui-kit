@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React from 'react';
 import { Field } from '@optimacros-ui/field';
 import { Icon } from '@optimacros-ui/icon';
@@ -50,7 +48,7 @@ export interface SelectBoxProps {
     onClick?: (event: React.MouseEvent) => void;
     onFocus?: React.FocusEventHandler<HTMLDivElement>;
     required?: boolean;
-    template?: (item: SelectBoxProps['source'][number] | undefined) => React.ReactNode;
+    placeholder?: string;
 }
 
 const getStatus = (disabled: boolean, error: boolean) => {
@@ -77,6 +75,7 @@ export const SelectBox = ({
     error,
     labelKey,
     valueKey,
+    placeholder = 'choose value',
     ...rest
 }: SelectBoxProps) => {
     const handleChange = (newValue) => {
@@ -92,14 +91,14 @@ export const SelectBox = ({
     const itemToString = (item: SourceItem) => item[labelKey];
     const itemToValue = (item: SourceItem) => item[valueKey];
 
-    const curValue = Array.isArray(value) ? value : [value];
+    const curValue = !value || Array.isArray(value) ? value : [value];
+    const items = source || options;
 
     return (
         <>
             {!multiSelect ? (
-                // @ts-ignore
                 <Select.Root
-                    items={source || options}
+                    items={items}
                     value={curValue}
                     onValueChange={handleChange}
                     itemToString={itemToString}
@@ -118,10 +117,10 @@ export const SelectBox = ({
                                             <Field.FloatingLabel>{label}</Field.FloatingLabel>
                                         )}
                                         <Field.TriggerInput
-                                            value={api.empty ? 'choose value' : api.valueAsString}
+                                            value={api.empty ? placeholder : api.valueAsString}
                                         >
                                             <Field.Icon>
-                                                <Icon value={'arrow_drop_down'} />
+                                                <Icon value="arrow_drop_down" />
                                             </Field.Icon>
                                         </Field.TriggerInput>
                                         {error && <span>{error}</span>}
@@ -149,9 +148,8 @@ export const SelectBox = ({
                     </Select.Positioner>
                 </Select.Root>
             ) : (
-                // @ts-ignore
                 <Select.Root
-                    items={source || options}
+                    items={items}
                     value={curValue}
                     onValueChange={handleChange}
                     multiple={true}
@@ -189,9 +187,7 @@ export const SelectBox = ({
                                         )}
                                         <Select.Trigger {...api.getTriggerProps()}>
                                             <Field.TriggerInput
-                                                value={
-                                                    api.empty ? 'choose value' : api.valueAsString
-                                                }
+                                                value={api.empty ? placeholder : api.valueAsString}
                                             >
                                                 <Field.Icon>
                                                     <Icon value="arrow_drop_down" />
