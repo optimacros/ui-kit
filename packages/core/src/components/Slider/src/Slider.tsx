@@ -1,8 +1,21 @@
 import { PropsWithChildren, ComponentProps, useMemo } from 'react';
-import { forward, styled } from '@optimacros-ui/store';
+import { ConnectMachine, forward, styled, UserContext, UserState } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createReactApiStateContext } from '@optimacros-ui/store';
-import * as slider from '@zag-js/slider';
+import * as machine from '@zag-js/slider';
+
+export type State = UserState<typeof machine>;
+
+export type Context = UserContext<machine.Context, {}>;
+
+const connect = ((api, { state }) => {
+    return {
+        ...api,
+        min: state.context.min,
+        max: state.context.max,
+        step: state.context.step,
+    };
+}) satisfies ConnectMachine<machine.Api, Context, State>;
 
 export const {
     Api,
@@ -10,17 +23,11 @@ export const {
     useApi,
     useProxySelector,
     useSelector,
+    splitProps,
 } = createReactApiStateContext({
     id: 'slider',
-    machine: slider,
-    connect(api, { state }) {
-        return {
-            ...api,
-            min: state.context.min,
-            max: state.context.max,
-            step: state.context.step,
-        };
-    },
+    machine,
+    connect,
 });
 
 export type ContainerProps = PropsWithChildren &

@@ -1,11 +1,14 @@
 import * as collapsible from '@zag-js/collapsible';
 import {
+    ConnectMachine,
     createReactApiStateContext,
     ExtendedMachine,
     forward,
     MachineConfig,
     MachineOptions,
     styled,
+    UserContext,
+    UserState,
 } from '@optimacros-ui/store';
 import {} from '@optimacros-ui/utils';
 import { PropsWithChildren } from 'react';
@@ -14,7 +17,10 @@ import { extendMachine } from '@optimacros-ui/store';
 const config = {
     context: {
         width: 300,
-        position: 'right' as 'left' | 'right',
+        position: 'right',
+    } as {
+        width?: number;
+        position?: 'left' | 'right';
     },
     on: {
         'WIDTH.SET': { actions: 'setWidth' },
@@ -37,12 +43,65 @@ const options = {
     },
 } satisfies MachineOptions<collapsible.Service, collapsible.Context, typeof config>;
 
-export const machine: ExtendedMachine<
+type State = UserState<typeof collapsible>;
+type Context = UserContext<collapsible.Context, typeof config>;
+
+export const machine = extendMachine(collapsible, config, options) satisfies ExtendedMachine<
     typeof collapsible,
-    collapsible.Service,
-    collapsible.Context,
-    typeof config
-> = extendMachine(collapsible, config, options);
+    Context,
+    State
+>;
+
+const connect = ((api, { state, send }, machine) => {
+    return {
+        ...api,
+        setWidth: (value) => send({ type: 'WIDTH.SET', value }),
+        getPanelProps() {
+            return {
+                ...api.getRootProps(),
+                'data-tag': 'sidebar',
+                'data-position': state.context.position,
+                style: { width: api.open ? state.context.width : 0 },
+            };
+        },
+        getHeaderProps() {
+            return {
+                'data-tag': 'sidebar',
+                'data-scope': 'collapsible',
+                'data-part': 'header',
+                'data-position': state.context.position,
+            };
+        },
+        getMiniPanelProps() {
+            return {
+                'data-position': state.context.position,
+                'data-disabled': state.context.disabled,
+                'data-tag': 'sidebar',
+                'data-scope': 'collapsible',
+                'data-part': 'mini-panel',
+                onClick: () => api.setOpen(true),
+            };
+        },
+        getCloseTriggerProps() {
+            return {
+                'data-position': state.context.position,
+                'data-tag': 'sidebar',
+                'data-scope': 'collapsible',
+                'data-part': 'close-trigger',
+                onClick: () => api.setOpen(false),
+            };
+        },
+        getTriggerProps() {
+            return {
+                'data-position': state.context.position,
+                'data-tag': 'sidebar',
+                'data-scope': 'collapsible',
+                'data-part': 'trigger',
+                onClick: () => send('TOGGLE'),
+            };
+        },
+    };
+}) satisfies ConnectMachine<collapsible.Api, Context, State>;
 
 export type Machine = typeof machine;
 
@@ -50,59 +109,13 @@ export const {
     Api,
     useApi,
     RootProvider: Root,
+    splitProps,
+    useProxySelector,
+    useSelector,
 } = createReactApiStateContext({
     id: 'collapsible',
     machine,
-    connect(api, { state, send }, machine) {
-        return {
-            ...api,
-            setWidth: (value) => send({ type: 'WIDTH.SET', value }),
-            getPanelProps() {
-                return {
-                    ...api.getRootProps(),
-                    'data-tag': 'sidebar',
-                    'data-position': state.context.position,
-                    style: { width: api.open ? state.context.width : 0 },
-                };
-            },
-            getHeaderProps() {
-                return {
-                    'data-tag': 'sidebar',
-                    'data-scope': 'collapsible',
-                    'data-part': 'header',
-                    'data-position': state.context.position,
-                };
-            },
-            getMiniPanelProps() {
-                return {
-                    'data-position': state.context.position,
-                    'data-disabled': state.context.disabled,
-                    'data-tag': 'sidebar',
-                    'data-scope': 'collapsible',
-                    'data-part': 'mini-panel',
-                    onClick: () => api.setOpen(true),
-                };
-            },
-            getCloseTriggerProps() {
-                return {
-                    'data-position': state.context.position,
-                    'data-tag': 'sidebar',
-                    'data-scope': 'collapsible',
-                    'data-part': 'close-trigger',
-                    onClick: () => api.setOpen(false),
-                };
-            },
-            getTriggerProps() {
-                return {
-                    'data-position': state.context.position,
-                    'data-tag': 'sidebar',
-                    'data-scope': 'collapsible',
-                    'data-part': 'trigger',
-                    onClick: () => send('TOGGLE'),
-                };
-            },
-        };
-    },
+    connect,
 });
 
 export const Panel = forward<PropsWithChildren, 'div'>(

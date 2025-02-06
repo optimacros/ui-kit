@@ -1,14 +1,15 @@
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import * as zagSwitch from '@zag-js/switch';
+import * as machine from '@zag-js/switch';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export const { RootProvider, useApi } = createReactApiStateContext({
-    id: 'switch',
-    machine: zagSwitch,
-});
+export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
+    createReactApiStateContext<typeof machine, machine.Api>({
+        id: 'switch',
+        machine,
+    });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => (
+export const Root = forward<RootProps, 'label'>(({ children, ...context }, ref) => (
     <RootProvider {...context}>
         {(api) => (
             <styled.label {...api.getRootProps()} ref={ref}>

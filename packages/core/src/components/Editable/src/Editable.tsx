@@ -1,11 +1,14 @@
 import type { PropsWithChildren } from 'react';
-import * as editable from '@zag-js/editable';
+import * as machine from '@zag-js/editable';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { Flex } from '@optimacros-ui/flex';
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+export const { Api, RootProvider, useApi } = createReactApiStateContext<
+    typeof machine,
+    machine.Api
+>({
     id: 'editable',
-    machine: editable,
+    machine,
 });
 
 export const Root = forward<PropsWithChildren, 'div'>(

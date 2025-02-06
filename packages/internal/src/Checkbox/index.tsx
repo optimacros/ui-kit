@@ -72,9 +72,6 @@ export const Checkbox = ({
 }: CheckboxProps) => {
     return tooltipLabel ? (
         <Tooltip
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
             className={className}
             theme={theme}
             tooltip={tooltipLabel}
@@ -82,7 +79,12 @@ export const Checkbox = ({
             tooltipPosition={tooltipPosition}
             tooltipOffset={tooltipOffset}
             composedComponent={CheckboxComponent}
-            composedComponentProps={rest}
+            composedComponentProps={{
+                ...rest,
+                onClick,
+                onMouseEnter,
+                onMouseLeave,
+            }}
         />
     ) : (
         <CheckboxComponent
@@ -108,6 +110,7 @@ const CheckboxComponent = ({
     onClick,
     ...rest
 }: React.PropsWithChildren<InitialProps>) => {
+    //TODO: controllable checkbox
     const handleToggle = (event: MouseEvent) => {
         if (onChange && !disabled) {
             onChange(!checked, event);
@@ -115,12 +118,16 @@ const CheckboxComponent = ({
     };
 
     return (
-        <CheckboxCore.Root name={name} checked={checked} disabled={disabled} {...rest}>
-            <CheckboxCore.BoxControl
-                onClick={handleToggle}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-            />
+        <CheckboxCore.Root
+            name={name}
+            checked={checked}
+            disabled={disabled}
+            //@ts-ignore
+            onCheckedChange={(e) => onChange(e.checked, {})}
+            controllable
+            {...rest}
+        >
+            <CheckboxCore.BoxControl onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
             {label && <CheckboxCore.Label>{label}</CheckboxCore.Label>}
             {children}
         </CheckboxCore.Root>

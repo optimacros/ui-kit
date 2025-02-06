@@ -6,11 +6,14 @@ import React, {
     useRef,
 } from 'react';
 import {
+    ConnectMachine,
     ExtendedMachine,
     forward,
     MachineConfig,
     MachineOptions,
     styled,
+    UserContext,
+    UserState,
 } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
 import * as dialog from '@zag-js/dialog';
@@ -41,12 +44,31 @@ const options = ({ options }) =>
         },
     }) satisfies MachineOptions<dialog.Service, dialog.Context, typeof config>;
 
-export const machine: ExtendedMachine<
+type State = UserState<typeof dialog>;
+type Context = UserContext<dialog.Context, typeof config>;
+
+export const machine = extendMachine(dialog, config, options) satisfies ExtendedMachine<
     typeof dialog,
-    dialog.Service,
-    dialog.Context,
-    typeof config
-> = extendMachine(dialog, config, options);
+    Context,
+    State
+>;
+
+const connect = ((api, { state, send }, machine) => {
+    return {
+        ...api,
+        handleDragEnd: () => {
+            const content = document.querySelector(
+                'div[data-scope="dialog"][data-part="content"]',
+            ) as HTMLDivElement;
+
+            const { top, left, width } = content.getBoundingClientRect();
+
+            content.style.position = 'absolute';
+            content.style.top = `${top}px`;
+            content.style.left = `${left}px`;
+        },
+    };
+}) satisfies ConnectMachine<dialog.Api, Context, State>;
 
 export type Machine = typeof machine;
 
@@ -59,22 +81,7 @@ export const {
 } = createReactApiStateContext({
     id: 'modal',
     machine,
-    connect(api, { state, send }, machine) {
-        return {
-            ...api,
-            handleDragEnd: () => {
-                const content = document.querySelector(
-                    'div[data-scope="dialog"][data-part="content"]',
-                ) as HTMLDivElement;
-
-                const { top, left, width } = content.getBoundingClientRect();
-
-                content.style.position = 'absolute';
-                content.style.top = `${top}px`;
-                content.style.left = `${left}px`;
-            },
-        };
-    },
+    connect,
 });
 
 export type Props = ComponentProps<typeof Root>;

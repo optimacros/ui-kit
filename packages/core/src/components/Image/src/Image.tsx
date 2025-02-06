@@ -1,35 +1,48 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import {
+    ConnectMachine,
+    createReactApiStateContext,
+    forward,
+    styled,
+    UserContext,
+    UserState,
+} from '@optimacros-ui/store';
 import { ComponentProps } from 'react';
-import * as avatar from '@zag-js/avatar';
+import * as machine from '@zag-js/avatar';
 import { isFunction } from '@optimacros-ui/utils';
+
+export type State = UserState<typeof machine>;
+
+export type Context = UserContext<machine.Context, {}>;
+
+const connect = ((api, { state, send }, machine) => {
+    return {
+        ...api,
+        getRootProps() {
+            return {
+                ...api.getRootProps(),
+                'data-scope': 'image',
+            };
+        },
+        getImageProps() {
+            return {
+                ...api.getImageProps(),
+                'data-scope': 'image',
+            };
+        },
+        getFallbackProps() {
+            return {
+                ...api.getFallbackProps(),
+                'data-scope': 'image',
+            };
+        },
+    };
+}) satisfies ConnectMachine<machine.Api, Context, State>;
 
 export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
     createReactApiStateContext({
         id: 'image',
-        machine: avatar,
-        connect(api, { state, send }, machine) {
-            return {
-                ...api,
-                getRootProps() {
-                    return {
-                        ...api.getRootProps(),
-                        'data-scope': 'image',
-                    };
-                },
-                getImageProps() {
-                    return {
-                        ...api.getImageProps(),
-                        'data-scope': 'image',
-                    };
-                },
-                getFallbackProps() {
-                    return {
-                        ...api.getFallbackProps(),
-                        'data-scope': 'image',
-                    };
-                },
-            };
-        },
+        machine,
+        connect,
     });
 
 export const Root = forward<

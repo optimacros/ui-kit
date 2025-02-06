@@ -1,11 +1,14 @@
 import * as colorPicker from '@zag-js/color-picker';
 import {
+    ConnectMachine,
     createReactApiStateContext,
     ExtendedMachine,
     extendMachine,
     forward,
     MachineConfig,
     styled,
+    UserContext,
+    UserState,
 } from '@optimacros-ui/store';
 import { ComponentProps, PropsWithChildren } from 'react';
 import { Field } from '@optimacros-ui/field';
@@ -19,19 +22,22 @@ const config = {
     },
 } satisfies MachineConfig<colorPicker.Service>;
 
-const machine: ExtendedMachine<
-    typeof colorPicker,
-    colorPicker.Service,
-    colorPicker.Context,
-    typeof config
-> = extendMachine(colorPicker, config, {});
+type State = UserState<typeof colorPicker>;
+type Context = UserContext<colorPicker.Context, typeof config>;
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext<typeof machine>({
+const machine = extendMachine(colorPicker, config, {}) satisfies ExtendedMachine<
+    typeof colorPicker,
+    Context,
+    State
+>;
+const connect = ((api, { state, send }, machine) => {
+    return { ...api, disableAlpha: state.context.disableAlpha };
+}) satisfies ConnectMachine<colorPicker.Api, Context, State>;
+
+export const { Api, RootProvider, useApi } = createReactApiStateContext({
     id: 'color-picker',
     machine,
-    connect(api, { state, send }, machine) {
-        return { ...api, disableAlpha: state.context.disableAlpha };
-    },
+    connect,
 });
 
 export type RootProps = ComponentProps<typeof RootProvider> & PropsWithChildren;
