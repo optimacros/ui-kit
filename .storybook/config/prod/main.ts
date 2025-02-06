@@ -11,6 +11,7 @@ const configProd: StorybookConfig = {
         '@storybook/addon-links',
         '@storybook/addon-essentials',
         '@storybook/addon-storysource',
+        'storybook-addon-pseudo-states',
     ],
     framework: '@storybook/react-vite',
     viteFinal: (cfg) => {

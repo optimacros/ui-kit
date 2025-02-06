@@ -14,6 +14,7 @@ const configDev: StorybookConfig = {
         '@storybook/addon-designs',
         'storybook-addon-performance',
         '@storybook/addon-storysource',
+        'storybook-addon-pseudo-states',
     ],
     framework: '@storybook/react-vite',
     viteFinal: (cfg) => {
