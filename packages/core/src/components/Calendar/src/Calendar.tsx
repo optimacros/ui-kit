@@ -116,6 +116,17 @@ export const {
     connect,
 });
 
+export const Trigger = forward<{}, 'div'>(
+    (props, ref) => {
+        const api = useApi();
+
+        return <styled.div {...props} {...api.getTriggerProps()} ref={ref} />;
+    },
+    {
+        displayName: 'Calendar.Trigger',
+    },
+);
+
 export const Content = forward<{}, 'div'>(
     (props, ref) => {
         const api = useApi();

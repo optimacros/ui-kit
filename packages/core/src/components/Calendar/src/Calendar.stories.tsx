@@ -1,51 +1,52 @@
-import { StoryObj } from '@storybook/react';
-import { Icon } from '@optimacros-ui/icon';
-import { fromDate } from '@internationalized/date';
-import { within, expect, userEvent, waitFor } from '@storybook/test';
+import { StoryObj, Meta, ArgTypes } from '@storybook/react';
+import { CalendarDate } from '@internationalized/date';
 import { Calendar } from './index';
+import * as scenarios from './__tests__/scenarios';
+import { ReactNode } from 'react';
+import * as stories from './stories';
+import { fn } from '@storybook/test';
 
-const Wrapper = ({ children }: { children }) => (
+const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ marginLeft: '20px' }}>{children}</div>
 );
 
-const value = fromDate(new Date('12.02.2024'), 'UTC');
+const value = new CalendarDate(2025, 5, 10);
 
-const locales = [
-    'en-US',
-    'es-ES',
-    'fr-FR',
-    'de-DE',
-    'it-IT',
-    'ja-JP',
-    'zh-CN',
-    'pt-BR',
-    'ru-RU',
-    'ko-KR',
-    'ar-SA',
-    'hi-IN',
-    'nl-NL',
-    'pl-PL',
-    'tr-TR',
-    'vi-VN',
-    'sv-SE',
-    'da-DK',
-    'fi-FI',
-    'nb-NO',
-];
-
-const argTypes = {
+const argTypes: ArgTypes = {
+    value: {
+        control: false,
+        description: 'The selected date(s).',
+        table: { type: { summary: 'DateValue[]' } },
+    },
+    onValueChange: {
+        control: false,
+        description: 'Function called when the value changes.',
+        table: { type: { summary: '(details: ValueChangeDetails) => void' } },
+    },
+    open: {
+        control: 'boolean',
+        description: 'Whether the datepicker is open',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    'open.controlled': {
+        control: 'boolean',
+        description: 'Whether the datepicker open state is controlled by the user',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    onOpenChange: {
+        control: false,
+        description: 'Function called when the calendar opens or closes.',
+        table: { type: { summary: '(details: OpenChangeDetails) => void' } },
+    },
     locale: {
         control: 'text',
         description: 'The locale (BCP 47 language tag) to use when formatting the date.',
-        defaultValue: 'en-US',
+        table: { defaultValue: { summary: 'en-US' } },
     },
     translations: {
         control: 'object',
         description: 'The localized messages to use.',
-    },
-    ids: {
-        control: 'object',
-        description: 'The ids of the elements in the date picker. Useful for composition.',
+        table: { type: { summary: 'IntlTranslations' } },
     },
     name: {
         control: 'text',
@@ -54,7 +55,7 @@ const argTypes = {
     timeZone: {
         control: 'text',
         description: 'The time zone to use',
-        defaultValue: 'UTC',
+        table: { defaultValue: { summary: 'UTC' } },
     },
     disabled: {
         control: 'boolean',
@@ -65,25 +66,19 @@ const argTypes = {
         description: 'Whether the calendar is read-only.',
     },
     min: {
-        control: 'date',
+        control: false,
         description: 'The minimum date that can be selected.',
+        table: { type: { summary: 'DateValue' } },
     },
     max: {
-        control: 'date',
+        control: false,
         description: 'The maximum date that can be selected.',
+        table: { type: { summary: 'DateValue' } },
     },
     closeOnSelect: {
         control: 'boolean',
         description: 'Whether the calendar should close after the date selection is complete.',
         defaultValue: true,
-    },
-    value: {
-        control: 'object',
-        description: 'The selected date(s).',
-    },
-    focusedValue: {
-        control: 'date',
-        description: 'The focused date.',
     },
     numOfMonths: {
         control: 'number',
@@ -93,67 +88,45 @@ const argTypes = {
         control: 'select',
         options: [0, 1, 2, 3, 4, 5, 6],
         description: 'The first day of the week (0: Sunday, 1: Monday, etc).',
+        table: { defaultValue: { summary: '0' } },
     },
     fixedWeeks: {
         control: 'boolean',
         description: 'Whether the calendar should have a fixed number of weeks.',
-    },
-    onValueChange: {
-        action: 'valueChanged',
-        description: 'Function called when the value changes.',
-    },
-    onFocusChange: {
-        action: 'focusChanged',
-        description: 'Function called when the focused date changes.',
-    },
-    onViewChange: {
-        action: 'viewChanged',
-        description: 'Function called when the view changes.',
-    },
-    onOpenChange: {
-        action: 'openChanged',
-        description: 'Function called when the calendar opens or closes.',
+        table: { defaultValue: { summary: 'false' } },
     },
     isDateUnavailable: {
-        control: 'function',
+        control: false,
         description: 'Returns whether a date of the calendar is available.',
+        table: { type: { summary: '(date: DateValue, locale: string) => boolean' } },
     },
     selectionMode: {
         control: 'select',
         options: ['single', 'multiple', 'range'],
         description: 'The selection mode of the calendar.',
-        defaultValue: 'single',
+        table: { type: { summary: 'SelectionMode' }, defaultValue: { summary: 'single' } },
     },
     format: {
-        control: 'function',
+        control: false,
         description: 'The format of the date to display in the input.',
+        table: { type: { summary: '(date: DateValue) => string' } },
     },
     view: {
         control: 'select',
         options: ['day', 'month', 'year'],
         description: 'The view of the calendar',
-        defaultValue: 'day',
-    },
-    modal: {
-        control: 'boolean',
-        description: 'Whether the calendar should be modal.',
+        table: { type: { summary: 'DateView' }, defaultValue: { summary: 'day' } },
     },
     positioning: {
         control: 'object',
         description: 'The user provided options used to position the date picker content',
-    },
-    open: {
-        control: 'boolean',
-        description: 'Whether the datepicker is open',
-    },
-    'open.controlled': {
-        control: 'boolean',
-        description: 'Whether the datepicker open state is controlled by the user',
+        table: { type: { summary: 'PositioningOptions' } },
     },
 };
 
-const meta = {
+const meta: Meta<typeof Calendar.Root> = {
     title: 'UI Kit core/Calendar',
+    argTypes,
     decorators: [
         (Story) => (
             <Wrapper>
@@ -162,192 +135,30 @@ const meta = {
         ),
     ],
 };
+
 export default meta;
 
-export const Basic: StoryObj = {
-    render: (props) => {
-        return (
-            <Calendar.Root
-                {...props}
-                open={true}
-                closeOnSelect={false}
-                {...{ 'open.controlled': true }}
-            >
-                <Calendar.Content>
-                    <Calendar.Header data-testid="header">
-                        <Calendar.HeaderYears />
-                        <Calendar.HeaderMonths />
-                    </Calendar.Header>
-                    <Calendar.DaysViewControl>
-                        <Calendar.DaysPrevTrigger>
-                            <Icon value="chevron_left" />
-                        </Calendar.DaysPrevTrigger>
-                        <Calendar.DaysRangeText />
-                        <Calendar.DaysNextTrigger>
-                            <Icon value="chevron_right" />
-                        </Calendar.DaysNextTrigger>
-                    </Calendar.DaysViewControl>
-                    <Calendar.YearsViewControl>
-                        <Calendar.YearsPrevTrigger>
-                            <Icon value="chevron_left" />
-                        </Calendar.YearsPrevTrigger>
-                        <Calendar.YearsRangeText />
-                        <Calendar.YearsNextTrigger>
-                            <Icon value="chevron_right" />
-                        </Calendar.YearsNextTrigger>
-                    </Calendar.YearsViewControl>
-                    <Calendar.YearsTable>
-                        <Calendar.YearsTableBody />
-                    </Calendar.YearsTable>
+type Story = StoryObj<typeof Calendar.Root>;
 
-                    <Calendar.DaysTable>
-                        <Calendar.DaysTableHead />
-                        <Calendar.DaysTableBody data-testid="table-body" />
-                    </Calendar.DaysTable>
-
-                    <Calendar.Footer>
-                        <Calendar.DismissButton>Cancel</Calendar.DismissButton>
-                        <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
-                    </Calendar.Footer>
-                </Calendar.Content>
-            </Calendar.Root>
-        );
+export const Basic: Story = {
+    args: {
+        open: true,
+        value: [value],
+        closeOnSelect: false,
+        onOpenChange: fn(),
     },
-    play: async ({ globals, canvasElement, step, context }) => {
-        if (!globals.test) {
-            return;
-        }
-
-        await window.waitForPageTrulyReady?.();
-        await window.takeScreenshot?.();
-
-        const canvas = within(canvasElement);
-
-        await step('select date by click', async () => {
-            const firstDateElement = canvas.getAllByTestId('table-cell-trigger')[0];
-
-            const valueAttr = firstDateElement.dataset.value;
-
-            await userEvent.click(firstDateElement);
-
-            await waitFor(() => {
-                const dateElement = canvasElement.querySelector(`span[data-value="${valueAttr}"]`);
-
-                expect(dateElement).toHaveAttribute('data-selected');
-            });
-        });
-
-        await window.takeScreenshot?.('select date by click');
-
-        await step('navigate dates by keyboard', async () => {
-            const activeDateCell = canvasElement.querySelector(
-                '[data-part="table"][data-view="day"] [data-part="table-cell"][aria-selected="true"]',
-            );
-            const nextDateCell = activeDateCell.nextSibling as HTMLTableCellElement;
-
-            await userEvent.keyboard('[ArrowRight][Enter]');
-
-            await waitFor(() => {
-                expect(nextDateCell).toHaveAttribute('aria-selected', 'true');
-            });
-        });
-
-        await window.takeScreenshot?.('navigate dates by keyboard');
-    },
+    render: stories.Basic,
+    play: scenarios.basic,
 };
 
-export const Selected = () => {
-    return (
-        <Calendar.Root
-            value={[value]}
-            open={true}
-            closeOnSelect={false}
-            {...{ 'open.controlled': true }}
-        >
-            <Calendar.Content>
-                <Calendar.Header>
-                    <Calendar.HeaderYears />
-                    <Calendar.HeaderMonths />
-                </Calendar.Header>
-                <Calendar.DaysViewControl>
-                    <Calendar.DaysPrevTrigger>
-                        <Icon value="chevron_left" />
-                    </Calendar.DaysPrevTrigger>
-                    <Calendar.DaysRangeText />
-                    <Calendar.DaysNextTrigger>
-                        <Icon value="chevron_right" />
-                    </Calendar.DaysNextTrigger>
-                </Calendar.DaysViewControl>
-                <Calendar.YearsViewControl>
-                    <Calendar.YearsPrevTrigger>
-                        <Icon value="chevron_left" />
-                    </Calendar.YearsPrevTrigger>
-                    <Calendar.YearsRangeText />
-                    <Calendar.YearsNextTrigger>
-                        <Icon value="chevron_right" />
-                    </Calendar.YearsNextTrigger>
-                </Calendar.YearsViewControl>
-                <Calendar.YearsTable>
-                    <Calendar.YearsTableBody />
-                </Calendar.YearsTable>
-                <Calendar.DaysTable>
-                    <Calendar.DaysTableHead />
-                    <Calendar.DaysTableBody />
-                </Calendar.DaysTable>
-                <Calendar.Footer>
-                    <Calendar.DismissButton>Cancel</Calendar.DismissButton>
-                    <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
-                </Calendar.Footer>
-            </Calendar.Content>
-        </Calendar.Root>
-    );
-};
-
-export const LocalizedCalendar = (props) => {
-    return (
-        <Calendar.Root
-            {...props}
-            value={[value]}
-            open={true}
-            closeOnSelect={false}
-            locale="ru"
-            {...{ 'open.controlled': true }}
-        >
-            <Calendar.Content>
-                <Calendar.Header>
-                    <Calendar.HeaderYears />
-                    <Calendar.HeaderMonths />
-                </Calendar.Header>
-                <Calendar.DaysViewControl>
-                    <Calendar.DaysPrevTrigger>
-                        <Icon value="chevron_left" />
-                    </Calendar.DaysPrevTrigger>
-                    <Calendar.DaysRangeText />
-                    <Calendar.DaysNextTrigger>
-                        <Icon value="chevron_right" />
-                    </Calendar.DaysNextTrigger>
-                </Calendar.DaysViewControl>
-                <Calendar.YearsViewControl>
-                    <Calendar.YearsPrevTrigger>
-                        <Icon value="chevron_left" />
-                    </Calendar.YearsPrevTrigger>
-                    <Calendar.YearsRangeText />
-                    <Calendar.YearsNextTrigger>
-                        <Icon value="chevron_right" />
-                    </Calendar.YearsNextTrigger>
-                </Calendar.YearsViewControl>
-                <Calendar.YearsTable>
-                    <Calendar.YearsTableBody />
-                </Calendar.YearsTable>
-                <Calendar.DaysTable>
-                    <Calendar.DaysTableHead />
-                    <Calendar.DaysTableBody />
-                </Calendar.DaysTable>
-                <Calendar.Footer>
-                    <Calendar.DismissButton>Cancel</Calendar.DismissButton>
-                    <Calendar.SuccessButton>Ok</Calendar.SuccessButton>
-                </Calendar.Footer>
-            </Calendar.Content>
-        </Calendar.Root>
-    );
+export const LocalizedCalendar: Story = {
+    args: {
+        value: [value],
+        open: true,
+        onOpenChange: fn(),
+        closeOnSelect: false,
+        locale: 'ru',
+    },
+    render: stories.Basic,
+    play: scenarios.localized,
 };
