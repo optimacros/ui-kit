@@ -1,15 +1,18 @@
 import { ReactNode } from 'react';
 import { Portal } from '@zag-js/react';
-import * as popover from '@zag-js/popover';
+import * as machine from '@zag-js/popover';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
 export const {
     useApi,
     Api,
     RootProvider: Root,
-} = createReactApiStateContext({
+    splitProps,
+    useProxySelector,
+    useSelector,
+} = createReactApiStateContext<typeof machine, machine.Api>({
     id: 'popover',
-    machine: popover,
+    machine,
 });
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>((props, ref) => {
@@ -84,7 +87,7 @@ export const Description = forward<{}, 'div'>((props, ref) => {
     );
 });
 
-export const CloseTrigger = forward<{}, 'div'>((props, ref) => {
+export const CloseTrigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
     return (

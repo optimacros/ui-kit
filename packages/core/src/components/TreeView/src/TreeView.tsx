@@ -8,10 +8,11 @@ export interface Node {
     children?: Node[];
 }
 
-export const { RootProvider, useApi } = createReactApiStateContext<typeof treeview>({
-    id: 'tree-view',
-    machine: treeview,
-});
+export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
+    createReactApiStateContext<typeof treeview, treeview.Api>({
+        id: 'tree-view',
+        machine: treeview,
+    });
 
 type MenuItems = ReturnType<typeof treeview.collection<Node>>;
 export type RootProps = PropsWithChildren<

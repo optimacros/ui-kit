@@ -1,25 +1,38 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import {
+    ConnectMachine,
+    createReactApiStateContext,
+    forward,
+    styled,
+    UserContext,
+    UserState,
+} from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/collapsible';
 
+export type State = UserState<typeof machine>;
+
+export type Context = UserContext<machine.Context, {}>;
+
+const connect = ((api, { state, send }, machine) => {
+    return {
+        ...api,
+        getIndicatorProps() {
+            return {
+                'data-scope': 'collapsible',
+                'data-part': 'indicator',
+                'data-state': state.context.open ? 'open' : 'closed',
+            };
+        },
+    };
+}) satisfies ConnectMachine<machine.Api, Context, State>;
+
 export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
     createReactApiStateContext({
         id: 'collapsible',
         machine,
-        connect(api, { state, send }, machine) {
-            return {
-                ...api,
-                getIndicatorProps() {
-                    return {
-                        'data-scope': 'collapsible',
-                        'data-part': 'indicator',
-                        'data-state': state.context.open ? 'open' : 'closed',
-                    };
-                },
-            };
-        },
+        connect,
     });
 
 export const Root = forward<ComponentProps<typeof RootProvider>, 'div'>(

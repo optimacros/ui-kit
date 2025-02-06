@@ -197,6 +197,8 @@ export type UserState<Module extends Record<string, any>> = $.Merge<
     {}
 >;
 
+export type UserApi<Api> = $.Merge<Api, {}>;
+
 export type ExtendedMachine<Module, Context extends Record<string, any>, State> = Omit<
     Module,
     'machine'
@@ -255,6 +257,7 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
     Parameters<Machine['machine']>[0],
     'id'
 >;
+
 export type ConnectMachine<
     Api extends Record<string, any>,
     Context extends Record<string, any>,
@@ -274,42 +277,21 @@ export type ConnectMachine<
 
 export function createReactApiStateContext<
     Machine extends Record<string, any>,
+    Api extends Record<string, any> = Record<string, any>,
+    Context extends Record<string, any> = Record<string, any>,
+    State extends Record<string, any> = Record<string, any>,
     Connect extends (
-        api: ReturnType<Machine['connect']>,
+        api: Api,
         {
             state,
             send,
         }: {
-            state: ReturnType<Machine['machine']> extends ZagMachine<
-                infer TContext,
-                infer TState,
-                infer TEvent
-            >
-                ? StateMachine.State<TContext, TState, TEvent>
-                : any;
+            state: StateMachine.State<Context, State>;
             send: StateMachine.Send;
         },
-        machine: ReturnType<Machine['machine']>,
-    ) => any = (
-        api: ReturnType<Machine['connect']>,
-        {
-            state,
-            send,
-        }: {
-            state: ReturnType<Machine['machine']> extends ZagMachine<
-                infer TContext,
-                infer TState,
-                infer TEvent
-            >
-                ? StateMachine.State<TContext, TState, TEvent>
-                : any;
-            send: StateMachine.Send;
-        },
-        machine: ReturnType<Machine['machine']>,
-    ) => any,
-    Context extends Record<string, any> = MachineCtx<Machine>,
+        machine: Record<string, any>,
+    ) => any = any,
     ID extends string = string,
-    Api = $.If.NullishOrAny<ReturnType<Connect>, ReturnType<Machine['machine']>>,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
 >(config: {
     id: ID;
@@ -333,7 +315,7 @@ export function createReactApiStateContext<
         useState: useApi,
         useProxySelector,
         useSelector,
-    } = createHooks(`${id}Api`, {} as Api, true);
+    } = createHooks(`${id}Api`, {} as $.If.Any<ReturnType<Connect>, Api>, true);
 
     const { State: Api } = createHelpers<Api, { useState: typeof useApi }>(`${id}Api`, {
         useState: useApi,
@@ -348,14 +330,14 @@ export function createReactApiStateContext<
 
     StoreProvider.displayName = id;
 
-    const useMachine = createMachineApiHook<MachineCtx<Machine>>(
+    const useMachine = createMachineApiHook<Context>(
         machine,
         false,
         //@ts-ignore
         connect,
     );
 
-    const useControllableMachine = createMachineApiHook<MachineCtx<Machine>>(
+    const useControllableMachine = createMachineApiHook<Context>(
         machine,
         true,
         //@ts-ignore
@@ -364,11 +346,11 @@ export function createReactApiStateContext<
 
     const useActor = createActorApiHook(machine);
 
-    type IRootMachine = {
+    type IRootMachine = Omit<Context, 'id'> & {
         id?: string;
         children: ReactNode | ((api: Api) => ReactNode);
-        defaultContext?: MachineCtx<Machine>;
-    } & Context;
+        defaultContext?: Context;
+    };
 
     function ControllableRootMachine({ children, defaultContext, ...context }: IRootMachine) {
         const {

@@ -4,16 +4,19 @@ import { Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Virtual } from '@optimacros-ui/virtual';
+import { PropTypes } from '@zag-js/types';
 
-export const { useApi, RootProvider, Api, useProxySelector } = createReactApiStateContext({
-    id: 'select',
-    machine: select,
-});
+export const { useApi, RootProvider, Api, useProxySelector, splitProps, useSelector } =
+    createReactApiStateContext<typeof select, select.Api<PropTypes, ItemBase>>({
+        id: 'select',
+        machine: select,
+    });
 
 // TODO сделать чтобы select.collection сохранял key у итемов
 export interface ItemBase {
-    label?: string;
     value: string;
+    label?: string;
+    index?: number;
 }
 
 export const Root = forward<

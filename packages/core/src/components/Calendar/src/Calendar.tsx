@@ -1,10 +1,17 @@
 import { ChangeEvent, ReactNode } from 'react';
 import {} from '@internationalized/date';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import * as datepicker from '@zag-js/date-picker';
+import {
+    ConnectMachine,
+    createReactApiStateContext,
+    forward,
+    styled,
+    UserContext,
+    UserState,
+} from '@optimacros-ui/store';
+import * as machine from '@zag-js/date-picker';
 
 export const dateFormatters = (date: Date | string) => {
-    return datepicker.parse(date);
+    return machine.parse(date);
 };
 
 const getDateWithSelectedYear = (initialDate: string, selectedYear: string): string => {
@@ -15,85 +22,92 @@ const getDateWithSelectedYear = (initialDate: string, selectedYear: string): str
 
     return selectedYear + (initialDate ? initialDate.substring(4) : `-${curMonthAndDay}`);
 };
+export type State = UserState<typeof machine>;
 
-export const { RootProvider: Root, useApi } = createReactApiStateContext<typeof datepicker>({
-    id: 'calendar',
-    machine: datepicker,
-    connect(api, { state, send }, machine) {
-        return {
-            ...api,
-            locale: state.context.locale,
-            getDayTableCellTriggerProps({ value }) {
-                return {
-                    ...api.getDayTableCellTriggerProps({ value }),
-                    onClick: () => api.setValue([value]),
-                };
-            },
-            getYearTableCellProps({ ...year }: { label: ' string'; value: number }) {
-                const setYear = (year: string) => {
-                    const curCalendarDate = api.valueAsString[0];
-                    const dateWithSelectedYear = getDateWithSelectedYear(curCalendarDate, year);
-                    //@ts-ignore
-                    api.setValue([dateFormatters(dateWithSelectedYear)]);
-                };
-                return {
-                    ...api.getYearTableCellProps({
-                        ...year,
-                        columns: 4,
-                    }),
-                    onClick: () => {
+export type Context = UserContext<machine.Context, {}>;
+
+const connect = ((api, { state, send }, machine) => {
+    return {
+        ...api,
+        locale: state.context.locale,
+        getDayTableCellTriggerProps({ value }) {
+            return {
+                ...api.getDayTableCellTriggerProps({ value }),
+                onClick: () => api.setValue([value]),
+            };
+        },
+        getYearTableCellProps(year: { label: string; value: number }) {
+            const setYear = (year: string) => {
+                const curCalendarDate = api.valueAsString[0];
+                const dateWithSelectedYear = getDateWithSelectedYear(curCalendarDate, year);
+                //@ts-ignore
+                api.setValue([dateFormatters(dateWithSelectedYear)]);
+            };
+            return {
+                ...api.getYearTableCellProps({
+                    ...year,
+                    columns: 4,
+                }),
+                onClick: () => {
+                    setYear(year.label);
+                    api.setView('day');
+                },
+                onKeyDown: (event) => {
+                    if (event.key === 'Enter') {
+                        event.stopPropagation();
                         setYear(year.label);
                         api.setView('day');
-                    },
-                    onKeyDown: (event) => {
-                        if (event.key === 'Enter') {
-                            event.stopPropagation();
-                            setYear(year.label);
-                            api.setView('day');
-                        }
-                    },
-                };
-            },
-            getHeaderYearsProps() {
-                return {
-                    'data-scope': 'date-picker',
-                    'data-part': 'header-years',
-                    children: api.value[0]?.year ?? 'choose date',
-                    onClick: () => api.setView('year'),
-                };
-            },
-            getHeaderMonthsProps() {
-                return {
-                    'data-scope': 'date-picker',
-                    'data-part': 'header-months',
-                    children: api.valueAsDate[0]
-                        ? `${api.valueAsDate[0].toLocaleString(state.context.locale, { month: 'short' })} ${api.value[0]?.day}, ${api.valueAsDate[0].toLocaleString(state.context.locale, { weekday: 'short' })}`
-                        : 'choose date',
-                    onClick: () => api.setView('day'),
-                };
-            },
-            getRangeTextProps() {
-                return {
-                    ...api.getRangeTextProps(),
-                    children: `${api.focusedValueAsDate.toLocaleString(state.context.locale, { month: 'long' })} ${api.visibleRange.start.year}`,
-                };
-            },
-            getWeekdayProps(day: datepicker.WeekDay) {
-                return {
-                    'data-scope': 'date-picker',
-                    'data-part': 'weekday',
-                    key: `weekday-${day.value.day}`,
-                    'aria-label': day.long,
-                    children: day.short,
-                };
-            },
-            getVisibility(params: string) {
-                return {
-                    hidden: api.view !== params,
-                };
-            },
-        };
-    },
+                    }
+                },
+            };
+        },
+        getHeaderYearsProps() {
+            return {
+                'data-scope': 'date-picker',
+                'data-part': 'header-years',
+                children: api.value[0]?.year ?? 'choose date',
+                onClick: () => api.setView('year'),
+            };
+        },
+        getHeaderMonthsProps() {
+            return {
+                'data-scope': 'date-picker',
+                'data-part': 'header-months',
+                children: api.valueAsDate[0]
+                    ? `${api.valueAsDate[0].toLocaleString(state.context.locale, { month: 'short' })} ${api.value[0]?.day}, ${api.valueAsDate[0].toLocaleString(state.context.locale, { weekday: 'short' })}`
+                    : 'choose date',
+                onClick: () => api.setView('day'),
+            };
+        },
+        getRangeTextProps() {
+            return {
+                ...api.getRangeTextProps(),
+                children: `${api.focusedValueAsDate.toLocaleString(state.context.locale, { month: 'long' })} ${api.visibleRange.start.year}`,
+            };
+        },
+        getWeekdayProps(day: machine.WeekDay) {
+            return {
+                'data-scope': 'date-picker',
+                'data-part': 'weekday',
+                key: `weekday-${day.value.day}`,
+                'aria-label': day.long,
+                children: day.short,
+            };
+        },
+        getVisibility(params: string) {
+            return {
+                hidden: api.view !== params,
+            };
+        },
+    };
+}) satisfies ConnectMachine<machine.Api, Context, State>;
+
+//TODO: types
+//@ts-ignore
+export const { RootProvider: Root, useApi } = createReactApiStateContext({
+    id: 'calendar',
+    machine,
+    connect,
 });
 
 export const Content = forward<{}, 'div'>(
@@ -265,12 +279,7 @@ export const YearsTableBody = forward<{}, 'tbody'>((props, ref) => {
             {api.getYearsGrid({ columns: 4 }).map((years, row) => (
                 <tr key={row} {...api.getTableRowProps({ view: 'year' })}>
                     {years.map((year, index) => (
-                        <td
-                            key={index}
-                            {...api.getYearTableCellProps({
-                                ...year,
-                            })}
-                        >
+                        <td key={index} {...api.getYearTableCellProps(year)}>
                             <div
                                 {...api.getYearTableCellTriggerProps({
                                     ...year,

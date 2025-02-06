@@ -109,6 +109,9 @@ export const {
     Api,
     useApi,
     RootProvider: Root,
+    splitProps,
+    useProxySelector,
+    useSelector,
 } = createReactApiStateContext({
     id: 'collapsible',
     machine,

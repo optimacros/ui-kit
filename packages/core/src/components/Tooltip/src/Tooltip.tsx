@@ -6,7 +6,10 @@ export const {
     useApi,
     Api,
     RootProvider: Root,
-} = createReactApiStateContext<typeof tooltip>({
+    splitProps,
+    useProxySelector,
+    useSelector,
+} = createReactApiStateContext<typeof tooltip, tooltip.Api>({
     id: 'Tooltip',
     machine: tooltip,
 });

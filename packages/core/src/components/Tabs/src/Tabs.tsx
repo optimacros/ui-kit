@@ -6,6 +6,8 @@ import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { raf } from '@zag-js/dom-query';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
 
+// TODO: ADD NEW TYPINGS AFTER MERGE
+
 const machine = extendMachine(
     tabs,
     {
