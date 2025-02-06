@@ -199,11 +199,12 @@ export type UserState<Module extends Record<string, any>> = $.Merge<
 
 export type UserApi<Api> = $.Merge<Api, {}>;
 
-export type ExtendedMachine<Module, Context extends Record<string, any>, State> = Omit<
+export type ExtendedMachine<
     Module,
-    'machine'
-> & {
-    machine: (userContext: Context) => ZagMachine<Context, State, StateMachine.Send>;
+    Context extends Record<string, any>,
+    State extends StateMachine.StateSchema,
+> = Omit<Module, 'machine'> & {
+    machine: (userContext: Context) => ZagMachine<Context, State, StateMachine.AnyEventObject>;
 };
 
 export function extendMachine<
@@ -261,7 +262,7 @@ type MachineCtx<Machine extends Record<string, any>> = Omit<
 export type ConnectMachine<
     Api extends Record<string, any>,
     Context extends Record<string, any>,
-    State extends Record<string, any>,
+    State extends StateMachine.StateSchema,
     R = Record<string, any>,
 > = (
     api: Api,
@@ -279,7 +280,7 @@ export function createReactApiStateContext<
     Machine extends Record<string, any>,
     Api extends Record<string, any> = Record<string, any>,
     Context extends Record<string, any> = Record<string, any>,
-    State extends Record<string, any> = Record<string, any>,
+    State extends StateMachine.StateSchema = StateMachine.StateSchema,
     Connect extends (
         api: Api,
         {
@@ -325,6 +326,7 @@ export function createReactApiStateContext<
         children: ReactNode;
         api?: Api;
     }> = memo(({ children, api }) => {
+        //@ts-ignore
         return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
     });
 
