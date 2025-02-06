@@ -18,6 +18,7 @@ type Props = {
     onDeleteClick?: MouseEventHandler<SVGSVGElement | HTMLSpanElement>;
     settingsDialog?: React.JSX.Element;
     customDeleteIcon?: React.JSX.Element;
+    style?: Record<string, any>;
 };
 
 export type ChipProps = React.PropsWithChildren<Props>;
