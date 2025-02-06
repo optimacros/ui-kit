@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Flex } from '@optimacros-ui/flex';
-import { userEvent, within } from '@storybook/test';
 import content from './Button?raw';
 
 const meta: Meta<typeof Button> = {
@@ -12,44 +11,57 @@ const meta: Meta<typeof Button> = {
             control: 'select',
             options: ['primary', 'accent', 'bordered', 'neutral', 'transparent'],
             description: 'Controls the visual style variant of the button',
-            defaultValue: 'primary',
+            table: {
+                defaultValue: { summary: 'primary' },
+                type: { summary: 'primary | accent | bordered | neutral | transparent' },
+            },
         },
         float: {
             control: 'select',
             options: ['raised', 'floating', 'flat'],
             description: 'Determines the elevation style of the button',
-            defaultValue: 'flat',
+            table: {
+                defaultValue: { summary: 'flat' },
+                type: { summary: 'raised | floating | flat' },
+            },
         },
         status: {
             control: 'select',
             options: ['warning', 'error', 'success'],
             description: 'Sets the status/state color of the button',
+            table: {
+                defaultValue: { summary: '-' },
+                type: { summary: 'warning | error | success' },
+            },
         },
         size: {
             control: 'select',
             options: ['xs', 'sm', 'md'],
             description: 'Controls the size of the button',
-            defaultValue: 'md',
+            table: {
+                defaultValue: { summary: 'md' },
+                type: { summary: 'xs | sm | md' },
+            },
         },
         squared: {
             control: 'boolean',
             description: 'If true, the button will have square corners instead of rounded ones',
-            defaultValue: false,
+            table: { defaultValue: { summary: 'false' } },
         },
         uppercase: {
             control: 'boolean',
             description: 'If true, the button text will be uppercase',
-            defaultValue: false,
+            table: { defaultValue: { summary: 'false' } },
         },
         inverse: {
             control: 'boolean',
             description: 'If true, the button will use inverse colors for dark themes',
-            defaultValue: false,
+            table: { defaultValue: { summary: 'false' } },
         },
         disabled: {
             control: 'boolean',
             description: 'If true, the button will be disabled',
-            defaultValue: false,
+            table: { defaultValue: { summary: 'false' } },
         },
         href: {
             control: 'text',
@@ -82,7 +94,7 @@ export const Base: Story = {
 export const Variants: Story = {
     render: () => (
         <Flex align="center" gap="4">
-            <Button variant="primary" data-testid="primary">
+            <Button variant="primary" data-testid="primary" id="one">
                 Primary
             </Button>
             <Button variant="accent" data-testid="accent">
@@ -95,11 +107,25 @@ export const Variants: Story = {
             <Button inverse>Inverse</Button>
         </Flex>
     ),
-    play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
+};
 
-        await userEvent.hover(canvas.getByTestId('primary'));
-    },
+export const VariantsHover: Story = {
+    parameters: { pseudo: { hover: true } },
+    render: () => (
+        <Flex align="center" gap="4">
+            <Button variant="primary" data-testid="primary" id="one">
+                Primary
+            </Button>
+            <Button variant="accent" data-testid="accent">
+                Accent
+            </Button>
+            <Button variant="bordered">Bordered</Button>
+            <Button variant="neutral">Neutral</Button>
+            <Button variant="gray">Gray</Button>
+            <Button variant="transparent">Transparent</Button>
+            <Button inverse>Inverse</Button>
+        </Flex>
+    ),
 };
 
 export const FloatStyles: Story = {
