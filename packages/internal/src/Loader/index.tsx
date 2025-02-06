@@ -7,7 +7,6 @@ export type LoaderTheme = {
     circular?: string;
     indeterminate?: string;
     linear?: string;
-    multicolor?: string;
     path?: string;
     value?: string;
 };
@@ -20,7 +19,6 @@ export type LoaderProps = {
     mode?: 'determinate' | 'indeterminate';
     type?: 'linear' | 'circular';
     value?: number;
-    multicolor?: boolean;
     theme?: LoaderTheme;
     innerRef?: React.RefObject<HTMLDivElement>;
     disabled?: boolean;
@@ -30,7 +28,6 @@ export const Loader = ({
     min = 0,
     max = 100,
     mode = 'indeterminate',
-    multicolor = false,
     type = 'linear',
     theme = {},
     value = null,
