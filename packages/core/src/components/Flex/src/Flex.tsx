@@ -10,6 +10,8 @@ type FlexProps = {
     gap?: string | number;
     fluid?: boolean;
     className?: string;
+    width?: string;
+    height?: string;
 };
 
 export const Flex = forward<FlexProps, 'div'>(
@@ -23,6 +25,8 @@ export const Flex = forward<FlexProps, 'div'>(
             gap = '0',
             style,
             fluid,
+            width,
+            height,
             ...rest
         },
         ref,
@@ -39,6 +43,8 @@ export const Flex = forward<FlexProps, 'div'>(
                 data-fluid={fluid}
                 style={{
                     gap: `var(--spacing-${gap})`,
+                    width,
+                    height,
                     ...style,
                 }}
                 ref={ref}

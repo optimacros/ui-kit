@@ -1,0 +1,153 @@
+/* chip-stories.css */
+
+/* Container Styles */
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dynamic-chip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tag-system {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tag-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Chip Wrapper */
+.chip-wrapper {
+  transition: all 300ms ease-in-out;
+}
+
+/* Input Styles */
+.chip-input {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.chip-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Clickable Chip */
+.clickable-chip {
+  cursor: pointer;
+}
+
+/* Selected Chip */
+.selected-chip {
+  background-color: #e0e7ff;
+  border-color: #6366f1;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Progress Chip */
+.progress-chip-container {
+  position: relative;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: #3b82f6;
+  transition: width 300ms ease-in-out;
+}
+
+/* Suggestions Container */
+.suggestions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  background-color: #f9fafb;
+  border-radius: 4px;
+}
+
+/* Context Menu */
+.context-menu {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  padding: 4px 0;
+}
+
+.context-menu-item {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.context-menu-item:hover {
+  background-color: #f3f4f6;
+}
+
+/* Animation Classes */
+.fade-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Media Queries */
+@media (max-width: 640px) {
+  .chip-container {
+    gap: 4px;
+  }
+
+  .chip-input {
+    width: 100%;
+  }
+}

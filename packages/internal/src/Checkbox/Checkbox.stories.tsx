@@ -81,20 +81,24 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Basic: Story = {
+    render: (args) => <Checkbox {...args} />,
     args: {
         name: 'Basic',
+        onChange: undefined,
     },
 };
 
 export const Checked: Story = {
     args: {
         checked: true,
+        onChange: undefined,
     },
 };
 
 export const Disabled: Story = {
     args: {
         disabled: true,
+        onChange: undefined,
     },
 };
 
@@ -102,11 +106,13 @@ export const Label: Story = {
     args: {
         label: 'Label',
         checked: true,
+        onChange: undefined,
     },
 };
 
 export const WithTooltip: Story = {
     args: {
+        onChange: undefined,
         label: 'Label',
         tooltipLabel: 'Tooltip text',
         tooltipDelay: 50,

@@ -1,6 +1,7 @@
-import React, { MouseEvent, type CSSProperties, type MouseEventHandler } from 'react';
+import React, { type CSSProperties, type MouseEventHandler } from 'react';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
+import { isUndefined } from '@optimacros-ui/utils';
 
 export type CheckboxTheme = {
     field?: string;
@@ -110,21 +111,15 @@ const CheckboxComponent = ({
     onClick,
     ...rest
 }: React.PropsWithChildren<InitialProps>) => {
-    //TODO: controllable checkbox
-    const handleToggle = (event: MouseEvent) => {
-        if (onChange && !disabled) {
-            onChange(!checked, event);
-        }
-    };
-
     return (
         <CheckboxCore.Root
             name={name}
             checked={checked}
             disabled={disabled}
             //@ts-ignore
-            onCheckedChange={(e) => onChange(e.checked, {})}
-            controllable
+            onCheckedChange={(e) => onChange?.(e.checked, {})}
+            //TODO: think how to handle controllable use case without using flag outside
+            controllable={!isUndefined(onChange)}
             {...rest}
         >
             <CheckboxCore.BoxControl onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
