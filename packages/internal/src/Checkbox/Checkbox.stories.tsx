@@ -1,6 +1,6 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from './index';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const argTypes: Partial<ArgTypes> = {
     label: {
@@ -114,14 +114,6 @@ export const WithTooltip: Story = {
         tooltipOffset: 0,
     },
 };
-
-// Basic stories remain the same...
-export const Default: Story = {
-    args: {
-        label: 'Default Checkbox',
-    },
-};
-
 // Dynamic tooltip content based on checkbox state
 export const DynamicTooltip: Story = {
     render: (args) => {
@@ -143,34 +135,6 @@ export const DynamicTooltip: Story = {
     },
 };
 
-// Multiple tooltips with different positions and delays
-export const MultiTooltipGroup: Story = {
-    render: () => {
-        return (
-            <div className="flex flex-col gap-4">
-                <Checkbox
-                    label="Top Tooltip (Quick)"
-                    tooltipLabel="Appears quickly above"
-                    tooltipPosition="top"
-                    tooltipDelay={100}
-                />
-                <Checkbox
-                    label="Right Tooltip (Medium)"
-                    tooltipLabel="Takes a moment to show"
-                    tooltipPosition="right"
-                    tooltipDelay={500}
-                />
-                <Checkbox
-                    label="Bottom Tooltip (Slow)"
-                    tooltipLabel="Appears slowly below"
-                    tooltipPosition="bottom"
-                    tooltipDelay={1000}
-                />
-            </div>
-        );
-    },
-};
-
 // Interactive group with state management
 export const InteractiveGroup: Story = {
     render: () => {
@@ -188,14 +152,12 @@ export const InteractiveGroup: Story = {
         };
 
         const allSelected = Object.values(selections).every(Boolean);
-        const someSelected = Object.values(selections).some(Boolean);
 
         return (
             <div className="flex flex-col gap-4">
                 <Checkbox
                     label="Select All"
                     checked={allSelected}
-                    indeterminate={someSelected && !allSelected}
                     onChange={(checked) => {
                         setSelections({
                             option1: checked,
@@ -249,10 +211,10 @@ export const ProgressiveDisclosure: Story = {
                 <Checkbox
                     label="Basic Setting"
                     checked={settings.basic}
-                    onChange={(e) =>
+                    onChange={(checked) =>
                         setSettings((prev) => ({
                             ...prev,
-                            basic: e.target.checked,
+                            basic: checked,
                         }))
                     }
                     tooltipLabel="Enable basic functionality"
@@ -261,7 +223,7 @@ export const ProgressiveDisclosure: Story = {
                 <Checkbox
                     label="Show Advanced Settings"
                     checked={showAdvanced}
-                    onChange={(e) => setShowAdvanced(e.target.checked)}
+                    onChange={(checked) => setShowAdvanced(checked)}
                     tooltipLabel="Display additional configuration options"
                     tooltipPosition="right"
                 />
@@ -270,10 +232,10 @@ export const ProgressiveDisclosure: Story = {
                         <Checkbox
                             label="Advanced Setting 1"
                             checked={settings.advanced1}
-                            onChange={(e) =>
+                            onChange={(checked) =>
                                 setSettings((prev) => ({
                                     ...prev,
-                                    advanced1: e.target.checked,
+                                    advanced1: checked,
                                 }))
                             }
                             tooltipLabel="Enable advanced feature 1"
@@ -283,10 +245,10 @@ export const ProgressiveDisclosure: Story = {
                         <Checkbox
                             label="Advanced Setting 2"
                             checked={settings.advanced2}
-                            onChange={(e) =>
+                            onChange={(checked) =>
                                 setSettings((prev) => ({
                                     ...prev,
-                                    advanced2: e.target.checked,
+                                    advanced2: checked,
                                 }))
                             }
                             tooltipLabel="Enable advanced feature 2"
@@ -308,14 +270,14 @@ export const ConditionalTooltip: Story = {
             processing: false,
         });
 
-        const handleToggle = () => {
-            if (!status.enabled) {
-                setStatus({ enabled: true, processing: true });
+        const handleToggle = (checked) => {
+            if (checked) {
+                setStatus({ enabled: checked, processing: true });
                 setTimeout(() => {
-                    setStatus({ enabled: true, processing: false });
-                }, 2000);
+                    setStatus({ enabled: checked, processing: false });
+                }, 1500);
             } else {
-                setStatus({ enabled: false, processing: false });
+                setStatus({ enabled: checked, processing: false });
             }
         };
 
@@ -353,20 +315,19 @@ export const ValidationPattern: Story = {
             privacy: false,
         });
 
-        const handleChange =
-            (field: keyof typeof acceptedTerms) => (e: React.ChangeEvent<HTMLInputElement>) => {
-                setAcceptedTerms((prev) => ({
-                    ...prev,
-                    [field]: e.target.checked,
-                }));
+        const handleChange = (field: keyof typeof acceptedTerms) => (checked) => {
+            setAcceptedTerms((prev) => ({
+                ...prev,
+                [field]: checked,
+            }));
 
-                if (field !== 'updates') {
-                    setHasInteracted((prev) => ({
-                        ...prev,
-                        [field]: true,
-                    }));
-                }
-            };
+            if (field !== 'updates') {
+                setHasInteracted((prev) => ({
+                    ...prev,
+                    [field]: true,
+                }));
+            }
+        };
 
         const getTooltipForField = (field: 'terms' | 'privacy') => {
             if (!hasInteracted[field]) return 'Required';
@@ -379,25 +340,25 @@ export const ValidationPattern: Story = {
                 <Checkbox
                     label="I accept the Terms of Service"
                     checked={acceptedTerms.terms}
-                    onChange={handleChange('terms')}
                     tooltipLabel={getTooltipForField('terms')}
                     tooltipPosition="right"
                     tooltipDelay={0}
+                    onChange={handleChange('terms')}
                 />
                 <Checkbox
                     label="I accept the Privacy Policy"
                     checked={acceptedTerms.privacy}
-                    onChange={handleChange('privacy')}
                     tooltipLabel={getTooltipForField('privacy')}
                     tooltipPosition="right"
                     tooltipDelay={0}
+                    onChange={handleChange('privacy')}
                 />
                 <Checkbox
                     label="I want to receive updates (optional)"
                     checked={acceptedTerms.updates}
-                    onChange={handleChange('updates')}
                     tooltipLabel="You can change this later in settings"
                     tooltipPosition="right"
+                    onChange={handleChange('updates')}
                 />
             </div>
         );

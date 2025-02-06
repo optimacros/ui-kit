@@ -72,9 +72,6 @@ export const Checkbox = ({
 }: CheckboxProps) => {
     return tooltipLabel ? (
         <Tooltip
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
             className={className}
             theme={theme}
             tooltip={tooltipLabel}
@@ -82,7 +79,12 @@ export const Checkbox = ({
             tooltipPosition={tooltipPosition}
             tooltipOffset={tooltipOffset}
             composedComponent={CheckboxComponent}
-            composedComponentProps={rest}
+            composedComponentProps={{
+                ...rest,
+                onClick,
+                onMouseEnter,
+                onMouseLeave,
+            }}
         />
     ) : (
         <CheckboxComponent
@@ -120,7 +122,9 @@ const CheckboxComponent = ({
             name={name}
             checked={checked}
             disabled={disabled}
+            //@ts-ignore
             onCheckedChange={(e) => onChange(e.checked, {})}
+            controllable
             {...rest}
         >
             <CheckboxCore.BoxControl onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />

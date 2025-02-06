@@ -25,11 +25,11 @@ export const { RootProvider, useApi, splitProps } = createReactApiStateContext<
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 
 export const Root = forward<RootProps, 'label'>(
-    function ({ children, ...rest }, ref) {
+    function ({ children, controllable, ...rest }, ref) {
         const [context, props] = splitProps(rest);
 
         return (
-            <RootProvider {...context}>
+            <RootProvider {...context} controllable={controllable}>
                 {(api) => (
                     <styled.label
                         {...props}
