@@ -1,83 +1,98 @@
-import { ReactNode, useState } from 'react';
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { SelectBox, SelectBoxProps } from '@optimacros-ui/kit-internal';
-
-const argTypes: Partial<ArgTypes> = {
-    allowBlank: {
-        control: 'boolean',
-        description:
-            'If `true`, the select box value can be empty. If `false` - value is first item of source.',
-    },
-    disabled: {
-        control: 'boolean',
-        description: 'If `true`, the select box will be disabled.',
-    },
-    required: {
-        control: 'boolean',
-        description: 'If `true`, the input element is required.',
-    },
-    auto: {
-        control: 'boolean',
-        description:
-            'If `true`, then depending on the position of the select box on the page, ' +
-            'the dropdown will appear above or below the select box.',
-    },
-    multiSelect: {
-        control: 'boolean',
-        description:
-            'If `true`, value must be an array and the menu will support multiple selections.',
-    },
-    label: {
-        control: 'text',
-        description: 'The label of the select box container.',
-    },
-    labelKey: {
-        control: 'text',
-        description: 'Name of property used for display options names.',
-    },
-    value: {
-        control: 'text',
-        description: 'The value of the input element.',
-    },
-    valueKey: {
-        control: 'text',
-        description: 'Name of property used like select box value.',
-    },
-    name: {
-        control: 'text',
-        description: 'Name attribute of the input element.',
-    },
-    error: {
-        control: 'text',
-        description: 'If not empty, the error will be shown.',
-    },
-    source: {
-        control: 'object',
-        description: 'Array of options for select.',
-    },
-    theme: { table: { disable: true } },
-    template: { table: { disable: true } },
-    className: { table: { disable: true } },
-    onClick: { table: { disable: true } },
-    onBlur: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    onFocus: { table: { disable: true } },
-};
+import { ReactNode } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { SelectBox } from '.';
 
 const meta: Meta<typeof SelectBox> = {
-    title: 'UI KIT Internal/SelectBox',
+    title: 'UI Kit internal/SelectBox',
     component: SelectBox,
-    argTypes,
+    tags: ['autodocs'],
+    argTypes: {
+        theme: {
+            control: 'object',
+            description: 'Theme customization object for SelectBox and Input',
+        },
+        multiSelect: {
+            control: 'boolean',
+            description: 'Enable multiple selection mode',
+            defaultValue: false,
+        },
+        onChange: {
+            action: 'changed',
+            description: 'Handler called when selection changes',
+        },
+        options: {
+            control: 'object',
+            description: 'Array of options for selection',
+        },
+        source: {
+            control: 'object',
+            description: 'Source items array',
+        },
+        labelKey: {
+            control: 'text',
+            description: 'Key for label in source items',
+            defaultValue: 'label',
+        },
+        valueKey: {
+            control: 'text',
+            description: 'Key for value in source items',
+            defaultValue: 'value',
+        },
+        name: {
+            control: 'text',
+            description: 'Input name attribute',
+        },
+        label: {
+            control: 'text',
+            description: 'Label text for the select box',
+        },
+        value: {
+            control: 'object',
+            description: 'Selected value(s)',
+        },
+        allowBlank: {
+            control: 'boolean',
+            description: 'Allow empty selection',
+            defaultValue: false,
+        },
+        auto: {
+            control: 'boolean',
+            description: 'Enable auto-completion',
+            defaultValue: false,
+        },
+        className: {
+            control: 'text',
+            description: 'Additional CSS class',
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'Disable the select box',
+            defaultValue: false,
+        },
+        error: {
+            control: 'text',
+            description: 'Error message to display',
+        },
+        required: {
+            control: 'boolean',
+            description: 'Mark field as required',
+            defaultValue: false,
+        },
+    },
 };
+
 export default meta;
 
 type Story = StoryObj<typeof SelectBox>;
 
-const source = [
-    { label: 'Newer first', value: 1 },
-    { label: 'Older first', value: 2 },
-    { label: 'No sort', value: 3 },
+const defaultSource = [
+    { value: '1', label: 'Option 1' },
+    { value: '2', label: 'Option 2' },
+    { value: '3', label: 'Option 3' },
+    { value: '4', label: 'Option 4' },
+    { value: '5', label: 'Option 5' },
 ];
+
 const customSource = [
     { title: 'One', key: 1 },
     { title: 'Two', key: 2 },
@@ -87,117 +102,45 @@ const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
 );
 
-const Template: Story = {
-    render: ({ ...args }) => {
-        const [value, setValue] = useState<SelectBoxProps['value']>(1);
-
-        return <SelectBox {...args} value={value} onChange={(val) => setValue(val)} />;
-    },
-};
-
-const MultiTemplate: Story = {
-    render: ({ ...args }) => {
-        const [value, setValue] = useState<SelectBoxProps['value']>([1, 2]);
-
-        return (
-            <div>
-                <SelectBox {...args} value={value} onChange={(val) => setValue(val)} />
-            </div>
-        );
-    },
-};
-
 export const Basic: Story = {
-    ...Template,
     args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
+        source: defaultSource,
+        label: 'Select an option',
     },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
 };
 
-export const Multi: Story = {
-    ...MultiTemplate,
+export const DefaultValue: Story = {
     args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
+        source: defaultSource,
+        label: 'Select an option',
+        value: '2',
+    },
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
+};
+
+export const MultiSelect: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Select multiple options',
         multiSelect: true,
     },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
 };
 
-export const Disabled: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        disabled: true,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
-};
-
-export const Error: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        error: 'Error description',
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
-};
-
-export const Required: Story = {
-    ...Template,
-    args: {
-        name: 'sort',
-        label: 'Sort',
-        source: source,
-        required: true,
-    },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
-};
-
-export const Custom: Story = {
-    ...Template,
+export const CustomSource: Story = {
     args: {
         name: 'sort',
         label: 'Sort',
@@ -205,12 +148,61 @@ export const Custom: Story = {
         valueKey: 'key',
         source: customSource,
     },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
+};
+
+export const Required: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Required field',
+        required: true,
+    },
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
+};
+
+export const Error: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Select with error',
+        error: 'This field has an error',
+    },
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
+};
+
+export const Disabled: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Disabled select',
+        disabled: true,
+    },
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
+};
+
+export const Placeholder: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Select',
+        placeholder: 'Placeholder',
+    },
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
 };
