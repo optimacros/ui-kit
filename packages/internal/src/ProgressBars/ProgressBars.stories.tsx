@@ -1,48 +1,61 @@
-//@ts-nocheck
-
 import { useState, useEffect } from 'react';
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { ProgressBars } from '@optimacros-ui/kit-internal';
 
-const argTypes: Partial<ArgTypes> = {};
-
 const meta: Meta<typeof ProgressBars> = {
-    title: 'UI KIT Internal/ProgressBars',
+    title: 'UI Kit internal/ProgressBars',
     component: ProgressBars,
-    argTypes,
-};
-export default meta;
-
-type Story = StoryObj<typeof ProgressBars>;
-
-const ProgressBar = {
-    currentValue: 80,
-    maxValue: 100,
-};
-
-const ProgressBar1 = {
-    currentValue: 10,
-    maxValue: 100,
-};
-
-const ProgressBar2 = {
-    currentValue: 56,
-    maxValue: 100,
-};
-
-export const Basic: Story = {
-    args: {
+    tags: ['autodocs'],
+    argTypes: {
+        className: {
+            control: 'text',
+            description: 'Additional CSS class for the progress bars container',
+        },
         state: {
-            currentProgressBar: ProgressBar1,
-            progressBars: [ProgressBar, ProgressBar1, ProgressBar2],
-            currentIndex: 1,
+            control: 'object',
+            description: 'State object containing current progress bar and progress bars array',
         },
     },
 };
 
-const DynamicProgressBars = () => {
+export default meta;
+
+type Story = StoryObj<typeof ProgressBars>;
+
+const progressBars = [
+    {
+        start: () => {},
+        stop: () => {},
+        currentValue: 30,
+        maxValue: 100,
+    },
+    {
+        start: () => {},
+        stop: () => {},
+        currentValue: 60,
+        maxValue: 100,
+    },
+    {
+        start: () => {},
+        stop: () => {},
+        currentValue: 90,
+        maxValue: 100,
+    },
+];
+
+export const Basic: Story = {
+    args: {
+        state: {
+            currentProgressBar: progressBars[0],
+            progressBars: progressBars,
+            currentIndex: 0,
+        },
+    },
+    tags: ['skip-test-runner'],
+};
+
+const StateProgressBars = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const progressBars = [ProgressBar, ProgressBar1, ProgressBar2];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -61,7 +74,7 @@ const DynamicProgressBars = () => {
     return <ProgressBars state={state} />;
 };
 
-export const Dynamic: Story = {
-    render: () => <DynamicProgressBars />,
+export const MultipleProgressBar: Story = {
     tags: ['skip-test-runner'],
+    render: () => <StateProgressBars />,
 };
