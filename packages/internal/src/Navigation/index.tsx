@@ -7,19 +7,36 @@ type NavigationTheme = {
     vertical: string;
 };
 
+type NavigationType = 'horizontal' | 'vertical';
+
 type BaseNavigationProps = {
-    type?: Orientation;
-    theme: NavigationTheme;
+    type?: NavigationType;
+    vertical?: boolean;
+    theme?: Partial<NavigationTheme>;
     className?: string;
     wrap?: boolean;
 };
 
-interface Props extends Omit<BaseNavigationProps, 'theme'> {
-    theme?: Partial<NavigationTheme>;
-}
+export type NavigationProps = React.PropsWithChildren<BaseNavigationProps>;
 
-export type NavigationProps = React.PropsWithChildren<Props>;
+const getOrientation = (type: NavigationType, vertical: boolean): Orientation => {
+    if (type) {
+        return Orientation[type.charAt(0).toUpperCase() + type.slice(1)];
+    }
+    if (vertical) {
+        return Orientation.Vertical;
+    }
 
-export const Navigation: React.FC<NavigationProps> = ({ type, children }) => {
-    return <NavigationComponent.Root orientation={type}>{children}</NavigationComponent.Root>;
+    return Orientation.Horizontal;
+};
+
+export const Navigation = ({ type, children, className, vertical }: NavigationProps) => {
+    return (
+        <NavigationComponent.Root
+            orientation={getOrientation(type, vertical)}
+            className={className}
+        >
+            {children}
+        </NavigationComponent.Root>
+    );
 };
