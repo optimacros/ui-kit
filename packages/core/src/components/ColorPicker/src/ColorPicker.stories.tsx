@@ -1,14 +1,36 @@
-import { StoryObj } from '@storybook/react';
-
 import { ColorPicker } from '.';
 import { Icon } from '@optimacros-ui/kit';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
 import { ValueChangeDetails } from '@zag-js/color-picker';
 import { Flex } from '@optimacros-ui/flex';
-import { ArgTypes as ArgTypesType, Meta } from '@storybook/react';
+import { ArgTypes as ArgTypesType, Meta, StoryObj } from '@storybook/react';
 import { Title, Subtitle, Description, Primary, Stories, ArgTypes } from '@storybook/blocks';
+import * as scenarios from './__tests__/scenarios';
+import { fn } from '@storybook/test';
 
-const argTypesRoot: Partial<ArgTypesType> = {
+const argTypesRoot: ArgTypesType<
+    Omit<ComponentProps<typeof ColorPicker.RootProvider>, 'children'>
+> = {
+    open: {
+        control: 'boolean',
+        description: 'Whether the color picker is open',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    'open.controlled': {
+        control: 'boolean',
+        description: 'Whether the color picker open state is controlled by the user',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    onOpenChange: {
+        control: false,
+        description: 'Handler that is called when the user opens or closes the color picker.',
+        table: { type: { summary: '(details: OpenChangeDetails) => void' } },
+    },
+    closeOnSelect: {
+        control: 'boolean',
+        description: 'Whether to close the color picker when a swatch is selected',
+        table: { defaultValue: { summary: 'false' } },
+    },
     value: {
         control: 'object',
         description: 'The current color value',
@@ -58,7 +80,7 @@ const argTypesPopover: Partial<ArgTypesType> = {
     },
 };
 
-const meta: Meta = {
+const meta: Meta<typeof ColorPicker.RootProvider> = {
     title: 'Ui kit core/Color Picker',
     argTypes: { ...argTypesRoot, ...argTypesPopover },
     parameters: {
@@ -86,6 +108,7 @@ const initialValue = '#005599';
 type Story = StoryObj<typeof ColorPicker.RootProvider>;
 
 export const Basic: Story = {
+    args: { onOpenChange: fn() },
     render: (props) => {
         const [currentValue, setCurrentValue] = useState(initialValue);
         const [finalValue, setFinalValue] = useState(initialValue);
@@ -128,6 +151,7 @@ export const Basic: Story = {
             </Flex>
         );
     },
+    play: scenarios.basic,
 };
 
 export {
