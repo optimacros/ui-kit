@@ -7,4 +7,5 @@ export const props = {
     open: false,
     value: [value],
     onValueChange: fn(),
+    controllable: true,
 };
