@@ -47,9 +47,6 @@ const previewDev: Preview = {
         (Story, context) => {
             const [refresh, setRefresh] = useState(false);
 
-            // Force zag components to handle props update
-            Object.assign(context.args, { controllable: true });
-
             const updateArgs = (args: Partial<Args>) => {
                 Object.assign(context.args, args);
                 setRefresh(!refresh);
