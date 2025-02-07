@@ -137,11 +137,19 @@ export const Multiline = forward<
     );
 });
 
-export const Icon = forward<{}, 'div'>((props, ref) => {
-    return <styled.div {...props} data-scope="field" data-part="icon" ref={ref} />;
+export const Icon = forward<{ position?: string }, 'div'>((props, ref) => {
+    return (
+        <styled.div
+            {...props}
+            data-scope="field"
+            data-part="icon"
+            ref={ref}
+            data-position={props.position}
+        />
+    );
 });
 
-export const FloatingIcon = forward<{}, 'div'>((props, ref) => {
+export const FloatingIcon = forward<{ position?: string }, 'div'>((props, ref) => {
     return <Icon {...props} ref={ref} data-tag="floating" />;
 });
 

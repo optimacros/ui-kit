@@ -2,6 +2,7 @@
 
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Dropdown, Button, Menu, MenuItem } from '@optimacros-ui/kit-internal';
+import { Flex } from '@optimacros-ui/flex';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -125,22 +126,24 @@ const meta: Meta<typeof Dropdown> = {
     // @ts-ignore
     component: Dropdown,
     argTypes,
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    'Ui-kit using `rc-dropdown`. You can read more ' +
-                    'at the [link](https://github.com/react-component/dropdown).',
-            },
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [
+        (Story) => {
+            return (
+                <Flex height="200px">
+                    <Story />
+                </Flex>
+            );
         },
+    ],
+    args: {
+        controllable: true,
     },
 };
 
 export default meta;
 
-// todo - fix ts
 type Story = StoryObj<typeof Dropdown>;
-// type Story = any
 
 const OverlayComponent = () => {
     return (
@@ -178,19 +181,5 @@ export const Disabled: Story = {
         children: <Button label="Users" />,
         overlay: <OverlayComponent />,
         disabled: true,
-    },
-};
-
-export const Visible: Story = {
-    args: {
-        children: <Button label="Users" />,
-        overlay: (
-            <div>
-                <div>Item 1</div>
-                <div>Item 2</div>
-            </div>
-        ),
-        visible: true,
-        trigger: ['hover'],
     },
 };

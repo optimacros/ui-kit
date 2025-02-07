@@ -41,6 +41,7 @@ const meta: Meta<typeof Menu.Root> = {
         },
 
         // Behavior
+        //@ts-ignore
         autoFocus: {
             control: 'boolean',
             description: 'Whether to focus the menu when opened',
@@ -193,6 +194,7 @@ export const OrientationExample = () => {
                                     </Menu.Item>
                                 ))}
                                 <Menu.SubMenuItem
+                                    //@ts-ignore
                                     parent={api}
                                     item={{
                                         value: 'sub-menu-nested',
@@ -292,6 +294,7 @@ export const Nested = {
                                     {menuItems.map((v, i) => (
                                         <Menu.SubMenuItem
                                             key={`custom-sub-${i}`}
+                                            //@ts-ignore
                                             parent={api}
                                             item={v}
                                             closeOnSelect={false}

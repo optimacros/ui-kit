@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React from 'react';
 import { Loader as LoaderComponent } from '@optimacros-ui/loader';
 
@@ -50,6 +48,8 @@ export const Loader = ({
             max={max}
             min={min}
             ref={innerRef}
+            multicolor={multicolor}
+            state={mode}
         >
             {type === 'circular' ? (
                 <LoaderComponent.Circle>

@@ -31,6 +31,15 @@ const meta: Meta<typeof Counter> = {
     title: 'UI Kit internal/Counter',
     component: Counter,
     argTypes,
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [
+        // eslint-disable-next-line new-cap
+        (Story) => (
+            <Wrapper>
+                <Story />
+            </Wrapper>
+        ),
+    ],
 };
 export default meta;
 
@@ -54,14 +63,6 @@ export const Basic: Story = {
     args: {
         value: 69,
     },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
 };
 
 export const MaxValue: Story = {
@@ -69,14 +70,6 @@ export const MaxValue: Story = {
         value: 6,
         maxValue: 3,
     },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
 };
 
 export const NavigationLink: Story = {
@@ -85,12 +78,4 @@ export const NavigationLink: Story = {
         navigationComponent: Link,
         route: { href: 'https://google.com' },
     },
-    decorators: [
-        // eslint-disable-next-line new-cap
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
 };

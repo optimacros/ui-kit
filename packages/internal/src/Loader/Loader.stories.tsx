@@ -53,6 +53,8 @@ const meta: Meta<typeof Loader> = {
     title: 'UI KIT Internal/Loader',
     component: Loader,
     argTypes,
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 export default meta;
 

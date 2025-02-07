@@ -36,7 +36,7 @@ export const SearchContainer = memo<SearchContainerProps>(
                 placeholder={placeholder}
             />
             {!!showIcon && (
-                <Field.FloatingIcon onClick={onClose}>
+                <Field.FloatingIcon onClick={onClose} position="right">
                     <Icon value="close" />
                 </Field.FloatingIcon>
             )}

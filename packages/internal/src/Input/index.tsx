@@ -88,6 +88,7 @@ export const Input = ({
     id,
     readOnly = false,
     autoFocus,
+    name,
     ...others
 }: InputProps) => {
     const elementProps: TextareaHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
@@ -126,16 +127,18 @@ export const Input = ({
                     defaultValue={defaultValue}
                     autoFocus={autoFocus}
                     onChange={onChange}
+                    name={name}
                 />
             ) : (
                 <Field.Input
                     autoFocus={autoFocus}
                     type={type}
                     id={fieldId}
+                    name={name}
                     disabled={disabled}
                     value={fieldValue}
                     defaultValue={defaultValue}
-                    onChange={onChange}
+                    onChange={(e) => onChange?.(e.target.value, e)}
                 />
             )}
             {maxLength && <Field.Counter length={length} maxLength={maxLength} />}

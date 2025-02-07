@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import { useId } from 'react';
+import { ChangeEvent, useId } from 'react';
 import { FileUpload } from '@optimacros-ui/file-upload';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
@@ -16,12 +14,15 @@ interface FileInputProps {
             size: number;
         };
     };
+    name?: string;
+    accept?: string;
     value?: string;
     filePreview?: boolean;
     labelUploadNewFile?: string;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const FileInput: FileInputProps = ({
+export const FileInput = ({
     state,
     value,
     filePreview,
@@ -30,7 +31,7 @@ export const FileInput: FileInputProps = ({
     name,
     onChange,
     ...otherProps
-}) => {
+}: FileInputProps) => {
     const { file, reset } = state || {};
     const generatedName = useId();
 
@@ -41,35 +42,43 @@ export const FileInput: FileInputProps = ({
             maxFiles={10}
             accept={adaptAcceptParam(accept)}
             name={name ?? generatedName}
-            onFileAccept={(files) => onChange?.({ target: { files: files.acceptedFiles } })}
+            //@ts-ignore
+            onFileAccept={({ files }) => onChange?.({ target: { files } })}
+            onReset={reset}
+            //@ts-ignore
+            acceptedFiles={file ? [file] : []}
         >
-            {file && filePreview ? (
-                <div data-scope="file-upload" data-part="content" style={{ display: 'block' }}>
-                    <FileUpload.ItemGroupHeader>
-                        <div data-scope="file-upload" data-part="item-group-header">
-                            <Text.Title as="h3">Name</Text.Title>
-                            <Text.Title as="h3">Size</Text.Title>
-                        </div>
-                        {reset && (
-                            <IconButton
-                                icon="close"
-                                variant="bordered"
-                                size="xs"
-                                squared
-                                onClick={() => reset()}
-                            />
-                        )}
-                    </FileUpload.ItemGroupHeader>
-                    <FileUpload.ItemInfo file={file} />
-                </div>
-            ) : (
-                <>
-                    <FileUpload.HiddenInput />
-                    <FileUpload.UploadTrigger asChild>
-                        <Button variant="bordered">{labelUploadNewFile ?? 'Upload'}</Button>
-                    </FileUpload.UploadTrigger>
-                </>
-            )}
+            <FileUpload.Api>
+                {({ acceptedFiles }) =>
+                    acceptedFiles.length > 0 && filePreview ? (
+                        <FileUpload.Content
+                            data-scope="file-upload"
+                            data-part="content"
+                            style={{ display: 'block' }}
+                        >
+                            <FileUpload.ItemGroupHeader>
+                                <FileUpload.ItemGroupHeader>
+                                    <Text.Title as="h3">Name</Text.Title>
+                                    <Text.Title as="h3">Size</Text.Title>
+                                </FileUpload.ItemGroupHeader>
+                                <FileUpload.ClearTrigger as="div">
+                                    <IconButton icon="close" variant="bordered" size="xs" squared />
+                                </FileUpload.ClearTrigger>
+                            </FileUpload.ItemGroupHeader>
+                            <FileUpload.ItemGroup>
+                                {(file) => <FileUpload.ItemInfo file={file} />}
+                            </FileUpload.ItemGroup>
+                        </FileUpload.Content>
+                    ) : (
+                        <>
+                            <FileUpload.HiddenInput />
+                            <FileUpload.UploadTrigger as="div">
+                                <Button variant="bordered">{labelUploadNewFile ?? 'Upload'}</Button>
+                            </FileUpload.UploadTrigger>
+                        </>
+                    )
+                }
+            </FileUpload.Api>
         </FileUpload.Root>
     );
 };
