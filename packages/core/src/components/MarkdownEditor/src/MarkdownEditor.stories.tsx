@@ -123,8 +123,8 @@ export const Basic: StoryObj = {
                         }
                     </MarkdownEditor.Tabs.List>
 
-                    <MarkdownEditor.Edit />
-                    <MarkdownEditor.Preview />
+                    <MarkdownEditor.Edit data-testid="edit-tab" />
+                    <MarkdownEditor.Preview data-testid="preview-tab" />
                     <MarkdownEditor.Split />
                 </MarkdownEditor.Root>
             </div>
