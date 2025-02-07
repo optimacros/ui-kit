@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import React, { useRef, MouseEvent } from 'react';
+import React, { useRef, ChangeEvent } from 'react';
 
 export interface RadioButtonProps {
     checked?: boolean;
@@ -8,10 +6,11 @@ export interface RadioButtonProps {
     className?: string;
     disabled?: boolean;
     label?: string | React.ReactNode;
+    placeholder?: string;
     name?: string;
     onBlur?: () => void;
     onClick?: () => void;
-    onChange?: (event: MouseEvent<HTMLInputElement>, scope: any) => void;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     onFocus?: () => void;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
@@ -24,7 +23,7 @@ export interface RadioButtonProps {
     value?: string;
 }
 
-export const RadioButton: RadioButtonProps = ({
+export const RadioButton = ({
     checked = false,
     className = '',
     disabled = false,
@@ -38,10 +37,10 @@ export const RadioButton: RadioButtonProps = ({
     theme,
     placeholder,
     ...others
-}) => {
+}: RadioButtonProps) => {
     const inputNode = useRef<HTMLInputElement | null>(null);
 
-    const handleClick = (event: MouseEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (!disabled && !checked && onChange) {
             onChange(event);
         }
@@ -67,7 +66,6 @@ export const RadioButton: RadioButtonProps = ({
                     role="radio"
                     aria-checked={checked}
                     tabIndex={0}
-                    onClick={handleClick}
                     data-scope="radio-group"
                     data-part="control"
                     {...state}
@@ -77,7 +75,7 @@ export const RadioButton: RadioButtonProps = ({
                     checked={checked}
                     disabled={disabled}
                     name={name}
-                    onChange={() => {}}
+                    onChange={handleChange}
                     ref={inputNode}
                     style={{
                         position: 'absolute',
