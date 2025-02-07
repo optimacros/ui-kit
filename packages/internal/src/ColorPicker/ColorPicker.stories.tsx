@@ -66,6 +66,8 @@ const meta: Meta<typeof ColorPicker> = {
             },
         },
     },
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 export default meta;
 

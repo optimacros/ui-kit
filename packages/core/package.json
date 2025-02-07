@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/kit",
     "private": false,
-    "version": "0.0.1",
+    "version": "2.0.0",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -11,13 +11,13 @@
         "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
     "dependencies": {
-        "react": "18.2.0",
-        "@optimacros-ui/themes": "^0.0.3",
-        "@optimacros-ui/types": "^0.0.2",
-        "@optimacros-ui/utils": "^0.0.2"
+        "@optimacros-ui/themes": "^2.0.0",
+        "@optimacros-ui/types": "^2.0.0",
+        "@optimacros-ui/utils": "^2.0.0",
+        "react": "18.2.0"
     },
     "devDependencies": {
-        "@types/react-modal": "3.16.3",
-        "@faker-js/faker": "9.3.0"
+        "@faker-js/faker": "9.3.0",
+        "@types/react-modal": "3.16.3"
     }
 }

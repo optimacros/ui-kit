@@ -13,6 +13,8 @@ const meta: Meta<typeof Divider> = {
     title: 'UI Kit internal/Divider',
     component: Divider,
     argTypes,
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 export default meta;
 

@@ -8,7 +8,7 @@ const meta: Meta<typeof SliderScale> = {
     title: 'UI KIT Internal/SliderScale',
     component: SliderScale,
     argTypes,
-    tags: ['skip-test-runner'],
+    tags: ['autodocs', 'skip-test-runner'],
     decorators: [(Story) => <Story />],
 };
 export default meta;

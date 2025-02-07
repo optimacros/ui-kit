@@ -103,8 +103,14 @@ const connect = ((api, { state, send }, machine) => {
 }) satisfies ConnectMachine<machine.Api, Context, State>;
 
 //TODO: types
-//@ts-ignore
-export const { RootProvider: Root, useApi } = createReactApiStateContext({
+export const {
+    RootProvider: Root,
+    useApi,
+    Api,
+    useProxySelector,
+    useSelector,
+    splitProps,
+} = createReactApiStateContext<typeof machine>({
     id: 'calendar',
     machine,
     connect,

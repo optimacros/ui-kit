@@ -223,6 +223,8 @@ const meta: Meta<typeof Tabs> = {
             ),
         },
     },
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 export default meta;
 

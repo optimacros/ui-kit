@@ -87,6 +87,8 @@ const meta: Meta<typeof Snackbar> = {
     },
     component: Snackbar,
     argTypes,
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 
 export default meta;
