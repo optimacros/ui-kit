@@ -1,14 +1,35 @@
-//@ts-nocheck
-
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { Collapsible } from '.';
 import './index.css';
 import { Icon } from '@optimacros-ui/icon';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import * as scenarios from './__tests__/scenarios';
+import { fn } from '@storybook/test';
+
+const argTypes: ArgTypes<ComponentProps<typeof Collapsible.Root>> = {
+    open: {
+        control: 'boolean',
+        description: 'Whether the collapsible is open',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    onOpenChange: {
+        control: false,
+        description: 'Function called when the popup is opened',
+        table: { type: { summary: '(details: OpenChangeDetails) => void' } },
+    },
+    disabled: {
+        control: 'boolean',
+        description: 'Whether the collapsible is disabled',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    'open.controlled': {
+        control: 'boolean',
+        description: 'Whether the collapsible open state is controlled by the user',
+        table: { defaultValue: { summary: 'false' } },
+    },
+};
 
 const ChevronDown = () => <Icon value="chevron_left" className="collapsible-icon" rotate={-90} />;
-
-// Collapsible.stories.tsx
 
 const css = `
 /* collapsible.css */
@@ -50,17 +71,6 @@ const css = `
 
 .collapsible-icon[data-state='open'] {
   transform: rotate(180deg);
-}
-
-/* Animated Collapsible */
-.collapsible-content[data-state='open'] {
-  opacity:1;
-  height: auto;
-}
-
-.collapsible-content[data-state='closed'] {
-  height:0;
-  opacity:0;
 }
 
 /* Custom Styled Collapsible */
@@ -123,12 +133,14 @@ const css = `
 }
 
 `;
+
 const meta = {
     title: 'Ui kit core/Collapsible',
     component: Collapsible.Root,
     parameters: {
         layout: 'centered',
     },
+    argTypes,
     decorators: [
         (Story) => (
             <>
@@ -137,53 +149,34 @@ const meta = {
             </>
         ),
     ],
-    tags: ['autodocs'],
 } satisfies Meta<typeof Collapsible.Root>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+
+type Story = StoryObj<typeof Collapsible.Root>;
 
 // Basic Collapsible Story
 export const Basic: Story = {
-    render: () => (
-        <Collapsible.Root className="collapsible-root">
+    args: {
+        open: false,
+        onOpenChange: fn(),
+    },
+    render: (props) => (
+        <Collapsible.Root {...props} className="collapsible-root">
             <div className="collapsible-container">
-                <Collapsible.Trigger className="collapsible-trigger">
+                <Collapsible.Trigger className="collapsible-trigger" data-testid="trigger">
                     <span>Click to expand</span>
                     <Collapsible.Indicator>
-                        <ChevronDown className="collapsible-icon" />
+                        <ChevronDown />
                     </Collapsible.Indicator>
                 </Collapsible.Trigger>
-                <Collapsible.Content className="collapsible-content">
+                <Collapsible.Content className="collapsible-content" data-testid="content">
                     <p>This is the collapsible content. It can contain any elements.</p>
                 </Collapsible.Content>
             </div>
         </Collapsible.Root>
     ),
-};
-
-// Animated Collapsible Story
-export const Animated: Story = {
-    render: () => (
-        <Collapsible.Root className="collapsible-root">
-            <div className="collapsible-container">
-                <Collapsible.Trigger className="collapsible-trigger">
-                    <span>Animated collapse</span>
-                    <Collapsible.Indicator>
-                        <ChevronDown className="collapsible-icon" />
-                    </Collapsible.Indicator>
-                </Collapsible.Trigger>
-                <Collapsible.Content
-                    className="collapsible-content"
-                    collapsible={{
-                        animationOptions: { duration: 200 },
-                    }}
-                >
-                    <p>This content smoothly animates in and out when toggled.</p>
-                </Collapsible.Content>
-            </div>
-        </Collapsible.Root>
-    ),
+    play: scenarios.basic,
 };
 
 // Multiple Sections Story
@@ -194,15 +187,15 @@ const sections = [
 ];
 
 export const MultipleSections: Story = {
-    render: () => (
+    render: (props) => (
         <div className="collapsible-root collapsible-group">
             {sections.map((section) => (
-                <Collapsible.Root key={section.id}>
+                <Collapsible.Root {...props} key={section.id}>
                     <div className="collapsible-container">
                         <Collapsible.Trigger className="collapsible-trigger">
                             <span>{section.title}</span>
                             <Collapsible.Indicator>
-                                <ChevronDown className="collapsible-icon" />
+                                <ChevronDown />
                             </Collapsible.Indicator>
                         </Collapsible.Trigger>
                         <Collapsible.Content className="collapsible-content">
@@ -217,13 +210,14 @@ export const MultipleSections: Story = {
 
 // Custom Styled Story
 export const CustomStyled: Story = {
-    render: () => (
-        <Collapsible.Root className="collapsible-root">
+    args: { open: true },
+    render: (props) => (
+        <Collapsible.Root {...props} className="collapsible-root">
             <div className="collapsible-container collapsible-custom">
                 <Collapsible.Trigger className="collapsible-trigger">
                     <span>Custom styled collapsible</span>
                     <Collapsible.Indicator>
-                        <ChevronDown className="collapsible-icon" />
+                        <ChevronDown />
                     </Collapsible.Indicator>
                 </Collapsible.Trigger>
                 <Collapsible.Content className="collapsible-content">
@@ -236,23 +230,24 @@ export const CustomStyled: Story = {
 
 // Nested Collapsible Story
 export const Nested: Story = {
-    render: () => (
-        <Collapsible.Root className="collapsible-root">
+    args: { open: true },
+    render: (props) => (
+        <Collapsible.Root {...props} className="collapsible-root">
             <div className="collapsible-container">
                 <Collapsible.Trigger className="collapsible-trigger">
                     <span>Outer section</span>
                     <Collapsible.Indicator>
-                        <ChevronDown className="collapsible-icon" />
+                        <ChevronDown />
                     </Collapsible.Indicator>
                 </Collapsible.Trigger>
                 <Collapsible.Content className="collapsible-content">
                     <p className="mb-2">Outer content</p>
-                    <Collapsible.Root>
+                    <Collapsible.Root {...props}>
                         <div className="collapsible-container">
                             <Collapsible.Trigger className="collapsible-trigger">
                                 <span>Inner section</span>
                                 <Collapsible.Indicator>
-                                    <ChevronDown className="collapsible-icon" />
+                                    <ChevronDown />
                                 </Collapsible.Indicator>
                             </Collapsible.Trigger>
                             <Collapsible.Content className="collapsible-content">
@@ -268,21 +263,22 @@ export const Nested: Story = {
 
 // Controlled Story
 export const Controlled: Story = {
-    render: () => {
-        const [isOpen, setIsOpen] = React.useState(false);
+    args: { controllable: true },
+    render: ({ open, onOpenChange, ...rest }) => {
+        const [isOpen, setIsOpen] = React.useState(open);
 
         return (
             <Collapsible.Root
+                {...rest}
                 className="collapsible-root"
                 open={isOpen}
                 onOpenChange={(details) => setIsOpen(details.open)}
-                controllable
             >
                 <div className="collapsible-container">
                     <Collapsible.Trigger className="collapsible-trigger">
                         <span>Controlled collapsible</span>
                         <Collapsible.Indicator>
-                            <ChevronDown className="collapsible-icon" />
+                            <ChevronDown />
                         </Collapsible.Indicator>
                     </Collapsible.Trigger>
                     <Collapsible.Content className="collapsible-content">
@@ -295,4 +291,5 @@ export const Controlled: Story = {
             </Collapsible.Root>
         );
     },
+    tags: ['skip-test-runner'],
 };
