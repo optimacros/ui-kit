@@ -1,12 +1,12 @@
 //@ts-nocheck
 
 import React from 'react';
-import type { InputTheme } from '../Input';
 import { Field } from '@optimacros-ui/field';
 import { Icon } from '@optimacros-ui/icon';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Select } from '@optimacros-ui/select';
 import { Flex } from '@optimacros-ui/flex';
+import type { InputTheme } from '../Input';
 
 export type SelectBoxTheme = {
     active: string;
@@ -34,7 +34,7 @@ export interface SelectBoxProps {
     theme?: Partial<SelectBoxTheme & InputTheme>;
     multiSelect?: boolean;
     onChange?: (value: string | number | (string | number)[]) => void;
-    options: any[];
+    options?: any[];
     source: SourceItem[];
     labelKey?: string;
     valueKey?: string;

@@ -1,6 +1,5 @@
-//@ts-nocheck
-import React from 'react';
-import { IconButton } from '@optimacros-ui/icon-button';
+import { Button } from '@optimacros-ui/button';
+import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { SelectBox, type SelectBoxProps as BaseSelectBoxProps } from '@optimacros-ui/kit-internal';
 
@@ -17,10 +16,12 @@ interface MultipleSelectBoxPanelProps {
     className?: string;
     addLabel?: string;
     removeLabel?: string;
-    options: Item[];
+    options?: Item[];
     source: Item[];
     onChange: (value: string | number) => void;
     value: string | number;
+    label?: string;
+    valueKey?: string;
 }
 
 export const MultipleSelectBoxPanel = ({
@@ -45,13 +46,14 @@ export const MultipleSelectBoxPanel = ({
             direction="row"
         >
             <span>{item.label}</span>
-            <IconButton
+            <Button
                 data-scope="select"
                 data-part="close-trigger"
-                icon="close"
-                label={removeLabel}
                 onClick={() => onRemoveItem(item)}
-            />
+            >
+                {removeLabel}
+                <Icon value="close" />
+            </Button>
         </Flex>
     );
 
@@ -67,12 +69,9 @@ export const MultipleSelectBoxPanel = ({
         onDeselectItem(item);
     };
 
-    const handleChange = (
-        newValue: BaseSelectBoxProps['value'],
-        event?: React.SyntheticEvent,
-    ): void => {
+    const handleChange = (newValue: BaseSelectBoxProps['value']): void => {
         if (onChange) {
-            onChange(newValue, event);
+            onChange(newValue);
         }
     };
 
@@ -113,14 +112,15 @@ export const MultipleSelectBoxPanel = ({
                         value={[correctValue]}
                         onChange={handleChange}
                     />
-                    <IconButton
+                    <Button
                         data-scope="select"
                         data-part="add-trigger"
                         disabled={disabledSelect}
-                        icon="add"
-                        label={addLabel}
                         onClick={onAddItem}
-                    />
+                    >
+                        {addLabel}
+                        <Icon value="add" />
+                    </Button>
                 </Flex>
             </Flex>
         </div>
