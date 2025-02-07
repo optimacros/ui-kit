@@ -45,3 +45,7 @@ A: do `ctrl+f5`
     }
 
 Сверху в интерфейса сторибука есть есть переключатель `play/ne play`
+
+
+### Versioning
+run `npx lerna version x.x.x --no-push --no-git-tag-version --conventional-commits`

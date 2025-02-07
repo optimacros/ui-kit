@@ -1,6 +1,6 @@
 {
     "name": "@optimacros-ui/figma",
-    "version": "0.0.1",
+    "version": "2.0.0",
     "main": "dist/code.js",
     "scripts": {
         "build": "tsup --config ./tsup.config.ts",
@@ -8,10 +8,10 @@
     },
     "author": "Georgiy Zhuravlev",
     "devDependencies": {
-        "tinycolor2": "1.6.0",
+        "@figma/eslint-plugin-figma-plugins": "*",
+        "@figma/plugin-typings": "*",
         "jszip": "3.10.1",
         "setimmediate": "1.0.5",
-        "@figma/eslint-plugin-figma-plugins": "*",
-        "@figma/plugin-typings": "*"
+        "tinycolor2": "1.6.0"
     }
 }

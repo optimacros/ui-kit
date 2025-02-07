@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/color-picker",
     "private": false,
-    "version": "0.0.0",
+    "version": "2.0.0",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -10,10 +10,10 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "react": "18.2.0",
+        "@optimacros-ui/store": "^2.0.0",
+        "@optimacros-ui/types": "^2.0.0",
+        "@optimacros-ui/utils": "^2.0.0",
         "@zag-js/color-picker": "0.77.0",
-        "@optimacros-ui/store": "^0.0.2",
-        "@optimacros-ui/types": "^0.0.2",
-        "@optimacros-ui/utils": "^0.0.2"
+        "react": "18.2.0"
     }
 }

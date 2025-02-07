@@ -18,7 +18,7 @@
         "build:utils": "lerna run build --scope=@optimacros-ui/utils",
         "build:figma": "lerna run build --scope=@optimacros-ui/figma",
         "build:types": "lerna run build --scope=@optimacros-ui/types",
-        "build:ui": "lerna run build --parallel --scope @optimacros-ui/kit --scope @optimacros-ui/* --scope @optimacros-ui/themes",
+        "build:ui": "lerna run build --parallel --scope=@optimacros-ui/*",
         "lint": "biome check packages --log-level=error --diagnostic-level=error",
         "lint:fix": "biome check packages --write --log-level=error --diagnostic-level=error --config-path=biome-commit.json",
         "test-storybook": "test-storybook",
