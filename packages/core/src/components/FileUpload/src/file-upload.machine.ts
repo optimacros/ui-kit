@@ -23,6 +23,7 @@ const options = (service: zagMachine.Service) =>
         actions: {
             clearFiles: (ctx) => {
                 ctx.onReset();
+                //@ts-ignore
                 service.options.actions.clearFiles(ctx);
             },
         },
