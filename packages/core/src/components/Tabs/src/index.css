@@ -5,7 +5,8 @@
     z-index: 1;
     overflow-x: auto;
     list-style: none;
-
+    padding: 0;
+    margin: 0;
     &[data-orientation='vertical'] {
       flex-direction: column;
       overflow-y: scroll;

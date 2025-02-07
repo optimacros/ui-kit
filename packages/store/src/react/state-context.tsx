@@ -279,7 +279,7 @@ export type ConnectMachine<
 export function createReactApiStateContext<
     Machine extends Record<string, any>,
     Api extends Record<string, any> = Record<string, any>,
-    Context extends Record<string, any> = Record<string, any>,
+    Context extends Record<string, any> = Parameters<Machine['machine']>[0],
     State extends StateMachine.StateSchema = StateMachine.StateSchema,
     Connect extends (
         api: Api,

@@ -10,6 +10,7 @@ interface FavoriteProps {
     onChange: (value: boolean) => void;
     label?: string;
     className?: string;
+    controllable?: boolean;
 }
 
 export const Favorite: FC<FavoriteProps> = ({ label, onChange, ...rest }) => {

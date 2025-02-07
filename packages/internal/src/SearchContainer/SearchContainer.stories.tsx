@@ -2,6 +2,7 @@ import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { SearchContainer, SearchContainerProps } from './index';
 import * as Stories from './stories';
 import controlledContent from './stories/Controlled?raw';
+import { Flex } from '@optimacros-ui/flex';
 
 const argTypes: Partial<ArgTypes> = {
     name: {
@@ -61,6 +62,14 @@ const meta: Meta<typeof SearchContainer> = {
             },
         },
     },
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [
+        (Story) => (
+            <Flex width="300px">
+                <Story />
+            </Flex>
+        ),
+    ],
 };
 export default meta;
 

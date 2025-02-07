@@ -46,6 +46,7 @@ export const Calendar = ({
     minDate,
     maxDate,
     sundayFirstDayOfWeek,
+    theme,
 }: CalendarProps) => {
     return (
         <CalendarComponent.Root
@@ -54,7 +55,7 @@ export const Calendar = ({
             open={true}
             closeOnSelect={false}
             {...{ 'open.controlled': true }}
-            startOfWeek={sundayFirstDayOfWeek ? 1 : 0}
+            startOfWeek={sundayFirstDayOfWeek ? 0 : 1}
             min={minDate && dateFormatters(minDate)}
             max={maxDate && dateFormatters(maxDate)}
         >
@@ -89,10 +90,10 @@ export const Calendar = ({
                     <CalendarComponent.DaysTableBody />
                 </CalendarComponent.DaysTable>
                 <CalendarComponent.Footer>
-                    <CalendarComponent.DismissButton onSelect={onDismiss}>
+                    <CalendarComponent.DismissButton onSelect={onDismiss} className={theme?.button}>
                         {cancelLabel}
                     </CalendarComponent.DismissButton>
-                    <CalendarComponent.SuccessButton onSelect={onSelect}>
+                    <CalendarComponent.SuccessButton onSelect={onSelect} className={theme?.button}>
                         {okLabel}
                     </CalendarComponent.SuccessButton>
                 </CalendarComponent.Footer>

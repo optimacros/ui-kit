@@ -20,6 +20,7 @@ const config = {
         running: false,
         disabled: false,
         infinite: false,
+        state: 'determinate',
     } as {
         onCancel?: () => void;
         multicolor?: boolean;
@@ -28,6 +29,7 @@ const config = {
         running?: boolean;
         disabled?: boolean;
         infinite?: boolean;
+        state?: 'determinate' | 'indeterminate';
     },
     on: {
         'MULTICOLOR.SET': { actions: 'setMulticolor' },
@@ -105,6 +107,8 @@ const connect = ((api, { state, send }, machine) => {
             return {
                 ...api.getRootProps(),
                 'data-disabled': state.context.disabled,
+                'data-multicolor': state.context.multicolor,
+                'data-state': state.context.state,
             };
         },
     };
