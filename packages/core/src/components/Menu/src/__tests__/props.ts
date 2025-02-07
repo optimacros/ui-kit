@@ -14,4 +14,5 @@ export const props: Partial<RootProps> = {
         strategy: 'absolute',
     },
     loopFocus: false,
+    controllable: true,
 };
