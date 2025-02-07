@@ -1,118 +1,123 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { Tooltip } from './index';
+import { Meta, StoryObj } from '@storybook/react';
+import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
-
-const argTypes: Partial<ArgTypes> = {
-    composedComponent: {
-        control: 'text',
-        description: 'Tooltip reference element.',
-        table: {
-            type: { summary: 'HTMLElementTagNameMap | React.FC | React.ComponentClass' },
-        },
-    },
-    composedComponentProps: {
-        control: 'object',
-        description: 'Props to composed component.',
-    },
-    tooltip: {
-        control: 'text',
-        description: 'The text string to use for the tooltip.',
-    },
-    tooltipDelay: {
-        control: 'number',
-        description: 'Amount of time in milliseconds spent before the tooltip is visible.',
-        table: {
-            defaultValue: { summary: '0' },
-        },
-    },
-    tooltipPosition: {
-        control: 'radio',
-        options: ['vertical', 'horizontal', 'bottom', 'top', 'left', 'right'],
-        table: { defaultValue: { summary: 'vertical' } },
-        description:
-            'Determines the position of the tooltip. It can be automatic with `vertical` and `horizontal` values or forced with `bottom`, `top`, `left` or `right`.',
-    },
-    tooltipOffset: {
-        control: 'number',
-        description:
-            ' If `tooltipPosition` - `vertical`, `bottom` or `top`, the tooltip moves relative to its axis.',
-        table: { defaultValue: { summary: '0' } },
-    },
-    theme: {
-        control: 'object',
-        description: 'A set of classes for different parts and states of the component',
-        table: {
-            type: {
-                summary: `{ tooltip: 'Added to the tooltip element wrapper',
- tooltipActive: 'Added to the root when the tooltip is active',
- tooltipInner: 'Added to the inner element which sets the background, font and rounded borders',
- tooltipBottom: 'Added to the root in case the tooltip is being positioned at bottom',
- tooltipLeft: 'Added to the root in case the tooltip is being positioned at left',
- tooltipRight: 'Added to the root in case the tooltip is being positioned at right',
- tooltipTop: 'Added to the root in case the tooltip is being positioned at top' }`,
-            },
-        },
-    },
-    onClick: {
-        control: false,
-        description: 'Callback to be invoked when Component is clicked',
-        table: {
-            type: { summary: 'MouseEventHandler<HTMLElement>' },
-        },
-    },
-    onMouseEnter: {
-        control: false,
-        description: 'Callback called when the mouse enters the Component',
-        table: {
-            type: { summary: 'MouseEventHandler<HTMLElement>' },
-        },
-    },
-    onMouseLeave: {
-        control: false,
-        description: 'Callback called when the mouse leaves the Component',
-        table: {
-            type: { summary: 'MouseEventHandler<HTMLElement>' },
-        },
-    },
-};
+import { Tooltip } from './index';
 
 const meta: Meta<typeof Tooltip> = {
     title: 'UI Kit internal/Tooltip',
     component: Tooltip,
-    argTypes,
-    parameters: {
-        docs: {
-            description: {
-                component: `A Tooltip is useful to show information on hover in any kind of component. We have a component that can be used as a **decorator** for any kind of component. Also, it's factory function is exposed so you can create your own decorator with specific properties.`,
-            },
+    tags: ['autodocs'],
+    argTypes: {
+        className: {
+            control: 'text',
+            description: 'Additional CSS class for the tooltip',
+        },
+        composedComponent: {
+            control: 'text',
+            description: 'Component to be wrapped with tooltip functionality',
+        },
+        composedComponentProps: {
+            control: 'object',
+            description: 'Props to be passed to the composed component',
+        },
+        onClick: {
+            action: 'clicked',
+            description: 'Handler called when tooltip is clicked',
+        },
+        onMouseEnter: {
+            action: 'mouseEntered',
+            description: 'Handler called when mouse enters tooltip',
+        },
+        onMouseLeave: {
+            action: 'mouseLeft',
+            description: 'Handler called when mouse leaves tooltip',
+        },
+        theme: {
+            control: 'object',
+            description: 'Theme customization object',
+        },
+        tooltip: {
+            control: 'text',
+            description: 'Content to be displayed in the tooltip',
+        },
+        tooltipDelay: {
+            control: 'number',
+            description: 'Delay before showing tooltip (in milliseconds)',
+            defaultValue: 0,
+        },
+        tooltipPosition: {
+            control: 'select',
+            options: ['top', 'bottom', 'left', 'right'],
+            description: 'Position of the tooltip relative to the component',
+            defaultValue: 'top',
+        },
+        tooltipOffset: {
+            control: 'number',
+            description: 'Offset of the tooltip from the component',
+            defaultValue: 10,
         },
     },
 };
+
 export default meta;
 
 type Story = StoryObj<typeof Tooltip>;
 
 export const Basic: Story = {
     args: {
-        tooltip: 'Basic',
-        children: <Button variant="accent">button</Button>,
+        tooltip: 'This is a tooltip',
+        children: <Button variant="primary">Hover me</Button>,
     },
 };
 
-export const Componnent: Story = {
+export const Positions: Story = {
+    render: () => (
+        <Flex direction="column" gap="4" align="center" style={{ margin: '60px 0' }}>
+            <Tooltip tooltip="Top tooltip" tooltipPosition="top">
+                <Button variant="primary">Top Position</Button>
+            </Tooltip>
+            <Tooltip tooltip="Bottom tooltip" tooltipPosition="bottom">
+                <Button variant="primary">Bottom Position</Button>
+            </Tooltip>
+            <Tooltip tooltip="Left tooltip" tooltipPosition="left">
+                <Button variant="primary">Left Position</Button>
+            </Tooltip>
+            <Tooltip tooltip="Right tooltip" tooltipPosition="right">
+                <Button variant="primary">Right Position</Button>
+            </Tooltip>
+            <Tooltip tooltip="Horizontal tooltip" tooltipPosition="horizontal">
+                <Button variant="primary">Horizontal Position</Button>
+            </Tooltip>
+            <Tooltip tooltip="Vertical tooltip" tooltipPosition="vertical">
+                <Button variant="primary">Vertical Position</Button>
+            </Tooltip>
+        </Flex>
+    ),
+};
+
+export const Delay: Story = {
     args: {
-        tooltip: 'Component',
-        composedComponent: Button,
-        composedComponentProps: { children: 'composedComponentProps/children', variant: 'accent' },
-        children: 'children that wont pass since there are children in composedComponentProps',
+        tooltip: 'Delayed tooltip',
+        tooltipDelay: 1000,
+        children: <Button variant="primary">Hover me</Button>,
     },
 };
 
-export const Offset: Story = {
+export const CustomOffset: Story = {
     args: {
-        tooltip: 'Component',
-        composedComponent: Button,
-        composedComponentProps: { children: 'composedComponentProps/children', variant: 'accent' },
-        tooltipOffset: 100,
+        tooltip: 'Offset tooltip',
+        tooltipOffset: 20,
+        children: <Button variant="primary">Hover me</Button>,
+    },
+};
+
+export const CustomComponent: Story = {
+    args: {
+        tooltip: 'Custom component tooltip',
+        composedComponent: 'div',
+        composedComponentProps: {
+            style: { padding: '10px', border: '1px solid blue', display: 'inline-block' },
+        },
+        children: 'Hover over this div',
     },
 };
