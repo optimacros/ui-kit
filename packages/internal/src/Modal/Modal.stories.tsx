@@ -56,6 +56,8 @@ const meta: Meta = {
     title: 'UI kit internal/Modal',
     component: Modal,
     argTypes,
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 
 export default meta;

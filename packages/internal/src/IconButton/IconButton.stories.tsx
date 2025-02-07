@@ -135,6 +135,8 @@ const meta: Meta<typeof IconButton> = {
     title: 'ui kit internal/IconButton',
     component: IconButton,
     argTypes,
+    tags: ['autodocs', 'skip-test-runner'],
+    decorators: [(Story) => <Story />],
 };
 export default meta;
 
