@@ -108,9 +108,15 @@ export const SliderScale = ({
         >
             <Slider.Container>
                 {label && <Slider.Label>{label}</Slider.Label>}
-                {isOutput && <Slider.Output />}
+                {isOutput && (
+                    <span style={{ marginLeft: '10px' }}>
+                        <Slider.Output />
+                    </span>
+                )}
                 {isInput && (
-                    <Input defaultValue={formatedValue[0].toString()} max={max} min={min} />
+                    <div style={{ maxWidth: '40px' }}>
+                        <Input defaultValue={formatedValue[0].toString()} max={max} min={min} />
+                    </div>
                 )}
                 <Slider.Control>
                     <Slider.Track>
