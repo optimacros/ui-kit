@@ -1,7 +1,4 @@
 import { ArgTypes as ArgTypesType, Meta, StoryObj } from '@storybook/react';
-import { Tabs } from './index';
-import * as Stories from './stories';
-
 import {
     ArgTypes,
     Description,
@@ -10,6 +7,8 @@ import {
     Title,
     Stories as StoriesBlock,
 } from '@storybook/blocks';
+import * as Stories from './stories';
+import { Tabs } from '.';
 
 const argTypesTabs: Partial<ArgTypesType> = {
     children: {
@@ -226,6 +225,7 @@ const meta: Meta<typeof Tabs> = {
     tags: ['autodocs', 'skip-test-runner'],
     decorators: [(Story) => <Story />],
 };
+
 export default meta;
 
 type Story = StoryObj<typeof Tabs>;
@@ -239,6 +239,27 @@ export const Basic: Story = {
         onTabSwitch: (n) => console.info(n),
     },
     render: Stories.Basic,
+};
+
+export const Icons: Story = {
+    args: {
+        active: 2,
+        className: 'className',
+        contentClassName: 'contentClassName',
+        headerClassName: 'headerClassName',
+        onTabSwitch: (n) => console.info(n),
+    },
+    render: Stories.Icons,
+};
+
+export const Disabled: Story = {
+    args: {
+        className: 'className',
+        contentClassName: 'contentClassName',
+        headerClassName: 'headerClassName',
+        onTabSwitch: (n) => console.info(n),
+    },
+    render: Stories.Disabled,
 };
 
 export const Controlled: Story = {
