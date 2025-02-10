@@ -49,3 +49,7 @@ A: do `ctrl+f5`
 
 ### Versioning
 run `npx lerna version x.x.x --no-push --no-git-tag-version --conventional-commits`
+
+### Typescript & Test coverage
+`npm run coverage`
+output in ./.coverage
