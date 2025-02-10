@@ -49,20 +49,15 @@ export const Root = forward<RootProps, 'label'>(
     },
 );
 
-export const BoxControl = forward<{}, 'div'>((props, ref) => {
+export const BoxControl = forward<{}, 'input'>((props, ref) => {
     const api = useApi();
     const apiHiddenInputProps = api.getHiddenInputProps();
     const apiControlProps = api.getControlProps();
 
     return (
-        <styled.div
-            {...props}
-            {...apiControlProps}
-            ref={ref}
-            data-scope="checkbox"
-            data-part="box-control"
-        >
+        <styled.div {...props} {...apiControlProps} data-scope="checkbox" data-part="box-control">
             <input
+                ref={ref}
                 data-testid="hidden-input"
                 data-scope="checkbox"
                 data-part="hidden-input"
