@@ -1,6 +1,12 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+const coverageConfig = {
+    istanbul: {
+        include: ['*.stories.tsx'],
+    },
+};
+
 const configDev: StorybookConfig = {
     stories: [
         '../packages/core/src/**/*.stories.@(js|jsx|ts|tsx)',
@@ -14,6 +20,10 @@ const configDev: StorybookConfig = {
         '@storybook/addon-designs',
         'storybook-addon-performance',
         '@storybook/addon-storysource',
+        {
+            name: '@storybook/addon-coverage',
+            options: coverageConfig,
+        },
     ],
     framework: '@storybook/react-vite',
     viteFinal: (cfg) => {

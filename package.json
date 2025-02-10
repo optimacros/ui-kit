@@ -35,13 +35,16 @@
         "rebase:create-mr": "npm run rebase -- --continue --mr",
         "reinstall": "node ./scripts/reinstall.js",
         "type:check": "tsc --pretty --noEmit",
-        "ts-coverage": "typescript-coverage-report"
+        "type:coverage": "typescript-coverage-report -o .coverage/ts",
+        "test:coverage": "npm run test-storybook -- --coverage --coverageDirectory .coverage/storybook",
+        "coverage": "rm -rf .coverage && mkdir .coverage && npm run type:coverage && npm run test:coverage"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
         "@commitlint/cli": "17.1.2",
         "@commitlint/config-conventional": "9.1.2",
         "@storybook/addon-actions": "8.5.2",
+        "@storybook/addon-coverage": "^1.0.5",
         "@storybook/addon-designs": "8.0.4",
         "@storybook/addon-docs": "8.5.2",
         "@storybook/addon-essentials": "8.5.2",
