@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from '@optimacros-ui/flex';
@@ -10,7 +8,6 @@ import { ButtonGroup } from '.';
 const meta: Meta<typeof ButtonGroup.Root> = {
     title: 'UI Kit core/ButtonGroup',
     component: ButtonGroup.Root,
-    tags: ['autodocs'],
     argTypes: {
         orientation: {
             control: 'select',
@@ -18,64 +15,46 @@ const meta: Meta<typeof ButtonGroup.Root> = {
             description: 'The orientation of the button group',
             defaultValue: Orientation.Horizontal,
         },
+        as: { table: { disable: true } },
+        asChild: { table: { disable: true } },
     },
 };
 
 export default meta;
+
 type Story = StoryObj<typeof ButtonGroup.Root>;
 
 export const Base: Story = {
-    render: (args) => (
-        <ButtonGroup.Root {...args}>
-            <ButtonGroup.Item>First</ButtonGroup.Item>
-            <ButtonGroup.Item>Second</ButtonGroup.Item>
-            <ButtonGroup.Item>Third</ButtonGroup.Item>
-        </ButtonGroup.Root>
-    ),
-    args: {
-        orientation: Orientation.Horizontal,
+    args: { orientation: Orientation.Horizontal },
+    render: (props) => {
+        const [activeIndex, setActiveIndex] = useState(0);
+
+        return (
+            <ButtonGroup.Root {...props}>
+                {['First', 'Second', 'Third'].map((label, index) => (
+                    <ButtonGroup.Item
+                        key={label}
+                        active={activeIndex === index}
+                        onClick={() => setActiveIndex(index)}
+                    >
+                        {label}
+                    </ButtonGroup.Item>
+                ))}
+            </ButtonGroup.Root>
+        );
     },
 };
 
 export const Vertical: Story = {
-    render: () => (
-        <ButtonGroup.Root orientation={Orientation.Vertical}>
-            <ButtonGroup.Item>Top</ButtonGroup.Item>
-            <ButtonGroup.Item>Middle</ButtonGroup.Item>
-            <ButtonGroup.Item>Bottom</ButtonGroup.Item>
-        </ButtonGroup.Root>
-    ),
-};
-
-export const WithDisabledItems: Story = {
-    render: () => (
-        <Flex direction="column" gap="4">
-            <ButtonGroup.Root>
-                <ButtonGroup.Item>Enabled</ButtonGroup.Item>
-                <ButtonGroup.Item disabled>Disabled</ButtonGroup.Item>
-                <ButtonGroup.Item>Enabled</ButtonGroup.Item>
-            </ButtonGroup.Root>
-        </Flex>
-    ),
-};
-
-export const WithActiveItems: Story = {
-    render: () => (
-        <Flex direction="column" gap="4">
-            <ButtonGroup.Root>
-                <ButtonGroup.Item>Normal</ButtonGroup.Item>
-                <ButtonGroup.Item active>Active</ButtonGroup.Item>
-                <ButtonGroup.Item>Normal</ButtonGroup.Item>
-            </ButtonGroup.Root>
-        </Flex>
-    ),
+    args: { orientation: Orientation.Vertical },
+    render: Base.render,
 };
 
 export const ComplexExample: Story = {
-    render: () => (
+    render: (props) => (
         <Flex direction="column" gap="4">
-            <ButtonGroup.Root>
-                <ButtonGroup.Item disabled>Normal</ButtonGroup.Item>
+            <ButtonGroup.Root {...props}>
+                <ButtonGroup.Item disabled>Disabled</ButtonGroup.Item>
                 <ButtonGroup.Item active>Active</ButtonGroup.Item>
                 <ButtonGroup.Item>Normal</ButtonGroup.Item>
             </ButtonGroup.Root>
@@ -84,9 +63,9 @@ export const ComplexExample: Story = {
 };
 
 export const WithIcons: Story = {
-    render: () => (
+    render: (props) => (
         <Flex direction="column" gap="4">
-            <ButtonGroup.Root>
+            <ButtonGroup.Root {...props}>
                 <ButtonGroup.Item aria-label="Bold">
                     <Icon value="format_bold" />
                 </ButtonGroup.Item>
@@ -98,7 +77,7 @@ export const WithIcons: Story = {
                 </ButtonGroup.Item>
             </ButtonGroup.Root>
 
-            <ButtonGroup.Root>
+            <ButtonGroup.Root {...props}>
                 <ButtonGroup.Item>
                     <Icon value="format_align_left" />
                     Left
@@ -114,21 +93,4 @@ export const WithIcons: Story = {
             </ButtonGroup.Root>
         </Flex>
     ),
-};
-
-export const InteractiveExample: Story = (props) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    return (
-        <ButtonGroup.Root {...props}>
-            {['First', 'Second', 'Third'].map((label, index) => (
-                <ButtonGroup.Item
-                    key={label}
-                    active={activeIndex === index}
-                    onClick={() => setActiveIndex(index)}
-                >
-                    {label}
-                </ButtonGroup.Item>
-            ))}
-        </ButtonGroup.Root>
-    );
 };
