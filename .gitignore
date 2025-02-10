@@ -28,3 +28,4 @@ lerna-debug
 .npmrc
 .storybook/assets/output.css
 .storybook/__snapshots__/__diff_output__/
+coverage-ts
