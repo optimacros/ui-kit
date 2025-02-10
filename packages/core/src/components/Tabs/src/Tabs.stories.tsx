@@ -19,6 +19,7 @@ export default {
     title: 'UI Kit core/Tabs',
     component: Tabs.Root,
     tags: ['autodocs'],
+    decorators: [(Story) => <Story />],
 };
 
 const items: Tab[] = createTabs(20);
