@@ -41,12 +41,12 @@ const meta: Meta<typeof Menu.Root> = {
         },
 
         // Behavior
-        //@ts-ignore
         autoFocus: {
             control: 'boolean',
             description: 'Whether to focus the menu when opened',
             defaultValue: true,
         },
+        //@ts-ignore
         loop: {
             control: 'boolean',
             description: 'Whether keyboard navigation should loop around',
