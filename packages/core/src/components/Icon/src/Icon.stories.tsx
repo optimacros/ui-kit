@@ -32,6 +32,8 @@ const argTypes: Partial<ArgTypes> = {
         control: 'text',
         description: 'Svg fill/text color',
     },
+    as: { table: { disable: true } },
+    asChild: { table: { disable: true } },
 };
 
 const meta: Meta<typeof Icon> = {
