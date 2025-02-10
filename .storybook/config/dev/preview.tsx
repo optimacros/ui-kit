@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { waitForPageTrulyReadySB } from '../../utils-tmp';
 import { withPerformance } from 'storybook-addon-performance';
 import { setFigmaLink } from '../../utils';
+import featureFlags from '../../../packages/core/src/config/feature_flags.json';
 
 const styles = Promise.all([
     import('../../../packages/themes/src/default/tokens.css?raw'),
@@ -86,6 +87,7 @@ const previewDev: Preview = {
                     initialState={{
                         iconsSrc,
                         styles: style,
+                        featureFlags,
                     }}
                 >
                     <Story />

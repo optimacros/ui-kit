@@ -4,6 +4,7 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import { isFunction } from '@optimacros-ui/utils';
 import { machine, connect } from './menu.machine';
 import type * as menu from '@zag-js/menu';
+import { UiKit } from '../../../store';
 
 export const {
     Api,
@@ -11,10 +12,12 @@ export const {
     RootProvider: Root,
     useSelector,
     useProxySelector,
+    useFeatureFlags,
 } = createReactApiStateContext({
     id: 'menu',
     machine,
     connect,
+    GlobalContext: UiKit,
 });
 
 export type RootProps = ComponentProps<typeof Root>;
@@ -80,6 +83,18 @@ export const SubMenuItem = forward<
     { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & ComponentProps<typeof Root>,
     'li'
 >(({ item, parent, children, ...rest }, ref) => {
+    const isEnabled = useFeatureFlags('submenu');
+
+    if (!isEnabled) {
+        console.warn('submenu feature is disabled');
+        return (
+            <Item {...item} {...rest}>
+                {/*@ts-ignore*/}
+                {children}
+            </Item>
+        );
+    }
+
     return (
         <Root {...rest}>
             {(api) => (
