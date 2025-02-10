@@ -43,7 +43,10 @@ const configDev: StorybookConfig = {
     typescript: {
         reactDocgen: 'react-docgen-typescript',
     },
-    staticDirs: [{ from: '../packages/themes/src', to: 'assets/themes' }],
+    staticDirs: [
+        { from: '../packages/themes/src', to: 'assets/themes' },
+        { from: './assets', to: 'public' },
+    ],
 };
 
 export default configDev;
