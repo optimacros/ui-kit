@@ -3,20 +3,29 @@ import { Icon } from '@optimacros-ui/kit';
 import { useState } from 'react';
 import { ValueChangeDetails } from '@zag-js/color-picker';
 
-export const Swatches = () => {
+export const Swatches = (props) => {
     const presets = ['#f47373', '#697689', '#38a169', '#3182ce'];
 
-    const [value, setValue] = useState('#005599');
+    const [currentValue, setCurrentValue] = useState('#005599');
+    const [finalValue, setFinalValue] = useState('#005599');
 
     const handleValueChange = ({ value }: ValueChangeDetails) => {
-        setValue(value.toString('hex'));
+        console.info(value);
+        setCurrentValue(value.toString('hex'));
+    };
+
+    const handleValueChangeEnd = ({ value }: ValueChangeDetails) => {
+        console.info(value);
+        setFinalValue(value.toString('hex'));
     };
 
     return (
         <div style={{ width: 250 }}>
             <ColorPicker.RootProvider
-                value={ColorPicker.parse(value)}
+                {...props}
+                value={ColorPicker.parse(currentValue)}
                 onValueChange={handleValueChange}
+                onValueChangeEnd={handleValueChangeEnd}
             >
                 {(api) => (
                     <>
