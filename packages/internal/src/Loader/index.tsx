@@ -45,7 +45,6 @@ export const Loader = ({
             max={max}
             min={min}
             ref={innerRef}
-            multicolor={multicolor}
             state={mode}
         >
             {type === 'circular' ? (

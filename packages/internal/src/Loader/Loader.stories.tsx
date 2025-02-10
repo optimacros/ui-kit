@@ -1,10 +1,9 @@
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { Loader } from '@optimacros-ui/kit-internal';
 
 const meta: Meta<typeof Loader> = {
-    title: 'UI Kit internal/Loader',
+    title: 'UI KIT Internal/Loader',
     component: Loader,
-    tags: ['autodocs'],
     argTypes: {
         buffer: {
             control: 'number',
@@ -51,12 +50,6 @@ const meta: Meta<typeof Loader> = {
             defaultValue: false,
         },
     },
-};
-
-const meta: Meta<typeof Loader> = {
-    title: 'UI KIT Internal/Loader',
-    component: Loader,
-    argTypes,
     tags: ['autodocs', 'skip-test-runner'],
     decorators: [(Story) => <Story />],
 };
