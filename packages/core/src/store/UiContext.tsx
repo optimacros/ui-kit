@@ -12,6 +12,7 @@ export const {
     initialState: {
         iconsSrc: '',
         styles: { root: '', theme: '' },
+        featureFlags: {} as Record<string, Record<string, boolean>>,
     },
     actions: { keys: ['iconsSrc', 'styles'] },
     // on first render

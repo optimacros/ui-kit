@@ -5,6 +5,7 @@ import { createUseSelectorHook } from './hooks';
 import { createActorApiHook, createMachineApiHook } from './useMachineApi';
 import { AnyMachine, createMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
 import * as $ from '@optimacros-ui/types';
+import { createUseFeatureFlagsHooks } from './useFeatureFlags';
 
 type HooksConfig = object;
 
@@ -301,8 +302,11 @@ export function createReactApiStateContext<
         selectors?: Selectors;
     };
     connect?: Connect;
+    GlobalContext?: {
+        useProxySelector: any;
+    };
 }) {
-    const { createConfig, id, machine, connect = (api) => api } = config;
+    const { createConfig, id, machine, connect = (api) => api, GlobalContext } = config;
 
     const createdConfig = createConfig?.({} as Api) ?? {};
 
@@ -345,6 +349,10 @@ export function createReactApiStateContext<
         //@ts-ignore
         connect,
     );
+
+    const useFeatureFlags = GlobalContext
+        ? createUseFeatureFlagsHooks(GlobalContext.useProxySelector, id)
+        : () => true;
 
     const useActor = createActorApiHook(machine);
 
@@ -422,5 +430,6 @@ export function createReactApiStateContext<
         RootProvider: RootMachine,
         RootActorProvider: RootActor,
         splitProps: machine.splitProps as Machine['splitProps'],
+        useFeatureFlags,
     };
 }
