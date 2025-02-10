@@ -64,7 +64,8 @@ export const Nested = (props: RootProps) => {
                                     <Menu.SubMenuItem
                                         key={v.value}
                                         disabled={v.disabled}
-                                        parent={api}
+                                        // TODO fix Menu.Api type
+                                        parent={api as ReturnType<typeof Menu.useApi>}
                                         item={v}
                                         positioning={{
                                             fitViewport: false,
