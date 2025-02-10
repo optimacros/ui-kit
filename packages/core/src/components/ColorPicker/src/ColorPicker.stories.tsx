@@ -1,12 +1,9 @@
 import { ColorPicker } from '.';
-import { Icon } from '@optimacros-ui/kit';
-import { ComponentProps, useState } from 'react';
-import { ValueChangeDetails } from '@zag-js/color-picker';
-import { Flex } from '@optimacros-ui/flex';
+import { ComponentProps } from 'react';
 import { ArgTypes as ArgTypesType, Meta, StoryObj } from '@storybook/react';
 import { Title, Subtitle, Description, Primary, Stories, ArgTypes } from '@storybook/blocks';
 import * as scenarios from './__tests__/scenarios';
-import { fn } from '@storybook/test';
+import * as stories from './stories';
 
 const argTypesRoot: ArgTypesType<
     Omit<ComponentProps<typeof ColorPicker.RootProvider>, 'children'>
@@ -32,7 +29,7 @@ const argTypesRoot: ArgTypesType<
         table: { defaultValue: { summary: 'false' } },
     },
     value: {
-        control: 'object',
+        control: false,
         description: 'The current color value',
         table: { type: { summary: 'Color' } },
     },
@@ -83,6 +80,7 @@ const argTypesPopover: Partial<ArgTypesType> = {
 const meta: Meta<typeof ColorPicker.RootProvider> = {
     title: 'Ui kit core/Color Picker',
     argTypes: { ...argTypesRoot, ...argTypesPopover },
+    component: ColorPicker.RootProvider,
     parameters: {
         docs: {
             page: () => (
@@ -103,64 +101,57 @@ const meta: Meta<typeof ColorPicker.RootProvider> = {
 };
 export default meta;
 
-const initialValue = '#005599';
-
 type Story = StoryObj<typeof ColorPicker.RootProvider>;
 
 export const Basic: Story = {
-    args: { onOpenChange: fn() },
-    render: (props) => {
-        const [currentValue, setCurrentValue] = useState(initialValue);
-        const [finalValue, setFinalValue] = useState(initialValue);
-
-        const handleValueChange = ({ value }: ValueChangeDetails) => {
-            setCurrentValue(value.toString('hex'));
-        };
-
-        const handleValueChangeEnd = ({ value }: ValueChangeDetails) => {
-            setFinalValue(value.toString('hex'));
-        };
-
-        return (
-            <Flex direction="column" gap={5} style={{ width: 250 }}>
-                <Flex direction="column">
-                    <span>Current value: {currentValue}</span>
-                    <span>Final value: {finalValue}</span>
-                </Flex>
-
-                <ColorPicker.RootProvider
-                    onValueChange={handleValueChange}
-                    onValueChangeEnd={handleValueChangeEnd}
-                    //value={ColorPicker.parse(currentValue)}
-                    {...props}
-                >
-                    {(api) => (
-                        <>
-                            <ColorPicker.Root>
-                                <ColorPicker.Label>Color</ColorPicker.Label>
-                                <ColorPicker.DefaultControl />
-                                <ColorPicker.Popover
-                                    eyeDropperIcon={<Icon value="eye-drop" />}
-                                ></ColorPicker.Popover>
-                            </ColorPicker.Root>
-
-                            <button onClick={() => api.setValue(initialValue)}>reset</button>
-                        </>
-                    )}
-                </ColorPicker.RootProvider>
-            </Flex>
-        );
-    },
+    args: {},
+    render: stories.Basic,
     play: scenarios.basic,
 };
 
-export {
-    Swatches,
-    Disabled,
-    ReadOnly,
-    FormatHSBA,
-    Positioning,
-    Original,
-    DisableAlpha,
-    PopoverSettings,
-} from './stories';
+export const Swatches: Story = {
+    args: {},
+    render: stories.Swatches,
+    play: scenarios.swatches,
+};
+
+export const FormatHSBA: Story = {
+    args: { format: 'hsba', open: true },
+    render: stories.Basic,
+    // 13 пикселей отличаются в 2 случаях из 3
+    tags: ['skip-test-runner'],
+};
+
+export const Disabled: Story = {
+    args: { disabled: true },
+    render: stories.Basic,
+};
+
+export const ReadOnly: Story = {
+    args: { readOnly: true },
+    render: stories.Basic,
+};
+
+export const DisableAlpha: Story = {
+    args: { disableAlpha: true, open: true },
+    render: stories.Basic,
+};
+
+export const Positioning: Story = {
+    args: {
+        positioning: {
+            placement: 'right',
+            offset: { mainAxis: 200 },
+            gutter: 100,
+            shift: 100,
+            overlap: true,
+        },
+        open: true,
+    },
+    render: stories.Basic,
+};
+
+export const Original: Story = {
+    render: stories.Original,
+    tags: ['skip-test-runner'],
+};
