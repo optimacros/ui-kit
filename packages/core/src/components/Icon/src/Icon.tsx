@@ -8,7 +8,7 @@ export interface IconProps {
     value: string | ReactNode;
     rotate?: number;
     /** as spacing variable */
-    size?: string;
+    size?: number;
     variant?: 'primary' | 'secondary';
     /** color as variable */
     color?: string;
