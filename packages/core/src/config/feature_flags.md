@@ -7,8 +7,27 @@
     }
 }
 ```
+пример[feature_flags.json]('feature_flags.json)
 
-### Использование
+### Прокидывание в контекст
+
+
+```tsx 
+import featureFlags from '../../../packages/core/src/config/feature_flags.json';
+
+<UiKit.Provider
+    initialState={{
+        iconsSrc,
+        styles: style,
+        // object or json object
+        featureFlags,
+    }}
+>
+    {children}
+</UiKit.Provider>
+```
+
+### Использование внутри компонента
 ``` tsx
 import { UiKit } from '../../../store';
 
