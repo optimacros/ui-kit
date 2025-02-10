@@ -6,7 +6,7 @@ import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import * as scenarios from './__tests__/scenarios';
 import { fn } from '@storybook/test';
 
-const argTypes: ArgTypes<ComponentProps<typeof Collapsible.Root>> = {
+const argTypes: ArgTypes<Partial<ComponentProps<typeof Collapsible.Root>>> = {
     open: {
         control: 'boolean',
         description: 'Whether the collapsible is open',
