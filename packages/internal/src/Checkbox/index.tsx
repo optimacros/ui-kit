@@ -1,4 +1,5 @@
-import React, { type CSSProperties, forwardRef, type MouseEventHandler } from 'react';
+import React, { type CSSProperties, type MouseEventHandler } from 'react';
+import { forward } from '@optimacros-ui/store';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 import { isUndefined } from '@optimacros-ui/utils';
@@ -59,7 +60,7 @@ type InitialProps = {
 
 export type CheckboxProps = React.PropsWithChildren<InitialProps>;
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
     (
         {
             tooltipLabel,
@@ -105,7 +106,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     },
 );
 
-const CheckboxComponent = forwardRef<HTMLInputElement, React.PropsWithChildren<InitialProps>>(
+const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInputElement>(
     (
         {
             checked = false,

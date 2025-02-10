@@ -9,10 +9,11 @@ import { UiKit } from '../../../store';
 export const {
     Api,
     useApi,
-    RootProvider: Root,
+    RootProvider,
     useSelector,
     useProxySelector,
     useFeatureFlags,
+    splitProps,
 } = createReactApiStateContext({
     id: 'menu',
     machine,
@@ -20,7 +21,21 @@ export const {
     GlobalContext: UiKit,
 });
 
-export type RootProps = ComponentProps<typeof Root>;
+export type RootProps = ComponentProps<typeof RootProvider>;
+
+export const Root = forward<RootProps & { children: ReactNode }, 'div'>(
+    ({ children, ...rest }, ref) => {
+        const [context, props] = splitProps(rest);
+
+        return (
+            <RootProvider {...context}>
+                <styled.div {...props} ref={ref} data-scope="menu" data-part="root">
+                    {children}
+                </styled.div>
+            </RootProvider>
+        );
+    },
+);
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
@@ -80,7 +95,7 @@ const SubMenuRoot: FC<PropsWithChildren<{ parent: ReturnType<typeof useApi> }>> 
 };
 
 export const SubMenuItem = forward<
-    { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & ComponentProps<typeof Root>,
+    { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & RootProps,
     'li'
 >(({ item, parent, children, ...rest }, ref) => {
     const isEnabled = useFeatureFlags('submenu');
@@ -96,7 +111,7 @@ export const SubMenuItem = forward<
     }
 
     return (
-        <Root {...rest}>
+        <RootProvider {...rest}>
             {(api) => (
                 <SubMenuRoot parent={parent}>
                     <styled.li
@@ -109,7 +124,7 @@ export const SubMenuItem = forward<
                     {isFunction(children) ? children(api) : children}
                 </SubMenuRoot>
             )}
-        </Root>
+        </RootProvider>
     );
 });
 
