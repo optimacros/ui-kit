@@ -28,11 +28,11 @@ export const Root = forward<RootProps, 'div'>(({ children, style, ...context }, 
     );
 });
 
-export const HiddenInput = () => {
+export const HiddenInput = forward<{}, 'input'>((_, ref) => {
     const api = useApi();
 
-    return <styled.input {...api.getHiddenInputProps()} />;
-};
+    return <styled.input {...api.getHiddenInputProps()} ref={ref} />;
+});
 
 export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(
     ({ children, ...rest }, ref) => {
