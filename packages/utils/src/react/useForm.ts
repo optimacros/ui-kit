@@ -15,7 +15,9 @@ import { FormEvent, MutableRefObject, useRef, useState } from 'react';
         <input type="text" name="so" />
   </form>
  */
-export function useFormData<T extends Record<string, any> = Record<string, any>>(defaultValues: T) {
+export function useFormData<T extends Record<string, any> = Record<string, any>>(
+    defaultValues?: T,
+) {
     const [data, setData] = useState(defaultValues ?? {});
 
     return [

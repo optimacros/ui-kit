@@ -20,10 +20,7 @@ const meta: Meta<typeof MenuItem> = {
             description: 'WS_FE legacy thing, deprecated',
             table: { disable: true },
         },
-        key: {
-            control: 'text',
-            description: 'Unique identifier for the menu item',
-        },
+
         value: {
             control: 'text',
             description: 'Value associated with the item',
@@ -61,7 +58,6 @@ type Story = StoryObj<typeof MenuItem>;
 export const Basic: Story = {
     args: {
         title: 'Basic Menu Item',
-        key: 'basic',
         onClick: action('onClick'),
         children: 'Basic Menu Item',
     },
@@ -70,7 +66,6 @@ export const Basic: Story = {
 // MenuItem with label for additional context
 export const WithLabel: Story = {
     args: {
-        key: 'settings',
         onClick: action('onClick'),
         children: (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -86,7 +81,6 @@ export const WithLabel: Story = {
 // MenuItem with value showing selected option
 export const WithValue: Story = {
     args: {
-        key: 'language',
         value: 'English',
         onClick: action('onClick'),
         children: (
@@ -101,7 +95,6 @@ export const WithValue: Story = {
 // MenuItem with icon and text
 export const WithIcon: Story = {
     args: {
-        key: 'notifications',
         onClick: action('onClick'),
         children: (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -115,7 +108,6 @@ export const WithIcon: Story = {
 // MenuItem with complex content
 export const ComplexContent: Story = {
     args: {
-        key: 'profile',
         onClick: action('onClick'),
         children: (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '4px' }}>
@@ -144,7 +136,6 @@ export const ComplexContent: Story = {
 // MenuItem with badge and value
 export const WithBadge: Story = {
     args: {
-        key: 'messages',
         value: '3',
         onClick: action('onClick'),
         children: (
@@ -179,7 +170,6 @@ export const WithBadge: Story = {
 // MenuItem with progress indicator
 export const WithProgress: Story = {
     args: {
-        key: 'upload',
         value: '75%',
         onClick: action('onClick'),
         children: (
@@ -214,7 +204,6 @@ export const WithProgress: Story = {
 export const Destructive: Story = {
     args: {
         title: 'Delete Account',
-        key: 'delete',
         label: 'Permanently delete your account',
         onClick: action('onClick'),
     },
@@ -223,7 +212,6 @@ export const Destructive: Story = {
 // MenuItem with keyboard shortcut
 export const WithShortcut: Story = {
     args: {
-        key: 'save',
         onClick: action('onClick'),
         children: (
             <div

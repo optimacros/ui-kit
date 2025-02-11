@@ -6,7 +6,8 @@ interface Props {
     label?: string;
     value?: string;
     onClick?: MouseEventHandler<HTMLDivElement>;
-    children: React.ReactNode;
+    children?: React.ReactNode;
+    disabled?: boolean;
 }
 
 export const MenuItem = ({ label, title, value, children, onClick, ...restProps }: Props) => {
