@@ -48,21 +48,25 @@ export const Root = forward<ComponentProps<typeof RootProvider>, 'div'>(
         );
     },
 );
+Root.displayName = 'Collapsible.Root';
 
 export const Trigger = forward<{}, 'button'>((props, ref) => {
     const api = useApi();
 
     return <styled.button {...props} {...api.getTriggerProps()} ref={ref} />;
 });
+Trigger.displayName = 'Collapsible.Trigger';
 
 export const Content = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
     return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
 });
+Content.displayName = 'Collapsible.Content';
 
 export const Indicator = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
     return <styled.div {...props} {...api.getIndicatorProps()} ref={ref} />;
 });
+Indicator.displayName = 'Collapsible.Indicator';
