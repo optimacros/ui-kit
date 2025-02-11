@@ -7,7 +7,6 @@ const meta: Meta<typeof Badge> = {
     parameters: {
         layout: 'centered',
     },
-    tags: ['autodocs'],
     argTypes: {
         count: {
             control: { type: 'number' },
@@ -20,7 +19,13 @@ const meta: Meta<typeof Badge> = {
         },
         offset: {
             control: { type: 'number' },
-            description: 'Custom offset value in pixels',
+            description: 'Custom offset value in spacing units',
+            table: { defaultValue: { summary: '-2 (-0.5rem (-8px))' } },
+        },
+        size: {
+            control: { type: 'text' },
+            description: 'Custom size in pixels',
+            table: { defaultValue: { summary: '20px' } },
         },
     },
 } satisfies Meta<typeof Badge>;
@@ -93,6 +98,16 @@ export const CustomOffsets: Story = {
     ),
 };
 
+// Custom size
+export const CustomSize: Story = {
+    args: {
+        count: 5,
+        children: <DemoBox />,
+        size: '40px',
+        offset: -5,
+    },
+};
+
 // No badge (count undefined)
 export const NoBadge: Story = {
     args: {
@@ -110,7 +125,6 @@ export const ZeroCount: Story = {
 
 // With custom content
 export const CustomContent: Story = {
-    tags: ['skip-test-runner'],
     render: () => (
         <div style={{ display: 'flex', gap: '16px' }}>
             <Badge count={5}>
@@ -126,7 +140,7 @@ export const CustomContent: Story = {
             </Badge>
             <Badge count={3}>
                 <img
-                    src="/api/placeholder/40/40"
+                    src="/public/default-avatar.svg"
                     alt="Avatar"
                     style={{
                         width: '40px',
