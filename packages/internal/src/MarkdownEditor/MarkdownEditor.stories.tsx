@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { MarkdownEditor } from '.';
-import { useState, useEffect } from 'react';
 
 const meta: Meta<typeof MarkdownEditor> = {
     title: 'Ui Kit internal/MarkdownEditor',

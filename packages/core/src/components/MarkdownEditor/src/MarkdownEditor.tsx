@@ -35,7 +35,7 @@ export const Root = forward<PropsWithChildren<MarkdownEditorProps>, 'div'>(
     { displayName: 'MarkdownEditorRoot' },
 );
 
-export const EditComponent = forward<{}, 'div'>(
+export const EditComponent = forward<{}, HTMLTextAreaElement>(
     (props, ref) => {
         const { value, setValue } = useApi();
 
@@ -44,9 +44,10 @@ export const EditComponent = forward<{}, 'div'>(
         };
 
         return (
-            <styled.div {...props} ref={ref} data-scope="markdown-editor" data-part="edit">
+            <styled.div {...props} data-scope="markdown-editor" data-part="edit">
                 <styled.textarea
                     value={value}
+                    ref={ref}
                     onChange={handleChange}
                     data-scope="markdown-editor"
                     data-part="textarea"
@@ -59,7 +60,7 @@ export const EditComponent = forward<{}, 'div'>(
     { displayName: 'EditComponent' },
 );
 
-export const Edit = forward<{}, 'div'>(
+export const Edit = forward<{}, HTMLTextAreaElement>(
     (props, ref) => (
         <Tabs.Content value={MarkdownEditorMode.EDIT}>
             <EditComponent {...props} ref={ref} />
