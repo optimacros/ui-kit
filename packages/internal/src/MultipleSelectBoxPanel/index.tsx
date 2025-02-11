@@ -25,7 +25,7 @@ interface IMultipleSelectBoxPanel {
     valueKey?: string;
 }
 
-export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, 'div'>(
+export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLInputElement>(
     (
         {
             className,
@@ -105,7 +105,7 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, 'div'>(
         const correctValue = value === 0 && !isValueExist() && isNullExist() ? null : value;
 
         return (
-            <div data-scope="select" data-part="root" ref={ref}>
+            <div data-scope="select" data-part="root">
                 <Flex direction="column" align="start" wrap="nowrap">
                     <Flex direction="row">{renderItems()}</Flex>
                     <Flex direction="column">
@@ -116,6 +116,7 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, 'div'>(
                             source={correctSource}
                             value={[correctValue]}
                             onChange={handleChange}
+                            ref={ref}
                         />
                         <Button
                             data-scope="select"

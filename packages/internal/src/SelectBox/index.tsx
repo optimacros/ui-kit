@@ -119,10 +119,9 @@ export const SelectBox = forward<ISelectBox, HTMLInputElement>(
                         onValueChange={handleChange}
                         itemToString={itemToString}
                         itemToValue={itemToValue}
-                        ref={ref}
                         {...rest}
                     >
-                        <Select.HiddenInput>
+                        <Select.HiddenInput ref={ref}>
                             {items.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
@@ -181,9 +180,16 @@ export const SelectBox = forward<ISelectBox, HTMLInputElement>(
                         multiple={true}
                         itemToString={itemToString}
                         itemToValue={itemToValue}
-                        ref={ref}
                         {...rest}
                     >
+                        <Select.HiddenInput ref={ref}>
+                            {items.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select.HiddenInput>
+
                         <Flex gap={5} direction="column">
                             <Flex gap={3} wrap="wrap">
                                 Selected values:
