@@ -3,6 +3,7 @@ import type { TextareaHTMLAttributes, InputHTMLAttributes } from 'react';
 import { clsx, isNull, isUndefined } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 import { Field } from '@optimacros-ui/field';
+import { forward } from '@optimacros-ui/store';
 
 export type InputTheme = {
     bar: string;
@@ -27,7 +28,8 @@ export type InputTheme = {
 type HTMLAttributes = TextareaHTMLAttributes<HTMLTextAreaElement> &
     InputHTMLAttributes<HTMLInputElement>;
 
-export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress' | 'id'> {
+export interface IInput
+    extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress' | 'onKeyDown' | 'id'> {
     onChange?: (
         value: string,
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -61,108 +63,120 @@ const getStatus = (error: boolean, readOnly: boolean, warning: boolean) => {
     }
 };
 
-export const Input = ({
-    value,
-    role = 'input',
-    type = 'text',
-    rows = 1,
-    collapsed = false,
-    disabled = false,
-    multiline = false,
-    required = false,
-    floating = true,
-    defaultValue,
-    error,
-    oneLineError,
-    hint = '',
-    icon,
-    label,
-    maxLength,
-    theme: customTheme,
-    onKeyPress,
-    onKeyDown,
-    className,
-    onChange,
-    id,
-    readOnly = false,
-    autoFocus,
-    name,
-    theme = {},
-    ...others
-}: InputProps) => {
-    const elementProps = {
-        ...others,
-        role,
-        defaultValue,
-        required,
-        readOnly,
-        maxLength,
-    };
-
-    const generatedId = useId();
-    const fieldId = id ?? generatedId;
-    const length = !isUndefined(maxLength) && !isUndefined(value) ? value.toString().length : 0;
-    const labelText = !collapsed ? label : '';
-    const fieldValue = isNull(value) ? '' : value;
-
-    const cn = clsx(
-        theme.input,
+export const Input = forward<IInput, HTMLInputElement>(
+    (
         {
-            [theme.collapsed]: collapsed,
-            [theme.disabled]: disabled,
-            [theme.errored]: error,
-            [theme.oneLineError]: oneLineError,
-            [theme.hidden]: type === 'hidden',
-            [theme.withIcon]: icon,
+            value,
+            role = 'input',
+            type = 'text',
+            rows = 1,
+            collapsed = false,
+            disabled = false,
+            multiline = false,
+            required = false,
+            floating = true,
+            defaultValue,
+            error,
+            oneLineError,
+            hint = '',
+            icon,
+            label,
+            maxLength,
+            theme: customTheme,
+            onKeyPress,
+            onKeyDown,
+            className,
+            onChange,
+            id,
+            readOnly = false,
+            autoFocus,
+            name,
+            theme,
+            ...others
         },
-        className,
-    );
+        ref,
+    ) => {
+        const elementProps = {
+            ...others,
+            role,
+            defaultValue,
+            required,
+            readOnly,
+            maxLength,
+        };
 
-    return (
-        <Field.Root
-            {...elementProps}
-            status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
-            className={cn}
-        >
-            {icon && (
-                <Field.FloatingIcon>
-                    <Icon value={icon} className={theme.icon} />
-                </Field.FloatingIcon>
-            )}
-            {labelText && (
-                <Field.FloatingLabel htmlFor={fieldId as string} className={theme.label}>
-                    {labelText}
-                </Field.FloatingLabel>
-            )}
-            {multiline ? (
-                <Field.Multiline
-                    id="test"
-                    rows={3}
-                    value={fieldValue}
-                    defaultValue={defaultValue}
-                    autoFocus={autoFocus}
-                    onChange={onChange}
-                    name={name}
-                    className={theme.input}
-                />
-            ) : (
-                <Field.Input
-                    autoFocus={autoFocus}
-                    type={type}
-                    id={fieldId as string}
-                    name={name}
-                    disabled={disabled}
-                    value={fieldValue}
-                    defaultValue={defaultValue}
-                    onChange={(e) => onChange?.(e.target.value, e)}
-                    className={theme.input}
-                />
-            )}
-            {maxLength && (
-                <Field.Counter length={length} maxLength={maxLength} className={theme.counter} />
-            )}
-            {hint && <Field.FloatingHint className={theme.hint}>{hint}</Field.FloatingHint>}
-            {error && <Field.FloatingError className={theme.error}>{error}</Field.FloatingError>}
-        </Field.Root>
-    );
-};
+        const generatedId = useId();
+        const fieldId = id ?? generatedId;
+        const length = !isUndefined(maxLength) && !isUndefined(value) ? value.toString().length : 0;
+        const labelText = !collapsed ? label : '';
+        const fieldValue = isNull(value) ? '' : value;
+
+        const cn = clsx(
+            theme.input,
+            {
+                [theme.collapsed]: collapsed,
+                [theme.disabled]: disabled,
+                [theme.errored]: error,
+                [theme.oneLineError]: oneLineError,
+                [theme.hidden]: type === 'hidden',
+                [theme.withIcon]: icon,
+            },
+            className,
+        );
+
+        return (
+            <Field.Root
+                {...elementProps}
+                status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
+                className={cn}
+            >
+                {icon && (
+                    <Field.FloatingIcon>
+                        <Icon value={icon} className={theme.icon} />
+                    </Field.FloatingIcon>
+                )}
+                {labelText && (
+                    <Field.FloatingLabel htmlFor={fieldId as string} className={theme.label}>
+                        {labelText}
+                    </Field.FloatingLabel>
+                )}
+                {multiline ? (
+                    <Field.Multiline
+                        id="test"
+                        rows={3}
+                        value={fieldValue}
+                        defaultValue={defaultValue}
+                        autoFocus={autoFocus}
+                        onChange={onChange}
+                        name={name}
+                        className={theme.input}
+                    />
+                ) : (
+                    <Field.Input
+                        autoFocus={autoFocus}
+                        type={type}
+                        id={fieldId as string}
+                        name={name}
+                        disabled={disabled}
+                        value={fieldValue}
+                        defaultValue={defaultValue}
+                        onChange={(e) => onChange?.(e.target.value, e)}
+                        className={theme.input}
+                        ref={ref}
+                    />
+                )}
+                {maxLength && (
+                    <Field.Counter
+                        length={length}
+                        maxLength={maxLength}
+                        className={theme.counter}
+                    />
+                )}
+                {hint && <Field.FloatingHint className={theme.hint}>{hint}</Field.FloatingHint>}
+                {error && (
+                    <Field.FloatingError className={theme.error}>{error}</Field.FloatingError>
+                )}
+            </Field.Root>
+        );
+    },
+);
