@@ -20,6 +20,7 @@ const configDev: StorybookConfig = {
         '@storybook/addon-designs',
         'storybook-addon-performance',
         '@storybook/addon-storysource',
+        'storybook-addon-pseudo-states',
         {
             name: '@storybook/addon-coverage',
             options: coverageConfig,

@@ -90,6 +90,7 @@
         "semantic-ui-react": "^2.1.5",
         "storybook": "8.5.2",
         "storybook-addon-performance": "^0.17.3",
+        "storybook-addon-pseudo-states": "^4.0.2",
         "tsup": "8.3.4",
         "typescript": "5.4.5",
         "typescript-coverage-report": "^1.0.0",
