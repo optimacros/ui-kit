@@ -64,9 +64,9 @@ storybook:
   tags:
     - ${runner}
   script:
-    - npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "npm run build:storybook && npx http-server storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:6006 && npm run test:storybook"
+    - nvm use && sudo npx playwright install-deps
+    - npm run build:storybook
+    - npx concurrently "npx http-server storybook-static --port 6006 --silent" "npx wait-on tcp:6006" "npm run test:storybook"
   
 # push artefacts to nexus
 nexus-push-job:
