@@ -1,6 +1,9 @@
+// @ts-nocheck
+
 import React, { useEffect, useState } from 'react';
 import { Slider } from '@optimacros-ui/slider';
 import { Field } from '@optimacros-ui/field';
+import { forward } from '@optimacros-ui/store';
 
 export interface SliderProps {
     buffer?: number;
@@ -69,57 +72,63 @@ const Input = ({ min, max, defaultValue }) => {
     );
 };
 
-export const SliderScale = ({
-    value = 0,
-    onChange,
-    buffer = 0,
-    min = 0,
-    max = 100,
-    step = 0.01,
-    pinned = false,
-    snaps = false,
-    onDragStart = () => {},
-    onDragStop = () => {},
-    editable = false,
-    label,
-    ...rest
-}: SliderProps) => {
-    const formatedValue = Array.isArray(value) ? value : [value];
+export const SliderScale = forward<SliderProps, 'div'>(
+    (
+        {
+            value = 0,
+            onChange,
+            buffer = 0,
+            min = 0,
+            max = 100,
+            step = 0.01,
+            pinned = false,
+            snaps = false,
+            onDragStart = () => {},
+            onDragStop = () => {},
+            editable = false,
+            label,
+            ...rest
+        },
+        ref,
+    ) => {
+        const formatedValue = Array.isArray(value) ? value : [value];
 
-    const handleSliderChange = ({ value }: { value: Array<number> }) => {
-        onChange?.(value[0]);
-    };
+        const handleSliderChange = ({ value }: { value: Array<number> }) => {
+            onChange?.(value[0]);
+        };
 
-    const isOutput = pinned && !editable;
-    const isInput = editable;
-    const isMarkers = snaps;
+        const isOutput = pinned && !editable;
+        const isInput = editable;
+        const isMarkers = snaps;
 
-    return (
-        <Slider.Root
-            value={formatedValue}
-            onValueChange={handleSliderChange}
-            onValueChangeEnd={onDragStop}
-            min={min}
-            max={max}
-            step={step}
-            onFocusChange={() => {}}
-            controllable
-            {...rest}
-        >
-            <Slider.Container>
-                {label && <Slider.Label>{label}</Slider.Label>}
-                {isOutput && <Slider.Output />}
-                {isInput && (
-                    <Input defaultValue={formatedValue[0].toString()} max={max} min={min} />
-                )}
-                <Slider.Control>
-                    <Slider.Track>
-                        {isMarkers && <Slider.Markers />}
-                        <Slider.Range />
-                    </Slider.Track>
-                    <Slider.Thumb onMouseDown={onDragStart} />
-                </Slider.Control>
-            </Slider.Container>
-        </Slider.Root>
-    );
-};
+        return (
+            <Slider.Root
+                value={formatedValue}
+                onValueChange={handleSliderChange}
+                onValueChangeEnd={onDragStop}
+                min={min}
+                max={max}
+                step={step}
+                onFocusChange={() => {}}
+                controllable
+                ref={ref}
+                {...rest}
+            >
+                <Slider.Container>
+                    {label && <Slider.Label>{label}</Slider.Label>}
+                    {isOutput && <Slider.Output />}
+                    {isInput && (
+                        <Input defaultValue={formatedValue[0].toString()} max={max} min={min} />
+                    )}
+                    <Slider.Control>
+                        <Slider.Track>
+                            {isMarkers && <Slider.Markers />}
+                            <Slider.Range />
+                        </Slider.Track>
+                        <Slider.Thumb onMouseDown={onDragStart} />
+                    </Slider.Control>
+                </Slider.Container>
+            </Slider.Root>
+        );
+    },
+);

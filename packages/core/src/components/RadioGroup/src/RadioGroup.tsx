@@ -35,20 +35,14 @@ export const Item = forward<{ value: string }, 'label'>(({ value, ...rest }, ref
     );
 });
 
-export const Control = forward<{ value: string }, 'div'>(({ value, ...rest }, ref) => {
+export const Control = forward<{ value: string }, 'input'>(({ value, ...rest }, ref) => {
     const api = useApi();
     const apiItemControlProps = api.getItemControlProps({ value });
     const apiHiddenInputProps = api.getItemHiddenInputProps({ value });
 
     return (
-        <styled.div
-            {...rest}
-            {...apiItemControlProps}
-            data-scope="radio-group"
-            data-part="control"
-            ref={ref}
-        >
-            <input {...apiHiddenInputProps} />
+        <styled.div {...rest} {...apiItemControlProps} data-scope="radio-group" data-part="control">
+            <input {...apiHiddenInputProps} ref={ref} />
         </styled.div>
     );
 });
