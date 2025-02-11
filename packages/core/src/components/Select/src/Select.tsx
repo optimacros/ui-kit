@@ -20,7 +20,7 @@ export interface ItemBase {
 }
 
 export const Root = forward<
-    select.CollectionOptions<ItemBase> & ComponentProps<typeof RootProvider>,
+    select.CollectionOptions<ItemBase> & Omit<ComponentProps<typeof RootProvider>, 'collection'>,
     'div'
 >((props, ref) => {
     const { items, isItemDisabled, itemToString, itemToValue, controllable, ...rest } = props;
@@ -111,7 +111,7 @@ export const Value = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} {...api.getValueTextProps()} ref={ref} />;
 });
 
-export const List = forward<{ children: (item: ItemBase) => ReactNode }, 'ul'>(
+export const List = forward<{ children: (item: ItemBase, index: number) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
         const items = useProxySelector((api) => api.collection.items);
 

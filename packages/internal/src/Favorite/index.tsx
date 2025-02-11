@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { FC, MouseEvent } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Favourite as FavouriteComponent } from '@optimacros-ui/favourite';
@@ -21,7 +19,9 @@ export const Favorite: FC<FavoriteProps> = ({ label, onChange, ...rest }) => {
     return (
         <div onClick={handleClick}>
             <FavouriteComponent.Root
-                onCheckedChange={(details: CheckedChangeDetails) => onChange(details.checked)}
+                onCheckedChange={(details: CheckedChangeDetails) =>
+                    onChange(Boolean(details.checked))
+                }
                 {...rest}
             >
                 {label && <FavouriteComponent.Label>{label}</FavouriteComponent.Label>}

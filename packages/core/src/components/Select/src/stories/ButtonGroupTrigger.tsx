@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Icon } from '@optimacros-ui/icon';
 import { ButtonGroup } from '@optimacros-ui/button-group';
 import { ControlTemplate } from './components';

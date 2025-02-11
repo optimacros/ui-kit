@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React, { useEffect } from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
@@ -7,6 +5,8 @@ import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 interface Props extends RCDropdownProps {
     disabled?: boolean;
     closeOnSelect?: boolean;
+    controllable?: boolean;
+    className?: string;
 }
 
 export type DropdownProps = React.PropsWithChildren<Props>;
@@ -62,6 +62,8 @@ export const Dropdown = ({
     };
 
     const isHoverTrigger = trigger[0] === 'hover';
+
+    //@ts-ignore
     const isMenuInOverlay = overlay?.type?.name === 'Menu';
 
     return (
@@ -69,7 +71,7 @@ export const Dropdown = ({
             {...otherProps}
             open={visible}
             onOpenChange={handleVisibleChange}
-            isHoverTrigger={isHoverTrigger}
+            hoverable={isHoverTrigger}
         >
             {(api) => {
                 return isHoverTrigger ? (
@@ -83,6 +85,7 @@ export const Dropdown = ({
                         </Menu.Trigger>
                         <Menu.Positioner>
                             <Menu.Content size="sm">
+                                {/** @ts-ignore */}
                                 <Menu.List>{overlay}</Menu.List>
                             </Menu.Content>
                         </Menu.Positioner>
@@ -95,7 +98,10 @@ export const Dropdown = ({
                         <Menu.Positioner>
                             <Menu.Content size="sm">
                                 <Menu.List>
-                                    {isMenuInOverlay ? overlay?.props?.children : overlay}
+                                    {isMenuInOverlay
+                                        ? //@ts-ignore
+                                          overlay?.props?.children
+                                        : overlay}
                                 </Menu.List>
                             </Menu.Content>
                         </Menu.Positioner>

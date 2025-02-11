@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React from 'react';
 
 let customChecker;
@@ -19,6 +18,7 @@ export function overrideComponentTypeChecker(providedChecker) {
  * @param reactElement {ReactElement} - any React Element (not a real DOM node)
  */
 export function defaultChecker(classType, reactElement) {
+    //@ts-ignore
     if (process.env.NODE_ENV !== 'production') {
         // https://github.com/gaearon/react-hot-loader/blob/v3.0.0-beta.7/docs/Known%20Limitations.md#checking-element-types
         classType = React.createElement(classType).type;

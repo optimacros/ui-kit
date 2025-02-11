@@ -1,7 +1,9 @@
 import { faker } from '@faker-js/faker';
+import * as tree from '@zag-js/tree-view';
+import { TreeView } from '@optimacros-ui/tree-view';
 
 export const createMockMenuItems = (count: number) => {
-    return {
+    return tree.collection<TreeView.Node>({
         nodeToValue: (node) => node.id,
         nodeToString: (node) => node.name,
         rootNode: {
@@ -46,5 +48,5 @@ export const createMockMenuItems = (count: number) => {
                 ),
             ],
         },
-    };
+    });
 };

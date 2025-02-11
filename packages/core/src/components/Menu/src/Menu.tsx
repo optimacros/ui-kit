@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren } from 'react';
+import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren, ReactElement } from 'react';
 import { Portal } from '@zag-js/react';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
@@ -151,13 +151,15 @@ export const Content = forward<{ size?: 'sm' | 'md' | 'lg' }, 'div'>(({ size, ..
     return <styled.div {...rest} {...contentProps} data-size={size} ref={ref} />;
 });
 
-export const List = forward<{ children: ReactNode }, 'ul'>(({ children, ...rest }, ref) => {
-    return (
-        <styled.ul {...rest} ref={ref} data-scope="menu" data-part="list">
-            {children}
-        </styled.ul>
-    );
-});
+export const List = forward<{ children: ReactNode | ReactElement }, 'ul'>(
+    ({ children, ...rest }, ref) => {
+        return (
+            <styled.ul {...rest} ref={ref} data-scope="menu" data-part="list">
+                {children}
+            </styled.ul>
+        );
+    },
+);
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
     const props = useSelector((state) => state.getTriggerProps());

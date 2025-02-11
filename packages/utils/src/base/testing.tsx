@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 
@@ -6,7 +5,9 @@ export default {
     renderComponent(Component, props = {}, state = {}) {
         const component = TestUtils.renderIntoDocument(<Component {...props} />);
 
+        //@ts-ignore
         if (state !== {}) {
+            //@ts-ignore
             component.setState(state);
         }
 

@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import { memo, ReactElement, useEffect, useState, Children, useMemo } from 'react';
+import { memo, ReactElement, useEffect, useState, Children, useMemo, ReactNode } from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
@@ -9,20 +7,34 @@ import { TabButton } from './TabButton';
 import { flushSync } from 'react-dom';
 
 interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
+    tabs?: Array<UITabs.Tab>;
+    meta?: Record<string, any>;
     theme: Partial<TabsTheme>;
 }
 
-const Content = memo(({ className, tabs }) => {
-    return (
-        <Flex className={className}>
-            {tabs.map((tab) => (
-                <UITabs.Content value={tab.value} key={tab.value}>
-                    {tab.children}
-                </UITabs.Content>
-            ))}
-        </Flex>
-    );
-});
+const Content = memo(
+    ({
+        className,
+        tabs,
+    }: {
+        tabs?: Array<
+            UITabs.Tab & {
+                children?: ReactNode;
+            }
+        >;
+        className?: string;
+    }) => {
+        return (
+            <Flex className={className}>
+                {tabs.map((tab) => (
+                    <UITabs.Content value={tab.value} key={tab.value}>
+                        {tab.children}
+                    </UITabs.Content>
+                ))}
+            </Flex>
+        );
+    },
+);
 
 Content.displayName = 'Content';
 
@@ -164,6 +176,7 @@ export const Tabs = memo<TabsProps>(
                 draggableMode="ordered"
                 onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
             >
+                {/** @ts-ignore */}
                 <TabsContent {...rest} theme={theme} active={active} tabs={tabs} meta={tabsMeta} />
             </UITabs.Root>
         );

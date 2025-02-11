@@ -1,7 +1,6 @@
-//@ts-nocheck
 import { isUndefined } from '@optimacros-ui/utils';
 
-export const scrollToActiveTab = () => {
+export function scrollToActiveTab() {
     if (!this.tabsScrollerNode || !this.activeTab) {
         return;
     }
@@ -24,4 +23,4 @@ export const scrollToActiveTab = () => {
     if (isHiddenLeft || isHiddenRight || isHiddenPartRight) {
         this.scrollToTab(position, isHiddenPartRight);
     }
-};
+}

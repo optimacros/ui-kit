@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { ReactNode } from 'react';
 import { menu, Menu } from '@optimacros-ui/kit';
 import { Orientation } from '@optimacros-ui/utils';

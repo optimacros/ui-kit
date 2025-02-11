@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ButtonMenu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 import { Flex } from '@optimacros-ui/flex';
@@ -121,10 +120,10 @@ export const Uppercase: Story = {
         label: 'Menu',
         uppercase: true,
         children: [
-            <MenuItem key={1}>
+            <MenuItem value="1">
                 <span>Option</span>
             </MenuItem>,
-            <MenuItem key={2}>
+            <MenuItem value="2">
                 <span>Option</span>
             </MenuItem>,
         ],
@@ -139,10 +138,10 @@ export const WithTooltip: Story = {
         tooltipPosition: 'bottom',
         tooltipOffset: 0,
         children: [
-            <MenuItem key={1}>
+            <MenuItem value="1" key={1}>
                 <span>Option</span>
             </MenuItem>,
-            <MenuItem key={2}>
+            <MenuItem value="2" key={2}>
                 <span>Option</span>
             </MenuItem>,
         ],
@@ -154,10 +153,10 @@ export const Disabled: Story = {
         label: 'Menu',
         disabled: true,
         children: [
-            <MenuItem key={1}>
+            <MenuItem value="1" key={1}>
                 <span>Option</span>
             </MenuItem>,
-            <MenuItem key={2}>
+            <MenuItem value="2" key={2}>
                 <span>Option</span>
             </MenuItem>,
         ],
@@ -169,10 +168,10 @@ export const Visible: Story = {
         label: 'Menu',
         visible: true,
         children: [
-            <MenuItem key={1}>
+            <MenuItem value="1" key={1}>
                 <span>Option</span>
             </MenuItem>,
-            <MenuItem key={2}>
+            <MenuItem value="2" key={2}>
                 <span>Option</span>
             </MenuItem>,
         ],

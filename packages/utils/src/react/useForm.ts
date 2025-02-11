@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { FormEvent, MutableRefObject, useRef, useState } from 'react';
 
 /**
@@ -16,13 +15,14 @@ import { FormEvent, MutableRefObject, useRef, useState } from 'react';
         <input type="text" name="so" />
   </form>
  */
-export function useFormData<T = {}>(defaultValues: T = {}) {
-    const [data, setData] = useState(defaultValues);
+export function useFormData<T extends Record<string, any> = Record<string, any>>(defaultValues: T) {
+    const [data, setData] = useState(defaultValues ?? {});
 
     return [
         data,
         /** setData, can be used in onBlur onChange etc. */
         (e) => {
+            //@ts-ignore
             setData(() => ({ ...data, [e.target.name]: e.target.value }));
         },
     ] as [T, (e: FormEvent<HTMLFormElement>) => void];
@@ -44,6 +44,7 @@ export function useLazyFormData() {
     return [
         data,
         (e: FormEvent<HTMLFormElement>) => {
+            //@ts-ignore
             data.current.set(e.target.name, e.target.value);
         },
     ] as [MutableRefObject<Map<string, string>>, (e: FormEvent<HTMLFormElement>) => void];

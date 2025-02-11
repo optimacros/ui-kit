@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Loader } from '@optimacros-ui/loader';
 
 interface ProgressBar {

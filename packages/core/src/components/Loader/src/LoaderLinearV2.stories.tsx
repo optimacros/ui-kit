@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { ArgTypes, Meta } from '@storybook/react';
 import { Loader } from '.';
 import { useEffect } from 'react';

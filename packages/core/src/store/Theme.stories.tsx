@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Flex } from '@optimacros-ui/flex';
 import { Header } from '@optimacros-ui/header';
 import { Select } from '@optimacros-ui/select';
@@ -41,7 +39,7 @@ const themes = [
 ].map((value) => ({ value, label: value }));
 
 const ThemeMenu = () => {
-    const { appendStyles, setRootStyles } = UiKit.useActions();
+    const { setRootStyles } = UiKit.useActions();
 
     return (
         <Select.Root

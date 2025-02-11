@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
@@ -13,7 +11,6 @@ import { Flex } from '@optimacros-ui/flex';
 import { shuffle } from '@optimacros-ui/utils';
 import { StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/test';
-import type { Tab } from './Tabs';
 
 export default {
     title: 'UI Kit core/Tabs',
@@ -22,7 +19,7 @@ export default {
     decorators: [(Story) => <Story />],
 };
 
-const items: Tab[] = createTabs(20);
+const items = createTabs(20);
 
 export const Base: StoryObj = {
     render: (props) => {
@@ -269,7 +266,6 @@ export const DraggableOrdered: StoryObj = {
                     <Tabs.List>
                         {tabs.map((tab, i) => (
                             <Tabs.DraggableTrigger
-                                {...tab}
                                 value={tab.value}
                                 key={tab.value}
                                 data-index={i}
@@ -347,7 +343,6 @@ export const DraggableSwap = (props) => {
                 <Tabs.List>
                     {tabs.map((tab, i) => (
                         <Tabs.DraggableTrigger
-                            {...tab}
                             value={tab.value}
                             key={tab.value}
                             data-index={i}

@@ -1,14 +1,11 @@
-//@ts-nocheck
-
-import React, { ReactNode, useId } from 'react';
+import React, { MouseEventHandler, ReactNode, useId } from 'react';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 
 interface Props {
     title?: string;
-    key: string;
     label?: string;
     value?: string;
-    onClick: (event: MouseEvent) => void;
+    onClick?: MouseEventHandler<HTMLDivElement>;
     children: React.ReactNode;
 }
 
@@ -24,7 +21,17 @@ export const MenuItem = ({ label, title, value, children, onClick, ...restProps 
     );
 };
 
-export const SubMenu = ({ label, title, value, children }) => {
+export const SubMenu = ({
+    label,
+    title,
+    value,
+    children,
+}: {
+    label?: string;
+    title?: string;
+    value?: string;
+    children: ReactNode;
+}) => {
     const api = MenuComponent.useApi();
     const generatedKey = useId();
 
@@ -33,7 +40,7 @@ export const SubMenu = ({ label, title, value, children }) => {
             parent={api}
             item={{
                 value: value || generatedKey,
-                valueText: label || title || children,
+                valueText: label || title || (children as string),
                 closeOnSelect: true,
             }}
             closeOnSelect={false}
@@ -52,7 +59,9 @@ export const SubMenu = ({ label, title, value, children }) => {
 
 export const MenuTrigger = MenuComponent.Trigger;
 
-export const Menu = (props: { children: ReactNode; renderTrigger?: () => ReactNode }) => {
+export const Menu = (
+    props: { children: ReactNode; renderTrigger?: () => ReactNode } & MenuComponent.RootProps,
+) => {
     const { children, renderTrigger, ...rest } = props;
 
     return (

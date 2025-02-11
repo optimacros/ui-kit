@@ -1,7 +1,3 @@
-//@ts-nocheck
-
-import {} from '@storybook/react';
-
 import { Select } from '@optimacros-ui/select';
 import { createSelectBoxItems } from '../mock';
 import { Icon } from '@optimacros-ui/icon';

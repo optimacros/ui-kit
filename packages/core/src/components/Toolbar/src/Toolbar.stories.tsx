@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Checkbox, Field } from '@optimacros-ui/kit';
 import { Modal } from '@optimacros-ui/modal';
 import { useState } from 'react';
