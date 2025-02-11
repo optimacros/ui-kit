@@ -110,10 +110,9 @@ export const SelectBox = forward<ISelectBox, HTMLInputElement>(
                         onValueChange={handleChange}
                         itemToString={itemToString}
                         itemToValue={itemToValue}
-                        ref={ref}
                         {...rest}
                     >
-                        <Select.HiddenInput>
+                        <Select.HiddenInput ref={ref}>
                             {items.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
@@ -133,7 +132,6 @@ export const SelectBox = forward<ISelectBox, HTMLInputElement>(
                                                 <Field.FloatingLabel>{label}</Field.FloatingLabel>
                                             )}
                                             <Field.TriggerInput
-                                                ref={ref}
                                                 value={api.empty ? placeholder : api.valueAsString}
                                             >
                                                 <Field.Icon>
@@ -172,9 +170,16 @@ export const SelectBox = forward<ISelectBox, HTMLInputElement>(
                         multiple={true}
                         itemToString={itemToString}
                         itemToValue={itemToValue}
-                        ref={ref}
                         {...rest}
                     >
+                        <Select.HiddenInput ref={ref}>
+                            {items.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select.HiddenInput>
+
                         <Flex gap={5} direction="column">
                             <Flex gap={3} wrap="wrap">
                                 Selected values:
