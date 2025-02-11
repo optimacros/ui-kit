@@ -1,7 +1,8 @@
-import { FC, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Favourite as FavouriteComponent } from '@optimacros-ui/favourite';
 import type { CheckedChangeDetails } from '@zag-js/checkbox';
+import { forward } from '@optimacros-ui/store';
 
 interface FavoriteProps {
     checked: boolean;
@@ -11,10 +12,11 @@ interface FavoriteProps {
     controllable?: boolean;
 }
 
-export const Favorite: FC<FavoriteProps> = ({ label, onChange, ...rest }) => {
-    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-    };
+export const Favorite = forward<FavoriteProps, HTMLInputElement>(
+    ({ label, onChange, ...rest }, ref) => {
+        const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+            event.stopPropagation();
+        };
 
     return (
         <div onClick={handleClick}>
@@ -25,7 +27,7 @@ export const Favorite: FC<FavoriteProps> = ({ label, onChange, ...rest }) => {
                 {...rest}
             >
                 {label && <FavouriteComponent.Label>{label}</FavouriteComponent.Label>}
-                <FavouriteComponent.CustomControl>
+                <FavouriteComponent.CustomControl ref={ref} >
                     <FavouriteComponent.CheckedIcon>
                         <Icon value="star" />
                     </FavouriteComponent.CheckedIcon>

@@ -1,6 +1,6 @@
+import React, { ReactNode, MouseEventHandler } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Chip as ChipComponent } from '@optimacros-ui/chip';
-import React, { ReactNode, MouseEventHandler } from 'react';
 import { forward } from '@optimacros-ui/store';
 
 export type ChipTheme = {
