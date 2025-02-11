@@ -1,11 +1,16 @@
 import { menu } from './index';
 
 export const createMenuItems = (count: number): Array<menu.ItemProps> => {
-    return new Array(count).fill(0).map((v, i) => ({
-        value: `value ${i}`,
-        valueText: `value ${i}`,
+    const items = new Array(count).fill(0).map((_, i) => ({
+        value: `value_${i}`,
+        valueText: `valueText ${i}`,
         disabled: i % 2 === 0,
-        key: `value ${i}`,
-        closeOnSelect: true,
+        //closeOnSelect: true,
     }));
+
+    items[5].valueText = 'typeahead';
+
+    return items;
 };
+
+export const menuItems: Array<menu.ItemProps> = createMenuItems(10);
