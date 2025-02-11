@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { SearchContainer, SearchContainerProps } from '../SearchContainer';
+import { SearchContainer, ISearchContainer } from '../SearchContainer';
 
-export const Controlled = ({ value: initialValue, ...rest }: SearchContainerProps) => {
+export const Controlled = ({ value: initialValue, ...rest }: ISearchContainer) => {
     const [value, setValue] = useState(initialValue);
 
     const handleChange = useCallback((e) => {

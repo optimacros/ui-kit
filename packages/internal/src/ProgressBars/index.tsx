@@ -1,4 +1,5 @@
 import { Loader } from '@optimacros-ui/loader';
+import { forward } from '@optimacros-ui/store';
 
 interface ProgressBar {
     start: () => void;
@@ -16,7 +17,7 @@ interface ProgressBarsProps {
     className?: string;
 }
 
-export const ProgressBars = ({ state }: ProgressBarsProps) => {
+export const ProgressBars = forward<ProgressBarsProps, 'div'>(({ state }, ref) => {
     if (!state || !state.currentProgressBar) {
         return null;
     }
@@ -24,7 +25,7 @@ export const ProgressBars = ({ state }: ProgressBarsProps) => {
     const { progressBars, currentIndex } = state;
 
     return (
-        <>
+        <div ref={ref}>
             {progressBars.map((progressBar: ProgressBar, index: number) => {
                 const { currentValue, maxValue } = progressBar;
                 const needRenderMessage = index === currentIndex;
@@ -45,6 +46,6 @@ export const ProgressBars = ({ state }: ProgressBarsProps) => {
                     </div>
                 );
             })}
-        </>
+        </div>
     );
-};
+});

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Orientation } from '@optimacros-ui/utils';
 import { Navigation as NavigationComponent } from '@optimacros-ui/navigation';
+import { forward } from '@optimacros-ui/store';
 
 type NavigationTheme = {
     horizontal: string;
@@ -30,13 +31,16 @@ const getOrientation = (type: NavigationType, vertical: boolean): Orientation =>
     return Orientation.Horizontal;
 };
 
-export const Navigation = ({ type, children, className, vertical }: NavigationProps) => {
-    return (
-        <NavigationComponent.Root
-            orientation={getOrientation(type, vertical)}
-            className={className}
-        >
-            {children}
-        </NavigationComponent.Root>
-    );
-};
+export const Navigation = forward<NavigationProps, 'nav'>(
+    ({ type, children, className, vertical }, ref) => {
+        return (
+            <NavigationComponent.Root
+                orientation={getOrientation(type, vertical)}
+                className={className}
+                ref={ref}
+            >
+                {children}
+            </NavigationComponent.Root>
+        );
+    },
+);
