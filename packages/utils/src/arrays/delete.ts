@@ -1,4 +1,3 @@
-//@ts-nocheck
 import * as $ from '@optimacros-ui/types';
 import { List } from 'immutable';
 import { filterBy } from './filter';
@@ -35,22 +34,28 @@ export function deleteByParameters<T extends $.Tuple.Indexed.Type<any>>(
     let list = toCollection(arrayLike);
 
     if (at) {
+        //@ts-ignore
         list = list.filterNot((_, i) => at.some((idx) => idx === i));
     }
 
     /** remove `amount` of items from start */
     if (start && amount && !end) {
+        //@ts-ignore
         list = list.skip(amount);
         /** remove `amount` of items from end */
     } else if (end && amount && !start) {
+        //@ts-ignore
         list = list.skipLast(amount);
     }
 
     if (first) {
+        //@ts-ignore
         list = list.shift();
     }
 
     if (last) {
+        //@ts-ignore
+
         list = list.pop();
     }
 

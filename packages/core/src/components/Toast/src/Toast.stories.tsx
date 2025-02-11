@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Toast, ToastGroup } from '.';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Placement } from '@zag-js/toast';
@@ -99,7 +97,7 @@ export const Base = () => {
                 <select
                     value={placement}
                     onChange={(e) => {
-                        setPlacement(e.target.value);
+                        setPlacement(e.target.value as Placement);
                     }}
                 >
                     {placements.map((t) => (

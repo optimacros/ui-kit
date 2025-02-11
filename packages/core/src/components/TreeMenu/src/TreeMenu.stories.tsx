@@ -1,8 +1,5 @@
-//@ts-nocheck
-
 import { Button } from '@optimacros-ui/button';
 import { ReactNode } from 'react';
-import { Meta } from '@storybook/react';
 import { Icon } from '@optimacros-ui/icon';
 import { TreeMenu } from './index';
 import { createMockMenuItems } from './mock';
@@ -64,7 +61,7 @@ export default {
             </Wrapper>
         ),
     ],
-} as Meta;
+};
 
 const menuItems = createMockMenuItems(4);
 

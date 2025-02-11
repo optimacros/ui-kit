@@ -43,7 +43,7 @@ export interface ButtonInitialProps {
     buttonColor: string;
     fontColor: string;
     fontSize: string | number;
-    theme: Partial<ThemeButtonProps>;
+    theme?: Partial<ThemeButtonProps>;
 }
 
 export const getVariant = (
@@ -85,7 +85,7 @@ export const getFloatStyles = (
 
 export const Button = forward<
     Partial<ButtonInitialProps> & {
-        theme: ButtonTheme;
+        theme?: ButtonTheme;
     },
     'button'
 >(

@@ -9,14 +9,14 @@ export interface Node {
 }
 
 export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext<typeof treeview, treeview.Api>({
+    createReactApiStateContext<typeof treeview, treeview.Api, treeview.Context>({
         id: 'tree-view',
         machine: treeview,
     });
 
-type MenuItems = ReturnType<typeof treeview.collection<Node>>;
+export type MenuItems = ReturnType<typeof treeview.collection<Node>>;
 export type RootProps = PropsWithChildren<
-    ComponentProps<typeof RootProvider> & {
+    Omit<ComponentProps<typeof RootProvider>, 'collection'> & {
         menuItems: MenuItems;
     }
 >;

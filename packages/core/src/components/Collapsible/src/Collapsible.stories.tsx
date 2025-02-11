@@ -29,7 +29,9 @@ const argTypes: ArgTypes<Partial<ComponentProps<typeof Collapsible.Root>>> = {
     },
 };
 
-const ChevronDown = () => <Icon value="chevron_left" className="collapsible-icon" rotate={-90} />;
+const ChevronDown = ({ className }: { className?: string }) => (
+    <Icon value="chevron_left" className={className ?? 'collapsible-icon'} rotate={-90} />
+);
 
 const css = `
 /* collapsible.css */
@@ -152,7 +154,6 @@ const meta = {
 } satisfies Meta<typeof Collapsible.Root>;
 
 export default meta;
-
 type Story = StoryObj<typeof Collapsible.Root>;
 
 // Basic Collapsible Story

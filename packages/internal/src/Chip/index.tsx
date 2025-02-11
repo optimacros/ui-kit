@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Icon } from '@optimacros-ui/icon';
 import { Chip as ChipComponent } from '@optimacros-ui/chip';
 import React, { ReactNode, MouseEventHandler } from 'react';
@@ -19,6 +17,8 @@ type Props = {
     settingsDialog?: React.JSX.Element;
     customDeleteIcon?: React.JSX.Element;
     style?: Record<string, any>;
+    theme?: Record<string, any>;
+    className?: string;
 };
 
 export type ChipProps = React.PropsWithChildren<Props>;

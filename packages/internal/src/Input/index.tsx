@@ -1,7 +1,5 @@
-//@ts-nocheck
-
 import React, { useId } from 'react';
-import type { TextareaHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
+import type { TextareaHTMLAttributes, InputHTMLAttributes } from 'react';
 import { isNull, isUndefined } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 import { Field } from '@optimacros-ui/field';
@@ -29,7 +27,7 @@ export type InputTheme = {
 type HTMLAttributes = TextareaHTMLAttributes<HTMLTextAreaElement> &
     InputHTMLAttributes<HTMLInputElement>;
 
-export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress'> {
+export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress' | 'id'> {
     onChange?: (
         value: string,
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -91,9 +89,7 @@ export const Input = ({
     name,
     ...others
 }: InputProps) => {
-    const elementProps: TextareaHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
-        type: HTMLInputTypeAttribute;
-    } = {
+    const elementProps = {
         ...others,
         role,
         defaultValue,
@@ -118,7 +114,9 @@ export const Input = ({
                     <Icon value={icon} />
                 </Field.FloatingIcon>
             )}
-            {labelText && <Field.FloatingLabel htmlFor={fieldId}>{labelText}</Field.FloatingLabel>}
+            {labelText && (
+                <Field.FloatingLabel htmlFor={fieldId as string}>{labelText}</Field.FloatingLabel>
+            )}
             {multiline ? (
                 <Field.Multiline
                     id="test"
@@ -133,7 +131,7 @@ export const Input = ({
                 <Field.Input
                     autoFocus={autoFocus}
                     type={type}
-                    id={fieldId}
+                    id={fieldId as string}
                     name={name}
                     disabled={disabled}
                     value={fieldValue}

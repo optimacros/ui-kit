@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import { Flex } from '@optimacros-ui/flex';
 import { Select } from '@optimacros-ui/select';
 import { mockItems } from '../mock';

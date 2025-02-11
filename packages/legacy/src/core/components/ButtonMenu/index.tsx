@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 
@@ -37,6 +35,7 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
     render(): React.JSX.Element {
         return (
             <Dropdown
+                //@ts-ignore
                 overlay={this.renderMenu()}
                 trigger={['click']}
                 disabled={this.props.disabled}
