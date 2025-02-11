@@ -2,17 +2,27 @@ import { ComponentProps, ReactNode } from 'react';
 import * as tooltip from '@zag-js/tooltip';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
-export const {
-    useApi,
-    Api,
-    RootProvider: Root,
-    splitProps,
-    useProxySelector,
-    useSelector,
-} = createReactApiStateContext<typeof tooltip, tooltip.Api>({
-    id: 'Tooltip',
-    machine: tooltip,
-});
+export const { useApi, Api, RootProvider, splitProps, useProxySelector, useSelector } =
+    createReactApiStateContext<typeof tooltip, tooltip.Api>({
+        id: 'Tooltip',
+        machine: tooltip,
+    });
+
+export type RootProps = ComponentProps<typeof RootProvider>;
+
+export const Root = forward<RootProps & { children: ReactNode }, 'div'>(
+    ({ children, ...rest }, ref) => {
+        const [context, props] = splitProps(rest);
+
+        return (
+            <RootProvider {...context}>
+                <styled.div {...props} ref={ref} data-scope="menu" data-part="root">
+                    {children}
+                </styled.div>
+            </RootProvider>
+        );
+    },
+);
 
 export const Content = ({ children }: { children: ReactNode }) => {
     const api = useApi();

@@ -122,6 +122,14 @@ export const SelectBox = forward<ISelectBox, HTMLInputElement>(
                         ref={ref}
                         {...rest}
                     >
+                        <Select.HiddenInput>
+                            {items.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select.HiddenInput>
+
                         <Select.Control>
                             <Select.Api>
                                 {(api) => (

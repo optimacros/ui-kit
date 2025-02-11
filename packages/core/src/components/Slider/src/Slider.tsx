@@ -1,4 +1,4 @@
-import { PropsWithChildren, ComponentProps, useMemo, ReactNode } from 'react';
+import { PropsWithChildren, ComponentProps, useMemo } from 'react';
 import { ConnectMachine, forward, styled, UserContext, UserState } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createReactApiStateContext } from '@optimacros-ui/store';
@@ -27,24 +27,19 @@ export const { Api, RootProvider, useApi, useProxySelector, useSelector, splitPr
 export type ContainerProps = PropsWithChildren &
     Omit<ComponentProps<typeof RootProvider>, 'aria-label' | 'aria-labelledby'>;
 
-export const Root = forward<
-    ComponentProps<typeof RootProvider> & {
-        children: ReactNode | ((api: ReturnType<typeof useApi>) => ReactNode);
-        dir?: 'ltr' | 'rtl';
-    },
-    'div'
->(({ children, ...rest }, ref) => {
-    const [context, props] = splitProps(rest);
-    const api = useApi();
+export const Root = forward<ComponentProps<typeof RootProvider> & PropsWithChildren, 'div'>(
+    ({ children, ...rest }, ref) => {
+        const [context, props] = splitProps(rest);
 
-    return (
-        <RootProvider {...context}>
-            <styled.div {...props} ref={ref} data-scope="slider" data-part="root">
-                {typeof children === 'function' ? children(api) : children}
-            </styled.div>
-        </RootProvider>
-    );
-});
+        return (
+            <RootProvider {...context}>
+                <styled.div {...props} ref={ref} data-scope="slider" data-part="root">
+                    {children}
+                </styled.div>
+            </RootProvider>
+        );
+    },
+);
 
 export const Container = forward<ContainerProps, 'div'>(
     ({ children, ...rest }, ref) => {
