@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Text } from '@optimacros-ui/text';
 import { Flex } from '@optimacros-ui/flex';
 import { Modal } from '@optimacros-ui/modal';
 import { Chip } from './index';
+import { Meta, StoryFn, ArgTypes } from '@storybook/react';
 
 const Wrapper = ({ children }: { children }) => <div style={{ width: '130px' }}>{children}</div>;
 
-export default {
+const argTypes: ArgTypes<ComponentProps<typeof Chip.Root>> = {
+    as: { table: { disable: true } },
+    asChild: { table: { disable: true } },
+};
+
+const meta: Meta<typeof Chip.Root> = {
     title: 'UI Kit core/Chip',
     component: Chip.Root,
-    tags: ['autodocs'],
+    argTypes,
     decorators: [
         (Story) => (
             <Wrapper>
@@ -20,11 +26,15 @@ export default {
     ],
 };
 
-export const Base = () => {
+export default meta;
+
+type Story = StoryFn<typeof Chip.Root>;
+
+export const Base: Story = () => {
     return <Chip.Root>Base</Chip.Root>;
 };
 
-export const Deletable = () => {
+export const Deletable: Story = () => {
     const [isChip, setIsChip] = useState<boolean>(true);
     const onClickHandle = () => {
         setIsChip(false);
@@ -44,7 +54,7 @@ export const Deletable = () => {
     );
 };
 
-export const WithIcon = () => {
+export const WithIcon: Story = () => {
     return (
         <Chip.Root>
             <Chip.Icon>
@@ -55,7 +65,16 @@ export const WithIcon = () => {
     );
 };
 
-export const Settings = () => {
+export const WithAvatar: Story = () => {
+    return (
+        <Chip.Root>
+            <Chip.Avatar src="/public/default-avatar.svg" />
+            With Avatar
+        </Chip.Root>
+    );
+};
+
+export const WithModal: Story = () => {
     return (
         <Modal.Root>
             <Chip.Root>
@@ -66,6 +85,7 @@ export const Settings = () => {
                     </Chip.Icon>
                 </Modal.Trigger>
             </Chip.Root>
+
             <Modal.Content>
                 <Modal.Title>Great modal</Modal.Title>
                 <Modal.CloseTrigger>close</Modal.CloseTrigger>
@@ -74,7 +94,7 @@ export const Settings = () => {
     );
 };
 
-export const Multiple = () => {
+export const Multiple: Story = () => {
     return (
         <Flex gap="3" wrap="wrap">
             {new Array(10).fill(0).map((_, i) => (
