@@ -1,9 +1,10 @@
 //@ts-nocheck
 
-import { FC, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Favourite as FavouriteComponent } from '@optimacros-ui/favourite';
 import type { CheckedChangeDetails } from '@zag-js/checkbox';
+import { forward } from '@optimacros-ui/store';
 
 interface FavoriteProps {
     checked: boolean;
@@ -13,27 +14,29 @@ interface FavoriteProps {
     controllable?: boolean;
 }
 
-export const Favorite: FC<FavoriteProps> = ({ label, onChange, ...rest }) => {
-    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-    };
+export const Favorite = forward<FavoriteProps, HTMLInputElement>(
+    ({ label, onChange, ...rest }, ref) => {
+        const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+            event.stopPropagation();
+        };
 
-    return (
-        <div onClick={handleClick}>
-            <FavouriteComponent.Root
-                onCheckedChange={(details: CheckedChangeDetails) => onChange(details.checked)}
-                {...rest}
-            >
-                {label && <FavouriteComponent.Label>{label}</FavouriteComponent.Label>}
-                <FavouriteComponent.CustomControl>
-                    <FavouriteComponent.CheckedIcon>
-                        <Icon value="star" />
-                    </FavouriteComponent.CheckedIcon>
-                    <FavouriteComponent.UncheckedIcon>
-                        <Icon value="star_border" />
-                    </FavouriteComponent.UncheckedIcon>
-                </FavouriteComponent.CustomControl>
-            </FavouriteComponent.Root>
-        </div>
-    );
-};
+        return (
+            <div onClick={handleClick}>
+                <FavouriteComponent.Root
+                    onCheckedChange={(details: CheckedChangeDetails) => onChange(details.checked)}
+                    {...rest}
+                >
+                    {label && <FavouriteComponent.Label>{label}</FavouriteComponent.Label>}
+                    <FavouriteComponent.CustomControl ref={ref}>
+                        <FavouriteComponent.CheckedIcon>
+                            <Icon value="star" />
+                        </FavouriteComponent.CheckedIcon>
+                        <FavouriteComponent.UncheckedIcon>
+                            <Icon value="star_border" />
+                        </FavouriteComponent.UncheckedIcon>
+                    </FavouriteComponent.CustomControl>
+                </FavouriteComponent.Root>
+            </div>
+        );
+    },
+);

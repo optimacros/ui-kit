@@ -76,20 +76,14 @@ export const UncheckedIcon = forward<{}, 'div'>((props, ref) => (
     <styled.div {...props} ref={ref} data-scope="checkbox" data-part="unchecked-icon" />
 ));
 
-export const CustomControl = forward<{}, 'div'>(({ children, ...rest }, ref) => {
+export const CustomControl = forward<{}, 'input'>(({ children, ...rest }, ref) => {
     const api = useApi();
     const apiHiddenInputProps = api.getHiddenInputProps();
     const apiControlProps = api.getControlProps();
 
     return (
-        <styled.div
-            {...rest}
-            {...apiControlProps}
-            ref={ref}
-            data-scope="checkbox"
-            data-part="custom-control"
-        >
-            <input {...apiHiddenInputProps} />
+        <styled.div {...rest} {...apiControlProps} data-scope="checkbox" data-part="custom-control">
+            <input {...apiHiddenInputProps} ref={ref} />
             {children}
         </styled.div>
     );

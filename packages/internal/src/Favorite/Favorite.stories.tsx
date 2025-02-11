@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Favorite } from '.';
-import { useState } from 'react';
 import './stories.css';
 
 const meta: Meta<typeof Favorite> = {
