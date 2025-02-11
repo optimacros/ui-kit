@@ -5,6 +5,7 @@ import type { TextareaHTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttribute
 import { isNull, isUndefined } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 import { Field } from '@optimacros-ui/field';
+import { forward } from '@optimacros-ui/store';
 
 export type InputTheme = {
     bar: string;
@@ -29,7 +30,7 @@ export type InputTheme = {
 type HTMLAttributes = TextareaHTMLAttributes<HTMLTextAreaElement> &
     InputHTMLAttributes<HTMLInputElement>;
 
-export interface InputProps extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress'> {
+export interface IInput extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress'> {
     onChange?: (
         value: string,
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -63,87 +64,95 @@ const getStatus = (error: boolean, readOnly: boolean, warning: boolean) => {
     }
 };
 
-export const Input = ({
-    value,
-    role = 'input',
-    type = 'text',
-    rows = 1,
-    collapsed = false,
-    disabled = false,
-    multiline = false,
-    required = false,
-    floating = true,
-    defaultValue,
-    error,
-    oneLineError,
-    hint = '',
-    icon,
-    label,
-    maxLength,
-    theme: customTheme,
-    onKeyPress,
-    onKeyDown,
-    className,
-    onChange,
-    id,
-    readOnly = false,
-    autoFocus,
-    name,
-    ...others
-}: InputProps) => {
-    const elementProps: TextareaHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
-        type: HTMLInputTypeAttribute;
-    } = {
-        ...others,
-        role,
-        defaultValue,
-        required,
-        readOnly,
-        maxLength,
-    };
+export const Input = forward<IInput, HTMLInputElement>(
+    (
+        {
+            value,
+            role = 'input',
+            type = 'text',
+            rows = 1,
+            collapsed = false,
+            disabled = false,
+            multiline = false,
+            required = false,
+            floating = true,
+            defaultValue,
+            error,
+            oneLineError,
+            hint = '',
+            icon,
+            label,
+            maxLength,
+            theme: customTheme,
+            onKeyPress,
+            onKeyDown,
+            className,
+            onChange,
+            id,
+            readOnly = false,
+            autoFocus,
+            name,
+            ...others
+        },
+        ref,
+    ) => {
+        const elementProps: TextareaHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
+            type: HTMLInputTypeAttribute;
+        } = {
+            ...others,
+            role,
+            defaultValue,
+            required,
+            readOnly,
+            maxLength,
+        };
 
-    const generatedId = useId();
-    const fieldId = id ?? generatedId;
-    const length = !isUndefined(maxLength) && !isUndefined(value) ? value.toString().length : 0;
-    const labelText = !collapsed ? label : '';
-    const fieldValue = isNull(value) ? '' : value;
+        const generatedId = useId();
+        const fieldId = id ?? generatedId;
+        const length = !isUndefined(maxLength) && !isUndefined(value) ? value.toString().length : 0;
+        const labelText = !collapsed ? label : '';
+        const fieldValue = isNull(value) ? '' : value;
 
-    return (
-        <Field.Root
-            {...elementProps}
-            status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
-        >
-            {icon && (
-                <Field.FloatingIcon>
-                    <Icon value={icon} />
-                </Field.FloatingIcon>
-            )}
-            {labelText && <Field.FloatingLabel htmlFor={fieldId}>{labelText}</Field.FloatingLabel>}
-            {multiline ? (
-                <Field.Multiline
-                    id="test"
-                    rows={3}
-                    value={fieldValue}
-                    defaultValue={defaultValue}
-                    autoFocus={autoFocus}
-                    onChange={onChange}
-                    name={name}
-                />
-            ) : (
-                <Field.Input
-                    autoFocus={autoFocus}
-                    type={type}
-                    id={fieldId}
-                    name={name}
-                    disabled={disabled}
-                    value={fieldValue}
-                    defaultValue={defaultValue}
-                    onChange={(e) => onChange?.(e.target.value, e)}
-                />
-            )}
-            {maxLength && <Field.Counter length={length} maxLength={maxLength} />}
-            {hint && <Field.FloatingHint>{hint}</Field.FloatingHint>}
-            {error && <Field.FloatingError>{error}</Field.FloatingError>}
-        </Field.Root>
-    );
-};
+        return (
+            <Field.Root
+                {...elementProps}
+                status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
+            >
+                {icon && (
+                    <Field.FloatingIcon>
+                        <Icon value={icon} />
+                    </Field.FloatingIcon>
+                )}
+                {labelText && (
+                    <Field.FloatingLabel htmlFor={fieldId}>{labelText}</Field.FloatingLabel>
+                )}
+                {multiline ? (
+                    <Field.Multiline
+                        id="test"
+                        rows={3}
+                        value={fieldValue}
+                        defaultValue={defaultValue}
+                        autoFocus={autoFocus}
+                        onChange={onChange}
+                        name={name}
+                    />
+                ) : (
+                    <Field.Input
+                        autoFocus={autoFocus}
+                        type={type}
+                        id={fieldId}
+                        name={name}
+                        disabled={disabled}
+                        value={fieldValue}
+                        defaultValue={defaultValue}
+                        onChange={(e) => onChange?.(e.target.value, e)}
+                        ref={ref}
+                    />
+                )}
+                {maxLength && <Field.Counter length={length} maxLength={maxLength} />}
+                {hint && <Field.FloatingHint>{hint}</Field.FloatingHint>}
+                {error && <Field.FloatingError>{error}</Field.FloatingError>}
+            </Field.Root>
+        );
+    },
+);
