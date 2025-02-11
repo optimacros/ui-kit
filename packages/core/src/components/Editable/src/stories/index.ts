@@ -1,5 +1,3 @@
 export * from './States';
+export * from './Basic';
 export * from './Controlled';
-export * from './Placeholder';
-export * from './MaxLength';
-export * from './AutoResize';
