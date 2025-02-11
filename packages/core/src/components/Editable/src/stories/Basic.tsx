@@ -2,47 +2,10 @@ import { Editable } from '@optimacros-ui/editable';
 import { Flex } from '@optimacros-ui/flex';
 import { EditableProps } from '../Editable';
 import { Button } from '@optimacros-ui/button';
-import { useState } from 'react';
-import { EditChangeDetails, ValueChangeDetails } from '@zag-js/editable';
 
-export const Controlled = ({ edit: editProp, value: valueProp, ...rest }: EditableProps) => {
-    const [value, setValue] = useState(valueProp);
-    const [open, setOpen] = useState(editProp);
-
-    const handleValueChange = (details: ValueChangeDetails) => {
-        console.info(details.value, 'action: handleValueChange');
-
-        setValue(details.value);
-    };
-
-    const handleValueCommit = (details: ValueChangeDetails) => {
-        console.info(details.value, 'action: handleValueCommit');
-
-        setValue('commited value');
-    };
-
-    const handleValueRevert = (details: ValueChangeDetails) => {
-        console.info(details.value, 'action: handleValueRevert');
-
-        setValue('reverted value');
-    };
-
-    const handleEditChange = (details: EditChangeDetails) => {
-        console.info(details.edit, 'action: handleEditChange');
-
-        setOpen(details.edit);
-    };
-
+export const Basic = (props: EditableProps) => {
     return (
-        <Editable.RootProvider
-            {...rest}
-            value={value}
-            edit={open}
-            onValueChange={handleValueChange}
-            onValueCommit={handleValueCommit}
-            onValueRevert={handleValueRevert}
-            onEditChange={handleEditChange}
-        >
+        <Editable.RootProvider {...props}>
             {(api) => (
                 <Editable.Root data-testid="root">
                     <Editable.Label>Label</Editable.Label>
