@@ -3,10 +3,11 @@ import { memo, ReactElement, useEffect, useState, Children, useMemo, ReactNode }
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
 import { Flex } from '@optimacros-ui/flex';
+import { forward } from '@optimacros-ui/store';
 import { TabButton } from './TabButton';
 import { flushSync } from 'react-dom';
 
-interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
+interface TabsContentProps extends Omit<ITabs, 'theme' | 'className'> {
     tabs?: Array<UITabs.Tab>;
     meta?: Record<string, any>;
     theme?: Partial<TabsTheme>;
@@ -99,9 +100,10 @@ const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) =>
         </>
     );
 });
+
 TabsContent.displayName = 'TabsContent';
 
-export interface TabsProps {
+export interface ITabs {
     className?: string;
     draggable?: boolean;
     onTabSwitch?: (index: number) => void;
@@ -115,51 +117,55 @@ export interface TabsProps {
     onChange?: (index: number) => void;
 }
 
-export const Tabs = memo<TabsProps>(
-    ({ className, theme = {}, onTabPositionChange, draggable, active, children, ...rest }) => {
-        const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
+export const Tabs = memo(
+    forward<ITabs>(
+        (
+            { className, theme = {}, onTabPositionChange, draggable, active, children, ...rest },
+            ref,
+        ) => {
+            const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
 
-        const [tabs, setTabs] = useState(() =>
-            childrenArr.map(({ props }) => {
-                const { isFixed, title: propsTitle, disabled } = props;
+            const [tabs, setTabs] = useState(() =>
+                childrenArr.map(({ props }) => {
+                    const { isFixed, title: propsTitle, disabled } = props;
 
-                const title = typeof propsTitle === 'string' && propsTitle;
-                const value = title;
+                    const title = typeof propsTitle === 'string' && propsTitle;
+                    const value = title;
 
-                return {
-                    value,
-                    fixed: isFixed,
-                    disabled,
-                };
-            }),
-        );
+                    return {
+                        value,
+                        fixed: isFixed,
+                        disabled,
+                    };
+                }),
+            );
 
-        const tabsMeta = useMemo(() => {
-            return childrenArr.reduce((acc, { props }, index) => {
-                const {
-                    icon,
-                    title: propsTitle,
-                    onDoubleClick,
-                    nonDraggable,
-                    onHeaderContextMenu,
-                    children,
-                } = props;
+            const tabsMeta = useMemo(() => {
+                return childrenArr.reduce((acc, { props }, index) => {
+                    const {
+                        icon,
+                        title: propsTitle,
+                        onDoubleClick,
+                        nonDraggable,
+                        onHeaderContextMenu,
+                        children,
+                    } = props;
 
-                const title = typeof propsTitle === 'string' && propsTitle;
-                const value = title ?? index.toString();
+                    const title = typeof propsTitle === 'string' && propsTitle;
+                    const value = title ?? index.toString();
 
-                acc[value] = {
-                    children,
-                    icon,
-                    onDoubleClick,
-                    nonDraggable,
-                    onHeaderContextMenu,
-                    title,
-                };
+                    acc[value] = {
+                        children,
+                        icon,
+                        onDoubleClick,
+                        nonDraggable,
+                        onHeaderContextMenu,
+                        title,
+                    };
 
-                return acc;
-            }, {});
-        }, [children]);
+                    return acc;
+                }, {});
+            }, [children]);
 
         return (
             <UITabs.Root
@@ -175,13 +181,16 @@ export const Tabs = memo<TabsProps>(
                 draggable={draggable}
                 draggableMode="ordered"
                 onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
+                ref={ref}
             >
                 {/** @ts-ignore */}
                 <TabsContent {...rest} theme={theme} active={active} tabs={tabs} meta={tabsMeta} />
             </UITabs.Root>
         );
     },
+),
 );
+
 Tabs.displayName = 'Tabs';
 
 export const TabHeader = Tabs;

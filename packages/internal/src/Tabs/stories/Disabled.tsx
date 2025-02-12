@@ -1,6 +1,6 @@
-import { Tabs, Tab, TabsProps } from '../';
+import { Tabs, Tab, ITabs } from '../';
 
-export const Disabled = (props: Partial<TabsProps>) => (
+export const Disabled = (props: Partial<ITabs>) => (
     <Tabs {...props}>
         <Tab
             title="Item one"
