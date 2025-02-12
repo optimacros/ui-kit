@@ -3,14 +3,14 @@ import { TabExtended } from './models';
 import { Flex } from '@optimacros-ui/flex';
 import { Counter } from './Counter';
 import { Icon } from '@optimacros-ui/icon';
-import { TabsProps } from './Tabs';
+import { ITabs } from './Tabs';
 
 interface Props
     extends Pick<
             TabExtended,
             'value' | 'icon' | 'counter' | 'maxCounter' | 'onHeaderContextMenu' | 'onDoubleClick'
         >,
-        Pick<TabsProps, 'theme'> {}
+        Pick<ITabs, 'theme'> {}
 
 export const TabButton = memo<Props>(
     ({ value, icon, counter, maxCounter, onHeaderContextMenu, onDoubleClick }) => (
