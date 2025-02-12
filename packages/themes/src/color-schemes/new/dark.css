@@ -1,0 +1,207 @@
+:root {
+  /* Theme Base Colors */
+  --color-theme-black: #010409;
+  --color-theme-white: #f0f6fc;
+
+  /* Theme Gray Scale */
+  --color-theme-gray-50: #f0f6fc;
+  --color-theme-gray-100: #c9d1d9;
+  --color-theme-gray-200: #b1bac4;
+  --color-theme-gray-300: #8b949e;
+  --color-theme-gray-400: #6e7681;
+  --color-theme-gray-500: #484f58;
+  --color-theme-gray-600: #30363d;
+  --color-theme-gray-700: #21262d;
+  --color-theme-gray-800: #161b22;
+  --color-theme-gray-900: #0d1117;
+
+  /* Theme Primary Scale */
+  --color-theme-primary-default: #8068bc;
+  --color-theme-primary-50: #f0edf7;
+  --color-theme-primary-100: #d9d2eb;
+  --color-theme-primary-200: #c0b4de;
+  --color-theme-primary-300: #a695d0;
+  --color-theme-primary-400: #937fc6;
+  --color-theme-primary-500: #8068bc;
+  --color-theme-primary-600: #7860b6;
+  --color-theme-primary-700: #6d55ad;
+  --color-theme-primary-800: #634ba5;
+  --color-theme-primary-900: #503a97;
+
+  /* Theme Accent Scale */
+  --color-theme-accent-default: #d971b0;
+  --color-theme-accent-50: #faeef6;
+  --color-theme-accent-100: #f4d4e7;
+  --color-theme-accent-200: #ecb8d8;
+  --color-theme-accent-300: #e49cc8;
+  --color-theme-accent-400: #df86bc;
+  --color-theme-accent-500: #d971b0;
+  --color-theme-accent-600: #d569a9;
+  --color-theme-accent-700: #cf5ea0;
+  --color-theme-accent-800: #ca5497;
+  --color-theme-accent-900: #c04287;
+
+  /* Theme Secondary Scale */
+  --color-theme-secondary-default: #d29922;
+  --color-theme-secondary-50: #f8e3a1;
+  --color-theme-secondary-100: #f2cc60;
+  --color-theme-secondary-200: #e3b341;
+  --color-theme-secondary-300: #d29922;
+  --color-theme-secondary-400: #bb8009;
+  --color-theme-secondary-500: #9e6a03;
+  --color-theme-secondary-600: #845306;
+  --color-theme-secondary-700: #693e00;
+  --color-theme-secondary-800: #4b2900;
+  --color-theme-secondary-900: #341a00;
+
+  /* Scrollbar Component */
+  --color-scrollbar-primary-default: #464541;
+  --color-scrollbar-primary-thumb-default: #666666;
+  --color-scrollbar-primary-thumb-active: #5a5a5a;
+
+  /* Field/Input Component */
+  --color-field-primary-background-default: #484f58;
+  --color-field-primary-border-default: #8b949e;
+  --color-field-primary-border-active: #949da7;
+  --color-field-primary-default: #c9d1d9;
+
+  /* Background Components */
+  --color-theme-background-primary-default: #24292d;
+
+  /* Theme Text */
+  --color-theme-text-primary-default: #c9d1d9;
+  --color-theme-text-secondary-default: #b1bac4;
+
+  /* Highlight Components */
+  --color-theme-highlight-accent-default: #474800;
+  --color-theme-highlight-light-default: #30363d;
+  --color-theme-highlight-dark-default: #0d1117;
+
+  /* Divider Components */
+  --color-divider-primary-default: #181a1f;
+  --color-divider-secondary-default: #4e4e4e;
+
+  /* Button Components */
+  --color-button-warning-default: #d12a2d;
+  --color-button-warning-on-default: #f0f6fc;
+  --color-button-warning-active: #de5356;
+
+  --color-button-gray-default: #535659;
+  --color-button-gray-on-default: #d6d8da;
+  --color-button-gray-active: #424549;
+  --color-button-gray-border-default: #d1d1d1;
+
+  --color-button-accent-default: #d971b0;
+  --color-button-accent-on-default: #f0f6fc;
+  --color-button-accent-active: #c04287;
+
+  --color-button-primary-on-default: #c04287;
+  --color-button-primary-active: rgba(192, 66, 135, 0.1);
+
+  --color-button-neutral-on-default: #f0f6fc;
+  --color-button-neutral-active: #30363d;
+
+  --color-button-disabled-default: #2c313a;
+  --color-button-disabled-on-default: #939598;
+
+  /* Drive Components */
+  --color-drive-primary-default: #24292d;
+  --color-drive-primary-panel-background: #1c1d22;
+  --color-drive-primary-panel-on-default: #c9d1d9;
+  --color-drive-primary-divider: #cdcdcd;
+  --color-drive-primary-workspace-line: #e2e2e2;
+  --color-drive-primary-folder-default: #8068bc;
+  --color-drive-primary-folder-active: #957bd6;
+  --color-drive-primary-header-tab-default: #343843;
+  --color-drive-primary-header-tab-active: #ba5994;
+  --color-drive-primary-header-on-active: #d6d8da;
+  --color-drive-primary-tags-default: #c9d1d9;
+  --color-drive-primary-tags-border-default: #f9826c;
+  --color-drive-primary-tags-border-active: #f88f79;
+  --color-drive-primary-tags-personal: #c1a84e;
+
+  /* Model Components */
+  --color-model-primary-row-rename: #332c43;
+  --color-model-primary-row-active: #332c43;
+  --color-model-primary-card-border-default: #474950;
+  --color-model-primary-card-active: #6c7078;
+  --color-model-primary-icon-default: #8068bc;
+  --color-model-primary-name-default: #d6d8da;
+  --color-model-primary-size-default: #525252;
+  --color-model-primary-date-default: #c7c7c7;
+  --color-model-primary-offline-date: #c7c7c7;
+  --color-model-primary-status-default: #c7c7c7;
+  --color-model-primary-offline-background: rgba(3, 32, 191, 0.55);
+  --color-model-primary-delete: #474950;
+
+  /* Select Components */
+  --color-select-primary-border-default: #8b949e;
+  --color-select-primary-arrow-background: #8b949e;
+  --color-select-primary-background-default: #31363f;
+  --color-select-primary-selected-default: #8068bc;
+  --color-select-primary-active: #474f5c;
+  --color-select-primary-disabled: #6e7681;
+
+  /* Checkbox Components */
+  --color-checkbox-primary-default: #c1c1c1;
+  --color-checkbox-primary-disabled: #535456;
+  --color-checkbox-primary-on-default: #c1c1c1;
+
+  /* Header Components */
+  --color-header-primary-default: #0d1017;
+  --color-header-primary-on-default: #d6d8da;
+  --color-header-primary-badge-default: #ffff00;
+
+  /* Tab Components */
+  --color-tabs-primary-dropdown-default: #484f58;
+  --color-tabs-primary-dropdown-active: #30363d;
+  --color-tabs-primary-button-default: #b1bac4;
+  --color-tabs-primary-border-default: #6e7681;
+  --color-tabs-primary-border-active: #f9826c;
+  --color-tabs-primary-border-focus: rgba(249, 130, 108, 0.4);
+  --color-tabs-primary-button-active: #f9826c;
+  --color-tabs-primary-content-background: #24292d;
+
+  /* Menu Components */
+  --color-menu-primary-default: #31363f;
+  --color-menu-primary-active: #474f5c;
+  --color-menu-primary-divider-default: #161b22;
+  --color-menu-primary-item-active: #474f5c;
+
+  /* Content Components */
+  --color-content-primary-default: #383838;
+  --color-content-primary-mini-active: rgba(56, 56, 56, 0.8);
+  --color-content-primary-toggle-default: #d6d8da;
+
+  /* Formula Components */
+  --color-formula-primary-comment-function: #61afef;
+  --color-formula-primary-comment-value: #98c379;
+  --color-formula-primary-background: #3d454a;
+  --color-formula-primary-comment-background: #e3e3e3d9;
+  --color-formula-primary-comment-on-default: #484848;
+  --color-formula-primary-incomplete: #000000;
+  --color-formula-primary-value: #d1d1d1;
+  --color-formula-primary-operator: #ff00a5;
+  --color-formula-primary-keyword: #55d8ff;
+  --color-formula-primary-function: #0ec535;
+  --color-formula-primary-unmatched: #898989;
+
+  /* Chart Components */
+  --color-chart-increment: #7ed321;
+  --color-chart-decrement: #d0021b;
+  --color-chart-total: #4a90e2;
+
+  /* Icon Components */
+  --color-icon-primary-default: #a5a5a5;
+  --color-icon-secondary-default: #626262;
+  --color-icon-secondary-100: #50be98;
+
+  /* Navigation Components */
+  --color-navigation-primary-accent: #ffffff;
+
+  /* Comments Components */
+  --color-comments-primary-close-active: #24292d;
+
+  /* Container Components */
+  --color-container-primary-shadow: rgba(255, 255, 255, 0.2);
+}

@@ -45,11 +45,11 @@ const ThemeMenu = () => {
         <Select.Root
             items={themes}
             onValueChange={(v) => {
-                import(`../../../../packages/themes/src/color-schemes/${v.value[0]}.css?raw`).then(
-                    (theme) => {
-                        setRootStyles(theme.default);
-                    },
-                );
+                import(
+                    `../../../../packages/themes/src/color-schemes/new/${v.value[0]}.css?raw`
+                ).then((theme) => {
+                    setRootStyles(theme.default);
+                });
             }}
         >
             <Select.Trigger>
@@ -70,7 +70,7 @@ const ThemeMenu = () => {
     );
 };
 
-export const Base = () => {
+export const Base = (Story) => {
     const currentTheme = UiKit.useProxySelector((s) => s.styles.root);
 
     if (!currentTheme) {

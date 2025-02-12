@@ -179,4 +179,7 @@
   --color-tabs-primary-tab-border-default: var(--color-divider-primary-default);
   --color-tabs-primary-tab-shadow-active: #000000;
   --color-tabs-primary-tab-on-default: var(--color-theme-text-primary-default);
+  --color-icon-primary-default: var(--color-theme-gray-300);
+  --color-icon-secondary-default: var(--color-theme-gray-800);
+  --color-icon-secondary-100: var(--color-theme-primary-default);
 }

@@ -1,0 +1,13 @@
+:root {
+  /* Theme Base Colors */
+  --color-theme-black: #010409;
+  --color-theme-white: #f0f6fc;
+
+  /* Theme Gray Scale */
+  --color-theme-gray-50: #f0f0f0;
+  --color-theme-gray-100: #d9d9d9;
+  --color-theme-gray-200: #c0c0c0;
+  --color-theme-gray-300: #a7a7a7;
+  --color-theme-gray-400: #949494;
+  --color-theme-gray-500: #818181;
+}

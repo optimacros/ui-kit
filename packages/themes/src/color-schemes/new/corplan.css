@@ -1,0 +1,270 @@
+:root {
+  /* Theme Base Colors */
+  --color-theme-black: #010409;
+  --color-theme-white: #f7fbfb;
+
+  /* Theme Gray Scale */
+  --color-theme-gray-50: #f0f0f0;
+  --color-theme-gray-100: #d9d9d9;
+  --color-theme-gray-200: #c0c0c0;
+  --color-theme-gray-300: #a7a7a7;
+  --color-theme-gray-400: #949494;
+  --color-theme-gray-500: #818181;
+  --color-theme-gray-600: #797979;
+  --color-theme-gray-700: #6e6e6e;
+  --color-theme-gray-800: #646464;
+  --color-theme-gray-900: #515151;
+
+  /* Theme Primary Scale */
+  --color-theme-primary-default: #0da096;
+  --color-theme-primary-50: #e7fdfc;
+  --color-theme-primary-100: #bdece6;
+  --color-theme-primary-200: #91d9d2;
+  --color-theme-primary-300: #65c6be;
+  --color-theme-primary-400: #39b3aa;
+  --color-theme-primary-500: #0da096;
+  --color-theme-primary-600: #0a847e;
+  --color-theme-primary-700: #086964;
+  --color-theme-primary-800: #064e4a;
+  --color-theme-primary-900: #043330;
+
+  /* Theme Accent Scale */
+  --color-theme-accent-default: #00737a;
+  --color-theme-accent-50: #e5feff;
+  --color-theme-accent-100: #b8e3e6;
+  --color-theme-accent-200: #8ac7cb;
+  --color-theme-accent-300: #5cabb0;
+  --color-theme-accent-400: #2e8f95;
+  --color-theme-accent-500: #00737a;
+  --color-theme-accent-600: #006066;
+  --color-theme-accent-700: #004e53;
+  --color-theme-accent-800: #003c40;
+  --color-theme-accent-900: #002a2d;
+
+  /* Theme Secondary Scale */
+  --color-theme-secondary-default: #b0dcd9;
+  --color-theme-secondary-50: #edf7f7;
+  --color-theme-secondary-100: #e0f0f1;
+  --color-theme-secondary-200: #d4ebeb;
+  --color-theme-secondary-300: #c8e6e5;
+  --color-theme-secondary-400: #bce1df;
+  --color-theme-secondary-500: #b0dcd9;
+  --color-theme-secondary-600: #90b2b1;
+  --color-theme-secondary-700: #6e8a89;
+  --color-theme-secondary-800: #4c6261;
+  --color-theme-secondary-900: #2a3a39;
+
+  /* Scrollbar Component */
+  --color-scrollbar-primary-default: #e5e5e5;
+  --color-scrollbar-primary-thumb-default: #cdcdcd;
+  --color-scrollbar-primary-thumb-active: #b3b3b3;
+
+  /* Field/Input Component */
+  --color-field-primary-background-default: #ffffff;
+  --color-field-primary-border-default: #b1bac4;
+  --color-field-primary-border-active: #757474;
+  --color-field-primary-default: #595959;
+
+  /* Theme Text */
+  --color-theme-text-primary-default: #212121;
+  --color-theme-text-secondary-default: #595959;
+
+  /* Theme Divider */
+  --color-divider-primary-default: #e8e8e8;
+  --color-divider-secondary-default: #e0e0e0;
+
+  /* Button Components */
+  --color-button-warning-default: #d12a2d;
+  --color-button-warning-on-default: #f0f6fc;
+  --color-button-warning-active: #c74664;
+
+  --color-button-gray-default: #f0f0f0;
+  --color-button-gray-on-default: #595959;
+  --color-button-gray-active: #e7e7e7;
+  --color-button-gray-border-default: #d1d1d1;
+
+  --color-button-accent-default: #00737a;
+  --color-button-accent-on-default: #f0f6fc;
+  --color-button-accent-active: #0da096;
+
+  --color-button-primary-on-default: #0da096;
+  --color-button-primary-active: rgba(13, 160, 150, 0.1);
+
+  --color-button-neutral-on-default: #595959;
+  --color-button-neutral-active: rgba(33, 33, 33, 0.2);
+
+  --color-button-disabled-default: #f0f0f0;
+  --color-button-disabled-on-default: #c9c9c9;
+
+  /* Drive Components */
+  --color-drive-primary-default: #ffffff;
+  --color-drive-primary-panel-background: #0da096;
+  --color-drive-primary-panel-on-default: #ffffff;
+  --color-drive-primary-divider-default: #ffffff;
+  --color-drive-primary-workspace-line: #ffffff;
+  --color-drive-primary-folder-default: #b0dcd9;
+  --color-drive-primary-folder-active: #c8e6e5;
+  --color-drive-primary-header-tab-default: #f5f5f5;
+  --color-drive-primary-header-tab-active: #0da096;
+  --color-drive-primary-header-on-active: #ffffff;
+  --color-drive-primary-tags-default: #929191;
+  --color-drive-primary-tags-border-default: #0da096;
+  --color-drive-primary-tags-border-active: #0da096;
+  --color-drive-primary-tags-personal: #0da096;
+
+  /* Model Components */
+  --color-model-primary-row-rename: #f0f0f0;
+  --color-model-primary-row-active: #f0f0f0;
+  --color-model-primary-card-border-default: #dcdcdc;
+  --color-model-primary-card-active: #0da096;
+  --color-model-primary-icon-default: #0da096;
+  --color-model-primary-name-default: #212121;
+  --color-model-primary-size-default: #a2a2a2;
+  --color-model-primary-date-default: #c7c7c7;
+  --color-model-primary-offline-date: #212121;
+  --color-model-primary-status-default: #212121;
+  --color-model-primary-offline-background: rgba(0, 0, 0, 0.2);
+  --color-model-primary-delete: #727272;
+
+  /* Select Components */
+  --color-select-primary-border-default: #b1bac4;
+  --color-select-primary-arrow-background: #b1bac4;
+  --color-select-primary-background-default: #ffffff;
+  --color-select-primary-selected-default: #0da096;
+  --color-select-primary-active: #eeeeee;
+  --color-select-primary-disabled: #8b949e;
+
+  /* Checkbox Components */
+  --color-checkbox-primary-default: #c1c1c1;
+  --color-checkbox-primary-disabled: #d8d8d8;
+  --color-checkbox-primary-on-default: #595959;
+
+  /* Header Components */
+  --color-header-primary-default: #0da096;
+  --color-header-primary-on-default: #ffffff;
+  --color-header-primary-badge-default: #ffff00;
+
+  /* Tab Components */
+  --color-tabs-primary-dropdown-default: #e8e8e8;
+  --color-tabs-primary-dropdown-active: #dddddd;
+  --color-tabs-primary-button-default: #767676;
+  --color-tabs-primary-border-default: #e8e8e8;
+  --color-tabs-primary-border-active: #0da096;
+  --color-tabs-primary-border-focus: rgba(0, 0, 0, 0.2);
+  --color-tabs-primary-button-active: #0da096;
+  --color-tabs-primary-content-background: #ffffff;
+
+  /* Dropdown/Menu Components */
+  --color-menu-primary-default: #ffffff;
+  --color-menu-primary-active: #ebfaff;
+  --color-menu-primary-divider-default: #cccccc;
+  --color-menu-primary-item-active: #dddddd;
+
+  /* Header Menu Components */
+  --color-menu-header-default: #ffffff;
+  --color-menu-header-shadow-default: rgba(24, 26, 31, 0.2);
+  --color-menu-header-border-default: #0da096;
+  --color-menu-header-item-active: rgba(0, 0, 0, 0.1);
+
+  /* Content Components */
+  --color-content-primary-default: #f5f5f5;
+  --color-content-primary-mini-active: #c8e6c9;
+  --color-content-primary-toggle-default: #939393;
+
+  /* Functional Area Components */
+  --color-functional-primary-header: #303030;
+  --color-functional-primary-selected-default: #666666;
+  --color-functional-primary-selected-background: #ffffff;
+  --color-functional-primary-selected-line: #0da096;
+  --color-functional-primary-view-line: #c74664;
+  --color-functional-primary-view-background: #f8f8f8;
+
+  /* Main Tabs Components */
+  --color-tabs-main-header-default: #f2f2f2;
+  --color-tabs-main-header-border-default: #dadada;
+  --color-tabs-main-footer-default: #e2e2e2;
+  --color-tabs-main-footer-on-default: #545454;
+  --color-tabs-main-label-default: #525252;
+  --color-tabs-main-formula-active: #b71c1c;
+  --color-tabs-main-close-default: #9f9f9f;
+  --color-tabs-main-button-default: #f2f2f2;
+  --color-tabs-main-button-border-default: #dadada;
+  --color-tabs-main-button-active: #ffffff;
+
+  /* Grid Components */
+  --color-grid-primary-border-default: #d3d3d3;
+  --color-grid-primary-cells-border: #e8e8e8;
+  --color-grid-primary-table-background: #ffffff;
+  --color-grid-primary-cell-default: #ffffff;
+  --color-grid-primary-header-default: #f1f1f1;
+  --color-grid-primary-cell-inner: #d7d7d7;
+  --color-grid-primary-body-header: #f1f1f1;
+  --color-grid-primary-body-top-left: #f1f1f1;
+  --color-grid-primary-body-heading: #d7d7d7;
+
+  /* Preview Components */
+  --color-preview-primary-cell-default: #ffffff;
+  --color-preview-primary-cell-link: #0000ff;
+
+  /* Cell Components */
+  --color-cell-primary-background-default: #ffffff;
+  --color-cell-primary-text-calculated: #212121;
+  --color-cell-primary-text-input: #0000ff;
+  --color-cell-primary-editor-background: #ffffff;
+  --color-cell-primary-editor-pre: #0000ff;
+
+  /* Toolbar Components */
+  --color-toolbar-primary-element-default: #2f363b;
+  --color-toolbar-primary-element-shadow: #24292d;
+  --color-toolbar-primary-element-active: #374045;
+  --color-toolbar-primary-icon-default: #9d9d9d;
+  --color-toolbar-primary-icon-secondary: #444444;
+
+  /* DND Zone Components */
+  --color-dnd-primary-default: #e8e8e8;
+  --color-dnd-primary-element-default: #ffffff;
+  --color-dnd-primary-element-on-default: #595959;
+  --color-dnd-primary-element-disabled: #f2f2f2;
+  --color-dnd-primary-element-shadow: #cfcfcf;
+  --color-dnd-primary-element-active: #fcfcfc;
+  --color-dnd-primary-element-selected: #f0f0f0;
+  --color-dnd-primary-element-not-editable: #fdff87;
+  --color-dnd-primary-element-not-editable-active: #f7d75d;
+
+  /* Formula Components */
+  --color-formula-primary-comment-function: #0000ff;
+  --color-formula-primary-comment-value: #008000;
+  --color-formula-primary-background: #eff5f2;
+  --color-formula-primary-comment-background: #1e28851a;
+  --color-formula-primary-comment-on-default: #484848;
+  --color-formula-primary-incomplete: #003cff33;
+  --color-formula-primary-value: #000000;
+  --color-formula-primary-operator: #ff00a5;
+  --color-formula-primary-keyword: #1f38b1;
+  --color-formula-primary-function: #098f25;
+  --color-formula-primary-unmatched: #898989;
+
+  /* Status Components */
+  --color-theme-warning-default: #d12a2d;
+  --color-theme-warning-active: #c74664;
+  --color-theme-attention-default: #dddd00;
+  --color-theme-attention-active: #e1c400;
+
+  /* Toast/Notification Components */
+  --color-toast-accent-default: #d0695b;
+  --color-toast-publish-default: #8e8e8e;
+  --color-toast-icon-default: #000000;
+
+  /* Chart Components */
+  --color-chart-increment: #228b22;
+  --color-chart-decrement: #b22222;
+  --color-chart-total: #0000cd;
+
+  /* Icon Components */
+  --color-icon-primary-default: #a5a5a5;
+  --color-icon-secondary-default: #626262;
+  --color-icon-secondary-100: #50be98;
+
+  /* Navigation Components */
+  --color-navigation-primary-accent: #ffffff;
+}
