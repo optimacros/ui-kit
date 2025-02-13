@@ -6,6 +6,7 @@ import { waitForPageTrulyReadySB } from '../../utils-tmp';
 import { withPerformance } from 'storybook-addon-performance';
 import { setFigmaLink } from '../../utils';
 import featureFlags from '../../../packages/core/src/config/feature_flags.json';
+//@ts-ignore
 import { themes } from '../../../packages/core/src/store/ThemeToggle.tsx';
 const styles = Promise.all([
     import('../../../packages/themes/src/default/tokens.css?raw'),
