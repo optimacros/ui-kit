@@ -47,7 +47,7 @@ export interface IInput
     theme?: Partial<InputTheme>;
     className?: string;
     readonly?: boolean;
-    id?: string | number;
+    id?: string;
 }
 
 const getStatus = (error: boolean, readOnly: boolean, warning: boolean) => {

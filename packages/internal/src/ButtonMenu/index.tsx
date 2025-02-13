@@ -110,6 +110,7 @@ export const ButtonMenu = forward<ButtonMenuProps, 'button'>((props, ref) => {
             renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
             controllable
+            //@ts-ignore
             ref={ref}
         >
             {children}

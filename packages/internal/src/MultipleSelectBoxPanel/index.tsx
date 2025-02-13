@@ -25,7 +25,7 @@ interface IMultipleSelectBoxPanel {
     valueKey?: string;
 }
 
-export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLInputElement>(
+export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLSelectElement>(
     (
         {
             className,

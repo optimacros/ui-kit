@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useEffect } from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
@@ -66,55 +68,57 @@ export const Dropdown = forward<DropdownProps, 'div'>(
             }, 120);
         };
 
-    const isHoverTrigger = trigger[0] === 'hover';
+        const isHoverTrigger = trigger[0] === 'hover';
 
-    //@ts-ignore
-    const isMenuInOverlay = overlay?.type?.name === 'Menu';
+        //@ts-ignore
+        const isMenuInOverlay = overlay?.type?.name === 'Menu';
 
-    return (
-        <Menu.Root
-            {...otherProps}
-            ref={ref}
-            open={visible}
-            onOpenChange={handleVisibleChange}
-            hoverable={isHoverTrigger}
-        >
-            {(api) => {
-                return isHoverTrigger ? (
-                    <div
-                        style={{ width: 'fit-content' }}
-                        onMouseEnter={() => handleMouseEnter(api)}
-                        onMouseLeave={(e) => handleMouseLeave(e, api)}
-                    >
-                        <Menu.Trigger asChild>
-                            <div>{children}</div>
-                        </Menu.Trigger>
-                        <Menu.Positioner>
-                            <Menu.Content size="sm">
-                                {/** @ts-ignore */}
-                                <Menu.List>{overlay}</Menu.List>
-                            </Menu.Content>
-                        </Menu.Positioner>
-                    </div>
-                ) : (
-                    <>
-                        <Menu.Trigger asChild>
-                            <div>{children}</div>
-                        </Menu.Trigger>
-                        <Menu.Positioner>
-                            <Menu.Content size="sm">
-                                <Menu.List>
-                                    {isMenuInOverlay
-                                        ? //@ts-ignore
-                                          overlay?.props?.children
-                                        : overlay}
-                                </Menu.List>
-                            </Menu.Content>
-                        </Menu.Positioner>
-                    </>
-                );
-            }}
-        </Menu.Root>
-    );
-},
+        return (
+            <Menu.Root
+                {...otherProps}
+                ref={ref}
+                open={visible}
+                onOpenChange={handleVisibleChange}
+                hoverable={isHoverTrigger}
+            >
+                <Menu.Api>
+                    {(api) => {
+                        return isHoverTrigger ? (
+                            <div
+                                style={{ width: 'fit-content' }}
+                                onMouseEnter={() => handleMouseEnter(api)}
+                                onMouseLeave={(e) => handleMouseLeave(e, api)}
+                            >
+                                <Menu.Trigger asChild>
+                                    <div>{children}</div>
+                                </Menu.Trigger>
+                                <Menu.Positioner>
+                                    <Menu.Content size="sm">
+                                        {/** @ts-ignore */}
+                                        <Menu.List>{overlay}</Menu.List>
+                                    </Menu.Content>
+                                </Menu.Positioner>
+                            </div>
+                        ) : (
+                            <>
+                                <Menu.Trigger asChild>
+                                    <div>{children}</div>
+                                </Menu.Trigger>
+                                <Menu.Positioner>
+                                    <Menu.Content size="sm">
+                                        <Menu.List>
+                                            {isMenuInOverlay
+                                                ? //@ts-ignore
+                                                  overlay?.props?.children
+                                                : overlay}
+                                        </Menu.List>
+                                    </Menu.Content>
+                                </Menu.Positioner>
+                            </>
+                        );
+                    }}
+                </Menu.Api>
+            </Menu.Root>
+        );
+    },
 );

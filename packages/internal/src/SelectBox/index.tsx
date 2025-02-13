@@ -64,7 +64,7 @@ const getStatus = (disabled: boolean, error: boolean) => {
     }
 };
 
-export const SelectBox = forward<ISelectBox, HTMLInputElement>(
+export const SelectBox = forward<ISelectBox, HTMLSelectElement>(
     (
         {
             label,

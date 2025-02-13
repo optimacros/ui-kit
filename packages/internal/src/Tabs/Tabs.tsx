@@ -118,7 +118,7 @@ export interface ITabs {
 }
 
 export const Tabs = memo(
-    forward<ITabs>(
+    forward<ITabs, 'div'>(
         (
             { className, theme = {}, onTabPositionChange, draggable, active, children, ...rest },
             ref,
@@ -167,28 +167,34 @@ export const Tabs = memo(
                 }, {});
             }, [children]);
 
-        return (
-            <UITabs.Root
-                activationMode="manual"
-                className={className}
-                onValueChange={(d) => {
-                    rest.onTabSwitch(UITabs.getTabIndex(d.value));
-                    rest.onChange(UITabs.getTabIndex(d.value));
-                }}
-                onPositionChange={onTabPositionChange}
-                tabsHidden={rest.hideTabHeader}
-                useWheel
-                draggable={draggable}
-                draggableMode="ordered"
-                onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
-                ref={ref}
-            >
-                {/** @ts-ignore */}
-                <TabsContent {...rest} theme={theme} active={active} tabs={tabs} meta={tabsMeta} />
-            </UITabs.Root>
-        );
-    },
-),
+            return (
+                <UITabs.Root
+                    activationMode="manual"
+                    className={className}
+                    onValueChange={(d) => {
+                        rest.onTabSwitch(UITabs.getTabIndex(d.value));
+                        rest.onChange(UITabs.getTabIndex(d.value));
+                    }}
+                    onPositionChange={onTabPositionChange}
+                    tabsHidden={rest.hideTabHeader}
+                    useWheel
+                    draggable={draggable}
+                    draggableMode="ordered"
+                    onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
+                    ref={ref}
+                >
+                    {/** @ts-ignore */}
+                    <TabsContent
+                        {...rest}
+                        theme={theme}
+                        active={active}
+                        tabs={tabs}
+                        meta={tabsMeta}
+                    />
+                </UITabs.Root>
+            );
+        },
+    ),
 );
 
 Tabs.displayName = 'Tabs';
