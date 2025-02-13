@@ -23,6 +23,7 @@ const previewDev: Preview = {
             },
             disableSaveFromUI: true,
         },
+        test: { dangerouslyIgnoreUnhandledErrors: true },
     },
     decorators: [
         // Load theme
