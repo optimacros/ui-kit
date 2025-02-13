@@ -2,6 +2,7 @@ import { Select } from '@optimacros-ui/select';
 import { Button } from '@optimacros-ui/button';
 import { UiKit } from '.';
 import { Meta } from '@storybook/react';
+import { useEffect } from 'storybook/internal/preview-api';
 const meta = {
     title: 'UI Kit core/Theme',
     tags: ['autodocs'],
@@ -9,7 +10,7 @@ const meta = {
 
 export default meta;
 
-const themes = [
+export const themes = [
     'advexcel',
     'airplane',
     'corplan',
@@ -88,4 +89,18 @@ export const ThemeToggleWrapper = ({ children }) => {
             {children}
         </>
     );
+};
+
+export const ThemeImportWrapper = ({ children, context }) => {
+    const { setCustomStyles } = UiKit.useActions();
+
+    useEffect(() => {
+        import(
+            `../../../../packages/themes/src/color-schemes/new/${context.globals.theme}.css?raw`
+        ).then((theme) => {
+            setCustomStyles(theme.default);
+        });
+    }, [context.globals.theme]);
+
+    return children(context);
 };

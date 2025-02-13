@@ -87,6 +87,7 @@ export const Provider = (props: ComponentProps<typeof BaseProvider>) => {
                 const { styles } = state;
                 styles.root && actions.setRootStyles(styles.root);
                 styles.theme && actions.setThemeStyles(styles.theme);
+                styles.custom && actions.setCustomStyles(styles.custom);
             }}
         />
     );
