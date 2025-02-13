@@ -1,1 +1,1 @@
-export * as Draggable from './Draggable';
+export * as Draggable from './exports';
