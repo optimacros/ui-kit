@@ -11,28 +11,38 @@ export const { Api, RootProvider, useApi, splitProps, useProxySelector, useSelec
     });
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, style, ...context }, ref) => {
+export const Root = forward<RootProps, 'div'>(({ children, controllable, ...context }, ref) => {
+    const [providerProps, elementProps] = machine.splitProps(context);
+
     return (
-        <RootProvider {...context}>
-            {(api) => (
-                <styled.div
-                    {...api.getRootProps()}
-                    style={style}
-                    ref={ref}
-                    data-empty={api.acceptedFiles.length <= 0}
-                >
-                    {children}
-                </styled.div>
-            )}
+        <RootProvider {...providerProps} controllable={controllable}>
+            <RootComponent {...elementProps} ref={ref}>
+                {children}
+            </RootComponent>
         </RootProvider>
     );
 });
 
-export const HiddenInput = () => {
+const RootComponent = forward<{}, 'div'>(({ children, ...rest }, ref) => {
     const api = useApi();
 
-    return <styled.input {...api.getHiddenInputProps()} />;
-};
+    return (
+        <styled.div
+            {...api.getRootProps()}
+            {...rest}
+            ref={ref}
+            data-empty={api.acceptedFiles.length <= 0}
+        >
+            {children}
+        </styled.div>
+    );
+});
+
+export const HiddenInput = forward<{}, 'input'>((props, ref) => {
+    const api = useApi();
+
+    return <styled.input {...api.getHiddenInputProps()} {...props} ref={ref} />;
+});
 
 export const UploadTrigger = forward<{ children: ReactNode }, 'button'>(
     ({ children, ...rest }, ref) => {
@@ -62,12 +72,12 @@ export const ClearTrigger = forward<{ children: ReactNode }, 'button'>(
     },
 );
 
-export const DeleteItemTrigger = forward<{ children: ReactNode }, 'button'>(
-    ({ file, children }: { file: File; children: ReactNode }, ref) => {
+export const DeleteItemTrigger = forward<{ file: File; children: ReactNode }, 'button'>(
+    ({ file, children, ...rest }, ref) => {
         const api = useApi();
 
         return (
-            <styled.button {...api.getItemDeleteTriggerProps({ file })} ref={ref}>
+            <styled.button {...api.getItemDeleteTriggerProps({ file })} {...rest} ref={ref}>
                 {children}
             </styled.button>
         );
