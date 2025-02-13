@@ -16,12 +16,12 @@
   --color-button-primary-on-default: var(--color-theme-primary-800);
   --color-button-neutral-on-default: var(--color-pallete-gray-900);
   --color-button-inverse-on-default: var(--color-theme-background-primary-default);
-  --color-button-bordered-on-default: var(--color-theme-primary-500);
+  --color-button-bordered-on-default: var(--color-theme-primary-default);
   --color-button-bordered-active: var(--color-theme-primary-700);
   --color-button-bordered-on-active: var(--color-button-accent-on-default);
   --color-button-error-on-default: var(--color-theme-error-on-default);
   --color-button-error-default: var(--color-theme-error-default);
-  --color-button-bordered-border-default: var(--color-theme-primary-500);
+  --color-button-bordered-border-default: var(--color-theme-primary-default);
   --color-button-bordered-border-active: var(--color-theme-transparent);
   --color-button-success-default: var(--color-theme-success-default);
   --color-button-success-on-default: var(--color-theme-success-on-default);
@@ -179,4 +179,7 @@
   --color-tabs-primary-tab-border-default: var(--color-divider-primary-default);
   --color-tabs-primary-tab-shadow-active: #000000;
   --color-tabs-primary-tab-on-default: var(--color-theme-text-primary-default);
+  --color-icon-primary-default: var(--color-theme-gray-300);
+  --color-icon-secondary-default: var(--color-theme-gray-800);
+  --color-icon-secondary-100: var(--color-theme-primary-default);
 }

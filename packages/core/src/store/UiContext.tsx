@@ -11,7 +11,11 @@ export const {
     id: 'ui-kit',
     initialState: {
         iconsSrc: '',
-        styles: { root: '', theme: '' },
+        styles: { root: '', theme: '', custom: '' } as {
+            root: string;
+            theme: string;
+            custom?: string;
+        },
         featureFlags: {} as Record<string, Record<string, boolean>>,
     },
     actions: { keys: ['iconsSrc', 'styles'] },
@@ -59,6 +63,17 @@ export const {
                         payload: { path: 'theme', value: payload },
                     });
                 },
+                setCustomStyles(
+                    state: typeof initialState,
+                    payload: (typeof initialState)['styles']['custom'],
+                ) {
+                    appendStyles(state, { id: 'optimacros-ui-custom-styles', value: payload });
+
+                    //@ts-ignore
+                    return createdActions.setInStyles(state, {
+                        payload: { path: 'custom', value: payload },
+                    });
+                },
             },
         };
     },
@@ -72,6 +87,7 @@ export const Provider = (props: ComponentProps<typeof BaseProvider>) => {
                 const { styles } = state;
                 styles.root && actions.setRootStyles(styles.root);
                 styles.theme && actions.setThemeStyles(styles.theme);
+                styles.custom && actions.setCustomStyles(styles.custom);
             }}
         />
     );
