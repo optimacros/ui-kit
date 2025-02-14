@@ -1,7 +1,7 @@
 import { forward, styled } from '@optimacros-ui/store';
-import { RootProvider, useApi } from './context';
+import { CounterProps, RootProvider, useApi } from './context';
 
-export const Root = forward<{ maxValue: number; step?: number }, 'span'>(
+export const Root = forward<CounterProps, 'span'>(
     ({ defaultValue, maxValue, step, children, ...rest }, ref) => (
         <styled.span
             {...rest}

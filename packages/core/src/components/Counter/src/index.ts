@@ -1,3 +1,3 @@
 import './index.css';
 
-export * as Counter from './Counter';
+export * as Counter from './exports';

@@ -1,16 +1,28 @@
-import { createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 
-export interface CounterProps {
+export interface CounterState {
     value: number | string;
     increase: () => void;
     decrease: () => void;
 }
 
-const CounterContext = createContext<CounterProps>(null);
+export interface CounterProps {
+    defaultValue?: number;
+    step?: number;
+    maxValue?: number;
+    children?: ReactNode;
+}
+
+const CounterContext = createContext<CounterState>(null);
 
 export const useApi = () => useContext(CounterContext);
 
-export const RootProvider = ({ defaultValue, maxValue = Infinity, step = 1, children }) => {
+export const RootProvider = ({
+    defaultValue,
+    maxValue = Infinity,
+    step = 1,
+    children,
+}: CounterProps) => {
     const [counter, setCounter] = useState<number>(defaultValue || 0);
 
     const increase = () => {
