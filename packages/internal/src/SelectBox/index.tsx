@@ -5,6 +5,7 @@ import { IconButton } from '@optimacros-ui/icon-button';
 import { Select } from '@optimacros-ui/select';
 import { Flex } from '@optimacros-ui/flex';
 import type { InputTheme } from '../Input';
+import { clsx } from '@optimacros-ui/utils';
 
 export type SelectBoxTheme = {
     active: string;
@@ -66,7 +67,7 @@ export const SelectBox = ({
     label,
     className,
     multiSelect,
-    theme: customTheme = {},
+    theme = {},
     value,
     source,
     options,
@@ -76,6 +77,7 @@ export const SelectBox = ({
     labelKey,
     valueKey,
     placeholder = 'choose value',
+    disabled,
     ...rest
 }: SelectBoxProps) => {
     const handleChange = (newValue) => {
@@ -93,6 +95,15 @@ export const SelectBox = ({
 
     const curValue = !value || Array.isArray(value) ? value : [value];
     const items = source || options;
+
+    const cn = clsx(
+        theme.dropdown,
+        {
+            [theme.disabled]: disabled ?? false,
+            [theme.required]: required ?? false,
+        },
+        className,
+    );
 
     return (
         <>
@@ -118,6 +129,7 @@ export const SelectBox = ({
                                         )}
                                         <Field.TriggerInput
                                             value={api.empty ? placeholder : api.valueAsString}
+                                            className={theme.value}
                                         >
                                             <Field.Icon>
                                                 <Icon value="arrow_drop_down" />
@@ -131,7 +143,7 @@ export const SelectBox = ({
                     </Select.Control>
 
                     <Select.Positioner>
-                        <Select.Content>
+                        <Select.Content className={cn}>
                             <Select.List>
                                 {(item: SourceItem) => (
                                     <Select.Item
@@ -188,6 +200,7 @@ export const SelectBox = ({
                                         <Select.Trigger {...api.getTriggerProps()}>
                                             <Field.TriggerInput
                                                 value={api.empty ? placeholder : api.valueAsString}
+                                                className={theme.value}
                                             >
                                                 <Field.Icon>
                                                     <Icon value="arrow_drop_down" />
@@ -203,7 +216,7 @@ export const SelectBox = ({
                     </Flex>
 
                     <Select.Positioner>
-                        <Select.Content>
+                        <Select.Content className={cn}>
                             <Select.List>
                                 {(item) => (
                                     <Select.Item item={item} key={`select-${item.value}`}>

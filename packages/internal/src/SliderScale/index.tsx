@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Slider } from '@optimacros-ui/slider';
 import { Field } from '@optimacros-ui/field';
+import { clsx } from '@optimacros-ui/utils';
 
 export interface SliderProps {
     buffer?: number;
@@ -40,7 +41,7 @@ export interface SliderProps {
     label?: string;
 }
 
-const Input = ({ min, max, defaultValue }) => {
+const Input = ({ min, max, defaultValue, className }) => {
     const [inputValue, setInputValue] = useState(() => defaultValue);
     const { value, setValue } = Slider.useSelector((s) => s);
 
@@ -63,6 +64,7 @@ const Input = ({ min, max, defaultValue }) => {
                         setValue([target?.valueAsNumber]);
                     }
                 }}
+                className={className}
                 data-arrows-hidden
             />
         </Field.Root>
@@ -82,6 +84,7 @@ export const SliderScale = ({
     onDragStop = () => {},
     editable = false,
     label,
+    theme,
     ...rest
 }: SliderProps) => {
     const formatedValue = Array.isArray(value) ? value : [value];
@@ -94,6 +97,16 @@ export const SliderScale = ({
     const isInput = editable;
     const isMarkers = snaps;
 
+    const className = clsx(
+        theme.slider,
+        {
+            [theme.editable]: editable,
+            [theme.disabled]: rest.disabled,
+            [theme.ring]: value === min,
+        },
+        rest.className,
+    );
+
     return (
         <Slider.Root
             value={formatedValue}
@@ -104,9 +117,10 @@ export const SliderScale = ({
             step={step}
             onFocusChange={() => {}}
             controllable
+            className={className}
             {...rest}
         >
-            <Slider.Container>
+            <Slider.Container className={theme.container}>
                 {label && <Slider.Label>{label}</Slider.Label>}
                 {isOutput && (
                     <span style={{ marginLeft: '10px' }}>
@@ -115,7 +129,12 @@ export const SliderScale = ({
                 )}
                 {isInput && (
                     <div style={{ maxWidth: '40px' }}>
-                        <Input defaultValue={formatedValue[0].toString()} max={max} min={min} />
+                        <Input
+                            defaultValue={formatedValue[0].toString()}
+                            max={max}
+                            min={min}
+                            className={theme.input}
+                        />
                     </div>
                 )}
                 <Slider.Control>
@@ -123,7 +142,7 @@ export const SliderScale = ({
                         {isMarkers && <Slider.Markers />}
                         <Slider.Range />
                     </Slider.Track>
-                    <Slider.Thumb onMouseDown={onDragStart} />
+                    <Slider.Thumb onMouseDown={onDragStart} className={theme.knob} />
                 </Slider.Control>
             </Slider.Container>
         </Slider.Root>

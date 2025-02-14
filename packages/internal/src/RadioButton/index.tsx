@@ -52,7 +52,7 @@ export const RadioButton = ({
     };
 
     return (
-        <div data-scope="radio-group" data-part="root" {...state}>
+        <div data-scope="radio-group" data-part="root" {...state} className={theme.field}>
             <label
                 onClick={onClick}
                 onMouseEnter={onMouseEnter}
@@ -68,6 +68,7 @@ export const RadioButton = ({
                     tabIndex={0}
                     data-scope="radio-group"
                     data-part="control"
+                    className={theme.input}
                     {...state}
                 />
                 <input
@@ -85,7 +86,12 @@ export const RadioButton = ({
                     {...others}
                 />
                 {label && (
-                    <span data-scope="radio-group" data-part="text" {...state}>
+                    <span
+                        data-scope="radio-group"
+                        data-part="text"
+                        className={theme.text}
+                        {...state}
+                    >
                         {label || placeholder}
                     </span>
                 )}

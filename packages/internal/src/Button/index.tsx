@@ -2,6 +2,7 @@ import React, { ComponentProps } from 'react';
 import { Button as ButtonComponent } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
 import { forward } from '@optimacros-ui/store';
+import { useThemeClassName } from '../utils';
 
 export type ThemeButtonProps = {
     button: string;
@@ -85,7 +86,7 @@ export const getFloatStyles = (
 
 export const Button = forward<
     Partial<ButtonInitialProps> & {
-        theme?: ButtonTheme;
+        theme?: Partial<ButtonTheme>;
     },
     'button'
 >(
@@ -112,6 +113,7 @@ export const Button = forward<
             floating,
             raised,
             disabled,
+            className,
             ...rest
         },
         ref,
@@ -121,6 +123,8 @@ export const Button = forward<
             color: fontColor,
             fontSize,
         };
+
+        const cn = useThemeClassName(theme, className);
 
         return (
             <ButtonComponent
@@ -135,6 +139,7 @@ export const Button = forward<
                 style={style}
                 ref={ref}
                 type={type}
+                className={cn}
                 {...rest}
             >
                 {label}

@@ -9,7 +9,7 @@ import { flushSync } from 'react-dom';
 interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
     tabs?: Array<UITabs.Tab>;
     meta?: Record<string, any>;
-    theme: Partial<TabsTheme>;
+    theme?: Partial<TabsTheme>;
 }
 
 const Content = memo(
