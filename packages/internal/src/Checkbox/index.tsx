@@ -109,6 +109,7 @@ const CheckboxComponent = ({
     onMouseEnter,
     onMouseLeave,
     onClick,
+    theme,
     ...rest
 }: React.PropsWithChildren<InitialProps>) => {
     return (
@@ -120,10 +121,15 @@ const CheckboxComponent = ({
             onCheckedChange={(e) => onChange?.(e.checked, {})}
             //TODO: think how to handle controllable use case without using flag outside
             controllable={!isUndefined(onChange)}
+            className={theme.field}
             {...rest}
         >
-            <CheckboxCore.BoxControl onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
-            {label && <CheckboxCore.Label>{label}</CheckboxCore.Label>}
+            <CheckboxCore.BoxControl
+                className={theme.input}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            />
+            {label && <CheckboxCore.Label className={theme.text}>{label}</CheckboxCore.Label>}
             {children}
         </CheckboxCore.Root>
     );

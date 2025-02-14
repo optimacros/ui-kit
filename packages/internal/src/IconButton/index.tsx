@@ -8,6 +8,7 @@ import {
 } from '@optimacros-ui/kit-internal';
 import { IconButton as IconButtonCore } from '@optimacros-ui/icon-button';
 import { forward } from '@optimacros-ui/store';
+import { useThemeClassName } from '../utils';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
@@ -18,7 +19,7 @@ interface Props extends Partial<ButtonInitialProps> {
 export type IconButtonProps = Partial<Props & TooltipProps>;
 
 export interface IconBtnProps extends IconButtonProps {
-    theme: IconButtonTheme & { toggle: string };
+    theme?: IconButtonTheme & { toggle: string };
 }
 
 const IconButtonComponent = forward<IconBtnProps, 'button'>(
@@ -56,6 +57,8 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
             fontSize,
         };
 
+        const cn = useThemeClassName(theme, className);
+
         return (
             <IconButtonCore
                 variant={getVariant(primary, accent, bordered, gray, neutral)}
@@ -68,6 +71,7 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
                 uppercase={uppercase}
                 icon={icon}
                 style={style}
+                className={cn}
                 {...rest}
                 ref={ref}
             />

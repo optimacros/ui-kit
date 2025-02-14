@@ -46,7 +46,7 @@ export const Calendar = ({
     minDate,
     maxDate,
     sundayFirstDayOfWeek,
-    theme,
+    theme = {},
 }: CalendarProps) => {
     return (
         <CalendarComponent.Root
@@ -59,41 +59,41 @@ export const Calendar = ({
             min={minDate && dateFormatters(minDate)}
             max={maxDate && dateFormatters(maxDate)}
         >
-            <CalendarComponent.Content>
-                <CalendarComponent.Header>
-                    <CalendarComponent.HeaderYears />
-                    <CalendarComponent.HeaderMonths />
+            <CalendarComponent.Content className={theme.wrapper}>
+                <CalendarComponent.Header className={theme.header}>
+                    <CalendarComponent.HeaderYears className={theme.yearsDisplay} />
+                    <CalendarComponent.HeaderMonths className={theme.date} />
                 </CalendarComponent.Header>
-                <CalendarComponent.DaysViewControl>
-                    <CalendarComponent.DaysPrevTrigger>
+                <CalendarComponent.DaysViewControl className={theme.navigation}>
+                    <CalendarComponent.DaysPrevTrigger className={theme.button}>
                         <Icon value="chevron_left" />
                     </CalendarComponent.DaysPrevTrigger>
-                    <CalendarComponent.DaysRangeText />
-                    <CalendarComponent.DaysNextTrigger>
+                    <CalendarComponent.DaysRangeText className={theme.monthsDisplay} />
+                    <CalendarComponent.DaysNextTrigger className={theme.button}>
                         <Icon value="chevron_right" />
                     </CalendarComponent.DaysNextTrigger>
                 </CalendarComponent.DaysViewControl>
                 <CalendarComponent.YearsViewControl>
-                    <CalendarComponent.YearsPrevTrigger>
+                    <CalendarComponent.YearsPrevTrigger className={theme.button}>
                         <Icon value="chevron_left" />
                     </CalendarComponent.YearsPrevTrigger>
-                    <CalendarComponent.YearsRangeText />
-                    <CalendarComponent.YearsNextTrigger>
+                    <CalendarComponent.YearsRangeText className={theme.yearsDisplay} />
+                    <CalendarComponent.YearsNextTrigger className={theme.button}>
                         <Icon value="chevron_right" />
                     </CalendarComponent.YearsNextTrigger>
                 </CalendarComponent.YearsViewControl>
-                <CalendarComponent.YearsTable>
+                <CalendarComponent.YearsTable className={theme.calendarWrapper}>
                     <CalendarComponent.YearsTableBody />
                 </CalendarComponent.YearsTable>
-                <CalendarComponent.DaysTable>
+                <CalendarComponent.DaysTable className={theme.calendarWrapper}>
                     <CalendarComponent.DaysTableHead />
                     <CalendarComponent.DaysTableBody />
                 </CalendarComponent.DaysTable>
                 <CalendarComponent.Footer>
-                    <CalendarComponent.DismissButton onSelect={onDismiss} className={theme?.button}>
+                    <CalendarComponent.DismissButton onSelect={onDismiss} className={theme.button}>
                         {cancelLabel}
                     </CalendarComponent.DismissButton>
-                    <CalendarComponent.SuccessButton onSelect={onSelect} className={theme?.button}>
+                    <CalendarComponent.SuccessButton onSelect={onSelect} className={theme.button}>
                         {okLabel}
                     </CalendarComponent.SuccessButton>
                 </CalendarComponent.Footer>

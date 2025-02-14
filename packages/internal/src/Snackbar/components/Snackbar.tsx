@@ -37,7 +37,7 @@ const SnackbarComponent = memo<SnackbarProps>(
         action,
         Button = DefaultButton,
         onClick,
-        theme,
+        theme = {},
         timeout,
         label,
         type,

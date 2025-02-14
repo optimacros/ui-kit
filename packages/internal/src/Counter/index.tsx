@@ -39,14 +39,14 @@ export const Counter: React.FC<CounterProps> = ({
         const NavigationComponent = navigationComponent;
 
         return (
-            <CounterComponent.Root maxValue={maxValue} defaultValue={value}>
+            <CounterComponent.Root maxValue={maxValue} defaultValue={value} className={className}>
                 <NavigationComponent route={route}>{renderCounter()}</NavigationComponent>
             </CounterComponent.Root>
         );
     }
 
     return (
-        <CounterComponent.Root maxValue={maxValue} defaultValue={value}>
+        <CounterComponent.Root maxValue={maxValue} defaultValue={value} className={className}>
             {renderCounter()}
         </CounterComponent.Root>
     );

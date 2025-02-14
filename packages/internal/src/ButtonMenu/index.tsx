@@ -93,6 +93,7 @@ export const ButtonMenu: React.FC<ButtonMenuProps> = (props) => {
                 onMouseLeave={onMouseLeave}
                 data-label={label}
                 data-name={dataName}
+                theme={theme}
             >
                 {renderContent()}
             </Button>

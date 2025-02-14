@@ -1,6 +1,6 @@
 import React, { useId } from 'react';
 import type { TextareaHTMLAttributes, InputHTMLAttributes } from 'react';
-import { isNull, isUndefined } from '@optimacros-ui/utils';
+import { clsx, isNull, isUndefined } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 import { Field } from '@optimacros-ui/field';
 
@@ -87,6 +87,7 @@ export const Input = ({
     readOnly = false,
     autoFocus,
     name,
+    theme = {},
     ...others
 }: InputProps) => {
     const elementProps = {
@@ -104,18 +105,34 @@ export const Input = ({
     const labelText = !collapsed ? label : '';
     const fieldValue = isNull(value) ? '' : value;
 
+    const cn = clsx(
+        theme.input,
+        {
+            [theme.collapsed]: collapsed,
+            [theme.disabled]: disabled,
+            [theme.errored]: error,
+            [theme.oneLineError]: oneLineError,
+            [theme.hidden]: type === 'hidden',
+            [theme.withIcon]: icon,
+        },
+        className,
+    );
+
     return (
         <Field.Root
             {...elementProps}
             status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
+            className={cn}
         >
             {icon && (
                 <Field.FloatingIcon>
-                    <Icon value={icon} />
+                    <Icon value={icon} className={theme.icon} />
                 </Field.FloatingIcon>
             )}
             {labelText && (
-                <Field.FloatingLabel htmlFor={fieldId as string}>{labelText}</Field.FloatingLabel>
+                <Field.FloatingLabel htmlFor={fieldId as string} className={theme.label}>
+                    {labelText}
+                </Field.FloatingLabel>
             )}
             {multiline ? (
                 <Field.Multiline
@@ -126,6 +143,7 @@ export const Input = ({
                     autoFocus={autoFocus}
                     onChange={onChange}
                     name={name}
+                    className={theme.input}
                 />
             ) : (
                 <Field.Input
@@ -137,11 +155,14 @@ export const Input = ({
                     value={fieldValue}
                     defaultValue={defaultValue}
                     onChange={(e) => onChange?.(e.target.value, e)}
+                    className={theme.input}
                 />
             )}
-            {maxLength && <Field.Counter length={length} maxLength={maxLength} />}
-            {hint && <Field.FloatingHint>{hint}</Field.FloatingHint>}
-            {error && <Field.FloatingError>{error}</Field.FloatingError>}
+            {maxLength && (
+                <Field.Counter length={length} maxLength={maxLength} className={theme.counter} />
+            )}
+            {hint && <Field.FloatingHint className={theme.hint}>{hint}</Field.FloatingHint>}
+            {error && <Field.FloatingError className={theme.error}>{error}</Field.FloatingError>}
         </Field.Root>
     );
 };

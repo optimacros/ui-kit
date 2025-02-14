@@ -246,13 +246,29 @@ export const IconButton: Story = {
 };
 
 export const AllFeatures: Story = {
+    render(props) {
+        return (
+            <>
+                <Button {...props} />
+                <style>
+                    {`.custom-buttom-class {
+                        border-radius: 1px !important;
+                        background: beige !important;
+                    }`}
+                </style>
+            </>
+        );
+    },
     args: {
         label: 'Kitchen Sink',
         primary: true,
         raised: true,
         bordered: true,
-        uppercase: true,
         fontSize: 14,
         icon: '🚀',
+        theme: {
+            button_uppercase: 'uppercase',
+            Button: 'custom-buttom-class',
+        },
     },
 };

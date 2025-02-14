@@ -17,7 +17,7 @@ type Props = {
     settingsDialog?: React.JSX.Element;
     customDeleteIcon?: React.JSX.Element;
     style?: Record<string, any>;
-    theme?: Record<string, any>;
+    theme?: Partial<ChipTheme>;
     className?: string;
 };
 
@@ -31,12 +31,18 @@ export const Chip = ({
     settingsDialog,
     theme: customTheme = {},
     customDeleteIcon,
+    theme,
     ...other
 }: ChipProps) => {
     const renderDeleteIcon = (): ReactNode => {
         if (customDeleteIcon) {
             return (
-                <span data-scope="chip" data-part="icon" onClick={onDeleteClick}>
+                <span
+                    data-scope="chip"
+                    data-part="icon"
+                    onClick={onDeleteClick}
+                    className={theme.deleteIcon}
+                >
                     {customDeleteIcon}
                 </span>
             );
@@ -44,13 +50,13 @@ export const Chip = ({
 
         return (
             <ChipComponent.Icon onClick={onDeleteClick}>
-                <Icon value="cancel" />
+                <Icon value="cancel" className={theme.deleteIcon} />
             </ChipComponent.Icon>
         );
     };
 
     return (
-        <ChipComponent.Root {...other}>
+        <ChipComponent.Root {...other} className={theme.chip}>
             {children}
             <div>
                 {settingsDialog && <span>{settingsDialog}</span>}

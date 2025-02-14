@@ -1,5 +1,6 @@
 import React from 'react';
 import { Loader as LoaderComponent } from '@optimacros-ui/loader';
+import { clsx } from '@optimacros-ui/utils';
 
 export type LoaderTheme = {
     buffer?: string;
@@ -37,8 +38,18 @@ export const Loader = ({
     buffer = null,
     innerRef,
     disabled = false,
+    className,
 }: LoaderProps) => {
     const isInfinite = !value && !buffer;
+
+    const cn = clsx(
+        theme[type],
+        {
+            [theme.indeterminate]: mode === 'indeterminate',
+            [theme.multicolor]: multicolor,
+        },
+        className,
+    );
 
     return (
         <LoaderComponent.Root
@@ -50,14 +61,15 @@ export const Loader = ({
             ref={innerRef}
             multicolor={multicolor}
             state={mode}
+            className={cn}
         >
             {type === 'circular' ? (
-                <LoaderComponent.Circle>
-                    <LoaderComponent.CircleTrack />
+                <LoaderComponent.Circle className={theme.circle}>
+                    <LoaderComponent.CircleTrack className={theme.path} />
                     <LoaderComponent.CircleRange />
                 </LoaderComponent.Circle>
             ) : (
-                <LoaderComponent.LinearTrack>
+                <LoaderComponent.LinearTrack className={theme.buffer}>
                     <LoaderComponent.LinearRange />
                 </LoaderComponent.LinearTrack>
             )}
