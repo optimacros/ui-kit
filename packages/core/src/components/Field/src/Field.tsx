@@ -1,35 +1,60 @@
-import { ChangeEvent, HTMLAttributes, KeyboardEvent, useCallback, useRef } from 'react';
+import {
+    ChangeEvent,
+    ComponentProps,
+    HTMLAttributes,
+    KeyboardEvent,
+    useCallback,
+    useRef,
+} from 'react';
 import { isNull } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 import { useAutoResize } from './useAutoresize';
+import { RootProvider, useState } from './state/context';
 export * as PinInput from './PinInput';
 export * as NumberInput from './NumberInput';
 
 export interface InputProps
     extends Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'onKeyPress'> {}
 
-export interface Props {
+interface RootProps {
     status?: 'error' | 'readonly' | 'warning' | 'default';
     collapsed?: boolean;
     required?: boolean;
+    disabled?: boolean;
+    value?: string;
 }
 
-export const Root = forward<Props, 'div'>(
-    ({ collapsed, status = 'default', required = false, ...rest }, ref) => (
-        <styled.div
-            {...rest}
-            ref={ref}
-            data-scope="field"
-            data-part="root"
-            data-collapsed={collapsed}
-            data-status={status}
-            data-required={required}
-        />
+export type Props = ComponentProps<typeof Root>;
+
+export const Root = forward<RootProps, 'div'>(
+    ({ collapsed, status = 'default', required = false, disabled, value, ...rest }, ref) => (
+        <RootProvider disabled={disabled} value={value}>
+            <styled.div
+                {...rest}
+                ref={ref}
+                data-scope="field"
+                data-part="root"
+                data-collapsed={collapsed}
+                data-status={status}
+                data-required={required}
+                data-disabled={required}
+            />
+        </RootProvider>
     ),
 );
 
 export const Input = forward<InputProps, 'input'>((props, ref) => {
-    return <styled.input {...props} data-scope="field" data-part="input" ref={ref} />;
+    const { disabled } = useState();
+
+    return (
+        <styled.input
+            disabled={disabled}
+            {...props}
+            data-scope="field"
+            data-part="input"
+            ref={ref}
+        />
+    );
 });
 
 /**
@@ -53,8 +78,11 @@ export const TriggerInput = forward<{ value?: string | number }, 'button'>(
 );
 
 export const TextArea = forward<{}, 'textarea'>((props, ref) => {
+    const { disabled } = useState();
+
     return (
         <styled.textarea
+            disabled={disabled}
             {...props}
             data-scope="field"
             data-part="input"
