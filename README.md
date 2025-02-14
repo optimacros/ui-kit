@@ -53,3 +53,9 @@ run `npx lerna version x.x.x --no-push --no-git-tag-version --conventional-commi
 ### Typescript & Test coverage
 `npm run coverage`
 output in ./.coverage
+
+### Visualizer (using utils as an example)
+- Replace flag "metafile" in "tsup.config.ts" with "true"
+- Run build: `npm run build:utils`
+- Run visualizer: npx esbuild-visualizer --metadata packages/utils/dist/metafile-cjs.json --open
+ 
