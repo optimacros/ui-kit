@@ -20,4 +20,5 @@ export default defineConfig({
     minifyWhitespace: true,
     minifyIdentifiers: true,
     metafile: true,
+    noExternal: ['lodash-es'],
 });
