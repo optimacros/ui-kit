@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/kit",
     "private": false,
-    "version": "2.0.0",
+    "version": "2.0.1",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -11,9 +11,9 @@
         "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
     "dependencies": {
-        "@optimacros-ui/themes": "^2.0.0",
-        "@optimacros-ui/types": "^2.0.0",
-        "@optimacros-ui/utils": "^2.0.0",
+        "@optimacros-ui/themes": "^2.0.1",
+        "@optimacros-ui/types": "^2.0.1",
+        "@optimacros-ui/utils": "^2.0.1",
         "react": "18.2.0"
     },
     "devDependencies": {
