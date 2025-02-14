@@ -4,6 +4,7 @@ import {
     HTMLAttributes,
     KeyboardEvent,
     useCallback,
+    useImperativeHandle,
     useRef,
 } from 'react';
 import { isNull } from '@optimacros-ui/utils';
@@ -103,7 +104,7 @@ export const Multiline = forward<
 >(({ onChange, maxLength, rows, onKeyDown, onKeyPress, ...rest }, externalRef) => {
     const internalRef = useRef<HTMLTextAreaElement>(null);
 
-    const ref = externalRef ?? internalRef;
+    useImperativeHandle(externalRef, () => internalRef.current);
 
     const handleChange = useCallback(
         (event: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -150,15 +151,14 @@ export const Multiline = forward<
         [onKeyPress, onKeyDown, maxLength],
     );
 
-    //@ts-ignore
-    useAutoResize(ref.current, rows ?? 1);
+    useAutoResize(internalRef.current, rows ?? 1);
 
     return (
         <styled.textarea
             {...rest}
             data-scope="field"
             data-part="textarea"
-            ref={ref}
+            ref={internalRef}
             onChange={handleChange}
             onKeyDown={handleKeyPress}
         />
