@@ -5,6 +5,7 @@ import { Flex } from '@optimacros-ui/flex';
 import { useFormData } from '@optimacros-ui/utils';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import * as stories from './stories';
+import * as scenarios from './__tests__/scenarios';
 
 const argTypes: ArgTypes<Field.Props> = {
     value: {
@@ -60,6 +61,7 @@ type Story = StoryObj<typeof Field.Root>;
 export const Base: Story = {
     args: { value: undefined },
     render: stories.Basic,
+    play: scenarios.basic,
 };
 
 export const Collapsed: Story = {
