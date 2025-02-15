@@ -1,7 +1,7 @@
 import { Button } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
-import { SelectBox, type ISelectBox as BaseSelectBoxProps } from '@optimacros-ui/kit-internal';
+import { SelectBox, type SelectBoxProps as BaseSelectBoxProps } from '@optimacros-ui/kit-internal';
 import { forward } from '@optimacros-ui/store';
 
 export interface Item {

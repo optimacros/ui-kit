@@ -1,5 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { SearchContainer, ISearchContainer } from './index';
+import { SearchContainer, SearchContainerProps } from './index';
 import * as Stories from './stories';
 import controlledContent from './stories/Controlled?raw';
 import { Flex } from '@optimacros-ui/flex';
@@ -75,7 +75,7 @@ export default meta;
 
 type Story = StoryObj<typeof SearchContainer>;
 
-const defaultProps: Partial<ISearchContainer> = {
+const defaultProps: Partial<SearchContainerProps> = {
     name: 'name',
     placeholder: 'placeholder',
     onClose: () => console.info('close'),

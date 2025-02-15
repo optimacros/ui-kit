@@ -26,11 +26,11 @@ export type SelectBoxTheme = {
     Title: string;
 };
 
-type SelectBoxSourceLabel = keyof ISelectBox['source'][number];
-type SelectBoxSourceValue = ISelectBox['source'][number][SelectBoxSourceLabel];
+type SelectBoxSourceLabel = keyof SelectBoxProps['source'][number];
+type SelectBoxSourceValue = SelectBoxProps['source'][number][SelectBoxSourceLabel];
 type SourceItem = { [key: string]: any };
 
-export interface ISelectBox {
+export interface SelectBoxProps {
     theme?: Partial<SelectBoxTheme & InputTheme>;
     multiSelect?: boolean;
     onChange?: (value: string | number | (string | number)[]) => void;
@@ -64,7 +64,7 @@ const getStatus = (disabled: boolean, error: boolean) => {
     }
 };
 
-export const SelectBox = forward<ISelectBox, HTMLSelectElement>(
+export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
     (
         {
             label,

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { ISelectBox, MultipleSelectBoxPanel, Item } from '@optimacros-ui/kit-internal';
+import { SelectBoxProps, MultipleSelectBoxPanel, Item } from '@optimacros-ui/kit-internal';
 
 const meta: Meta<typeof MultipleSelectBoxPanel> = {
     title: 'UI Kit internal/MultipleSelectBox',
@@ -70,7 +70,7 @@ const defaultOptions = [
 ];
 
 const MultipleState = ({ source, value, selectedItems, disabledSelect, ...rest }: any) => {
-    const [selectedItem, setSelectedItem] = useState<ISelectBox['value']>(value || null);
+    const [selectedItem, setSelectedItem] = useState<SelectBoxProps['value']>(value || null);
     const [addedItems, setAddedItems] = useState<Item[]>(selectedItems || []);
 
     const items = source || defaultOptions;

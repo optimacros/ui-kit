@@ -1,9 +1,8 @@
-import { memo, ChangeEvent, KeyboardEvent } from 'react';
+import { memo, ChangeEvent, KeyboardEvent, forwardRef } from 'react';
 import { Field } from '@optimacros-ui/field';
 import { Icon } from '@optimacros-ui/icon';
-import { forward } from '@optimacros-ui/store';
 
-export interface ISearchContainer {
+export interface SearchContainerProps {
     name: string;
     value: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -16,7 +15,7 @@ export interface ISearchContainer {
 }
 
 export const SearchContainer = memo(
-    forward<ISearchContainer, HTMLInputElement>(
+    forwardRef<HTMLInputElement, SearchContainerProps>(
         (
             {
                 name,
