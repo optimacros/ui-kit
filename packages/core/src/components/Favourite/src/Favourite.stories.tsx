@@ -1,97 +1,62 @@
-import { Icon } from '@optimacros-ui/kit';
 import { Favourite } from '@optimacros-ui/favourite';
 import { Flex } from '@optimacros-ui/flex';
+import { StoryObj, ArgTypes, Meta } from '@storybook/react';
+import * as stories from './stories';
+import * as scenarios from './__tests__/scenarios';
+import { fn } from '@storybook/test';
 
-export default {
+const argTypes: ArgTypes<Partial<Favourite.RootProps>> = {
+    disabled: {
+        control: 'boolean',
+        description: 'If `true`, component will be disabled',
+    },
+    checked: {
+        control: 'boolean',
+        description: 'Checked value',
+    },
+    onCheckedChange: {
+        control: false,
+        description: 'The callback invoked when the checked state changes',
+        table: { type: { summary: '(details: CheckedChangeDetails) => void' } },
+    },
+    controllable: { table: { disable: true } },
+};
+
+const meta: Meta<typeof Favourite.Root> = {
     title: 'UI Kit core/Favourite',
     component: Favourite.Root,
-    tags: ['autodocs'],
-    argTypes: {
-        disabled: {
-            control: 'boolean',
-            description: 'If `true`, component will be disabled',
-        },
-        onValueChange: {
-            table: { disable: true },
-        },
-        checked: {
-            control: 'boolean',
-            description: 'Checked value',
-        },
+    argTypes,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Favourite.Root>;
+
+export const Basic: Story = {
+    args: { onCheckedChange: fn() },
+    render: stories.Basic,
+    play: scenarios.basic,
+};
+
+export const Checked: Story = {
+    args: { checked: true },
+    render: stories.Basic,
+    tags: ['skip-test-runner'], // проверим в basic
+};
+
+export const Label: Story = {
+    render: stories.Label,
+    tags: ['skip-test-runner'], // проверим в disabled
+};
+
+export const Disabled: Story = {
+    args: { disabled: true },
+    render: (props) => {
+        return (
+            <Flex direction="row" gap="20">
+                <stories.Label {...props} />
+                <stories.Label {...props} checked />
+            </Flex>
+        );
     },
-};
-
-export const Base = (props) => {
-    return (
-        <Favourite.Root {...props}>
-            <Favourite.CustomControl>
-                <Favourite.CheckedIcon>
-                    <Icon value="star" />
-                </Favourite.CheckedIcon>
-                <Favourite.UncheckedIcon>
-                    <Icon value="star_border" />
-                </Favourite.UncheckedIcon>
-            </Favourite.CustomControl>
-        </Favourite.Root>
-    );
-};
-
-export const Checked = (props) => {
-    return (
-        <Favourite.Root {...props} checked>
-            <Favourite.CustomControl>
-                <Favourite.CheckedIcon>
-                    <Icon value="star" />
-                </Favourite.CheckedIcon>
-                <Favourite.UncheckedIcon>
-                    <Icon value="star_border" />
-                </Favourite.UncheckedIcon>
-            </Favourite.CustomControl>
-        </Favourite.Root>
-    );
-};
-
-export const Label = (props) => {
-    return (
-        <Favourite.Root {...props}>
-            <Favourite.CustomControl>
-                <Favourite.CheckedIcon>
-                    <Icon value="star" />
-                </Favourite.CheckedIcon>
-                <Favourite.UncheckedIcon>
-                    <Icon value="star_border" />
-                </Favourite.UncheckedIcon>
-            </Favourite.CustomControl>
-            <Favourite.Label>Favourite</Favourite.Label>
-        </Favourite.Root>
-    );
-};
-
-export const Disabled = (props) => {
-    return (
-        <Flex direction="row" gap="20">
-            <Favourite.Root {...props} disabled>
-                <Favourite.CustomControl>
-                    <Favourite.CheckedIcon>
-                        <Icon value="star" />
-                    </Favourite.CheckedIcon>
-                    <Favourite.UncheckedIcon>
-                        <Icon value="star_border" />
-                    </Favourite.UncheckedIcon>
-                </Favourite.CustomControl>
-                <Favourite.Label>Favourite</Favourite.Label>
-            </Favourite.Root>
-            <Favourite.Root {...props} checked disabled>
-                <Favourite.CustomControl>
-                    <Favourite.CheckedIcon>
-                        <Icon value="star" />
-                    </Favourite.CheckedIcon>
-                    <Favourite.UncheckedIcon>
-                        <Icon value="star_border" />
-                    </Favourite.UncheckedIcon>
-                </Favourite.CustomControl>
-                <Favourite.Label>Favourite</Favourite.Label>
-            </Favourite.Root>
-        </Flex>
-    );
 };
