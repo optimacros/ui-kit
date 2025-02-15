@@ -14,6 +14,8 @@ export const {
     machine: tooltip,
 });
 
+export type RootProps = ComponentProps<typeof Root>;
+
 export const Content = ({ children }: { children: ReactNode }) => {
     const api = useApi();
 

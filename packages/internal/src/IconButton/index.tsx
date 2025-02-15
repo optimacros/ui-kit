@@ -30,7 +30,7 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
             label,
             icon,
             href,
-            theme,
+            theme = {},
             inverse,
             mini,
             neutral,
@@ -84,7 +84,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
         {
             children,
             label,
-            theme,
+            theme = {},
             tooltip,
             tooltipDelay,
             tooltipPosition,

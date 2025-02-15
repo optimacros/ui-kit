@@ -5,6 +5,7 @@ import {
     MouseEventHandler,
     PropsWithChildren,
     ReactNode,
+    forwardRef,
     memo,
     useMemo,
 } from 'react';
@@ -14,6 +15,7 @@ import { clsx, includes, isNumber } from '@optimacros-ui/utils';
 import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
 import { Flex } from '@optimacros-ui/flex';
+import { styled } from '@optimacros-ui/store';
 
 export interface TooltipProps extends PropsWithChildren {
     className?: string;
@@ -31,7 +33,7 @@ export interface TooltipProps extends PropsWithChildren {
 
 type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
 
-const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme, tooltipPosition }) => {
+const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltipPosition }) => {
     const api = UITooltip.useApi();
 
     if (!tooltip) {
@@ -55,53 +57,60 @@ const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme, tooltipPosit
     );
 });
 
-export const Tooltip = memo<TooltipProps>((props) => {
-    const {
-        children,
-        composedComponent,
-        composedComponentProps,
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
-        theme,
-        tooltipDelay = 0,
-        tooltipPosition = 'vertical',
-        tooltipOffset = 0,
-        ...rest
-    } = props;
+export const Tooltip = memo(
+    forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
+        const {
+            children,
+            composedComponent,
+            composedComponentProps,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            theme = {},
+            tooltipDelay = 0,
+            tooltipPosition = 'vertical',
+            tooltipOffset = 0,
+            ...rest
+        } = props;
 
-    const positioning = useMemo(() => {
-        const p: Partial<UITooltip.PositioningOptions> = {
-            placement: tooltipPositionMapping[tooltipPosition],
-        };
+        const positioning = useMemo(() => {
+            const p: Partial<UITooltip.PositioningOptions> = {
+                placement: tooltipPositionMapping[tooltipPosition],
+            };
 
-        if (isNumber(tooltipOffset) && includes(['vertical', 'bottom', 'top'], tooltipPosition)) {
-            p.offset = { crossAxis: tooltipOffset };
-        }
+            if (
+                isNumber(tooltipOffset) &&
+                includes(['vertical', 'bottom', 'top'], tooltipPosition)
+            ) {
+                p.offset = { crossAxis: tooltipOffset };
+            }
 
-        return p;
-    }, [tooltipPosition, tooltipOffset]);
+            return p;
+        }, [tooltipPosition, tooltipOffset]);
 
-    return (
-        <UITooltip.Root
-            openDelay={tooltipDelay}
-            closeDelay={tooltipDelay}
-            positioning={positioning}
-        >
-            <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
+        return (
+            <UITooltip.Root
+                openDelay={tooltipDelay}
+                closeDelay={tooltipDelay}
+                positioning={positioning}
+            >
+                <styled.div ref={ref}>
+                    <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
 
-            <UITooltip.Trigger as="div">
-                <RootElement
-                    composedComponent={composedComponent}
-                    composedComponentProps={composedComponentProps}
-                    onClick={onClick}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    theme={theme}
-                >
-                    {children}
-                </RootElement>
-            </UITooltip.Trigger>
-        </UITooltip.Root>
-    );
-});
+                    <UITooltip.Trigger as="div">
+                        <RootElement
+                            composedComponent={composedComponent}
+                            composedComponentProps={composedComponentProps}
+                            onClick={onClick}
+                            onMouseEnter={onMouseEnter}
+                            onMouseLeave={onMouseLeave}
+                            theme={theme}
+                        >
+                            {children}
+                        </RootElement>
+                    </UITooltip.Trigger>
+                </styled.div>
+            </UITooltip.Root>
+        );
+    }),
+);

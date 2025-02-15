@@ -1,6 +1,7 @@
+import React, { ReactNode, MouseEventHandler } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Chip as ChipComponent } from '@optimacros-ui/chip';
-import React, { ReactNode, MouseEventHandler } from 'react';
+import { forward } from '@optimacros-ui/store';
 
 export type ChipTheme = {
     avatar: string;
@@ -23,45 +24,50 @@ type Props = {
 
 export type ChipProps = React.PropsWithChildren<Props>;
 
-export const Chip = ({
-    children,
-    className = '',
-    deletable = false,
-    onDeleteClick,
-    settingsDialog,
-    theme: customTheme = {},
-    customDeleteIcon,
-    theme,
-    ...other
-}: ChipProps) => {
-    const renderDeleteIcon = (): ReactNode => {
-        if (customDeleteIcon) {
+export const Chip = forward<ChipProps, 'div'>(
+    (
+        {
+            children,
+            className = '',
+            deletable = false,
+            onDeleteClick,
+            settingsDialog,
+            theme: customTheme = {},
+            customDeleteIcon,
+            theme = {},
+            ...other
+        },
+        ref,
+    ) => {
+        const renderDeleteIcon = (): ReactNode => {
+            if (customDeleteIcon) {
+                return (
+                    <span
+                        data-scope="chip"
+                        data-part="icon"
+                        onClick={onDeleteClick}
+                        className={theme.deleteIcon}
+                    >
+                        {customDeleteIcon}
+                    </span>
+                );
+            }
+
             return (
-                <span
-                    data-scope="chip"
-                    data-part="icon"
-                    onClick={onDeleteClick}
-                    className={theme.deleteIcon}
-                >
-                    {customDeleteIcon}
-                </span>
+                <ChipComponent.Icon onClick={onDeleteClick}>
+                    <Icon value="cancel" className={theme.deleteIcon} />
+                </ChipComponent.Icon>
             );
-        }
+        };
 
         return (
-            <ChipComponent.Icon onClick={onDeleteClick}>
-                <Icon value="cancel" className={theme.deleteIcon} />
-            </ChipComponent.Icon>
+            <ChipComponent.Root {...other} className={theme.chip} ref={ref}>
+                {children}
+                <div>
+                    {settingsDialog && <span>{settingsDialog}</span>}
+                    {deletable && renderDeleteIcon()}
+                </div>
+            </ChipComponent.Root>
         );
-    };
-
-    return (
-        <ChipComponent.Root {...other} className={theme.chip}>
-            {children}
-            <div>
-                {settingsDialog && <span>{settingsDialog}</span>}
-                {deletable && renderDeleteIcon()}
-            </div>
-        </ChipComponent.Root>
-    );
-};
+    },
+);

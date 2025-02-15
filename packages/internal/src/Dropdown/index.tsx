@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 
@@ -11,103 +11,110 @@ interface Props extends RCDropdownProps {
 
 export type DropdownProps = React.PropsWithChildren<Props>;
 
-export const Dropdown = ({
-    visible: propVisible = false,
-    onVisibleChange,
-    closeOnSelect = true,
-    disabled,
-    className,
-    overlayClassName,
-    children,
-    overlay,
-    visible,
-    trigger,
-    ...otherProps
-}: DropdownProps) => {
-    let closeTimeout;
+export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
+    (
+        {
+            visible: propVisible = false,
+            onVisibleChange,
+            closeOnSelect = true,
+            disabled,
+            className,
+            overlayClassName,
+            children,
+            overlay,
+            visible,
+            trigger,
+            ...otherProps
+        },
+        ref,
+    ) => {
+        let closeTimeout;
 
-    useEffect(() => {
-        return clearTimeout(closeTimeout);
-    }, []);
+        useEffect(() => {
+            return clearTimeout(closeTimeout);
+        }, []);
 
-    if (disabled) {
-        return <>{children}</>;
-    }
-
-    const handleVisibleChange = ({ open }: { open: boolean }) => {
-        if (onVisibleChange) {
-            onVisibleChange(open);
+        if (disabled) {
+            return <>{children}</>;
         }
-    };
 
-    const handleMouseEnter = (api) => {
-        clearTimeout(closeTimeout);
-        api.setOpen(true);
-    };
-
-    const handleMouseLeave = (e, api) => {
-        closeTimeout = setTimeout(() => {
-            const cursorX = e.clientX;
-            const cursorY = e.clientY;
-
-            const elementUnderCursor = document.elementFromPoint(cursorX, cursorY);
-
-            const isInMenu =
-                elementUnderCursor && elementUnderCursor.closest('[data-scope="menu"]');
-
-            if (!isInMenu) {
-                api.setOpen(false);
+        const handleVisibleChange = ({ open }: { open: boolean }) => {
+            if (onVisibleChange) {
+                onVisibleChange(open);
             }
-        }, 120);
-    };
+        };
 
-    const isHoverTrigger = trigger[0] === 'hover';
+        const handleMouseEnter = (api) => {
+            clearTimeout(closeTimeout);
+            api.setOpen(true);
+        };
 
-    //@ts-ignore
-    const isMenuInOverlay = overlay?.type?.name === 'Menu';
+        const handleMouseLeave = (e, api) => {
+            closeTimeout = setTimeout(() => {
+                const cursorX = e.clientX;
+                const cursorY = e.clientY;
 
-    return (
-        <Menu.Root
-            {...otherProps}
-            open={visible}
-            onOpenChange={handleVisibleChange}
-            hoverable={isHoverTrigger}
-        >
-            {(api) => {
-                return isHoverTrigger ? (
-                    <div
-                        style={{ width: 'fit-content' }}
-                        onMouseEnter={() => handleMouseEnter(api)}
-                        onMouseLeave={(e) => handleMouseLeave(e, api)}
-                    >
-                        <Menu.Trigger asChild>
-                            <div>{children}</div>
-                        </Menu.Trigger>
-                        <Menu.Positioner>
-                            <Menu.Content size="sm">
-                                {/** @ts-ignore */}
-                                <Menu.List>{overlay}</Menu.List>
-                            </Menu.Content>
-                        </Menu.Positioner>
-                    </div>
-                ) : (
-                    <>
-                        <Menu.Trigger asChild>
-                            <div>{children}</div>
-                        </Menu.Trigger>
-                        <Menu.Positioner>
-                            <Menu.Content size="sm">
-                                <Menu.List>
-                                    {isMenuInOverlay
-                                        ? //@ts-ignore
-                                          overlay?.props?.children
-                                        : overlay}
-                                </Menu.List>
-                            </Menu.Content>
-                        </Menu.Positioner>
-                    </>
-                );
-            }}
-        </Menu.Root>
-    );
-};
+                const elementUnderCursor = document.elementFromPoint(cursorX, cursorY);
+
+                const isInMenu =
+                    elementUnderCursor && elementUnderCursor.closest('[data-scope="menu"]');
+
+                if (!isInMenu) {
+                    api.setOpen(false);
+                }
+            }, 120);
+        };
+
+        const isHoverTrigger = trigger[0] === 'hover';
+
+        //@ts-ignore
+        const isMenuInOverlay = overlay?.type?.name === 'Menu';
+
+        return (
+            <Menu.Root
+                {...otherProps}
+                open={visible}
+                onOpenChange={handleVisibleChange}
+                hoverable={isHoverTrigger}
+            >
+                <Menu.Api>
+                    {(api) => {
+                        return isHoverTrigger ? (
+                            <div
+                                style={{ width: 'fit-content' }}
+                                onMouseEnter={() => handleMouseEnter(api)}
+                                onMouseLeave={(e) => handleMouseLeave(e, api)}
+                            >
+                                <Menu.Trigger asChild>
+                                    <div>{children}</div>
+                                </Menu.Trigger>
+                                <Menu.Positioner>
+                                    <Menu.Content size="sm" ref={ref}>
+                                        {/** @ts-ignore */}
+                                        <Menu.List>{overlay}</Menu.List>
+                                    </Menu.Content>
+                                </Menu.Positioner>
+                            </div>
+                        ) : (
+                            <>
+                                <Menu.Trigger asChild>
+                                    <div>{children}</div>
+                                </Menu.Trigger>
+                                <Menu.Positioner>
+                                    <Menu.Content size="sm" ref={ref}>
+                                        <Menu.List>
+                                            {isMenuInOverlay
+                                                ? //@ts-ignore
+                                                  overlay?.props?.children
+                                                : overlay}
+                                        </Menu.List>
+                                    </Menu.Content>
+                                </Menu.Positioner>
+                            </>
+                        );
+                    }}
+                </Menu.Api>
+            </Menu.Root>
+        );
+    },
+);

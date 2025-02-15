@@ -110,7 +110,7 @@ export const Base: Story = {
                                         value={api.empty ? 'choose value' : api.valueAsString}
                                     >
                                         <Field.Icon>
-                                            <Icon value={'arrow_drop_down'} />
+                                            <Icon value="arrow_drop_down" />
                                         </Field.Icon>
                                     </Field.TriggerInput>
                                 </Select.Trigger>

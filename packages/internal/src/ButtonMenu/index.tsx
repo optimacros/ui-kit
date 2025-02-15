@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
@@ -24,7 +24,7 @@ type Props = {
 
 export type ButtonMenuProps = React.PropsWithChildren<Props>;
 
-export const ButtonMenu: React.FC<ButtonMenuProps> = (props) => {
+export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props, ref) => {
     const {
         disabled,
         onVisibleChange,
@@ -32,7 +32,7 @@ export const ButtonMenu: React.FC<ButtonMenuProps> = (props) => {
         classNameDropdownContainer,
         closeOnSelect,
         menuRootContainerClassName,
-        theme,
+        theme = {},
         children,
         onClick,
         onMouseEnter,
@@ -109,8 +109,10 @@ export const ButtonMenu: React.FC<ButtonMenuProps> = (props) => {
             renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
             controllable
+            //@ts-ignore
+            ref={ref}
         >
             {children}
         </Menu>
     );
-};
+});

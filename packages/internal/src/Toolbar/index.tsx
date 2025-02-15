@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 import { Toolbar as UIToolbar } from '@optimacros-ui/toolbar';
 import { Flex } from '@optimacros-ui/flex';
 
@@ -22,14 +22,16 @@ const getAlign = (align: AlignProp) => {
     }
 };
 
-export const Toolbar = ({ align, className, children }: ToolbarProps) => (
-    <UIToolbar.Root className={className}>
-        <Flex
-            justify={getAlign(align)}
-            data-role="toolbar-content"
-            style={align === 'rightInRow' && { marginTop: 0 }}
-        >
-            {children}
-        </Flex>
-    </UIToolbar.Root>
+export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
+    ({ align, className, children }, ref) => (
+        <UIToolbar.Root className={className} ref={ref}>
+            <Flex
+                justify={getAlign(align)}
+                data-role="toolbar-content"
+                style={align === 'rightInRow' && { marginTop: 0 }}
+            >
+                {children}
+            </Flex>
+        </UIToolbar.Root>
+    ),
 );

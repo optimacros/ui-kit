@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, ComponentProps, ReactNode } from 'react';
 import {} from '@internationalized/date';
 import {
     ConnectMachine,
@@ -115,6 +115,8 @@ export const {
     machine,
     connect,
 });
+
+export type RootProps = ComponentProps<typeof Root>;
 
 export const Trigger = forward<{}, 'div'>(
     (props, ref) => {

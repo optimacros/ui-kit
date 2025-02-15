@@ -17,7 +17,7 @@ interface FieldActionSetValue {
     payload: string;
 }
 
-const FieldContext = createContext<FieldState>(null);
+const FieldContext = createContext<FieldState>({ disabled: false, value: null });
 
 export const useState = () => useContext(FieldContext);
 

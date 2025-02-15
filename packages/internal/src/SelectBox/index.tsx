@@ -4,6 +4,7 @@ import { Icon } from '@optimacros-ui/icon';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Select } from '@optimacros-ui/select';
 import { Flex } from '@optimacros-ui/flex';
+import { forward } from '@optimacros-ui/store';
 import type { InputTheme } from '../Input';
 import { clsx } from '@optimacros-ui/utils';
 
@@ -63,130 +64,71 @@ const getStatus = (disabled: boolean, error: boolean) => {
     }
 };
 
-export const SelectBox = ({
-    label,
-    className,
-    multiSelect,
-    theme = {},
-    value,
-    source,
-    options,
-    onChange,
-    required,
-    error,
-    labelKey,
-    valueKey,
-    placeholder = 'choose value',
-    disabled,
-    ...rest
-}: SelectBoxProps) => {
-    const handleChange = (newValue) => {
-        const updatedValueArr = newValue.value;
-
-        if (multiSelect && Array.isArray(value)) {
-            onChange(updatedValueArr);
-        } else {
-            onChange(updatedValueArr[0]);
-        }
-    };
-
-    const itemToString = (item: SourceItem) => item[labelKey];
-    const itemToValue = (item: SourceItem) => item[valueKey];
-
-    const curValue = !value || Array.isArray(value) ? value : [value];
-    const items = source || options;
-
-    const cn = clsx(
-        theme.dropdown,
+export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
+    (
         {
-            [theme.disabled]: disabled ?? false,
-            [theme.required]: required ?? false,
+            label,
+            className,
+            multiSelect,
+            theme = {},
+            value,
+            source,
+            options,
+            onChange,
+            required,
+            error,
+            labelKey,
+            valueKey,
+            placeholder = 'choose value',
+            disabled,
+            ...rest
         },
-        className,
-    );
+        ref,
+    ) => {
+        const handleChange = (newValue) => {
+            const updatedValueArr = newValue.value;
 
-    return (
-        <>
-            {!multiSelect ? (
-                <Select.Root
-                    items={items}
-                    value={curValue}
-                    onValueChange={handleChange}
-                    itemToString={itemToString}
-                    itemToValue={itemToValue}
-                    {...rest}
-                >
-                    <Select.Control>
-                        <Select.Api>
-                            {(api) => (
-                                <Field.Root
-                                    status={getStatus(api.disabled, Boolean(error))}
-                                    required={required}
-                                >
-                                    <Select.Trigger>
-                                        {label && (
-                                            <Field.FloatingLabel>{label}</Field.FloatingLabel>
-                                        )}
-                                        <Field.TriggerInput
-                                            value={api.empty ? placeholder : api.valueAsString}
-                                            className={theme.value}
-                                        >
-                                            <Field.Icon>
-                                                <Icon value="arrow_drop_down" />
-                                            </Field.Icon>
-                                        </Field.TriggerInput>
-                                        {error && <span>{error}</span>}
-                                    </Select.Trigger>
-                                </Field.Root>
-                            )}
-                        </Select.Api>
-                    </Select.Control>
+            if (multiSelect && Array.isArray(value)) {
+                onChange(updatedValueArr);
+            } else {
+                onChange(updatedValueArr[0]);
+            }
+        };
 
-                    <Select.Positioner>
-                        <Select.Content className={cn}>
-                            <Select.List>
-                                {(item: SourceItem) => (
-                                    <Select.Item
-                                        item={item as Select.ItemBase}
-                                        key={item.key || item.value}
-                                    >
-                                        <Select.ItemLabel>
-                                            {item.label || item.title}
-                                        </Select.ItemLabel>
-                                    </Select.Item>
-                                )}
-                            </Select.List>
-                        </Select.Content>
-                    </Select.Positioner>
-                </Select.Root>
-            ) : (
-                <Select.Root
-                    items={items}
-                    value={curValue}
-                    onValueChange={handleChange}
-                    multiple={true}
-                    itemToString={itemToString}
-                    itemToValue={itemToValue}
-                    {...rest}
-                >
-                    <Flex gap={5} direction="column">
-                        <Flex gap={3} wrap="wrap">
-                            Selected values:
-                            <Select.Api>
-                                {(api) =>
-                                    api.value.map((value, i) => {
-                                        return (
-                                            <div key={i}>
-                                                {value}
-                                                <Select.ItemDeleteTrigger item={{ value }} asChild>
-                                                    <IconButton size="sm" squared icon="close" />
-                                                </Select.ItemDeleteTrigger>
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </Select.Api>
-                        </Flex>
+        const itemToString = (item: SourceItem) => item[labelKey];
+        const itemToValue = (item: SourceItem) => item[valueKey];
+
+        const curValue = !value || Array.isArray(value) ? value : [value];
+        const items = source || options;
+
+        const cn = clsx(
+            theme.dropdown,
+            {
+                [theme.disabled]: disabled ?? false,
+                [theme.required]: required ?? false,
+            },
+            className,
+        );
+
+        return (
+            <>
+                {!multiSelect ? (
+                    <Select.Root
+                        items={items}
+                        value={curValue}
+                        onValueChange={handleChange}
+                        itemToString={itemToString}
+                        itemToValue={itemToValue}
+                        {...rest}
+                    >
+                        <Select.HiddenInput ref={ref}>
+                            {items.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select.HiddenInput>
+
                         <Select.Control>
                             <Select.Api>
                                 {(api) => (
@@ -194,10 +136,10 @@ export const SelectBox = ({
                                         status={getStatus(api.disabled, Boolean(error))}
                                         required={required}
                                     >
-                                        {label && (
-                                            <Field.FloatingLabel>{label}</Field.FloatingLabel>
-                                        )}
-                                        <Select.Trigger {...api.getTriggerProps()}>
+                                        <Select.Trigger>
+                                            {label && (
+                                                <Field.FloatingLabel>{label}</Field.FloatingLabel>
+                                            )}
                                             <Field.TriggerInput
                                                 value={api.empty ? placeholder : api.valueAsString}
                                                 className={theme.value}
@@ -206,39 +148,130 @@ export const SelectBox = ({
                                                     <Icon value="arrow_drop_down" />
                                                 </Field.Icon>
                                             </Field.TriggerInput>
+                                            {error && <span>{error}</span>}
                                         </Select.Trigger>
-
-                                        {error && <span>{error}</span>}
                                     </Field.Root>
                                 )}
                             </Select.Api>
                         </Select.Control>
-                    </Flex>
 
-                    <Select.Positioner>
-                        <Select.Content className={cn}>
-                            <Select.List>
-                                {(item) => (
-                                    <Select.Item item={item} key={`select-${item.value}`}>
-                                        {({ selected }) => (
-                                            <>
-                                                <div>
-                                                    {selected ? (
-                                                        <Icon value="check_box" />
-                                                    ) : (
-                                                        <Icon value="check_box_outline_blank" />
-                                                    )}
+                        <Select.Positioner>
+                            <Select.Content className={cn}>
+                                <Select.List>
+                                    {(item: SourceItem) => (
+                                        <Select.Item
+                                            item={item as Select.ItemBase}
+                                            key={item.key || item.value}
+                                        >
+                                            <Select.ItemLabel>
+                                                {item.label || item.title}
+                                            </Select.ItemLabel>
+                                        </Select.Item>
+                                    )}
+                                </Select.List>
+                            </Select.Content>
+                        </Select.Positioner>
+                    </Select.Root>
+                ) : (
+                    <Select.Root
+                        items={items}
+                        value={curValue}
+                        onValueChange={handleChange}
+                        multiple={true}
+                        itemToString={itemToString}
+                        itemToValue={itemToValue}
+                        {...rest}
+                    >
+                        <Select.HiddenInput ref={ref}>
+                            {items.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Select.HiddenInput>
+
+                        <Flex gap={5} direction="column">
+                            <Flex gap={3} wrap="wrap">
+                                Selected values:
+                                <Select.Api>
+                                    {(api) =>
+                                        api.value.map((value, i) => {
+                                            return (
+                                                <div key={i}>
+                                                    {value}
+                                                    <Select.ItemDeleteTrigger
+                                                        item={{ value }}
+                                                        asChild
+                                                    >
+                                                        <IconButton
+                                                            size="sm"
+                                                            squared
+                                                            icon="close"
+                                                        />
+                                                    </Select.ItemDeleteTrigger>
                                                 </div>
-                                                <Select.ItemLabel>{item.label}</Select.ItemLabel>
-                                            </>
-                                        )}
-                                    </Select.Item>
-                                )}
-                            </Select.List>
-                        </Select.Content>
-                    </Select.Positioner>
-                </Select.Root>
-            )}
-        </>
-    );
-};
+                                            );
+                                        })
+                                    }
+                                </Select.Api>
+                            </Flex>
+                            <Select.Control>
+                                <Select.Api>
+                                    {(api) => (
+                                        <Field.Root
+                                            status={getStatus(api.disabled, Boolean(error))}
+                                            required={required}
+                                        >
+                                            {label && (
+                                                <Field.FloatingLabel>{label}</Field.FloatingLabel>
+                                            )}
+                                            <Select.Trigger {...api.getTriggerProps()}>
+                                                <Field.TriggerInput
+                                                    value={
+                                                        api.empty ? placeholder : api.valueAsString
+                                                    }
+                                                    className={theme.value}
+                                                >
+                                                    <Field.Icon>
+                                                        <Icon value="arrow_drop_down" />
+                                                    </Field.Icon>
+                                                </Field.TriggerInput>
+                                            </Select.Trigger>
+
+                                            {error && <span>{error}</span>}
+                                        </Field.Root>
+                                    )}
+                                </Select.Api>
+                            </Select.Control>
+                        </Flex>
+
+                        <Select.Positioner>
+                            <Select.Content className={cn}>
+                                <Select.List>
+                                    {(item) => (
+                                        <Select.Item item={item} key={`select-${item.value}`}>
+                                            {({ selected }) => (
+                                                <>
+                                                    <div>
+                                                        {selected ? (
+                                                            <Icon value="check_box" />
+                                                        ) : (
+                                                            <Icon value="check_box_outline_blank" />
+                                                        )}
+                                                    </div>
+                                                    <Select.ItemLabel>
+                                                        {item.label}
+                                                    </Select.ItemLabel>
+                                                </>
+                                            )}
+                                        </Select.Item>
+                                    )}
+                                </Select.List>
+                            </Select.Content>
+                        </Select.Positioner>
+                    </Select.Root>
+                )}
+            </>
+        );
+    },
+);

@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from './index';
-import { useState } from 'react';
 
 const argTypes: Partial<ArgTypes> = {
     label: {

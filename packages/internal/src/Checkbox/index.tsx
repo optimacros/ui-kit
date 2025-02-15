@@ -1,4 +1,5 @@
 import React, { type CSSProperties, type MouseEventHandler } from 'react';
+import { forward } from '@optimacros-ui/store';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 import { isUndefined } from '@optimacros-ui/utils';
@@ -59,78 +60,90 @@ type InitialProps = {
 
 export type CheckboxProps = React.PropsWithChildren<InitialProps>;
 
-export const Checkbox = ({
-    tooltipLabel,
-    theme,
-    tooltipDelay,
-    tooltipPosition,
-    tooltipOffset,
-    onClick,
-    onMouseEnter,
-    onMouseLeave,
-    className,
-    ...rest
-}: CheckboxProps) => {
-    return tooltipLabel ? (
-        <Tooltip
-            className={className}
-            theme={theme}
-            tooltip={tooltipLabel}
-            tooltipDelay={tooltipDelay}
-            tooltipPosition={tooltipPosition}
-            tooltipOffset={tooltipOffset}
-            composedComponent={CheckboxComponent}
-            composedComponentProps={{
-                ...rest,
-                onClick,
-                onMouseEnter,
-                onMouseLeave,
-            }}
-        />
-    ) : (
-        <CheckboxComponent
-            {...rest}
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            className={className}
-            theme={theme}
-        />
-    );
-};
-
-const CheckboxComponent = ({
-    checked = false,
-    children,
-    disabled = false,
-    label,
-    name,
-    onChange,
-    onMouseEnter,
-    onMouseLeave,
-    onClick,
-    theme,
-    ...rest
-}: React.PropsWithChildren<InitialProps>) => {
-    return (
-        <CheckboxCore.Root
-            name={name}
-            checked={checked}
-            disabled={disabled}
-            //@ts-ignore
-            onCheckedChange={(e) => onChange?.(e.checked, {})}
-            //TODO: think how to handle controllable use case without using flag outside
-            controllable={!isUndefined(onChange)}
-            className={theme.field}
-            {...rest}
-        >
-            <CheckboxCore.BoxControl
-                className={theme.input}
+export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
+    (
+        {
+            tooltipLabel,
+            theme = {},
+            tooltipDelay,
+            tooltipPosition,
+            tooltipOffset,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            className,
+            ...rest
+        },
+        ref,
+    ) => {
+        return tooltipLabel ? (
+            <Tooltip
+                className={className}
+                theme={theme}
+                tooltip={tooltipLabel}
+                tooltipDelay={tooltipDelay}
+                tooltipPosition={tooltipPosition}
+                tooltipOffset={tooltipOffset}
+                composedComponent={CheckboxComponent}
+                composedComponentProps={{
+                    ...rest,
+                    onClick,
+                    onMouseEnter,
+                    onMouseLeave,
+                }}
+            />
+        ) : (
+            <CheckboxComponent
+                {...rest}
+                onClick={onClick}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
+                className={className}
+                theme={theme}
+                ref={ref}
             />
-            {label && <CheckboxCore.Label className={theme.text}>{label}</CheckboxCore.Label>}
-            {children}
-        </CheckboxCore.Root>
-    );
-};
+        );
+    },
+);
+
+const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInputElement>(
+    (
+        {
+            checked = false,
+            children,
+            disabled = false,
+            label,
+            name,
+            onChange,
+            onMouseEnter,
+            onMouseLeave,
+            onClick,
+            theme = {},
+            ...rest
+        },
+        ref,
+    ) => {
+        return (
+            <CheckboxCore.Root
+                name={name}
+                checked={checked}
+                disabled={disabled}
+                //@ts-ignore
+                onCheckedChange={(e) => onChange?.(e.checked, {})}
+                //TODO: think how to handle controllable use case without using flag outside
+                controllable={!isUndefined(onChange)}
+                className={theme.field}
+                {...rest}
+            >
+                <CheckboxCore.BoxControl
+                    className={theme.input}
+                    ref={ref}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                />
+                {label && <CheckboxCore.Label className={theme.text}>{label}</CheckboxCore.Label>}
+                {children}
+            </CheckboxCore.Root>
+        );
+    },
+);

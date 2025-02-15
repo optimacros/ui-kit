@@ -51,10 +51,14 @@ export const Control = forward<{}, 'div'>((props, ref) => {
     return <styled.div {...props} {...api.getControlProps()} ref={ref} />;
 });
 
-export const HiddenInput = forward<{}, 'input'>((props, ref) => {
+export const HiddenInput = forward<{}, 'select'>(({ children, ...rest }, ref) => {
     const api = useApi();
 
-    return <styled.input {...props} {...api.getHiddenSelectProps()} ref={ref} type="select" />;
+    return (
+        <styled.select {...rest} {...api.getHiddenSelectProps()} ref={ref}>
+            {children}
+        </styled.select>
+    );
 });
 
 export const Trigger = forward<{}, 'div'>((props, ref) => {

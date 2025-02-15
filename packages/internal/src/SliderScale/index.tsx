@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { Slider } from '@optimacros-ui/slider';
 import { Field } from '@optimacros-ui/field';
 import { clsx } from '@optimacros-ui/utils';
@@ -71,80 +71,85 @@ const Input = ({ min, max, defaultValue, className }) => {
     );
 };
 
-export const SliderScale = ({
-    value = 0,
-    onChange,
-    buffer = 0,
-    min = 0,
-    max = 100,
-    step = 0.01,
-    pinned = false,
-    snaps = false,
-    onDragStart = () => {},
-    onDragStop = () => {},
-    editable = false,
-    label,
-    theme,
-    ...rest
-}: SliderProps) => {
-    const formatedValue = Array.isArray(value) ? value : [value];
-
-    const handleSliderChange = ({ value }: { value: Array<number> }) => {
-        onChange?.(value[0]);
-    };
-
-    const isOutput = pinned && !editable;
-    const isInput = editable;
-    const isMarkers = snaps;
-
-    const className = clsx(
-        theme.slider,
+export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
+    (
         {
-            [theme.editable]: editable,
-            [theme.disabled]: rest.disabled,
-            [theme.ring]: value === min,
+            value = 0,
+            onChange,
+            buffer = 0,
+            min = 0,
+            max = 100,
+            step = 0.01,
+            pinned = false,
+            snaps = false,
+            onDragStart = () => {},
+            onDragStop = () => {},
+            editable = false,
+            label,
+            theme = {},
+            ...rest
         },
-        rest.className,
-    );
+        ref,
+    ) => {
+        const formatedValue = Array.isArray(value) ? value : [value];
 
-    return (
-        <Slider.Root
-            value={formatedValue}
-            onValueChange={handleSliderChange}
-            onValueChangeEnd={onDragStop}
-            min={min}
-            max={max}
-            step={step}
-            onFocusChange={() => {}}
-            controllable
-            className={className}
-            {...rest}
-        >
-            <Slider.Container className={theme.container}>
-                {label && <Slider.Label>{label}</Slider.Label>}
-                {isOutput && (
-                    <span style={{ marginLeft: '10px' }}>
-                        <Slider.Output />
-                    </span>
-                )}
-                {isInput && (
-                    <div style={{ maxWidth: '40px' }}>
-                        <Input
-                            defaultValue={formatedValue[0].toString()}
-                            max={max}
-                            min={min}
-                            className={theme.input}
-                        />
-                    </div>
-                )}
-                <Slider.Control>
-                    <Slider.Track>
-                        {isMarkers && <Slider.Markers />}
-                        <Slider.Range />
-                    </Slider.Track>
-                    <Slider.Thumb onMouseDown={onDragStart} className={theme.knob} />
-                </Slider.Control>
-            </Slider.Container>
-        </Slider.Root>
-    );
-};
+        const handleSliderChange = ({ value }: { value: Array<number> }) => {
+            onChange?.(value[0]);
+        };
+
+        const isOutput = pinned && !editable;
+        const isInput = editable;
+        const isMarkers = snaps;
+
+        const className = clsx(
+            theme.slider,
+            {
+                [theme.editable]: editable,
+                [theme.disabled]: rest.disabled,
+                [theme.ring]: value === min,
+            },
+            rest.className,
+        );
+
+        return (
+            <Slider.Root
+                value={formatedValue}
+                onValueChange={handleSliderChange}
+                onValueChangeEnd={onDragStop}
+                min={min}
+                max={max}
+                step={step}
+                onFocusChange={() => {}}
+                controllable
+                className={className}
+                {...rest}
+            >
+                <Slider.Container className={theme.container} ref={ref}>
+                    {label && <Slider.Label>{label}</Slider.Label>}
+                    {isOutput && (
+                        <span style={{ marginLeft: '10px' }}>
+                            <Slider.Output />
+                        </span>
+                    )}
+                    {isInput && (
+                        <div style={{ maxWidth: '40px' }}>
+                            <Input
+                                defaultValue={formatedValue[0].toString()}
+                                max={max}
+                                min={min}
+                                className={theme.input}
+                            />
+                        </div>
+                    )}
+                    <Slider.Control>
+                        <Slider.Track>
+                            {isMarkers && <Slider.Markers />}
+                            <Slider.Range />
+                        </Slider.Track>
+                        <Slider.Thumb onMouseDown={onDragStart} className={theme.knob} />
+                    </Slider.Control>
+                </Slider.Container>
+            </Slider.Root>
+        );
+    },
+);

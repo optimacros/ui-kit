@@ -1,14 +1,15 @@
+import { forwardRef, memo, ReactNode, useEffect, useMemo } from 'react';
 import { Toast, ToastGroup } from '@optimacros-ui/toast';
 import { Button } from '@optimacros-ui/button';
-import { memo, ReactNode, useEffect, useMemo } from 'react';
-import { SnackbarType } from '../models';
 import { isNil } from '@optimacros-ui/utils';
 import { clsx } from '@optimacros-ui/utils';
 import { Button as DefaultButton } from '@optimacros-ui/button';
 import { Text } from '@optimacros-ui/text';
+import { forward } from '@optimacros-ui/store';
 import { buttonStatusMapping } from '../settings';
+import { SnackbarType } from '../models';
 
-export interface SnackbarProps {
+export interface ISnackbar {
     action?: string;
     active?: boolean;
     children?: ReactNode;
@@ -31,85 +32,92 @@ export interface SnackbarProps {
     type?: SnackbarType;
 }
 
-const SnackbarComponent = memo<SnackbarProps>(
-    ({
-        active,
-        action,
-        Button = DefaultButton,
-        onClick,
-        theme = {},
-        timeout,
-        label,
-        type,
-        children,
-        className,
-    }) => {
-        const api = ToastGroup.useApi();
-
-        const create = () => {
-            api.create({
-                placement: 'bottom',
-                duration: timeout || 9999999,
-            });
-        };
-
-        // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-        useEffect(() => {
-            if (active) {
-                create();
-            } else {
-                api.remove();
-            }
-        }, [active]);
-
-        const rootClassName = clsx(
-            [theme?.snackbar, theme?.[type]],
+const SnackbarComponent = memo(
+    forwardRef<HTMLDivElement, ISnackbar>(
+        (
             {
-                [theme?.active]: active,
+                active,
+                action,
+                Button = DefaultButton,
+                onClick,
+                theme = {},
+                timeout,
+                label,
+                type,
+                children,
+                className,
             },
-            className,
-        );
+            ref,
+        ) => {
+            const api = ToastGroup.useApi();
 
-        const buttonStatus = useMemo(() => {
-            return buttonStatusMapping[type];
-        }, [type]);
+            const create = () => {
+                api.create({
+                    placement: 'bottom',
+                    duration: timeout || 9999999,
+                });
+            };
 
-        return (
-            <>
-                <ToastGroup.Portal className={theme?.portal}>
-                    {(toast) => (
-                        <Toast.Root actor={toast} className={rootClassName}>
-                            <Toast.Content className={theme?.snackbar}>
-                                {!isNil(label) && (
-                                    <Text.Paragraph as="span" className={theme?.label}>
-                                        {label}
-                                    </Text.Paragraph>
+            // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+            useEffect(() => {
+                if (active) {
+                    create();
+                } else {
+                    api.remove();
+                }
+            }, [active]);
+
+            const rootClassName = clsx(
+                [theme?.snackbar, theme?.[type]],
+                {
+                    [theme?.active]: active,
+                },
+                className,
+            );
+
+            const buttonStatus = useMemo(() => {
+                return buttonStatusMapping[type];
+            }, [type]);
+
+            return (
+                <>
+                    <ToastGroup.Portal className={theme?.portal}>
+                        {(toast) => (
+                            <Toast.Root actor={toast} className={rootClassName} ref={ref}>
+                                <Toast.Content className={theme?.snackbar}>
+                                    {!isNil(label) && (
+                                        <Text.Paragraph as="span" className={theme?.label}>
+                                            {label}
+                                        </Text.Paragraph>
+                                    )}
+
+                                    {children}
+                                </Toast.Content>
+
+                                {!!action && Button && (
+                                    <Toast.CloseTrigger asChild>
+                                        <Button
+                                            onClick={onClick}
+                                            className={theme?.button}
+                                            status={buttonStatus}
+                                        >
+                                            {action}
+                                        </Button>
+                                    </Toast.CloseTrigger>
                                 )}
-
-                                {children}
-                            </Toast.Content>
-
-                            {!!action && Button && (
-                                <Toast.CloseTrigger asChild>
-                                    <Button
-                                        onClick={onClick}
-                                        className={theme?.button}
-                                        status={buttonStatus}
-                                    >
-                                        {action}
-                                    </Button>
-                                </Toast.CloseTrigger>
-                            )}
-                        </Toast.Root>
-                    )}
-                </ToastGroup.Portal>
-            </>
-        );
-    },
+                            </Toast.Root>
+                        )}
+                    </ToastGroup.Portal>
+                </>
+            );
+        },
+    ),
 );
 
-export const Snackbar = memo<SnackbarProps>((props) => (
-    <ToastGroup.RootProvider max={1}>
-        <SnackbarComponent {...props} />
-    </ToastGroup.RootProvider>
-));
+export const Snackbar = memo(
+    forward<ISnackbar, 'div'>((props, ref) => (
+        <ToastGroup.RootProvider max={1}>
+            <SnackbarComponent {...props} ref={ref} />
+        </ToastGroup.RootProvider>
+    )),
+);

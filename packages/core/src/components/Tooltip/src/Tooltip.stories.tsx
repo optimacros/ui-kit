@@ -146,37 +146,39 @@ export const Controlled: StoryObj<typeof Tooltip.Root> = {
                 }}
             >
                 <Tooltip.Root {...props}>
-                    {(api) => (
-                        <>
-                            <Button variant="bordered" onClick={() => api.setOpen(true)}>
-                                click to open
-                            </Button>
-
-                            <Tooltip.Trigger asChild>
-                                <Button variant="bordered">
-                                    do not click or hover over
-                                    <br />
-                                    this will break everything
+                    <Tooltip.Api>
+                        {(api) => (
+                            <>
+                                <Button variant="bordered" onClick={() => api.setOpen(true)}>
+                                    click to open
                                 </Button>
-                            </Tooltip.Trigger>
 
-                            <Tooltip.Content>
-                                <Flex
-                                    justify="center"
-                                    align="center"
-                                    style={{
-                                        height: 100,
-                                        width: 200,
-                                        background: 'lightGray',
-                                    }}
-                                >
-                                    <Button variant="accent" onClick={() => api.setOpen(false)}>
-                                        click to close
+                                <Tooltip.Trigger asChild>
+                                    <Button variant="bordered">
+                                        do not click or hover over
+                                        <br />
+                                        this will break everything
                                     </Button>
-                                </Flex>
-                            </Tooltip.Content>
-                        </>
-                    )}
+                                </Tooltip.Trigger>
+
+                                <Tooltip.Content>
+                                    <Flex
+                                        justify="center"
+                                        align="center"
+                                        style={{
+                                            height: 100,
+                                            width: 200,
+                                            background: 'lightGray',
+                                        }}
+                                    >
+                                        <Button variant="accent" onClick={() => api.setOpen(false)}>
+                                            click to close
+                                        </Button>
+                                    </Flex>
+                                </Tooltip.Content>
+                            </>
+                        )}
+                    </Tooltip.Api>
                 </Tooltip.Root>
             </Flex>
         );

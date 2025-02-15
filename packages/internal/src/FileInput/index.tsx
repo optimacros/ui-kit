@@ -4,6 +4,7 @@ import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Text } from '@optimacros-ui/text';
 import { adaptAcceptParam } from '@optimacros-ui/utils';
+import { forward } from '@optimacros-ui/store';
 
 interface FileInputProps {
     state: {
@@ -22,63 +23,66 @@ interface FileInputProps {
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const FileInput = ({
-    state,
-    value,
-    filePreview,
-    labelUploadNewFile,
-    accept,
-    name,
-    onChange,
-    ...otherProps
-}: FileInputProps) => {
-    const { file, reset } = state || {};
-    const generatedName = useId();
+export const FileInput = forward<FileInputProps, HTMLInputElement>(
+    (
+        { state, value, filePreview, labelUploadNewFile, accept, name, onChange, ...otherProps },
+        ref,
+    ) => {
+        const { file, reset } = state || {};
+        const generatedName = useId();
 
-    return (
-        <FileUpload.Root
-            {...otherProps}
-            allowDrop
-            maxFiles={10}
-            accept={adaptAcceptParam(accept)}
-            name={name ?? generatedName}
-            //@ts-ignore
-            onFileAccept={({ files }) => onChange?.({ target: { files } })}
-            onReset={reset}
-            //@ts-ignore
-            acceptedFiles={file ? [file] : []}
-        >
-            <FileUpload.Api>
-                {({ acceptedFiles }) =>
-                    acceptedFiles.length > 0 && filePreview ? (
-                        <FileUpload.Content
-                            data-scope="file-upload"
-                            data-part="content"
-                            style={{ display: 'block' }}
-                        >
-                            <FileUpload.ItemGroupHeader>
+        return (
+            <FileUpload.Root
+                {...otherProps}
+                allowDrop
+                maxFiles={10}
+                accept={adaptAcceptParam(accept)}
+                name={name ?? generatedName}
+                //@ts-ignore
+                onFileAccept={({ files }) => onChange?.({ target: { files } })}
+                onReset={reset}
+                //@ts-ignore
+                acceptedFiles={file ? [file] : []}
+            >
+                <FileUpload.HiddenInput ref={ref} />
+                <FileUpload.Api>
+                    {({ acceptedFiles }) =>
+                        acceptedFiles.length > 0 && filePreview ? (
+                            <FileUpload.Content
+                                data-scope="file-upload"
+                                data-part="content"
+                                style={{ display: 'block' }}
+                            >
                                 <FileUpload.ItemGroupHeader>
-                                    <Text.Title as="h3">Name</Text.Title>
-                                    <Text.Title as="h3">Size</Text.Title>
+                                    <FileUpload.ItemGroupHeader>
+                                        <Text.Title as="h3">Name</Text.Title>
+                                        <Text.Title as="h3">Size</Text.Title>
+                                    </FileUpload.ItemGroupHeader>
+                                    <FileUpload.ClearTrigger as="div">
+                                        <IconButton
+                                            icon="close"
+                                            variant="bordered"
+                                            size="xs"
+                                            squared
+                                        />
+                                    </FileUpload.ClearTrigger>
                                 </FileUpload.ItemGroupHeader>
-                                <FileUpload.ClearTrigger as="div">
-                                    <IconButton icon="close" variant="bordered" size="xs" squared />
-                                </FileUpload.ClearTrigger>
-                            </FileUpload.ItemGroupHeader>
-                            <FileUpload.ItemGroup>
-                                {(file) => <FileUpload.ItemInfo file={file} />}
-                            </FileUpload.ItemGroup>
-                        </FileUpload.Content>
-                    ) : (
-                        <>
-                            <FileUpload.HiddenInput />
-                            <FileUpload.UploadTrigger as="div">
-                                <Button variant="bordered">{labelUploadNewFile ?? 'Upload'}</Button>
-                            </FileUpload.UploadTrigger>
-                        </>
-                    )
-                }
-            </FileUpload.Api>
-        </FileUpload.Root>
-    );
-};
+                                <FileUpload.ItemGroup>
+                                    {(file) => <FileUpload.ItemInfo file={file} />}
+                                </FileUpload.ItemGroup>
+                            </FileUpload.Content>
+                        ) : (
+                            <>
+                                <FileUpload.UploadTrigger as="div">
+                                    <Button variant="bordered">
+                                        {labelUploadNewFile ?? 'Upload'}
+                                    </Button>
+                                </FileUpload.UploadTrigger>
+                            </>
+                        )
+                    }
+                </FileUpload.Api>
+            </FileUpload.Root>
+        );
+    },
+);

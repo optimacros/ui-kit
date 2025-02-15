@@ -13,6 +13,7 @@ export const {
     useSelector,
     useProxySelector,
     useFeatureFlags,
+    splitProps,
 } = createReactApiStateContext({
     id: 'menu',
     machine,
@@ -80,7 +81,7 @@ const SubMenuRoot: FC<PropsWithChildren<{ parent: ReturnType<typeof useApi> }>> 
 };
 
 export const SubMenuItem = forward<
-    { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & ComponentProps<typeof Root>,
+    { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & RootProps,
     'li'
 >(({ item, parent, children, ...rest }, ref) => {
     const isEnabled = useFeatureFlags('submenu');
