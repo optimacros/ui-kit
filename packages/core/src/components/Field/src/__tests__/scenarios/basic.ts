@@ -19,7 +19,7 @@ export const basic = async ({ globals, canvasElement }) => {
 
     expect(root).toBeInTheDocument();
     expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute('value', undefined);
+    expect(input).not.toHaveAttribute('value');
     expect(label).toBeInTheDocument();
     expect(hint).toBeInTheDocument();
     expect(hint).not.toBeVisible();
