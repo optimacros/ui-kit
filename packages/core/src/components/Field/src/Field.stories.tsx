@@ -8,11 +8,6 @@ import * as stories from './stories';
 import * as scenarios from './__tests__/scenarios';
 
 const argTypes: ArgTypes<Field.Props> = {
-    value: {
-        control: 'text',
-        description: 'Component value (not implemented yet)',
-        table: { defaultValue: { summary: '' } },
-    },
     status: {
         control: 'radio',
         options: ['default', 'error', 'readonly', 'warning'],
@@ -26,11 +21,6 @@ const argTypes: ArgTypes<Field.Props> = {
     required: {
         control: 'boolean',
         description: 'Whether the field is required',
-        table: { defaultValue: { summary: 'false' } },
-    },
-    disabled: {
-        control: 'boolean',
-        description: 'Whether the field is disabled',
         table: { defaultValue: { summary: 'false' } },
     },
     as: { table: { disable: true } },
@@ -59,7 +49,6 @@ export default meta;
 type Story = StoryObj<typeof Field.Root>;
 
 export const Base: Story = {
-    args: { value: undefined },
     render: stories.Basic,
     play: scenarios.basic,
 };
@@ -69,19 +58,38 @@ export const Collapsed: Story = {
     render: stories.Basic,
 };
 
-export const Required = {
+export const Required: Story = {
     args: { required: true },
     render: stories.Basic,
 };
 
-export const Disabled = {
-    args: { disabled: true, value: `im so disabled` },
-    render: stories.Basic,
+export const Disabled: Story = {
+    render: (props) => {
+        return (
+            <Field.Root {...props} data-testid="root">
+                <Field.FloatingLabel htmlFor="base" data-testid="label">
+                    label
+                </Field.FloatingLabel>
+                <Field.Input id="base" data-testid="input" disabled value="im so disabled" />
+                <Field.FloatingHint data-testid="hint">hint do this</Field.FloatingHint>
+            </Field.Root>
+        );
+    },
 };
 
 export const Readonly: Story = {
-    args: { status: 'readonly', value: `im readonly, bruh` },
-    render: stories.Basic,
+    args: { status: 'readonly' },
+    render: (props) => {
+        return (
+            <Field.Root {...props} data-testid="root">
+                <Field.FloatingLabel htmlFor="base" data-testid="label">
+                    label
+                </Field.FloatingLabel>
+                <Field.Input id="base" data-testid="input" value="im readonly, bruh" />
+                <Field.FloatingHint data-testid="hint">hint do this</Field.FloatingHint>
+            </Field.Root>
+        );
+    },
 };
 
 export const WithIcon = () => {
