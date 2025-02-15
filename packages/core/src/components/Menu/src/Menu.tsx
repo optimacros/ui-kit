@@ -9,7 +9,7 @@ import { UiKit } from '../../../store';
 export const {
     Api,
     useApi,
-    RootProvider,
+    RootProvider: Root,
     useSelector,
     useProxySelector,
     useFeatureFlags,
@@ -21,21 +21,7 @@ export const {
     GlobalContext: UiKit,
 });
 
-export type RootProps = ComponentProps<typeof RootProvider>;
-
-export const Root = forward<RootProps & { children: ReactNode }, 'div'>(
-    ({ children, ...rest }, ref) => {
-        const [context, props] = splitProps(rest);
-
-        return (
-            <RootProvider {...context}>
-                <styled.div {...props} ref={ref} data-scope="menu" data-part="root">
-                    {children}
-                </styled.div>
-            </RootProvider>
-        );
-    },
-);
+export type RootProps = ComponentProps<typeof Root>;
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
@@ -111,7 +97,7 @@ export const SubMenuItem = forward<
     }
 
     return (
-        <RootProvider {...rest}>
+        <Root {...rest}>
             {(api) => (
                 <SubMenuRoot parent={parent}>
                     <styled.li
@@ -124,7 +110,7 @@ export const SubMenuItem = forward<
                     {isFunction(children) ? children(api) : children}
                 </SubMenuRoot>
             )}
-        </RootProvider>
+        </Root>
     );
 });
 

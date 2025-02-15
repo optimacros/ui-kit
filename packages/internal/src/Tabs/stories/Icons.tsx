@@ -1,6 +1,6 @@
-import { Tabs, Tab, ITabs } from '../';
+import { Tabs, Tab, TabsProps } from '../';
 
-export const Icons = (props: Partial<ITabs>) => (
+export const Icons = (props: Partial<TabsProps>) => (
     <Tabs {...props}>
         <Tab
             title="Item one"

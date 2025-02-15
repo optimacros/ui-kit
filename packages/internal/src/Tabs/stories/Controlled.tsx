@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Tabs, Tab, ITabs } from '../';
+import { Tabs, Tab, TabsProps } from '../';
 
-export const Controlled = (props: Partial<ITabs>) => {
+export const Controlled = (props: Partial<TabsProps>) => {
     const [activeTab, setActiveTab] = useState(props.active);
 
     return (

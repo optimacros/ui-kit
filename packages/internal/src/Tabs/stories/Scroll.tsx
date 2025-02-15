@@ -1,6 +1,6 @@
-import { Tabs, Tab, ITabs } from '../';
+import { Tabs, Tab, TabsProps } from '../';
 
-export const Scroll = (props: Partial<ITabs>) => (
+export const Scroll = (props: Partial<TabsProps>) => (
     <Tabs {...props} draggable>
         <Tab title="store" icon="favorite" isFixed>
             Item one

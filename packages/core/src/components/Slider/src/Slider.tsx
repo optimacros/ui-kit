@@ -17,29 +17,21 @@ const connect = ((api, { state }) => {
     };
 }) satisfies ConnectMachine<machine.Api, Context, State>;
 
-export const { Api, RootProvider, useApi, useProxySelector, useSelector, splitProps } =
-    createReactApiStateContext({
-        id: 'slider',
-        machine,
-        connect,
-    });
+export const {
+    Api,
+    RootProvider: Root,
+    useApi,
+    useProxySelector,
+    useSelector,
+    splitProps,
+} = createReactApiStateContext({
+    id: 'slider',
+    machine,
+    connect,
+});
 
 export type ContainerProps = PropsWithChildren &
-    Omit<ComponentProps<typeof RootProvider>, 'aria-label' | 'aria-labelledby'>;
-
-export const Root = forward<ComponentProps<typeof RootProvider> & PropsWithChildren, 'div'>(
-    ({ children, ...rest }, ref) => {
-        const [context, props] = splitProps(rest);
-
-        return (
-            <RootProvider {...context}>
-                <styled.div {...props} ref={ref} data-scope="slider" data-part="root">
-                    {children}
-                </styled.div>
-            </RootProvider>
-        );
-    },
-);
+    Omit<ComponentProps<typeof Root>, 'aria-label' | 'aria-labelledby'>;
 
 export const Container = forward<ContainerProps, 'div'>(
     ({ children, ...rest }, ref) => {

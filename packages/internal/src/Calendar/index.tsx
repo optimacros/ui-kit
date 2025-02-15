@@ -1,5 +1,4 @@
-import React from 'react';
-import { forward } from '@optimacros-ui/store';
+import React, { forwardRef } from 'react';
 import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
 import { Icon } from '@optimacros-ui/icon';
 
@@ -35,7 +34,7 @@ interface CalendarProps {
 
 const { dateFormatters } = CalendarComponent;
 
-export const Calendar = forward<CalendarProps, 'div'>(
+export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     (
         {
             active = false,
@@ -50,7 +49,7 @@ export const Calendar = forward<CalendarProps, 'div'>(
             maxDate,
             sundayFirstDayOfWeek,
             theme = {},
-        }: CalendarProps,
+        },
         ref,
     ) => {
         return (
@@ -63,9 +62,8 @@ export const Calendar = forward<CalendarProps, 'div'>(
                 startOfWeek={sundayFirstDayOfWeek ? 0 : 1}
                 min={minDate && dateFormatters(minDate)}
                 max={maxDate && dateFormatters(maxDate)}
-                ref={ref}
             >
-                <CalendarComponent.Content className={theme.wrapper}>
+                <CalendarComponent.Content className={theme.wrapper} ref={ref}>
                     <CalendarComponent.Header className={theme.header}>
                         <CalendarComponent.HeaderYears className={theme.yearsDisplay} />
                         <CalendarComponent.HeaderMonths className={theme.date} />

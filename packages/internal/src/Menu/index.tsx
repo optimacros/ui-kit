@@ -74,13 +74,14 @@ export const Menu = forward<
             closeOnSelect={false}
             open
             hoverable
-            ref={ref}
             {...{ 'open.controlled': true }}
             {...rest}
         >
             {renderTrigger?.()}
             <MenuComponent.Positioner>
-                <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
+                <MenuComponent.Content size="sm" ref={ref}>
+                    {children}
+                </MenuComponent.Content>
             </MenuComponent.Positioner>
         </MenuComponent.Root>
     );

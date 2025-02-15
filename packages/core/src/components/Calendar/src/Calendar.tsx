@@ -103,28 +103,20 @@ const connect = ((api, { state, send }, machine) => {
 }) satisfies ConnectMachine<machine.Api, Context, State>;
 
 //TODO: types
-export const { RootProvider, useApi, Api, useProxySelector, useSelector, splitProps } =
-    createReactApiStateContext<typeof machine>({
-        id: 'calendar',
-        machine,
-        connect,
-    });
+export const {
+    RootProvider: Root,
+    useApi,
+    Api,
+    useProxySelector,
+    useSelector,
+    splitProps,
+} = createReactApiStateContext<typeof machine>({
+    id: 'calendar',
+    machine,
+    connect,
+});
 
-export type RootProps = ComponentProps<typeof RootProvider>;
-
-export const Root = forward<RootProps & { children: ReactNode }, 'div'>(
-    ({ children, ...rest }, ref) => {
-        const [context, props] = splitProps(rest);
-
-        return (
-            <RootProvider {...context}>
-                <styled.div {...props} ref={ref} data-scope="calendar" data-part="root">
-                    {children}
-                </styled.div>
-            </RootProvider>
-        );
-    },
-);
+export type RootProps = ComponentProps<typeof Root>;
 
 export const Trigger = forward<{}, 'div'>(
     (props, ref) => {

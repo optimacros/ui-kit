@@ -5,6 +5,7 @@ import {
     MouseEventHandler,
     PropsWithChildren,
     ReactNode,
+    forwardRef,
     memo,
     useMemo,
 } from 'react';
@@ -14,7 +15,7 @@ import { clsx, includes, isNumber } from '@optimacros-ui/utils';
 import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
 import { Flex } from '@optimacros-ui/flex';
-import { forward } from '@optimacros-ui/store';
+import { styled } from '@optimacros-ui/store';
 
 export interface TooltipProps extends PropsWithChildren {
     className?: string;
@@ -57,7 +58,7 @@ const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme, tooltipPosit
 });
 
 export const Tooltip = memo(
-    forward<TooltipProps, 'div'>((props, ref) => {
+    forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
         const {
             children,
             composedComponent,
@@ -89,25 +90,26 @@ export const Tooltip = memo(
 
         return (
             <UITooltip.Root
-                ref={ref}
                 openDelay={tooltipDelay}
                 closeDelay={tooltipDelay}
                 positioning={positioning}
             >
-                <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
+                <styled.div ref={ref}>
+                    <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
 
-                <UITooltip.Trigger as="div">
-                    <RootElement
-                        composedComponent={composedComponent}
-                        composedComponentProps={composedComponentProps}
-                        onClick={onClick}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        theme={theme}
-                    >
-                        {children}
-                    </RootElement>
-                </UITooltip.Trigger>
+                    <UITooltip.Trigger as="div">
+                        <RootElement
+                            composedComponent={composedComponent}
+                            composedComponentProps={composedComponentProps}
+                            onClick={onClick}
+                            onMouseEnter={onMouseEnter}
+                            onMouseLeave={onMouseLeave}
+                            theme={theme}
+                        >
+                            {children}
+                        </RootElement>
+                    </UITooltip.Trigger>
+                </styled.div>
             </UITooltip.Root>
         );
     }),

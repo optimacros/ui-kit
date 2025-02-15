@@ -86,7 +86,7 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
             onDragStop = () => {},
             editable = false,
             label,
-            theme,
+            theme = {},
             ...rest
         },
         ref,
@@ -121,11 +121,10 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
                 step={step}
                 onFocusChange={() => {}}
                 controllable
-                ref={ref}
                 className={className}
                 {...rest}
             >
-                <Slider.Container className={theme.container}>
+                <Slider.Container className={theme.container} ref={ref}>
                     {label && <Slider.Label>{label}</Slider.Label>}
                     {isOutput && (
                         <span style={{ marginLeft: '10px' }}>

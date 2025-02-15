@@ -1,13 +1,21 @@
-import { memo, ReactElement, useEffect, useState, Children, useMemo, ReactNode } from 'react';
+import {
+    memo,
+    ReactElement,
+    useEffect,
+    useState,
+    Children,
+    useMemo,
+    ReactNode,
+    forwardRef,
+} from 'react';
 
 import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
 import { Flex } from '@optimacros-ui/flex';
-import { forward } from '@optimacros-ui/store';
 import { TabButton } from './TabButton';
 import { flushSync } from 'react-dom';
 
-interface TabsContentProps extends Omit<ITabs, 'theme' | 'className'> {
+interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
     tabs?: Array<UITabs.Tab>;
     meta?: Record<string, any>;
     theme?: Partial<TabsTheme>;
@@ -103,7 +111,7 @@ const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) =>
 
 TabsContent.displayName = 'TabsContent';
 
-export interface ITabs {
+export interface TabsProps {
     className?: string;
     draggable?: boolean;
     onTabSwitch?: (index: number) => void;
@@ -118,7 +126,7 @@ export interface ITabs {
 }
 
 export const Tabs = memo(
-    forward<ITabs, 'div'>(
+    forwardRef<HTMLDivElement, TabsProps>(
         (
             { className, theme = {}, onTabPositionChange, draggable, active, children, ...rest },
             ref,
