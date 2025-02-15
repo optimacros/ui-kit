@@ -96,7 +96,7 @@ export const Button = forward<
             label,
             icon,
             href,
-            theme,
+            theme = {},
             inverse,
             mini,
             neutral,

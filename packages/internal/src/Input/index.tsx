@@ -91,7 +91,7 @@ export const Input = forward<IInput, HTMLInputElement>(
             readOnly = false,
             autoFocus,
             name,
-            theme,
+            theme = {},
             ...others
         },
         ref,

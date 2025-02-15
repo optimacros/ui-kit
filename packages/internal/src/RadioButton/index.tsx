@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { forward } from '@optimacros-ui/store';
 
-export interface IRadioButton {
+export interface RadioButtonProps {
     checked?: boolean;
     children?: React.ReactNode;
     className?: string;
@@ -24,7 +24,7 @@ export interface IRadioButton {
     value?: string;
 }
 
-export const RadioButton = forward<IRadioButton, HTMLInputElement>(
+export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
     (
         {
             checked = false,
@@ -37,7 +37,7 @@ export const RadioButton = forward<IRadioButton, HTMLInputElement>(
             onMouseEnter,
             onMouseLeave,
             onClick,
-            theme,
+            theme = {},
             placeholder,
             ...others
         },

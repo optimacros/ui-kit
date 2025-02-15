@@ -34,7 +34,7 @@ export const Chip = forward<ChipProps, 'div'>(
             settingsDialog,
             theme: customTheme = {},
             customDeleteIcon,
-            theme,
+            theme = {},
             ...other
         },
         ref,

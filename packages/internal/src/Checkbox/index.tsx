@@ -64,7 +64,7 @@ export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
     (
         {
             tooltipLabel,
-            theme,
+            theme = {},
             tooltipDelay,
             tooltipPosition,
             tooltipOffset,
@@ -118,7 +118,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
             onMouseEnter,
             onMouseLeave,
             onClick,
-            theme,
+            theme = {},
             ...rest
         },
         ref,

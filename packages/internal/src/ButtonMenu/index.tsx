@@ -33,7 +33,7 @@ export const ButtonMenu = forward<ButtonMenuProps, 'button'>((props, ref) => {
         classNameDropdownContainer,
         closeOnSelect,
         menuRootContainerClassName,
-        theme,
+        theme = {},
         children,
         onClick,
         onMouseEnter,

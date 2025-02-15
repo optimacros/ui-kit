@@ -14,7 +14,7 @@ type Props = PropsWithChildren &
     >;
 
 export const RootElement = memo<Props>(
-    ({ composedComponent = 'div', composedComponentProps, theme, ...rest }) => {
+    ({ composedComponent = 'div', composedComponentProps, theme = {}, ...rest }) => {
         const childProps = {
             ...rest,
             ...composedComponentProps,

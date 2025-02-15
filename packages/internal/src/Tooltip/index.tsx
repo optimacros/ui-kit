@@ -33,7 +33,7 @@ export interface TooltipProps extends PropsWithChildren {
 
 type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
 
-const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme, tooltipPosition }) => {
+const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltipPosition }) => {
     const api = UITooltip.useApi();
 
     if (!tooltip) {
@@ -66,7 +66,7 @@ export const Tooltip = memo(
             onClick,
             onMouseEnter,
             onMouseLeave,
-            theme,
+            theme = {},
             tooltipDelay = 0,
             tooltipPosition = 'vertical',
             tooltipOffset = 0,

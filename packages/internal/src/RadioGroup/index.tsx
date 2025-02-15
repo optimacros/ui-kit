@@ -3,7 +3,7 @@ import { RadioGroup as RadioGroupComponent } from '@optimacros-ui/radio-group';
 import { useThemeClassName } from '../utils';
 import { forward } from '@optimacros-ui/store';
 
-interface IRadioGroup {
+interface RadioGroupProps {
     options?: any[];
     classNameButton?: string;
     className?: string;
@@ -12,8 +12,8 @@ interface IRadioGroup {
     onChange?: (value: string) => void;
 }
 
-export const RadioGroup = forward<IRadioGroup, HTMLInputElement>(
-    ({ options, children, onChange, theme, className, ...rest }, ref) => {
+export const RadioGroup = forward<RadioGroupProps, HTMLInputElement>(
+    ({ options, children, onChange, theme = {}, className, ...rest }, ref) => {
         const content = options || Children.toArray(children);
         const cn = useThemeClassName(theme, className);
 
