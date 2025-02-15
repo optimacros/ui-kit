@@ -28,7 +28,7 @@ export type InputTheme = {
 type HTMLAttributes = TextareaHTMLAttributes<HTMLTextAreaElement> &
     InputHTMLAttributes<HTMLInputElement>;
 
-export interface IInput
+export interface InputProps
     extends Omit<HTMLAttributes, 'onChange' | 'onKeyPress' | 'onKeyDown' | 'id'> {
     onChange?: (
         value: string,
@@ -63,7 +63,7 @@ const getStatus = (error: boolean, readOnly: boolean, warning: boolean) => {
     }
 };
 
-export const Input = forward<IInput, HTMLInputElement>(
+export const Input = forward<InputProps, HTMLInputElement>(
     (
         {
             value,

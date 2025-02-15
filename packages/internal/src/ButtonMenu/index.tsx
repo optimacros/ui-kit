@@ -1,5 +1,4 @@
-import React from 'react';
-import { forward } from '@optimacros-ui/store';
+import React, { forwardRef } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
@@ -25,7 +24,7 @@ type Props = {
 
 export type ButtonMenuProps = React.PropsWithChildren<Props>;
 
-export const ButtonMenu = forward<ButtonMenuProps, 'button'>((props, ref) => {
+export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props, ref) => {
     const {
         disabled,
         onVisibleChange,

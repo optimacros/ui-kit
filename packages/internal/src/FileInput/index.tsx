@@ -6,7 +6,7 @@ import { Text } from '@optimacros-ui/text';
 import { adaptAcceptParam } from '@optimacros-ui/utils';
 import { forward } from '@optimacros-ui/store';
 
-interface IFileInput {
+interface FileInputProps {
     state: {
         reset?: () => void;
         file: {
@@ -23,7 +23,7 @@ interface IFileInput {
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const FileInput = forward<IFileInput, HTMLInputElement>(
+export const FileInput = forward<FileInputProps, HTMLInputElement>(
     (
         { state, value, filePreview, labelUploadNewFile, accept, name, onChange, ...otherProps },
         ref,

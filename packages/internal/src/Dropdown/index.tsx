@@ -1,9 +1,6 @@
-//@ts-nocheck
-
-import React, { useEffect } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
-import { forward } from '@optimacros-ui/store';
 
 interface Props extends RCDropdownProps {
     disabled?: boolean;
@@ -14,7 +11,7 @@ interface Props extends RCDropdownProps {
 
 export type DropdownProps = React.PropsWithChildren<Props>;
 
-export const Dropdown = forward<DropdownProps, 'div'>(
+export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     (
         {
             visible: propVisible = false,
@@ -76,7 +73,6 @@ export const Dropdown = forward<DropdownProps, 'div'>(
         return (
             <Menu.Root
                 {...otherProps}
-                ref={ref}
                 open={visible}
                 onOpenChange={handleVisibleChange}
                 hoverable={isHoverTrigger}
@@ -93,7 +89,7 @@ export const Dropdown = forward<DropdownProps, 'div'>(
                                     <div>{children}</div>
                                 </Menu.Trigger>
                                 <Menu.Positioner>
-                                    <Menu.Content size="sm">
+                                    <Menu.Content size="sm" ref={ref}>
                                         {/** @ts-ignore */}
                                         <Menu.List>{overlay}</Menu.List>
                                     </Menu.Content>
@@ -105,7 +101,7 @@ export const Dropdown = forward<DropdownProps, 'div'>(
                                     <div>{children}</div>
                                 </Menu.Trigger>
                                 <Menu.Positioner>
-                                    <Menu.Content size="sm">
+                                    <Menu.Content size="sm" ref={ref}>
                                         <Menu.List>
                                             {isMenuInOverlay
                                                 ? //@ts-ignore
