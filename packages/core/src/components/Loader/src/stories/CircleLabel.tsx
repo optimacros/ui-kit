@@ -13,9 +13,9 @@ export const CircleLabel = () => {
 
             <Loader.Label>Loading {counter}/100</Loader.Label>
 
-            <Loader.Circle>
-                <Loader.CircleTrack />
-                <Loader.CircleRange />
+            <Loader.Circle data-testid="circle">
+                <Loader.CircleTrack data-testid="track" />
+                <Loader.CircleRange data-testid="range" />
             </Loader.Circle>
         </Flex>
     );
