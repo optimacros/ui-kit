@@ -18,7 +18,7 @@ workflow:
       variables:
         pushNexus: "true"
     # - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
-    - if: '$CI_PIPELINE_SOURCE == "release"'
+    - if: '$CI_COMMIT_TAG != ""'  # Запуск при любом теге (включая релизы)
       variables:
         is_release: "true"
 
@@ -78,7 +78,7 @@ nexus-push-job:
   variables:
     GIT_STRATEGY: none
   rules:
-    - if: '$is_release == "true"'
+    - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
       when: on_success
   allow_failure: false
   needs:
@@ -101,7 +101,7 @@ deploy:
   needs:
     - nexus-push-job
   rules:
-    - if: '$is_release == "true"'
+    - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
       when: on_success
     # - if: ($deploy == "true")
     #   when: on_success
