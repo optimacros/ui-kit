@@ -3,7 +3,7 @@ import { RootProvider, useApi } from './context';
 import { forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
-export type Props = ComponentProps<typeof RootProvider>;
+export type Props = Omit<ComponentProps<typeof RootProvider>, 'children'>;
 
 export const Root = forward<Props, 'div'>(
     ({ children, ...context }, ref) => {

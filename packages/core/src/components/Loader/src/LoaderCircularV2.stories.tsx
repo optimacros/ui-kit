@@ -1,18 +1,21 @@
-import { ArgTypes, Meta } from '@storybook/react';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
 import { Loader } from './index';
-import { useEffect } from 'react';
 import LinearStory from './LoaderLinearV2.stories';
 
-const argTypes: Partial<ArgTypes> = {
+import * as stories from './stories';
+import * as scenarios from './__tests__/scenarios';
+
+const argTypes: Partial<ArgTypes<Loader.Props>> = {
     ...LinearStory.argTypes,
     multicolor: {
         control: 'boolean',
         description: 'The circular progress bar will be changing its color in indeterminate mode.',
+        table: { defaultValue: { summary: 'false' } },
     },
 };
 
-const meta: Meta = {
+const meta: Meta<typeof Loader.Root> = {
     title: 'UI Kit core/Loader/Circular',
     argTypes,
     decorators: [
@@ -26,99 +29,38 @@ const meta: Meta = {
     ],
     tags: ['skip-test-runner'],
 };
+
 export default meta;
 
-export const Basic = () => {
-    const api = Loader.useApi();
+type Story = StoryObj<typeof Loader.Root>;
 
-    useEffect(() => {
-        api.start();
-    }, []);
-
-    return (
-        <Loader.Circle>
-            <Loader.CircleTrack />
-            <Loader.CircleRange />
-        </Loader.Circle>
-    );
+export const Basic: Story = {
+    render: stories.CircleBasic,
+    play: scenarios.circleBasic,
 };
 
-export const Disabled = {
-    render: () => <Basic />,
+export const Disabled: Story = {
+    render: stories.CircleBasic,
     args: {
         disabled: true,
     },
     tags: ['!skip-test-runner'],
 };
 
-export const Buffer = {
-    render: () => <Basic />,
-    args: {
-        value: 33,
-    },
+export const Multicolor: Story = {
+    args: { multicolor: true, value: null },
+    render: stories.CircleBasic,
 };
 
-export const Label = {
-    render: () => {
-        const counter = Loader.useProxySelector((state) => state.value);
-
-        return (
-            <>
-                <Loader.Label>Loading {counter}/100</Loader.Label>
-                <Basic />
-            </>
-        );
-    },
-    args: {
-        max: 100,
-    },
+export const Label: Story = {
+    render: stories.CircleLabel,
+    tags: ['!skip-test-runner'],
 };
 
-export const Infinite = {
-    render: () => {
-        const counter = Loader.useProxySelector((state) => state.value);
-
-        return (
-            <>
-                <Loader.Label>Loading {counter}/100</Loader.Label>
-                <Basic />
-            </>
-        );
-    },
+export const Infinite: Story = {
+    render: stories.CircleLabel,
     args: {
         infinite: true,
+        speed: 50,
     },
-};
-
-export const CancelTrigger = () => {
-    return (
-        <>
-            <Loader.StartTrigger>start</Loader.StartTrigger>
-            <Loader.CancelTrigger>stop</Loader.CancelTrigger>
-            <div
-                style={{
-                    position: 'relative',
-                    display: 'flex',
-                    width: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginTop: 30,
-                }}
-            >
-                <Loader.ValueText />
-
-                <div
-                    style={{
-                        position: 'relative',
-                        display: 'flex',
-                    }}
-                >
-                    <Loader.Circle>
-                        <Loader.CircleTrack />
-                        <Loader.CircleRange />
-                    </Loader.Circle>
-                </div>
-            </div>
-        </>
-    );
 };
