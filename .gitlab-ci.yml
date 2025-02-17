@@ -61,9 +61,6 @@ storybook:
     GIT_STRATEGY: none
   tags:
     - ${runner}
-  before_script:
-  - sudo sysctl -w fs.inotify.max_user_watches=524288
-  - sudo sysctl -w fs.inotify.max_user_instances=512
   script:
     - nvm use 
     - npm ci
