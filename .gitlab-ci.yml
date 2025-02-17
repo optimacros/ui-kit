@@ -76,7 +76,7 @@ nexus-push-job:
   stage: nexus
   variables:
     GIT_STRATEGY: none
-  when: manual
+  when: on_success
   allow_failure: false
   needs:
     - lint
@@ -97,7 +97,7 @@ nexus-push-job:
     - echo "storybook deploying..."
     - scp -r storybook-static/* $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit/
   rules:
-    - if: '$CI_COMMIT_TAG'  # триггер на создание релиза (тега)
+    - if: '$CI_PIPELINE_SOURCE == "release"'  # теперь триггер срабатывает именно при создании релиза
 
 #deploy
 deploy:
