@@ -82,10 +82,17 @@ nexus-push-job:
   tags:
     - ${runner}
   script:
-    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
+    # настраиваем доступ к nexus
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> ~/.npmrc
     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
     - nvm use && npm ci
-    - echo "y" | npm run publish
+
+    # публикуем npm пакеты
+    - npx lerna publish from-package --yes --no-push --no-git-tag-version
+
+    # деплоим storybook
+    - echo "storybook deploying..."
+    - scp -r storybook-static/* $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit/
 
 #deploy
 deploy:
