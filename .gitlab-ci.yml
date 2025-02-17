@@ -60,6 +60,9 @@ storybook:
     GIT_STRATEGY: none
   tags:
     - ${runner}
+  before_script:
+  - sudo sysctl -w fs.inotify.max_user_watches=524288
+  - sudo sysctl -w fs.inotify.max_user_instances=512
   script:
     - nvm use 
     - npm ci
@@ -93,6 +96,8 @@ nexus-push-job:
     # деплоим storybook
     - echo "storybook deploying..."
     - scp -r storybook-static/* $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit/
+  rules:
+    - if: '$CI_COMMIT_TAG'  # триггер на создание релиза (тега)
 
 #deploy
 deploy:
