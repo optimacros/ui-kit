@@ -27,8 +27,9 @@ stages:
   - lint
   - typescript-test
   - storybook-test
-  - deploy
   - nexus
+  - deploy
+
 
 build:
   stage: build
