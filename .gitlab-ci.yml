@@ -14,8 +14,13 @@ workflow:
     - if: ( $CI_PIPELINE_SOURCE == "merge_request_event") # При MR
       variables:
         pr: "true"
-    - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # При запуске для тегов, валидный формат: 1.0.0, 2.4.7-dev, 4.3.2-stable
+      variables:
+        pushNexus: "true"
+    # - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
+    - if: '$CI_PIPELINE_SOURCE == "release"'
+      variables:
+        is_release: "true"
 
 stages:
   - build
@@ -61,23 +66,19 @@ storybook:
     GIT_STRATEGY: none
   tags:
     - ${runner}
-  before_script:
-  - echo 524288 > /proc/self/fdinfo/max_user_watches || true
-  - echo 1024 > /proc/self/fdinfo/max_user_instances || true
   script:
     - nvm use 
-    - npm ci
-    - npm run start:storybook & # запускаем в фоне
-    - sleep 5 # ждём, пока он поднимется
-    - npm run test-storybook:update # временная заглушка вместо тестов
-  when: always
+    # - npm run start
+    # - npm run test-storybook
 
 # push artefacts to nexus
 nexus-push-job:
   stage: nexus
   variables:
     GIT_STRATEGY: none
-  when: on_success
+  rules:
+    - if: '$is_release == "true"'
+      when: on_success
   allow_failure: false
   needs:
     - lint
@@ -86,32 +87,28 @@ nexus-push-job:
   tags:
     - ${runner}
   script:
-    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
-    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> ~/.npmrc
+    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> ~/.npmrc
     - nvm use && npm ci
-
-    # публикуем npm пакеты
     - npx lerna publish from-package --yes --no-push --no-git-tag-version
-
-    # деплоим storybook
-    - echo "storybook deploying..."
-    - scp -r storybook-static/* $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit/
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
 
 #deploy
 deploy:
   stage: deploy
   variables:
     GIT_STRATEGY: none
+  needs:
+    - nexus-push-job
   rules:
-    - if: ($deploy == "true")
+    - if: '$is_release == "true"'
       when: on_success
-    - if: ($pr == "true")
-      when: never
-    - if: ($deploy != "true" && $pr != "true")
-      when: manual
-      allow_failure: true
+    # - if: ($deploy == "true")
+    #   when: on_success
+    # - if: ($pr == "true")
+    #   when: never
+    # - if: ($deploy != "true" && $pr != "true")
+    #   when: manual
+    #   allow_failure: true
   tags:
     - ${runner}
   before_script:
