@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import { RootProvider, useSelector } from './context';
+import { RootProvider, useApi } from './context';
 import { forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
@@ -21,7 +21,8 @@ export const Root = forward<Props, 'div'>(
 );
 
 export const StartTrigger = forward<{}, 'button'>((props, ref) => {
-    const start = useSelector((state) => state.start);
+    const { start } = useApi();
+
     return (
         <styled.button
             {...props}

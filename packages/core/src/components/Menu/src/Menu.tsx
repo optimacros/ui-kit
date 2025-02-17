@@ -147,9 +147,9 @@ export const SubMenuPositioner = forward<ComponentProps<typeof Positioner>, 'div
 });
 
 export const Content = forward<{ size?: 'sm' | 'md' | 'lg' }, 'div'>(({ size, ...rest }, ref) => {
-    const contentProps = useSelector((state) => state.getContentProps());
+    const api = useApi();
 
-    return <styled.div {...rest} {...contentProps} data-size={size} ref={ref} />;
+    return <styled.div {...rest} {...api.getContentProps()} data-size={size} ref={ref} />;
 });
 
 export const List = forward<{ children: ReactNode | ReactElement }, 'ul'>(
@@ -163,10 +163,10 @@ export const List = forward<{ children: ReactNode | ReactElement }, 'ul'>(
 );
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
-    const props = useSelector((state) => state.getTriggerProps());
+    const api = useApi();
 
     return (
-        <styled.button {...rest} {...props} ref={ref} role="button">
+        <styled.button {...rest} {...api.getTriggerProps()} ref={ref} role="button">
             {children}
         </styled.button>
     );

@@ -1,5 +1,5 @@
 import { ActionCreator } from '../utils';
-import { mapValues } from '@optimacros-ui/utils';
+import { isEqual, mapValues } from '@optimacros-ui/utils';
 import { mergeDeepWith } from 'immutable';
 import { memoize } from 'proxy-memoize';
 import {
@@ -12,6 +12,7 @@ import {
     useMemo,
     useReducer,
     useRef,
+    useState,
 } from 'react';
 
 export function createReducerWithMiddleware<M extends Array<any>>(
@@ -106,12 +107,31 @@ export function createUseSelectorHook<
     T extends Context<any>,
     State = T extends Context<infer S> ? S : unknown,
 >(Context: T) {
-    function useSelector<Selected>(selector?: (state: State) => Selected) {
-        const state = useContext(Context);
+    function useSelector<Selected>(selector: (state: State) => Selected) {
+        const context = useContext(Context);
 
-        const value = useMemo(() => selector(state), [state]);
+        if (context === undefined) {
+            throw new Error('useSelector must be used within the corresponding provider');
+        }
 
-        return value;
+        const [selectedValue, setSelectedValue] = useState(() => selector(context));
+        const prevValueRef = useRef(selectedValue);
+        const selectorRef = useRef(selector);
+
+        useEffect(() => {
+            selectorRef.current = selector;
+        }, [selector]);
+
+        useEffect(() => {
+            const newSelectedValue = selectorRef.current(context);
+
+            if (!isEqual(newSelectedValue, prevValueRef.current)) {
+                setSelectedValue(newSelectedValue);
+                prevValueRef.current = newSelectedValue;
+            }
+        }, [context]);
+
+        return selectedValue;
     }
 
     return useSelector;
