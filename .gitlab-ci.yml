@@ -62,8 +62,11 @@ storybook:
     - ${runner}
   script:
     - nvm use 
-    # - npm run start
-    # - npm run test-storybook
+    - npm ci
+    - npm run start:storybook & # запускаем в фоне
+    - sleep 5 # ждём, пока он поднимется
+    - npm run test-storybook:update # временная заглушка вместо тестов
+  when: always
 
 # push artefacts to nexus
 nexus-push-job:
