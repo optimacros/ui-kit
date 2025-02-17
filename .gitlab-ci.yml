@@ -15,6 +15,7 @@ workflow:
       variables:
         pr: "true"
     - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
 
 stages:
   - build
@@ -96,7 +97,7 @@ nexus-push-job:
     - echo "storybook deploying..."
     - scp -r storybook-static/* $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit/
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "release"'  # теперь триггер срабатывает именно при создании релиза
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
 
 #deploy
 deploy:
