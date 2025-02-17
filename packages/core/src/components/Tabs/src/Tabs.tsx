@@ -229,7 +229,7 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> &
 };
 const BaseRoot = forward<RootProps, 'div'>(({ children, variant, className, ...rest }, ref) => {
     const rootProps = useSelector((api) => api.getRootProps());
-    const syncTabs = useSelector((api) => api.syncTabs);
+    const { syncTabs } = useApi();
 
     useEffect(() => {
         syncTabs();
