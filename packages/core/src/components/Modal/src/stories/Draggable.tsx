@@ -6,13 +6,17 @@ export const Draggable = (props: Modal.Props) => {
     return (
         <>
             <Modal.Root {...props}>
-                <Modal.Trigger>Open</Modal.Trigger>
+                <Modal.Trigger data-testid="open-trigger">Open</Modal.Trigger>
 
-                <Modal.DraggableContent>
-                    <Modal.DragHandle style={{ border: '1px gray dashed' }} asChild>
+                <Modal.DraggableContent data-testid="content">
+                    <Modal.DragHandle
+                        style={{ border: '1px gray dashed' }}
+                        asChild
+                        data-testid="drag-handle1"
+                    >
                         <Modal.Header>
                             <Modal.Title>Edit profile</Modal.Title>
-                            <Modal.CloseTrigger asChild>
+                            <Modal.CloseTrigger asChild data-testid="close-icon">
                                 <IconButton icon="close" />
                             </Modal.CloseTrigger>
                         </Modal.Header>
@@ -24,7 +28,10 @@ export const Draggable = (props: Modal.Props) => {
                             <input placeholder="Enter name..." id="modal-input-1" />
                             <button>Save</button>
                         </div>
-                        <Modal.DragHandle style={{ border: '1px gray dashed' }}>
+                        <Modal.DragHandle
+                            style={{ border: '1px gray dashed' }}
+                            data-testid="drag-handle2"
+                        >
                             Another drag handle
                         </Modal.DragHandle>
                     </Modal.ScrollContainer>
