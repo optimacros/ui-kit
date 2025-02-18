@@ -4,7 +4,7 @@ import { createReactApiStateContext, forward, styled } from '@optimacros-ui/stor
 import { isFunction } from '@optimacros-ui/utils';
 import { machine, connect } from './menu.machine';
 import type * as menu from '@zag-js/menu';
-import { UiKit } from '../../../store';
+import { UiKit } from '@optimacros-ui/kit-store';
 
 export const {
     Api,

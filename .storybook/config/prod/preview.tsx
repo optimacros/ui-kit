@@ -1,4 +1,4 @@
-import { UiKit } from '../../../packages/core/src';
+import { UiKit } from '@optimacros-ui/kit-store';
 import { Preview } from '@storybook/react';
 import iconsSrc from '../../../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 import { useEffect, useState } from 'react';

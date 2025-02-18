@@ -1,4 +1,4 @@
-import { UiKit } from '../../../packages/core/src';
+import { UiKit } from '@optimacros-ui/kit-store';
 import { Args, Preview } from '@storybook/react';
 import iconsSrc from '../../../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
 import { useEffect, useRef, useState } from 'react';
@@ -7,7 +7,7 @@ import { withPerformance } from 'storybook-addon-performance';
 import { setFigmaLink } from '../../utils';
 import featureFlags from '../../../packages/core/src/store/config/feature_flags.json';
 //@ts-ignore
-import { themes } from '../../../packages/core/src/store/ThemeToggle.tsx';
+import { themes } from '../../../packages/core/src/store/src/ThemeToggle.tsx';
 const styles = Promise.all([
     import('../../../packages/themes/src/default/tokens.css?raw'),
     import('../../../packages/themes/src/default/component-tokens.css?raw'),

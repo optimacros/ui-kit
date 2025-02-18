@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { isValidIconName } from '@optimacros-ui/themes';
 import { forward, styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
-import { UiKit } from '../../../store';
+import { UiKit } from '@optimacros-ui/kit-store';
 
 export interface IconProps {
     value: string | ReactNode;

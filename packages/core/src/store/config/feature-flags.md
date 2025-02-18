@@ -29,7 +29,7 @@ import featureFlags from '../../../packages/core/src/config/feature_flags.json';
 
 ### Использование внутри компонента
 ``` tsx
-import { UiKit } from '../../../store';
+import { UiKit } from '@optimacros-ui/kit-store';
 
 export const {
     Api,
