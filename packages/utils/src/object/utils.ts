@@ -1,8 +1,7 @@
 import * as $ from '@optimacros-ui/types';
 import { getIn, merge as ImMerge, mergeDeep, setIn } from 'immutable';
 import isString from 'lodash-es/isString';
-
-import * as _ from 'radash';
+import { mapEntries, camel, snake, dash, pascal } from 'radash';
 
 /** an immutable merge method */
 export function merge<T, Args extends Array<any>>(deep: boolean, collection: T, ...args: Args) {
@@ -37,26 +36,26 @@ export function getValue<T, Path extends $.Path<T> | Array<string>>(state: T, pa
 
 export const changeCase = {
     camel<T extends Record<string, any>>(obj: T) {
-        return _.mapEntries(obj, (key, value) => [
-            _.camel(key as string),
+        return mapEntries(obj, (key, value) => [
+            camel(key as string),
             value,
         ]) as $.CamelCasedProperties<T>;
     },
     snake<T extends Record<string, any>>(obj: T) {
-        return _.mapEntries(obj, (key, value) => [
-            _.snake(key as string),
+        return mapEntries(obj, (key, value) => [
+            snake(key as string),
             value,
         ]) as $.SnakeCasedProperties<T>;
     },
     dash<T extends Record<string, any>>(obj: T) {
-        return _.mapEntries(obj, (key, value) => [
-            _.dash(key as string),
+        return mapEntries(obj, (key, value) => [
+            dash(key as string),
             value,
         ]) as $.DelimiterCasedProperties<T, '-'>;
     },
     pascal<T extends Record<string, any>>(obj: T) {
-        return _.mapEntries(obj, (key, value) => [
-            _.pascal(key as string),
+        return mapEntries(obj, (key, value) => [
+            pascal(key as string),
             value,
         ]) as $.PascalCasedProperties<T>;
     },
