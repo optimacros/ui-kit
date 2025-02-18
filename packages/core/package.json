@@ -7,7 +7,9 @@
     "types": "dist/index.d.ts",
     "files": ["dist"],
     "scripts": {
-        "build": "tsup --config ./tsup.config.ts",
+        "build:tsup": "tsup --config ./tsup.config.ts",
+        "build": "npm run build:tsup && npm run copy-components",
+        "copy-components": "node ./copy-components.mjs",
         "tailwind": "tailwindcss -i ./src/**/* -o ./src/output.css --watch"
     },
     "dependencies": {
