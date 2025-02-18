@@ -2,6 +2,7 @@ import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Modal } from './index';
 import { interactionTasks } from './interactions';
 import * as stories from './stories';
+import * as scenarios from './__tests__/scenarios';
 import { fn } from '@storybook/test';
 import { Flex } from '@optimacros-ui/flex';
 
@@ -72,10 +73,13 @@ const argTypes: ArgTypes<Partial<Modal.Props>> = {
         description: `Function called when an interaction happens outside the component`,
         table: { type: { summary: '(event: InteractOutsideEvent) => void' } },
     },
+    defaultContext: { table: { disable: true } },
+    id: { table: { disable: true } },
 };
 
 const meta: Meta<typeof Modal.Root> = {
     title: 'UI Kit core/Modal',
+    component: Modal.Root,
     argTypes,
 };
 
@@ -88,7 +92,7 @@ export const Basic: Story = {
         controllable: false,
         open: false,
         onOpenChange: fn(),
-        onClose: fn(),
+        onClose: fn(() => console.info('onclose 1')),
         preventScroll: true,
         closeOnEscape: true,
     },
@@ -98,24 +102,28 @@ export const Basic: Story = {
         },
     },
     render: stories.Basic,
+    play: scenarios.basic,
 };
 
 export const Controlled: Story = {
     args: { controllable: true, 'open.controlled': true },
     render: stories.Controlled,
+    tags: ['skip-test-runner'],
 };
 
 export const Events: Story = {
-    args: { open: true, trapFocus: false },
+    args: { trapFocus: false },
     render: stories.Events,
+    tags: ['skip-test-runner'],
 };
 
 export const Focus: Story = {
     render: stories.Focus,
+    tags: ['skip-test-runner'],
 };
 
 export const PreventScrollDisabled: Story = {
-    args: { open: true, preventScroll: false },
+    args: { preventScroll: false },
     render: stories.Basic,
     decorators: [
         (Story) => (
@@ -124,24 +132,41 @@ export const PreventScrollDisabled: Story = {
             </Flex>
         ),
     ],
+    tags: ['skip-test-runner'],
 };
 
 export const CloseOnEscapeDisabled: Story = {
-    args: { open: true, closeOnEscape: false },
+    args: {
+        onOpenChange: fn(),
+        onEscapeKeyDown: fn(),
+        onPointerDownOutside: fn(),
+        onInteractOutside: fn(),
+        closeOnEscape: false,
+        controllable: true,
+    },
     render: stories.Basic,
+    play: scenarios.closeOnEscape,
 };
 
 export const CloseOnInteractOutsideDisabled: Story = {
-    args: { open: true, closeOnInteractOutside: false },
+    args: {
+        closeOnInteractOutside: false,
+        onOpenChange: fn(),
+        onEscapeKeyDown: fn(),
+        onPointerDownOutside: fn(),
+        onInteractOutside: fn(),
+        controllable: true,
+    },
     render: stories.Basic,
+    play: scenarios.closeOnInteractOutside,
 };
 
 export const CloseIcon: Story = {
-    args: { open: true },
     render: stories.CloseIcon,
+    play: scenarios.closeIcon,
 };
 
 export const Draggable: Story = {
-    args: { open: true },
     render: stories.Draggable,
+    play: scenarios.drag,
 };

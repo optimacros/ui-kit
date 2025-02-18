@@ -6,8 +6,6 @@ export const Controlled = ({ open: openProp, ...rest }: Modal.Props) => {
     const [open, setOpen] = useState(openProp);
 
     const handleRequestClose = () => {
-        console.info('handleRequestClose');
-
         if (!window.confirm('close?')) {
             setOpen(true);
         }

@@ -6,12 +6,12 @@ export const CloseIcon = (props: Modal.Props) => {
     return (
         <>
             <Modal.Root {...props}>
-                <Modal.Trigger>Open</Modal.Trigger>
+                <Modal.Trigger data-testid="open-trigger">Open</Modal.Trigger>
 
-                <Modal.Content>
+                <Modal.Content data-testid="content">
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
-                        <Modal.CloseTrigger asChild>
+                        <Modal.CloseTrigger asChild data-testid="close-icon">
                             <IconButton variant="primary" icon="close" />
                         </Modal.CloseTrigger>
                     </Modal.Header>
