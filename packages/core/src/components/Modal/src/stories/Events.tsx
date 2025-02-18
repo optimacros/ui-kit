@@ -1,18 +1,14 @@
-import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { Modal } from '../index';
 
-export const Events = () => {
-    const [open, setOpen] = useState(false);
-
+export const Events = (storyProps: Modal.Props) => {
     const handleEvent = (e) => {
         document.querySelector('#lastEventName').innerHTML = e.type;
         e.preventDefault();
     };
 
     const props = {
-        'open.controlled': true,
-        trapFocus: false,
+        ...storyProps,
         onEscapeKeyDown: handleEvent,
         onPointerDownOutside: handleEvent,
         onFocusOutside: handleEvent,
@@ -21,11 +17,11 @@ export const Events = () => {
 
     return (
         <>
-            <Button onClick={() => setOpen(true)}>Open</Button>
-
             <div id="lastEventName">lastEventName</div>
 
-            <Modal.Root open={open} {...props}>
+            <Modal.Root {...props}>
+                <Modal.Trigger>Open</Modal.Trigger>
+
                 <Modal.Content>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>

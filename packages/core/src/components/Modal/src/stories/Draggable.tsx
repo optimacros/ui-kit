@@ -1,25 +1,13 @@
 import { Modal } from '../index';
-import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
 
-export const Draggable = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleOpenChange = (details) => {
-        setOpen(details.open);
-    };
-
+export const Draggable = (props: Modal.Props) => {
     return (
         <>
-            <Button onClick={() => setOpen(true)}>Open</Button>
+            <Modal.Root {...props}>
+                <Modal.Trigger>Open</Modal.Trigger>
 
-            <Modal.Root
-                open={open}
-                onOpenChange={handleOpenChange}
-                closeOnEscape={false}
-                controllable
-            >
                 <Modal.DraggableContent>
                     <Modal.DragHandle style={{ border: '1px gray dashed' }} asChild>
                         <Modal.Header>
