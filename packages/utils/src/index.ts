@@ -32,11 +32,8 @@ export {
 export * from './arrays';
 export * from './dates';
 export * from './functions';
-export * from './immutable';
 export * from './object';
-export * from './stringUtils';
 export * from './base';
 export * from './elements';
-export * from './react';
 export * from './constants';
 export * from './file';
