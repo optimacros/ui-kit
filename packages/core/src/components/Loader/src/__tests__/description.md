@@ -20,15 +20,14 @@
 - нажимаю `cancel-trigger`
 - проверяю значение (`89`)
 
-### 3.Infinite/min/max (не работает)
+### 3.Infinite/min/max
 
 - сбрасываю пропсы
-- передаю пропсы `{ step: 15, speed: 100, min: 30, max: 70, infinite: true, value: 50, controllable: true }`
-- передаю пропсы `{ controllable: false }`
+- передаю пропсы `{ step: 20, speed: 200, min: 25, max: 75, infinite: true, value: 50 }`
 - нажимаю `start-trigger`
-- жду 200мс
+- жду 700мс (3 тика)
 - нажимаю `cancel-trigger`
-- проверяю значение (`40`)
+- проверяю значение (`45`)
 
 # Circular
 

@@ -64,5 +64,5 @@ export const Infinite: Story = {
         speed: 50,
         controllable: true,
     },
-    //  play: scenarios.circleInfinite, не работает
+    play: scenarios.circleInfinite,
 };

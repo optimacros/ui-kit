@@ -86,7 +86,7 @@ export const Infinite: Story = {
         infinite: true,
         controllable: true,
     },
-    // play: scenarios.linearInfinite,, не работает
+    play: scenarios.linearInfinite,
 };
 
 export const MinMax: Story = {
@@ -98,5 +98,4 @@ export const MinMax: Story = {
         max: 70,
         infinite: true,
     },
-    // play: scenarios.linearMinMax, не работает
 };
