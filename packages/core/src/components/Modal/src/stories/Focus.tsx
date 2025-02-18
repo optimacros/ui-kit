@@ -1,29 +1,17 @@
-import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { Modal } from '../index';
 
-export const Focus = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleOpenChange = (details) => {
-        setOpen(details.open);
-    };
-
+export const Focus = (props: Modal.Props) => {
     const initialFocusEl = () => document.querySelector('#modal-input-2') as HTMLInputElement;
     const finalFocusEl = () => document.querySelector('#modal-input-3') as HTMLInputElement;
 
     return (
         <>
-            <Button onClick={() => setOpen(true)}>Open</Button>
             <input placeholder="Enter name..." id="modal-input-3" />
 
-            <Modal.Root
-                open={open}
-                onOpenChange={handleOpenChange}
-                initialFocusEl={initialFocusEl}
-                finalFocusEl={finalFocusEl}
-                controllable
-            >
+            <Modal.Root {...props} initialFocusEl={initialFocusEl} finalFocusEl={finalFocusEl}>
+                <Modal.Trigger>Open</Modal.Trigger>
+
                 <Modal.Content>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
