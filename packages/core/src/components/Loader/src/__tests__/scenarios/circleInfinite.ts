@@ -14,9 +14,6 @@ export const circleInfinite = async ({ globals, canvasElement }) => {
         speed: 200,
         infinite: true,
     });
-    window.testing.updateArgs({
-        controllable: false,
-    });
 
     await window.waitForPageTrulyReady?.();
 

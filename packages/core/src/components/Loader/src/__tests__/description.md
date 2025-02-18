@@ -20,7 +20,7 @@
 - нажимаю `cancel-trigger`
 - проверяю значение (`89`)
 
-### 3.Infinite/min/max
+## 3.Infinite/min/max
 
 - сбрасываю пропсы
 - передаю пропсы `{ step: 20, speed: 200, min: 25, max: 75, infinite: true, value: 50 }`
@@ -50,3 +50,12 @@
 - жду 1000мс
 - нажимаю `cancel-trigger`
 - проверяю значение (`89`)
+
+## 3.Infinite/min/max
+
+- сбрасываю пропсы
+- передаю пропсы `{ value: 90, step: 20, speed: 200, infinite: true, }`
+- нажимаю `start-trigger`
+- жду 300мс (1 тик)
+- нажимаю `cancel-trigger`
+- проверяю значение (`10`)
