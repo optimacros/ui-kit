@@ -10,12 +10,35 @@ export const {
 } = createReactStore({
     id: 'ui-kit',
     initialState: {
+        /**
+         * source for icon's sprite
+         * must be sprite svg with .svg extension
+         * */
         iconsSrc: '',
-        styles: { root: '', theme: '', custom: '' } as {
+        styles: {
+            root: '',
+            theme: '',
+            custom: '',
+        } as {
+            /**
+             * tokens variables as css string
+             * example at packages/themes/src/default/tokens.css
+             * */
             root: string;
+            /**
+             * component tokens variables as css string
+             * example at packages/themes/src/default/component-tokens.css
+             * */
             theme: string;
+            /**
+             * any other custom css theme as string
+             */
             custom?: string;
         },
+        /**
+         * feature flags of ui-kit
+         * @see "packages/core/src/store/config/feature_flags.md"
+         */
         featureFlags: {} as Record<string, Record<string, boolean>>,
     },
     actions: { keys: ['iconsSrc', 'styles'] },

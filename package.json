@@ -9,7 +9,7 @@
         "start:figma": "lerna run start --scope=@optimacros-ui/figma",
         "build": "lerna run build --scope=@optimacros-ui/*",
         "build:components": "lerna run build --scope @optimacros-ui/* --ignore=@optimacros-ui/{kit,store,utils,figma,kit-internal,kit-legacy,types,themes}",
-        "build:core": "npm run build:components && lerna run build --scope=@optimacros-ui/kit",
+        "build:core": "npm run build:components && lerna run build --scope=@optimacros-ui/{kit,kit-store}",
         "build:legacy": "lerna run build --scope=@optimacros-ui/kit-legacy",
         "build:internal": "lerna run build --scope=@optimacros-ui/kit-internal",
         "build:example": "lerna run build --scope=@optimacros-ui/example",
