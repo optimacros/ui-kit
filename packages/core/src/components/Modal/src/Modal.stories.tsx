@@ -1,27 +1,35 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Modal } from './index';
-import { useState } from 'react';
-import { Button } from '@optimacros-ui/button';
 import { interactionTasks } from './interactions';
 import * as stories from './stories';
+import * as scenarios from './__tests__/scenarios';
+import { fn } from '@storybook/test';
+import { Flex } from '@optimacros-ui/flex';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: ArgTypes<Partial<Modal.Props>> = {
     open: {
         control: 'boolean',
         description: 'Whether the dialog is open',
     },
-    controllable: {
+    'open.controlled': {
         control: 'boolean',
         description: 'Whether the dialog is controlled by the user',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    controllable: {
+        control: 'boolean',
+        description: 'Whether the component handles props update',
+        table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {
         control: false,
         description: 'Callback to be invoked when the dialog is opened or closed',
         table: { type: { summary: '(details: OpenChangeDetails) => void' } },
     },
-    onRequestClose: {
+    onClose: {
         control: false,
         description: 'Callback function that is called on close attempt',
+        table: { type: { summary: '() => void' } },
     },
     preventScroll: {
         control: 'boolean',
@@ -65,150 +73,100 @@ const argTypes: Partial<ArgTypes> = {
         description: `Function called when an interaction happens outside the component`,
         table: { type: { summary: '(event: InteractOutsideEvent) => void' } },
     },
+    defaultContext: { table: { disable: true } },
+    id: { table: { disable: true } },
 };
 
-const meta: Meta<typeof Modal> = {
+const meta: Meta<typeof Modal.Root> = {
     title: 'UI Kit core/Modal',
+    component: Modal.Root,
     argTypes,
-    decorators: [(Story) => <Story />],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Modal.Root>;
 
-export const Basic = {
+export const Basic: Story = {
+    args: {
+        controllable: false,
+        open: false,
+        onOpenChange: fn(),
+        onClose: fn(() => console.info('onclose 1')),
+        preventScroll: true,
+        closeOnEscape: true,
+    },
     parameters: {
         performance: {
             interactions: interactionTasks,
         },
     },
-    render: () => {
-        const [open, setOpen] = useState(false);
-
-        const handleOpenChange = ({ open }: { open: boolean }) => {
-            setOpen(open);
-        };
-
-        return (
-            <>
-                <Button onClick={() => setOpen(true)} data-test="open-trigger">
-                    Open
-                </Button>
-
-                <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
-                    <Modal.Content>
-                        <Modal.Header>
-                            <Modal.Title>Edit profile</Modal.Title>
-                        </Modal.Header>
-                        <Modal.ScrollContainer>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                            <p>Make changes to your profile here. Click save when you are done.</p>
-                            <div>
-                                <input placeholder="Enter name..." />
-                                <button>Save</button>
-                            </div>
-                        </Modal.ScrollContainer>
-                        <Modal.Footer>
-                            <Modal.CloseTrigger asChild>
-                                <Button>Close</Button>
-                            </Modal.CloseTrigger>
-                        </Modal.Footer>
-                    </Modal.Content>
-                </Modal.Root>
-            </>
-        );
-    },
+    render: stories.Basic,
+    play: scenarios.basic,
 };
 
 export const Controlled: Story = {
+    args: { controllable: true, 'open.controlled': true },
     render: stories.Controlled,
+    tags: ['skip-test-runner'],
+};
+
+export const Events: Story = {
+    args: { trapFocus: false },
+    render: stories.Events,
+    tags: ['skip-test-runner'],
 };
 
 export const Focus: Story = {
     render: stories.Focus,
+    tags: ['skip-test-runner'],
 };
 
-export const PreventScroll: Story = {
-    render: stories.PreventScroll,
+export const PreventScrollDisabled: Story = {
+    args: { preventScroll: false },
+    render: stories.Basic,
+    decorators: [
+        (Story) => (
+            <Flex style={{ height: '200vh' }}>
+                <Story />
+            </Flex>
+        ),
+    ],
+    tags: ['skip-test-runner'],
 };
 
-export const CloseOnEscape: Story = {
-    render: stories.CloseOnEscape,
+export const CloseOnEscapeDisabled: Story = {
+    args: {
+        onOpenChange: fn(),
+        onEscapeKeyDown: fn(),
+        onPointerDownOutside: fn(),
+        onInteractOutside: fn(),
+        closeOnEscape: false,
+        controllable: true,
+    },
+    render: stories.Basic,
+    play: scenarios.closeOnEscape,
 };
 
-export const CloseOnInteractOutside: Story = {
-    render: stories.CloseOnInteractOutside,
+export const CloseOnInteractOutsideDisabled: Story = {
+    args: {
+        closeOnInteractOutside: false,
+        onOpenChange: fn(),
+        onEscapeKeyDown: fn(),
+        onPointerDownOutside: fn(),
+        onInteractOutside: fn(),
+        controllable: true,
+    },
+    render: stories.Basic,
+    play: scenarios.closeOnInteractOutside,
 };
 
 export const CloseIcon: Story = {
     render: stories.CloseIcon,
+    play: scenarios.closeIcon,
 };
 
 export const Draggable: Story = {
     render: stories.Draggable,
+    play: scenarios.drag,
 };

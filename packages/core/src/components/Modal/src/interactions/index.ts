@@ -1,18 +1,18 @@
 import { InteractionTaskArgs, PublicInteractionTask } from 'storybook-addon-performance';
-import { findByText, fireEvent } from '@testing-library/dom';
+import { fireEvent, within } from '@storybook/test';
 
 export const interactionTasks: PublicInteractionTask[] = [
     {
         name: 'Open',
         description: 'Open the modal',
         run: async ({ container }: InteractionTaskArgs): Promise<void> => {
-            const element: HTMLButtonElement = container.querySelector(
-                '[data-test="open-trigger"]',
-            );
+            const canvas = within(container);
 
-            fireEvent.click(element);
+            const openTrigger = canvas.getByTestId('open-trigger');
 
-            await findByText(document.body, 'Edit profile', undefined, { timeout: 20000 });
+            await fireEvent.click(openTrigger);
+
+            await within(document.body).findByText('Edit profile');
         },
     },
 ];

@@ -1,30 +1,22 @@
 import { Modal } from '../index';
-import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
 
-export const Draggable = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleOpenChange = (details) => {
-        setOpen(details.open);
-    };
-
+export const Draggable = (props: Modal.Props) => {
     return (
         <>
-            <Button onClick={() => setOpen(true)}>Open</Button>
+            <Modal.Root {...props}>
+                <Modal.Trigger data-testid="open-trigger">Open</Modal.Trigger>
 
-            <Modal.Root
-                open={open}
-                onOpenChange={handleOpenChange}
-                closeOnEscape={false}
-                controllable
-            >
-                <Modal.DraggableContent>
-                    <Modal.DragHandle style={{ border: '1px gray dashed' }} asChild>
+                <Modal.DraggableContent data-testid="content">
+                    <Modal.DragHandle
+                        style={{ border: '1px gray dashed' }}
+                        asChild
+                        data-testid="drag-handle1"
+                    >
                         <Modal.Header>
                             <Modal.Title>Edit profile</Modal.Title>
-                            <Modal.CloseTrigger asChild>
+                            <Modal.CloseTrigger asChild data-testid="close-icon">
                                 <IconButton icon="close" />
                             </Modal.CloseTrigger>
                         </Modal.Header>
@@ -36,7 +28,10 @@ export const Draggable = () => {
                             <input placeholder="Enter name..." id="modal-input-1" />
                             <button>Save</button>
                         </div>
-                        <Modal.DragHandle style={{ border: '1px gray dashed' }}>
+                        <Modal.DragHandle
+                            style={{ border: '1px gray dashed' }}
+                            data-testid="drag-handle2"
+                        >
                             Another drag handle
                         </Modal.DragHandle>
                     </Modal.ScrollContainer>

@@ -1,30 +1,18 @@
-import { useState } from 'react';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Modal } from '../index';
 
-export const CloseIcon = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleOpenChange = (details) => {
-        setOpen(details.open);
-    };
-
+export const CloseIcon = (props: Modal.Props) => {
     return (
         <>
-            <Button onClick={() => setOpen(true)}>Open</Button>
+            <Modal.Root {...props}>
+                <Modal.Trigger data-testid="open-trigger">Open</Modal.Trigger>
 
-            <Modal.Root
-                open={open}
-                onOpenChange={handleOpenChange}
-                closeOnEscape={false}
-                controllable
-            >
-                <Modal.Content>
+                <Modal.Content data-testid="content">
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
-                        <Modal.CloseTrigger asChild>
-                            <IconButton icon="close" />
+                        <Modal.CloseTrigger asChild data-testid="close-icon">
+                            <IconButton variant="primary" icon="close" />
                         </Modal.CloseTrigger>
                     </Modal.Header>
                     <Modal.ScrollContainer>
@@ -36,7 +24,7 @@ export const CloseIcon = () => {
                     </Modal.ScrollContainer>
                     <Modal.Footer>
                         <Modal.CloseTrigger asChild>
-                            <Button>Close</Button>
+                            <Button variant="primary">Close</Button>
                         </Modal.CloseTrigger>
                     </Modal.Footer>
                 </Modal.Content>

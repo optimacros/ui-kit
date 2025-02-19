@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { flushSync } from 'react-dom';
 import { Button } from '@optimacros-ui/button';
 import { Modal } from '../index';
 
-export const Controlled = () => {
-    const [open, setOpen] = useState(false);
+export const Controlled = ({ open: openProp, ...rest }: Modal.Props) => {
+    const [open, setOpen] = useState(openProp);
 
     const handleRequestClose = () => {
         if (!window.confirm('close?')) {
@@ -17,12 +16,13 @@ export const Controlled = () => {
             <Button onClick={() => setOpen(true)}>Open</Button>
 
             <Modal.Root
+                {...rest}
                 open={open}
                 onOpenChange={(details) => {
-                    flushSync(() => setOpen(details.open));
+                    console.info('onOpenChange');
+                    setOpen(details.open);
                 }}
                 onClose={handleRequestClose}
-                controllable
             >
                 <Modal.Content>
                     <Modal.Header>
