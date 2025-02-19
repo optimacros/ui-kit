@@ -7,4 +7,19 @@
   & [data-part='description'] {
     text-align: start;
   }
+
+  & [data-part='arrow'] {
+    --arrow-background: rgb(240 240 240);
+    --arrow-size: 8px;
+  }
+
+  & [data-part='arrow-tip'] {
+    border-radius: 0.125rem;
+  }
+
+  & [data-part='arrow'] + div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
