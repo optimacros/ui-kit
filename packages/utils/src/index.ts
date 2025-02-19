@@ -21,6 +21,7 @@ export {
     last,
     get,
     toString,
+    isEqual,
 } from 'lodash-es';
 
 export {
@@ -35,5 +36,6 @@ export * from './functions';
 export * from './object';
 export * from './base';
 export * from './elements';
+export * from './react';
 export * from './constants';
 export * from './file';
