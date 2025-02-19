@@ -1,39 +1,53 @@
-import { ArgTypes, Meta } from '@storybook/react';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Loader } from '.';
-import { useEffect } from 'react';
+import * as stories from './stories';
+import * as scenarios from './__tests__/scenarios';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<Loader.Props>> = {
     value: {
         control: 'number',
         description: 'Value of the current progress. Indeterminate mode if no value is provided',
-        table: { defaultValue: { summary: 'null' } },
+        table: { defaultValue: { summary: '50' } },
+    },
+    infinite: {
+        control: 'boolean',
+        description: 'Whether the loader starts from `min` again after reaching `max`',
+        table: { defaultValue: { summary: 'false' } },
     },
     disabled: {
         control: 'boolean',
         description: 'If `true`, component will be disabled.',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    speed: {
+        control: 'number',
+        description: 'Increment frequency in `ms`',
+        table: { defaultValue: { summary: '100' } },
+    },
+    step: {
+        control: 'number',
+        description: 'Increment value',
+        table: { defaultValue: { summary: '1' } },
     },
     min: {
         control: 'number',
         description: 'The minimum allowed value of the progress bar.',
+        table: { defaultValue: { summary: '0' } },
     },
     max: {
         control: 'number',
         description: 'The maximum allowed value of the progress bar.',
-    },
-    buffer: {
-        control: 'number',
-        description: 'Value of a secondary progress bar useful for buffering.',
-        table: { type: { summary: 'not implemented yet' } },
+        table: { defaultValue: { summary: '100' } },
     },
 };
 
-const meta: Meta = {
+const meta: Meta<typeof Loader.Root> = {
     title: 'UI Kit core/Loader/Linear',
     argTypes,
     decorators: [
         (Story, props) => {
             return (
-                <Loader.Root {...props.args}>
+                <Loader.Root {...props.args} data-testid="root">
                     <Story />
                 </Loader.Root>
             );
@@ -41,65 +55,47 @@ const meta: Meta = {
     ],
     tags: ['skip-test-runner'],
 };
+
 export default meta;
 
-export const Basic = () => {
-    const api = Loader.useApi();
+type Story = StoryObj<typeof Loader.Root>;
 
-    useEffect(() => {
-        api.start();
-    }, []);
-
-    return (
-        <Loader.LinearTrack>
-            <Loader.LinearRange />
-        </Loader.LinearTrack>
-    );
+export const Basic: Story = {
+    render: stories.LinearBasic,
+    play: scenarios.linearBasic,
 };
 
-export const Disabled = {
-    render: () => <Basic />,
+export const Disabled: Story = {
+    render: stories.LinearBasic,
     args: {
         disabled: true,
     },
     tags: ['!skip-test-runner'],
 };
 
-export const Buffer = {
-    render: () => <Basic />,
-    args: {
-        value: 33,
-    },
+export const Label: Story = {
+    render: stories.LinearLabel,
+    tags: ['!skip-test-runner'],
 };
 
-export const Label = {
-    render: () => {
-        const counter = Loader.useProxySelector((state) => state.value);
-
-        return (
-            <>
-                <Loader.Label>Loading {counter}/100</Loader.Label>
-                <Basic />
-            </>
-        );
-    },
+export const Infinite: Story = {
+    render: stories.LinearLabel,
     args: {
-        max: 100,
+        speed: 300,
+        step: 10,
+        infinite: true,
+        controllable: true,
     },
+    play: scenarios.linearInfinite,
 };
 
-export const Infinite = {
-    render: () => {
-        const counter = Loader.useProxySelector((state) => state.value);
-
-        return (
-            <>
-                <Loader.Label>Loading {counter}/100</Loader.Label>
-                <Basic />
-            </>
-        );
-    },
+export const MinMax: Story = {
+    render: stories.LinearLabel,
     args: {
+        speed: 500,
+        step: 10,
+        min: 30,
+        max: 70,
         infinite: true,
     },
 };

@@ -49,21 +49,26 @@ const options = {
                 return;
             }
 
-            if (ctx.max === ctx.value && !ctx.infinite) {
-                ctx.value = 0;
+            // а зачем нам это? вылидировать бы это все дело при маунте...
+            if (ctx.value >= ctx.max && !ctx.infinite) {
+                ctx.value = ctx.min;
             }
 
             ctx.running = true;
 
             const timer = setInterval(() => {
-                ctx.value += ctx.step;
+                const newValue = ctx.value + ctx.step;
 
-                if (ctx.max === ctx.value) {
+                if (newValue >= ctx.max) {
                     if (!ctx.infinite) {
+                        ctx.value = ctx.max;
+
                         send('STOP');
                     } else {
-                        ctx.value = 0;
+                        ctx.value = ctx.min;
                     }
+                } else {
+                    ctx.value = newValue;
                 }
             }, ctx.speed);
 
