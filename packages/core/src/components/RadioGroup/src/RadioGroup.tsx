@@ -61,3 +61,5 @@ export const Text = forward<{ value: string }, 'span'>(({ value, ...rest }, ref)
         />
     );
 });
+
+export type { ValueChangeDetails } from '@zag-js/radio-group';
