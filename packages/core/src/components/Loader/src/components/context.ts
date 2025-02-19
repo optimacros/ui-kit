@@ -65,8 +65,7 @@ const options = {
 
                         send('STOP');
                     } else {
-                        // пздц я не хочу считать вариант, когда newValue больше ctx.max в несколько раз
-                        ctx.value = newValue - ctx.max + ctx.min;
+                        ctx.value = ctx.min;
                     }
                 } else {
                     ctx.value = newValue;
