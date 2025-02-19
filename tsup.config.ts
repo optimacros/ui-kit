@@ -19,12 +19,6 @@ export default defineConfig({
     minifySyntax: true,
     minifyWhitespace: true,
     minifyIdentifiers: true,
-    metafile: true,
-    noExternal: [
-        'lodash-es',
-        'radash',
-        '@internationalized/date',
-        '@optimacros-ui/types',
-        'immutable',
-    ],
+    metafile: false,
+    noExternal: [],
 });
