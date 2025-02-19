@@ -142,7 +142,7 @@ export function createUseSelectorHook<
  * @see https://proxy-memoize.js.org/docs/useproxyselector/#useproxyselector
  *
  * @example
- * useProxySelector((state) => groupBy(state.user.feature_flags, 'name'))
+ * useProxySelector((state) => groupBy(state.user.feature_flags, 'name'), [deps])
  * */
 export function createProxySelectorHook<TState extends Record<string, any>>(
     useSelector: (state) => any,

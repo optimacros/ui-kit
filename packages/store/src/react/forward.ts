@@ -3,7 +3,11 @@ import { forwardRef, ForwardRefRenderFunction, memo } from 'react';
 import { JsxElementsKey, PropsWithoutRef, Ref } from './factory';
 import { ElementConfig } from './createReactElement';
 
-/** Implementation of forward ref with easy accessable types + config */
+/**
+ * Implementation of forward ref with easy accessable types + config
+ * @param render render function like in {@link forwardRef}
+ * @param config {@link ElementConfig}
+ * */
 export function forward<
     T extends NonNullable<unknown> = NonNullable<unknown>,
     Tag extends JsxElementsKey | NonNullable<unknown> = NonNullable<unknown>,
