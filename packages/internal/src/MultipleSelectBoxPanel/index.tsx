@@ -82,27 +82,7 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLSelec
 
         const correctSource = options || source || [];
 
-        const isValueExist = () => {
-            for (const item of correctSource) {
-                if (item[rest.valueKey ?? 'value'] === value) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
-
-        const isNullExist = () => {
-            for (const item of correctSource) {
-                if (item[rest.valueKey ?? 'value'] === null) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
-
-        const correctValue = value === 0 && !isValueExist() && isNullExist() ? null : value;
+        const correctValue = !value ? [] : [value];
 
         return (
             <div data-scope="select" data-part="root">
@@ -114,10 +94,21 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLSelec
                             key={correctSource.length}
                             {...rest}
                             source={correctSource}
-                            value={[correctValue]}
+                            value={correctValue}
                             onChange={handleChange}
-                            ref={ref}
                         />
+                        <select
+                            ref={ref}
+                            value={selectedItems.map((selectItem) => String(selectItem.value))}
+                            multiple
+                            style={{ display: 'none' }}
+                        >
+                            {selectedItems.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
                         <Button
                             data-scope="select"
                             data-part="add-trigger"
