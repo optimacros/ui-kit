@@ -2,7 +2,7 @@
 
 в любом файле можно задекларировать переменные в указаном формате
 ```css
-@theme {
+:root {
     
     /* https://tailwindcss.com/docs/text-color */
     /* https://tailwindcss.com/docs/background-color */
