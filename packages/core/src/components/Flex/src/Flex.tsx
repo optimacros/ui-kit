@@ -18,7 +18,7 @@ export type FlexProps = {
 export const Flex = forward<FlexProps, 'div'>(
     (
         {
-            children,
+            children = null,
             direction = 'row',
             align = 'start',
             justify = 'start',
