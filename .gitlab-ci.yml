@@ -5,105 +5,121 @@ variables:
   GIT_FETCH_EXTRA_FLAGS: --tags --depth=1000
   DEPLOY_HOSTNAME: $DEPLOY_HOSTNAME_storybook_optimacros_com
   DEPLOY_USERNAME: $DEPLOY_USERNAME_storybook_optimacros_com
+  # берем из настройки ci/cd
+  NEXUS_URL: $NEXUS_URL
+  NEXUS_REPO: $NEXUS_REPO
+  NEXUS_TOKEN: $NEXUS_TOKEN
 
 workflow:
   rules:
+    # если это main
     - if: $CI_COMMIT_REF_NAME == "main"
       variables:
         deploy: "true"
+    # если это merge request
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       variables:
         pr: "true"
-    - if: $CI_PIPELINE_SOURCE == "web"
+    # если это тэг (X.Y.Z) — но у нас independent версии, поэтому это по желанию
+    - if: $CI_COMMIT_TAG =~ /^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$/
+      variables:
+        pushNexus: "true"
 
 stages:
   - build
-  - lint
-  - typescript-test
-  - storybook-test
-  - publish
+  - test
+  - release
   - deploy
 
-# Build UI packages
+# 1) build ui
 build-ui:
   stage: build
   script:
-    - echo "legacy-peer-deps=true" >> .npmrc
+    - echo \"//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}\" > .npmrc
+    - echo \"@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/\" >> .npmrc
     - nvm use && npm ci
     - npm run build:ui
   tags:
     - ${runner}
+  artifacts:
+    paths:
+      - .npmrc
+      - dist/
+    expire_in: 1h
 
-# Linting
+# 2) тесты (lint, typescript-check, storybook-test). можно сделать отдельными джобами или объединить
 lint:
-  stage: lint
-  variables:
-    GIT_STRATEGY: none
+  stage: test
+  needs:
+    - build-ui
+  script:
+    - nvm use
+    - npm run lint
   tags:
     - ${runner}
-  script:
-    - nvm use && npm run lint
 
-# TypeScript Check
-typescript:
-  stage: typescript-test
-  variables:
-    GIT_STRATEGY: none
+typescript-check:
+  stage: test
+  needs:
+    - build-ui
+  script:
+    - nvm use
+    - npm run type:check
   tags:
     - ${runner}
-  script:
-    - nvm use && npm run type:check
 
-# Storybook Test
-storybook:
-  stage: storybook-test
-  variables:
-    GIT_STRATEGY: none
+storybook-test:
+  stage: test
+  needs:
+    - build-ui
+  script:
+    - nvm use
+    - npm run test-storybook
   tags:
     - ${runner}
-  script:
-    - nvm use && npm run build:storybook
 
-# Publish to Nexus
-nexus-publish:
-  stage: publish
-  variables:
-    GIT_STRATEGY: none
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "main"
+# 3) релиз пакетов: lerna publish
+release:
+  stage: release
   needs:
     - build-ui
     - lint
-    - typescript
-    - storybook
-  tags:
-    - ${runner}
-  script:
-    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> ~/.npmrc
-    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> ~/.npmrc
-    - nvm use && npm ci
-    - npx lerna publish --yes --no-push --no-git-tag-version --conventional-commits
-
-# Deploy Storybook
-deploy-storybook:
-  stage: deploy
-  variables:
-    GIT_STRATEGY: none
+    - typescript-check
+    - storybook-test
   rules:
-    - if: $CI_COMMIT_REF_NAME == "main"
-      when: on_success
-  needs:
-    - nexus-publish
+    # если main, то релиз
+    - if: $deploy == "true"
+  script:
+    - cp .npmrc ~/
+    - echo \"//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}\" >> .npmrc
+    - echo \"@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/\" >> .npmrc
+    - nvm use && npm ci
+    - npx lerna publish --yes
   tags:
     - ${runner}
+  artifacts:
+    paths:
+      - .npmrc
+      - dist/
+    expire_in: 1h
+
+# 4) деплой сторибука
+storybook-deploy:
+  stage: deploy
+  needs:
+    - release
+  rules:
+    - if: $deploy == "true"
   before_script:
     - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
+    - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\\r' | ssh-add -
     - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - echo "Deploying Storybook..."
-    - scp storybook-static.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
-    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit && rm -rf storybook-static && tar -xvf storybook-static.tar.gz && rm storybook-static.tar.gz"
+    - tar -czvf storybook.tar.gz ./dist
+    - scp storybook.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
+    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME \"cd /opt/ax/ui-kit && tar -xzvf storybook.tar.gz && rm storybook.tar.gz\"
+  tags:
+    - ${runner}
