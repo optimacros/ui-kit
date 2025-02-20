@@ -80,8 +80,9 @@ stages:
 check-nexus-token:
   stage: nexus
   script:
-    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" > ~/.npmrc
-    - npm whoami
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
+    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - npm view @optimacros-ui/kit
   tags:
     - ${runner}
   rules:
