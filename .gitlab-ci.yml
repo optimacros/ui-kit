@@ -8,37 +8,33 @@ variables:
 
 workflow:
   rules:
-    - if: ( $CI_COMMIT_REF_NAME == "main") # при ручком запуске из  webui
+    - if: $CI_COMMIT_REF_NAME == "main"
       variables:
         deploy: "true"
-    - if: ( $CI_PIPELINE_SOURCE == "merge_request_event") # При MR
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       variables:
         pr: "true"
-    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # При запуске для тегов, валидный формат: 1.0.0, 2.4.7-dev, 4.3.2-stable
-      variables:
-        pushNexus: "true"
-    - if: ( $CI_PIPELINE_SOURCE == "web") # при ручном запуске из  webui
+    - if: $CI_PIPELINE_SOURCE == "web"
 
 stages:
   - build
   - lint
   - typescript-test
   - storybook-test
+  - publish
   - deploy
-  - nexus
 
-build:
+# Build UI packages
+build-ui:
   stage: build
   script:
     - echo "legacy-peer-deps=true" >> .npmrc
     - nvm use && npm ci
-    - npm run build:storybook
-    - mv storybook-static $CI_PROJECT_NAME
-    - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
+    - npm run build:ui
   tags:
     - ${runner}
 
-# tests
+# Linting
 lint:
   stage: lint
   variables:
@@ -48,6 +44,7 @@ lint:
   script:
     - nvm use && npm run lint
 
+# TypeScript Check
 typescript:
   stage: typescript-test
   variables:
@@ -57,6 +54,7 @@ typescript:
   script:
     - nvm use && npm run type:check
 
+# Storybook Test
 storybook:
   stage: storybook-test
   variables:
@@ -64,43 +62,38 @@ storybook:
   tags:
     - ${runner}
   script:
-    - nvm use 
-    # - npm run start
-    # - npm run test-storybook
+    - nvm use && npm run build:storybook
 
-# push artefacts to nexus
-nexus-push-job:
-  stage: nexus
+# Publish to Nexus
+nexus-publish:
+  stage: publish
   variables:
     GIT_STRATEGY: none
   rules:
-    - if: ($pushNexus == "true")
-  allow_failure: true
+    - if: $CI_COMMIT_REF_NAME == "main"
   needs:
+    - build-ui
     - lint
     - typescript
     - storybook
   tags:
     - ${runner}
   script:
-    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
-    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> ~/.npmrc
+    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> ~/.npmrc
     - nvm use && npm ci
-    - echo "y" | npm run publish
+    - npx lerna publish --yes --no-push --no-git-tag-version --conventional-commits
 
-#deploy
-deploy:
+# Deploy Storybook
+deploy-storybook:
   stage: deploy
   variables:
     GIT_STRATEGY: none
   rules:
-    - if: ($deploy == "true")
+    - if: $CI_COMMIT_REF_NAME == "main"
       when: on_success
-    - if: ($pr == "true")
-      when: never
-    - if: ($deploy != "true" && $pr != "true")
-      when: manual
-      allow_failure: true
+  needs:
+    - nexus-publish
   tags:
     - ${runner}
   before_script:
@@ -111,9 +104,6 @@ deploy:
     - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - echo "Deploying application..."
-    - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
-    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
-      rm -rf $CI_PROJECT_NAME &&
-      tar -xvf $CI_PROJECT_NAME.tar.gz &&
-      rm -rf $CI_PROJECT_NAME.tar.gz"
+    - echo "Deploying Storybook..."
+    - scp storybook-static.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
+    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit && rm -rf storybook-static && tar -xvf storybook-static.tar.gz && rm storybook-static.tar.gz"
