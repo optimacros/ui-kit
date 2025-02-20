@@ -29,8 +29,6 @@ export const basic = async ({ globals, step, canvasElement }) => {
     expect(trigger).toBeInTheDocument();
     expect(items).toHaveLength(window.testing.args.items.length);
 
-    await window.takeScreenshot?.('field');
-
     const user = userEvent.setup();
 
     await step('open/close', async () => {

@@ -153,6 +153,7 @@ export const States: Story = {
 
 export const Positioning: Story = {
     args: {
+        open: true,
         items: mockItems,
         positioning: {
             strategy: 'absolute',
