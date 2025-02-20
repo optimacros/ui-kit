@@ -94,17 +94,18 @@ nexus-push-job:
     - ${runner}
   script:
     - nvm use
-    # настраиваем .npmrc для nexus
+    # настраиваем .npmrc: по умолчанию — npmjs для установки внешних зависимостей
     - echo "always-auth=true" >> .npmrc
-    - echo "registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    - echo "registry=https://registry.npmjs.org/" >> .npmrc
+    # для публикации наших пакетов переопределяем registry для скоупа @optimacros
     - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
-    # выводим конфигурацию для отладки с фильтрацией
+    # выводим конфигурацию для фильтрации логов
     - cat .npmrc
     - npm config list --json | jq '.'
     - npm ci
-    # публикуем пакеты через lerna, используя режим from-package для публикации уже проставленных версий
-    - lerna publish from-package --yes
+    # публикуем пакеты через lerna с указанием nexus registry для публикации
+    - lerna publish from-package --yes --registry "https://${NEXUS_URL}/repository/${NEXUS_REPO}/"
 
 #deploy
 deploy:
