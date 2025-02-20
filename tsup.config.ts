@@ -19,6 +19,6 @@ export default defineConfig({
     minifySyntax: true,
     minifyWhitespace: true,
     minifyIdentifiers: true,
-    metafile: false,
+    metafile: true,
     noExternal: [],
 });
