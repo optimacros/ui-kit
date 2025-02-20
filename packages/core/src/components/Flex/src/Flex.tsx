@@ -1,17 +1,18 @@
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import { styled, forward } from '@optimacros-ui/store';
 
-type FlexProps = {
+export type FlexProps = {
     children: ReactNode;
-    direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-    align?: 'start' | 'center' | 'end' | 'stretch' | 'baseline';
-    justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
-    wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
-    gap?: string | number;
+    direction?: CSSProperties['flexDirection'];
+    align?: CSSProperties['alignItems'];
+    justify?: CSSProperties['justifyContent'];
+    wrap?: CSSProperties['flexWrap'];
+    /** string = 'px' */
+    gap?: number | string;
     fluid?: boolean;
     className?: string;
-    width?: string;
-    height?: string;
+    width?: CSSProperties['width'];
+    height?: CSSProperties['height'];
 };
 
 export const Flex = forward<FlexProps, 'div'>(
@@ -22,7 +23,7 @@ export const Flex = forward<FlexProps, 'div'>(
             align = 'start',
             justify = 'start',
             wrap = 'nowrap',
-            gap = '0',
+            gap = 0,
             style,
             fluid,
             width,

@@ -1,40 +1,61 @@
 import { ReactNode } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { Flex } from '.';
+import type { Meta, StoryObj, ArgTypes } from '@storybook/react';
+import { Flex, FlexProps } from '.';
+import * as scenarios from './__tests__/scenarios';
+
+const argTypes: ArgTypes<Partial<FlexProps>> = {
+    direction: {
+        control: 'select',
+        options: ['row', 'column', 'row-reverse', 'column-reverse'],
+        description: 'Sets the flex direction',
+    },
+    align: {
+        control: 'select',
+        options: ['start', 'center', 'end', 'stretch', 'baseline'],
+        description: 'Controls align-items property',
+    },
+    justify: {
+        control: 'select',
+        options: ['start', 'center', 'end', 'between', 'around', 'evenly'],
+        description: 'Controls justify-content property',
+    },
+    wrap: {
+        control: 'select',
+        options: ['nowrap', 'wrap', 'wrap-reverse'],
+        description: 'Controls flex-wrap property',
+    },
+    gap: {
+        control: 'select',
+        options: ['0', '2', '4', '8', '16', '24', '32'],
+        description: 'Sets the gap between flex items using spacing tokens',
+    },
+    className: {
+        control: 'text',
+        description: 'Sets the className',
+    },
+    width: {
+        control: 'text',
+        description: 'CSS width',
+    },
+    height: {
+        control: 'text',
+        description: 'CSS height',
+    },
+    fluid: {
+        control: 'boolean',
+        description: 'Not yet implemented',
+    },
+};
 
 const meta: Meta<typeof Flex> = {
     title: 'Ui kit core/Flex',
     component: Flex,
-    argTypes: {
-        direction: {
-            control: 'select',
-            options: ['row', 'column', 'row-reverse', 'column-reverse'],
-            description: 'Sets the flex direction',
-        },
-        align: {
-            control: 'select',
-            options: ['start', 'center', 'end', 'stretch', 'baseline'],
-            description: 'Controls align-items property',
-        },
-        justify: {
-            control: 'select',
-            options: ['start', 'center', 'end', 'between', 'around', 'evenly'],
-            description: 'Controls justify-content property',
-        },
-        wrap: {
-            control: 'select',
-            options: ['nowrap', 'wrap', 'wrap-reverse'],
-            description: 'Controls flex-wrap property',
-        },
-        gap: {
-            control: 'select',
-            options: ['0', '2', '4', '8', '16', '24', '32'],
-            description: 'Sets the gap between flex items using spacing tokens',
-        },
-    },
+    argTypes,
+    tags: ['skip-test-runner'],
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Flex>;
 
 const Box = ({
@@ -59,7 +80,7 @@ const Box = ({
 
 export const Basic: Story = {
     args: {
-        gap: '8',
+        gap: 8,
         align: 'center',
         justify: 'start',
         direction: 'row',
@@ -72,6 +93,8 @@ export const Basic: Story = {
             </>
         ),
     },
+    play: scenarios.basic,
+    tags: ['!skip-test-runner'],
 };
 
 export const Navigation: Story = {
