@@ -83,7 +83,7 @@ nexus-push-job:
   variables:
     GIT_STRATEGY: none
   rules:
-    - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
+    - if: '$CI_COMMIT_TAG != ""'  # запускаем только если установлен тэг
       when: on_success
   allow_failure: false
   needs:
@@ -93,11 +93,18 @@ nexus-push-job:
   tags:
     - ${runner}
   script:
+    - nvm use
+    # настраиваем .npmrc для nexus
+    - echo "always-auth=true" >> .npmrc
+    - echo "registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
     - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
+    # выводим конфигурацию для отладки с фильтрацией
     - cat .npmrc
-    - nvm use && npm ci
-    - echo "y" | npm run publish
+    - npm config list --json | jq '.'
+    - npm ci
+    # публикуем пакеты через lerna, используя режим from-package для публикации уже проставленных версий
+    - lerna publish from-package --yes
 
 #deploy
 deploy:
