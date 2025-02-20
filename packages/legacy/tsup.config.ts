@@ -7,4 +7,5 @@ export default defineConfig({
     minify: true,
     minifyWhitespace: true,
     minifyIdentifiers: true,
+    dts: false,
 });
