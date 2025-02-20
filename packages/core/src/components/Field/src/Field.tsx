@@ -16,8 +16,10 @@ export * as NumberInput from './NumberInput';
 export interface InputProps
     extends Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'onKeyPress'> {}
 
+export type FieldStatus = 'error' | 'readonly' | 'warning' | 'default';
+
 interface RootProps {
-    status?: 'error' | 'readonly' | 'warning' | 'default';
+    status?: FieldStatus;
     collapsed?: boolean;
     required?: boolean;
 }

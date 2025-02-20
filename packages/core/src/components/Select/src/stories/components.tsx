@@ -1,22 +1,16 @@
 import { Flex } from '@optimacros-ui/flex';
 import { Select } from '@optimacros-ui/select';
-import { mockItems } from '../mock';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Icon } from '@optimacros-ui/icon';
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
-export const defaultContext = {
-    name: 'select-story-1',
-    value: [mockItems[0].value],
-};
+interface Props extends ComponentProps<typeof Select.Root> {
+    children: ReactNode;
+}
 
-export const Wrapper = ({ children }: { children: ReactNode }) => (
-    <div style={{ width: '400px' }}>{children}</div>
-);
-
-export const ControlTemplate = ({ children, ...rest }) => {
+export const ControlTemplate = ({ children, ...rest }: Props) => {
     return (
-        <Select.Root {...rest} {...defaultContext} items={mockItems}>
+        <Select.Root {...rest} data-testid="root">
             <Flex gap={5} direction="column">
                 <Flex gap={3} wrap="wrap">
                     Selected values:
@@ -35,7 +29,7 @@ export const ControlTemplate = ({ children, ...rest }) => {
                         }
                     </Select.Api>
                 </Flex>
-                <Select.Control>{children}</Select.Control>
+                <Select.Control data-testid="control">{children}</Select.Control>
             </Flex>
 
             <Select.Positioner>
@@ -45,7 +39,7 @@ export const ControlTemplate = ({ children, ...rest }) => {
                             <Select.Item
                                 item={item}
                                 key={`select-${item.value}`}
-                                data-testid={`item-${i}`}
+                                data-testid="item"
                             >
                                 {({ selected }) => (
                                     <>

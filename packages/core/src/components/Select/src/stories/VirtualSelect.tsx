@@ -1,15 +1,14 @@
 import { Select } from '@optimacros-ui/select';
-import { createSelectBoxItems } from '../mock';
 import { Icon } from '@optimacros-ui/icon';
-import { defaultContext } from './components';
+import { ComponentProps } from 'react';
 
-const mockManyItems = createSelectBoxItems(2000);
-export const VirtualSelect = ({ children, ...rest }) => {
+export const VirtualSelect = (props: ComponentProps<typeof Select.Root>) => {
     return (
-        <Select.Root items={mockManyItems} {...rest} {...defaultContext}>
+        <Select.Root {...props}>
             <Select.Control>
                 <Select.Trigger>open</Select.Trigger>
             </Select.Control>
+
             <Select.Positioner>
                 <Select.Content>
                     <Select.FloatingCloseTrigger>
