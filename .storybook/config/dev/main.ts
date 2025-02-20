@@ -10,6 +10,7 @@ const coverageConfig = {
 const configDev: StorybookConfig = {
     stories: [
         '../packages/core/src/**/*.stories.@(js|jsx|ts|tsx)',
+        '../packages/core/src/**/stories.@(js|jsx|ts|tsx)',
         '../packages/internal/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../packages/legacy/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],

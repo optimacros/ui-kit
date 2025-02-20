@@ -1,0 +1,28 @@
+### @optimacros-ui/kit-internal component folder
+- ComponentName ( in PascalCase )
+    - **__ tests __** ( all tests for component )
+        - **scenarios** ( test scenarios, 1 per file )
+            - scenario-one.ts
+            - scenario-two.ts
+            - index.ts
+        - description.md ( scenario description )
+        - props.ts ( test props )
+    - **components** ( all components , 1 per file )
+        - ComponentOne
+            - index.tsx
+            - styles.css
+        - index.ts
+    - **examples** ( component example, 1 per file )
+        - ExampleOne.tsx
+        - index.ts
+    - **hooks** ( component specific hooks )
+        - useHook.ts (example)
+        - index.ts
+    - **types** ( common types )
+        - index.ts
+    - **utils** ( all utility functions for component)
+        - index.ts
+    - **assets** ( assets folder )
+        - asset-one.jpg
+    - stories.ts
+    - index.ts
