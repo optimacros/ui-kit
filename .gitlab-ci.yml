@@ -90,6 +90,7 @@ release:
   rules:
     # если main, то релиз
     - if: $deploy == "true"
+    - when: always
   script:
     - cp .npmrc ~/
     - echo \"//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}\" >> .npmrc
@@ -111,6 +112,7 @@ storybook-deploy:
     - release
   rules:
     - if: $deploy == "true"
+    - when: always
   before_script:
     - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
