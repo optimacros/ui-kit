@@ -96,7 +96,7 @@ nexus-push-job:
     - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
     - nvm use && npm ci
-    - echo "y" | npx lerna publish from-package --yes --ignore-scripts
+    - echo "y" | npm run publish
 
 #deploy
 deploy:
