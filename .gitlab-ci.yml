@@ -28,117 +28,106 @@ workflow:
         is_release: "true"
 
 stages:
-  # - build
-  # - lint
-  # - typescript-test
-  # - storybook-test
+  - build
+  - lint
+  - typescript-test
+  - storybook-test
   - nexus
-  # - deploy
+  - deploy
 
 
-# build:
-#   stage: build
-#   script:
-#     - echo "legacy-peer-deps=true" >> .npmrc
-#     - nvm use && npm ci
-#     - npm run build:storybook
-#     - mv storybook-static $CI_PROJECT_NAME
-#     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
-#   tags:
-#     - ${runner}
+build:
+  stage: build
+  script:
+    - echo "legacy-peer-deps=true" >> .npmrc
+    - nvm use && npm ci
+    - npm run build:storybook
+    - mv storybook-static $CI_PROJECT_NAME
+    - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
+  tags:
+    - ${runner}
 
-# # tests
-# lint:
-#   stage: lint
-#   variables:
-#     GIT_STRATEGY: none
-#   tags:
-#     - ${runner}
-#   script:
-#     - nvm use && npm run lint
+# tests
+lint:
+  stage: lint
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ${runner}
+  script:
+    - nvm use && npm run lint
 
-# typescript:
-#   stage: typescript-test
-#   variables:
-#     GIT_STRATEGY: none
-#   tags:
-#     - ${runner}
-#   script:
-#     - nvm use && npm run type:check
+typescript:
+  stage: typescript-test
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ${runner}
+  script:
+    - nvm use && npm run type:check
 
-# storybook:
-#   stage: storybook-test
-#   variables:
-#     GIT_STRATEGY: none
-#   tags:
-#     - ${runner}
-#   script:
-#     - nvm use 
-#     # - npm run start
-#     # - npm run test-storybook
+storybook:
+  stage: storybook-test
+  variables:
+    GIT_STRATEGY: none
+  tags:
+    - ${runner}
+  script:
+    - nvm use 
+    # - npm run start
+    # - npm run test-storybook
 
-check-nexus-token:
+# push artefacts to nexus
+nexus-push-job:
   stage: nexus
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
+      when: on_success
+  allow_failure: false
+  needs:
+    - lint
+    - typescript
+    - storybook
+  tags:
+    - ${runner}
   script:
     - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
-    - npm view @optimacros-ui/kit
+    - nvm use && npm ci
+    - echo "y" | npx lerna publish from-package --yes --ignore-scripts
+
+#deploy
+deploy:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  needs:
+    - nexus-push-job
+  rules:
+    - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
+      when: on_success
+    # - if: ($deploy == "true")
+    #   when: on_success
+    # - if: ($pr == "true")
+    #   when: never
+    # - if: ($deploy != "true" && $pr != "true")
+    #   when: manual
+    #   allow_failure: true
   tags:
     - ${runner}
-  rules:
-    - if: '$CI_COMMIT_TAG != ""'
-
-# # push artefacts to nexus
-# nexus-push-job:
-#   stage: nexus
-#   variables:
-#     GIT_STRATEGY: none
-#   rules:
-#     - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
-#       when: on_success
-#   allow_failure: false
-#   needs:
-#     - lint
-#     - typescript
-#     - storybook
-#   tags:
-#     - ${runner}
-#   script:
-#     - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> ~/.npmrc
-#     - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> ~/.npmrc
-#     - nvm use && npm ci
-#     - npx lerna publish from-package --yes --ignore-scripts
-
-# #deploy
-# deploy:
-#   stage: deploy
-#   variables:
-#     GIT_STRATEGY: none
-#   needs:
-#     - nexus-push-job
-#   rules:
-#     - if: '$CI_COMMIT_TAG != ""'  # Запускаем только если это тэг
-#       when: on_success
-#     # - if: ($deploy == "true")
-#     #   when: on_success
-#     # - if: ($pr == "true")
-#     #   when: never
-#     # - if: ($deploy != "true" && $pr != "true")
-#     #   when: manual
-#     #   allow_failure: true
-#   tags:
-#     - ${runner}
-#   before_script:
-#     - eval $(ssh-agent -s)
-#     - mkdir -p ~/.ssh
-#     - chmod 700 ~/.ssh
-#     - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
-#     - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
-#     - chmod 644 ~/.ssh/known_hosts
-#   script:
-#     - echo "Deploying application..."
-#     - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
-#     - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
-#       rm -rf $CI_PROJECT_NAME &&
-#       tar -xvf $CI_PROJECT_NAME.tar.gz &&
-#       rm -rf $CI_PROJECT_NAME.tar.gz"
+  before_script:
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
+    - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - echo "Deploying application..."
+    - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
+    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
+      rm -rf $CI_PROJECT_NAME &&
+      tar -xvf $CI_PROJECT_NAME.tar.gz &&
+      rm -rf $CI_PROJECT_NAME.tar.gz"
