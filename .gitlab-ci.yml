@@ -80,7 +80,8 @@ stages:
 check-nexus-token:
   stage: nexus
   script:
-    - 'curl -v -I -H "Authorization: Bearer $NEXUS_TOKEN" https://fe-nexus.optimacros.com/repository/fe-npm/'
+    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" > ~/.npmrc
+    - npm whoami
   tags:
     - ${runner}
   rules:
