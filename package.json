@@ -34,7 +34,7 @@
         "rebase:continue": "npm run rebase -- --continue",
         "rebase:create-mr": "npm run rebase -- --continue --mr",
         "reinstall": "node ./scripts/reinstall.js",
-        "create:release": "node ./scripts/create-release.mjs",
+        "create:release": "sh ./scripts/release.sh",
         "type:check": "tsc --pretty --noEmit",
         "type:coverage": "typescript-coverage-report -o .coverage/ts",
         "test:coverage": "npm run test-storybook -- --coverage --coverageDirectory .coverage/storybook",
