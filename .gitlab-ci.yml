@@ -75,7 +75,7 @@ storybook:
 check-nexus-token:
   stage: nexus
   script:
-    - curl -I -H "Authorization: Bearer $NEXUS_TOKEN" https://fe-nexus.optimacros.com/repository/fe-npm/
+    - 'curl -I -H "Authorization: Bearer $NEXUS_TOKEN" https://fe-nexus.optimacros.com/repository/fe-npm/'
   tags:
     - ${runner}
   rules:
