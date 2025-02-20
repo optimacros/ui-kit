@@ -6,6 +6,11 @@ variables:
   DEPLOY_HOSTNAME: $DEPLOY_HOSTNAME_storybook_optimacros_com
   DEPLOY_USERNAME: $DEPLOY_USERNAME_storybook_optimacros_com
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
 workflow:
   rules:
     - if: ( $CI_COMMIT_REF_NAME == "main") # при ручком запуске из  webui
