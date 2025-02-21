@@ -1,4 +1,10 @@
 ### Ui Kit Provider Usage with Themes package
+
+ui-kit possible themes and icons
+```ts
+import { THEMES, ICONS_MAP } from '@optimacros-ui/themes';
+```
+
 ```tsx
 import { useEffect, useRef, useState } from 'react';
 

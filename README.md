@@ -17,6 +17,8 @@
 - [@optimacros-ui/themes ( ui-kit color-schemes )](./packages/themes/README.md)
 - [@optimacros-ui/types ( ui-kit types )](./packages/types/README.md)
 
+## Themes Integration
+- [themes](./docs/installation/themes.md)
 ## Chore
 - [Merge Request Guide](./docs/chore/merge-request.md)
 - [NPM Guide](./docs/chore/npm.md)
