@@ -1,2 +1,2 @@
-export * as IndexedUtils from './exports';
 export * from './native';
+export * as IndexedUtils from './exports';

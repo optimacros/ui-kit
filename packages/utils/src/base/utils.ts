@@ -1,4 +1,4 @@
-import { keys, reduce, pickBy, set } from '@optimacros-ui/utils';
+import { keys, reduce, pickBy, set } from 'lodash-es';
 
 export const angleFromPositions = (cx, cy, ex, ey) => {
     const theta = Math.atan2(ey - cy, ex - cx) + Math.PI / 2;
