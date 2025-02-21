@@ -1,36 +1,17 @@
 import { CSSProperties } from 'react';
 import { Image } from '../';
+import { Flex } from '@optimacros-ui/flex';
+import { Text } from '@optimacros-ui/text';
 
-const SquareImage = () => (
-    <Image.Root ratio="square">
-        <Image.Image src="https://picsum.photos/id/1015/800/800" alt="Square image" />
-        <Image.Fallback>Loading...</Image.Fallback>
-    </Image.Root>
-);
-
-// Portrait aspect ratio
-const PortraitImage = () => (
-    <Image.Root ratio="portrait">
-        <Image.Image src="https://picsum.photos/id/1016/800/1200" alt="Portrait image" />
-        <Image.Fallback>Loading...</Image.Fallback>
-    </Image.Root>
-);
-
-// Landscape aspect ratio
-const LandscapeImage = () => (
-    <Image.Root ratio="landscape">
-        <Image.Image src="https://picsum.photos/id/1018/1200/900" alt="Landscape image" />
-        <Image.Fallback>Loading...</Image.Fallback>
-    </Image.Root>
-);
-
-// Custom aspect ratio
-const CustomRatioImage = () => (
-    <Image.Root ratio="custom" style={{ '--aspect-ratio': '70%' } as CSSProperties}>
-        <Image.Image src="https://picsum.photos/id/1019/1000/700" alt="Custom ratio image" />
-        <Image.Fallback>Loading...</Image.Fallback>
-    </Image.Root>
-);
+const ratios: Image.ImageRatio[] = [
+    'square',
+    'portrait',
+    'landscape',
+    'wide',
+    'ultrawide',
+    'golden',
+    'custom',
+];
 
 export const AspectRatios = () => (
     <div
@@ -40,9 +21,14 @@ export const AspectRatios = () => (
             gridTemplateColumns: 'repeat(4, 1fr)',
         }}
     >
-        <SquareImage />
-        <PortraitImage />
-        <LandscapeImage />
-        <CustomRatioImage />
+        {ratios.map((ratio) => (
+            <Flex key={ratio} direction="column" gap={4}>
+                <Text.Span>{ratio}</Text.Span>
+                <Image.Root ratio={ratio} style={{ '--aspect-ratio': '70%' } as CSSProperties}>
+                    <Image.Image src="/public/image-500x550.jpg" data-testid="image" />
+                    <Image.Fallback>Loading...</Image.Fallback>
+                </Image.Root>
+            </Flex>
+        ))}
     </div>
 );
