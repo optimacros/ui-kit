@@ -2,6 +2,8 @@ import { ComponentProps } from 'react';
 import type { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import { Image } from '.';
 import * as examples from './examples';
+import * as scenarios from './__tests__/scenarios';
+import { fn } from '@storybook/test';
 
 const argTypes: ArgTypes<ComponentProps<typeof Image.Root>> = {
     ratio: {
@@ -48,12 +50,16 @@ export default meta;
 type Story = StoryObj<typeof Image.Root>;
 
 export const Basic: Story = {
-    args: { ratio: 'square' },
+    args: { controllable: true, ratio: 'square', onStatusChange: fn() },
     render: examples.Basic,
+    play: scenarios.basic,
+    tags: ['!skip-test-runner'],
 };
 
 export const AspectRatios: Story = {
     render: examples.AspectRatios,
+    play: scenarios.aspectRatios,
+    tags: ['!skip-test-runner'],
 };
 
 export const WithError: Story = {
