@@ -35,3 +35,8 @@ export const Title = forward<TextProps, 'h1'>((props, ref) => (
 export const Span = forward<TextProps, 'span'>((props, ref) => (
     <styled.span {...props} ref={ref} data-scope="text" data-part="root" data-tag="span" />
 ));
+
+export const Label = forward<TextProps, 'label'>((props, ref) => (
+    // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
+    <styled.label {...props} ref={ref} data-scope="text" data-part="root" data-tag="label" />
+));
