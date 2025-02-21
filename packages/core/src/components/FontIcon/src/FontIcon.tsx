@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { forward } from '@optimacros-ui/store';
 
 export type FontIconProps = {

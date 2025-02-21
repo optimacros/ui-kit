@@ -1,4 +1,6 @@
-import React, { MouseEventHandler, ReactNode, useId } from 'react';
+import { MouseEventHandler, ReactNode, useId } from 'react';
+import type React from 'react';
+
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 import { forward } from '@optimacros-ui/store';
 

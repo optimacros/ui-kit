@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Field } from '@optimacros-ui/field';
 import { Icon } from '@optimacros-ui/icon';
 import { IconButton } from '@optimacros-ui/icon-button';

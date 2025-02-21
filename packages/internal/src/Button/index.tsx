@@ -1,5 +1,6 @@
-import React, { ComponentProps } from 'react';
-import { Button as ButtonComponent } from '@optimacros-ui/button';
+import { ComponentProps } from 'react';
+import type React from 'react';
+import { Button as ButtonComponent, type ButtonProps } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
 import { forward } from '@optimacros-ui/store';
 import { useThemeClassName } from '../utils';
@@ -25,7 +26,7 @@ export type ButtonTheme = ThemeButtonProps & {
     warning: string;
 };
 
-export interface ButtonInitialProps {
+export interface ButtonInitialProps extends ButtonProps {
     label: string;
     icon: string | React.JSX.Element | null;
     href: string;

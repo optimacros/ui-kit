@@ -1,4 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
+import type React from 'react';
+
 import { forward } from '@optimacros-ui/store';
 
 export interface RadioButtonProps {

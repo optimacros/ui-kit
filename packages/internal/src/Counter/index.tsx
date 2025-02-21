@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Counter as CounterComponent } from '@optimacros-ui/counter';
 import { forward } from '@optimacros-ui/store';
 

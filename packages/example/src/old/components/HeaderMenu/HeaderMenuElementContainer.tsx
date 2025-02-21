@@ -4,7 +4,7 @@ import { isEmpty } from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 
 import type { Element } from './HeaderMenuElement';
-import { Icon } from '../';
+import { Icon } from '..';
 
 import styles from './HeaderMenu.module.css';
 

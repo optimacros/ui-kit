@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Orientation } from '@optimacros-ui/utils';
 import { Navigation as NavigationComponent } from '@optimacros-ui/navigation';
 import { forward } from '@optimacros-ui/store';

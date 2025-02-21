@@ -1,4 +1,4 @@
-import { Icon } from '../';
+import { Icon } from '..';
 
 import styles from './HeaderNavigation.module.css';
 

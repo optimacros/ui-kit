@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Loader as LoaderComponent } from '@optimacros-ui/loader';
 import { clsx } from '@optimacros-ui/utils';
 import { forward } from '@optimacros-ui/store';

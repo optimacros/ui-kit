@@ -1,4 +1,6 @@
-import React, { useId } from 'react';
+import { useId } from 'react';
+import type React from 'react';
+
 import { Field as FieldComponent } from '@optimacros-ui/field';
 import { forward } from '@optimacros-ui/store';
 

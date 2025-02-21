@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { forward, styled } from '@optimacros-ui/store';
 
 export type HeaderProps = React.PropsWithChildren;

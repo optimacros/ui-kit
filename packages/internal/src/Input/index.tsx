@@ -1,5 +1,8 @@
-import React, { useId } from 'react';
-import type { TextareaHTMLAttributes, InputHTMLAttributes } from 'react';
+import { useId } from 'react';
+
+import { TextareaHTMLAttributes, InputHTMLAttributes } from 'react';
+import type React from 'react';
+
 import { clsx, isNull, isUndefined } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 import { Field } from '@optimacros-ui/field';

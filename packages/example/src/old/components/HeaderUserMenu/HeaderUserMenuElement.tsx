@@ -1,4 +1,4 @@
-import { Icon } from '../';
+import { Icon } from '..';
 import React from 'react';
 
 import styles from './HeaderUserMenu.module.css';

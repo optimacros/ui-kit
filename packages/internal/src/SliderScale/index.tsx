@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import { CSSProperties, forwardRef, useEffect, useState } from 'react';
 import { Slider } from '@optimacros-ui/slider';
 import { Field } from '@optimacros-ui/field';
 import { clsx } from '@optimacros-ui/utils';
@@ -16,7 +16,7 @@ export interface SliderProps {
     pinned?: boolean;
     snaps?: boolean;
     step?: number;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
     dataMax?: number;
     name?: string;
     theme?: {

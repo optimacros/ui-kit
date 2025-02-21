@@ -1,4 +1,4 @@
-import React from 'react';
+import { createElement } from 'react';
 
 let customChecker;
 
@@ -21,7 +21,7 @@ export function defaultChecker(classType, reactElement) {
     //@ts-ignore
     if (process.env.NODE_ENV !== 'production') {
         // https://github.com/gaearon/react-hot-loader/blob/v3.0.0-beta.7/docs/Known%20Limitations.md#checking-element-types
-        classType = React.createElement(classType).type;
+        classType = createElement(classType).type;
     }
 
     return reactElement && reactElement.type === classType;
