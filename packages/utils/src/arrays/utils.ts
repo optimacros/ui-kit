@@ -1,5 +1,13 @@
 import { Collection, isIndexed, Range } from 'immutable';
-import * as _ from 'radash';
+import {
+    objectify,
+    omit as _omit,
+    pick as _pick,
+    invert as _invert,
+    crush as _crush,
+    construct as _construct,
+    shake as _shake,
+} from 'radash';
 import { isFalsey } from '../functions';
 import { changeCase, getValue } from '../object';
 import * as $ from '@optimacros-ui/types';
@@ -42,7 +50,7 @@ export function toDictionary<
 >(arrayLike: T, getKey?: (item: Item) => string, getValue?: (item: Item) => Item) {
     const list = toCollection(arrayLike);
 
-    return _.objectify(list.toArray(), getKey, getValue);
+    return objectify(list.toArray(), getKey, getValue);
 }
 
 export function pickOne<
@@ -109,7 +117,7 @@ export function omit<
 >(arrayLike: T, ...keys: Keys) {
     const list = toCollection(arrayLike);
 
-    return list.map((v) => _.omit(v, keys));
+    return list.map((v) => _omit(v, keys));
 }
 
 export function pick<
@@ -119,7 +127,7 @@ export function pick<
 >(arrayLike: T, ...keys: Keys) {
     const list = toCollection(arrayLike);
 
-    return list.map((v) => _.pick(v as Item, keys));
+    return list.map((v) => _pick(v as Item, keys));
 }
 
 /** picks one property of each object */
@@ -139,7 +147,7 @@ export function pickPath<
 export function crush<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) {
     const list = toCollection(arrayLike);
 
-    return list.map(_.crush);
+    return list.map(_crush);
 }
 
 /**
@@ -149,7 +157,7 @@ export function crush<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) {
 export function construct<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) {
     const list = toCollection(arrayLike);
 
-    return list.map(_.construct);
+    return list.map(_construct);
 }
 
 export function removeFalsey<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) {
@@ -162,7 +170,7 @@ export function removeFalsey<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) 
 export function invert<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) {
     const list = toCollection(arrayLike);
 
-    return list.map(_.invert);
+    return list.map(_invert);
 }
 
 /** Remove unwanted values from an object */
@@ -172,7 +180,7 @@ export function shake<T extends $.Tuple.Indexed.Type<any>, Item extends $.Tuple.
 ) {
     const list = toCollection(arrayLike);
 
-    return list.map((v) => _.shake(v, filter));
+    return list.map((v) => _shake(v, filter));
 }
 
 export function camelCase<T extends $.Tuple.Indexed.Type<any>>(arrayLike: T) {

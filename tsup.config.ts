@@ -15,10 +15,10 @@ export default defineConfig({
     loader: {
         '.css': 'local-css',
     },
-    minifySyntax: true,
     minify: true,
+    minifySyntax: true,
     minifyWhitespace: true,
     minifyIdentifiers: true,
-    metafile: true,
-    noExternal: ['lodash-es'],
+    metafile: false,
+    noExternal: [],
 });

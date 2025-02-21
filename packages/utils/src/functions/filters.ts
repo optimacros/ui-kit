@@ -1,4 +1,4 @@
-import { isNull } from 'lodash-es';
+import isNull from 'lodash-es/isNull';
 
 export const filter = {
     gt: (a: number, b: number) => a > b,
