@@ -6,6 +6,8 @@ import { createActorApiHook, createMachineApiHook } from './useMachineApi';
 import { AnyMachine, createMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
 import * as $ from '@optimacros-ui/types';
 import { createUseFeatureFlagsHooks } from './useFeatureFlags';
+/* biome-ignore lint:wait */
+import type { UiKit } from '@optimacros-ui/kit-store';
 
 type HooksConfig = object;
 
@@ -148,6 +150,7 @@ export function createReactStateContext<
         Provider: StoreProvider,
     };
 }
+
 export type AnyOptions = StateMachine.MachineOptions<
     Record<string, any>,
     StateMachine.StateSchema,
@@ -208,6 +211,14 @@ export type ExtendedMachine<
     machine: (userContext: Context) => ZagMachine<Context, State, StateMachine.AnyEventObject>;
 };
 
+/**
+ * method for extending {@link ZagMachine}
+ * @param stateMachine - any zag-js like module
+ * @example 'import * as menu from '@zag-js/menu'
+ * @param configCreator - {@link AnyConfig}
+ * @param optionCreator - {@link StateMachine.MachineOptions}
+ * @returns ZagJs module with mutated {@link ZagMachine} function
+ */
 export function extendMachine<
     Module,
     Service extends AnyMachine,
@@ -255,40 +266,69 @@ export function extendMachine<
 
 export type ExtendApiMethod = (api) => void;
 
-type MachineCtx<Machine extends Record<string, any>> = Omit<
-    Parameters<Machine['machine']>[0],
-    'id'
->;
-
+/**
+     * guard method for incapsulation
+     *
+     * in all hooks we get values from connect `method` return
+     *
+     * @see {@link ConnectMachine}
+     * 
+     * @returns MachineApi
+     * @example
+     * ```
+        export const connect = ((api, { state, send }, machine) => {
+            return {
+                ...api,
+                orientation: state.context.orientation,
+                setOrientation(orientation: string) {
+                    send({ type: 'ORIENTATION.SET', value: orientation });
+                },
+                getContentProps() {
+                    return { ...api.getContentProps(), 'data-orientation': state.context.orientation };
+                }
+            };
+        }) satisfies ConnectMachine<zagMenu.Api, Context, State>;
+ ```
+     */
 export type ConnectMachine<
     Api extends Record<string, any>,
     Context extends Record<string, any>,
     State extends StateMachine.StateSchema,
     R = Record<string, any>,
 > = (
+    /** Previous Machine Api */
     api: Api,
     {
         state,
         send,
     }: {
+        /** Machine State {@link StateMachine.State} */
         state: StateMachine.State<Context, State>;
+        /** Machine Send Function {@link StateMachine.Send} */
         send: StateMachine.Send;
     },
     machine: Record<string, any>,
 ) => R;
 
+/**
+ * method for creating optimacros-ui store with additional functionality
+ * @param config - default configuration
+ */
 export function createReactApiStateContext<
     Machine extends Record<string, any>,
     Api extends Record<string, any> = Record<string, any>,
     Context extends Record<string, any> = Parameters<Machine['machine']>[0],
     State extends StateMachine.StateSchema = StateMachine.StateSchema,
     Connect extends (
+        /** Base Machine Api */
         api: Api,
         {
             state,
             send,
         }: {
+            /** Machine State {@link StateMachine.State} */
             state: StateMachine.State<Context, State>;
+            /** Machine Send Function {@link StateMachine.Send} */
             send: StateMachine.Send;
         },
         machine: Record<string, any>,
@@ -296,12 +336,31 @@ export function createReactApiStateContext<
     ID extends string = string,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
 >(config: {
+    /** Store id */
     id: ID;
+    /**
+     * zag-js like module
+     * @example 'import * as menu from '@zag-js/menu'
+     * */
     machine: Machine;
+    /**
+     *
+     * @param initialState - zagjs api
+     * @returns custom selectors
+     */
     createConfig?: (initialState: Api) => {
         selectors?: Selectors;
     };
+    /**
+     * @see {@link ConnectMachine}
+     * @returns MachineApi
+     */
     connect?: Connect;
+    /**
+     * Ui Kit global context
+     * `used for selecting feature flags from global context`
+     * @see {@link UiKit}
+     */
     GlobalContext?: {
         useProxySelector: any;
     };
@@ -357,8 +416,10 @@ export function createReactApiStateContext<
     const useActor = createActorApiHook(machine);
 
     type IRootMachine = Omit<Context, 'id'> & {
+        /** machine id (if its specific) */
         id?: string;
         children: ReactNode | ((api: Api) => ReactNode);
+        /** defaultContext if using `controllable` prop */
         defaultContext?: Context;
     };
 
@@ -421,15 +482,66 @@ export function createReactApiStateContext<
     }
 
     return {
+        /**
+         * Selectors Map
+         */
         select: slice.selectors,
+        /**
+         * Redux-like slice
+         */
         slice,
+        /**
+         * Allows to select Api's properties
+         * @see {@link createUseSelectorHook}
+         */
         useSelector,
+        /**
+         * Allows to select Api's properties
+         * @see {@link createProxySelectorHook}
+         */
         useProxySelector,
-        Api,
-        useApi,
-        RootProvider: RootMachine,
-        RootActorProvider: RootActor,
-        splitProps: machine.splitProps as Machine['splitProps'],
+        /**
+         * Allows to use current State feature flags
+         *
+         * @example
+         * ```
+         * // is actually accessing `id.feature_flag_id`
+         * // menu.submenu feature_flag
+         *  const isEnabled = useFeatureFlags('submenu');
+         * ```
+         */
         useFeatureFlags,
+        /**
+         * returns an api from {@link config.connect}
+         */
+        useApi,
+        /**
+         * HOC for providing api from {@link config.connect}
+         * @example
+         * ```
+         * <Menu.Api>
+         * {
+         *  (api) => <span>{api.open ? 'open' : 'closed'}</span>
+         * }
+         * </Menu.Api>
+         */
+        Api,
+        /**
+         * React Context provider
+         * @accepts {@link IRootMachine} props
+         */
+        RootProvider: RootMachine,
+        /**
+         * React Context provider for actor (especially for Toast component)
+         * @accepts {@link IRootMachine} props
+         */
+        RootActorProvider: RootActor,
+        // TODO: make split props work with extended machine
+        /**
+         * function for splitting context and other props
+         *
+         * `!!! warning`: if you've added new props with {@link extendMachine} this won't work
+         */
+        splitProps: machine.splitProps as Machine['splitProps'],
     };
 }

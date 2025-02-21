@@ -1,5 +1,46 @@
 # ui-kit
 
+## Installation
+1. add to .npmrc
+``` bash
+@optimacros-ui:registry=https://fe-nexus.optimacros.com/repository/fe-npm
+```
+2. Turn VPN on
+3. install any @optimacros-ui package
+- [@optimacros-ui/kit ( core package with all components in one package )](./packages/core/README.md)
+- @optimacros-ui/**component-name-dashcase** ( specific component package )
+    - list of all components [here](./packages/core/src/components)
+- [@optimacros-ui/kit-internal ( internal package )](./packages/internal/README.md)
+- [@optimacros-ui/kit-store ( package with ui-kit provider )](./packages/core/src/store/README.md)
+- [@optimacros-ui/store ( ui-kit store creator )](./packages/store/README.md)
+- [@optimacros-ui/utils ( ui-kit utilities )](./packages/utils/README.md)
+- [@optimacros-ui/themes ( ui-kit color-schemes )](./packages/themes/README.md)
+- [@optimacros-ui/types ( ui-kit types )](./packages/types/README.md)
+
+## Themes Integration
+- [themes](./docs/installation/themes.md)
+## Chore
+- [Merge Request Guide](./docs/chore/merge-request.md)
+- [NPM Guide](./docs/chore/npm.md)
+- [Visualizer](./docs/chore/visualizer.md)
+
+## Code
+- [Core Documentation](./docs/code/core.md)
+- [Internal Documentation](./docs/code/internal.md)
+
+### Examples
+The examples section is available under [docs/code/examples/](./docs/code/examples/)
+
+### Old
+Legacy documentation can be found under [docs/code/old/](./docs/code/old/)
+
+## Styles
+- [Figma Guidelines](./docs/styles/figma.md)
+- [Variables & Conventions](./docs/styles/variables-conventions.md)
+
+## Testing
+- [Visual Testing Guide](./docs/testing/visual-testing.md)
+
 ## commit
 
 - first `npm run rebase` to rebase to actual master branch
@@ -23,39 +64,3 @@ A: do `ctrl+f5`
 
 - Copy the `.idea.example` folder inside the project and rename it to `.idea`, if this folder already exists, delete it.
 - Install extension **[Biome](https://plugins.jetbrains.com/plugin/22761-biome)**: Linter and formatter plugin.
-
-
-## Visual testing
-
-Какая логика реализована:
-- по команде `test-storybook` для всех сторей запускается test-runner, который делает скрин отрендерившейся стори
-- если в сторе есть `play` функция, то не делает, т.к. по стандартной логике сначала выполняется `play`, потом скриншот. соответственно, состояние `просто элемент` нам не получить
-- как мы решаем эту проблему: при добавлении `play`, в начале функции вызываем `await window.takeScreenshot?.()` без аргумента. сгенерируется скриншот с именем, как если бы у нас не было `play` (вероятно, случится сравнение с существующим скриншотом)
-- для проверки нужных состояний, в соответствующих местах `play` вызываем `await window.takeScreenshot?.(id)` с каким-то уникальным ид
-- если сторя содержит что-то динамическое (скрины не совпадают), то можно этот элемент вырезать (в `play`) и сделать сксрин оставшегося, или добавить `tags: ['skip-test-runner']`
-
-Чтобы `play` запускалась, только когда нужно тестировать, мы в начале каждой функции добавляем провер очку
-
-    play: async ({ globals, canvasElement }) => {
-        if (!globals.test) {
-            return;
-        }
-
-        ...
-    }
-
-Сверху в интерфейса сторибука есть есть переключатель `play/ne play`
-
-
-### Versioning
-run `npx lerna version x.x.x --no-push --no-git-tag-version --conventional-commits`
-
-### Typescript & Test coverage
-`npm run coverage`
-output in ./.coverage
-
-### Visualizer (using utils as an example)
-- Replace flag "metafile" in "tsup.config.ts" with "true"
-- Run build: `npm run build:utils`
-- Run visualizer: npx esbuild-visualizer --metadata packages/utils/dist/metafile-cjs.json --open
- 

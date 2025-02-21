@@ -9,12 +9,13 @@
         "start:figma": "lerna run start --scope=@optimacros-ui/figma",
         "build": "lerna run build --scope=@optimacros-ui/*",
         "build:components": "lerna run build --scope @optimacros-ui/* --ignore=@optimacros-ui/{kit,store,utils,figma,kit-internal,kit-legacy,types,themes}",
-        "build:core": "npm run build:components && lerna run build --scope=@optimacros-ui/kit",
+        "build:core": "npm run build:components && lerna run build --scope=@optimacros-ui/{kit,kit-store}",
         "build:legacy": "lerna run build --scope=@optimacros-ui/kit-legacy",
         "build:internal": "lerna run build --scope=@optimacros-ui/kit-internal",
         "build:example": "lerna run build --scope=@optimacros-ui/example",
         "build:themes": "lerna run build --scope=@optimacros-ui/themes",
         "build:store": "lerna run build --scope=@optimacros-ui/store",
+        "build:kit-store": "lerna run build --scope=@optimacros-ui/kit-store",
         "build:utils": "lerna run build --scope=@optimacros-ui/utils",
         "build:figma": "lerna run build --scope=@optimacros-ui/figma",
         "build:types": "lerna run build --scope=@optimacros-ui/types",
@@ -24,6 +25,7 @@
         "test-storybook": "test-storybook",
         "test-storybook:update": "test-storybook --updateSnapshot",
         "build:storybook": "storybook build",
+        "start:prod": "http-server ./storybook-static",
         "bootstrap": "lerna clean && lerna bootstrap",
         "clean": "lerna clean",
         "postinstall": "node ./scripts/postinstall.js",
@@ -99,7 +101,8 @@
         "vite": "5.2.8",
         "vite-plugin-dts": "3.8.1",
         "vite-plugin-lib-inject-css": "2.0.1",
-        "vite-tsconfig-paths": "4.3.2"
+        "vite-tsconfig-paths": "4.3.2",
+        "http-server": "14.1.1"
     },
     "lint-staged": {
         "*.{ts,tsx,js,ts,tsx,css,json}": [

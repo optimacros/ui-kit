@@ -1,6 +1,6 @@
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
-import { Editable } from '@optimacros-ui/editable';
+import { Editable } from '.';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
 import * as stories from './stories';

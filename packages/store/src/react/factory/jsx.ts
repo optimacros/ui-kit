@@ -94,4 +94,7 @@ export const createJsxFactory = () => {
     }) as unknown as JsxElements;
 };
 
+/**
+ * React component factory
+ */
 export const styled = createJsxFactory();
