@@ -57,6 +57,7 @@
 #### Publishing
 - `npm run publish`: Builds all UI packages and publishes them using Lerna.
 - `npm run unpublish`: Unpublishes the @optimacros-ui/kit package.
+- `npm run create:release x.x.x`: creates a release branch and tag
 
 #### Git Operations
 - `npm run create:mr`: Runs type checking and creates a merge request.

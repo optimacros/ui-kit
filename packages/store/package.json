@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/store",
     "private": false,
-    "version": "2.0.1",
+    "version": "2.0.2",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -10,8 +10,8 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros-ui/types": "^2.0.1",
-        "@optimacros-ui/utils": "^2.0.1",
+        "@optimacros-ui/types": "^2.0.2",
+        "@optimacros-ui/utils": "^2.0.2",
         "@zag-js/core": "0.77.0",
         "@zag-js/react": "0.77.0",
         "immutable": "4.3.5",
