@@ -24,12 +24,12 @@ export const {
              * tokens variables as css string
              * example at packages/themes/src/default/tokens.css
              * */
-            root: string;
+            root?: string;
             /**
              * component tokens variables as css string
              * example at packages/themes/src/default/component-tokens.css
              * */
-            theme: string;
+            theme?: string;
             /**
              * any other custom css theme as string
              */
@@ -108,6 +108,10 @@ export const Provider = (props: ComponentProps<typeof BaseProvider>) => {
             {...props}
             onStoreCreated={(state, actions) => {
                 const { styles } = state;
+                if (!styles) {
+                    return;
+                }
+
                 styles.root && actions.setRootStyles(styles.root);
                 styles.theme && actions.setThemeStyles(styles.theme);
                 styles.custom && actions.setCustomStyles(styles.custom);

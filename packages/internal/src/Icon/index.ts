@@ -1,1 +1,1 @@
-export * from '@optimacros-ui/icon';
+export { Icon, type IconProps } from '@optimacros-ui/icon';

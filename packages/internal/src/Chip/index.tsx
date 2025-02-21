@@ -1,4 +1,5 @@
-import React, { ReactNode, MouseEventHandler } from 'react';
+import { ReactNode, MouseEventHandler } from 'react';
+import type React from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Chip as ChipComponent } from '@optimacros-ui/chip';
 import { forward } from '@optimacros-ui/store';

@@ -1,4 +1,5 @@
-import React, { type CSSProperties, type MouseEventHandler } from 'react';
+import { type CSSProperties, type MouseEventHandler } from 'react';
+import type React from 'react';
 import { forward } from '@optimacros-ui/store';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';

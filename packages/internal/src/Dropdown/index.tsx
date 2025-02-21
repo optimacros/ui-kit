@@ -1,4 +1,5 @@
-import React, { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect } from 'react';
+import type React from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 

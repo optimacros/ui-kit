@@ -6,6 +6,7 @@
         "prepare": "husky",
         "start": "npm run start:storybook",
         "start:storybook": "storybook dev --no-open -p 6006",
+        "start:example": "lerna run dev --scope=@optimacros-ui/example",
         "start:figma": "lerna run start --scope=@optimacros-ui/figma",
         "build": "lerna run build --scope=@optimacros-ui/*",
         "build:components": "lerna run build --scope @optimacros-ui/* --ignore=@optimacros-ui/{kit,store,utils,figma,kit-internal,kit-legacy,types,themes}",

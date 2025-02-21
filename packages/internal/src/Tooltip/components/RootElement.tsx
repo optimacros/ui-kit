@@ -1,4 +1,4 @@
-import React, { memo, PropsWithChildren } from 'react';
+import { createElement, memo, PropsWithChildren } from 'react';
 import { TooltipProps } from '..';
 
 type Props = PropsWithChildren &
@@ -23,7 +23,7 @@ export const RootElement = memo<Props>(
         const shouldPass = typeof composedComponent !== 'string';
         const finalProps = shouldPass ? { ...childProps, theme } : childProps;
 
-        return React.createElement<any>(composedComponent, {
+        return createElement<any>(composedComponent, {
             ...finalProps,
             ...composedComponentProps,
         });

@@ -1,4 +1,4 @@
-import React, { ComponentProps, PropsWithChildren } from 'react';
+import { Children, ComponentProps, PropsWithChildren } from 'react';
 import * as treeview from '@zag-js/tree-view';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 
@@ -59,7 +59,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
         const api = useApi();
         const nodeProps = { indexPath, node };
         const nodeState = api.getNodeState(nodeProps);
-        const [indicator, branchControl, branchContent] = React.Children.toArray(children);
+        const [indicator, branchControl, branchContent] = Children.toArray(children);
 
         if (nodeState.isBranch) {
             return (
@@ -104,7 +104,7 @@ export const TreeNode = forward<TreeNodeProps, 'div'>(
                                     node={childNode}
                                     indexPath={[...indexPath, index]}
                                 >
-                                    {...React.Children.toArray(children)}
+                                    {...Children.toArray(children)}
                                 </TreeNode>
                             );
                         })}

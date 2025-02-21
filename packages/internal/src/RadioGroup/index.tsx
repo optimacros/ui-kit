@@ -1,4 +1,6 @@
-import React, { Children, isValidElement } from 'react';
+import { Children, isValidElement } from 'react';
+import type React from 'react';
+
 import { RadioGroup as RadioGroupComponent } from '@optimacros-ui/radio-group';
 import { useThemeClassName } from '../utils';
 import { forward } from '@optimacros-ui/store';

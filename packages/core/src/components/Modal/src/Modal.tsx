@@ -1,5 +1,6 @@
-import React, {
+import {
     ComponentProps,
+    PointerEvent,
     PropsWithChildren,
     useId,
     useImperativeHandle,
@@ -124,7 +125,7 @@ export const DraggableContent = forward<PropsWithChildren, 'div'>(
         const api = useApi();
 
         const handlePointerDown =
-            (listeners: SyntheticListenerMap) => (e: React.PointerEvent<HTMLDivElement>) => {
+            (listeners: SyntheticListenerMap) => (e: PointerEvent<HTMLDivElement>) => {
                 if (
                     (e.target as HTMLElement).closest('*[data-draggable-part="handle"]') &&
                     !(e.target as HTMLElement).closest('*[data-role="close-trigger"]')

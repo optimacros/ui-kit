@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { forward, styled } from '@optimacros-ui/store';
 import { Align } from '@optimacros-ui/utils';
 
