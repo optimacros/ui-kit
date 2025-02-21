@@ -7,3 +7,4 @@ export * from './VirtualSelect';
 export * from './Deselectable';
 export * from './CloseOnSelect';
 export * from './Form';
+export * from './Basic';
