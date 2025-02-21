@@ -45,6 +45,16 @@ export const Positioner = forward<{}, 'div'>((props, ref) => {
     );
 });
 
+export const Arrow = forward<{}, 'div'>((props, ref) => {
+    const api = useApi();
+
+    return (
+        <div data-scope="popover" data-part="arrow" {...props} {...api.getArrowProps()} ref={ref}>
+            <div data-scope="popover" data-part="arrow-tip" {...api.getArrowTipProps()} />
+        </div>
+    );
+});
+
 export const Content = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
