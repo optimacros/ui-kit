@@ -1,5 +1,5 @@
 ### @optimacros-ui/kit package folder
-### [example](./examples/core/Menu)
+### [example](./examples/core/README.md)
 
 - ComponentName ( in PascalCase )
     - package.json
@@ -36,4 +36,5 @@
         - **utils** ( all utility functions for package)
             - index.ts
         - stories.ts
+        - exports.ts ( all package exports )
         - index.ts
