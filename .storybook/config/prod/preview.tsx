@@ -1,12 +1,6 @@
-import { UiKit } from '@optimacros-ui/kit-store';
 import { Preview } from '@storybook/react';
-import iconsSrc from '../../../packages/themes/src/assets/icons/optimacros/sprite/index.svg';
-import { useEffect, useState } from 'react';
-
-const styles = Promise.all([
-    import('../../../packages/themes/src/default/tokens.css?raw'),
-    import('../../../packages/themes/src/default/component-tokens.css?raw'),
-]);
+import { UiKitProviderDecorator } from '../Provider';
+import { THEMES } from '@optimacros-ui/themes';
 
 const previewProd: Preview = {
     parameters: {
@@ -21,29 +15,19 @@ const previewProd: Preview = {
     },
     decorators: [
         // Load theme
-        (Story) => {
-            const [style, setStyle] = useState(null);
-
-            useEffect(() => {
-                styles.then(([root, theme]) => {
-                    setStyle({ root: root.default, theme: theme.default });
-                });
-            }, []);
-
-            return style ? (
-                <UiKit.Provider
-                    initialState={{
-                        iconsSrc,
-                        styles: style,
-                    }}
-                >
-                    <Story />
-                </UiKit.Provider>
-            ) : (
-                <Story />
-            );
-        },
+        UiKitProviderDecorator,
     ],
+    globalTypes: {
+        theme: {
+            description: 'Global theme of storybook',
+            toolbar: {
+                title: 'Theme',
+                icon: 'circle',
+                items: THEMES.map(({ value, label }) => ({ value, title: label })),
+                dynamicTitle: true,
+            },
+        },
+    },
     tags: ['autodocs'],
 };
 

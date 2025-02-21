@@ -1,3 +1,7 @@
+import { defineConfig } from 'tsup';
 import conf from '../../tsup.config';
 
-export default conf;
+export default defineConfig({
+    ...conf,
+    publicDir: 'config',
+});

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/react';
-import { IconButton } from './IconButton';
+import { IconButton } from '.';
 import { Flex } from '@optimacros-ui/flex';
 import { ComponentProps } from 'react';
 import * as stories from './stories';

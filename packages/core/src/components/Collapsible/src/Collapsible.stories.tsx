@@ -1,6 +1,5 @@
 import React, { ComponentProps } from 'react';
 import { Collapsible } from '.';
-import './index.css';
 import { Icon } from '@optimacros-ui/icon';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import * as scenarios from './__tests__/scenarios';

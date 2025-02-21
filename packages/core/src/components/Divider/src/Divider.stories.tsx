@@ -2,7 +2,7 @@ import { Flex } from '@optimacros-ui/flex';
 import { Text } from '@optimacros-ui/text';
 import { Icon } from '@optimacros-ui/icon';
 import { Orientation } from '@optimacros-ui/utils';
-import { Divider, DividerProps } from './Divider';
+import { Divider, DividerProps } from '.';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
 const argTypes: ArgTypes<DividerProps> = {
