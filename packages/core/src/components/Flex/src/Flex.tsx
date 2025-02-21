@@ -2,7 +2,7 @@ import { ReactNode, CSSProperties } from 'react';
 import { styled, forward } from '@optimacros-ui/store';
 
 export type FlexProps = {
-    children: ReactNode;
+    children?: ReactNode;
     direction?: CSSProperties['flexDirection'];
     align?: CSSProperties['alignItems'];
     justify?: CSSProperties['justifyContent'];
