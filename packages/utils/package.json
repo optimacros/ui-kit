@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/utils",
     "private": false,
-    "version": "2.0.1",
+    "version": "2.0.2",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@internationalized/date": "3.5.4",
-        "@optimacros-ui/types": "^2.0.1",
+        "@optimacros-ui/types": "^2.0.2",
         "immutable": "4.3.5",
         "lodash-es": "4.17.21",
         "radash": "12.1.0"
