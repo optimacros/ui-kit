@@ -1,99 +1,130 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import { Text } from '.';
+import { Flex } from '@optimacros-ui/flex';
+import { Field } from '@optimacros-ui/field';
+
+const argTypes: ArgTypes<Text.TextProps> = {
+    as: {
+        control: 'select',
+        options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li', 'label', 'span'],
+        description: 'Converts any component into component of other kind for no reason',
+        table: { type: { summary: 'h1 | h2 | h3 | h4 | h5 | h6 | p | li | label | span' } },
+    },
+};
 
 const meta: Meta = {
     title: 'Ui kit core/Text',
+    argTypes,
     parameters: {
         layout: 'centered',
     },
-    tags: ['autodocs'],
 };
 
 export default meta;
 
-// Title Stories
-export const TitleComponent: StoryObj = {
-    render: () => (
-        <div className="space-y-4">
-            <Text.Title as="h1">Heading Level 1</Text.Title>
-            <Text.Title as="h2">Heading Level 2</Text.Title>
-            <Text.Title as="h3">Heading Level 3</Text.Title>
-            <Text.Title as="h4">Heading Level 4</Text.Title>
-            <Text.Title as="h5">Heading Level 5</Text.Title>
-            <Text.Title as="h6">Heading Level 6</Text.Title>
-        </div>
+export const Title: StoryObj<typeof Text.Title> = {
+    render: (props) => (
+        <Flex gap={2} direction="column">
+            <Text.Title {...props} as="h1">
+                Heading Level 1
+            </Text.Title>
+            <Text.Title {...props} as="h2">
+                Heading Level 2
+            </Text.Title>
+            <Text.Title {...props} as="h3">
+                Heading Level 3
+            </Text.Title>
+            <Text.Title {...props} as="h4">
+                Heading Level 4
+            </Text.Title>
+            <Text.Title {...props} as="h5">
+                Heading Level 5
+            </Text.Title>
+            <Text.Title {...props} as="h6">
+                Heading Level 6
+            </Text.Title>
+        </Flex>
     ),
-    name: 'Title Variations',
 };
 
-// Paragraph Stories
-export const ParagraphComponent: StoryObj = {
-    render: () => (
-        <div className="space-y-4">
-            <Text.Paragraph>
+export const Span: StoryObj<typeof Text.Span> = {
+    render: (props) => (
+        <Flex gap={2} direction="column">
+            <Text.Span {...props}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation
+            </Text.Span>
+        </Flex>
+    ),
+};
+
+export const Paragraph: StoryObj<typeof Text.Paragraph> = {
+    render: (props) => (
+        <Flex gap={2} direction="column">
+            <Text.Paragraph {...props}>
                 This is a standard paragraph with regular text. Lorem ipsum dolor sit amet,
                 consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
                 magna aliqua.
             </Text.Paragraph>
-            <Text.Paragraph as="span">
-                This paragraph is rendered as a span element instead.
+            <Text.Paragraph {...props}>
+                This paragraph is not rendered as a span element instead.
             </Text.Paragraph>
-            <Text.Paragraph as="li">
-                This paragraph is rendered as a list item element.
+            <Text.Paragraph {...props}>
+                This paragraph is not rendered as a list item element.
             </Text.Paragraph>
-        </div>
+        </Flex>
     ),
-    name: 'Paragraph Variations',
 };
 
-// Code Stories
-export const CodeComponent: StoryObj = {
-    render: () => (
-        <div className="space-y-4">
-            <Text.Code>const greeting = "Hello, World!";</Text.Code>
-            <Text.Code>
+export const Code: StoryObj<typeof Text.Code> = {
+    render: (props) => (
+        <Flex gap={2} direction="column">
+            <Text.Code {...props}>const greeting = "Hello, World!";</Text.Code>
+            <Text.Code {...props}>
                 {`function example() {
   return "This is a code block";
 }`}
             </Text.Code>
-        </div>
+        </Flex>
     ),
-    name: 'Code Examples',
 };
 
-// Markdown Stories
-export const MarkdownComponent: StoryObj = {
-    render: () => (
-        <div className="space-y-4">
-            <Text.Markdown>**Bold text** in markdown</Text.Markdown>
-            <Text.Markdown>*Italic text* in markdown</Text.Markdown>
-            <Text.Markdown>`inline code` in markdown</Text.Markdown>
-            <Text.Markdown as="li">- Markdown as list item</Text.Markdown>
-        </div>
+export const Markdown: StoryObj<typeof Text.Markdown> = {
+    render: (props) => (
+        <Flex gap={2} direction="column">
+            <Text.Markdown {...props}># Heading</Text.Markdown>
+            <Text.Markdown {...props}>## Heading pomenshe</Text.Markdown>
+            <Text.Markdown {...props}>### Heading oche maly</Text.Markdown>
+            <Text.Markdown {...props}>**Bold text** in markdown</Text.Markdown>
+            <Text.Markdown {...props}>*Italic text* in markdown</Text.Markdown>
+            <Text.Markdown {...props}>`inline code` in markdown</Text.Markdown>
+            <Text.Markdown {...props}>- Markdown list item</Text.Markdown>
+        </Flex>
     ),
-    name: 'Markdown Examples',
 };
 
-// Combined Usage Example
-export const CombinedExample: StoryObj = {
-    render: () => (
-        <div className="space-y-6">
-            <Text.Title as="h1">Documentation Example</Text.Title>
-            <Text.Paragraph>
-                Welcome to our documentation. Below you'll find various examples of our text
-                components working together.
-            </Text.Paragraph>
-            <Text.Title as="h2">Code Sample</Text.Title>
-            <Text.Code>
-                {`const Component = () => {
-  return <div>Hello World</div>;
-}`}
-            </Text.Code>
-            <Text.Title as="h2">Markdown Support</Text.Title>
-            <Text.Markdown>
-                You can use **bold**, *italic*, and `code` within markdown text.
-            </Text.Markdown>
-        </div>
+export const Label: StoryObj<typeof Text.Label> = {
+    render: (props) => (
+        <form>
+            <Text.Label htmlFor="input" {...props}>
+                Label for input
+            </Text.Label>
+            <Field.Input placeholder="input" name="input" />
+        </form>
     ),
-    name: 'Combined Usage',
+};
+
+export const Li: StoryObj<typeof Text.Label> = {
+    render: (props) => (
+        <ul>
+            <Text.Label as="li" {...props}>
+                List element (I should not exist)
+            </Text.Label>
+            <Text.Label as="li" {...props} style={{ listStyleType: 'square' }}>
+                Another list element (use @optimacros-ui/list instead)
+            </Text.Label>
+        </ul>
+    ),
+    tags: ['skip-test-runner'],
 };
