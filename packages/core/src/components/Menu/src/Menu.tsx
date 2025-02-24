@@ -2,7 +2,7 @@ import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren, ReactEleme
 import { Portal } from '@zag-js/react';
 import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
-import { machine, connect } from './menu.machine';
+import { machine, connect } from './state/menu.machine';
 import type * as menu from '@zag-js/menu';
 import { UiKit } from '@optimacros-ui/kit-store';
 
@@ -171,6 +171,18 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, .
         </styled.button>
     );
 });
+
+export const ContextMenuTrigger = forward<{ children: ReactNode }, 'button'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
+
+        return (
+            <styled.button {...rest} {...api.getContextTriggerProps()} ref={ref} role="button">
+                {children}
+            </styled.button>
+        );
+    },
+);
 
 export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'>(
     ({ children, id, ...rest }, ref) => {

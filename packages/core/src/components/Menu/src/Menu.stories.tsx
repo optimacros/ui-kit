@@ -1,13 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
-
-import { Menu } from './index';
-import { menuItems } from './mock';
-import { Flex } from '@optimacros-ui/flex';
-import { Button } from '@optimacros-ui/button';
-import { Orientation } from '@optimacros-ui/utils';
-import * as stories from './stories';
+import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
-import { Spacer } from '@optimacros-ui/spacer';
+import { Menu } from './index';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', marginLeft: '20px' }}>{children}</div>
@@ -98,173 +92,31 @@ export const Basic: Story = {
         'open.controlled': false,
         closeOnSelect: true,
     },
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild>
-                    <Button data-testid="trigger">Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content size="sm" data-testid="menu-content">
-                        <Menu.List data-testid="menu-list">
-                            {menuItems.map((v) => (
-                                <Menu.Item key={v.value} {...v}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    render: examples.Basic,
     play: scenarios.basic,
-};
-
-export const OrientationExample: Story = {
-    render: () => {
-        return (
-            <Menu.Root>
-                <Menu.Trigger data-testid="trigger">
-                    <div>Click me</div>
-                </Menu.Trigger>
-                <Menu.Api>
-                    {(api) => (
-                        <div
-                            data-testid="orientation-trigger"
-                            onClick={() =>
-                                api.setOrientation(
-                                    api.orientation === Orientation.Horizontal
-                                        ? Orientation.Vertical
-                                        : Orientation.Horizontal,
-                                )
-                            }
-                        >
-                            Change orientation
-                        </div>
-                    )}
-                </Menu.Api>
-                <Menu.Api>
-                    {(api) => (
-                        <Menu.Positioner>
-                            <Menu.Content size="sm" data-testid="menu-content">
-                                <Menu.List>
-                                    {menuItems.map((v) => (
-                                        <Menu.Item {...v} key={v.value}>
-                                            {v.valueText}
-                                        </Menu.Item>
-                                    ))}
-                                    <Menu.SubMenuItem
-                                        // @ts-ignore
-                                        parent={api}
-                                        item={{
-                                            value: 'sub-menu-nested',
-                                            valueText: 'nested',
-                                            closeOnSelect: true,
-                                        }}
-                                        positioning={{
-                                            fitViewport: false,
-                                            overlap: false,
-                                        }}
-                                    >
-                                        <Menu.SubMenuPositioner>
-                                            <Menu.Content data-testid="sub-menu-content">
-                                                <Menu.List>
-                                                    {menuItems.slice(0, 5).map((v) => (
-                                                        <Menu.Item {...v} key={v.value + 'sub-sub'}>
-                                                            {v.valueText}
-                                                        </Menu.Item>
-                                                    ))}
-                                                </Menu.List>
-                                            </Menu.Content>
-                                        </Menu.SubMenuPositioner>
-                                    </Menu.SubMenuItem>
-                                </Menu.List>
-                            </Menu.Content>
-                        </Menu.Positioner>
-                    )}
-                </Menu.Api>
-            </Menu.Root>
-        );
-    },
-    play: scenarios.orientation,
-};
-
-export const Nested: Story = {
-    render: stories.Nested,
-    play: scenarios.nested,
-};
-
-export const Group: Story = {
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild data-testid="trigger">
-                    <Button data-testid="trigger">Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content data-testid="menu-content">
-                        <Flex direction="column">
-                            <Menu.Group id="first">
-                                <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>
-                                {menuItems.slice(0, 2).map((v) => (
-                                    <Menu.Item {...v} key={`${v.value} 1`}>
-                                        {v.valueText}
-                                    </Menu.Item>
-                                ))}
-                            </Menu.Group>
-
-                            <Spacer size={3} orientation="vertical" />
-
-                            <Menu.Group id="second">
-                                <Menu.GroupLabel htmlFor="second">second</Menu.GroupLabel>
-                                {menuItems.slice(3, 5).map((v) => (
-                                    <Menu.Item {...v} key={`${v.value} 2`}>
-                                        {v.valueText}
-                                    </Menu.Item>
-                                ))}
-                            </Menu.Group>
-
-                            <Spacer size={3} orientation="vertical" />
-
-                            <Menu.Group id="third">
-                                <Menu.GroupLabel htmlFor="third">third</Menu.GroupLabel>
-                                {menuItems.slice(5, 8).map((v) => (
-                                    <Menu.Item {...v} key={`${v.value} 3`}>
-                                        {v.valueText}
-                                    </Menu.Item>
-                                ))}
-                            </Menu.Group>
-                        </Flex>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
-    play: scenarios.group,
 };
 
 export const Disabled: Story = {
     args: { disabled: true },
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild data-testid="trigger">
-                    <Button>Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content data-testid="menu-content">
-                        <Menu.List>
-                            {menuItems.map((v) => (
-                                <Menu.Item {...v} key={v.value}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    render: examples.Basic,
     play: scenarios.disabled,
+};
+
+export const OrientationExample: Story = {
+    render: examples.OrientationExample,
+    play: scenarios.orientation,
+};
+
+export const Nested: Story = {
+    render: examples.Nested,
+    play: scenarios.nested,
+};
+
+export const Group: Story = {
+    render: examples.Group,
+    play: scenarios.group,
+};
+
+export const ContextMenu: Story = {
+    render: examples.ContextMenu,
 };

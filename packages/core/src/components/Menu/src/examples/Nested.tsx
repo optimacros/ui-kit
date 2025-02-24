@@ -1,7 +1,7 @@
 import { Button } from '@optimacros-ui/button';
-import { Menu } from '..';
 import { RootProps } from '../Menu';
 import { menuItems } from '../mock';
+import { Menu } from '..';
 
 const CustomMenu = ({ value }) => {
     const api = Menu.useApi();
