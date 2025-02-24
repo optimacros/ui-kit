@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/icon",
     "private": false,
-    "version": "2.0.2",
+    "version": "2.0.3",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -11,12 +11,12 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros-ui/font-icon": "^2.0.2",
-        "@optimacros-ui/kit-store": "^2.0.2",
-        "@optimacros-ui/store": "^2.0.2",
-        "@optimacros-ui/themes": "^2.0.2",
-        "@optimacros-ui/types": "^2.0.2",
-        "@optimacros-ui/utils": "^2.0.2",
+        "@optimacros-ui/font-icon": "^2.0.3",
+        "@optimacros-ui/kit-store": "^2.0.3",
+        "@optimacros-ui/store": "^2.0.3",
+        "@optimacros-ui/themes": "^2.0.3",
+        "@optimacros-ui/types": "^2.0.3",
+        "@optimacros-ui/utils": "^2.0.3",
         "react": "18.2.0"
     }
 }
