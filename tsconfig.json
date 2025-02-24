@@ -95,6 +95,7 @@
             "@optimacros-ui/spacer": ["packages/core/src/components/Spacer/src"],
             "@optimacros-ui/color-picker": ["packages/core/src/components/ColorPicker/src"],
             "@optimacros-ui/clipboard": ["packages/core/src/components/Clipboard/src"],
+            "@optimacros-ui/hover-card": ["packages/core/src/components/HoverCard/src"],
             "@optimacros-ui/kit-store": ["packages/core/src/store/src"]
         }
     },
