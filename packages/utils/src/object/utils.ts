@@ -1,6 +1,6 @@
 import * as $ from '@optimacros-ui/types';
 import { getIn, merge as ImMerge, mergeDeep, setIn } from 'immutable';
-import isString from 'lodash-es/isString';
+import { isString } from 'lodash-es';
 import { mapEntries, camel, snake, dash, pascal } from 'radash';
 
 /** an immutable merge method */

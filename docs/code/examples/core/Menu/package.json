@@ -3,7 +3,8 @@
     "private": false,
     "version": "2.0.1",
     "main": "dist/index.js",
-    "module": "dist/index.mjs",
+    "module": "dist/index.js",
+    "type": "module",
     "types": "dist/index.d.ts",
     "files": ["dist"],
     "scripts": {
