@@ -3,7 +3,7 @@ import { CalendarDate } from '@internationalized/date';
 import { Calendar } from './index';
 import * as scenarios from './__tests__/scenarios';
 import { ReactNode } from 'react';
-import * as stories from './stories';
+import * as examples from './examples';
 import { fn } from '@storybook/test';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
@@ -152,7 +152,7 @@ export const Basic: Story = {
         closeOnSelect: false,
         onOpenChange: fn(),
     },
-    render: stories.Basic,
+    render: examples.Basic,
     play: scenarios.basic,
 };
 
@@ -164,6 +164,6 @@ export const LocalizedCalendar: Story = {
         closeOnSelect: false,
         locale: 'ru',
     },
-    render: stories.Basic,
+    render: examples.Basic,
     play: scenarios.localized,
 };

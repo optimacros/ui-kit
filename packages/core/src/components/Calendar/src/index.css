@@ -90,6 +90,11 @@
 
   &[data-part='weekday'] {
     font-weight: var(--font-weight-normal);
+    width: var(--spacing-9);
+    height: var(--spacing-9);
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
   }
 
   &[data-disabled] {

@@ -80,11 +80,11 @@ export const DaysRangeText = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} {...api.getRangeTextProps()} ref={ref} />;
 });
 
-export const DaysTable = forward<{}, 'table'>((props, ref) => {
+export const DaysTable = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
     return (
-        <styled.table
+        <styled.div
             {...props}
             {...api.getVisibility('day')}
             {...api.getTableProps({ view: 'day' })}
@@ -93,29 +93,29 @@ export const DaysTable = forward<{}, 'table'>((props, ref) => {
     );
 });
 
-export const DaysTableHead = forward<{}, 'thead'>((props, ref) => {
+export const DaysTableHead = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
     return (
-        <styled.thead {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
-            <tr {...api.getTableRowProps({ view: 'day' })}>
+        <styled.div {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
+            <Flex justify="around" {...api.getTableRowProps({ view: 'day' })}>
                 {api.weekDays.map((day) => (
-                    <th {...api.getWeekdayProps(day)} />
+                    <div {...api.getWeekdayProps(day)} />
                 ))}
-            </tr>
-        </styled.thead>
+            </Flex>
+        </styled.div>
     );
 });
 
-export const DaysTableBody = forward<{}, 'tbody'>((props, ref) => {
+export const DaysTableBody = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
     return (
-        <styled.tbody {...props} {...api.getTableBodyProps({ view: 'day' })} ref={ref}>
+        <styled.div {...props} {...api.getTableBodyProps({ view: 'day' })} ref={ref}>
             {api.weeks.map((week, i) => (
-                <tr key={i} {...api.getTableRowProps({ view: 'day' })}>
+                <Flex justify="between" key={i} {...api.getTableRowProps({ view: 'day' })}>
                     {week.map((value, i) => (
-                        <td key={i} {...api.getDayTableCellProps({ value })}>
+                        <div key={i} {...api.getDayTableCellProps({ value })}>
                             <span
                                 {...api.getDayTableCellTriggerProps({
                                     value,
@@ -124,11 +124,11 @@ export const DaysTableBody = forward<{}, 'tbody'>((props, ref) => {
                             >
                                 {value.day}
                             </span>
-                        </td>
+                        </div>
                     ))}
-                </tr>
+                </Flex>
             ))}
-        </styled.tbody>
+        </styled.div>
     );
 });
 
