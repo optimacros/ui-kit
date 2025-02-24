@@ -1,4 +1,4 @@
-import isObjectLike from 'lodash-es/isObjectLike';
+import { isObjectLike } from 'lodash-es';
 import { isObject, mapEntries, mapValues } from 'radash';
 import { isIndexed } from '../functions';
 

@@ -1,4 +1,4 @@
-import keys from 'lodash-es/keys';
+import { keys } from 'lodash-es';
 
 export const events = {
     getMousePosition(event) {
