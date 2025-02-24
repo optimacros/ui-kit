@@ -22,6 +22,7 @@ export {
     get,
     toString,
     isEqual,
+    cloneDeep,
 } from 'lodash-es';
 
 export {
