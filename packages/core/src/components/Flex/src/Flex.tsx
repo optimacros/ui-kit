@@ -7,7 +7,6 @@ export type FlexProps = {
     align?: CSSProperties['alignItems'];
     justify?: CSSProperties['justifyContent'];
     wrap?: CSSProperties['flexWrap'];
-    /** string = 'px' */
     gap?: number | string;
     fluid?: boolean;
     className?: string;

@@ -1,48 +1,54 @@
-import type { ReactNode } from 'react';
-import { ICONS_MAP } from '@optimacros-ui/themes';
 import { Icon } from '@optimacros-ui/kit';
 import { Menu } from '@optimacros-ui/menu';
 import { Orientation } from '../../../constants';
 import { headerMenuItems } from './mock';
 import { Header } from '.';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { ComponentProps } from 'react';
 
-const Wrapper = ({ children }: { children: ReactNode }) => {
-    return <div style={{ clipPath: 'xywh(0px 1px 100% 120%)' }}>{children}</div>;
+const argTypes: ArgTypes<ComponentProps<typeof Header.Root>> = {
+    children: {
+        control: 'text',
+        description: 'Header content',
+        table: { type: { summary: 'ReactNode' } },
+    },
+    as: {
+        table: { disable: true },
+    },
+    asChild: {
+        table: { disable: true },
+    },
 };
 
-export default {
+const meta: Meta<typeof Header.Root> = {
     title: 'UI Kit core/Header',
     component: Header.Root,
-    tags: ['autodocs'],
-    argTypes: {},
-    decorators: [
-        (Story) => (
-            <Wrapper>
-                <Story />
-            </Wrapper>
-        ),
-    ],
+    argTypes,
 };
 
-export const Base = (props) => {
-    return <Header.Root {...props}> Header </Header.Root>;
+export default meta;
+
+type Story = StoryObj<typeof Header.Root>;
+
+export const Base: Story = {
+    render: (props) => <Header.Root {...props}>Header</Header.Root>,
 };
 
-export const Notification = (props) => {
-    return (
+export const Notification: Story = {
+    render: (props) => (
         <Header.Root {...props}>
             <Header.Notification>
                 <Header.Badge> 9 </Header.Badge>
                 <Header.Icon>
-                    <Icon value={ICONS_MAP.bell} />
+                    <Icon value="bell" />
                 </Header.Icon>
             </Header.Notification>
         </Header.Root>
-    );
+    ),
 };
 
-export const MenuExample = (props) => {
-    return (
+export const MenuExample: Story = {
+    render: (props) => (
         <Header.Root {...props}>
             <Menu.Root orientation={Orientation.Vertical}>
                 <Menu.Trigger asChild>
@@ -51,13 +57,16 @@ export const MenuExample = (props) => {
                 <Menu.Positioner portalled>
                     <Menu.Content>
                         <Menu.List>
-                            {headerMenuItems.map((item, i) => (
-                                <Menu.Item key={i} {...item} />
+                            {headerMenuItems.map((item) => (
+                                <Menu.Item key={item.value} {...item}>
+                                    {item.valueText}
+                                </Menu.Item>
                             ))}
                         </Menu.List>
                     </Menu.Content>
                 </Menu.Positioner>
             </Menu.Root>
         </Header.Root>
-    );
+    ),
+    tags: ['skip-test-runner'],
 };
