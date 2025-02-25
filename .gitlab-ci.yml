@@ -8,27 +8,24 @@ variables:
 
 workflow:
   rules:
-  # - if: ( $CI_COMMIT_REF_NAME == "main" ) # при ручном запуске из webui
-  #   variables:
-  #     deploy: "true"
-  - if: ( $CI_PIPELINE_SOURCE == "merge_request_event" ) # При MR
-    variables:
-      pr: "true"
-  - if: ( $CI_COMMIT_REF_NAME =~ /^release\\// ) # любая ветка, начинающаяся с release/
-    variables:
-      deploy: "true"
-      pushNexus: "true"
-  - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+(-[a-zA-Z0-9]+)?$/  # при запуске для тегов
-    variables:
-      pushNexus: "true"
-  - if: ( $CI_PIPELINE_SOURCE == "web" ) # при ручном запуске из webui
-
+    - if: ($CI_PIPELINE_SOURCE == "merge_request_event") # При MR
+      variables:
+        pr: "true"
+    - if: ($CI_COMMIT_REF_NAME =~ /^release\//) # любая ветка, начинающаяся с release/
+      variables:
+        deploy: "true"
+        pushNexus: "true"
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+(-[a-zA-Z0-9]+)?$/  # при запуске для тегов
+      variables:
+        pushNexus: "true"
+    - if: ($CI_PIPELINE_SOURCE == "web") # при ручном запуске из webui
 
 stages:
   - build
   - lint
   - typescript-test
   - storybook-test
+  - release
   - deploy
   - nexus
 
@@ -40,6 +37,23 @@ build:
     - npm run build:storybook
     - mv storybook-static $CI_PROJECT_NAME
     - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
+  tags:
+    - ${runner}
+
+# создаём релизную ветку при теге
+create_release_branch:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+(-[a-zA-Z0-9]+)?$/
+  script:
+    - echo "ℹ️ создаю ветку release/${CI_COMMIT_TAG} из тега ${CI_COMMIT_TAG}"
+    - git fetch --prune --unshallow || true
+    - if git show-ref --verify --quiet "refs/heads/release/${CI_COMMIT_TAG}"; then
+        echo "⚠️ ветка release/${CI_COMMIT_TAG} уже существует. пропускаем создание.";
+      else
+        git checkout -b "release/${CI_COMMIT_TAG}" "${CI_COMMIT_TAG}"
+        git push origin "release/${CI_COMMIT_TAG}";
+      fi
   tags:
     - ${runner}
 
@@ -69,9 +83,7 @@ storybook:
   tags:
     - ${runner}
   script:
-    - nvm use 
-    # - npm run start
-    # - npm run test-storybook
+    - nvm use
 
 # push artefacts to nexus
 nexus-push-job:
@@ -93,7 +105,7 @@ nexus-push-job:
     - nvm use && npm ci
     - echo "y" | npm run publish
 
-#deploy
+# deploy
 deploy:
   stage: deploy
   variables:
@@ -116,7 +128,7 @@ deploy:
     - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - echo "Deploying application..."
+    - echo "🚀 деплой приложения..."
     - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
     - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
       rm -rf $CI_PROJECT_NAME &&
