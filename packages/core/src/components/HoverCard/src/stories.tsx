@@ -1,4 +1,4 @@
-import { Meta, StoryFn, ArgTypes } from '@storybook/react';
+import { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import * as examples from './examples';
 import { HoverCard } from './index';
 
@@ -46,7 +46,7 @@ const meta: Meta<typeof HoverCard.Root> = {
 
 export default meta;
 
-type Story = StoryFn<typeof HoverCard.Root>;
+type Story = StoryObj<typeof HoverCard.Root>;
 
 export const Basic: Story = {
     render: examples.Basic,
@@ -62,7 +62,7 @@ export const CloseDelay: Story = {
     render: examples.Basic,
 };
 
-export const positioning: Story = {
+export const Positioning: Story = {
     args: {
         positioning: {
             placement: 'right',
