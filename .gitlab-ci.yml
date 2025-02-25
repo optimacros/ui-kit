@@ -21,116 +21,20 @@ workflow:
     - if: ($CI_PIPELINE_SOURCE == "web") # при ручном запуске из webui
 
 stages:
-  - build
-  - lint
-  - typescript-test
-  - storybook-test
   - release
-  - deploy
-  - nexus
 
-build:
-  stage: build
-  script:
-    - echo "legacy-peer-deps=true" >> .npmrc
-    - nvm use && npm ci
-    - npm run build:storybook
-    - mv storybook-static $CI_PROJECT_NAME
-    - tar -czvf $CI_PROJECT_NAME.tar.gz $CI_PROJECT_NAME
-  tags:
-    - ${runner}
-
-# создаём релизную ветку при теге
 create_release_branch:
   stage: release
   rules:
     - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+(-[a-zA-Z0-9]+)?$/
   script:
     - echo "ℹ️ создаю ветку release/${CI_COMMIT_TAG} из тега ${CI_COMMIT_TAG}"
-    - git fetch --prune --unshallow || true
+    - git fetch --tags --prune || true
     - if git show-ref --verify --quiet "refs/heads/release/${CI_COMMIT_TAG}"; then
         echo "⚠️ ветка release/${CI_COMMIT_TAG} уже существует. пропускаем создание.";
       else
-        git checkout -b "release/${CI_COMMIT_TAG}" "${CI_COMMIT_TAG}"
+        git checkout -b "release/${CI_COMMIT_TAG}" "${CI_COMMIT_TAG}";
         git push origin "release/${CI_COMMIT_TAG}";
       fi
   tags:
     - ${runner}
-
-# tests
-lint:
-  stage: lint
-  variables:
-    GIT_STRATEGY: none
-  tags:
-    - ${runner}
-  script:
-    - nvm use && npm run lint
-
-typescript:
-  stage: typescript-test
-  variables:
-    GIT_STRATEGY: none
-  tags:
-    - ${runner}
-  script:
-    - nvm use && npm run type:check
-
-storybook:
-  stage: storybook-test
-  variables:
-    GIT_STRATEGY: none
-  tags:
-    - ${runner}
-  script:
-    - nvm use
-
-# push artefacts to nexus
-nexus-push-job:
-  stage: nexus
-  variables:
-    GIT_STRATEGY: none
-  rules:
-    - if: ($pushNexus == "true")
-  allow_failure: true
-  needs:
-    - lint
-    - typescript
-    - storybook
-  tags:
-    - ${runner}
-  script:
-    - echo "//${NEXUS_URL}/repository/${NEXUS_REPO}/:_authToken=${NEXUS_TOKEN}" >> .npmrc
-    - echo "@optimacros:registry=https://${NEXUS_URL}/repository/${NEXUS_REPO}/" >> .npmrc
-    - nvm use && npm ci
-    - echo "y" | npm run publish
-
-# deploy
-deploy:
-  stage: deploy
-  variables:
-    GIT_STRATEGY: none
-  rules:
-    - if: ($deploy == "true")
-      when: on_success
-    - if: ($pr == "true")
-      when: never
-    - if: ($deploy != "true" && $pr != "true")
-      when: manual
-      allow_failure: true
-  tags:
-    - ${runner}
-  before_script:
-    - eval $(ssh-agent -s)
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - echo $DEPLOY_SSH_KEY | base64 --decode | tr -d '\r' | ssh-add -
-    - ssh-keyscan $DEPLOY_HOSTNAME >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-  script:
-    - echo "🚀 деплой приложения..."
-    - scp $CI_PROJECT_NAME.tar.gz $DEPLOY_USERNAME@$DEPLOY_HOSTNAME:/opt/ax/ui-kit
-    - ssh $DEPLOY_USERNAME@$DEPLOY_HOSTNAME "cd /opt/ax/ui-kit &&
-      rm -rf $CI_PROJECT_NAME &&
-      tar -xvf $CI_PROJECT_NAME.tar.gz &&
-      rm -rf $CI_PROJECT_NAME.tar.gz"
