@@ -90,6 +90,8 @@ create-release-branch:
         git checkout -b "release/${CI_COMMIT_TAG}" "${CI_COMMIT_TAG}";
         git push origin "release/${CI_COMMIT_TAG}";
       fi
+  tags:
+    - ${runner}
 
 # push artefacts to nexus
 nexus-push-job:
