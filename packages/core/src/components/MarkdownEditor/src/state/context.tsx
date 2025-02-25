@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { MarkdownEditorMode, Tabs } from './MarkdownEditor';
-import { convertStringToMarkdown } from './utils';
+import { MarkdownEditorMode, Tabs } from '../MarkdownEditor';
+import { convertStringToMarkdown } from '../utils';
 
 export interface MarkdownEditorState {
     value: string;

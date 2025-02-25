@@ -1,5 +1,5 @@
 import { forward, styled } from '@optimacros-ui/store';
-import { RootProvider, useApi } from './context';
+import { RootProvider, useApi } from './state/context';
 import { ChangeEvent, PropsWithChildren } from 'react';
 import { Tabs } from '@optimacros-ui/tabs';
 

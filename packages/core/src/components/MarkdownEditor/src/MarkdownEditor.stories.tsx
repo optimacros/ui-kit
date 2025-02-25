@@ -1,15 +1,22 @@
-import { useState } from 'react';
 import { MarkdownEditor } from './index';
 import { ArgTypes, Meta } from '@storybook/react';
-import { within, expect, waitFor, fireEvent } from '@storybook/test';
 import { StoryObj } from '@storybook/react';
-import { faker } from '@faker-js/faker';
-import { convertStringToMarkdown } from './utils';
+import { generateMarkdown } from './mock';
+import * as scenarios from './__tests__/scenarios';
+import * as examples from './examples';
+import { fn } from '@storybook/test';
+import { ComponentProps } from 'react';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof MarkdownEditor.Root>>> = {
     value: {
         control: 'text',
         description: 'Current editor value',
+    },
+    activeTab: {
+        control: 'radio',
+        description: 'Initial active tab',
+        options: ['edit', 'preview', 'split'],
+        table: { defaultValue: { summary: 'edit' } },
     },
     disabled: {
         control: 'boolean',
@@ -20,209 +27,42 @@ const argTypes: Partial<ArgTypes> = {
         description: 'Value change handler',
         table: { type: { summary: '(newValue: string) => void' } },
     },
+    as: {
+        table: { disable: true },
+    },
+    asChild: {
+        table: { disable: true },
+    },
 };
 
-const meta: Meta = {
+const meta: Meta<typeof MarkdownEditor.Root> = {
     title: 'Ui kit core/Markdown Editor',
+    component: MarkdownEditor.Root,
     argTypes,
 };
+
 export default meta;
 
-const defaultValue = `## heading
+type Story = StoryObj<typeof MarkdownEditor.Root>;
 
-text
-
-- list
-- list
-- list`;
-
-const generateMarkdown = () => {
-    return `# ${faker.company.catchPhrase()}
-
-## About the Author
-*${faker.person.fullName()}*
-${faker.person.jobTitle()} at ${faker.company.name()}
-
-## Introduction
-${faker.lorem.paragraph(3)}
-
-### Key Points
-${new Array(3)
-    .fill(null)
-    .map(() => `- ${faker.company.buzzPhrase()}`)
-    .join('\n')}
-
-## Main Content
-
-### ${faker.commerce.productName()}
-${faker.lorem.paragraphs(2)}
-
-#### Technical Details
-| Feature | Description |
-|---------|-------------|
-${new Array(4)
-    .fill(null)
-    .map(() => `| ${faker.lorem.word()} | ${faker.lorem.word()} |`)
-    .join('\n')}
-
-### Market Analysis
-${faker.lorem.paragraphs(1)}
-
-> ${faker.person.bio()}
-> — ${faker.person.firstName()} ${faker.person.lastName()}
-
-## Conclusion
-${faker.lorem.paragraph(2)}
-
----
-*Generated on ${faker.date.recent().toLocaleDateString()}*
-Tags: ${new Array(3)
-        .fill(null)
-        .map(() => `${faker.hacker.adjective()}`)
-        .join(', ')}
-`;
+export const Basic: Story = {
+    args: {
+        value: generateMarkdown(),
+        disabled: false,
+        onChange: fn(),
+        activeTab: MarkdownEditor.MarkdownEditorMode.EDIT,
+    },
+    render: examples.Basic,
+    play: scenarios.basic,
 };
 
-export const Basic: StoryObj = {
-    render: () => {
-        const [value, setValue] = useState('');
-
-        const handleChange = (v: string) => setValue(v);
-
-        return (
-            <div style={{ width: '100%', height: 500 }}>
-                <button
-                    style={{ marginBottom: 20 }}
-                    onClick={() => setValue('')}
-                    data-testid="clear-trigger"
-                >
-                    reset
-                </button>
-                <MarkdownEditor.Root value={value} onChange={handleChange}>
-                    <MarkdownEditor.Tabs.List>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            key={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            data-testid="edit-trigger"
-                        >
-                            edit
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            key={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            data-testid="preview-trigger"
-                        >
-                            preview
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            key={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            data-testid="split-trigger"
-                        >
-                            split
-                        </MarkdownEditor.Tabs.Trigger>
-                    </MarkdownEditor.Tabs.List>
-
-                    <MarkdownEditor.Edit data-testid="edit-tab" />
-                    <MarkdownEditor.Preview data-testid="preview-tab" />
-                    <MarkdownEditor.Split data-testid="split-tab" />
-                </MarkdownEditor.Root>
-            </div>
-        );
+export const Disabled: Story = {
+    args: {
+        value: generateMarkdown(),
+        disabled: true,
+        onChange: fn(),
+        activeTab: MarkdownEditor.MarkdownEditorMode.EDIT,
     },
-    play: async ({ canvasElement, step, context }) => {
-        const canvas = within(canvasElement);
-        const editTrigger = canvas.getByTestId('edit-trigger');
-        const previewTrigger = canvas.getByTestId('preview-trigger');
-
-        const editTab = canvas.getByTestId('edit-tab');
-
-        const previewTab = canvas.getByTestId('preview-tab');
-
-        const md = generateMarkdown();
-        const expectedOutput = convertStringToMarkdown(md);
-
-        await step('typing', async () => {
-            const editTextarea = within(editTab).getByLabelText('textarea');
-
-            await fireEvent.click(editTrigger);
-            await waitFor(() => expect(editTab).not.toHaveAttribute('hidden'));
-            await waitFor(() => expect(editTextarea).toHaveValue(''));
-
-            // TODO: use userEvent
-            await fireEvent.change(editTextarea, { target: { value: md } });
-
-            await waitFor(() => expect(editTextarea).toHaveValue(md));
-
-            await fireEvent.click(previewTrigger);
-            await waitFor(() => expect(previewTab).not.toHaveAttribute('hidden'));
-
-            await waitFor(() => expect(previewTab.innerHTML).toBe(expectedOutput));
-
-            await fireEvent.click(editTrigger);
-            await fireEvent.focus(editTab);
-
-            await fireEvent.change(editTextarea, { target: { value: '' } });
-            await fireEvent.click(previewTrigger);
-
-            await waitFor(() => expect(previewTab).toBeEmptyDOMElement());
-        });
-    },
-};
-
-export const Disabled = {
-    render: () => {
-        return (
-            <div style={{ width: '100%', height: 500 }}>
-                <MarkdownEditor.Root value={defaultValue} disabled>
-                    <MarkdownEditor.Tabs.List>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            key={MarkdownEditor.MarkdownEditorMode.EDIT}
-                            data-testid="edit-trigger"
-                        >
-                            edit
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            key={MarkdownEditor.MarkdownEditorMode.PREVIEW}
-                            data-testid="preview-trigger"
-                        >
-                            preview
-                        </MarkdownEditor.Tabs.Trigger>
-                        <MarkdownEditor.Tabs.Trigger
-                            value={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            key={MarkdownEditor.MarkdownEditorMode.SPLIT}
-                            data-testid="split-trigger"
-                        >
-                            split
-                        </MarkdownEditor.Tabs.Trigger>
-                    </MarkdownEditor.Tabs.List>
-
-                    <MarkdownEditor.Edit data-testid="edit-tab" />
-                    <MarkdownEditor.Preview data-testid="preview-tab" />
-                    <MarkdownEditor.Split data-testid="split-tab" />
-                </MarkdownEditor.Root>
-            </div>
-        );
-    },
-    play: async ({ canvasElement, step, context }) => {
-        const canvas = within(canvasElement);
-        const editTrigger = canvas.getByTestId('edit-trigger');
-        const previewTrigger = canvas.getByTestId('preview-trigger');
-
-        const editTab = canvas.getByTestId('edit-tab');
-
-        const previewTab = canvas.getByTestId('preview-tab');
-
-        const md = generateMarkdown();
-
-        await step('typing', async () => {
-            const editTextarea = within(editTab).getByLabelText('textarea');
-
-            await fireEvent.click(editTrigger);
-            await waitFor(() => expect(editTab).not.toHaveAttribute('hidden'));
-            await waitFor(() => expect(editTextarea).toHaveValue(defaultValue));
-        });
-    },
+    render: examples.Basic,
+    play: scenarios.disabled,
 };

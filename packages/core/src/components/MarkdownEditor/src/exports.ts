@@ -1,2 +1,2 @@
-export * from './context';
+export * from './state/context';
 export * from './MarkdownEditor';
