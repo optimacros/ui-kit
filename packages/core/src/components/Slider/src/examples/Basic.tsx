@@ -12,26 +12,10 @@ export const Basic = (props: ComponentProps<typeof Slider.Root>) => {
                 </Flex>
 
                 <Slider.Control data-testid="control">
-                    <Slider.Track
-                        data-testid="track"
-                        onClick={(e) => {
-                            console.info('evemt', e);
-                        }}
-                    >
+                    <Slider.Track data-testid="track">
                         <Slider.Range data-testid="range" />
                     </Slider.Track>
-                    <Slider.Thumb
-                        data-testid="thumb"
-                        onPointerDown={(e) => {
-                            console.info('evemt d', e);
-                        }}
-                        onMouseDown={(e) => {
-                            console.info('evemt d', e);
-                        }}
-                        onPointerUp={(e) => {
-                            console.info('evemt u', e);
-                        }}
-                    />
+                    <Slider.Thumb data-testid="thumb" />
                 </Slider.Control>
             </Slider.Container>
         </Slider.Root>

@@ -90,24 +90,6 @@ export const Basic: Story = {
     play: scenarios.basic,
 };
 
-// на самом деле, тут и basic пока (до 1.0?) является controlled.
-// даже больше - компонент прост меняет переданное значение
-export const Controlled: Story = {
-    args: {
-        controllable: true,
-        value: [33],
-        onValueChange: fn(),
-        onValueChangeEnd: fn(),
-        min: 0,
-        max: 100,
-        step: 1,
-        minStepsBetweenThumbs: 0,
-        disabled: false,
-    },
-    render: examples.Controlled,
-    tags: ['skip-test-runner'],
-};
-
 export const Range: Story = {
     args: {
         controllable: true,
@@ -121,6 +103,7 @@ export const Range: Story = {
         disabled: false,
     },
     render: examples.Basic,
+    tags: ['skip-test-runner'], // тестируется в MinStepBetweenThumbs
 };
 
 export const States: Story = {
@@ -151,6 +134,7 @@ export const MinMax: Story = {
         disabled: false,
     },
     render: examples.Basic,
+    tags: ['skip-test-runner'], // тестируется в MinStepBetweenThumbs
 };
 
 export const Step: Story = {
@@ -182,7 +166,7 @@ export const MinStepBetweenThumbs: Story = {
         disabled: false,
     },
     render: examples.Basic,
-    tags: ['skip-test-runner'],
+    play: scenarios.minStepBetweenThumbs,
 };
 
 export const Markers: Story = {
