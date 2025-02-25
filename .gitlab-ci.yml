@@ -29,6 +29,7 @@ stages:
   - lint
   - typescript-test
   - storybook-test
+  - create-release-branch
   - deploy
   - nexus
 
@@ -72,6 +73,24 @@ storybook:
     - nvm use 
     # - npm run start
     # - npm run test-storybook
+
+create-release-branch:
+  stage: create-release-branch
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+(-rc\d+)?$/'
+      when: on_success
+    - when: never
+  script:
+    - echo "создаю ветку release/${CI_COMMIT_TAG} из тега ${CI_COMMIT_TAG}"
+    - ssh-keyscan -H gitlab.optimacros.com >> ~/.ssh/known_hosts
+    - git remote set-url origin "git@gitlab.optimacros.com:${CI_PROJECT_PATH}.git"
+    - git fetch --tags --prune || true
+    - if git show-ref --verify --quiet "refs/heads/release/${CI_COMMIT_TAG}"; then
+        echo "ветка release/${CI_COMMIT_TAG} уже существует. пропускаем создание.";
+      else
+        git checkout -b "release/${CI_COMMIT_TAG}" "${CI_COMMIT_TAG}";
+        git push origin "release/${CI_COMMIT_TAG}";
+      fi
 
 # push artefacts to nexus
 nexus-push-job:
