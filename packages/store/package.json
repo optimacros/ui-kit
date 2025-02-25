@@ -13,8 +13,8 @@
     "dependencies": {
         "@optimacros-ui/types": "^2.0.3",
         "@optimacros-ui/utils": "^2.0.3",
-        "@zag-js/core": "0.77.0",
-        "@zag-js/react": "0.77.0",
+        "@zag-js/core": "1.0.0",
+        "@zag-js/react": "1.0.0",
         "immutable": "4.3.5",
         "proxy-memoize": "3.0.1"
     },
