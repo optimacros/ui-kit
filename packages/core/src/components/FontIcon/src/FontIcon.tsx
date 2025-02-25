@@ -2,9 +2,8 @@ import type React from 'react';
 import { forward } from '@optimacros-ui/store';
 
 export type FontIconProps = {
-    value: string | React.JSX.Element;
+    value: string;
     className?: string;
-    onClick?: (event: React.MouseEvent) => void;
     title?: string;
     alt?: string;
     style?: React.CSSProperties;
@@ -17,6 +16,8 @@ export const FontIcon = forward<FontIconProps, 'span'>((props, ref) => {
         <span
             {...other}
             data-react-toolbox="font-icon"
+            data-scope="font-icon"
+            data-part="root"
             aria-label={alt}
             className={`material-icons ${className}`}
             ref={ref}
