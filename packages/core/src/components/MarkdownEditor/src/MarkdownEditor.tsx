@@ -26,7 +26,12 @@ export const Root = forward<PropsWithChildren<MarkdownEditorProps>, 'div'>(
                 data-part="root"
                 data-disabled={disabled}
             >
-                <RootProvider value={value} onChange={onChange} activeTab={activeTab}>
+                <RootProvider
+                    value={value}
+                    onChange={onChange}
+                    activeTab={activeTab}
+                    disabled={disabled}
+                >
                     {children}
                 </RootProvider>
             </styled.div>
@@ -37,7 +42,9 @@ export const Root = forward<PropsWithChildren<MarkdownEditorProps>, 'div'>(
 
 export const EditComponent = forward<{}, HTMLTextAreaElement>(
     (props, ref) => {
-        const { value, setValue } = useApi();
+        const { value, setValue, disabled } = useApi();
+
+        console.info(disabled);
 
         const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
             setValue(e.target.value);
@@ -53,6 +60,7 @@ export const EditComponent = forward<{}, HTMLTextAreaElement>(
                     data-part="textarea"
                     data-role="scroll-container"
                     aria-label="textarea"
+                    disabled={disabled}
                 />
             </styled.div>
         );

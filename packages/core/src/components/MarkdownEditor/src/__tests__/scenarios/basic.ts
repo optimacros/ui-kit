@@ -1,8 +1,9 @@
-import { within, fireEvent, waitFor, expect, userEvent } from '@storybook/test';
+import { within, waitFor, expect, userEvent } from '@storybook/test';
 import { convertStringToMarkdown } from '../../utils';
 import { StoryContext } from '@storybook/react';
 import { props } from '../props';
 import { generateMarkdown } from '../../mock';
+import { sleep } from '@optimacros-ui/utils';
 
 export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
     if (!globals.test) {
@@ -53,7 +54,12 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
 
         await window.takeScreenshot?.('preview');
 
-        await user.keyboard('{ArrowLeft>2}');
+        await user.keyboard('{ArrowLeft}');
+
+        // при запуске тест-раннером ArrowLeft>2 не работает
+        await sleep(200);
+
+        await user.keyboard('{ArrowLeft}');
 
         await waitFor(() => {
             expect(splitTrigger).toHaveAttribute('data-selected');
@@ -86,7 +92,8 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
 
         expect(textArea).toHaveValue(window.testing.args.value);
 
-        await fireEvent.change(textArea, { target: { value: '' } });
+        await user.click(textArea);
+        await user.keyboard('{Control>}A{/Control}{Delete}');
 
         await waitFor(() => {
             expect(textArea).toHaveValue('');
@@ -94,18 +101,27 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
             expect(window.testing.args.onChange).toHaveBeenLastCalledWith('');
         });
 
+        await user.type(textArea, 'typed value');
+
+        await waitFor(() => {
+            expect(textArea).toHaveValue('typed value');
+            expect(window.testing.args.onChange).toBeCalledTimes(12); // +11 letters
+            expect(window.testing.args.onChange).toHaveBeenLastCalledWith('typed value');
+        });
+
         const newValue = generateMarkdown();
         const expectedOutput = convertStringToMarkdown(newValue);
 
-        await fireEvent.change(textArea, { target: { value: newValue } });
+        await user.keyboard('{Control>}A{/Control}{Delete}');
+        await user.paste(newValue);
 
         await waitFor(() => {
             expect(textArea).toHaveValue(newValue);
-            expect(window.testing.args.onChange).toBeCalledTimes(2);
+            expect(window.testing.args.onChange).toBeCalledTimes(14); // +1 delete all +1 paste
             expect(window.testing.args.onChange).toHaveBeenLastCalledWith(newValue);
         });
 
-        await fireEvent.click(previewTrigger);
+        await user.click(previewTrigger);
 
         await waitFor(() => {
             expect(previewTrigger).toHaveAttribute('data-selected');
@@ -121,7 +137,7 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
 
         expect(previewTab.innerHTML).toBe(expectedOutput);
 
-        await fireEvent.click(splitTrigger);
+        await user.click(splitTrigger);
 
         await waitFor(() => {
             expect(splitTrigger).toHaveAttribute('data-selected');

@@ -7,7 +7,7 @@ export const disabled = async ({ globals, canvasElement }: StoryContext) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    window.testing.updateArgs({ ...props, disabled: true });
 
     await window.waitForPageTrulyReady?.();
 
