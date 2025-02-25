@@ -1,58 +1,28 @@
-import { normalizeProps, useActor, useMachine } from '@zag-js/react';
+import { normalizeProps, useMachine } from '@zag-js/react';
 import { useId } from 'react';
+import { MachineConfig } from '@zag-js/core';
+import { ConnectZagApi, ZagModule } from './types';
 
 export function createMachineApiHook<
-    Ctx,
-    Machine extends Record<string, any> = NonNullable<unknown>,
+    Schema extends Record<string, any>,
+    Api extends Record<string, any>,
+    Machine extends MachineConfig<Schema> = MachineConfig<Schema>,
+    Module extends ZagModule<Machine, Schema, Api> = ZagModule<Machine, Schema, Api>,
     ExtApi extends Record<string, any> = NonNullable<unknown>,
-    ConnectApi extends (api: ReturnType<Machine['connect']>, send, stateMachine) => ExtApi = (
-        api: ReturnType<Machine['connect']>,
-        { state, send },
-    ) => ExtApi,
->(machine: Machine, controllable?: boolean, connect?: ConnectApi) {
-    const connectApi = (state, send, normalizeProps, stateMachine) => {
-        const api = machine.connect(state, send, normalizeProps);
-
-        return connect ? connect(api, { state, send, normalizeProps }, stateMachine) : api;
-    };
-
-    const uncontrollableHook = (context: Ctx) => {
+    ConnectApi extends ConnectZagApi<Schema, Api, ExtApi> = ConnectZagApi<Schema, Api, ExtApi>,
+>(module: Module, connect?: ConnectApi) {
+    const hook = (context: Schema) => {
         const id = useId();
 
-        const [state, send, stateMachine] = useMachine(machine.machine({ id, ...context }));
+        const service = useMachine(module.machine, {
+            id,
+            ...context,
+        } as any);
 
-        const api = connectApi(state, send, normalizeProps, stateMachine);
+        const api = module.connect(service, normalizeProps);
 
-        return { api, send, state, machine: stateMachine };
+        return { api: connect ? connect(api, service) : api, service };
     };
 
-    const controllableHook = (context: Ctx, defaultContext: Ctx) => {
-        const id = useId();
-
-        const [state, send, stateMachine] = useMachine(
-            machine.machine({ id, ...context, ...defaultContext }),
-            {
-                context,
-            },
-        );
-
-        const api = connectApi(state, send, normalizeProps, stateMachine);
-
-        return { api, send, state, machine: stateMachine };
-    };
-
-    return controllable ? controllableHook : uncontrollableHook;
-}
-
-export function createActorApiHook<Machine extends Record<string, any> = NonNullable<unknown>>(
-    machine: Machine,
-) {
-    return <Actor extends unknown>(actor: Actor) => {
-        //@ts-ignore
-        const [state, send] = useActor(actor);
-
-        const api = machine.connect(state, send, normalizeProps);
-
-        return { api, send, state };
-    };
+    return hook;
 }

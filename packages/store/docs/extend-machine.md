@@ -210,3 +210,38 @@ export const machine = extendMachine(zagMenu, config, options) satisfies Extende
 
 - [ZagJS Documentation](https://zagjs.com)
 - [XState Documentation](https://xstate.js.org)
+
+add props
+```tsx
+
+// accepts everything you put inside
+const updatedMachine = extendMachine(machine, {
+    props(params) {
+        return {
+            some: '',
+            ...params.props,
+        };
+    },
+});
+
+context({ 
+  // get a prop
+  prop, 
+  // function for creating context prop
+  bindable, getContext }) {
+        return {
+            some: bindable(() => ({
+                defaultValue: prop('defaultSome'),
+                value: prop('some'),
+                // works only on internal context prop update
+                // doesnt work with useState
+                onChange(value, prev) {
+                    console.log(value, prev);
+                    prop('onSomeChange')?.({});
+                },
+            })),
+        };
+    },
+```
+
+if you want to get formatted value, add it as new prop

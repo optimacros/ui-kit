@@ -1,13 +1,15 @@
-import { invariant, isFunction, merge } from '@optimacros-ui/utils';
+import { invariant, isFunction } from '@optimacros-ui/utils';
 import { createContext, FC, memo, ReactNode, Context, useContext } from 'react';
 import { createProxySelectorHook } from './hooks';
 import { createUseSelectorHook } from './hooks';
-import { createActorApiHook, createMachineApiHook } from './useMachineApi';
-import { AnyMachine, createMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
+import { createMachineApiHook } from './useMachineApi';
+import { AnyMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
 import * as $ from '@optimacros-ui/types';
 import { createUseFeatureFlagsHooks } from './useFeatureFlags';
+import * as testMachine from '@zag-js/date-picker';
 /* biome-ignore lint:wait */
 import type { UiKit } from '@optimacros-ui/kit-store';
+import { ConnectZagApi, ZagModule } from './types';
 
 type HooksConfig = object;
 
@@ -179,7 +181,7 @@ export type MachineEvent<Machine> = Machine extends ZagMachine<
     ? MachineEvent
     : NonNullable<unknown>;
 
-export type MachineConfig<Service> = AnyConfig | ((prev: Service) => AnyConfig);
+// export type MachineConfig<Service> = AnyConfig | ((prev: Service) => AnyConfig);
 export type MachineOptions<
     Service extends AnyMachine,
     Context,
@@ -202,67 +204,6 @@ export type UserState<Module extends Record<string, any>> = $.Merge<
 >;
 
 export type UserApi<Api> = $.Merge<Api, {}>;
-
-export type ExtendedMachine<
-    Module,
-    Context extends Record<string, any>,
-    State extends StateMachine.StateSchema,
-> = Omit<Module, 'machine'> & {
-    machine: (userContext: Context) => ZagMachine<Context, State, StateMachine.AnyEventObject>;
-};
-
-/**
- * method for extending {@link ZagMachine}
- * @param stateMachine - any zag-js like module
- * @example 'import * as menu from '@zag-js/menu'
- * @param configCreator - {@link AnyConfig}
- * @param optionCreator - {@link StateMachine.MachineOptions}
- * @returns ZagJs module with mutated {@link ZagMachine} function
- */
-export function extendMachine<
-    Module,
-    Service extends AnyMachine,
-    Context extends Record<string, any>,
-    State extends Record<string, any>,
-    Event extends Record<string, any>,
-    ConfigCreator extends AnyConfig | ((prev: Service) => AnyConfig) = AnyConfig,
-    Config = ConfigCreator extends () => {} ? ReturnType<ConfigCreator> : ConfigCreator,
-    //@ts-ignore
-    Options = StateMachine.MachineOptions<Config['context'] & Context, State, Event>,
-    OptionCreator extends Options | ((prev: Service) => Options) =
-        | Options
-        | ((prev: Service) => Options),
-    T extends { machine: (userContext) => Service } = {
-        machine: (userContext) => Service;
-    },
->(stateMachine: T, configCreator: ConfigCreator, optionCreator: OptionCreator) {
-    function machine<C>(userContext: C) {
-        const defaultMachine = stateMachine.machine(userContext);
-        const config: AnyConfig = isFunction(configCreator)
-            ? configCreator(defaultMachine)
-            : configCreator;
-        const options = isFunction(optionCreator) ? optionCreator(defaultMachine) : optionCreator;
-
-        return createMachine(
-            merge(true, defaultMachine.config, {
-                ...config,
-                context: merge(true, config?.context, userContext),
-            }),
-            merge(true, defaultMachine.options, options),
-        );
-    }
-
-    //@ts-ignore
-    const result: Module & {
-        //@ts-ignore
-        machine: (userContext: Context & Config['context']) => Record<string, any>;
-    } = {
-        ...stateMachine,
-        machine,
-    };
-
-    return result;
-}
 
 export type ExtendApiMethod = (api) => void;
 
@@ -315,24 +256,10 @@ export type ConnectMachine<
  * @param config - default configuration
  */
 export function createReactApiStateContext<
-    Machine extends Record<string, any>,
+    Props extends Record<string, any> = Record<string, any>,
     Api extends Record<string, any> = Record<string, any>,
-    Context extends Record<string, any> = Parameters<Machine['machine']>[0],
-    State extends StateMachine.StateSchema = StateMachine.StateSchema,
-    Connect extends (
-        /** Base Machine Api */
-        api: Api,
-        {
-            state,
-            send,
-        }: {
-            /** Machine State {@link StateMachine.State} */
-            state: StateMachine.State<Context, State>;
-            /** Machine Send Function {@link StateMachine.Send} */
-            send: StateMachine.Send;
-        },
-        machine: Record<string, any>,
-    ) => any = any,
+    Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
+    Connect extends ConnectZagApi<Props, Api> = any,
     ID extends string = string,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
 >(config: {
@@ -342,7 +269,7 @@ export function createReactApiStateContext<
      * zag-js like module
      * @example 'import * as menu from '@zag-js/menu'
      * */
-    machine: Machine;
+    machine: Module;
     /**
      *
      * @param initialState - zagjs api
@@ -395,88 +322,28 @@ export function createReactApiStateContext<
 
     StoreProvider.displayName = id;
 
-    const useMachine = createMachineApiHook<Context>(
-        machine,
-        false,
-        //@ts-ignore
-        connect,
-    );
-
-    const useControllableMachine = createMachineApiHook<Context>(
-        machine,
-        true,
-        //@ts-ignore
-        connect,
-    );
+    const useMachine = createMachineApiHook<Props, Api>(machine, connect);
 
     const useFeatureFlags = GlobalContext
         ? createUseFeatureFlagsHooks(GlobalContext.useProxySelector, id)
         : () => true;
 
-    const useActor = createActorApiHook(machine);
-
-    type IRootMachine = Omit<Context, 'id'> & {
+    type IRootMachine = Omit<Props, 'id'> & {
         /** machine id (if its specific) */
         id?: string;
         children: ReactNode | ((api: Api) => ReactNode);
-        /** defaultContext if using `controllable` prop */
-        defaultContext?: Context;
     };
 
-    function ControllableRootMachine({ children, defaultContext, ...context }: IRootMachine) {
-        const {
-            api,
-            send,
-            machine,
-            //@ts-ignore
-        } = useControllableMachine(context, defaultContext);
+    function RootMachine({ children, ...context }: IRootMachine) {
+        const { api, service } = useMachine(context as unknown as Props);
 
         return (
             //@ts-ignore
-            <StoreProvider api={{ ...api, send, machine }}>
-                {isFunction(children) ? children(api) : children}
-            </StoreProvider>
-        );
-    }
-
-    function BaseRootMachine({ children, ...context }: IRootMachine) {
-        const {
-            api,
-            send,
-            state: apiState,
-            machine,
-            //@ts-ignore
-        } = useMachine(context);
-
-        return (
-            //@ts-ignore
-            <StoreProvider api={{ ...api, send, machine }}>
-                {isFunction(children) ? children(api) : children}
-            </StoreProvider>
-        );
-    }
-
-    function RootMachine({
-        controllable,
-        ...rest
-    }: {
-        /** lets you control component props outside of component context */
-        controllable?: boolean;
-    } & IRootMachine) {
-        //@ts-ignore
-        return controllable ? <ControllableRootMachine {...rest} /> : <BaseRootMachine {...rest} />;
-    }
-
-    function RootActor({
-        children,
-        actor,
-    }: { children: ReactNode | ((api: Api) => ReactNode); actor: any }) {
-        const { api, send } = useActor(actor);
-
-        return (
-            //@ts-ignore
-            <StoreProvider api={{ ...api, send }}>
-                {isFunction(children) ? children(api) : children}
+            <StoreProvider api={{ ...api, service }}>
+                {isFunction(children)
+                    ? //@ts-ignore
+                      children(api)
+                    : children}
             </StoreProvider>
         );
     }
@@ -531,17 +398,22 @@ export function createReactApiStateContext<
          * @accepts {@link IRootMachine} props
          */
         RootProvider: RootMachine,
-        /**
-         * React Context provider for actor (especially for Toast component)
-         * @accepts {@link IRootMachine} props
-         */
-        RootActorProvider: RootActor,
+        // /**
+        //  * React Context provider for actor (especially for Toast component)
+        //  * @accepts {@link IRootMachine} props
+        //  */
+        // RootActorProvider: RootActor,
         // TODO: make split props work with extended machine
         /**
          * function for splitting context and other props
          *
          * `!!! warning`: if you've added new props with {@link extendMachine} this won't work
          */
-        splitProps: machine.splitProps as Machine['splitProps'],
+        splitProps: machine.splitProps,
     };
 }
+
+const { useApi, RootProvider } = createReactApiStateContext<testMachine.Props, testMachine.Api>({
+    id: 'm',
+    machine: testMachine,
+});
