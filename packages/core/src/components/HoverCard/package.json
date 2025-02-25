@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros-ui/chip",
+    "name": "@optimacros-ui/hover-card",
     "private": false,
     "version": "2.0.3",
     "main": "dist/index.js",
