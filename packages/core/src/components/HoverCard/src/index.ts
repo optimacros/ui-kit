@@ -1,3 +1,1 @@
-import './index.css';
-
-export * as HoverCard from './HoverCard';
+export * as HoverCard from './exports';
