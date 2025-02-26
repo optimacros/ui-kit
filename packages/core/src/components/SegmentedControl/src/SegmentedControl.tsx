@@ -31,6 +31,7 @@ const connect = ((api, { state, send }, machine) => {
             return {
                 ...api.getItemHiddenInputProps(props),
                 'data-scope': 'segmented-control',
+                'data-part': 'hidden-input',
             };
         },
         getItemProps(props) {
