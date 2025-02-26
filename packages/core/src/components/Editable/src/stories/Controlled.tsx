@@ -18,13 +18,13 @@ export const Controlled = ({ edit: editProp, value: valueProp, ...rest }: Editab
     const handleValueCommit = (details: ValueChangeDetails) => {
         console.info(details.value, 'action: handleValueCommit');
 
-        setValue('commited value');
+        setValue(details.value);
     };
 
     const handleValueRevert = (details: ValueChangeDetails) => {
         console.info(details.value, 'action: handleValueRevert');
 
-        setValue('reverted value');
+        setValue(details.value);
     };
 
     const handleEditChange = (details: EditChangeDetails) => {

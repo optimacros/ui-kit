@@ -9,6 +9,10 @@ import { EditableProps } from './Editable';
 import { fn } from '@storybook/test';
 
 const argTypes: ArgTypes<Partial<EditableProps>> = {
+    defaultValue: {
+        control: 'text',
+        description: 'The value of the editable in both edit and preview mode',
+    },
     value: {
         control: 'text',
         description: 'The value of the editable in both edit and preview mode',
@@ -98,6 +102,9 @@ const argTypes: ArgTypes<Partial<EditableProps>> = {
 const meta: Meta<typeof Editable.RootProvider> = {
     title: 'UI Kit core/Editable',
     argTypes,
+    args: {
+        defaultValue: '',
+    },
 };
 
 export default meta;
@@ -107,9 +114,8 @@ type Story = StoryObj<typeof Editable.RootProvider>;
 export const Basic: Story = {
     args: {
         submitMode: 'both',
-        value: 'value',
-        edit: false,
-        'edit.controlled': false,
+        defaultValue: 'value',
+
         invalid: false,
         disabled: false,
         readOnly: false,
@@ -126,11 +132,7 @@ export const Basic: Story = {
 
 export const Controlled: Story = {
     args: {
-        controllable: true,
         submitMode: 'both',
-        value: 'value',
-        edit: false,
-        'edit.controlled': true,
         invalid: false,
         disabled: false,
         readOnly: false,
@@ -144,8 +146,9 @@ export const Controlled: Story = {
 
 export const TextArea: Story = {
     args: {
-        edit: true,
-        value: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+        defaultEdit: true,
+        defaultValue:
+            'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
     },
     render: (props) => (
         <Editable.RootProvider {...props}>
@@ -178,8 +181,6 @@ export const TextArea: Story = {
 
 export const AutoResize = {
     args: {
-        edit: true,
-        value: '',
         placeholder: 'start typing',
         autoResize: true,
         onValueChange: fn(),
@@ -189,24 +190,21 @@ export const AutoResize = {
 };
 
 export const Placeholder = {
-    args: { placeholder: 'placeholder', value: '' },
+    args: { placeholder: 'placeholder' },
     render: stories.Basic,
     play: scenarios.placeholder,
 };
 
 export const States = {
-    args: { 'edit.controlled': true, edit: true, selectOnFocus: false, onEditChange: fn() },
+    args: { selectOnFocus: false, onEditChange: fn() },
     render: stories.States,
     play: scenarios.states,
 };
 
 export const MaxLength = {
     args: {
-        'edit.controlled': true,
-        edit: true,
         placeholder: 'max length = 10',
         maxLength: 10,
-        controllable: true,
         onValueChange: fn(),
     },
     render: stories.Basic,
