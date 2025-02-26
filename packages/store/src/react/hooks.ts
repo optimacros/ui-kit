@@ -1,9 +1,10 @@
 import { ActionCreator } from '../utils';
-import { isEqual, mapValues } from '@optimacros-ui/utils';
+import { invariant, isEqual, mapValues } from '@optimacros-ui/utils';
 import { mergeDeepWith } from 'immutable';
 import { memoize } from 'proxy-memoize';
 import {
     Context,
+    createContext,
     Dispatch,
     Reducer,
     useCallback,
@@ -14,6 +15,8 @@ import {
     useRef,
     useState,
 } from 'react';
+import { createDisplayName } from './createDisplayName';
+import { Slice } from './types';
 
 export function createReducerWithMiddleware<M extends Array<any>>(
     Context: Context<any>,
@@ -48,10 +51,6 @@ export function createReducerWithMiddleware<M extends Array<any>>(
     }
     return useReducerwithMiddleware;
 }
-
-type Slice<A = Record<string, (state, payload) => any>> = {
-    actions: A;
-};
 
 export function createUseHook<
     StateContext extends Context<any>,
@@ -158,4 +157,58 @@ export function createProxySelectorHook<TState extends Record<string, any>>(
     }
 
     return useProxySelector;
+}
+
+export function createHooks<State>(
+    name: string,
+    initialState: State,
+    createSelectorHooks: boolean,
+): {
+    useSelector: <R extends any>(s: (state: State) => R) => R;
+    useProxySelector: <R extends any>(s: (state: State) => R, deps?: any[]) => R;
+    StateContext: Context<State>;
+    useState: () => State;
+};
+
+export function createHooks<State>(
+    name: string,
+    initialState: State,
+): {
+    StateContext: State;
+    useState: () => State;
+};
+
+export function createHooks<State>(
+    name: string,
+    initialState: State,
+    createSelectorHooks?: boolean,
+) {
+    const StateContext = createContext<State>(initialState);
+
+    StateContext.displayName = createDisplayName(name, 'State');
+
+    function useState() {
+        const state = useContext(StateContext);
+
+        invariant(state, `not in context of ${name}`);
+
+        return state;
+    }
+
+    if (createSelectorHooks) {
+        const useSelector = createUseSelectorHook(StateContext);
+        const useProxySelector = createProxySelectorHook<State>(useSelector);
+
+        return {
+            StateContext,
+            useSelector,
+            useState,
+            useProxySelector,
+        };
+    }
+
+    return {
+        useState,
+        StateContext,
+    };
 }

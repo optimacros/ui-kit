@@ -1,11 +1,11 @@
-# createReactApiStateContext
+# createMachineContext
 
 A utility function for creating an optimacros-ui store with enhanced functionality, integrating ZagJS state machines with React context and Redux-like state management.
 
 ## Type Definition
 
 ```typescript
-function createReactApiStateContext<
+function createMachineContext<
     Machine extends Record<string, any>,
     Api extends Record<string, any> = Record<string, any>,
     Context extends Record<string, any> = Parameters<Machine['machine']>[0],
@@ -231,7 +231,7 @@ const [local, others] = splitProps(props)
 ```typescript
 import * as menu from '@zag-js/menu'
 
-const MenuStore = createReactApiStateContext({
+const MenuStore = createMachineContext({
   id: 'menu',
   machine: menu,
   createConfig: (api) => ({
@@ -246,7 +246,7 @@ const MenuStore = createReactApiStateContext({
 ### Custom Connect Function
 
 ```typescript
-const MenuStore = createReactApiStateContext({
+const MenuStore = createMachineContext({
   id: 'menu',
   machine: menu,
   connect: (api, { state, send }, machine) => ({
@@ -263,7 +263,7 @@ const MenuStore = createReactApiStateContext({
 ### Using Feature Flags
 
 ```typescript
-const MenuStore = createReactApiStateContext({
+const MenuStore = createMachineContext({
   id: 'menu',
   machine: menu,
   GlobalContext: {

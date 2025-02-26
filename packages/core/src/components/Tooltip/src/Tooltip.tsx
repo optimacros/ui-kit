@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 import * as tooltip from '@zag-js/tooltip';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 
 export const {
     useApi,
@@ -9,7 +9,7 @@ export const {
     splitProps,
     useProxySelector,
     useSelector,
-} = createReactApiStateContext<typeof tooltip, tooltip.Api>({
+} = createMachineContext<typeof tooltip, tooltip.Api>({
     id: 'Tooltip',
     machine: tooltip,
 });

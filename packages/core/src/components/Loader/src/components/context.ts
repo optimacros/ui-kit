@@ -1,6 +1,6 @@
 import {
     ConnectMachine,
-    createReactApiStateContext,
+    createMachineContext,
     ExtendedMachine,
     MachineConfig,
     MachineOptions,
@@ -120,7 +120,7 @@ const connect = ((api, { state, send }, machine) => {
 }) satisfies ConnectMachine<loader.Api<PropTypes>, Context, State>;
 
 export const { Api, useApi, RootProvider, useProxySelector, useSelector, splitProps } =
-    createReactApiStateContext({
+    createMachineContext({
         id: 'progress',
         machine,
         connect,

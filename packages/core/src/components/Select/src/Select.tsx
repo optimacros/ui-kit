@@ -1,4 +1,4 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
@@ -7,7 +7,7 @@ import { Virtual } from '@optimacros-ui/virtual';
 import { PropTypes } from '@zag-js/types';
 
 export const { useApi, RootProvider, Api, useProxySelector, splitProps, useSelector } =
-    createReactApiStateContext<typeof select, select.Api<PropTypes, ItemBase>>({
+    createMachineContext<typeof select, select.Api<PropTypes, ItemBase>>({
         id: 'select',
         machine: select,
     });

@@ -1,7 +1,7 @@
 import * as collapsible from '@zag-js/collapsible';
 import {
     ConnectMachine,
-    createReactApiStateContext,
+    createMachineContext,
     ExtendedMachine,
     forward,
     MachineConfig,
@@ -111,7 +111,7 @@ export const {
     splitProps,
     useProxySelector,
     useSelector,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'collapsible',
     machine,
     connect,

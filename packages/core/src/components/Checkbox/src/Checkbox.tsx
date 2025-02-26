@@ -1,6 +1,6 @@
 import { ComponentProps, PropsWithChildren } from 'react';
 import {
-    createReactApiStateContext,
+    createMachineContext,
     forward,
     styled,
     UserContext,
@@ -12,7 +12,7 @@ export type State = UserState<typeof machine>;
 
 export type Context = UserContext<machine.Context, {}>;
 
-export const { RootProvider, useApi, splitProps } = createReactApiStateContext<
+export const { RootProvider, useApi, splitProps } = createMachineContext<
     typeof machine,
     machine.Api,
     Context,

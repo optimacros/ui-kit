@@ -1,13 +1,14 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import * as machine from '@zag-js/number-input';
 import { ComponentProps } from 'react';
 import './number-input.css';
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext<typeof machine>({
-        id: 'number-input',
-        machine,
-    });
+export const { Api, useApi, RootProvider, useSelector, useProxySelector } = createMachineContext<
+    typeof machine
+>({
+    id: 'number-input',
+    machine,
+});
 
 export const Root = forward<ComponentProps<typeof RootProvider>, {}>(
     ({ children, ...context }, ref) => {

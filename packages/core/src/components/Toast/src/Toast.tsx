@@ -1,4 +1,4 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import * as toast from '@zag-js/toast';
 import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 
@@ -6,7 +6,7 @@ export const {
     Api,
     RootActorProvider: RootProvider,
     useApi,
-} = createReactApiStateContext<typeof toast, toast.Api>({
+} = createMachineContext<typeof toast, toast.Api>({
     id: 'toast',
     machine: toast,
 });

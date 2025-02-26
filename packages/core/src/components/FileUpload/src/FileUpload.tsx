@@ -1,10 +1,10 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
 import { round, sum } from '@optimacros-ui/utils';
 import { machine, connect } from './file-upload.machine';
 
 export const { Api, RootProvider, useApi, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext({
+    createMachineContext({
         id: 'file-upload',
         machine,
         connect,

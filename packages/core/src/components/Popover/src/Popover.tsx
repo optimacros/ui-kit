@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Portal } from '@zag-js/react';
 import * as machine from '@zag-js/popover';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 
 export const {
     useApi,
@@ -10,7 +10,7 @@ export const {
     splitProps,
     useProxySelector,
     useSelector,
-} = createReactApiStateContext<typeof machine, machine.Api>({
+} = createMachineContext<typeof machine, machine.Api>({
     id: 'popover',
     machine,
 });

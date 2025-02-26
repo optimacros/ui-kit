@@ -1,6 +1,6 @@
 import {
     ConnectMachine,
-    createReactApiStateContext,
+    createMachineContext,
     forward,
     styled,
     UserContext,
@@ -38,12 +38,11 @@ const connect = ((api, { state, send }, machine) => {
     };
 }) satisfies ConnectMachine<machine.Api, Context, State>;
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext({
-        id: 'image',
-        machine,
-        connect,
-    });
+export const { Api, useApi, RootProvider, useSelector, useProxySelector } = createMachineContext({
+    id: 'image',
+    machine,
+    connect,
+});
 
 export type ImageRatio =
     | 'square'

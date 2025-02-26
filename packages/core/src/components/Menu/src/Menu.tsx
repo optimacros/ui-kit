@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren, ReactElement } from 'react';
 import { Portal } from '@zag-js/react';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { machine, connect } from './menu.machine';
 import type * as menu from '@zag-js/menu';
@@ -14,7 +14,7 @@ export const {
     useProxySelector,
     useFeatureFlags,
     splitProps,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'menu',
     machine,
     connect,

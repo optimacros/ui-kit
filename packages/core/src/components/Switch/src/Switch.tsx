@@ -1,9 +1,9 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import * as machine from '@zag-js/switch';
 import { ComponentProps, PropsWithChildren } from 'react';
 
 export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext<typeof machine, machine.Api>({
+    createMachineContext<typeof machine, machine.Api>({
         id: 'switch',
         machine,
     });

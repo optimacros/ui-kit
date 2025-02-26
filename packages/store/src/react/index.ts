@@ -7,3 +7,4 @@ export * from './extend-machine';
 export * from './types';
 // export * from './utils';
 // export * from './createReactElement';
+export * from './createMachineContext';

@@ -1,6 +1,6 @@
 import { Children, ComponentProps, PropsWithChildren } from 'react';
 import * as treeview from '@zag-js/tree-view';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 
 export interface Node {
     id: string;
@@ -9,7 +9,7 @@ export interface Node {
 }
 
 export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext<typeof treeview, treeview.Api, treeview.Context>({
+    createMachineContext<typeof treeview, treeview.Api, treeview.Context>({
         id: 'tree-view',
         machine: treeview,
     });

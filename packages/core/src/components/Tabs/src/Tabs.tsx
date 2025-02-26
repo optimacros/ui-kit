@@ -1,4 +1,4 @@
-import { createReactApiStateContext, extendMachine, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, extendMachine, forward, styled } from '@optimacros-ui/store';
 import * as tabs from '@zag-js/tabs';
 import { isVisibleInParentViewport, round, swap, sortBy, debounce } from '@optimacros-ui/utils';
 import { ComponentProps, PropsWithChildren, ReactNode, useEffect, useId } from 'react';
@@ -164,62 +164,60 @@ const machine = extendMachine(
     },
 );
 
-export const { Api, RootProvider, useApi, useProxySelector, useSelector } =
-    createReactApiStateContext({
-        id: 'tabs',
-        machine,
-        connect(api, { state, send }) {
-            return {
-                ...api,
-                scrollTo: (value: string) => send({ type: 'SCROLL_TO', value }),
-                getTabIndex: (value: string) =>
-                    parseInt(
-                        document.querySelector(`[data-value=${value}]`).getAttribute('data-index'),
-                    ),
-                open: (value: string) => send({ type: 'OPEN', value }),
-                setTabs: (value: Array<Tab>) => send({ type: 'SET_TABS', value }),
-                syncTabs: () => send({ type: 'SYNC_TABS', hiddenOnly: false }),
-                syncHiddenTabs: () => send({ type: 'SYNC_TABS', hiddenOnly: true }),
-                scrollToActive: () => send('SCROLL_TO_ACTIVE'),
-                last: () => send('LAST'),
-                first: () => send('FIRST'),
-                getTriggerProps({ value, disabled, fixed, index }: Partial<Tab>) {
-                    const apiProps = api.getTriggerProps({ value, disabled });
+export const { Api, RootProvider, useApi, useProxySelector, useSelector } = createMachineContext({
+    id: 'tabs',
+    machine,
+    connect(api, { state, send }) {
+        return {
+            ...api,
+            scrollTo: (value: string) => send({ type: 'SCROLL_TO', value }),
+            getTabIndex: (value: string) =>
+                parseInt(
+                    document.querySelector(`[data-value=${value}]`).getAttribute('data-index'),
+                ),
+            open: (value: string) => send({ type: 'OPEN', value }),
+            setTabs: (value: Array<Tab>) => send({ type: 'SET_TABS', value }),
+            syncTabs: () => send({ type: 'SYNC_TABS', hiddenOnly: false }),
+            syncHiddenTabs: () => send({ type: 'SYNC_TABS', hiddenOnly: true }),
+            scrollToActive: () => send('SCROLL_TO_ACTIVE'),
+            last: () => send('LAST'),
+            first: () => send('FIRST'),
+            getTriggerProps({ value, disabled, fixed, index }: Partial<Tab>) {
+                const apiProps = api.getTriggerProps({ value, disabled });
 
-                    return {
-                        ...apiProps,
-                        'data-value': value,
-                        'data-fixed': fixed,
-                        'data-index': index,
-                    };
-                },
-                tabs: state.context.tabs,
-                hiddenTabs: state.context.hiddenTabs,
-                handleDragEnd: (data: Tab, deltaX: number) =>
-                    send({ type: 'DRAG_END', deltaX, data }),
-                getListId: () => `tabs:${state.context.id}:list`,
-                getListProps: () => {
-                    return {
-                        ...api.getListProps(),
-                        hidden: state.context.tabsHidden,
-                        onWheel: (e) => send({ type: 'WHEEL', deltaY: e.deltaY }),
-                    };
-                },
-                isActive: (value: string) => {
-                    return state.context.value === value;
-                },
-                draggable: state.context.draggable,
-                setValueIndex: (tabIndex: number) => {
-                    const tab = state.context.tabs.find(({ index }) => index === tabIndex);
-                    tab && api.setValue(tab.value);
-                },
-                sortTabs: (tabs: Array<Tab>) => {
-                    return sortBy(tabs, ['fixed', 'index']);
-                },
-                addTabs: (tabs: Array<Tab>) => send({ type: 'ADD_TABS', value: tabs }),
-            };
-        },
-    });
+                return {
+                    ...apiProps,
+                    'data-value': value,
+                    'data-fixed': fixed,
+                    'data-index': index,
+                };
+            },
+            tabs: state.context.tabs,
+            hiddenTabs: state.context.hiddenTabs,
+            handleDragEnd: (data: Tab, deltaX: number) => send({ type: 'DRAG_END', deltaX, data }),
+            getListId: () => `tabs:${state.context.id}:list`,
+            getListProps: () => {
+                return {
+                    ...api.getListProps(),
+                    hidden: state.context.tabsHidden,
+                    onWheel: (e) => send({ type: 'WHEEL', deltaY: e.deltaY }),
+                };
+            },
+            isActive: (value: string) => {
+                return state.context.value === value;
+            },
+            draggable: state.context.draggable,
+            setValueIndex: (tabIndex: number) => {
+                const tab = state.context.tabs.find(({ index }) => index === tabIndex);
+                tab && api.setValue(tab.value);
+            },
+            sortTabs: (tabs: Array<Tab>) => {
+                return sortBy(tabs, ['fixed', 'index']);
+            },
+            addTabs: (tabs: Array<Tab>) => send({ type: 'ADD_TABS', value: tabs }),
+        };
+    },
+});
 
 export const getTabIndex = (value: string) =>
     parseInt(document.querySelector(`[data-value="${value}"]`).getAttribute('data-index'));

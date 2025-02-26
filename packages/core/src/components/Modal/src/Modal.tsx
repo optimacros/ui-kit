@@ -18,7 +18,7 @@ import {
 } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
 import * as dialog from '@zag-js/dialog';
-import { createReactApiStateContext } from '@optimacros-ui/store';
+import { createMachineContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
 import { Draggable } from '@optimacros-ui/draggable';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
@@ -79,7 +79,7 @@ export const {
     useApi,
     useSelector,
     useProxySelector,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'modal',
     machine,
     connect,

@@ -1,6 +1,6 @@
 import {
     ConnectMachine,
-    createReactApiStateContext,
+    createMachineContext,
     forward,
     styled,
     UserContext,
@@ -28,12 +28,11 @@ const connect = ((api, { state, send }, machine) => {
     };
 }) satisfies ConnectMachine<machine.Api, Context, State>;
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext({
-        id: 'collapsible',
-        machine,
-        connect,
-    });
+export const { Api, useApi, RootProvider, useSelector, useProxySelector } = createMachineContext({
+    id: 'collapsible',
+    machine,
+    connect,
+});
 
 export const Root = forward<ComponentProps<typeof RootProvider>, 'div'>(
     ({ children, as, ...context }, ref) => {

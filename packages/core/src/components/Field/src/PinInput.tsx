@@ -1,12 +1,11 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled } from '@optimacros-ui/store';
 import * as machine from '@zag-js/pin-input';
 import { ComponentProps } from 'react';
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext({
-        id: 'pin-input',
-        machine,
-    });
+export const { Api, useApi, RootProvider, useSelector, useProxySelector } = createMachineContext({
+    id: 'pin-input',
+    machine,
+});
 
 export const Input = forward<ComponentProps<typeof RootProvider> & { pins?: number }, 'input'>(
     ({ children, pins = 4, name, ...context }, ref) => {

@@ -1,7 +1,7 @@
 import * as colorPicker from '@zag-js/color-picker';
 import {
     ConnectMachine,
-    createReactApiStateContext,
+    createMachineContext,
     ExtendedMachine,
     extendMachine,
     forward,
@@ -34,7 +34,7 @@ const connect = ((api, { state, send }, machine) => {
     return { ...api, disableAlpha: state.context.disableAlpha };
 }) satisfies ConnectMachine<colorPicker.Api, Context, State>;
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+export const { Api, RootProvider, useApi } = createMachineContext({
     id: 'color-picker',
     machine,
     connect,

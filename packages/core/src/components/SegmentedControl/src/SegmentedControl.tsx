@@ -1,6 +1,6 @@
 import {
     ConnectMachine,
-    createReactApiStateContext,
+    createMachineContext,
     forward,
     styled,
     UserContext,
@@ -44,7 +44,7 @@ const connect = ((api, { state, send }, machine) => {
 }) satisfies ConnectMachine<machine.Api, Context, State>;
 
 export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext({
+    createMachineContext({
         id: 'radio',
         machine,
         connect,

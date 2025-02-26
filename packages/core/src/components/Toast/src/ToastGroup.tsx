@@ -1,8 +1,8 @@
-import { createReactApiStateContext } from '@optimacros-ui/store';
+import { createMachineContext } from '@optimacros-ui/store';
 import * as toast from '@zag-js/toast';
 import { ReactNode, Fragment } from 'react';
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext({
+export const { Api, RootProvider, useApi } = createMachineContext({
     id: 'toast-group',
     machine: toast.group,
 });

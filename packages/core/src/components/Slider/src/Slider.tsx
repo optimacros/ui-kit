@@ -1,7 +1,7 @@
 import { PropsWithChildren, ComponentProps, useMemo } from 'react';
 import { ConnectMachine, forward, styled, UserContext, UserState } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
-import { createReactApiStateContext } from '@optimacros-ui/store';
+import { createMachineContext } from '@optimacros-ui/store';
 import * as machine from '@zag-js/slider';
 
 export type State = UserState<typeof machine>;
@@ -24,7 +24,7 @@ export const {
     useProxySelector,
     useSelector,
     splitProps,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'slider',
     machine,
     connect,

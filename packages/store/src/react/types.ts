@@ -30,3 +30,9 @@ export type ExtendSchema<
     refs: $.Merge<Schema['refs'], TSchema['refs']>;
     computed: $.Merge<Schema['computed'], TSchema['computed']>;
 };
+
+export type Selector<State> = (store: State, ...params) => any;
+
+export type Slice<A = Record<string, (state, payload) => any>> = {
+    actions: A;
+};
