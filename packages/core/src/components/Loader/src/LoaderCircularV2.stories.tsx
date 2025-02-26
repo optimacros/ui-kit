@@ -27,6 +27,9 @@ const meta: Meta<typeof Loader.Root> = {
             );
         },
     ],
+    args: {
+        value: undefined,
+    },
     tags: ['skip-test-runner'],
 };
 
@@ -62,7 +65,6 @@ export const Infinite: Story = {
     args: {
         infinite: true,
         speed: 50,
-        controllable: true,
     },
     play: scenarios.circleInfinite,
 };

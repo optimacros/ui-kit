@@ -18,21 +18,11 @@ export function extendMachine<
     const machine = {
         ...merge(true, stateMachine.machine, config),
         props: config.props ?? stateMachine.machine.props,
-        context(params) {
-            return {
-                ...stateMachine.machine.context?.(params),
-                ...config.context?.(params),
-            };
-        },
+        context: config.context ?? stateMachine.machine.context,
         initialState(params) {
             return stateMachine.machine.initialState?.(params) ?? config.initialState?.(params);
         },
-        refs(params) {
-            return {
-                ...stateMachine.machine.refs?.(params),
-                ...config.refs?.(params),
-            };
-        },
+        refs: config.refs ?? stateMachine.machine.refs,
         watch(params) {
             stateMachine.machine.watch?.(params);
             config.watch?.(params);
