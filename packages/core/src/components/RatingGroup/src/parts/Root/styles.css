@@ -1,0 +1,5 @@
+[data-scope='rating-group'][data-part='item'] {
+  &[data-highlighted] {
+    color: var(--color-pallete-yellow-600);
+  }
+}
