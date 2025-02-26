@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react';
+import { ComponentProps, useState } from 'react';
 import { Collapsible } from '.';
 import { Icon } from '@optimacros-ui/icon';
 import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
@@ -11,6 +11,11 @@ const argTypes: ArgTypes<Partial<ComponentProps<typeof Collapsible.Root>>> = {
         description: 'Whether the collapsible is open',
         table: { defaultValue: { summary: 'false' } },
     },
+    defaultOpen: {
+        control: 'boolean',
+        description: 'Whether the collapsible is open',
+        table: { defaultValue: { summary: 'false' } },
+    },
     onOpenChange: {
         control: false,
         description: 'Function called when the popup is opened',
@@ -19,11 +24,6 @@ const argTypes: ArgTypes<Partial<ComponentProps<typeof Collapsible.Root>>> = {
     disabled: {
         control: 'boolean',
         description: 'Whether the collapsible is disabled',
-        table: { defaultValue: { summary: 'false' } },
-    },
-    'open.controlled': {
-        control: 'boolean',
-        description: 'Whether the collapsible open state is controlled by the user',
         table: { defaultValue: { summary: 'false' } },
     },
 };
@@ -150,6 +150,9 @@ const meta = {
             </>
         ),
     ],
+    args: {
+        open: undefined,
+    },
 } satisfies Meta<typeof Collapsible.Root>;
 
 export default meta;
@@ -158,7 +161,7 @@ type Story = StoryObj<typeof Collapsible.Root>;
 // Basic Collapsible Story
 export const Basic: Story = {
     args: {
-        open: false,
+        defaultOpen: false,
         onOpenChange: fn(),
     },
     render: (props) => (
@@ -210,7 +213,7 @@ export const MultipleSections: Story = {
 
 // Custom Styled Story
 export const CustomStyled: Story = {
-    args: { open: true },
+    args: { defaultOpen: true },
     render: (props) => (
         <Collapsible.Root {...props} className="collapsible-root">
             <div className="collapsible-container collapsible-custom">
@@ -230,7 +233,7 @@ export const CustomStyled: Story = {
 
 // Nested Collapsible Story
 export const Nested: Story = {
-    args: { open: true },
+    args: { defaultOpen: true },
     render: (props) => (
         <Collapsible.Root {...props} className="collapsible-root">
             <div className="collapsible-container">
@@ -263,9 +266,8 @@ export const Nested: Story = {
 
 // Controlled Story
 export const Controlled: Story = {
-    args: { controllable: true },
-    render: ({ open, onOpenChange, ...rest }) => {
-        const [isOpen, setIsOpen] = React.useState(open);
+    render: ({ defaultOpen, onOpenChange, ...rest }) => {
+        const [isOpen, setIsOpen] = useState(defaultOpen);
 
         return (
             <Collapsible.Root
