@@ -15,9 +15,8 @@ export type ZagModule<Machine, Schema = Record<string, any>, Api = Record<string
     connect: ZagConnect<Schema, Api>;
     splitProps?: any;
 };
-
 export type ZagSchema<Module> = Module extends ZagModule<any, infer Schema, any>
-    ? Schema
+    ? $.Merge<Schema, {}>
     : Record<string, any>;
 
 export type ExtendSchema<

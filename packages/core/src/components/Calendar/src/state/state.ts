@@ -1,11 +1,13 @@
-import { createMachineContext, ZagSchema } from '@optimacros-ui/store';
+import { ConnectZagApi, createMachineContext, ZagSchema } from '@optimacros-ui/store';
 import * as machine from '@zag-js/date-picker';
 
 export const dateFormatters = (date: Date | string) => {
     return machine.parse(date);
 };
 
-const connect = (api: machine.Api, service: machine.Service) => {
+type Schema = ZagSchema<typeof machine>;
+
+const connect = ((api, service) => {
     return {
         ...api,
         locale: service.prop('locale'),
@@ -81,7 +83,7 @@ const connect = (api: machine.Api, service: machine.Service) => {
             };
         },
     };
-};
+}) satisfies ConnectZagApi<Schema, machine.Api>;
 
 export const {
     RootProvider,
@@ -94,7 +96,7 @@ export const {
     splitProps,
     useFeatureFlags,
     useProxySelector,
-} = createMachineContext<ZagSchema<typeof machine>, machine.Api, typeof connect>({
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
     id: 'calendar',
     machine,
     connect,

@@ -1,7 +1,6 @@
 import { isFunction } from '@optimacros-ui/utils';
 import { FC, memo, ReactNode } from 'react';
 import { createMachineApiHook } from './useMachineApi';
-import * as $ from '@optimacros-ui/types';
 import { createUseFeatureFlagsHooks } from './useFeatureFlags';
 /* biome-ignore lint:wait */
 import type { UiKit } from '@optimacros-ui/kit-store';
@@ -74,7 +73,7 @@ export function createMachineContext<
     } = createHooks(`${id}Api`, {} as ReturnType<typeof useMachine>, true);
 
     function useApi() {
-        const api = useProxySelector((s) => s.api as $.If.Any<ReturnType<Connect>, Api>);
+        const api = useProxySelector((s) => s.api as Api);
 
         return api;
     }

@@ -1,9 +1,18 @@
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import {
+    ConnectZagApi,
+    createMachineContext,
+    forward,
+    styled,
+    ZagSchema,
+} from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/collapsible';
-const connect = (api: machine.Api, service: machine.Service) => {
+
+type Schema = ZagSchema<typeof machine>;
+
+const connect = ((api, service) => {
     return {
         ...api,
         getIndicatorProps() {
@@ -14,7 +23,7 @@ const connect = (api: machine.Api, service: machine.Service) => {
             };
         },
     };
-};
+}) satisfies ConnectZagApi<Schema, machine.Api>;
 
 export const {
     Api,
@@ -27,7 +36,7 @@ export const {
     splitProps,
     useFeatureFlags,
     useState,
-} = createMachineContext({
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
     id: 'collapsible',
     machine,
     connect,
