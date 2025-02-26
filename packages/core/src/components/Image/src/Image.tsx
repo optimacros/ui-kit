@@ -1,20 +1,17 @@
 import {
-    ConnectMachine,
+    ConnectZagApi,
     createMachineContext,
     forward,
     styled,
-    UserContext,
-    UserState,
+    ZagSchema,
 } from '@optimacros-ui/store';
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/avatar';
 import { isFunction } from '@optimacros-ui/utils';
 
-export type State = UserState<typeof machine>;
+type Schema = ZagSchema<typeof machine>;
 
-export type Context = UserContext<machine.Context, {}>;
-
-const connect = ((api, { state, send }, machine) => {
+const connect = ((api, service) => {
     return {
         ...api,
         getRootProps() {
@@ -36,9 +33,20 @@ const connect = ((api, { state, send }, machine) => {
             };
         },
     };
-}) satisfies ConnectMachine<machine.Api, Context, State>;
+}) satisfies ConnectZagApi<Schema, machine.Api>;
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } = createMachineContext({
+export const {
+    Api,
+    useApi,
+    RootProvider,
+    useSelector,
+    useProxySelector,
+    select,
+    slice,
+    splitProps,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
     id: 'image',
     machine,
     connect,
