@@ -55,8 +55,8 @@ export const Nested = (props: RootProps) => {
             <Menu.Trigger asChild>
                 <Button data-testid="trigger">Click me</Button>
             </Menu.Trigger>
-            <Menu.Api>
-                {(api) => (
+            <Menu.State>
+                {({ api, service }) => (
                     <Menu.Positioner>
                         <Menu.Content data-testid="menu-content">
                             <Menu.List>
@@ -64,8 +64,7 @@ export const Nested = (props: RootProps) => {
                                     <Menu.SubMenuItem
                                         key={v.value}
                                         disabled={v.disabled}
-                                        // TODO fix Menu.Api type
-                                        parent={api as ReturnType<typeof Menu.useApi>}
+                                        parent={{ api, service }}
                                         item={v}
                                         positioning={{
                                             fitViewport: false,
@@ -79,7 +78,7 @@ export const Nested = (props: RootProps) => {
                         </Menu.Content>
                     </Menu.Positioner>
                 )}
-            </Menu.Api>
+            </Menu.State>
         </Menu.Root>
     );
 };

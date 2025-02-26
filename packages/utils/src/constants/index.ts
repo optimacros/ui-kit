@@ -3,6 +3,8 @@ export enum Orientation {
     Horizontal = 'horizontal',
 }
 
+export type OrientationString = Orientation.Horizontal | Orientation.Vertical;
+
 export enum Align {
     Left = 'left',
     Right = 'right',

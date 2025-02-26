@@ -82,9 +82,16 @@ export function createMachineContext<
         useState: useApi,
     });
 
+    const { State } = createHelpers<ReturnType<typeof useMachine>, { useState: typeof useState }>(
+        `${id}State`,
+        {
+            useState,
+        },
+    );
+
     const StoreProvider: FC<{
         children: ReactNode;
-        api?: Api;
+        api?: ReturnType<typeof useMachine>;
     }> = memo(({ children, api }) => {
         //@ts-ignore
         return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
@@ -95,19 +102,15 @@ export function createMachineContext<
     type IRootMachine = Omit<Props, 'id'> & {
         /** machine id (if its specific) */
         id?: string;
-        children: ReactNode | ((api: Api) => ReactNode);
+        children: ReactNode | ((api: ReturnType<typeof useMachine>) => ReactNode);
     };
 
     function RootMachine({ children, ...context }: IRootMachine) {
         const machineApi = useMachine(context as unknown as Props);
 
         return (
-            //@ts-ignore
             <StoreProvider api={machineApi}>
-                {isFunction(children)
-                    ? //@ts-ignore
-                      children(machineApi.api)
-                    : children}
+                {isFunction(children) ? children(machineApi) : children}
             </StoreProvider>
         );
     }
@@ -175,5 +178,6 @@ export function createMachineContext<
          */
         splitProps: machine.splitProps,
         useState,
+        State,
     };
 }

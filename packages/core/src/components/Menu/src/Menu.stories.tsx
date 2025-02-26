@@ -18,12 +18,12 @@ const meta: Meta<typeof Menu.Root> = {
     component: Menu.Root,
     argTypes: {
         // State
-        open: {
+        defaultOpen: {
             control: 'boolean',
             description: 'Whether the menu is open',
             table: { defaultValue: { summary: 'false' } },
         },
-        'open.controlled': {
+        open: {
             control: 'boolean',
             description: `Whether the menu's open state is controlled by the user`,
             table: { defaultValue: { summary: 'false' } },
@@ -87,15 +87,18 @@ const meta: Meta<typeof Menu.Root> = {
             </Wrapper>
         ),
     ],
+    args: {
+        open: undefined,
+    },
 };
+
 export default meta;
 
 type Story = StoryObj<typeof Menu.Root>;
 
 export const Basic: Story = {
     args: {
-        open: false,
-        'open.controlled': false,
+        defaultOpen: false,
         closeOnSelect: true,
     },
     render: (props) => {

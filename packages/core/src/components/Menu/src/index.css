@@ -91,7 +91,8 @@
   }
 
   &[data-part='item'],
-  &[data-part='trigger-item'] {
+  &[data-part='trigger-item'],
+  &[data-part='trigger'][role='menuitem'] {
     padding: var(--spacing-2) var(--spacing-3);
     cursor: pointer;
     user-select: none;
@@ -101,7 +102,8 @@
     justify-content: flex-start;
     background-color: transparent;
 
-    &:hover {
+    &:hover,
+    &[data-highlighted] {
       background-color: var(--color-menu-primary-item-active);
     }
 
