@@ -1,40 +1,50 @@
 import * as colorPicker from '@zag-js/color-picker';
 import {
-    ConnectMachine,
     createMachineContext,
-    ExtendedMachine,
     extendMachine,
+    ExtendSchema,
     forward,
-    MachineConfig,
     styled,
-    UserContext,
-    UserState,
+    ConnectZagApi,
 } from '@optimacros-ui/store';
 import { ComponentProps, PropsWithChildren } from 'react';
 import { Field } from '@optimacros-ui/field';
 import { Flex } from '@optimacros-ui/flex';
 
-const config = {
-    context: {
-        disableAlpha: false,
-    } as {
-        disableAlpha?: boolean;
-    },
-} satisfies MachineConfig<colorPicker.Service>;
-
-type State = UserState<typeof colorPicker>;
-type Context = UserContext<colorPicker.Context, typeof config>;
-
-const machine = extendMachine(colorPicker, config, {}) satisfies ExtendedMachine<
+type Schema = ExtendSchema<
     typeof colorPicker,
-    Context,
-    State
+    {
+        props: {
+            disableAlpha?: boolean;
+        };
+    }
 >;
-const connect = ((api, { state, send }, machine) => {
-    return { ...api, disableAlpha: state.context.disableAlpha };
-}) satisfies ConnectMachine<colorPicker.Api, Context, State>;
 
-export const { Api, RootProvider, useApi } = createMachineContext({
+const machine = extendMachine<Schema, typeof colorPicker>(colorPicker, {
+    props(params) {
+        return {
+            disableAlpha: false,
+            ...colorPicker.machine.props(params),
+        };
+    },
+});
+
+const connect = ((api, service) => {
+    return { ...api, disableAlpha: service.prop('disableAlpha') };
+}) satisfies ConnectZagApi<Schema, colorPicker.Api>;
+
+export const {
+    Api,
+    RootProvider,
+    useApi,
+    select,
+    slice,
+    splitProps,
+    useFeatureFlags,
+    useProxySelector,
+    useSelector,
+    useState,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
     id: 'color-picker',
     machine,
     connect,
