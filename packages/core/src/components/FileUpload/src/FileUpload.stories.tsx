@@ -130,14 +130,13 @@ export default meta;
 type Story = StoryObj<typeof FileUpload.Root>;
 
 export const Base: Story = {
-    args: { controllable: true },
+    args: {},
     render: stories.Basic,
     play: scenarios.basic,
 };
 
 export const Validation: Story = {
     args: {
-        controllable: true,
         validate: (file) => {
             const yes = window.confirm(`allow ${file.name}?`);
 
@@ -154,7 +153,6 @@ export const Validation: Story = {
 
 export const Restrictions: Story = {
     args: {
-        controllable: true,
         maxFiles: 3,
         accept: 'image/*',
         onFileChange: fn(),

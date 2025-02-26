@@ -14,24 +14,19 @@ export function createMachineApiHook<
     service: Service<Schema>;
 };
 
-export function createMachineApiHook<
-    Schema extends BaseSchema,
-    Api extends Record<string, any>,
-    ConnectApi extends ConnectZagApi<Schema, Api, any> = ConnectZagApi<Schema, Api, any>,
->(
+export function createMachineApiHook<Schema extends BaseSchema, Api extends Record<string, any>>(
     module: ZagModule<any, any, any>,
-    connect: ConnectApi,
+    connect: ConnectZagApi<Schema, Api, any>,
 ): (props: Partial<Schema['props']>) => {
-    api: ReturnType<ConnectApi>;
+    api: Api;
     service: Service<Schema>;
 };
 
 export function createMachineApiHook<
     Schema extends BaseSchema,
     Api extends Record<string, any> = NonNullable<unknown>,
-    ConnectApi extends ConnectZagApi<Schema, Api, any> = ConnectZagApi<Schema, Api, any>,
     Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
->(module: Module, connect?: ConnectApi) {
+>(module: Module, connect?: ConnectZagApi<Schema, Api, any>) {
     const hook = (props: Partial<Schema['props']>) => {
         const id = useId();
 
@@ -42,7 +37,7 @@ export function createMachineApiHook<
 
         const api = module.connect(service, normalizeProps) as Api;
 
-        return { api: connect ? connect(api, service) : api, service };
+        return { api: connect ? (connect(api, service) as Api) : api, service };
     };
 
     return hook;

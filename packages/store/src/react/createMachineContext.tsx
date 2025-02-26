@@ -59,7 +59,7 @@ export function createMachineContext<
         selectors: createdConfig?.selectors,
     };
 
-    const useMachine = createMachineApiHook<Schema, Api, typeof connect>(machine, connect);
+    const useMachine = createMachineApiHook<Schema, Api>(machine, connect);
 
     const useFeatureFlags = GlobalContext
         ? createUseFeatureFlagsHooks(GlobalContext.useProxySelector, id)

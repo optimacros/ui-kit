@@ -23,13 +23,6 @@ export const Basic = (props: FileUpload.RootProps) => {
                     {(file) => (
                         <Flex gap={1} key={file.name}>
                             <FileUpload.ItemInfo file={file} data-testid="item-info" />
-                            <FileUpload.DeleteItemTrigger
-                                asChild
-                                file={file}
-                                data-testid="delete-item-trigger"
-                            >
-                                <IconButton icon="close" variant="bordered" size="xs" squared />
-                            </FileUpload.DeleteItemTrigger>
                         </Flex>
                     )}
                 </FileUpload.ItemGroup>

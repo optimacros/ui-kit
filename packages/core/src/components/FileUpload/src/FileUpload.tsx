@@ -1,21 +1,14 @@
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
 import { round, sum } from '@optimacros-ui/utils';
-import { machine, connect } from './file-upload.machine';
-
-export const { Api, RootProvider, useApi, splitProps, useProxySelector, useSelector } =
-    createMachineContext({
-        id: 'file-upload',
-        machine,
-        connect,
-    });
+import { machine, RootProvider, useApi } from './file-upload.machine';
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'div'>(({ children, controllable, ...context }, ref) => {
+export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
     const [providerProps, elementProps] = machine.splitProps(context);
 
     return (
-        <RootProvider {...providerProps} controllable={controllable}>
+        <RootProvider {...providerProps}>
             <RootComponent {...elementProps} ref={ref}>
                 {children}
             </RootComponent>
