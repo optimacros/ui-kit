@@ -1,8 +1,21 @@
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
 import * as machine from '@zag-js/pin-input';
 import { ComponentProps } from 'react';
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } = createMachineContext({
+type Schema = ZagSchema<typeof machine>;
+
+export const {
+    Api,
+    useApi,
+    RootProvider,
+    useSelector,
+    useProxySelector,
+    select,
+    slice,
+    splitProps,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
     id: 'pin-input',
     machine,
 });
