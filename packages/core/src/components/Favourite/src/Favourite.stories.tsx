@@ -14,18 +14,24 @@ const argTypes: ArgTypes<Partial<Favourite.RootProps>> = {
         control: 'boolean',
         description: 'Checked value',
     },
+    defaultChecked: {
+        control: 'boolean',
+        description: 'Checked value',
+    },
     onCheckedChange: {
         control: false,
         description: 'The callback invoked when the checked state changes',
         table: { type: { summary: '(details: CheckedChangeDetails) => void' } },
     },
-    controllable: { table: { disable: true } },
 };
 
 const meta: Meta<typeof Favourite.Root> = {
     title: 'UI Kit core/Favourite',
     component: Favourite.Root,
     argTypes,
+    args: {
+        checked: undefined,
+    },
 };
 
 export default meta;
@@ -39,7 +45,7 @@ export const Basic: Story = {
 };
 
 export const Checked: Story = {
-    args: { checked: true },
+    args: { defaultChecked: true },
     render: stories.Basic,
     tags: ['skip-test-runner'], // проверим в basic
 };
