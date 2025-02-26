@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
 
-import { RootProvider, Api } from '../state';
+import { RootProvider, Api } from '../../state';
 
 export { RootProvider as Root, Api };
 
