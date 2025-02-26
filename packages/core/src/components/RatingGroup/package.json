@@ -1,5 +1,5 @@
 {
-    "name": "@optimacros-ui/chip",
+    "name": "@optimacros-ui/rating-group",
     "private": false,
     "version": "2.0.3",
     "main": "dist/index.js",
@@ -14,7 +14,7 @@
         "@optimacros-ui/store": "^2.0.3",
         "@optimacros-ui/types": "^2.0.3",
         "@optimacros-ui/utils": "^2.0.3",
-        "@zag-js/hover-card": "0.77.0",
+        "@zag-js/rating-group": "0.77.0",
         "react": "18.2.0"
     }
 }
