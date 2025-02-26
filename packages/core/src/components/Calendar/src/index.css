@@ -64,6 +64,7 @@
   }
 
   &[data-part='table-cell-trigger'] {
+    outline: none;
     width: var(--spacing-9);
     height: var(--spacing-9);
     border-radius: var(--spacing-8);
@@ -74,6 +75,10 @@
     &:hover {
       background-color: var(--color-calendar-primary-item-selected-default);
       color: var(--color-calendar-primary-item-selected-on-default);
+    }
+
+    &[data-focus] {
+      outline: var(--spacing-px) var(--color-calendar-primary-item-selected-default) solid;
     }
   }
 
