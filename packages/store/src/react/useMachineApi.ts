@@ -1,25 +1,46 @@
 import { normalizeProps, useMachine } from '@zag-js/react';
 import { useId } from 'react';
-import { MachineConfig } from '@zag-js/core';
+import { BaseSchema, Service } from '@zag-js/core';
 import { ConnectZagApi, ZagModule } from './types';
 
 export function createMachineApiHook<
-    Schema extends Record<string, any>,
+    Schema extends BaseSchema,
+    Api extends Record<string, any> = NonNullable<unknown>,
+    Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
+>(
+    module: Module,
+): (props: Partial<Schema['props']>) => {
+    api: Api;
+    service: Service<Schema>;
+};
+
+export function createMachineApiHook<
+    Schema extends BaseSchema,
     Api extends Record<string, any>,
-    Machine extends MachineConfig<Schema> = MachineConfig<Schema>,
-    Module extends ZagModule<Machine, Schema, Api> = ZagModule<Machine, Schema, Api>,
-    ExtApi extends Record<string, any> = NonNullable<unknown>,
-    ConnectApi extends ConnectZagApi<Schema, Api, ExtApi> = ConnectZagApi<Schema, Api, ExtApi>,
+    ConnectApi extends ConnectZagApi<Schema, Api, any> = ConnectZagApi<Schema, Api, any>,
+>(
+    module: ZagModule<any, any, any>,
+    connect: ConnectApi,
+): (props: Partial<Schema['props']>) => {
+    api: ReturnType<ConnectApi>;
+    service: Service<Schema>;
+};
+
+export function createMachineApiHook<
+    Schema extends BaseSchema,
+    Api extends Record<string, any> = NonNullable<unknown>,
+    ConnectApi extends ConnectZagApi<Schema, Api, any> = ConnectZagApi<Schema, Api, any>,
+    Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
 >(module: Module, connect?: ConnectApi) {
-    const hook = (context: Schema) => {
+    const hook = (props: Partial<Schema['props']>) => {
         const id = useId();
 
-        const service = useMachine(module.machine, {
+        const service = useMachine<Schema>(module.machine, {
             id,
-            ...context,
-        } as any);
+            ...props,
+        });
 
-        const api = module.connect(service, normalizeProps);
+        const api = module.connect(service, normalizeProps) as Api;
 
         return { api: connect ? connect(api, service) : api, service };
     };

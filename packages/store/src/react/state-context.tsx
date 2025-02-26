@@ -6,10 +6,10 @@ import { createMachineApiHook } from './useMachineApi';
 import { AnyMachine, StateMachine, Machine as ZagMachine } from '@zag-js/core';
 import * as $ from '@optimacros-ui/types';
 import { createUseFeatureFlagsHooks } from './useFeatureFlags';
-import * as testMachine from '@zag-js/date-picker';
 /* biome-ignore lint:wait */
 import type { UiKit } from '@optimacros-ui/kit-store';
 import { ConnectZagApi, ZagModule } from './types';
+import { BaseSchema } from 'node_modules/@zag-js/core/dist';
 
 type HooksConfig = object;
 
@@ -256,10 +256,10 @@ export type ConnectMachine<
  * @param config - default configuration
  */
 export function createReactApiStateContext<
-    Props extends Record<string, any> = Record<string, any>,
+    Schema extends BaseSchema = BaseSchema,
     Api extends Record<string, any> = Record<string, any>,
-    Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
-    Connect extends ConnectZagApi<Props, Api> = any,
+    Connect extends ConnectZagApi<Schema, Api> = any,
+    Props = Partial<Schema['props']>,
     ID extends string = string,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
 >(config: {
@@ -269,7 +269,7 @@ export function createReactApiStateContext<
      * zag-js like module
      * @example 'import * as menu from '@zag-js/menu'
      * */
-    machine: Module;
+    machine: ZagModule<any, any, any>;
     /**
      *
      * @param initialState - zagjs api
@@ -301,12 +301,24 @@ export function createReactApiStateContext<
         selectors: createdConfig?.selectors,
     };
 
+    const useMachine = createMachineApiHook<Schema, Api, typeof connect>(machine, connect);
+
+    const useFeatureFlags = GlobalContext
+        ? createUseFeatureFlagsHooks(GlobalContext.useProxySelector, id)
+        : () => true;
+
     const {
         StateContext: ApiContext,
-        useState: useApi,
+        useState,
         useProxySelector,
         useSelector,
-    } = createHooks(`${id}Api`, {} as $.If.Any<ReturnType<Connect>, Api>, true);
+    } = createHooks(`${id}Api`, {} as ReturnType<typeof useMachine>, true);
+
+    function useApi() {
+        const api = useProxySelector((s) => s.api as $.If.Any<ReturnType<Connect>, Api>);
+
+        return api;
+    }
 
     const { State: Api } = createHelpers<Api, { useState: typeof useApi }>(`${id}Api`, {
         useState: useApi,
@@ -322,12 +334,6 @@ export function createReactApiStateContext<
 
     StoreProvider.displayName = id;
 
-    const useMachine = createMachineApiHook<Props, Api>(machine, connect);
-
-    const useFeatureFlags = GlobalContext
-        ? createUseFeatureFlagsHooks(GlobalContext.useProxySelector, id)
-        : () => true;
-
     type IRootMachine = Omit<Props, 'id'> & {
         /** machine id (if its specific) */
         id?: string;
@@ -335,14 +341,14 @@ export function createReactApiStateContext<
     };
 
     function RootMachine({ children, ...context }: IRootMachine) {
-        const { api, service } = useMachine(context as unknown as Props);
+        const machineApi = useMachine(context as unknown as Props);
 
         return (
             //@ts-ignore
-            <StoreProvider api={{ ...api, service }}>
+            <StoreProvider api={machineApi}>
                 {isFunction(children)
                     ? //@ts-ignore
-                      children(api)
+                      children(machineApi.api)
                     : children}
             </StoreProvider>
         );
@@ -410,10 +416,6 @@ export function createReactApiStateContext<
          * `!!! warning`: if you've added new props with {@link extendMachine} this won't work
          */
         splitProps: machine.splitProps,
+        useState,
     };
 }
-
-const { useApi, RootProvider } = createReactApiStateContext<testMachine.Props, testMachine.Api>({
-    id: 'm',
-    machine: testMachine,
-});

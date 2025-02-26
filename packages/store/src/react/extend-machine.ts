@@ -1,6 +1,7 @@
 import { merge } from '@optimacros-ui/utils';
 import { MachineConfig } from '@zag-js/core';
 import { ZagModule } from './types';
+import { BaseSchema } from 'node_modules/@zag-js/core/dist';
 
 /**
  * method for extending {@link ZagMachine}
@@ -10,28 +11,36 @@ import { ZagModule } from './types';
  * @returns ZagJs module with mutated {@link ZagMachine} function
  */
 export function extendMachine<
-    Props extends Record<string, any> = Record<string, any>,
+    Schema extends BaseSchema,
     Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
-    Config extends MachineConfig<{ props: Props }> = MachineConfig<{ props: Props }>,
+    Config extends Partial<MachineConfig<Schema>> = Partial<MachineConfig<Schema>>,
 >(stateMachine: Module, config: Config) {
     const machine = {
         ...merge(true, stateMachine.machine, config),
-        props(params) {
-            return {
-                ...stateMachine.machine.props?.(params),
-                ...config.props?.(params),
-            };
-        },
+        props: config.props ?? stateMachine.machine.props,
         context(params) {
             return {
                 ...stateMachine.machine.context?.(params),
                 ...config.context?.(params),
             };
         },
+        initialState(params) {
+            return stateMachine.machine.initialState?.(params) ?? config.initialState?.(params);
+        },
+        refs(params) {
+            return {
+                ...stateMachine.machine.refs?.(params),
+                ...config.refs?.(params),
+            };
+        },
+        watch(params) {
+            stateMachine.machine.watch?.(params);
+            config.watch?.(params);
+        },
     };
 
-    const result: Module & {
-        machine: MachineConfig<{ props: Props & ReturnType<Config['props']> }>;
+    const result: Omit<Module, 'machine'> & {
+        machine: MachineConfig<Schema>;
     } = {
         ...stateMachine,
         machine,
