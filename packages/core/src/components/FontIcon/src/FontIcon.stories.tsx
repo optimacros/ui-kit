@@ -8,7 +8,7 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof FontIcon>>> = {
     value: {
         control: 'text',
         description:
-            'The key string for the icon you want be displayed or custom icon element. List of all available icons can be found here https://marella.github.io/material-design-icons/demo/font/#filled',
+            'The key string for the icon you want be displayed or custom icon element. List of all available icons can be found here https://github.com/google/material-design-icons',
     },
     title: {
         control: 'text',
