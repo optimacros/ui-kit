@@ -1,18 +1,35 @@
 import { ArgTypes, StoryObj, Meta } from '@storybook/react';
 import { Sidebar } from '.';
-import { Fragment } from 'react';
-import { sleep, times } from '@optimacros-ui/utils';
-import { Icon } from '@optimacros-ui/icon';
-import { userEvent, waitFor, expect, within } from '@storybook/test';
+import { ComponentProps } from 'react';
+import * as examples from './examples';
+import * as scenarios from './__tests__/scenarios';
+import { fn } from '@storybook/test';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof Sidebar.Root>>> = {
     open: {
         description: 'Whether the collapsible is open when component is loaded',
         control: 'boolean',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    'open.controlled': {
+        control: 'boolean',
+        description: 'Whether the collapsible is controlled by the user',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    controllable: {
+        control: 'boolean',
+        description: 'Whether the component handles props update',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    onOpenChange: {
+        control: false,
+        description: 'Callback to be invoked when the collapsible is opened or closed',
+        table: { type: { summary: '(details: OpenChangeDetails) => void' } },
     },
     disabled: {
         description: 'Whether the collapsible is disabled',
         control: 'boolean',
+        table: { defaultValue: { summary: 'false' } },
     },
     position: {
         description: 'Sidebar position',
@@ -37,174 +54,34 @@ export default meta;
 type Story = StoryObj<typeof Sidebar.Root>;
 
 export const Basic: Story = {
-    args: {},
-    play: async ({ globals, canvasElement }) => {
-        if (!globals.test) {
-            return;
-        }
-
-        await window.waitForPageTrulyReady?.();
-        await window.takeScreenshot?.();
-
-        const canvas = within(canvasElement);
-
-        await waitFor(async () => {
-            const trigger = canvas.getByTestId('open-trigger');
-
-            expect(trigger).toBeInTheDocument();
-
-            await userEvent.click(trigger);
-        });
-
-        await waitFor(() => {
-            const sidebar = canvasElement.querySelector(
-                'div[data-scope="collapsible"][data-part="root"][data-tag="sidebar"]',
-            );
-
-            expect(sidebar).toHaveAttribute('data-state', 'open');
-        });
-
-        await sleep(1000);
-
-        await window.takeScreenshot?.('open');
+    args: {
+        open: false,
+        position: 'right',
+        'open.controlled': false,
+        controllable: false,
+        onOpenChange: fn(),
+        disabled: false,
+        width: 300,
     },
-    render: (props) => (
-        <Sidebar.Root {...props}>
-            <Sidebar.Trigger>open\close</Sidebar.Trigger>
-            <div
-                style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: 400,
-                    backgroundColor: 'aliceblue',
-                    marginTop: 20,
-                }}
-            >
-                <Sidebar.Panel>
-                    <Sidebar.Header>
-                        <Sidebar.CloseTrigger>
-                            <Icon value="keyboard-double-arrow-right" />
-                        </Sidebar.CloseTrigger>
-                    </Sidebar.Header>
-
-                    <Sidebar.Content>
-                        <div>
-                            {times(100, (n) => (
-                                <Fragment key={n}>
-                                    line
-                                    <br />
-                                </Fragment>
-                            ))}
-                        </div>
-                    </Sidebar.Content>
-                </Sidebar.Panel>
-
-                <Sidebar.MiniPanel>
-                    <Sidebar.Trigger data-testid="open-trigger">
-                        <Icon value="keyboard-double-arrow-left" />
-                    </Sidebar.Trigger>
-                </Sidebar.MiniPanel>
-            </div>
-        </Sidebar.Root>
-    ),
+    play: scenarios.basic,
+    render: examples.Basic,
 };
 
 export const PositionLeft = {
     args: {
-        open: true,
+        open: false,
         position: 'left',
     },
-    render: (props) => (
-        <Sidebar.Root {...props}>
-            <Sidebar.Trigger>open\close</Sidebar.Trigger>
-            <div
-                style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: 400,
-                    backgroundColor: 'aliceblue',
-                    marginTop: 20,
-                }}
-            >
-                <Sidebar.Panel>
-                    <Sidebar.Header>
-                        <Sidebar.CloseTrigger>
-                            <Icon value="keyboard-double-arrow-right" />
-                        </Sidebar.CloseTrigger>
-                    </Sidebar.Header>
-
-                    <Sidebar.Content>
-                        <div>
-                            {times(100, (n) => (
-                                <Fragment key={n}>
-                                    line
-                                    <br />
-                                </Fragment>
-                            ))}
-                        </div>
-                    </Sidebar.Content>
-                </Sidebar.Panel>
-
-                <Sidebar.MiniPanel>
-                    <Sidebar.Trigger data-testid="open-trigger">
-                        <Icon value="keyboard-double-arrow-left" />
-                    </Sidebar.Trigger>
-                </Sidebar.MiniPanel>
-            </div>
-        </Sidebar.Root>
-    ),
+    render: examples.Basic,
 };
 
 export const Disabled = {
     args: {
         disabled: true,
+        open: false,
+        position: 'right',
     },
-    render: (props) => (
-        <Sidebar.Root {...props}>
-            {(api) => (
-                <>
-                    <button disabled onClick={() => api.setOpen(!api.open)}>
-                        open\close
-                    </button>
-
-                    <div
-                        style={{
-                            position: 'relative',
-                            width: '100%',
-                            height: 400,
-                            backgroundColor: 'aliceblue',
-                            marginTop: 20,
-                        }}
-                    >
-                        <Sidebar.Panel>
-                            <Sidebar.Header>
-                                <Sidebar.CloseTrigger>
-                                    <Icon value="keyboard-double-arrow-right" />
-                                </Sidebar.CloseTrigger>
-                            </Sidebar.Header>
-
-                            <Sidebar.Content>
-                                <div>
-                                    {times(100, (n) => (
-                                        <Fragment key={n}>
-                                            line
-                                            <br />
-                                        </Fragment>
-                                    ))}
-                                </div>
-                            </Sidebar.Content>
-                        </Sidebar.Panel>
-
-                        <Sidebar.MiniPanel>
-                            <Sidebar.Trigger>
-                                <Icon value="keyboard-double-arrow-left" />
-                            </Sidebar.Trigger>
-                        </Sidebar.MiniPanel>
-                    </div>
-                </>
-            )}
-        </Sidebar.Root>
-    ),
+    render: examples.Basic,
 };
 
 export const FullWidth = {
@@ -212,48 +89,5 @@ export const FullWidth = {
         open: true,
         width: '100%',
     },
-    render: (props) => (
-        <Sidebar.Root {...props}>
-            {(api) => (
-                <>
-                    <button onClick={() => api.setOpen(!api.open)}>open\close</button>
-
-                    <div
-                        style={{
-                            position: 'relative',
-                            width: '100%',
-                            height: 400,
-                            backgroundColor: 'aliceblue',
-                            marginTop: 20,
-                        }}
-                    >
-                        <Sidebar.Panel>
-                            <Sidebar.Header>
-                                <Sidebar.CloseTrigger>
-                                    <Icon value="keyboard-double-arrow-right" />
-                                </Sidebar.CloseTrigger>
-                            </Sidebar.Header>
-
-                            <Sidebar.Content>
-                                <div>
-                                    {times(100, (n) => (
-                                        <Fragment key={n}>
-                                            line
-                                            <br />
-                                        </Fragment>
-                                    ))}
-                                </div>
-                            </Sidebar.Content>
-                        </Sidebar.Panel>
-
-                        <Sidebar.MiniPanel>
-                            <Sidebar.Trigger data-testid="open-trigger">
-                                <Icon value="keyboard-double-arrow-left" />
-                            </Sidebar.Trigger>
-                        </Sidebar.MiniPanel>
-                    </div>
-                </>
-            )}
-        </Sidebar.Root>
-    ),
+    render: examples.Basic,
 };
