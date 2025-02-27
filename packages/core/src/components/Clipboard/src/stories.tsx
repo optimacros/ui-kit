@@ -5,29 +5,44 @@ import { Clipboard } from './index';
 const Wrapper = ({ children }: { children }) => <div style={{ width: '130px' }}>{children}</div>;
 
 const argTypes: Partial<ArgTypes> = {
-    positioning: {
+    ids: {
         control: 'object',
-        description: 'The user provided options used to position the popover content',
-        table: { type: { summary: 'PositioningOptions' } },
+        description: 'The ids of the elements in the clipboard. Useful for composition.',
+        table: { type: { summary: '{ root: string; input: string; label: string; }' } },
     },
-    openDelay: {
+    value: {
+        control: 'text',
+        description: 'The controlled value of the clipboard.',
+        table: { type: { summary: 'string' } },
+    },
+    defaultValue: {
+        control: 'text',
+        description:
+            "The initial value to be copied to the clipboard when rendered. Use when you don't need to control the value of the clipboard.",
+        table: { type: { summary: 'string' }, defaultValue: { summary: 'undefined' } },
+    },
+    onValueChange: {
+        description: 'The function to be called when the value changes.',
+        table: { type: { summary: '(details: ValueChangeDetails) => void' } },
+    },
+    onStatusChange: {
+        description: 'The function to be called when the value is copied to the clipboard.',
+        table: { type: { summary: '(details: CopyStatusDetails) => void' } },
+    },
+    timeout: {
         control: 'number',
-        description: `The open delay of the tooltip.`,
-        table: { defaultValue: { summary: '1000' } },
+        description: 'The timeout for the copy operation.',
+        table: { type: { summary: 'number' }, defaultValue: { summary: 'undefined' } },
     },
-    closeDelay: {
-        control: 'number',
-        description: `The close delay of the tooltip.`,
-        table: { defaultValue: { summary: '500' } },
+    id: {
+        control: 'text',
+        description: 'The unique identifier of the machine.',
+        table: { type: { summary: 'string' } },
     },
-    open: {
-        control: 'boolean',
-        description: `The controlled open state of the hover card`,
-    },
-    onOpenChange: {
-        control: 'number',
-        description: `Function called when the tooltip is opened..`,
-        table: { type: { summary: '(details: OpenChangeDetails) => void' } },
+    getRootNode: {
+        description:
+            'A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron.',
+        table: { type: { summary: '() => ShadowRoot | Node | Document' } },
     },
 };
 
@@ -50,4 +65,8 @@ type Story = StoryObj<typeof Clipboard.Root>;
 
 export const Basic: Story = {
     render: examples.Basic,
+};
+
+export const Label: Story = {
+    render: examples.WithLabel,
 };
