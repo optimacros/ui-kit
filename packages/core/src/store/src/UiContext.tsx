@@ -14,7 +14,7 @@ export const {
          * source for icon's sprite
          * must be sprite svg with .svg extension
          * */
-        iconsSrc: '',
+        iconsSrc: '/packages/themes/src/assets/icons/optimacros/sprite/index.svg',
         styles: {
             root: '',
             theme: '',
