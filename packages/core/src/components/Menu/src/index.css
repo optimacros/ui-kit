@@ -102,7 +102,6 @@
     justify-content: flex-start;
     background-color: transparent;
 
-    &:hover,
     &[data-highlighted] {
       background-color: var(--color-menu-primary-item-active);
     }

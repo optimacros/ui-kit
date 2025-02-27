@@ -7,8 +7,9 @@ import {
 import { omit, Orientation, OrientationString } from '@optimacros-ui/utils';
 import * as zagMenu from '@zag-js/menu';
 import { UiKit } from '@optimacros-ui/kit-store';
+import type { Service } from '@zag-js/core';
 
-type Schema = ExtendSchema<
+export type Schema = ExtendSchema<
     typeof zagMenu,
     {
         props: {
@@ -18,8 +19,6 @@ type Schema = ExtendSchema<
         };
         context: {
             orientation?: OrientationString;
-            disabled?: boolean;
-            hoverable?: boolean;
         };
     }
 >;
@@ -29,12 +28,6 @@ export const machine = extendMachine<Schema, typeof zagMenu>(zagMenu, {
         const { bindable } = params;
         return {
             ...zagMenu.machine.context(params),
-            disabled: bindable<Schema['context']['disabled']>(() => ({
-                defaultValue: false,
-            })),
-            hoverable: bindable<Schema['context']['hoverable']>(() => ({
-                defaultValue: false,
-            })),
             orientation: bindable<Schema['context']['orientation']>(() => ({
                 defaultValue: Orientation.Vertical,
             })),
@@ -47,6 +40,7 @@ export type Machine = typeof machine;
 export const connect = ((api, service) => {
     return {
         ...api,
+        getParent: () => service.refs.get('parent') as Service<Schema>,
         orientation: service.context.get('orientation'),
         setOrientation(orientation: OrientationString) {
             service.context.set('orientation', orientation);
@@ -63,11 +57,11 @@ export const connect = ((api, service) => {
             return {
                 ...props,
                 onClick: (e) => {
-                    if (!service.context.get('disabled')) {
+                    if (!service.prop('disabled')) {
                         props.onClick(e);
                     }
                 },
-                'data-disabled': service.context.get('disabled') ?? undefined,
+                'data-disabled': service.prop('disabled') ?? undefined,
             };
         },
         getItemProps(props: zagMenu.ItemProps) {
@@ -76,14 +70,14 @@ export const connect = ((api, service) => {
                 title: props.valueText,
             };
         },
-        setParentNode: (parent: { api: zagMenu.Api; service: typeof service }) => {
-            parent.api.setChild(service);
-            api.setParent(parent.service);
+        setParentNode: (parent: typeof service) => {
+            parent.send({ type: 'CHILD.SET', value: service, id: service.prop('id') });
+            service.send({ type: 'PARENT.SET', value: parent, id: parent.prop('id') });
         },
-        getTriggerItemProps(parent) {
-            const props = api.getTriggerItemProps(parent);
+        getTriggerItemProps(childApi: zagMenu.Api) {
+            const props = api.getTriggerItemProps(childApi);
 
-            if (!service.context.get('hoverable')) {
+            if (!service.prop('hoverable')) {
                 return {
                     ...omit(props, ['onPointerDown', 'onPointerLeave', 'onPointerMove']),
                     'data-disabled': props['data-disabled'] === true ? true : undefined,
@@ -93,8 +87,9 @@ export const connect = ((api, service) => {
             return {
                 ...props,
                 'data-disabled': props['data-disabled'] === true ? true : undefined,
-            };
+            } as Record<string, any>;
         },
+        getSubMenuItemProps() {},
     };
 }) satisfies ConnectZagApi<Schema, zagMenu.Api>;
 

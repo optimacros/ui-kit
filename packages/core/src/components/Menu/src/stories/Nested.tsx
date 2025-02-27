@@ -1,84 +1,69 @@
 import { Button } from '@optimacros-ui/button';
 import { Menu } from '..';
-import { RootProps } from '../Menu';
+import { RootProps, useSubmenu } from '../Menu';
 import { menuItems } from '../mock';
 
-const CustomMenu = ({ value }) => {
-    const api = Menu.useApi();
+const Content = ({ parent }) => {
+    const submenu_1 = useSubmenu(parent, { id: 'sub_1' });
+    const submenu_2 = useSubmenu(parent, { id: 'sub_2' });
+    const submenu_3 = useSubmenu(parent, { id: 'sub_3' });
 
     return (
-        <Menu.SubMenuPositioner>
-            <Menu.Content data-testid={`${value} sub-menu-content`}>
-                <Menu.List>
-                    {menuItems.map((v) => (
-                        <Menu.Item {...v} key={v.value}>
-                            sub {v.valueText}
-                        </Menu.Item>
-                    ))}
-                    <Menu.SubMenuItem
-                        parent={api}
-                        item={{
-                            value: 'sub-menu-nested',
-                            valueText: 'nested',
-                        }}
-                        positioning={{
-                            fitViewport: false,
-                            overlap: false,
-                        }}
-                    >
-                        <Menu.SubMenuPositioner>
-                            <Menu.Content data-testid={`sub-sub-menu-content`}>
-                                <Menu.List>
-                                    {menuItems.slice(0, 5).map((v) => (
-                                        <Menu.Item
-                                            {...v}
-                                            value={v.value + 'sub'}
-                                            valueText={v.value + 'sub'}
-                                            key={v.value + 'sub-sub'}
-                                        >
-                                            sub sub {v.valueText}
-                                        </Menu.Item>
-                                    ))}
-                                </Menu.List>
-                            </Menu.Content>
-                        </Menu.SubMenuPositioner>
+        <>
+            <Menu.Positioner>
+                <Menu.Content data-testid="menu-content">
+                    <Menu.List>
+                        <Menu.TriggerItem {...submenu_1.props} value="sub_1">
+                            sub 1
+                        </Menu.TriggerItem>
+                        {menuItems.slice(0, 3).map((v) => (
+                            <Menu.Item {...v}>{v.valueText}</Menu.Item>
+                        ))}
+                        <Menu.TriggerItem {...submenu_2.props} value="sub_2">
+                            sub 2
+                        </Menu.TriggerItem>
+                        {menuItems.slice(3, 6).map((v) => (
+                            <Menu.Item {...v}>{v.valueText}</Menu.Item>
+                        ))}
+                        <Menu.TriggerItem {...submenu_3.props} value="sub_3">
+                            sub 3
+                        </Menu.TriggerItem>
+                    </Menu.List>
+                </Menu.Content>
+            </Menu.Positioner>
+            <Menu.SubMenuContent menu={submenu_1}>
+                {menuItems.map((v) => (
+                    <Menu.SubMenuItem {...v} data-testid={v.value}>
+                        {v.valueText}
                     </Menu.SubMenuItem>
-                </Menu.List>
-            </Menu.Content>
-        </Menu.SubMenuPositioner>
+                ))}
+            </Menu.SubMenuContent>
+            <Menu.SubMenuContent menu={submenu_2}>
+                {menuItems.map((v) => (
+                    <Menu.SubMenuItem {...v} data-testid={v.value}>
+                        {v.valueText}
+                    </Menu.SubMenuItem>
+                ))}
+            </Menu.SubMenuContent>
+            <Menu.SubMenuContent menu={submenu_3}>
+                {menuItems.map((v) => (
+                    <Menu.SubMenuItem {...v} data-testid={v.value}>
+                        {v.valueText}
+                    </Menu.SubMenuItem>
+                ))}
+            </Menu.SubMenuContent>
+        </>
     );
 };
 
 export const Nested = (props: RootProps) => {
     return (
-        <Menu.Root {...props}>
+        <Menu.Root {...props} hoverable>
             <Menu.Trigger asChild>
                 <Button data-testid="trigger">Click me</Button>
             </Menu.Trigger>
-            <Menu.State>
-                {({ api, service }) => (
-                    <Menu.Positioner>
-                        <Menu.Content data-testid="menu-content">
-                            <Menu.List>
-                                {menuItems.map((v, i) => (
-                                    <Menu.SubMenuItem
-                                        key={v.value}
-                                        disabled={v.disabled}
-                                        parent={{ api, service }}
-                                        item={v}
-                                        positioning={{
-                                            fitViewport: false,
-                                            overlap: false,
-                                        }}
-                                    >
-                                        <CustomMenu value={v.value} />
-                                    </Menu.SubMenuItem>
-                                ))}
-                            </Menu.List>
-                        </Menu.Content>
-                    </Menu.Positioner>
-                )}
-            </Menu.State>
+
+            <Menu.State>{(parent) => <Content parent={parent} />}</Menu.State>
         </Menu.Root>
     );
 };

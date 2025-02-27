@@ -1,8 +1,9 @@
-import { MouseEventHandler, ReactNode, useId } from 'react';
+import { Children, MouseEventHandler, ReactElement, ReactNode, useId } from 'react';
 import type React from 'react';
 
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 import { forward } from '@optimacros-ui/store';
+import { useSubmenu } from 'packages/core/src/components/Menu/src/Menu';
 
 interface IMenuItem {
     title?: string;
@@ -27,41 +28,69 @@ export const MenuItem = forward<IMenuItem, 'li'>(
     },
 );
 
+MenuItem.displayName = 'MenuItem';
+
 export const SubMenu = ({
     label,
     title,
     value,
     children,
+    parent: parentMenu,
 }: {
     label?: string;
     title?: string;
     value?: string;
-    children: ReactNode;
+    children: Array<ReactNode>;
+    parent?: ReturnType<typeof MenuComponent.useState>;
 }) => {
-    const api = MenuComponent.useApi();
+    const parent = MenuComponent.useState();
     const generatedKey = useId();
 
+    const menu = useSubmenu(parentMenu ?? parent, {
+        id: generatedKey,
+        closeOnSelect: false,
+        positioning: {
+            fitViewport: false,
+            overlap: false,
+        },
+        hoverable: true,
+    });
+
+    const childrenArr = Children.toArray(children) as Array<ReactElement>;
+
     return (
-        <MenuComponent.SubMenuItem
-            parent={api}
-            item={{
-                value: value || generatedKey,
-                valueText: label || title || (children as string),
-                closeOnSelect: true,
-            }}
-            closeOnSelect={false}
-            positioning={{
-                fitViewport: false,
-                overlap: false,
-            }}
-            hoverable
-        >
-            <MenuComponent.SubMenuPositioner>
-                <MenuComponent.Content size="sm">{children}</MenuComponent.Content>
-            </MenuComponent.SubMenuPositioner>
-        </MenuComponent.SubMenuItem>
+        <>
+            <MenuComponent.TriggerItem {...menu.props} value={value || title || label}>
+                {label || title}
+            </MenuComponent.TriggerItem>
+            <MenuComponent.SubMenuContent menu={menu}>
+                {childrenArr
+                    .filter(
+                        (c) =>
+                            //@ts-ignore
+                            c.type.displayName === 'MenuItem' || c.type.displayName === 'SubMenu',
+                    )
+                    .map((c) => {
+                        //@ts-ignore
+                        if (c.type.displayName === 'SubMenu') {
+                            return <SubMenu {...c.props} parent={menu} />;
+                        }
+
+                        return (
+                            <MenuComponent.SubMenuItem
+                                {...c.props}
+                                value={c.props.value || c.props.label || c.props.title}
+                            >
+                                {c.props.children || c.props.label || c.props.title}
+                            </MenuComponent.SubMenuItem>
+                        );
+                    })}
+            </MenuComponent.SubMenuContent>
+        </>
     );
 };
+
+SubMenu.displayName = 'SubMenu';
 
 export const MenuTrigger = MenuComponent.Trigger;
 
@@ -72,18 +101,10 @@ export const Menu = forward<
     const { children, renderTrigger, ...rest } = props;
 
     return (
-        <MenuComponent.Root
-            closeOnSelect={false}
-            open
-            hoverable
-            {...{ 'open.controlled': true }}
-            {...rest}
-        >
+        <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
             {renderTrigger?.()}
             <MenuComponent.Positioner>
-                <MenuComponent.Content size="sm" ref={ref}>
-                    {children}
-                </MenuComponent.Content>
+                <MenuComponent.Content ref={ref}>{children}</MenuComponent.Content>
             </MenuComponent.Positioner>
         </MenuComponent.Root>
     );

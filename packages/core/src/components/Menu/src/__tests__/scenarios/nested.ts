@@ -19,7 +19,7 @@ export const nested: PlayFunction<ReactRenderer> = async ({ canvasElement, globa
 
     const trigger = canvas.getByTestId('trigger');
     const content = canvas.getByTestId('menu-content');
-    const subContent = canvas.getByTestId(`${firstEnabledItem.value} sub-menu-content`);
+    const subContent = canvas.getByTestId(`${firstEnabledItem.value}`);
     const subSubMenuTrigger = within(subContent).getByText('nested');
     const subSubContent = within(subContent).getByTestId(`sub-sub-menu-content`);
 
