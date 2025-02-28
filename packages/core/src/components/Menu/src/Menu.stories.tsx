@@ -214,7 +214,7 @@ export const Group: Story = {
                                 ))}
                             </Menu.Group>
 
-                            <Spacer size={3} orientation="vertical" />
+                            <Spacer size={3} orientation={Orientation.Vertical} />
 
                             <Menu.Group id="second">
                                 <Menu.GroupLabel htmlFor="second">second</Menu.GroupLabel>
@@ -225,7 +225,7 @@ export const Group: Story = {
                                 ))}
                             </Menu.Group>
 
-                            <Spacer size={3} orientation="vertical" />
+                            <Spacer size={3} orientation={Orientation.Vertical} />
 
                             <Menu.Group id="third">
                                 <Menu.GroupLabel htmlFor="third">third</Menu.GroupLabel>
