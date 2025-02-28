@@ -1,12 +1,17 @@
+import { Flex } from '@optimacros-ui/flex';
 import { Slider } from '@optimacros-ui/slider';
+import { ComponentProps } from 'react';
 
-export const Markers = () => {
+export const Markers = (props: ComponentProps<typeof Slider.Root>) => {
     return (
         <div>
-            <Slider.Root value={[10]} min={0} max={20} step={2}>
+            <Slider.Root {...props}>
                 <Slider.Container>
-                    <Slider.Label>Quantity</Slider.Label>
-                    <Slider.Output />
+                    <Flex>
+                        <Slider.Label>Quantity:&nbsp;</Slider.Label>
+                        <Slider.Output />
+                    </Flex>
+
                     <Slider.Control>
                         <Slider.Track>
                             <Slider.Markers />
@@ -17,10 +22,13 @@ export const Markers = () => {
                 </Slider.Container>
             </Slider.Root>
 
-            <Slider.Root value={[10]} min={0} max={17} step={2}>
+            <Slider.Root {...props} value={[10]} step={2}>
                 <Slider.Container>
-                    <Slider.Label>Quantity</Slider.Label>
-                    <Slider.Output />
+                    <Flex>
+                        <Slider.Label>Quantity:&nbsp;</Slider.Label>
+                        <Slider.Output />
+                    </Flex>
+
                     <Slider.Control>
                         <Slider.Track>
                             <Slider.Markers />

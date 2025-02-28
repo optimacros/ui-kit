@@ -1,24 +1,31 @@
-import { ArgTypes, Meta } from '@storybook/react';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Slider } from './index';
-import { Button } from '@optimacros-ui/button';
-import { useState } from 'react';
-import { ValueChangeDetails } from '@zag-js/slider';
+import { ComponentProps } from 'react';
+import { fn } from '@storybook/test';
+import * as examples from './examples';
+import * as scenarios from './__tests__/scenarios';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof Slider.Root>>> = {
     value: {
-        control: false,
-        description: 'Current slider value(s)',
+        control: 'object',
+        description: 'The controlled value of the slider',
         table: { type: { summary: 'number[]' } },
     },
+    /* появился в заге 1.0
+    defaultValue: {
+        control: 'object',
+        description: `The initial value of the slider when rendered. Use when you don't need to control the value of the slider`,
+        table: { type: { summary: 'number[]' } },
+    }, */
     onValueChange: {
         control: false,
-        description: 'Callback function that is called on value change',
-        table: { type: { summary: '({value}) => void' } },
+        description: 'Function invoked when the value of the slider changes',
+        table: { type: { summary: '(details: ValueChangeDetails) => void' } },
     },
     onValueChangeEnd: {
         control: false,
-        description: 'Callback function that is called on value change',
-        table: { type: { summary: '({value}) => void' } },
+        description: 'Function invoked when the slider value change is done',
+        table: { type: { summary: '(details: ValueChangeDetails) => void' } },
     },
     min: {
         control: 'number',
@@ -45,45 +52,134 @@ const argTypes: Partial<ArgTypes> = {
         description: 'Whether the slider is disabled',
         table: { defaultValue: { summary: 'false' } },
     },
+    invalid: {
+        control: 'boolean',
+        description: 'WWhether the slider is invalid',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    readOnly: {
+        control: 'boolean',
+        description: 'Whether the slider is read-only',
+        table: { defaultValue: { summary: 'false' } },
+    },
 };
 
-const meta: Meta<typeof Slider> = {
+const meta: Meta<typeof Slider.Root> = {
     title: 'UI Kit core/Slider',
+    component: Slider.Root,
     argTypes,
 };
 
 export default meta;
 
-export const Basic = () => {
-    const [value, setValue] = useState([67]);
+type Story = StoryObj<typeof Slider.Root>;
 
-    const handleChange = (details: ValueChangeDetails) => {
-        setValue(details.value);
-    };
-
-    return (
-        <Slider.Root value={value} onValueChange={handleChange} invalid>
-            <Slider.Api>
-                {(api) => (
-                    <>
-                        <div style={{ marginBottom: 50 }}>
-                            <Button onClick={() => api.setValue([67])}>reset</Button>
-                        </div>
-                        <Slider.Container>
-                            <Slider.Label>Quantity</Slider.Label>
-                            <Slider.Output />
-                            <Slider.Control>
-                                <Slider.Track>
-                                    <Slider.Range />
-                                </Slider.Track>
-                                <Slider.Thumb />
-                            </Slider.Control>
-                        </Slider.Container>
-                    </>
-                )}
-            </Slider.Api>
-        </Slider.Root>
-    );
+export const Basic: Story = {
+    args: {
+        controllable: true,
+        value: [33],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: 0,
+        max: 100,
+        step: 1,
+        minStepsBetweenThumbs: 0,
+        disabled: false,
+    },
+    render: examples.Basic,
+    play: scenarios.basic,
 };
 
-export { Range, Disabled, CustomMinMax, Step, MinStep, Markers } from './stories';
+export const Range: Story = {
+    args: {
+        controllable: true,
+        value: [12, 34],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: 0,
+        max: 100,
+        step: 1,
+        minStepsBetweenThumbs: 0,
+        disabled: false,
+    },
+    render: examples.Basic,
+    tags: ['skip-test-runner'], // тестируется в MinStepBetweenThumbs
+};
+
+export const States: Story = {
+    args: {
+        controllable: true,
+        value: [33],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: 0,
+        max: 100,
+        step: 1,
+        minStepsBetweenThumbs: 0,
+        disabled: false,
+    },
+    render: examples.States,
+};
+
+export const MinMax: Story = {
+    args: {
+        controllable: true,
+        value: [-100, 50],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: -100,
+        max: 50,
+        step: 1,
+        minStepsBetweenThumbs: 0,
+        disabled: false,
+    },
+    render: examples.Basic,
+    tags: ['skip-test-runner'], // тестируется в MinStepBetweenThumbs
+};
+
+export const Step: Story = {
+    args: {
+        controllable: true,
+        value: [1.2, 3.4],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: 0,
+        max: 10,
+        step: 0.1,
+        minStepsBetweenThumbs: 0,
+        disabled: false,
+    },
+    render: examples.Basic,
+    tags: ['skip-test-runner'],
+};
+
+export const MinStepBetweenThumbs: Story = {
+    args: {
+        controllable: true,
+        value: [1.2, 3.4],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: 0,
+        max: 10,
+        step: 0.1,
+        minStepsBetweenThumbs: 1,
+        disabled: false,
+    },
+    render: examples.Basic,
+    play: scenarios.minStepBetweenThumbs,
+};
+
+export const Markers: Story = {
+    args: {
+        controllable: true,
+        value: [9],
+        onValueChange: fn(),
+        onValueChangeEnd: fn(),
+        min: 0,
+        max: 20,
+        step: 3,
+        minStepsBetweenThumbs: 0,
+        disabled: false,
+    },
+    render: examples.Markers,
+};

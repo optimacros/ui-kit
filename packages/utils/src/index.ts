@@ -22,6 +22,8 @@ export {
     get,
     toString,
     isEqual,
+    cloneDeep,
+    uniqWith,
 } from 'lodash-es';
 
 export {
