@@ -8,7 +8,7 @@ const customSnapshotsDir = `${process.cwd()}/.storybook/__snapshots__`;
 const DEFAULT_VIEWPORT_SIZE = { width: 1920, height: 1080 };
 
 const config: TestRunnerConfig = {
-    logLevel: 'verbose',
+    logLevel: 'error',
     setup() {
         expect.extend({ toMatchImageSnapshot });
     },

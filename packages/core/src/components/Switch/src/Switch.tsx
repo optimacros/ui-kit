@@ -8,17 +8,25 @@ export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelec
         machine,
     });
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
-export const Root = forward<RootProps, 'label'>(({ children, ...context }, ref) => (
-    <RootProvider {...context}>
-        {(api) => (
-            <styled.label {...api.getRootProps()} ref={ref}>
-                {children}
-                <styled.input {...api.getHiddenInputProps()} />
-            </styled.label>
-        )}
-    </RootProvider>
-));
+export interface RootProps extends PropsWithChildren<ComponentProps<typeof RootProvider>> {
+    /** @default md */
+    size?: 'sm' | 'md' | 'lg';
+    /** @default primary */
+    color?: 'primary' | 'success' | 'danger';
+}
+
+export const Root = forward<RootProps, 'label'>(
+    ({ children, size = 'md', color = 'primary', ...context }, ref) => (
+        <RootProvider {...context}>
+            {(api) => (
+                <styled.label {...api.getRootProps()} ref={ref} data-size={size} data-color={color}>
+                    {children}
+                    <styled.input {...api.getHiddenInputProps()} />
+                </styled.label>
+            )}
+        </RootProvider>
+    ),
+);
 
 export const HiddenInput = forward<{}, 'input'>((props, ref) => {
     const api = useApi();
