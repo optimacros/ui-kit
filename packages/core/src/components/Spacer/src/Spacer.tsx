@@ -1,17 +1,23 @@
+import { forward, styled } from '@optimacros-ui/store';
 import { Orientation } from '@optimacros-ui/utils';
 
-export const Spacer = ({
-    orientation = Orientation.Vertical,
-    size = 1,
-    ...props
-}: { orientation?: 'vertical' | 'horizontal'; size: number }) => {
-    const style = {
-        display: orientation === 'horizontal' ? 'inline-block' : 'block',
-        flexShrink: 0,
-        ...(orientation === 'horizontal'
-            ? { width: `var(--spacing-${size})` }
-            : { height: `var(--spacing-${size})` }),
-    };
+interface Props {
+    orientation?: Orientation;
+    size?: number;
+}
 
-    return <div style={style} {...props} />;
-};
+export const Spacer = forward<Props, 'div'>(
+    ({ orientation = Orientation.Vertical, size = 1, style: styleProp, ...rest }, ref) => {
+        const style = {
+            ...styleProp,
+            display: orientation === 'horizontal' ? 'inline-block' : 'block',
+            flexShrink: 0,
+            ...(orientation === 'horizontal'
+                ? { width: `var(--spacing-${size})` }
+                : { height: `var(--spacing-${size})` }),
+        };
+
+        return <styled.div {...rest} style={style} ref={ref} />;
+    },
+    { displayName: 'Spacer' },
+);
