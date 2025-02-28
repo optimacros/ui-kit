@@ -1,152 +1,104 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Switch } from '.';
-import React from 'react';
+import * as examples from './examples';
+import * as scenarios from './__tests__/scenarios';
+import { ComponentProps } from 'react';
+import { fn } from '@storybook/test';
+
+const argTypes: Partial<ArgTypes<ComponentProps<typeof Switch.Root>>> = {
+    checked: {
+        control: 'boolean',
+        description: 'Whether the switch is checked.',
+    },
+    onCheckedChange: {
+        control: false,
+        description: 'Function called once checked state is changed',
+        table: { summary: { summary: '(details: CheckedChangeDetails) => void' } },
+    },
+    value: {
+        control: 'text',
+        description: 'The value of switch input. Useful for form submission.',
+        table: { summary: { summary: 'string | number' } },
+    },
+    disabled: {
+        control: 'boolean',
+        description: 'Whether the component is disabled',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    readOnly: {
+        control: 'boolean',
+        description: 'Whether the component is read-only',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    required: {
+        control: 'boolean',
+        description: 'Whether the component is required',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    invalid: {
+        control: 'boolean',
+        description: 'Whether the component is invalid',
+        table: { defaultValue: { summary: 'false' } },
+    },
+    as: { table: { disable: true } },
+    asChild: { table: { disable: true } },
+    defaultContext: { table: { disable: true } },
+    id: { table: { disable: true } },
+};
 
 const meta: Meta<typeof Switch.Root> = {
     title: 'Ui kit core/Switch',
     component: Switch.Root,
-    tags: ['autodocs'],
-    decorators: [
-        (Story) => (
-            <div style={{ padding: '2rem' }}>
-                <Story />
-            </div>
-        ),
-    ],
+    argTypes,
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Switch.Root>;
 
-// Basic Switch
-export const Default: Story = {
-    render: () => (
-        <Switch.Root>
-            <Switch.Control>
-                <Switch.Thumb />
-            </Switch.Control>
-            <Switch.Label>Enable notifications</Switch.Label>
-        </Switch.Root>
-    ),
-};
-
-// With different states
-export const States: Story = {
-    render: () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <Switch.Root defaultChecked>
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Checked by default</Switch.Label>
-            </Switch.Root>
-
-            <Switch.Root disabled>
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Disabled switch</Switch.Label>
-            </Switch.Root>
-
-            <Switch.Root disabled defaultChecked>
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Disabled checked</Switch.Label>
-            </Switch.Root>
-        </div>
-    ),
-};
-
-// Size variants
-export const Sizes: Story = {
-    render: () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <Switch.Root data-size="sm">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Small switch</Switch.Label>
-            </Switch.Root>
-
-            <Switch.Root data-size="md">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Medium switch</Switch.Label>
-            </Switch.Root>
-
-            <Switch.Root data-size="lg">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Large switch</Switch.Label>
-            </Switch.Root>
-        </div>
-    ),
-};
-
-// Color variants
-export const Colors: Story = {
-    render: () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <Switch.Root data-color="primary">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Primary</Switch.Label>
-            </Switch.Root>
-
-            <Switch.Root data-color="success">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Success</Switch.Label>
-            </Switch.Root>
-
-            <Switch.Root data-color="danger">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Danger</Switch.Label>
-            </Switch.Root>
-        </div>
-    ),
-};
-
-// Controlled example
-export const Controlled: Story = {
-    render: () => {
-        const [checked, setChecked] = React.useState(false);
-
-        return (
-            <Switch.Root checked={checked} onCheckedChange={({ checked }) => setChecked(checked)}>
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>{checked ? 'Active' : 'Inactive'}</Switch.Label>
-            </Switch.Root>
-        );
+export const Basic: Story = {
+    args: {
+        checked: true,
+        onCheckedChange: fn(),
+        value: 'checked',
+        disabled: false,
+        readOnly: false,
+        required: false,
+        invalid: false,
+        controllable: false,
     },
+    render: examples.Basic,
+    play: scenarios.basic,
 };
 
-// Label placement
-export const LabelPlacement: Story = {
-    render: () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <Switch.Root data-label-placement="start">
-                <Switch.Label>Label before</Switch.Label>
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-            </Switch.Root>
+export const States: Story = {
+    render: examples.States,
+};
 
-            <Switch.Root data-label-placement="end">
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Label after</Switch.Label>
-            </Switch.Root>
-        </div>
-    ),
+export const StatesHover: Story = {
+    parameters: { pseudo: { hover: true } },
+    render: examples.States,
+};
+
+export const Sizes: Story = {
+    render: examples.Sizes,
+};
+
+export const Colors: Story = {
+    render: examples.Colors,
+};
+
+export const ColorsHover: Story = {
+    parameters: { pseudo: { hover: true } },
+    render: examples.Colors,
+};
+
+export const Controlled: Story = {
+    args: { controllable: true },
+    render: examples.Controlled,
+    tags: ['skip-test-runner'],
+};
+
+export const LabelPlacement: Story = {
+    render: examples.LabelPlacement,
 };

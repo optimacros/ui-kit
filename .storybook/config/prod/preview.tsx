@@ -26,6 +26,7 @@ const previewProd: Preview = {
                 items: THEMES.map(({ value, label }) => ({ value, title: label })),
                 dynamicTitle: true,
             },
+            defaultValue: 'optimacros',
         },
     },
     tags: ['autodocs'],

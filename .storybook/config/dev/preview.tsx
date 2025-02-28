@@ -93,6 +93,7 @@ const previewDev: Preview = {
                 items: THEMES.map(({ value, label }) => ({ value, title: label })),
                 dynamicTitle: true,
             },
+            defaultValue: 'optimacros',
         },
     },
     initialGlobals: {
