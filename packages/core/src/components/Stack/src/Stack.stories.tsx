@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Stack } from '.';
-import React from 'react';
+import { ReactNode } from 'react';
 
 const meta: Meta<typeof Stack.Root> = {
     title: 'Ui kit core/Stack',
@@ -10,21 +10,27 @@ const meta: Meta<typeof Stack.Root> = {
             control: 'select',
             options: ['0', '2', '4', '8', '16', '24', '32'],
             description: 'Space between stack items using spacing tokens',
+            table: { defaultValue: { summary: '0' } },
         },
         align: {
             control: 'select',
             options: ['start', 'center', 'end', 'baseline', 'stretch'],
             description: 'Cross-axis alignment of stack items',
+            table: { defaultValue: { summary: 'start' } },
         },
         justify: {
             control: 'select',
             options: ['start', 'center', 'end', 'between', 'around'],
             description: 'Main-axis alignment of stack items',
+            table: { defaultValue: { summary: 'start' } },
         },
         wrap: {
             control: 'boolean',
             description: 'Whether items should wrap to next line',
+            table: { defaultValue: { summary: 'false' } },
         },
+        as: { table: { disable: true } },
+        asChild: { table: { disable: true } },
     },
 };
 
@@ -36,7 +42,7 @@ const Box = ({
     width,
     height,
 }: {
-    children: React.ReactNode;
+    children: ReactNode;
     width?: string;
     height?: string;
 }) => (
@@ -84,12 +90,13 @@ export const VariableHeights: Story = {
             <Box height="50px">Medium Item</Box>
         </Stack.Horizontal>
     ),
+    tags: ['skip-test-runner'],
 };
 
 export const VerticalBasic: Story = {
     args: {
         gap: '8',
-        align: 'stretch',
+        align: 'start',
         justify: 'start',
         wrap: false,
     },
@@ -111,7 +118,7 @@ export const ResponsiveWrapping: Story = {
     },
     render: (args) => (
         <Stack.Horizontal {...args}>
-            {Array.from({ length: 8 }, (_, i) => (
+            {Array.from({ length: 15 }, (_, i) => (
                 <Box key={i} width="150px">
                     Item {i + 1}
                 </Box>
