@@ -14,7 +14,7 @@
         "@optimacros-ui/store": "^2.0.3",
         "@optimacros-ui/types": "^2.0.3",
         "@optimacros-ui/utils": "^2.0.3",
-        "@zag-js/switch": "1.0.0",
+        "@zag-js/switch": "1.2.1",
         "react": "18.2.0"
     }
 }
