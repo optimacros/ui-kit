@@ -1,11 +1,14 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 
 import { FontIcon } from './index';
+import { ComponentProps } from 'react';
+import * as scenarios from './__tests__/scenarios';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof FontIcon>>> = {
     value: {
         control: 'text',
-        description: 'The key string for the icon you want be displayed or custom icon element.',
+        description:
+            'The key string for the icon you want be displayed or custom icon element. List of all available icons can be found here https://github.com/google/material-design-icons',
     },
     title: {
         control: 'text',
@@ -22,7 +25,10 @@ const argTypes: Partial<ArgTypes> = {
     className: {
         table: { disable: true },
     },
-    onClick: {
+    as: {
+        table: { disable: true },
+    },
+    asChild: {
         table: { disable: true },
     },
 };
@@ -38,21 +44,21 @@ type Story = StoryObj<typeof FontIcon>;
 
 export const Basic: Story = {
     args: {
-        value: 'close',
+        value: 'accessible_forward',
         alt: 'close icon',
+        title: 'close',
+        className: 'className',
     },
-};
-
-export const WithTooltip: Story = {
-    args: {
-        value: 'search',
-        title: 'description',
-    },
+    play: scenarios.basic,
 };
 
 export const CustomStyles: Story = {
     args: {
-        value: 'home',
+        value: 'not_accessible',
+        alt: 'close icon',
+        title: 'close',
+        className: 'className',
         style: { border: '1px solid black' },
     },
+    tags: ['skip-test-runner'],
 };
