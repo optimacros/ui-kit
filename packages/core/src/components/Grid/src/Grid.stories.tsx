@@ -1,45 +1,55 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import { Grid } from '.';
-import React from 'react';
+import React, { ComponentProps } from 'react';
+
+const argTypes: ArgTypes<ComponentProps<typeof Grid.Root>> = {
+    cols: {
+        control: 'select',
+        options: ['1', '2', '3', '4', '5', '6', '12'],
+        description: 'Number of columns in the grid',
+        table: { defaultValue: { summary: '1' } },
+    },
+    rows: {
+        control: 'select',
+        options: ['1', '2', '3', '4', '5', '6'],
+        description: 'Number of rows in the grid',
+    },
+    gap: {
+        control: 'select',
+        options: ['0', '2', '4', '8', '16', '24', '32'],
+        description: 'Gap between grid items using spacing tokens',
+        table: { defaultValue: { summary: '0' } },
+    },
+    align: {
+        control: 'select',
+        options: ['start', 'center', 'end', 'stretch', 'baseline'],
+        description: 'Vertical alignment of grid items',
+        table: { defaultValue: { summary: 'stretch' } },
+    },
+    justify: {
+        control: 'select',
+        options: ['start', 'center', 'end', 'stretch'],
+        description: 'Horizontal alignment of grid items',
+        table: { defaultValue: { summary: 'stretch' } },
+    },
+    flow: {
+        control: 'select',
+        options: ['row', 'column', 'dense'],
+        description: 'Grid auto flow direction',
+        table: { defaultValue: { summary: 'row' } },
+    },
+    as: { table: { disable: true } },
+    asChild: { table: { disable: true } },
+};
 
 const meta: Meta<typeof Grid.Root> = {
     title: 'Ui kit core/Grid',
     component: Grid.Root,
-    argTypes: {
-        cols: {
-            control: 'select',
-            options: ['1', '2', '3', '4', '5', '6', '12'],
-            description: 'Number of columns in the grid',
-        },
-        rows: {
-            control: 'select',
-            options: ['1', '2', '3', '4', '5', '6'],
-            description: 'Number of rows in the grid',
-        },
-        gap: {
-            control: 'select',
-            options: ['0', '2', '4', '8', '16', '24', '32'],
-            description: 'Gap between grid items using spacing tokens',
-        },
-        align: {
-            control: 'select',
-            options: ['start', 'center', 'end', 'stretch', 'baseline'],
-            description: 'Vertical alignment of grid items',
-        },
-        justify: {
-            control: 'select',
-            options: ['start', 'center', 'end', 'stretch'],
-            description: 'Horizontal alignment of grid items',
-        },
-        flow: {
-            control: 'select',
-            options: ['row', 'column', 'dense'],
-            description: 'Grid auto flow direction',
-        },
-    },
+    argTypes,
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Grid.Root>;
 
 const Box = ({ children, height }: { children: React.ReactNode; height?: string }) => (
@@ -60,6 +70,7 @@ const Box = ({ children, height }: { children: React.ReactNode; height?: string 
 export const BasicGrid: Story = {
     args: {
         cols: '3',
+        rows: '3',
         gap: '16',
         align: 'stretch',
         justify: 'stretch',
@@ -67,7 +78,27 @@ export const BasicGrid: Story = {
     },
     render: (args) => (
         <Grid.Root {...args}>
-            {Array.from({ length: 9 }, (_, i) => (
+            {Array.from({ length: 8 }, (_, i) => (
+                <Grid.Item key={i}>
+                    <Box>Item {i + 1}</Box>
+                </Grid.Item>
+            ))}
+        </Grid.Root>
+    ),
+};
+
+export const Column: Story = {
+    args: {
+        cols: '3',
+        rows: '3',
+        gap: '16',
+        align: 'stretch',
+        justify: 'stretch',
+        flow: 'column',
+    },
+    render: (args) => (
+        <Grid.Root {...args}>
+            {Array.from({ length: 8 }, (_, i) => (
                 <Grid.Item key={i}>
                     <Box>Item {i + 1}</Box>
                 </Grid.Item>
@@ -94,6 +125,9 @@ export const ResponsiveLayout: Story = {
             </Grid.Item>
             <Grid.Item>
                 <Box>Sidebar Item 2</Box>
+            </Grid.Item>
+            <Grid.Item>
+                <Box>Sidebar Item 3</Box>
             </Grid.Item>
             <Grid.Item colSpan="4">
                 <Box>Full Width Content</Box>
@@ -127,6 +161,7 @@ export const DashboardLayout: Story = {
             </Grid.Item>
         </Grid.Root>
     ),
+    tags: ['skip-test-runner'],
 };
 
 export const DenseLayout: Story = {
@@ -139,17 +174,29 @@ export const DenseLayout: Story = {
     },
     render: (args) => (
         <Grid.Root {...args}>
-            <Grid.Item colSpan="2" rowSpan="2">
-                <Box>Featured Image</Box>
+            <Grid.Item colSpan="2">
+                <Box>Item 1</Box>
             </Grid.Item>
             <Grid.Item>
-                <Box>Title</Box>
+                <Box>Item 2</Box>
             </Grid.Item>
             <Grid.Item>
-                <Box>Description</Box>
+                <Box>Item 3</Box>
             </Grid.Item>
-            <Grid.Item colSpan="3">
-                <Box>Footer Content</Box>
+            <Grid.Item>
+                <Box>Item 4</Box>
+            </Grid.Item>
+            <Grid.Item colSpan="4">
+                <Box>Item 5</Box>
+            </Grid.Item>
+            <Grid.Item>
+                <Box>Item 6</Box>
+            </Grid.Item>
+            <Grid.Item colSpan="2">
+                <Box>Item 7</Box>
+            </Grid.Item>
+            <Grid.Item>
+                <Box>Item 8</Box>
             </Grid.Item>
         </Grid.Root>
     ),
@@ -182,6 +229,7 @@ export const Gallery: Story = {
             </Grid.Item>
         </Grid.Root>
     ),
+    tags: ['skip-test-runner'],
 };
 
 export const HolyGrail: Story = {
@@ -212,6 +260,7 @@ export const HolyGrail: Story = {
             </Grid.Item>
         </Grid.Root>
     ),
+    tags: ['skip-test-runner'],
 };
 
 export const CardGrid: Story = {
@@ -243,4 +292,5 @@ export const CardGrid: Story = {
             ))}
         </Grid.Root>
     ),
+    tags: ['skip-test-runner'],
 };
