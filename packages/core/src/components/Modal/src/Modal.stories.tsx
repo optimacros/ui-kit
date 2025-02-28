@@ -11,14 +11,9 @@ const argTypes: ArgTypes<Partial<Modal.Props>> = {
         control: 'boolean',
         description: 'Whether the dialog is open',
     },
-    'open.controlled': {
+    defaultOpen: {
         control: 'boolean',
         description: 'Whether the dialog is controlled by the user',
-        table: { defaultValue: { summary: 'false' } },
-    },
-    controllable: {
-        control: 'boolean',
-        description: 'Whether the component handles props update',
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {
@@ -73,7 +68,6 @@ const argTypes: ArgTypes<Partial<Modal.Props>> = {
         description: `Function called when an interaction happens outside the component`,
         table: { type: { summary: '(event: InteractOutsideEvent) => void' } },
     },
-    defaultContext: { table: { disable: true } },
     id: { table: { disable: true } },
 };
 
@@ -81,6 +75,11 @@ const meta: Meta<typeof Modal.Root> = {
     title: 'UI Kit core/Modal',
     component: Modal.Root,
     argTypes,
+    args: {
+        open: undefined,
+        defaultOpen: false,
+        closeOnInteractOutside: true,
+    },
 };
 
 export default meta;
@@ -89,8 +88,6 @@ type Story = StoryObj<typeof Modal.Root>;
 
 export const Basic: Story = {
     args: {
-        controllable: false,
-        open: false,
         onOpenChange: fn(),
         onClose: fn(() => console.info('onclose 1')),
         preventScroll: true,
@@ -106,7 +103,7 @@ export const Basic: Story = {
 };
 
 export const Controlled: Story = {
-    args: { controllable: true, 'open.controlled': true },
+    args: {},
     render: stories.Controlled,
     tags: ['skip-test-runner'],
 };
@@ -142,7 +139,6 @@ export const CloseOnEscapeDisabled: Story = {
         onPointerDownOutside: fn(),
         onInteractOutside: fn(),
         closeOnEscape: false,
-        controllable: true,
     },
     render: stories.Basic,
     play: scenarios.closeOnEscape,
@@ -155,7 +151,6 @@ export const CloseOnInteractOutsideDisabled: Story = {
         onEscapeKeyDown: fn(),
         onPointerDownOutside: fn(),
         onInteractOutside: fn(),
-        controllable: true,
     },
     render: stories.Basic,
     play: scenarios.closeOnInteractOutside,

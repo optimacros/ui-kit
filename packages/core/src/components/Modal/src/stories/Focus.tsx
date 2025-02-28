@@ -1,15 +1,21 @@
 import { Button } from '@optimacros-ui/button';
 import { Modal } from '../index';
+import { useRef } from 'react';
 
 export const Focus = (props: Modal.Props) => {
-    const initialFocusEl = () => document.querySelector('#modal-input-2') as HTMLInputElement;
-    const finalFocusEl = () => document.querySelector('#modal-input-3') as HTMLInputElement;
+    const initialFocusEl = useRef<HTMLInputElement>(null);
+    const finalFocusEl = useRef<HTMLInputElement>(null);
 
     return (
         <>
-            <input placeholder="Enter name..." id="modal-input-3" />
+            <input placeholder="Enter name..." id="modal-input-3" ref={finalFocusEl} />
 
-            <Modal.Root {...props} initialFocusEl={initialFocusEl} finalFocusEl={finalFocusEl}>
+            <Modal.Root
+                {...props}
+                initialFocusEl={() => initialFocusEl.current}
+                finalFocusEl={() => finalFocusEl.current}
+                restoreFocus
+            >
                 <Modal.Trigger>Open</Modal.Trigger>
 
                 <Modal.Content>
@@ -19,7 +25,11 @@ export const Focus = (props: Modal.Props) => {
                     <Modal.ScrollContainer>
                         <p>Make changes to your profile here. Click save when you are done.</p>
                         <div>
-                            <input placeholder="Enter name..." id="modal-input-1" />
+                            <input
+                                placeholder="Enter name..."
+                                id="modal-input-1"
+                                ref={initialFocusEl}
+                            />
                             <input placeholder="Enter name..." id="modal-input-2" />
                             <button>Save</button>
                         </div>
