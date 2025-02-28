@@ -1,11 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { MarkdownEditorMode, Tabs } from './MarkdownEditor';
-import { convertStringToMarkdown } from './utils';
+import { MarkdownEditorMode, Tabs } from '../MarkdownEditor';
+import { convertStringToMarkdown } from '../utils';
 
 export interface MarkdownEditorState {
     value: string;
     setValue: (value: string) => void;
     parse: (str: string) => string;
+    disabled: boolean;
 }
 
 const MarkdownEditorContext = createContext<MarkdownEditorState>(null);
@@ -17,6 +18,7 @@ export const RootProvider = ({
     value: valueProp = '',
     onChange,
     children,
+    disabled = false,
 }) => {
     const [value, setValue] = useState(valueProp);
 
@@ -40,9 +42,11 @@ export const RootProvider = ({
 
     return (
         <MarkdownEditorContext.Provider
-            value={{ value, setValue: handleValueChange, parse: convertStringToMarkdown }}
+            value={{ value, setValue: handleValueChange, parse: convertStringToMarkdown, disabled }}
         >
-            <Tabs.Root value={activeTab}>{children}</Tabs.Root>
+            <Tabs.Root value={activeTab} loopFocus={true}>
+                {children}
+            </Tabs.Root>
         </MarkdownEditorContext.Provider>
     );
 };
