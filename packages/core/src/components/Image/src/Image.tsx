@@ -45,9 +45,18 @@ export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
         connect,
     });
 
+export type ImageRatio =
+    | 'square'
+    | 'portrait'
+    | 'landscape'
+    | 'wide'
+    | 'ultrawide'
+    | 'golden'
+    | 'custom';
+
 export const Root = forward<
     {
-        ratio: string;
+        ratio: ImageRatio;
     } & ComponentProps<typeof RootProvider>,
     'div'
 >(({ children, style, className, ratio, ...props }, ref) => {
