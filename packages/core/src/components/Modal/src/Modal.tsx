@@ -82,7 +82,7 @@ export const Trigger = forward<PropsWithChildren, 'button'>((props, ref) => {
 });
 
 export const Content = forward<PropsWithChildren, 'div'>(
-    (props, ref) => {
+    ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
@@ -90,7 +90,9 @@ export const Content = forward<PropsWithChildren, 'div'>(
                 <Portal>
                     <styled.div {...api.getBackdropProps()} />
                     <styled.div {...api.getPositionerProps()}>
-                        <styled.div {...props} {...api.getContentProps()} ref={ref} />
+                        <styled.div {...rest} {...api.getContentProps()} ref={ref}>
+                            {children}
+                        </styled.div>
                     </styled.div>
                 </Portal>
             )
