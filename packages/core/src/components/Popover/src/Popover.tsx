@@ -1,19 +1,28 @@
 import { ReactNode } from 'react';
 import { Portal } from '@zag-js/react';
 import * as machine from '@zag-js/popover';
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+
+export type Schema = ZagSchema<typeof machine>;
 
 export const {
     useApi,
     Api,
-    RootProvider: Root,
+    RootProvider,
     splitProps,
     useProxySelector,
     useSelector,
-} = createMachineContext<typeof machine, machine.Api>({
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
     id: 'popover',
     machine,
 });
+
+export const Root = RootProvider;
 
 export const Trigger = forward<{ children: ReactNode }, 'button'>((props, ref) => {
     const api = useApi();
