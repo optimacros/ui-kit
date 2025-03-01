@@ -1,8 +1,6 @@
 import { merge } from '@optimacros-ui/utils';
-import { MachineConfig } from '@zag-js/core';
+import { MachineSchema as BaseSchema, Machine as MachineConfig } from '@zag-js/core';
 import { ZagModule } from './types';
-import { BaseSchema } from 'node_modules/@zag-js/core/dist';
-import * as $ from '@optimacros-ui/types';
 /**
  * method for extending {@link ZagMachine}
  * @param stateMachine - any zag-js like module
@@ -13,7 +11,7 @@ import * as $ from '@optimacros-ui/types';
 export function extendMachine<
     Schema extends BaseSchema,
     Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
-    Config extends $.PartialDeep<MachineConfig<Schema>> = $.PartialDeep<MachineConfig<Schema>>,
+    Config extends Partial<MachineConfig<Schema>> = Partial<MachineConfig<Schema>>,
 >(stateMachine: Module, config: Config) {
     const machine = {
         ...merge(true, stateMachine.machine, config),
