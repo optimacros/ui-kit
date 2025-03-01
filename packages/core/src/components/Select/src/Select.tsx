@@ -1,18 +1,31 @@
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
-import * as select from '@zag-js/select';
+import * as machine from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Virtual } from '@optimacros-ui/virtual';
 import { PropTypes } from '@zag-js/types';
 
-export const { useApi, RootProvider, Api, useProxySelector, splitProps, useSelector } =
-    createMachineContext<typeof select, select.Api<PropTypes, ItemBase>>({
-        id: 'select',
-        machine: select,
-    });
+export type Schema = ZagSchema<typeof machine>;
 
-// TODO сделать чтобы select.collection сохранял key у итемов
+export const {
+    useApi,
+    RootProvider,
+    Api,
+    useProxySelector,
+    splitProps,
+    useSelector,
+    State,
+    slice,
+    useFeatureFlags,
+    useState,
+    select,
+} = createMachineContext<Schema, machine.Api<PropTypes, ItemBase>>({
+    id: 'select',
+    machine,
+});
+
+// TODO сделать чтобы machine.collection сохранял key у итемов
 export interface ItemBase {
     value: string;
     label?: string;
@@ -20,16 +33,16 @@ export interface ItemBase {
 }
 
 export const Root = forward<
-    select.CollectionOptions<ItemBase> & Omit<ComponentProps<typeof RootProvider>, 'collection'>,
+    machine.CollectionOptions<ItemBase> & Omit<ComponentProps<typeof RootProvider>, 'collection'>,
     'div'
 >((props, ref) => {
-    const { items, isItemDisabled, itemToString, itemToValue, controllable, ...rest } = props;
+    const { items, isItemDisabled, itemToString, itemToValue, ...rest } = props;
 
-    const [providerProps, divProps] = select.splitProps(rest as unknown);
+    const [providerProps, divProps] = machine.splitProps(rest as unknown);
 
     const collection = useMemo(
         () =>
-            select.collection({
+            machine.collection({
                 items,
                 isItemDisabled,
                 itemToString,
@@ -39,7 +52,7 @@ export const Root = forward<
     );
 
     return (
-        <RootProvider collection={collection} controllable={controllable} {...providerProps}>
+        <RootProvider collection={collection} {...providerProps}>
             {({ api }) => <styled.div {...divProps} {...api.getRootProps()} ref={ref} />}
         </RootProvider>
     );
@@ -166,7 +179,9 @@ export const VirtualList = forward<Virtual.ListProps, 'div'>(({ children, ...res
 });
 
 export const Item = forward<
-    select.ItemProps<ItemBase> & { children: ReactNode | ((props: select.ItemState) => ReactNode) },
+    machine.ItemProps<ItemBase> & {
+        children: ReactNode | ((props: machine.ItemState) => ReactNode);
+    },
     'li'
 >(({ item, persistFocus, children, ...rest }, ref) => {
     const api = useApi();
@@ -183,7 +198,7 @@ export const ItemLabel = forward<{}, 'span'>((props, ref) => {
     return <styled.span {...props} data-scope="select" data-part="item-label" ref={ref} />;
 });
 
-export const ItemIndicator = forward<select.ItemProps<ItemBase>, 'span'>(
+export const ItemIndicator = forward<machine.ItemProps<ItemBase>, 'span'>(
     ({ item, persistFocus, ...rest }, ref) => {
         const api = useApi();
 
@@ -197,7 +212,7 @@ export const ItemIndicator = forward<select.ItemProps<ItemBase>, 'span'>(
     },
 );
 
-export const ItemDeleteTrigger = forward<select.ItemProps<ItemBase>, 'button'>(
+export const ItemDeleteTrigger = forward<machine.ItemProps<ItemBase>, 'button'>(
     ({ item, ...rest }, ref) => {
         const api = useApi();
 
