@@ -43,16 +43,16 @@ export const machine = extendMachine<Schema, typeof loader>(loader, {
 
         return {
             ...loader.machine.context(params),
-            multicolor: bindable<Schema['context']['multicolor']>(() => ({
+            multicolor: bindable(() => ({
                 defaultValue: false,
             })),
-            running: bindable<Schema['context']['running']>(() => ({
+            running: bindable(() => ({
                 defaultValue: prop('defaultRunning'),
             })),
-            state: bindable<Schema['context']['state']>(() => ({
+            state: bindable(() => ({
                 defaultValue: 'determinate',
             })),
-            timer: bindable<Schema['context']['timer']>(() => ({
+            timer: bindable(() => ({
                 defaultValue: null,
             })),
         };
