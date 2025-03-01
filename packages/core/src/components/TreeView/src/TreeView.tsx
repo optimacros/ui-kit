@@ -26,7 +26,7 @@ export const Root = forward<RootProps, 'div'>(({ children, menuItems, ...context
 
     return (
         <RootProvider {...context} collection={collection}>
-            {(api) => (
+            {({ api }) => (
                 <styled.div {...api.getRootProps()} ref={ref}>
                     {children}
                 </styled.div>

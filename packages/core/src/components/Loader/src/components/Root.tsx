@@ -9,9 +9,9 @@ export const Root = forward<Props, 'div'>(
     ({ children, ...context }, ref) => {
         return (
             <RootProvider {...context}>
-                {(api) => (
-                    <styled.div ref={ref} {...api.getRootProps()}>
-                        {isFunction(children) ? children(api) : children}
+                {(ctx) => (
+                    <styled.div ref={ref} {...ctx.api.getRootProps()}>
+                        {isFunction(children) ? children(ctx) : children}
                     </styled.div>
                 )}
             </RootProvider>

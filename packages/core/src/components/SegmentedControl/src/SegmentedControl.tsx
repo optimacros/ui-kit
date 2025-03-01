@@ -53,7 +53,7 @@ export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelec
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => (
     <RootProvider {...context}>
-        {(api) => (
+        {({ api }) => (
             <styled.div {...api.getRootProps()} ref={ref}>
                 {children}
             </styled.div>

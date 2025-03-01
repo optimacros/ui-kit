@@ -69,15 +69,15 @@ export const Root = forward<
 >(({ children, style, className, ratio, ...props }, ref) => {
     return (
         <RootProvider {...props}>
-            {(api) => (
+            {(ctx) => (
                 <styled.div
-                    {...api.getRootProps()}
+                    {...ctx.api.getRootProps()}
                     ref={ref}
                     style={style}
                     className={className}
                     data-aspect-ratio={ratio}
                 >
-                    {isFunction(children) ? children(api) : children}
+                    {isFunction(children) ? children(ctx) : children}
                 </styled.div>
             )}
         </RootProvider>

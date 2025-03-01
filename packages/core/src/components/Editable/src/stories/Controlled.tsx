@@ -43,7 +43,7 @@ export const Controlled = ({ edit: editProp, value: valueProp, ...rest }: Editab
             onValueRevert={handleValueRevert}
             onEditChange={handleEditChange}
         >
-            {(api) => (
+            {({ api }) => (
                 <Editable.Root data-testid="root">
                     <Editable.Label>Label</Editable.Label>
                     <Editable.Area>

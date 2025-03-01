@@ -48,7 +48,7 @@ export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelec
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 export const Toggle = forward<RootProps, 'label'>(({ children, ...context }, ref) => (
     <RootProvider {...context}>
-        {(api) => (
+        {({ api }) => (
             <styled.label {...api.getRootProps()} ref={ref}>
                 <styled.div {...api.getControlProps()}>{children}</styled.div>
                 <styled.input {...api.getHiddenInputProps()} />

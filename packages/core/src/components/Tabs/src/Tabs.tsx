@@ -226,7 +226,7 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> &
     variant?: 'primary' | 'secondary';
 };
 const BaseRoot = forward<RootProps, 'div'>(({ children, variant, className, ...rest }, ref) => {
-    const rootProps = useSelector((api) => api.getRootProps());
+    const rootProps = useSelector(({ api }) => api.getRootProps());
     const { syncTabs } = useApi();
 
     useEffect(() => {
@@ -253,7 +253,7 @@ export const Root = forward<RootProps, 'div'>(
 );
 
 export const List = forward<{ children: ReactNode }, 'ul'>((props, ref) => {
-    const listProps = useProxySelector((api) => api.getListProps());
+    const listProps = useProxySelector(({ api }) => api.getListProps());
     const { draggable, handleDragEnd } = useApi();
 
     if (draggable) {

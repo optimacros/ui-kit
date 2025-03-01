@@ -73,9 +73,9 @@ export function createMachineContext<
     } = createHooks(`${id}Api`, {} as ReturnType<typeof useMachine>, true);
 
     function useApi() {
-        const api = useProxySelector((s) => s.api as Api);
+        const { api } = useState();
 
-        return api;
+        return api as Api;
     }
 
     const { State: Api } = createHelpers<Api, { useState: typeof useApi }>(`${id}Api`, {

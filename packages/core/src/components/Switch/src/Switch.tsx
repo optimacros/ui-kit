@@ -18,7 +18,7 @@ export interface RootProps extends PropsWithChildren<ComponentProps<typeof RootP
 export const Root = forward<RootProps, 'label'>(
     ({ children, size = 'md', color = 'primary', ...context }, ref) => (
         <RootProvider {...context}>
-            {(api) => (
+            {({ api }) => (
                 <styled.label {...api.getRootProps()} ref={ref} data-size={size} data-color={color}>
                     {children}
                     <styled.input {...api.getHiddenInputProps()} />

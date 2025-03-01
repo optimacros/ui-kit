@@ -40,7 +40,7 @@ export const Root = forward<
 
     return (
         <RootProvider collection={collection} controllable={controllable} {...providerProps}>
-            {(api) => <styled.div {...divProps} {...api.getRootProps()} ref={ref} />}
+            {({ api }) => <styled.div {...divProps} {...api.getRootProps()} ref={ref} />}
         </RootProvider>
     );
 });
@@ -117,7 +117,7 @@ export const Value = forward<{}, 'span'>((props, ref) => {
 
 export const List = forward<{ children: (item: ItemBase, index: number) => ReactNode }, 'ul'>(
     ({ children, ...rest }, ref) => {
-        const items = useProxySelector((api) => api.collection.items);
+        const items = useProxySelector(({ api }) => api.collection.items);
 
         return (
             <styled.ul {...rest} data-scope="select" data-part="list" ref={ref}>

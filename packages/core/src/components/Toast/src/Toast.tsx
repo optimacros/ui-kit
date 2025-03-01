@@ -17,7 +17,7 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 export const Root = forward<RootProps, 'div'>(({ children, className, ...context }, ref) => {
     return (
         <RootProvider {...context}>
-            {(api) => (
+            {({ api }) => (
                 <styled.div className={className} {...api.getRootProps()} ref={ref}>
                     <styled.span {...api.getGhostBeforeProps()} />
                     {children}

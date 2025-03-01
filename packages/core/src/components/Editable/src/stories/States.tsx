@@ -7,7 +7,7 @@ export const States = (props: EditableProps) => {
         <Flex direction="column" gap={4}>
             <Flex direction="column" gap={2}>
                 <Editable.RootProvider {...props} invalid value="invalid">
-                    {(api) => (
+                    {({ api }) => (
                         <Editable.Root data-testid="root">
                             <Editable.Label>Invalid</Editable.Label>
                             <Editable.Area>
@@ -30,7 +30,7 @@ export const States = (props: EditableProps) => {
 
             <Flex direction="column" gap={2}>
                 <Editable.RootProvider {...props} disabled value="disabled">
-                    {(api) => (
+                    {({ api }) => (
                         <Editable.Root data-testid="root">
                             <Editable.Label>Disabled</Editable.Label>
                             <Editable.Area>
@@ -53,7 +53,7 @@ export const States = (props: EditableProps) => {
 
             <Flex direction="column" gap={2}>
                 <Editable.RootProvider {...props} readOnly value="readOnly">
-                    {(api) => (
+                    {({ api }) => (
                         <Editable.Root data-testid="root">
                             <Editable.Label>Read only</Editable.Label>
                             <Editable.Area>
@@ -76,7 +76,7 @@ export const States = (props: EditableProps) => {
 
             <Flex direction="column" gap={2}>
                 <Editable.RootProvider {...props} required value="required">
-                    {(api) => (
+                    {({ api }) => (
                         <Editable.Root data-testid="root">
                             <Editable.Label>Required</Editable.Label>
                             <Editable.Area>

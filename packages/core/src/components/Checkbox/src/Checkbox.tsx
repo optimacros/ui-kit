@@ -26,7 +26,7 @@ export const Root = forward<RootProps, 'label'>(
 
         return (
             <RootProvider {...context}>
-                {(api) => (
+                {({ api }) => (
                     <styled.label
                         {...props}
                         {...api.getRootProps()}

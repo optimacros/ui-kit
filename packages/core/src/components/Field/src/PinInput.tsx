@@ -24,7 +24,7 @@ export const Input = forward<ComponentProps<typeof RootProvider> & { pins?: numb
     ({ children, pins = 4, name, ...context }, ref) => {
         return (
             <RootProvider {...context}>
-                {(api) => (
+                {({ api }) => (
                     <>
                         <styled.div {...api.getRootProps()}>
                             {new Array(pins).fill(0).map((_, index) => (
