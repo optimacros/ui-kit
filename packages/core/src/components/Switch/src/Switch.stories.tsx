@@ -42,7 +42,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Switch.Root>>> = {
     },
     as: { table: { disable: true } },
     asChild: { table: { disable: true } },
-    defaultContext: { table: { disable: true } },
     id: { table: { disable: true } },
 };
 
@@ -58,14 +57,13 @@ type Story = StoryObj<typeof Switch.Root>;
 
 export const Basic: Story = {
     args: {
-        checked: true,
+        defaultChecked: true,
         onCheckedChange: fn(),
         value: 'checked',
         disabled: false,
         readOnly: false,
         required: false,
         invalid: false,
-        controllable: false,
     },
     render: examples.Basic,
     play: scenarios.basic,
@@ -94,7 +92,6 @@ export const ColorsHover: Story = {
 };
 
 export const Controlled: Story = {
-    args: { controllable: true },
     render: examples.Controlled,
     tags: ['skip-test-runner'],
 };

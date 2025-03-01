@@ -1,12 +1,25 @@
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
 import * as machine from '@zag-js/switch';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createMachineContext<typeof machine, machine.Api>({
-        id: 'switch',
-        machine,
-    });
+export type Schema = ZagSchema<typeof machine>;
+
+export const {
+    RootProvider,
+    useApi,
+    Api,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
+    id: 'switch',
+    machine,
+});
 
 export interface RootProps extends PropsWithChildren<ComponentProps<typeof RootProvider>> {
     /** @default md */
