@@ -1,14 +1,6 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
+import { forward, styled } from '@optimacros-ui/store';
 
-type VisuallyHiddenProps = {
-    children: ReactNode;
-    className?: string;
-};
-
-export const VisuallyHidden = ({ children, className = '' }: VisuallyHiddenProps) => {
-    return (
-        <span data-scope="visually-hidden" data-part="root" className={className}>
-            {children}
-        </span>
-    );
-};
+export const VisuallyHidden = forward<PropsWithChildren, 'span'>((props, ref) => (
+    <styled.span {...props} data-scope="visually-hidden" data-part="root" ref={ref} />
+));
