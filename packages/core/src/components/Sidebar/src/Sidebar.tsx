@@ -1,66 +1,61 @@
 import * as collapsible from '@zag-js/collapsible';
 import {
-    ConnectMachine,
+    ConnectZagApi,
     createMachineContext,
-    ExtendedMachine,
+    ExtendSchema,
     forward,
-    MachineConfig,
-    MachineOptions,
     styled,
-    UserContext,
-    UserState,
 } from '@optimacros-ui/store';
 import { PropsWithChildren } from 'react';
 import { extendMachine } from '@optimacros-ui/store';
 
-const config = {
-    context: {
-        width: 300,
-        position: 'right',
-    } as {
-        width?: number;
-        position?: 'left' | 'right';
-    },
-    on: {
-        'WIDTH.SET': { actions: 'setWidth' },
-        'POSITION.SET': { actions: 'setPosition' },
-        TOGGLE: { actions: 'toggle' },
-    },
-} satisfies MachineConfig<collapsible.Service>;
-
-const options = {
-    actions: {
-        setWidth: (ctx, evt) => {
-            ctx.width = evt.value;
-        },
-        setPosition: (ctx, evt) => {
-            ctx.position = evt.value;
-        },
-        toggle: (ctx, evt) => {
-            ctx.open = !ctx.open;
-        },
-    },
-} satisfies MachineOptions<collapsible.Service, collapsible.Context, typeof config>;
-
-type State = UserState<typeof collapsible>;
-type Context = UserContext<collapsible.Context, typeof config>;
-
-export const machine = extendMachine(collapsible, config, options) satisfies ExtendedMachine<
+type Schema = ExtendSchema<
     typeof collapsible,
-    Context,
-    State
+    {
+        props: {
+            width?: number;
+            position?: 'left' | 'right';
+        };
+        action: 'setSize';
+        event: {
+            type: 'size.set';
+            value: { height?: number; width?: number };
+        };
+    }
 >;
 
-const connect = ((api, { state, send }, machine) => {
+export const machine = extendMachine<Schema, typeof collapsible>(collapsible, {
+    props(params) {
+        return {
+            width: 300,
+            position: 'right',
+            ...(params.props as Schema['props']),
+        };
+    },
+    on: {
+        'size.set': { actions: ['setSize'] },
+    },
+    implementations: {
+        actions: {
+            setSize: ({ context, event }) => {
+                const { value } = event;
+
+                context.set('size', value);
+            },
+        },
+    },
+});
+
+const connect = ((api, { send, prop }) => {
     return {
         ...api,
-        setWidth: (value) => send({ type: 'WIDTH.SET', value }),
+        setWidth: (width: number) => send({ type: 'size.set', value: { width } }),
         getPanelProps() {
             return {
                 ...api.getRootProps(),
                 'data-tag': 'sidebar',
-                'data-position': state.context.position,
-                style: { width: api.open ? state.context.width : 0 },
+                'data-position': prop('position'),
+                style: { width: api.open ? prop('width') : 0 },
             };
         },
         getHeaderProps() {
@@ -68,13 +63,13 @@ const connect = ((api, { state, send }, machine) => {
                 'data-tag': 'sidebar',
                 'data-scope': 'collapsible',
                 'data-part': 'header',
-                'data-position': state.context.position,
+                'data-position': prop('position'),
             };
         },
         getMiniPanelProps() {
             return {
-                'data-position': state.context.position,
-                'data-disabled': state.context.disabled,
+                'data-position': prop('position'),
+                'data-disabled': prop('disabled'),
                 'data-tag': 'sidebar',
                 'data-scope': 'collapsible',
                 'data-part': 'mini-panel',
@@ -83,7 +78,7 @@ const connect = ((api, { state, send }, machine) => {
         },
         getCloseTriggerProps() {
             return {
-                'data-position': state.context.position,
+                'data-position': prop('position'),
                 'data-tag': 'sidebar',
                 'data-scope': 'collapsible',
                 'data-part': 'close-trigger',
@@ -92,30 +87,37 @@ const connect = ((api, { state, send }, machine) => {
         },
         getTriggerProps() {
             return {
-                'data-position': state.context.position,
+                'data-position': prop('position'),
                 'data-tag': 'sidebar',
                 'data-scope': 'collapsible',
                 'data-part': 'trigger',
-                onClick: () => send('TOGGLE'),
+                onClick: () => api.setOpen(!api.open),
             };
         },
     };
-}) satisfies ConnectMachine<collapsible.Api, Context, State>;
+}) satisfies ConnectZagApi<Schema, collapsible.Api>;
 
 export type Machine = typeof machine;
 
 export const {
     Api,
     useApi,
-    RootProvider: Root,
+    RootProvider,
     splitProps,
     useProxySelector,
     useSelector,
-} = createMachineContext({
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
     id: 'collapsible',
     machine,
     connect,
 });
+
+export const Root = RootProvider;
 
 export const Panel = forward<PropsWithChildren, 'div'>(
     ({ children, ...rest }, ref) => {

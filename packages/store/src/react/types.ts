@@ -24,12 +24,13 @@ export type ExtendSchema<
     Module extends ZagModule<any, any, any>,
     TSchema extends BaseSchema,
     Schema extends BaseSchema = ZagSchema<Module>,
-> = Omit<Schema, 'props' | 'context' | 'refs' | 'computed' | 'action'> & {
+> = Omit<Schema, 'props' | 'context' | 'refs' | 'computed' | 'action' | 'event'> & {
     props: $.Merge<Schema['props'], TSchema['props']>;
     context: $.Merge<Schema['context'], TSchema['context']>;
     refs: $.Merge<Schema['refs'], TSchema['refs']>;
     computed: $.Merge<Schema['computed'], TSchema['computed']>;
     action: $.If.Unknown<TSchema['action'], Schema['action'], Schema['action'] | TSchema['action']>;
+    event: $.If.Unknown<TSchema['event'], Schema['event'], Schema['event'] | TSchema['event']>;
 };
 
 export type Selector<State> = (store: State, ...params) => any;

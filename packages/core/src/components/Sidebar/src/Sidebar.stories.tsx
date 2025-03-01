@@ -11,14 +11,9 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Sidebar.Root>>> = {
         control: 'boolean',
         table: { defaultValue: { summary: 'false' } },
     },
-    'open.controlled': {
+    defaultOpen: {
         control: 'boolean',
         description: 'Whether the collapsible is controlled by the user',
-        table: { defaultValue: { summary: 'false' } },
-    },
-    controllable: {
-        control: 'boolean',
-        description: 'Whether the component handles props update',
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {
@@ -47,6 +42,9 @@ const meta: Meta<typeof Sidebar.Root> = {
     title: 'UI Kit core/Sidebar',
     component: Sidebar.Root,
     argTypes,
+    args: {
+        defaultOpen: false,
+    },
 };
 
 export default meta;
@@ -55,10 +53,7 @@ type Story = StoryObj<typeof Sidebar.Root>;
 
 export const Basic: Story = {
     args: {
-        open: false,
         position: 'right',
-        'open.controlled': false,
-        controllable: false,
         onOpenChange: fn(),
         disabled: false,
         width: 300,
@@ -69,7 +64,7 @@ export const Basic: Story = {
 
 export const PositionLeft = {
     args: {
-        open: false,
+        defaultOpen: false,
         position: 'left',
     },
     render: examples.Basic,
@@ -78,7 +73,7 @@ export const PositionLeft = {
 export const Disabled = {
     args: {
         disabled: true,
-        open: false,
+        defaultOpen: false,
         position: 'right',
     },
     render: examples.Basic,
@@ -86,7 +81,7 @@ export const Disabled = {
 
 export const FullWidth = {
     args: {
-        open: true,
+        defaultOpen: true,
         width: '100%',
     },
     render: examples.Basic,
