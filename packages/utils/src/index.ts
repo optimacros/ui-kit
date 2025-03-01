@@ -18,6 +18,7 @@ export {
     map,
     times,
     omit,
+    first,
     last,
     get,
     toString,

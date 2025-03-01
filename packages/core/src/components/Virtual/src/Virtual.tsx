@@ -1,15 +1,10 @@
 import { createReactStore, forward, styled } from '@optimacros-ui/store';
-import { ReactElement, ReactNode, useEffect } from 'react';
-import {
-    Virtuoso,
-    VirtuosoGrid,
-    VirtuosoGridProps,
-    VirtuosoHandle,
-    VirtuosoProps,
-} from 'react-virtuoso';
+import { ReactElement, useEffect } from 'react';
+import { Virtuoso, VirtuosoGrid, VirtuosoGridProps, VirtuosoHandle } from 'react-virtuoso';
+// TODO сторибук не генерирует документацию, когда этот интерфейс импортируется из 'react-virtuoso'
+import type { VirtuosoProps } from './models';
 
 type VirtualContainerBase = {
-    items?: Array<ReactNode>;
     children: (data: any, i, context: any) => ReactElement;
 };
 
@@ -54,6 +49,7 @@ export const Root = forward<{}, 'div'>((props, ref) => (
 
 export type ListProps = VirtualContainerBase &
     Omit<VirtuosoProps<any, any>, 'children' | 'components'>;
+
 export const List = forward<ListProps, VirtuosoHandle>(
     ({ children, ...rest }, ref) => {
         const components = useSelector(({ components }) => components);
@@ -79,6 +75,7 @@ export const List = forward<ListProps, VirtuosoHandle>(
 );
 
 export type GridProps = VirtualContainerBase & VirtuosoGridProps<any, any>;
+
 export const Grid = forward<GridProps, VirtuosoHandle>(
     (props, ref) => {
         return (

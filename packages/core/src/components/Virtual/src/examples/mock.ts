@@ -14,3 +14,5 @@ export const createMockItems = (count: number) => {
         { count },
     );
 };
+
+export const randomItems = createMockItems(100);
