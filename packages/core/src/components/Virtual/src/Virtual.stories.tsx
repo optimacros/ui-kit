@@ -1,32 +1,23 @@
 import { Virtual } from '.';
-import { Meta } from '@storybook/react';
-import { createMockItems } from './mock';
+import { Meta, StoryObj } from '@storybook/react';
+import * as examples from './examples';
+import * as scenarios from './__tests__/scenarios';
+import { createMockItems } from './examples/mock';
 
-export default {
+const meta: Meta<typeof Virtual.List> = {
     title: 'UI Kit core/Virtual',
     component: Virtual.List,
-    tags: ['skip-test-runner'],
-} as Meta;
+};
 
-const randomItems = createMockItems(1000);
+export default meta;
 
-export const Base = () => {
-    return (
-        <Virtual.Root
-            style={{
-                width: 300,
-                height: 700,
-            }}
-        >
-            <Virtual.List data={randomItems} topItemCount={1}>
-                {({ id, value, style }) => (
-                    <Virtual.Item id={id} style={style}>
-                        {value}
-                    </Virtual.Item>
-                )}
-            </Virtual.List>
+type Story = StoryObj<typeof Virtual.List>;
 
-            <Virtual.Footer>i am footer</Virtual.Footer>
-        </Virtual.Root>
-    );
+export const Basic: Story = {
+    args: {
+        topItemCount: 1,
+        data: createMockItems(100),
+    },
+    render: examples.Basic,
+    play: scenarios.basic,
 };
