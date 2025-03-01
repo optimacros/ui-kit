@@ -1,35 +1,39 @@
 import { PropsWithChildren, ComponentProps, useMemo } from 'react';
-import { ConnectMachine, forward, styled, UserContext, UserState } from '@optimacros-ui/store';
+import { ConnectZagApi, forward, styled, ZagSchema } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createMachineContext } from '@optimacros-ui/store';
 import * as machine from '@zag-js/slider';
 
-export type State = UserState<typeof machine>;
+export type Schema = ZagSchema<typeof machine>;
 
-export type Context = UserContext<machine.Context, {}>;
-
-const connect = ((api, { state }) => {
+const connect = ((api, { prop }) => {
     return {
         ...api,
-        min: state.context.min,
-        max: state.context.max,
-        step: state.context.step,
+        min: prop('min'),
+        max: prop('max'),
+        step: prop('step'),
     };
-}) satisfies ConnectMachine<machine.Api, Context, State>;
+}) satisfies ConnectZagApi<Schema, machine.Api>;
 
 export const {
     Api,
-    RootProvider: Root,
+    RootProvider,
     useApi,
     useProxySelector,
     useSelector,
     splitProps,
-} = createMachineContext({
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
     id: 'slider',
     machine,
     connect,
 });
 
+export const Root = RootProvider;
 export type ContainerProps = PropsWithChildren &
     Omit<ComponentProps<typeof Root>, 'aria-label' | 'aria-labelledby'>;
 

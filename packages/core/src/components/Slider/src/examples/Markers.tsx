@@ -22,7 +22,7 @@ export const Markers = (props: ComponentProps<typeof Slider.Root>) => {
                 </Slider.Container>
             </Slider.Root>
 
-            <Slider.Root {...props} value={[10]} step={2}>
+            <Slider.Root {...props} defaultValue={[10]} step={2}>
                 <Slider.Container>
                     <Flex>
                         <Slider.Label>Quantity:&nbsp;</Slider.Label>
