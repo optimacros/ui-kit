@@ -1,18 +1,16 @@
 import {
-    ConnectMachine,
+    ConnectZagApi,
     createMachineContext,
     forward,
     styled,
-    UserContext,
-    UserState,
+    ZagSchema,
 } from '@optimacros-ui/store';
 import * as machine from '@zag-js/radio-group';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-type State = UserState<typeof machine>;
-type Context = UserContext<machine.Context, {}>;
+export type Schema = ZagSchema<typeof machine>;
 
-const connect = ((api, { state, send }, machine) => {
+const connect = ((api, service) => {
     return {
         ...api,
         getRootProps() {
@@ -41,14 +39,25 @@ const connect = ((api, { state, send }, machine) => {
             };
         },
     };
-}) satisfies ConnectMachine<machine.Api, Context, State>;
+}) satisfies ConnectZagApi<Schema, machine.Api>;
 
-export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createMachineContext({
-        id: 'radio',
-        machine,
-        connect,
-    });
+export const {
+    RootProvider,
+    useApi,
+    Api,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
+    id: 'radio',
+    machine,
+    connect,
+});
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => (

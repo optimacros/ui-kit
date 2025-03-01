@@ -29,8 +29,6 @@ const argTypes: ArgTypes<Partial<ComponentProps<typeof RadioGroup.Root>>> = {
     as: { table: { disable: true } },
     asChild: { table: { disable: true } },
     id: { table: { disable: true } },
-    defaultContext: { table: { disable: true } },
-    controllable: { table: { disable: true } },
 };
 
 const meta: Meta<typeof RadioGroup.Root> = {
@@ -49,12 +47,12 @@ export const Base: Story = {
 };
 
 export const Checked: Story = {
-    args: { value: 'gradient' },
+    args: { defaultValue: 'gradient' },
     render: stories.Basic,
 };
 
 export const Controlled: Story = {
-    args: { value: 'gradient', controllable: true },
+    args: { defaultValue: 'gradient' },
     render: stories.Controlled,
     tags: ['skip-test-runner'], // чекед\нечекед сфоткали в Checked
 };

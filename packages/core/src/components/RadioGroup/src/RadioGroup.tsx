@@ -1,12 +1,25 @@
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
 import * as radio from '@zag-js/radio-group';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createMachineContext<typeof radio, radio.Api>({
-        id: 'radio',
-        machine: radio,
-    });
+export type Schema = ZagSchema<typeof radio>;
+
+export const {
+    RootProvider,
+    useApi,
+    Api,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, radio.Api>({
+    id: 'radio',
+    machine: radio,
+});
 
 export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
 export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => (
