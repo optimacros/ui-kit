@@ -43,11 +43,7 @@ const argTypes: ArgTypes<Partial<EditableProps>> = {
         description: 'Whether the editable is in edit mode.',
         table: { defaultValue: { summary: 'false' } },
     },
-    'edit.controlled': {
-        control: 'boolean',
-        description: 'Whether the editable is controlled',
-        table: { defaultValue: { summary: 'false' } },
-    },
+
     onEditChange: {
         control: false,
         description: `The callback that is called when the edit mode is changed`,
@@ -152,7 +148,7 @@ export const TextArea: Story = {
     },
     render: (props) => (
         <Editable.RootProvider {...props}>
-            {(api) => (
+            {({ api }) => (
                 <Editable.Root>
                     <Editable.Area>
                         <Editable.TextArea />

@@ -5,7 +5,7 @@ import { createUseFeatureFlagsHooks } from './useFeatureFlags';
 /* biome-ignore lint:wait */
 import type { UiKit } from '@optimacros-ui/kit-store';
 import { ConnectZagApi, Selector, ZagModule } from './types';
-import { BaseSchema } from '@zag-js/core';
+import { MachineSchema as BaseSchema } from '@zag-js/core';
 import { createHooks } from './hooks';
 import { createHelpers } from './helpers';
 

@@ -1,6 +1,6 @@
 import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
 import * as machine from '@zag-js/number-input';
-import { ComponentProps } from 'react';
+import { ComponentProps, PropsWithChildren } from 'react';
 import './number-input.css';
 
 type Schema = ZagSchema<typeof machine>;
@@ -21,7 +21,7 @@ export const {
     machine,
 });
 
-export const Root = forward<ComponentProps<typeof RootProvider>, {}>(
+export const Root = forward<ComponentProps<typeof RootProvider> & PropsWithChildren, 'div'>(
     ({ children, ...context }, ref) => {
         return (
             <RootProvider {...context}>

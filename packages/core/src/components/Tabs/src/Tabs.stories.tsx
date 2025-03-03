@@ -30,6 +30,7 @@ export const Base: StoryObj = {
                 activationMode="manual"
                 deselectable
                 tabs={tabs}
+                //@ts-ignore
                 onTabsChange={(t) => setTabs(() => t)}
                 useWheel
             >
@@ -258,6 +259,7 @@ export const DraggableOrdered: StoryObj = {
                 activationMode="manual"
                 deselectable
                 onTabsChange={(newTabs) => {
+                    //@ts-ignore
                     setTabs(newTabs);
                 }}
                 draggable
@@ -337,6 +339,7 @@ export const DraggableSwap = (props) => {
             deselectable
             draggableMode="swap"
             onTabsChange={(newTabs) => {
+                //@ts-ignore
                 setTabs(newTabs);
             }}
             draggable

@@ -30,12 +30,6 @@ const argTypes: ArgTypes<ComponentProps<typeof Image.Root>> = {
     id: {
         table: { disable: true },
     },
-    controllable: {
-        table: { disable: true },
-    },
-    defaultContext: {
-        table: { disable: true },
-    },
 };
 
 const meta: Meta<typeof Image.Root> = {
@@ -50,7 +44,7 @@ export default meta;
 type Story = StoryObj<typeof Image.Root>;
 
 export const Basic: Story = {
-    args: { controllable: true, ratio: 'square', onStatusChange: fn() },
+    args: { ratio: 'square', onStatusChange: fn() },
     render: examples.Basic,
     play: scenarios.basic,
     tags: ['!skip-test-runner'],

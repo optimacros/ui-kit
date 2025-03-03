@@ -2,7 +2,6 @@ import { fn } from '@storybook/test';
 import { Slider } from '..';
 
 export const props: Omit<Slider.ContainerProps, 'children'> = {
-    controllable: true,
     value: [33],
     onValueChange: fn(),
     onValueChangeEnd: fn(),

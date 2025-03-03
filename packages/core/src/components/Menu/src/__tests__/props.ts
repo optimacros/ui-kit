@@ -4,7 +4,6 @@ import { fn } from '@storybook/test';
 export const props: Partial<RootProps> = {
     open: false,
     onOpenChange: fn(),
-    'open.controlled': false,
     closeOnSelect: true,
     disabled: false,
     positioning: {
@@ -14,5 +13,4 @@ export const props: Partial<RootProps> = {
         strategy: 'absolute',
     },
     loopFocus: false,
-    controllable: true,
 };

@@ -1,6 +1,6 @@
 import { normalizeProps, useMachine } from '@zag-js/react';
 import { useId } from 'react';
-import { BaseSchema, Service } from '@zag-js/core';
+import { MachineSchema as BaseSchema, Service } from '@zag-js/core';
 import { ConnectZagApi, ZagModule } from './types';
 
 export function createMachineApiHook<

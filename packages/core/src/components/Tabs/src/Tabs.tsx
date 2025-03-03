@@ -71,6 +71,7 @@ export const DraggableTrigger = forward<
                         data-dragging={isDragging}
                         data-draggable-id={draggableId}
                         onPointerDown={(e) => {
+                            //@ts-ignore
                             apiProps?.onClick?.(e);
                             listeners?.onPointerDown?.(e);
                         }}
@@ -165,5 +166,11 @@ export const HiddenTabsList = forward<
     //     syncHiddenTabs();
     // }, [tabs]);
 
-    return hiddenTabs.map((tab) => children({ ...tab, onClickCapture: () => open(tab.value) }));
+    return hiddenTabs.map((tab) =>
+        children({
+            ...tab,
+            //@ts-ignore
+            onClickCapture: () => open(tab.value),
+        }),
+    );
 });

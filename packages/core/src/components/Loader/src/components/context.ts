@@ -97,7 +97,7 @@ export const machine = extendMachine<Schema, typeof loader>(loader, {
                     }
                 }, prop('speed'));
 
-                context.set('timer', timer);
+                context.set('timer', timer as unknown as number);
             },
             stop: ({ prop, context }) => {
                 if (context.get('running') && !prop('disabled')) {

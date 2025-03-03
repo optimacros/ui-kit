@@ -41,7 +41,12 @@ export function useSubmenu(parent: ReturnType<typeof useState>, props: Partial<S
         }
     }, []);
 
-    return { service, api, props: parent.api.getTriggerItemProps(api) };
+    return {
+        service,
+        api,
+        //@ts-ignore
+        props: parent.api.getTriggerItemProps(api),
+    };
 }
 
 export function useSubmenuApi() {

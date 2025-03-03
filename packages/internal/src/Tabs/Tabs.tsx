@@ -188,6 +188,7 @@ export const Tabs = memo(
                     useWheel
                     draggable={draggable}
                     draggableMode="ordered"
+                    //@ts-ignore
                     onTabsChange={(newTabs) => setTabs(() => newTabs)}
                     ref={ref}
                 >

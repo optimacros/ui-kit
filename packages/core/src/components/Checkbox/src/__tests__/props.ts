@@ -6,5 +6,4 @@ export const props: Omit<ComponentProps<typeof Checkbox.Root>, 'children'> = {
     checked: undefined,
     onCheckedChange: fn(),
     disabled: false,
-    controllable: true,
 };

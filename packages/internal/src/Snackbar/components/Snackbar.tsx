@@ -64,7 +64,9 @@ const SnackbarComponent = memo(
                 if (active) {
                     create();
                 } else {
-                    store.remove();
+                    //TODO: create removeAll method
+                    //@ts-ignore
+                    // store.remove();
                 }
             }, [active]);
 

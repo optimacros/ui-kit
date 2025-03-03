@@ -60,7 +60,7 @@ export const WithModal: Story = {
         return (
             <>
                 <Button onClick={() => setOpen(true)}>Open Modal</Button>
-                <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
+                <Modal.Root open={open} onOpenChange={handleOpenChange}>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
                     </Modal.Header>

@@ -43,7 +43,7 @@ export interface SliderProps {
 
 const Input = ({ min, max, defaultValue, className }) => {
     const [inputValue, setInputValue] = useState(() => defaultValue);
-    const { value, setValue } = Slider.useSelector((s) => s);
+    const { value, setValue } = Slider.useApi();
 
     useEffect(() => {
         value && setInputValue(() => value[0].toString());

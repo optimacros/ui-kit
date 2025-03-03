@@ -42,6 +42,7 @@ export const Container = forward<ContainerProps, 'div'>(
         const api = useApi();
 
         return (
+            //@ts-ignore
             <styled.div {...rest} {...api.getRootProps()} ref={ref}>
                 {children}
             </styled.div>
