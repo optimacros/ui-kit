@@ -1,6 +1,8 @@
 import { ComponentProps, ReactNode } from 'react';
 import * as tooltip from '@zag-js/tooltip';
-import { createMachineContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+
+export type Schema = ZagSchema<typeof tooltip>;
 
 export const {
     useApi,
@@ -9,7 +11,12 @@ export const {
     splitProps,
     useProxySelector,
     useSelector,
-} = createMachineContext<typeof tooltip, tooltip.Api>({
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, tooltip.Api>({
     id: 'Tooltip',
     machine: tooltip,
 });
