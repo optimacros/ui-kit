@@ -36,4 +36,4 @@ export * from '@optimacros-ui/favourite';
 export * from '@optimacros-ui/markdown-editor';
 export * from '@optimacros-ui/flex';
 export * from '@optimacros-ui/color-picker';
-export * from '@optimacros-ui/clipboard';
+export * from '@optimacros-ui/backdrop';

@@ -1,4 +1,4 @@
 {
     "extends": "../../../tsconfig.json",
-    "include": ["../Clipboard/src"]
+    "include": ["../Backdrop/src"]
 }
