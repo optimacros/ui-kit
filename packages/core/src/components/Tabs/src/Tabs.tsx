@@ -2,7 +2,7 @@ import { forward, styled } from '@optimacros-ui/store';
 import { ComponentProps, PropsWithChildren, ReactNode, useId, useRef } from 'react';
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
-import { RootProvider, useApi, useState } from './state';
+import { RootProvider, useApi } from './state';
 import { Tab } from './types';
 
 export const getTabIndex = (value: string) =>
@@ -149,22 +149,7 @@ export const HiddenTabsList = forward<
     { children: (tab: { value: string; disabled: boolean; onClick: any }) => any },
     'ul'
 >(({ children }, ref) => {
-    const { hiddenTabs, getListId, syncHiddenTabs, open, tabs } = useApi();
-    const { service } = useState();
-
-    // useEffect(() => {
-    //     const list = service.refs.get('tabsList');
-
-    //     const cb = () => syncHiddenTabs();
-
-    //     list && list.addEventListener('scroll', debounce(cb, 200));
-
-    //     return () => list && list.removeEventListener('scroll', cb);
-    // }, []);
-
-    // useEffect(() => {
-    //     syncHiddenTabs();
-    // }, [tabs]);
+    const { hiddenTabs, open } = useApi();
 
     return hiddenTabs.map((tab) =>
         children({

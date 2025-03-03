@@ -6,7 +6,14 @@ import {
 } from '@optimacros-ui/store';
 import * as tabs from '@zag-js/tabs';
 import { Tab } from '../types';
-import { preventTrackpadWheel, round, sortBy, swap } from '@optimacros-ui/utils';
+import {
+    debounce,
+    isVisibleInParentViewport,
+    preventTrackpadWheel,
+    round,
+    sortBy,
+    swap,
+} from '@optimacros-ui/utils';
 import { raf } from '@zag-js/dom-query';
 
 export type Schema = ExtendSchema<
@@ -46,6 +53,32 @@ export type Schema = ExtendSchema<
             | { type: 'ADD_TABS' };
     }
 >;
+
+const getHiddenTabs = (list: HTMLUListElement) => {
+    const containerNode = list;
+    if (!containerNode) {
+        return;
+    }
+    const newTabs = [];
+    const hiddenTabs = [];
+
+    for (const tab of containerNode.children) {
+        const tabProps = {
+            value: tab.getAttribute('data-value'),
+            disabled: typeof tab.getAttribute('data-disabled') === 'string' && true,
+            fixed: tab.getAttribute('data-fixed'),
+            index: parseInt(tab.getAttribute('data-index')),
+        };
+
+        newTabs.push(tabProps);
+
+        if (!isVisibleInParentViewport(containerNode, tab)) {
+            hiddenTabs.push(tabProps);
+        }
+    }
+
+    return hiddenTabs;
+};
 
 const machine = extendMachine<Schema, typeof tabs>(tabs, {
     props(params) {
@@ -95,6 +128,7 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
         SYNC_TABS: { actions: ['syncTabs'] },
         ADD_TABS: { actions: ['addTabs'] },
         REGISTER_TAB: { actions: ['registerTab'] },
+        SYNC_HIDDEN_TABS: { actions: ['syncHiddenTabs'] },
     },
     implementations: {
         actions: {
@@ -212,6 +246,11 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
 
                 raf(() => prop('onPositionChange')(ctx.get('tabs')));
             },
+            syncHiddenTabs({ refs, context }) {
+                const hiddenTabs = getHiddenTabs(refs.get('tabsList'));
+
+                context.set('hiddenTabs', hiddenTabs);
+            },
         },
     },
 });
@@ -224,8 +263,7 @@ const connect = ((api, { state, send, refs, context, prop }) => {
             parseInt(document.querySelector(`[data-value=${value}]`).getAttribute('data-index')),
         open: (value: string) => send({ type: 'OPEN', value }),
         setTabs: (value: Array<Tab>) => send({ type: 'SET_TABS', value }),
-        syncTabs: () => send({ type: 'SYNC_TABS', hiddenOnly: false }),
-        syncHiddenTabs: () => send({ type: 'SYNC_TABS', hiddenOnly: true }),
+        syncHiddenTabs: () => send({ type: 'SYNC_HIDDEN_TABS' }),
         scrollToActive: () => send({ type: 'SCROLL_TO_ACTIVE' }),
         last: () => send({ type: 'LAST' }),
         first: () => send({ type: 'FIRST' }),
@@ -244,7 +282,9 @@ const connect = ((api, { state, send, refs, context, prop }) => {
         handleDragEnd: (data: Tab, deltaX: number) => send({ type: 'DRAG_END', deltaX, data }),
         getListId: () => refs.get('tabsList')?.getAttribute('id'),
         getListProps: ({ element }: { element: HTMLUListElement }) => {
-            refs.set('tabsList', element);
+            element && refs.set('tabsList', element);
+
+            element && send({ type: 'SYNC_HIDDEN_TABS' });
 
             return {
                 ...api.getListProps(),
@@ -255,6 +295,7 @@ const connect = ((api, { state, send, refs, context, prop }) => {
 
                     send({ type: 'WHEEL', deltaY: e.deltaY });
                 },
+                onScroll: debounce(() => send({ type: 'SYNC_HIDDEN_TABS' }), 200),
             };
         },
         isActive: (value: string) => {
