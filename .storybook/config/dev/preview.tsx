@@ -6,6 +6,16 @@ import { setFigmaLink } from '../../utils';
 //@ts-ignore
 import { UiKitProviderDecorator } from '../Provider';
 import { THEMES } from '@optimacros-ui/themes';
+import { configure } from '@storybook/test';
+
+configure({
+    getElementError: (message) => {
+        const error = new Error(message);
+        error.name = 'TestingLibraryElementError';
+        error.stack = null;
+        return error;
+    },
+});
 
 const previewDev: Preview = {
     parameters: {
@@ -19,14 +29,6 @@ const previewDev: Preview = {
         },
         test: {
             dangerouslyIgnoreUnhandledErrors: true,
-            configure: {
-                getElementError: (message) => {
-                    const error = new Error(message);
-                    error.name = 'TestingLibraryElementError';
-                    error.stack = null;
-                    return error;
-                },
-            },
         },
     },
     decorators: [
