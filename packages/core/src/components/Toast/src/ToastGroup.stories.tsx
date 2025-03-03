@@ -1,10 +1,10 @@
-import { ToastGroup } from '.';
-import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { Toast } from '.';
+import * as toast from '@zag-js/toast';
+import { Meta, StoryObj } from '@storybook/react';
 import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
-import { ComponentProps } from 'react';
 
-const argTypes: Partial<ArgTypes<ComponentProps<typeof ToastGroup.RootProvider>>> = {
+const argTypes = {
     pauseOnPageIdle: {
         control: 'boolean',
         description: 'Whether to pause toast when the user leaves the browser tab',
@@ -38,31 +38,23 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof ToastGroup.RootProvider>>
         description: 'The default placement of the toast',
         table: { defaultValue: { summary: 'bottom' } },
     },
-    controllable: { table: { disable: true } },
     id: { table: { disable: true } },
-    defaultContext: { table: { disable: true } },
 };
 
-const meta: Meta<typeof ToastGroup.RootProvider> = {
-    title: 'UI Kit core/Toast/ToastGroup',
-    component: ToastGroup.RootProvider,
+const meta: Meta<typeof Toast.GroupProvider> = {
+    title: 'UI Kit core/Toast',
+    component: Toast.GroupProvider,
     argTypes,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ToastGroup.RootProvider>;
+type Story = StoryObj<toast.StoreProps>;
 
 export const Basic: Story = {
     args: {
-        controllable: false,
-        pauseOnPageIdle: false,
-        gap: 16,
-        max: Number.MAX_SAFE_INTEGER,
-        overlap: false,
-        duration: undefined,
-        removeDelay: undefined,
-        placement: 'bottom',
+        // placement: 'top',
+        // gap: 16,
     },
     render: examples.Basic,
     play: scenarios.basic,
@@ -84,6 +76,6 @@ export const Gap: Story = {
 };
 
 export const Overlap: Story = {
-    args: { overlap: true, max: 10, placement: 'top-start' },
+    args: { overlap: true, max: 10, placement: 'top-end' },
     render: examples.Types,
 };

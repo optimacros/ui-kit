@@ -1,9 +1,10 @@
-import { ComponentProps, useState } from 'react';
-import { Toast, ToastGroup } from '..';
+import { useMemo, useState } from 'react';
+import { Toast } from '..';
 import { Placement } from '@zag-js/toast';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
+import { createStore } from '../state';
 
 const types = ['info', 'error', 'success', 'loading', 'custom'];
 const placements = [
@@ -15,88 +16,57 @@ const placements = [
     'bottom-end',
 ] as Placement[];
 
-const Example = () => {
-    const [placement, setPlacement] = useState<Placement>('top-end');
+export const Basic = (props) => {
     const [type, setType] = useState('info');
 
-    const api = ToastGroup.useApi();
+    const store = useMemo(() => createStore(props), []);
 
+    const create = () => {
+        store.create({
+            duration: 5000,
+            title: 'lorem',
+            description:
+                'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
+        });
+    };
     return (
-        <Flex direction="column" gap={5}>
-            <Flex direction="row" gap={2}>
-                <span>type: </span>
-                <select
-                    value={type}
-                    onChange={(e) => {
-                        setType(e.target.value);
-                    }}
-                >
-                    {types.map((t) => (
-                        <option key={t}>{t}</option>
-                    ))}
-                </select>
+        <>
+            <Flex direction="column" gap={5}>
+                <Flex direction="row" gap={2}>
+                    <span>type: </span>
+                    <select
+                        value={type}
+                        onChange={(e) => {
+                            setType(e.target.value);
+                        }}
+                    >
+                        {types.map((t) => (
+                            <option key={t}>{t}</option>
+                        ))}
+                    </select>
+                </Flex>
+
+                <Button variant="accent" data-testid="create-trigger" onClick={create}>
+                    create toast
+                </Button>
             </Flex>
-
-            <Flex direction="row" gap={2}>
-                <span>placement: </span>
-                <select
-                    value={placement}
-                    onChange={(e) => {
-                        setPlacement(e.target.value as Placement);
-                    }}
-                >
-                    {placements.map((t) => (
-                        <option key={t}>{t}</option>
-                    ))}
-                </select>
+            <Flex direction="column" gap={5}>
+                <Toast.GroupProvider store={store}>
+                    <Toast.Group>
+                        {({ toast, index, parent }) => (
+                            <Toast.Root {...toast} index={index} parent={parent}>
+                                <Toast.Content>
+                                    <Toast.Title />
+                                    <Toast.Description />
+                                </Toast.Content>
+                                <Toast.CloseTrigger asChild>
+                                    <IconButton icon="close" variant="accent" />
+                                </Toast.CloseTrigger>
+                            </Toast.Root>
+                        )}
+                    </Toast.Group>
+                </Toast.GroupProvider>
             </Flex>
-
-            <Button
-                variant="accent"
-                data-testid="create-trigger"
-                onClick={() => {
-                    api.create({
-                        duration: 5000,
-                        title: 'Title',
-                        description:
-                            'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
-                        type,
-                        placement,
-                    });
-                }}
-            >
-                create toast
-            </Button>
-
-            <Button
-                data-testid="remove-trigger"
-                variant="accent"
-                onClick={() => {
-                    api.remove();
-                }}
-            >
-                remove all
-            </Button>
-
-            <ToastGroup.Portal>
-                {(toast) => (
-                    <Toast.Root actor={toast}>
-                        <Toast.Content>
-                            <Toast.Title />
-                            <Toast.Description />
-                        </Toast.Content>
-                        <Toast.CloseTrigger asChild>
-                            <IconButton icon="close" variant="accent" />
-                        </Toast.CloseTrigger>
-                    </Toast.Root>
-                )}
-            </ToastGroup.Portal>
-        </Flex>
+        </>
     );
 };
-
-export const Basic = (props: ComponentProps<typeof ToastGroup.RootProvider>) => (
-    <ToastGroup.RootProvider {...props}>
-        <Example />
-    </ToastGroup.RootProvider>
-);
