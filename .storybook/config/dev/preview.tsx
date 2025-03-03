@@ -18,7 +18,17 @@ const previewDev: Preview = {
             },
             disableSaveFromUI: true,
         },
-        test: { dangerouslyIgnoreUnhandledErrors: true },
+        test: {
+            dangerouslyIgnoreUnhandledErrors: true,
+            configure: {
+                getElementError: (message) => {
+                    const error = new Error(message);
+                    error.name = 'TestingLibraryElementError';
+                    error.stack = null;
+                    return error;
+                },
+            },
+        },
     },
     decorators: [
         // Load theme
