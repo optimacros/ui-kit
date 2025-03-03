@@ -28,13 +28,11 @@ const meta: Meta<typeof Favorite> = {
             action: 'changed',
             description: 'Callback fired when the favorite state changes',
         },
-        controllable: {
-            table: {
-                disable: true,
-            },
-        },
     },
     decorators: [(Story) => <Story />],
+    args: {
+        onChange: undefined,
+    },
 };
 
 export default meta;

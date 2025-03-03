@@ -127,12 +127,11 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
         return (
             <CheckboxCore.Root
                 name={name}
-                checked={checked}
+                defaultChecked={checked}
+                checked={isUndefined(onChange) ? undefined : checked}
                 disabled={disabled}
                 //@ts-ignore
                 onCheckedChange={(e) => onChange?.(e.checked, {})}
-                //TODO: think how to handle controllable use case without using flag outside
-                controllable={!isUndefined(onChange)}
                 className={theme.field}
                 {...rest}
             >

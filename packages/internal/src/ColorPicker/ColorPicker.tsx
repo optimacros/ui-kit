@@ -124,7 +124,7 @@ export const ColorPicker = memo(
                     )}
 
                     <UIColorPicker.RootProvider format="rgba" disabled={disabled}>
-                        {(api) => (
+                        {({ api }) => (
                             <UIColorPicker.Root ref={ref}>
                                 <ColorPickerComponent
                                     color={hexColor}
