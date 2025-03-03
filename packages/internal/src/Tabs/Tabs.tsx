@@ -13,7 +13,6 @@ import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
 import { Flex } from '@optimacros-ui/flex';
 import { TabButton } from './TabButton';
-import { flushSync } from 'react-dom';
 
 interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
     tabs?: Array<UITabs.Tab>;
@@ -48,8 +47,7 @@ const Content = memo(
 Content.displayName = 'Content';
 
 const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) => {
-    const setValue = UITabs.useProxySelector((api) => api.setValueIndex);
-    const draggable = UITabs.useSelector((api) => api.draggable);
+    const { setValueIndex: setValue, draggable } = UITabs.useApi();
 
     useEffect(() => {
         setValue(active);
@@ -134,7 +132,7 @@ export const Tabs = memo(
             const childrenArr = Children.toArray(children) as Array<ReactElement<TabProps>>;
 
             const [tabs, setTabs] = useState(() =>
-                childrenArr.map(({ props }) => {
+                childrenArr.map(({ props }, index) => {
                     const { isFixed, title: propsTitle, disabled } = props;
 
                     const title = typeof propsTitle === 'string' && propsTitle;
@@ -144,6 +142,7 @@ export const Tabs = memo(
                         value,
                         fixed: isFixed,
                         disabled,
+                        index,
                     };
                 }),
             );
@@ -177,6 +176,7 @@ export const Tabs = memo(
 
             return (
                 <UITabs.Root
+                    tabs={tabs}
                     activationMode="manual"
                     className={className}
                     onValueChange={(d) => {
@@ -188,15 +188,15 @@ export const Tabs = memo(
                     useWheel
                     draggable={draggable}
                     draggableMode="ordered"
-                    onTabsChange={(newTabs) => flushSync(() => setTabs(newTabs))}
+                    onTabsChange={(newTabs) => setTabs(() => newTabs)}
                     ref={ref}
                 >
                     {/** @ts-ignore */}
                     <TabsContent
                         {...rest}
+                        tabs={tabs}
                         theme={theme}
                         active={active}
-                        tabs={tabs}
                         meta={tabsMeta}
                     />
                 </UITabs.Root>

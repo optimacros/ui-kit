@@ -6,7 +6,7 @@ import {
 } from '@optimacros-ui/store';
 import * as tabs from '@zag-js/tabs';
 import { Tab } from '../types';
-import { isVisibleInParentViewport, round, sortBy, swap } from '@optimacros-ui/utils';
+import { preventTrackpadWheel, round, sortBy, swap } from '@optimacros-ui/utils';
 import { raf } from '@zag-js/dom-query';
 
 export type Schema = ExtendSchema<
@@ -21,6 +21,7 @@ export type Schema = ExtendSchema<
             /** whether tabs are hidden */
             tabsHidden: boolean;
             useWheel: boolean;
+            tabs: Array<Tab>;
         };
         context: {
             tabs: Array<Tab>;
@@ -31,7 +32,18 @@ export type Schema = ExtendSchema<
             tabsList: HTMLUListElement;
         };
         action: 'scrollTo';
-        event: { type: 'SCROLL_TO'; value: '' };
+        event:
+            | { type: 'SCROLL_TO'; value: string }
+            | { type: 'REGISTER_TAB'; value: Tab }
+            | { type: 'LAST' }
+            | { type: 'FIRST' }
+            | { type: 'SCROLL_TO_ACTIVE' }
+            | { type: 'OPEN'; value: string }
+            | { type: 'WHEEL'; value: { data; deltaX } }
+            | { type: 'SET_TABS'; value: Array<Tab> }
+            | { type: 'DRAG_END' }
+            | { type: 'SYNC_TABS' }
+            | { type: 'ADD_TABS' };
     }
 >;
 
@@ -44,6 +56,7 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
             draggable: false,
             tabsHidden: false,
             useWheel: false,
+            tabs: [],
             ...tabs.machine.props(params),
         };
     },
@@ -54,12 +67,13 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
         };
     },
     context: (params) => {
-        const { bindable, getContext } = params;
+        const { bindable, getContext, prop } = params;
         return {
             ...tabs.machine.context(params),
             tabs: bindable<Array<Tab>>(() => {
                 return {
                     defaultValue: [],
+                    value: prop('tabs'),
                 };
             }),
             hiddenTabs: bindable<Array<Tab>>(() => {
@@ -80,11 +94,12 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
         DRAG_END: { actions: ['handleDragEnd'] },
         SYNC_TABS: { actions: ['syncTabs'] },
         ADD_TABS: { actions: ['addTabs'] },
+        REGISTER_TAB: { actions: ['registerTab'] },
     },
     implementations: {
         actions: {
             scrollTo: (service) => {
-                const { value } = service.event.current();
+                const { value } = service.event;
 
                 if (!value) {
                     return;
@@ -167,12 +182,14 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
                 }
             },
             setTabs: ({ context: ctx, event: { value }, prop }) => {
-                ctx.set('tabs', sortBy(value, ['fixed']));
+                const sortedTabs = sortBy(value, ['fixed']);
 
-                raf(() => prop('onTabsChange')(ctx.get('tabs')));
+                ctx.set('tabs', sortedTabs);
+
+                raf(() => prop('onTabsChange')(sortedTabs));
             },
-            handleDragEnd: ({ context: ctx, event: { data, deltaX }, send, prop }) => {
-                const element = document.querySelector(`[data-value="${data.value}"]`);
+            handleDragEnd: ({ context: ctx, event: { data, deltaX }, send, prop, refs }) => {
+                const element = refs.get('tabsList').querySelector(`[data-value="${data.value}"]`);
                 const currentIndex = data.index;
                 const rect = element.getBoundingClientRect();
 
@@ -194,29 +211,6 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
                 }
 
                 raf(() => prop('onPositionChange')(ctx.get('tabs')));
-            },
-            syncTabs: ({ context: ctx, event: { hiddenOnly }, send, refs }) => {
-                const containerNode = refs.get('tabsList');
-                const newTabs = [];
-                const hiddenTabs = [];
-
-                for (const tab of containerNode.children) {
-                    const tabProps = {
-                        value: tab.getAttribute('data-value'),
-                        disabled: typeof tab.getAttribute('data-disabled') === 'string' && true,
-                        fixed: tab.getAttribute('data-fixed'),
-                        index: parseInt(tab.getAttribute('data-index')),
-                    };
-
-                    newTabs.push(tabProps);
-
-                    if (!isVisibleInParentViewport(containerNode, tab)) {
-                        hiddenTabs.push(tabProps);
-                    }
-                }
-
-                !hiddenOnly && send({ type: 'SET_TABS', value: newTabs });
-                ctx.set('hiddenTabs', hiddenTabs);
             },
         },
     },
@@ -255,7 +249,12 @@ const connect = ((api, { state, send, refs, context, prop }) => {
             return {
                 ...api.getListProps(),
                 hidden: prop('tabsHidden'),
-                onWheel: (e) => send({ type: 'WHEEL', deltaY: e.deltaY }),
+                onWheel: (e) => {
+                    // turn wheel off on trackpads
+                    preventTrackpadWheel(e);
+
+                    send({ type: 'WHEEL', deltaY: e.deltaY });
+                },
             };
         },
         isActive: (value: string) => {

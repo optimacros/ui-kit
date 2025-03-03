@@ -1,6 +1,5 @@
 import { forward, styled } from '@optimacros-ui/store';
-import { debounce } from '@optimacros-ui/utils';
-import { ComponentProps, PropsWithChildren, ReactNode, useEffect, useId, useRef } from 'react';
+import { ComponentProps, PropsWithChildren, ReactNode, useId, useRef } from 'react';
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
 import { RootProvider, useApi, useState } from './state';
@@ -13,13 +12,9 @@ export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> &
     variant?: 'primary' | 'secondary';
 };
 const BaseRoot = forward<RootProps, 'div'>(({ children, variant, className, ...rest }, ref) => {
-    const { syncTabs, getRootProps } = useApi();
+    const { getRootProps } = useApi();
 
     const rootProps = getRootProps();
-
-    useEffect(() => {
-        syncTabs();
-    }, []);
 
     return (
         <styled.div {...rest} {...rootProps} ref={ref} data-variant={variant} className={className}>
@@ -40,31 +35,6 @@ export const Root = forward<RootProps, 'div'>(
     },
 );
 
-export const List = forward<{ children: ReactNode }, 'ul'>((props, externalRef) => {
-    const { draggable, handleDragEnd, getListProps } = useApi();
-
-    const internalRef = useRef<HTMLUListElement>(null);
-
-    const ref = externalRef ?? internalRef;
-
-    //@ts-ignore
-    const listProps = getListProps({ element: ref.current });
-
-    if (draggable) {
-        return (
-            <DraggableComponent.Root
-                onDragEnd={(event) =>
-                    handleDragEnd(event.active.data.current as Tab, event.delta.x)
-                }
-            >
-                <styled.ul {...listProps} {...props} ref={ref} />
-            </DraggableComponent.Root>
-        );
-    }
-
-    return <styled.ul {...listProps} {...props} ref={ref} />;
-});
-
 export const Trigger = forward<{ children: ReactNode } & Tab, 'li'>(
     ({ value, disabled, fixed, index, ...rest }, ref) => {
         const api = useApi();
@@ -78,12 +48,12 @@ export const Trigger = forward<{ children: ReactNode } & Tab, 'li'>(
 export const DraggableTrigger = forward<
     { children: ReactNode; nonDraggable?: boolean } & Tab,
     'li'
->(({ value, disabled, fixed, index, nonDraggable = false, ...rest }, ref) => {
+>(({ value, disabled, fixed, nonDraggable = false, index, ...rest }, ref) => {
     const id = useId();
 
     const api = useApi();
 
-    const apiProps = api.getTriggerProps({ value, disabled, fixed, index });
+    const apiProps = api.getTriggerProps({ value, disabled, fixed });
 
     return (
         <DraggableComponent.Item
@@ -132,6 +102,31 @@ export const DraggableTrigger = forward<
     );
 });
 
+export const List = forward<{ children: ReactNode }, 'ul'>((props, externalRef) => {
+    const { draggable, handleDragEnd, getListProps } = useApi();
+
+    const internalRef = useRef<HTMLUListElement>(null);
+
+    const ref = externalRef ?? internalRef;
+
+    //@ts-ignore
+    const listProps = getListProps({ element: ref.current });
+
+    if (draggable) {
+        return (
+            <DraggableComponent.Root
+                onDragEnd={(event) =>
+                    handleDragEnd(event.active.data.current as Tab, event.delta.x)
+                }
+            >
+                <styled.ul {...listProps} {...props} ref={ref} />
+            </DraggableComponent.Root>
+        );
+    }
+
+    return <styled.ul {...listProps} {...props} ref={ref} />;
+});
+
 export const Content = forward<{ children: ReactNode; value: string }, 'div'>(
     ({ value, ...rest }, ref) => {
         const api = useApi();
@@ -156,19 +151,19 @@ export const HiddenTabsList = forward<
     const { hiddenTabs, getListId, syncHiddenTabs, open, tabs } = useApi();
     const { service } = useState();
 
-    useEffect(() => {
-        const list = service.refs.get('tabsList');
+    // useEffect(() => {
+    //     const list = service.refs.get('tabsList');
 
-        const cb = () => syncHiddenTabs();
+    //     const cb = () => syncHiddenTabs();
 
-        list && list.addEventListener('scroll', debounce(cb, 200));
+    //     list && list.addEventListener('scroll', debounce(cb, 200));
 
-        return () => list && list.removeEventListener('scroll', cb);
-    }, []);
+    //     return () => list && list.removeEventListener('scroll', cb);
+    // }, []);
 
-    useEffect(() => {
-        syncHiddenTabs();
-    }, [tabs]);
+    // useEffect(() => {
+    //     syncHiddenTabs();
+    // }, [tabs]);
 
     return hiddenTabs.map((tab) => children({ ...tab, onClickCapture: () => open(tab.value) }));
 });
