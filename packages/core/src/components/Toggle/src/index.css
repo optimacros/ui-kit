@@ -1,0 +1,16 @@
+[data-scope='toggle'] {
+  &[data-part='root'] {
+    display: flex;
+  }
+
+  &[data-part='control'] {
+    cursor: pointer;
+    display: flex;
+    padding: var(--spacing-2);
+    border-radius: var(--radius-xs);
+    border: 1px solid #e6e6e6;
+    &[data-state='checked'] {
+      background-color: #e6e6e6;
+    }
+  }
+}

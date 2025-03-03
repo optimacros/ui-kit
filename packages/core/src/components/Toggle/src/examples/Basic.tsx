@@ -1,9 +1,9 @@
 import { ComponentProps } from 'react';
 import { Toggle } from '..';
-import { Button } from '@optimacros-ui/button';
+import { Icon } from '@optimacros-ui/icon';
 
 export const Basic = (props: ComponentProps<typeof Toggle>) => (
     <Toggle {...props}>
-        <Button>Click me</Button>
+        <Icon value="format_bold" />
     </Toggle>
 );

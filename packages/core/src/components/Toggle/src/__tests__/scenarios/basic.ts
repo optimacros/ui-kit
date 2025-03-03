@@ -69,7 +69,7 @@ export const basic = async ({
     const user = userEvent.setup();
 
     await step('check/uncheck (click)', async () => {
-        await user.click(controlContent);
+        await user.click(control);
 
         await waitFor(isUnChecked);
 
@@ -78,7 +78,7 @@ export const basic = async ({
 
         await window.takeScreenshot?.('unchecked');
 
-        await user.click(controlContent);
+        await user.click(control);
 
         await waitFor(isChecked);
 
