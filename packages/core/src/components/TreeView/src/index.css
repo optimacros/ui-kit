@@ -21,7 +21,9 @@
     &[role='button'],
     &[role='button']:hover,
     &[data-part='tree-node'],
-    &[data-part='tree-node']:hover {
+    &[data-part='tree-node']:hover,
+    &[data-part='item'],
+    &[data-part='item']:hover {
       background-color: var(--color-theme-primary-default);
     }
   }
