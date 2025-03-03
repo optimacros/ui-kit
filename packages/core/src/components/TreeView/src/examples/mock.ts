@@ -1,6 +1,47 @@
 import { faker } from '@faker-js/faker';
 import * as treeview from '@zag-js/tree-view';
-import { Node } from './TreeView';
+import { Node } from '../TreeView';
+
+export const mockItems = treeview.collection<Node>({
+    nodeToValue: (node) => node.id,
+    nodeToString: (node) => node.name,
+    rootNode: {
+        id: 'ROOT',
+        name: 'Root name',
+        children: [
+            {
+                id: '1',
+                name: 'name-1-1',
+                children: [
+                    {
+                        id: '1/1',
+                        name: 'name-2-1',
+                    },
+                ],
+            },
+            {
+                id: '2',
+                name: 'name-1-2',
+            },
+            {
+                id: '3',
+                name: 'name-1-3',
+                children: [
+                    {
+                        id: '3/1',
+                        name: 'name-2-3',
+                        children: [
+                            {
+                                id: '3/1/1',
+                                name: 'name-3-3',
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
+});
 
 export const createMockMenuItems = (count: number) => {
     return treeview.collection<Node>({
@@ -27,6 +68,7 @@ export const createMockMenuItems = (count: number) => {
                         children: faker.helpers.multiple(
                             () => {
                                 const hasGrandchildren = faker.datatype.boolean();
+
                                 return {
                                     id: faker.string.uuid(),
                                     name: faker.word.noun(),
