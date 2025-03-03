@@ -22,7 +22,8 @@ export const Basic: Story = {
         showSettings: true,
         colorSettingsLabel: 'settings',
         recentColorsLabel: 'recent color',
-        presetColors: ['#99A0C0', '#9AB4E4', '#16A8A8', '#610CEF', '#1240ED', '#10FF1E'],
+        onChange: (color) => console.log(color),
+        presetColors: ['#000000', '#9AB4E4', '#16A8A8', '#610CEF', '#1240ED', '#10FF1E'],
         recentColors: ['#FFE9B4', '#BF83E0', '#1B39E6', '#AA4863', '#4A0ED8', '#06EE74'],
     },
 };
