@@ -6,7 +6,7 @@ import { Select } from '@optimacros-ui/select';
 import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
 import type { InputTheme } from '../Input';
-import { clsx } from '@optimacros-ui/utils';
+import { clsx, isUndefined } from '@optimacros-ui/utils';
 
 export type SelectBoxTheme = {
     active: string;
@@ -89,9 +89,9 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
             const updatedValueArr = newValue.value;
 
             if (multiSelect && Array.isArray(value)) {
-                onChange(updatedValueArr);
+                onChange?.(updatedValueArr);
             } else {
-                onChange(updatedValueArr[0]);
+                onChange?.(updatedValueArr[0]);
             }
         };
 
@@ -115,7 +115,8 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                 {!multiSelect ? (
                     <Select.Root
                         items={items}
-                        value={curValue}
+                        defaultValue={curValue}
+                        value={isUndefined(onChange) ? undefined : curValue}
                         onValueChange={handleChange}
                         itemToString={itemToString}
                         itemToValue={itemToValue}

@@ -71,8 +71,8 @@ export const DraggableTrigger = forward<
                         data-dragging={isDragging}
                         data-draggable-id={draggableId}
                         onPointerDown={(e) => {
-                            apiProps.onClick(e);
-                            listeners.onPointerDown(e);
+                            apiProps?.onClick?.(e);
+                            listeners?.onPointerDown?.(e);
                         }}
                         ref={setNodeRef}
                         key={`trigger-${value}`}

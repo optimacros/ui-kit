@@ -79,6 +79,9 @@ const meta: Meta<typeof SelectBox> = {
             defaultValue: false,
         },
     },
+    args: {
+        onChange: undefined,
+    },
 };
 
 export default meta;
