@@ -1,20 +1,11 @@
-import {
-    ConnectMachine,
-    createReactApiStateContext,
-    forward,
-    styled,
-    UserContext,
-    UserState,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/avatar';
 import { isFunction } from '@optimacros-ui/utils';
 
-export type State = UserState<typeof machine>;
+type Schema = Zag.ModuleSchema<typeof machine>;
 
-export type Context = UserContext<machine.Context, {}>;
-
-const connect = ((api, { state, send }, machine) => {
+const connect = ((api, service) => {
     return {
         ...api,
         getRootProps() {
@@ -36,14 +27,24 @@ const connect = ((api, { state, send }, machine) => {
             };
         },
     };
-}) satisfies ConnectMachine<machine.Api, Context, State>;
+}) satisfies Zag.ConnectApi<Schema, machine.Api>;
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext({
-        id: 'image',
-        machine,
-        connect,
-    });
+export const {
+    Api,
+    useApi,
+    RootProvider,
+    useSelector,
+    useProxySelector,
+    select,
+    slice,
+    splitProps,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
+    id: 'image',
+    machine,
+    connect,
+});
 
 export type ImageRatio =
     | 'square'
@@ -62,15 +63,15 @@ export const Root = forward<
 >(({ children, style, className, ratio, ...props }, ref) => {
     return (
         <RootProvider {...props}>
-            {(api) => (
+            {(ctx) => (
                 <styled.div
-                    {...api.getRootProps()}
+                    {...ctx.api.getRootProps()}
                     ref={ref}
                     style={style}
                     className={className}
                     data-aspect-ratio={ratio}
                 >
-                    {isFunction(children) ? children(api) : children}
+                    {isFunction(children) ? children(ctx) : children}
                 </styled.div>
             )}
         </RootProvider>

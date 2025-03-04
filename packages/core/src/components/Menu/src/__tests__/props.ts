@@ -1,10 +1,9 @@
-import type { RootProps } from '../Menu';
+import type { Props } from '../menu.machine';
 import { fn } from '@storybook/test';
 
-export const props: Partial<RootProps> = {
+export const props: Partial<Props> = {
     open: false,
     onOpenChange: fn(),
-    'open.controlled': false,
     closeOnSelect: true,
     disabled: false,
     positioning: {
@@ -14,5 +13,4 @@ export const props: Partial<RootProps> = {
         strategy: 'absolute',
     },
     loopFocus: false,
-    controllable: true,
 };

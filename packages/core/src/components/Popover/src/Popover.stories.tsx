@@ -9,9 +9,9 @@ const argTypes: ArgTypes<typeof Popover.Root> = {
         control: 'boolean',
         description: 'Whether the dialog is open',
     },
-    'open.controlled': {
+    defaultOpen: {
         control: 'boolean',
-        description: 'Whether the dialog is controlled by the user',
+        description: 'Whether the dialog is open',
         table: { defaultValue: { summary: 'false' } },
     },
     controllable: {
@@ -90,6 +90,9 @@ const meta: Meta<typeof Popover.Root> = {
     title: 'UI Kit core/Popover',
     component: Popover.Root,
     argTypes,
+    args: {
+        open: undefined,
+    },
 };
 
 export default meta;
@@ -98,9 +101,6 @@ type Story = StoryObj<typeof Popover.Root>;
 
 export const Basic: Story = {
     args: {
-        controllable: false,
-        open: false,
-        'open.controlled': false,
         onOpenChange: fn(),
         onEscapeKeyDown: fn(),
         onPointerDownOutside: fn(),
@@ -115,9 +115,7 @@ export const Basic: Story = {
 
 export const Placement: Story = {
     args: {
-        controllable: false,
-        open: true,
-        'open.controlled': true,
+        defaultOpen: true,
         onOpenChange: fn(),
         onEscapeKeyDown: fn(),
         onPointerDownOutside: fn(),
@@ -131,8 +129,7 @@ export const Placement: Story = {
 
 export const CustomPositioning: Story = {
     args: {
-        controllable: true,
-        open: true,
+        defaultOpen: true,
         positioning: {
             strategy: 'absolute',
             placement: 'right-start',

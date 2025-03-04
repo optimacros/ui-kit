@@ -8,7 +8,7 @@ import {
     isValidElement,
     memo,
 } from 'react';
-import { type ForwardRefComponent, type JsxElementsKey, styled } from './factory';
+import { type ForwardRefComponent, type JsxElementsKey, styled } from '../factory';
 
 export type ElementConfig<TProps = NonNullable<unknown>, DProps = TProps> = {
     memoize?: boolean;

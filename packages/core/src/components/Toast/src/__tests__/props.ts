@@ -1,9 +1,4 @@
-import { ComponentProps } from 'react';
-import { ToastGroup } from '..';
-
-export const props: Partial<ComponentProps<typeof ToastGroup.RootProvider>> = {
-    controllable: false,
-    pauseOnPageIdle: false,
+export const props = {
     gap: 16,
     max: Number.MAX_SAFE_INTEGER,
     overlap: false,

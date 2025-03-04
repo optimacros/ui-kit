@@ -60,7 +60,7 @@ const StateProgressBars = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % progressBars.length);
-        }, 2000);
+        }, 500);
 
         return () => clearInterval(interval);
     }, []);

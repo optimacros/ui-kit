@@ -1,7 +1,7 @@
 import * as $ from '@optimacros-ui/types';
 import { forwardRef, ForwardRefRenderFunction, memo } from 'react';
-import { JsxElementsKey, PropsWithoutRef, Ref } from './factory';
-import { ElementConfig } from './createReactElement';
+import { JsxElementsKey, PropsWithoutRef, Ref } from '.';
+import { ElementConfig } from '../utils/createReactElement';
 
 /**
  * Implementation of forward ref with easy accessable types + config

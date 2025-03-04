@@ -1,7 +1,7 @@
 import { CSSProperties, forwardRef, useEffect, useState } from 'react';
 import { Slider } from '@optimacros-ui/slider';
 import { Field } from '@optimacros-ui/field';
-import { clsx } from '@optimacros-ui/utils';
+import { clsx, isUndefined } from '@optimacros-ui/utils';
 
 export interface SliderProps {
     buffer?: number;
@@ -43,7 +43,7 @@ export interface SliderProps {
 
 const Input = ({ min, max, defaultValue, className }) => {
     const [inputValue, setInputValue] = useState(() => defaultValue);
-    const { value, setValue } = Slider.useSelector((s) => s);
+    const { value, setValue } = Slider.useApi();
 
     useEffect(() => {
         value && setInputValue(() => value[0].toString());
@@ -113,14 +113,14 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
 
         return (
             <Slider.Root
-                value={formatedValue}
+                defaultValue={formatedValue}
+                value={isUndefined(onChange) ? undefined : formatedValue}
                 onValueChange={handleSliderChange}
                 onValueChangeEnd={onDragStop}
                 min={min}
                 max={max}
                 step={step}
                 onFocusChange={() => {}}
-                controllable
                 className={className}
                 {...rest}
             >

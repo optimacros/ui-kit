@@ -7,5 +7,4 @@ export const props: Partial<SegmentedControl.RootProps> = {
     onValueChange: fn(),
     disabled: false,
     readOnly: false,
-    controllable: false,
 };

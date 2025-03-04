@@ -38,7 +38,7 @@ export const {
     useSelector,
     useProxySelector,
     useFeatureFlags,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'menu',
     machine,
     connect,

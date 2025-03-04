@@ -2,8 +2,8 @@ import { Loader } from '..';
 import { Flex } from '@optimacros-ui/flex';
 
 export const CircleLabel = () => {
-    const counter = Loader.useProxySelector((state) => state.value);
-    const max = Loader.useProxySelector((api) => api.max);
+    const counter = Loader.useProxySelector((state) => state.api.value);
+    const max = Loader.useProxySelector((state) => state.api.max);
 
     return (
         <Flex direction="column" gap={4} align="center" style={{ width: '100%' }}>

@@ -53,14 +53,9 @@ const argTypes: Partial<ArgTypes> = {
         control: 'boolean',
         description: 'Whether the dialog is open',
     },
-    'open.controlled': {
+    defaultOpen: {
         control: 'boolean',
         description: 'Whether the dialog is controlled by the user',
-        table: { defaultValue: { summary: 'false' } },
-    },
-    controllable: {
-        control: 'boolean',
-        description: 'Whether the component handles props update',
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {
@@ -100,7 +95,6 @@ const argTypes: Partial<ArgTypes> = {
             type: { summary: 'PositioningOptions' },
         },
     },
-    defaultContext: { table: { disable: true } },
     id: { table: { disable: true } },
     as: { table: { disable: true } },
     asChild: { table: { disable: true } },
@@ -124,7 +118,6 @@ type Story = StoryObj<typeof Select.Root>;
 
 export const Basic: Story = {
     args: {
-        controllable: true,
         items: mockItems,
         onOpenChange: fn(() => {
             console.info(1);
@@ -141,7 +134,7 @@ export const MultipleSelection: Story = {
 };
 
 export const Deselectable: Story = {
-    args: { controllable: true, items: mockItems, deselectable: true, closeOnSelect: false },
+    args: { items: mockItems, deselectable: true, closeOnSelect: false },
     render: stories.Deselectable,
     play: scenarios.select,
 };
@@ -153,7 +146,7 @@ export const States: Story = {
 
 export const Positioning: Story = {
     args: {
-        open: true,
+        defaultOpen: true,
         items: mockItems,
         positioning: {
             strategy: 'absolute',

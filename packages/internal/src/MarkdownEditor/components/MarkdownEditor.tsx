@@ -89,7 +89,7 @@ export const MarkdownEditor = memo(
 
             return (
                 <MDE.Root
-                    activeTab={MDE.MarkdownEditorMode.SPLIT}
+                    activeTab={MDE.MarkdownEditorMode.EDIT}
                     data-resizable={resizableState}
                     {...rest}
                     value={value}

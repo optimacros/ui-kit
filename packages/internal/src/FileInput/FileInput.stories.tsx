@@ -111,9 +111,9 @@ export const InteractiveWithReset: Story = {
                     onChange={({ target }) =>
                         setFileState(() => ({
                             file: {
-                                name: target.files?.[0].name,
-                                size: target.files?.[0].size,
-                                lastModified: target.files?.[0].lastModified,
+                                name: target.files?.[0]?.name,
+                                size: target.files?.[0]?.size,
+                                lastModified: target.files?.[0]?.lastModified,
                             },
                         }))
                     }
@@ -164,9 +164,9 @@ export const WithSizeValidation: Story = {
                     onChange={({ target }) =>
                         setFileState(() => ({
                             file: {
-                                name: target.files?.[0].name,
-                                size: target.files?.[0].size,
-                                lastModified: target.files?.[0].lastModified,
+                                name: target.files?.[0]?.name,
+                                size: target.files?.[0]?.size,
+                                lastModified: target.files?.[0]?.lastModified,
                             },
                         }))
                     }
@@ -236,9 +236,9 @@ export const MultipleFileStates: Story = {
                                             id: file.id,
                                             state: {
                                                 file: {
-                                                    name: target.files?.[0].name,
-                                                    size: target.files?.[0].size,
-                                                    lastModified: target.files?.[0].lastModified,
+                                                    name: target.files?.[0]?.name,
+                                                    size: target.files?.[0]?.size,
+                                                    lastModified: target.files?.[0]?.lastModified,
                                                 },
                                             },
                                             reset: () => handleReset(file.id),
@@ -295,9 +295,9 @@ export const WithUploadProgress: Story = {
                     onChange={({ target }) => {
                         setFileState(() => ({
                             file: {
-                                name: target.files?.[0].name,
-                                size: target.files?.[0].size,
-                                lastModified: target.files?.[0].lastModified,
+                                name: target.files?.[0]?.name,
+                                size: target.files?.[0]?.size,
+                                lastModified: target.files?.[0]?.lastModified,
                             },
                         }));
                     }}

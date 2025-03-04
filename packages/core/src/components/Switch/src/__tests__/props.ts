@@ -10,5 +10,4 @@ export const props: Partial<ComponentProps<typeof Switch.Root>> = {
     readOnly: false,
     required: false,
     invalid: false,
-    controllable: false,
 };

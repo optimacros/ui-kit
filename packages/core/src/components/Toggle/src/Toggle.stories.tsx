@@ -5,9 +5,15 @@ import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
 import { ComponentProps } from 'react';
 import { fn } from '@storybook/test';
+import './index.css';
 
 const argTypes: Partial<ArgTypes<ComponentProps<typeof Toggle>>> = {
     checked: {
+        control: 'boolean',
+        description: 'Whether the toggle is checked.',
+        table: { disable: true },
+    },
+    defaultChecked: {
         control: 'boolean',
         description: 'Whether the toggle is checked.',
     },
@@ -33,7 +39,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Toggle>>> = {
     },
     as: { table: { disable: true } },
     asChild: { table: { disable: true } },
-    defaultContext: { table: { disable: true } },
     id: { table: { disable: true } },
 };
 
@@ -41,6 +46,9 @@ const meta: Meta<typeof Toggle> = {
     title: 'UI Kit core/Toggle',
     component: Toggle,
     argTypes,
+    args: {
+        checked: undefined,
+    },
 };
 
 export default meta;
@@ -49,13 +57,9 @@ type Story = StoryObj<typeof Toggle>;
 
 export const Basic: Story = {
     args: {
-        checked: true,
+        defaultChecked: false,
         onCheckedChange: fn(),
         value: 'checked',
-        disabled: false,
-        readOnly: false,
-        invalid: true,
-        controllable: false,
     },
     render: examples.Basic,
     play: scenarios.basic,
@@ -63,11 +67,10 @@ export const Basic: Story = {
 
 export const States: Story = {
     args: {
-        checked: true,
+        defaultChecked: false,
         onCheckedChange: fn(),
         value: 'checked',
         disabled: true,
-        controllable: false,
     },
     render: examples.States,
     tags: ['skip-test-runner'], // смысла 0, будет 6 одинаковых кнопок

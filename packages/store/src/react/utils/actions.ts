@@ -6,7 +6,7 @@ import {
     getActionsType,
     PayloadAction,
     transformActions,
-} from '../utils';
+} from '../../utils';
 import * as $ from '@optimacros-ui/types';
 import * as _ from '@optimacros-ui/utils';
 import { Collection, getIn, setIn } from 'immutable';

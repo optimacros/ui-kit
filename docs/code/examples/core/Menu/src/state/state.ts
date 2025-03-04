@@ -1,4 +1,4 @@
-import { createReactApiStateContext } from '@optimacros-ui/store';
+import { createMachineContext } from '@optimacros-ui/store';
 import { machine } from './machine';
 import { connect } from './connect';
 import { UiKit } from '@optimacros-ui/kit-store';
@@ -11,7 +11,7 @@ export const {
     useProxySelector,
     useFeatureFlags,
     splitProps,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'menu',
     machine,
     connect,

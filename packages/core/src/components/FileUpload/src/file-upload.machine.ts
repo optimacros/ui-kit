@@ -1,47 +1,54 @@
-import {
-    ConnectMachine,
-    ExtendedMachine,
-    extendMachine,
-    MachineConfig,
-    MachineOptions,
-    UserContext,
-    UserState,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, extendMachine } from '@optimacros-ui/store';
 import * as zagMachine from '@zag-js/file-upload';
-import { PropTypes } from '@zag-js/types';
 
-const config = {
-    context: {
-        onReset: () => {},
-    } as {
-        onReset?: () => void;
-    },
-} satisfies MachineConfig<zagMachine.Service>;
-
-const options = (service: zagMachine.Service) =>
-    ({
-        actions: {
-            clearFiles: (ctx) => {
-                ctx.onReset();
-                //@ts-ignore
-                service.options.actions.clearFiles(ctx);
-            },
-        },
-    }) satisfies MachineOptions<zagMachine.Service, zagMachine.Context, typeof config>;
-
-type State = UserState<typeof zagMachine>;
-type Context = UserContext<zagMachine.Context, typeof config>;
-
-export const machine = extendMachine(zagMachine, config, options) satisfies ExtendedMachine<
+type Schema = Zag.ExtendModuleSchema<
     typeof zagMachine,
-    Context,
-    State
+    {
+        props: {
+            onReset?: () => void;
+        };
+    }
 >;
 
-export const connect = ((api, { state, send }, machine) => {
+export const machine = extendMachine<Schema, typeof zagMachine>(zagMachine, {
+    props: (params) => {
+        return {
+            onReset: () => {},
+            ...zagMachine.machine.props(params),
+        };
+    },
+    implementations: {
+        actions: {
+            clearFiles: (ctx) => {
+                ctx.prop('onReset')();
+                zagMachine.machine.implementations.actions.clearFiles(ctx);
+            },
+        },
+    },
+});
+
+export const connect = ((api, service) => {
     return {
         ...api,
-        //@ts-ignore
-        acceptedFiles: state.context.acceptedFiles,
+        acceptedFiles: service.context.get('acceptedFiles'),
     };
-}) satisfies ConnectMachine<zagMachine.Api<PropTypes>, Context, State>;
+}) satisfies Zag.ConnectApi<Schema, zagMachine.Api<Zag.PropTypes>>;
+
+export const {
+    Api,
+    RootProvider,
+    useApi,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
+    id: 'file-upload',
+    machine,
+    connect,
+});
+
+export type Props = Partial<Schema['props']>;

@@ -6,5 +6,4 @@ export const props: Partial<RootProps> = {
     disabled: false,
     readOnly: false,
     onValueChange: fn(),
-    controllable: false,
 };

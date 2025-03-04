@@ -52,11 +52,11 @@
   justify-content: flex-end;
 }
 
-[data-scope='flex'][data-part='root'][data-justify='between'] {
+[data-scope='flex'][data-part='root'][data-justify='space-between'] {
   justify-content: space-between;
 }
 
-[data-scope='flex'][data-part='root'][data-justify='around'] {
+[data-scope='flex'][data-part='root'][data-justify='space-around'] {
   justify-content: space-around;
 }
 

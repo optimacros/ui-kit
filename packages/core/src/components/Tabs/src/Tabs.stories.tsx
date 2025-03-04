@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
 
 import { Tabs } from '.';
 import { Button } from '@optimacros-ui/button';
@@ -31,8 +30,8 @@ export const Base: StoryObj = {
                 activationMode="manual"
                 deselectable
                 tabs={tabs}
-                onTabsChange={(t) => flushSync(() => setTabs(t))}
-                controllable
+                //@ts-ignore
+                onTabsChange={(t) => setTabs(() => t)}
                 useWheel
             >
                 <Tabs.Api>
@@ -42,7 +41,7 @@ export const Base: StoryObj = {
                             <div>
                                 <p>active tab: {api.value}</p>
                                 <div>
-                                    <Button onClick={() => api.getTabs()}>get tabs</Button>
+                                    <Button onClick={() => console.log(api.tabs)}>get tabs</Button>
                                     <Button
                                         onClick={() =>
                                             api.open(`tab-${Math.floor(Math.random() * 19)}`)
@@ -254,12 +253,15 @@ export const BaseVertical = (props) => {
 export const DraggableOrdered: StoryObj = {
     render: (props) => {
         const [tabs, setTabs] = useState(items);
-
         return (
             <Tabs.Root
+                tabs={tabs}
                 activationMode="manual"
                 deselectable
-                onTabsChange={(tabs) => setTabs(tabs)}
+                onTabsChange={(newTabs) => {
+                    //@ts-ignore
+                    setTabs(newTabs);
+                }}
                 draggable
             >
                 <div className="flex gap-2">
@@ -330,13 +332,16 @@ export const DraggableOrdered: StoryObj = {
 //TODO: fix scroll problem
 export const DraggableSwap = (props) => {
     const [tabs, setTabs] = useState(items);
-
     return (
         <Tabs.Root
+            tabs={tabs}
             activationMode="manual"
             deselectable
             draggableMode="swap"
-            onTabsChange={(tabs) => setTabs(tabs)}
+            onTabsChange={(newTabs) => {
+                //@ts-ignore
+                setTabs(newTabs);
+            }}
             draggable
         >
             <div className="flex gap-2">

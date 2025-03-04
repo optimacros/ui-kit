@@ -1,5 +1,5 @@
 import { forwardRef, memo, ReactNode, useEffect, useMemo } from 'react';
-import { Toast, ToastGroup } from '@optimacros-ui/toast';
+import { Toast } from '@optimacros-ui/toast';
 import { Button } from '@optimacros-ui/button';
 import { isNil } from '@optimacros-ui/utils';
 import { clsx } from '@optimacros-ui/utils';
@@ -8,6 +8,10 @@ import { Text } from '@optimacros-ui/text';
 import { forward } from '@optimacros-ui/store';
 import { buttonStatusMapping } from '../settings';
 import { SnackbarType } from '../models';
+
+const store = Toast.createStore({
+    placement: 'bottom',
+});
 
 export interface ISnackbar {
     action?: string;
@@ -49,11 +53,8 @@ const SnackbarComponent = memo(
             },
             ref,
         ) => {
-            const api = ToastGroup.useApi();
-
             const create = () => {
-                api.create({
-                    placement: 'bottom',
+                store.create({
                     duration: timeout || 9999999,
                 });
             };
@@ -63,7 +64,9 @@ const SnackbarComponent = memo(
                 if (active) {
                     create();
                 } else {
-                    api.remove();
+                    //TODO: create removeAll method
+                    //@ts-ignore
+                    // store.remove();
                 }
             }, [active]);
 
@@ -81,9 +84,14 @@ const SnackbarComponent = memo(
 
             return (
                 <>
-                    <ToastGroup.Portal className={theme?.portal}>
-                        {(toast) => (
-                            <Toast.Root actor={toast} className={rootClassName} ref={ref}>
+                    <Toast.Group ref={ref}>
+                        {({ toast, index, parent }) => (
+                            <Toast.Root
+                                {...toast}
+                                index={index}
+                                parent={parent}
+                                className={rootClassName}
+                            >
                                 <Toast.Content className={theme?.snackbar}>
                                     {!isNil(label) && (
                                         <Text.Paragraph as="span" className={theme?.label}>
@@ -107,7 +115,7 @@ const SnackbarComponent = memo(
                                 )}
                             </Toast.Root>
                         )}
-                    </ToastGroup.Portal>
+                    </Toast.Group>
                 </>
             );
         },
@@ -116,8 +124,8 @@ const SnackbarComponent = memo(
 
 export const Snackbar = memo(
     forward<ISnackbar, 'div'>((props, ref) => (
-        <ToastGroup.RootProvider max={1}>
+        <Toast.GroupProvider store={store}>
             <SnackbarComponent {...props} ref={ref} />
-        </ToastGroup.RootProvider>
+        </Toast.GroupProvider>
     )),
 );

@@ -11,12 +11,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Slider.Root>>> = {
         description: 'The controlled value of the slider',
         table: { type: { summary: 'number[]' } },
     },
-    /* появился в заге 1.0
-    defaultValue: {
-        control: 'object',
-        description: `The initial value of the slider when rendered. Use when you don't need to control the value of the slider`,
-        table: { type: { summary: 'number[]' } },
-    }, */
     onValueChange: {
         control: false,
         description: 'Function invoked when the value of the slider changes',
@@ -76,8 +70,7 @@ type Story = StoryObj<typeof Slider.Root>;
 
 export const Basic: Story = {
     args: {
-        controllable: true,
-        value: [33],
+        defaultValue: [33],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: 0,
@@ -92,8 +85,7 @@ export const Basic: Story = {
 
 export const Range: Story = {
     args: {
-        controllable: true,
-        value: [12, 34],
+        defaultValue: [12, 34],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: 0,
@@ -108,8 +100,7 @@ export const Range: Story = {
 
 export const States: Story = {
     args: {
-        controllable: true,
-        value: [33],
+        defaultValue: [33],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: 0,
@@ -123,8 +114,7 @@ export const States: Story = {
 
 export const MinMax: Story = {
     args: {
-        controllable: true,
-        value: [-100, 50],
+        defaultValue: [-100, 50],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: -100,
@@ -139,8 +129,7 @@ export const MinMax: Story = {
 
 export const Step: Story = {
     args: {
-        controllable: true,
-        value: [1.2, 3.4],
+        defaultValue: [1.2, 3.4],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: 0,
@@ -155,8 +144,7 @@ export const Step: Story = {
 
 export const MinStepBetweenThumbs: Story = {
     args: {
-        controllable: true,
-        value: [1.2, 3.4],
+        defaultValue: [1.2, 3.4],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: 0,
@@ -171,8 +159,7 @@ export const MinStepBetweenThumbs: Story = {
 
 export const Markers: Story = {
     args: {
-        controllable: true,
-        value: [9],
+        defaultValue: [9],
         onValueChange: fn(),
         onValueChangeEnd: fn(),
         min: 0,

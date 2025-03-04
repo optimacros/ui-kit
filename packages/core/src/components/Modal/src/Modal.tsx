@@ -6,55 +6,43 @@ import {
     useImperativeHandle,
     useRef,
 } from 'react';
-import {
-    ConnectMachine,
-    ExtendedMachine,
-    forward,
-    MachineConfig,
-    MachineOptions,
-    styled,
-    UserContext,
-    UserState,
-} from '@optimacros-ui/store';
+import { Zag, forward, styled } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
 import * as dialog from '@zag-js/dialog';
-import { createReactApiStateContext } from '@optimacros-ui/store';
+import { createMachineContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
 import { Draggable } from '@optimacros-ui/draggable';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 
-const config = {
-    context: {
-        onClose: () => {},
-    } as {
-        onClose?: () => void;
+export type Schema = Zag.ExtendModuleSchema<
+    typeof dialog,
+    {
+        props: {
+            onClose?: () => void;
+        };
+    }
+>;
+export const machine = extendMachine<Schema, typeof dialog>(dialog, {
+    props(params) {
+        return {
+            onClose: () => {},
+            ...dialog.machine.props(params),
+        };
     },
-    on: {
-        'ON_CLOSE.SET': { actions: 'setOnClose' },
-    },
-} satisfies MachineConfig<dialog.Service>;
-
-const options = ({ options }) =>
-    ({
+    implementations: {
         actions: {
-            toggleVisibility(ctx, evt, params) {
-                !ctx.open && ctx.onClose();
+            toggleVisibility(service) {
+                const { prop } = service;
 
-                options.actions.toggleVisibility(ctx, evt, params);
+                !prop('open') && prop('onClose')();
+
+                dialog.machine.implementations.actions.toggleVisibility(service);
             },
         },
-    }) satisfies MachineOptions<dialog.Service, dialog.Context, typeof config>;
+    },
+});
 
-type State = UserState<typeof dialog>;
-type Context = UserContext<dialog.Context, typeof config>;
-
-export const machine = extendMachine(dialog, config, options) satisfies ExtendedMachine<
-    typeof dialog,
-    Context,
-    State
->;
-
-const connect = ((api, { state, send }, machine) => {
+const connect = ((api, service) => {
     return {
         ...api,
         handleDragEnd: () => {
@@ -69,22 +57,20 @@ const connect = ((api, { state, send }, machine) => {
             content.style.left = `${left}px`;
         },
     };
-}) satisfies ConnectMachine<dialog.Api, Context, State>;
+}) satisfies Zag.ConnectApi<Schema, dialog.Api>;
 
 export type Machine = typeof machine;
 
-export const {
-    Api,
-    RootProvider: Root,
-    useApi,
-    useSelector,
-    useProxySelector,
-} = createReactApiStateContext({
+export const { Api, RootProvider, useApi, useSelector, useProxySelector } = createMachineContext<
+    Schema,
+    ReturnType<typeof connect>
+>({
     id: 'modal',
     machine,
     connect,
 });
 
+export const Root = RootProvider;
 export type Props = ComponentProps<typeof Root>;
 
 export type OpenChangeDetails = dialog.OpenChangeDetails;
@@ -96,7 +82,7 @@ export const Trigger = forward<PropsWithChildren, 'button'>((props, ref) => {
 });
 
 export const Content = forward<PropsWithChildren, 'div'>(
-    (props, ref) => {
+    ({ children, ...rest }, ref) => {
         const api = useApi();
 
         return (
@@ -104,7 +90,9 @@ export const Content = forward<PropsWithChildren, 'div'>(
                 <Portal>
                     <styled.div {...api.getBackdropProps()} />
                     <styled.div {...api.getPositionerProps()}>
-                        <styled.div {...props} {...api.getContentProps()} ref={ref} />
+                        <styled.div {...rest} {...api.getContentProps()} ref={ref}>
+                            {children}
+                        </styled.div>
                     </styled.div>
                 </Portal>
             )

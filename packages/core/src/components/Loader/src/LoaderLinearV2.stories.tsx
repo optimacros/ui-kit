@@ -5,9 +5,14 @@ import * as scenarios from './__tests__/scenarios';
 
 const argTypes: Partial<ArgTypes<Loader.Props>> = {
     value: {
+        control: false,
+        description: 'Value of the current progress. Indeterminate mode if no value is provided',
+        table: { defaultValue: { summary: '0' } },
+    },
+    defaultValue: {
         control: 'number',
         description: 'Value of the current progress. Indeterminate mode if no value is provided',
-        table: { defaultValue: { summary: '50' } },
+        table: { defaultValue: { summary: '0' } },
     },
     infinite: {
         control: 'boolean',
@@ -53,6 +58,14 @@ const meta: Meta<typeof Loader.Root> = {
             );
         },
     ],
+    args: {
+        value: undefined,
+        running: undefined,
+        defaultValue: 0,
+        onCancel: () => {
+            console.info('stop');
+        },
+    },
     tags: ['skip-test-runner'],
 };
 
@@ -84,7 +97,6 @@ export const Infinite: Story = {
         speed: 300,
         step: 10,
         infinite: true,
-        controllable: true,
     },
     play: scenarios.linearInfinite,
 };
@@ -94,6 +106,7 @@ export const MinMax: Story = {
     args: {
         speed: 500,
         step: 10,
+        defaultValue: 50,
         min: 30,
         max: 70,
         infinite: true,

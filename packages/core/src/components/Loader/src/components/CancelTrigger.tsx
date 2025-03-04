@@ -7,7 +7,7 @@ export const CancelTrigger = forward<React.PropsWithChildren, 'button'>(
         const api = useApi();
 
         return (
-            <styled.button ref={ref} data-part="cancel-trigger" {...rest} onClick={api.onCancel}>
+            <styled.button ref={ref} data-part="cancel-trigger" {...rest} onClick={api.stop}>
                 {children}
             </styled.button>
         );

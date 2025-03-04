@@ -19,7 +19,6 @@ export const Controlled = ({ open: openProp, ...rest }: Modal.Props) => {
                 {...rest}
                 open={open}
                 onOpenChange={(details) => {
-                    console.info('onOpenChange');
                     setOpen(details.open);
                 }}
                 onClose={handleRequestClose}

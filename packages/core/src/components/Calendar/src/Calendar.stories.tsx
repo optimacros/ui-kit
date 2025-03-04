@@ -142,8 +142,8 @@ type Story = StoryObj<typeof Calendar.Root>;
 
 export const Basic: Story = {
     args: {
-        open: true,
-        value: [value],
+        defaultOpen: false,
+        defaultValue: [value],
         closeOnSelect: false,
         onOpenChange: fn(),
     },
@@ -153,8 +153,8 @@ export const Basic: Story = {
 
 export const LocalizedCalendar: Story = {
     args: {
-        value: [value],
-        open: true,
+        defaultValue: [value],
+        defaultOpen: true,
         onOpenChange: fn(),
         closeOnSelect: false,
         locale: 'ru',

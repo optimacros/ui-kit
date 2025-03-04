@@ -11,5 +11,4 @@ export const props: Omit<Loader.Props, 'children'> = {
     max: 100,
     disabled: false,
     infinite: false,
-    controllable: false,
 };

@@ -30,7 +30,7 @@ export const Basic = (props) => {
                 onValueChangeEnd={handleValueChangeEnd}
                 value={ColorPicker.parse(currentValue)}
             >
-                {(api) => (
+                {({ api }) => (
                     <>
                         <ColorPicker.Root>
                             <ColorPicker.Label>Color</ColorPicker.Label>

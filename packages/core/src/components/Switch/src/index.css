@@ -18,7 +18,7 @@
 
   /* Checked state */
   &[data-state='checked'] [data-part='control'] {
-    background-color: var(--switch-color, #3b82f6);
+    background-color: var(--color-theme-primary-default);
   }
 
   /* Switch thumb */
@@ -81,15 +81,15 @@
 
   /* Color variants */
   &[data-color='primary'][data-state='checked'] [data-part='control'] {
-    background-color: #3b82f6;
+    background-color: var(--color-theme-primary-default);
   }
 
   &[data-color='success'][data-state='checked'] [data-part='control'] {
-    background-color: #22c55e;
+    background-color: var(--color-theme-success-default);
   }
 
   &[data-color='danger'][data-state='checked'] [data-part='control'] {
-    background-color: #ef4444;
+    background-color: var(--color-theme-error-default);
   }
 
   /* Disabled state */
@@ -103,11 +103,6 @@
     outline: 2px solid var(--switch-color, #3b82f6);
     outline-offset: 2px;
     border-radius: 4px;
-  }
-
-  /* Hover effects */
-  &[data-scope='switch']:not([data-disabled]):hover [data-part='control'] {
-    background-color: #d4d4d8;
   }
 
   &[data-scope='switch']:not([data-disabled])[data-state='checked']:hover [data-part='control'] {

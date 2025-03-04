@@ -34,7 +34,7 @@ const ModalContent = memo(
             ref,
         ) => {
             const containerRef = useRef<HTMLDivElement>();
-            const open = UIModal.useSelector(({ open }) => open);
+            const { open } = UIModal.useApi();
 
             useLayoutEffect(() => {
                 if (!open || nonDraggable || !draggableTarget || !containerRef?.current) {
@@ -84,6 +84,7 @@ const ModalContent = memo(
 export const Modal = memo(
     forward<ModalProps, 'div'>((props, ref) => {
         const { isOpen, onRequestClose, compact } = props;
+
         return (
             <UIModal.Root
                 open={isOpen}
@@ -92,7 +93,6 @@ export const Modal = memo(
                 }}
                 data-compact={compact}
                 closeOnInteractOutside={false}
-                controllable
             >
                 <ModalContent {...props} ref={ref} />
             </UIModal.Root>

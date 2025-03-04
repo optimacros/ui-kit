@@ -115,7 +115,7 @@ export const {
     useProxySelector,
     useFeatureFlags,
     splitProps,
-} = createReactApiStateContext({
+} = createMachineContext({
     id: 'menu',
     machine,
     connect,

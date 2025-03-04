@@ -1,12 +1,25 @@
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import * as machine from '@zag-js/switch';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext<typeof machine, machine.Api>({
-        id: 'switch',
-        machine,
-    });
+export type Schema = Zag.ModuleSchema<typeof machine>;
+
+export const {
+    RootProvider,
+    useApi,
+    Api,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
+    id: 'switch',
+    machine,
+});
 
 export interface RootProps extends PropsWithChildren<ComponentProps<typeof RootProvider>> {
     /** @default md */
@@ -18,7 +31,7 @@ export interface RootProps extends PropsWithChildren<ComponentProps<typeof RootP
 export const Root = forward<RootProps, 'label'>(
     ({ children, size = 'md', color = 'primary', ...context }, ref) => (
         <RootProvider {...context}>
-            {(api) => (
+            {({ api }) => (
                 <styled.label {...api.getRootProps()} ref={ref} data-size={size} data-color={color}>
                     {children}
                     <styled.input {...api.getHiddenInputProps()} />

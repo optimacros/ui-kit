@@ -1,27 +1,10 @@
-import { ComponentProps, ReactNode, useEffect, FC, PropsWithChildren, ReactElement } from 'react';
+import { ComponentProps, ReactNode, ReactElement } from 'react';
 import { Portal } from '@zag-js/react';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
-import { isFunction } from '@optimacros-ui/utils';
-import { machine, connect } from './menu.machine';
-import type * as menu from '@zag-js/menu';
-import { UiKit } from '@optimacros-ui/kit-store';
+import { forward, styled } from '@optimacros-ui/store';
+import { RootProvider, SubMenuContext, useApi, useState, useSubmenuApi } from './menu.machine';
+import * as menu from '@zag-js/menu';
 
-export const {
-    Api,
-    useApi,
-    RootProvider: Root,
-    useSelector,
-    useProxySelector,
-    useFeatureFlags,
-    splitProps,
-} = createReactApiStateContext({
-    id: 'menu',
-    machine,
-    connect,
-    GlobalContext: UiKit,
-});
-
-export type RootProps = ComponentProps<typeof Root>;
+export { RootProvider as Root };
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
@@ -31,10 +14,9 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 
 export const Item = forward<menu.ItemProps, 'li'>(
     ({ valueText, children, closeOnSelect, disabled, value, ...rest }, ref) => {
-        const props = useProxySelector(
-            (api) => api.getItemProps({ value, closeOnSelect, disabled, valueText }),
-            [value, closeOnSelect, disabled, valueText],
-        );
+        const api = useApi();
+
+        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText });
 
         return (
             <styled.li {...rest} {...props} ref={ref}>
@@ -47,70 +29,40 @@ export const Item = forward<menu.ItemProps, 'li'>(
     },
 );
 
-export const NestedItem = forward<{ children: ReactNode; parent: ReturnType<typeof useApi> }, 'li'>(
-    ({ children, parent, ...rest }, ref) => {
-        const api = useApi();
+export const SubMenuItem = forward<menu.ItemProps, 'li'>(
+    ({ children, value, closeOnSelect, disabled, valueText, ...rest }, ref) => {
+        const subMenuApi = useSubmenuApi();
+        const props = subMenuApi.getItemProps({ value, closeOnSelect, disabled, valueText });
 
         return (
-            <styled.li {...rest} ref={ref} {...parent.getTriggerItemProps(api)}>
+            <styled.li {...rest} ref={ref} {...props}>
                 {children}
             </styled.li>
         );
     },
 );
 
-const SubMenuRoot: FC<PropsWithChildren<{ parent: ReturnType<typeof useApi> }>> = ({
-    parent,
-    children,
-}) => {
-    const api = useApi();
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (api && parent) {
-                api.setParentNode(parent);
-            }
-        }, 0);
-
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, []);
-
-    return children;
-};
-
-export const SubMenuItem = forward<
-    { item: menu.ItemProps; parent: ReturnType<typeof useApi> } & RootProps,
-    'li'
->(({ item, parent, children, ...rest }, ref) => {
-    const isEnabled = useFeatureFlags('submenu');
-
-    if (!isEnabled) {
-        console.warn('submenu feature is disabled');
+export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'div'>(
+    ({ menu: machine, children, ...rest }, ref) => {
         return (
-            <Item {...item} {...rest}>
-                {/*@ts-ignore*/}
-                {children}
-            </Item>
+            <SubMenuContext.Provider value={machine}>
+                <Portal>
+                    <div {...machine.api.getPositionerProps()}>
+                        <div {...machine.api.getContentProps()} ref={ref} {...rest}>
+                            <List>{children}</List>
+                        </div>
+                    </div>
+                </Portal>
+            </SubMenuContext.Provider>
         );
-    }
+    },
+);
 
+export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest }, ref) => {
     return (
-        <Root {...rest}>
-            {(api) => (
-                <SubMenuRoot parent={parent}>
-                    <styled.li
-                        {...parent?.getTriggerItemProps(api)}
-                        title={item.valueText}
-                        ref={ref}
-                    >
-                        {item.valueText}
-                    </styled.li>
-                    {isFunction(children) ? children(api) : children}
-                </SubMenuRoot>
-            )}
-        </Root>
+        <styled.li {...rest} title={rest.valueText} ref={ref}>
+            {children}
+        </styled.li>
     );
 });
 

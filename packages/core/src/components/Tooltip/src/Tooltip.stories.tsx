@@ -27,13 +27,13 @@ const argTypes: Partial<ArgTypes> = {
         control: 'boolean',
         description: `Whether the tooltip is disabled`,
     },
-    open: {
+    defaultOpen: {
         control: 'boolean',
         description: `Whether the tooltip is open`,
     },
-    'open.controlled': {
+    open: {
         control: 'boolean',
-        description: `Whether the tooltip is controlled by the user`,
+        description: `Whether the tooltip is open`,
     },
     onOpenChange: {
         control: 'number',
@@ -46,6 +46,9 @@ const meta: Meta<typeof Tooltip.Root> = {
     argTypes,
     title: 'UI Kit core/Tooltip',
     component: Tooltip.Root,
+    args: {
+        open: undefined,
+    },
 };
 
 export default meta;
@@ -75,7 +78,7 @@ export const Base: StoryObj<typeof Tooltip.Root> = {
 export const Positioning: StoryObj<typeof Tooltip.Root> = {
     ...Base,
     args: {
-        open: true,
+        defaultOpen: true,
         positioning: {
             placement: 'left',
         },
@@ -134,7 +137,7 @@ export const Interactive: StoryObj<typeof Tooltip.Root> = {
 };
 
 export const Controlled: StoryObj<typeof Tooltip.Root> = {
-    args: { interactive: true, 'open.controlled': true },
+    args: { interactive: true },
     render: (props: Tooltip.Props) => {
         return (
             <Flex

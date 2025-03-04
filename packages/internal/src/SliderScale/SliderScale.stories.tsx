@@ -83,6 +83,9 @@ const meta: Meta<typeof SliderScale> = {
             description: 'Label text for the slider',
         },
     },
+    args: {
+        onChange: undefined,
+    },
 };
 
 export default meta;

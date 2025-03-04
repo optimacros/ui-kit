@@ -1,47 +1,47 @@
-import { ComponentProps, useEffect } from 'react';
-import { Toast, ToastGroup } from '..';
+import { useMemo } from 'react';
+import { Toast } from '..';
 import { Flex } from '@optimacros-ui/flex';
 import { IconButton } from '@optimacros-ui/icon-button';
+import { createStore } from '../state';
+import { Button } from '@optimacros-ui/button';
 
 const types = ['info', 'error', 'success', 'loading', 'custom'];
 
-const Example = () => {
-    const api = ToastGroup.useApi();
+export const Types = (props) => {
+    const store = useMemo(() => createStore(props), []);
 
-    useEffect(() => {
+    const create = () => {
         types.forEach((t) =>
-            api.create({
+            store.create({
                 duration: 999999,
                 title: t,
                 description:
                     'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
                 type: t,
-                placement: 'top-start',
             }),
         );
-    }, []);
+    };
 
     return (
-        <Flex direction="column" gap={5}>
-            <ToastGroup.Portal>
-                {(toast) => (
-                    <Toast.Root actor={toast}>
-                        <Toast.Content>
-                            <Toast.Title />
-                            <Toast.Description />
-                        </Toast.Content>
-                        <Toast.CloseTrigger asChild>
-                            <IconButton icon="close" variant="accent" />
-                        </Toast.CloseTrigger>
-                    </Toast.Root>
-                )}
-            </ToastGroup.Portal>
-        </Flex>
+        <>
+            <Button onClick={create}>Show</Button>
+            <Flex direction="column" gap={5}>
+                <Toast.GroupProvider store={store}>
+                    <Toast.Group>
+                        {({ toast, index, parent }) => (
+                            <Toast.Root {...toast} index={index} parent={parent}>
+                                <Toast.Content>
+                                    <Toast.Title />
+                                    <Toast.Description />
+                                </Toast.Content>
+                                <Toast.CloseTrigger asChild>
+                                    <IconButton icon="close" variant="accent" />
+                                </Toast.CloseTrigger>
+                            </Toast.Root>
+                        )}
+                    </Toast.Group>
+                </Toast.GroupProvider>
+            </Flex>
+        </>
     );
 };
-
-export const Types = (props: ComponentProps<typeof ToastGroup.RootProvider>) => (
-    <ToastGroup.RootProvider {...props}>
-        <Example />
-    </ToastGroup.RootProvider>
-);

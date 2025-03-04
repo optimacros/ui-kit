@@ -1,6 +1,6 @@
 import { Children, ComponentProps, PropsWithChildren } from 'react';
 import * as treeview from '@zag-js/tree-view';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 
 export interface Node {
     id: string;
@@ -8,11 +8,24 @@ export interface Node {
     children?: Node[];
 }
 
-export const { RootProvider, useApi, Api, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext<typeof treeview, treeview.Api, treeview.Context>({
-        id: 'tree-view',
-        machine: treeview,
-    });
+export type Schema = Zag.ModuleSchema<typeof treeview>;
+
+export const {
+    RootProvider,
+    useApi,
+    Api,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, treeview.Api>({
+    id: 'tree-view',
+    machine: treeview,
+});
 
 export type MenuItems = ReturnType<typeof treeview.collection<Node>>;
 export type RootProps = PropsWithChildren<
@@ -26,7 +39,7 @@ export const Root = forward<RootProps, 'div'>(({ children, menuItems, ...context
 
     return (
         <RootProvider {...context} collection={collection}>
-            {(api) => (
+            {({ api }) => (
                 <styled.div {...api.getRootProps()} ref={ref}>
                     {children}
                 </styled.div>

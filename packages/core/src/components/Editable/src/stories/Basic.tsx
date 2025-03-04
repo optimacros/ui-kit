@@ -6,7 +6,7 @@ import { Button } from '@optimacros-ui/button';
 export const Basic = (props: EditableProps) => {
     return (
         <Editable.RootProvider {...props}>
-            {(api) => (
+            {({ api }) => (
                 <Editable.Root data-testid="root">
                     <Editable.Label>Label</Editable.Label>
                     <Editable.Area>

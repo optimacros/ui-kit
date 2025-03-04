@@ -8,8 +8,13 @@ import * as scenarios from './__tests__/scenarios';
 
 const argTypes: ArgTypes<ComponentProps<typeof Checkbox.Root>> = {
     checked: {
-        control: false,
+        control: 'boolean',
         description: 'The checked state of the checkbox',
+        table: { type: { summary: 'CheckedState' } },
+    },
+    defaultChecked: {
+        control: 'boolean',
+        description: 'The default checked state of the checkbox',
         table: { type: { summary: 'CheckedState' } },
     },
     onCheckedChange: {
@@ -55,15 +60,16 @@ const argTypes: ArgTypes<ComponentProps<typeof Checkbox.Root>> = {
     as: { table: { disable: true } },
     asChild: { table: { disable: true } },
     children: { table: { disable: true } },
-    controllable: { table: { disable: true } },
     id: { table: { disable: true } },
-    defaultContext: { table: { disable: true } },
 };
 
 const meta: Meta<typeof Checkbox.Root> = {
     title: 'UI Kit core/Checkbox',
     component: Checkbox.Root,
     argTypes,
+    args: {
+        checked: undefined,
+    },
 };
 
 export default meta;
@@ -71,7 +77,6 @@ export default meta;
 type Story = StoryObj<typeof Checkbox.Root>;
 
 export const Base: Story = {
-    args: {},
     render: (props) => {
         return (
             <Checkbox.Root {...props} data-testid="checkbox-root">
@@ -83,9 +88,9 @@ export const Base: Story = {
 };
 
 export const Controllable: Story = {
-    args: { controllable: true, checked: false },
-    render: ({ checked: checkedProp, ...rest }) => {
-        const [checked, setValue] = useState(checkedProp);
+    args: { defaultChecked: false },
+    render: ({ checked: checkedProp, defaultChecked, ...rest }) => {
+        const [checked, setValue] = useState(checkedProp ?? defaultChecked);
 
         const handleCheckedChange = (details: CheckedChangeDetails) => {
             setValue(details.checked);

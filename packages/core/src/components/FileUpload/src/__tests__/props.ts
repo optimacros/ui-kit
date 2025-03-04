@@ -2,7 +2,6 @@ import { fn } from '@storybook/test';
 import { FileUpload } from '..';
 
 export const props: Partial<FileUpload.RootProps> = {
-    controllable: true,
     name: 'input name',
     accept: ['image/*', 'text/plain'],
     allowDrop: true,

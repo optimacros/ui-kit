@@ -1,66 +1,51 @@
-import {
-    ConnectMachine,
-    ExtendedMachine,
-    extendMachine,
-    MachineConfig,
-    MachineOptions,
-    UserContext,
-    UserState,
-} from '@optimacros-ui/store';
-import { omit, Orientation } from '@optimacros-ui/utils';
+import { Zag, createMachineContext, extendMachine } from '@optimacros-ui/store';
+import { omit, Orientation, OrientationString } from '@optimacros-ui/utils';
 import * as zagMenu from '@zag-js/menu';
+import { UiKit } from '@optimacros-ui/kit-store';
+import { normalizeProps, useMachine } from '@zag-js/react';
+import { createContext, useContext, useEffect } from 'react';
 
-const config = {
-    context: {
-        orientation: Orientation.Vertical,
-        disabled: false,
-        hoverable: false,
-    } as {
-        orientation?: string;
-        disabled?: boolean;
-        hoverable?: boolean;
-    },
-    on: {
-        'ORIENTATION.SET': { actions: 'setOrientation' },
-        'DISABLED.SET': { actions: 'setDisabled' },
-        'SUBMENU.SET': { actions: 'setSubmenuVisible' },
-    },
-} satisfies MachineConfig<zagMenu.Service>;
-
-const options = {
-    actions: {
-        setOrientation: (ctx, evt) => {
-            ctx.orientation = evt.value;
-        },
-        setDisabled: (ctx, evt) => {
-            ctx.disabled = evt.value;
-        },
-    },
-} satisfies MachineOptions<zagMenu.Service, zagMenu.Context, typeof config>;
-
-type State = UserState<typeof zagMenu>;
-type Context = UserContext<zagMenu.Context, typeof config>;
-
-export const machine = extendMachine(zagMenu, config, options) satisfies ExtendedMachine<
+export type Schema = Zag.ExtendModuleSchema<
     typeof zagMenu,
-    Context,
-    State
+    {
+        props: {
+            orientation?: OrientationString;
+            disabled?: boolean;
+            hoverable?: boolean;
+        };
+        context: {
+            orientation?: OrientationString;
+        };
+    }
 >;
+
+export const machine = extendMachine<Schema, typeof zagMenu>(zagMenu, {
+    context(params) {
+        const { bindable } = params;
+        return {
+            ...zagMenu.machine.context(params),
+            orientation: bindable<Schema['context']['orientation']>(() => ({
+                defaultValue: Orientation.Vertical,
+            })),
+        };
+    },
+});
 
 export type Machine = typeof machine;
 
-export const connect = ((api, { state, send }, machine) => {
+const connect = ((api, service) => {
     return {
         ...api,
-        orientation: state.context.orientation,
-        setOrientation(orientation: string) {
-            send({ type: 'ORIENTATION.SET', value: orientation });
-        },
-        setSubmenuVisible(value: boolean) {
-            send({ type: 'SUBMENU.SET', value });
+        getParent: () => service.refs.get('parent') as Zag.Service<Schema>,
+        orientation: service.context.get('orientation'),
+        setOrientation(orientation: OrientationString) {
+            service.context.set('orientation', orientation);
         },
         getContentProps() {
-            return { ...api.getContentProps(), 'data-orientation': state.context.orientation };
+            return {
+                ...api.getContentProps(),
+                'data-orientation': service.context.get('orientation'),
+            };
         },
         getTriggerProps() {
             const props = api.getTriggerProps();
@@ -68,11 +53,11 @@ export const connect = ((api, { state, send }, machine) => {
             return {
                 ...props,
                 onClick: (e) => {
-                    if (!state.context.disabled) {
+                    if (!service.prop('disabled')) {
                         props.onClick(e);
                     }
                 },
-                'data-disabled': state.context.disabled ?? undefined,
+                'data-disabled': service.prop('disabled') ?? undefined,
             };
         },
         getItemProps(props: zagMenu.ItemProps) {
@@ -81,26 +66,79 @@ export const connect = ((api, { state, send }, machine) => {
                 title: props.valueText,
             };
         },
-        setParentNode: (parent) => {
-            api.setParent(parent.machine);
-            parent.setChild(machine);
+        setParentNode: (parent: typeof service) => {
+            parent.send({ type: 'CHILD.SET', value: service, id: service.prop('id') });
+            service.send({ type: 'PARENT.SET', value: parent, id: parent.prop('id') });
         },
-        getTriggerItemProps(parent) {
-            const props = api.getTriggerItemProps(parent);
+        getTriggerItemProps(childApi: zagMenu.Api) {
+            const props = api.getTriggerItemProps(childApi);
 
-            if (!state.context.hoverable) {
+            if (!service.prop('hoverable')) {
                 return {
                     ...omit(props, ['onPointerDown', 'onPointerLeave', 'onPointerMove']),
-                    // some zagjs shit
                     'data-disabled': props['data-disabled'] === true ? true : undefined,
                 };
             }
 
             return {
                 ...props,
-                // some zagjs shit
                 'data-disabled': props['data-disabled'] === true ? true : undefined,
-            };
+            } as Record<string, any>;
         },
+        getSubMenuItemProps() {},
     };
-}) satisfies ConnectMachine<zagMenu.Api, Context, State>;
+}) satisfies Zag.ConnectApi<Schema, zagMenu.Api>;
+
+export const {
+    Api,
+    useApi,
+    RootProvider,
+    useSelector,
+    useProxySelector,
+    useFeatureFlags,
+    splitProps,
+    select,
+    slice,
+    useState,
+    State,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
+    id: 'menu',
+    machine,
+    connect,
+    GlobalContext: UiKit,
+});
+
+export type Props = Partial<Schema['props']>;
+
+export const SubMenuContext = createContext<ReturnType<typeof useState>>(null);
+
+export function useSubmenu(parent: ReturnType<typeof useState>, props: Partial<Schema['props']>) {
+    const isEnabled = useFeatureFlags('submenu');
+
+    const service = useMachine(machine.machine, props);
+    const api = connect(machine.connect(service, normalizeProps), service);
+
+    useEffect(() => {
+        if (!isEnabled) {
+            console.warn('submenu feature is disabled');
+        } else {
+            setTimeout(() => {
+                parent.api.setChild(service);
+                api.setParent(parent.service);
+            });
+        }
+    }, []);
+
+    return {
+        service,
+        api,
+        //@ts-ignore
+        props: parent.api.getTriggerItemProps(api),
+    };
+}
+
+export function useSubmenuApi() {
+    const context = useContext(SubMenuContext);
+
+    return context?.api;
+}

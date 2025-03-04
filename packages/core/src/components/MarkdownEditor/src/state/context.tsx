@@ -22,6 +22,23 @@ export const RootProvider = ({
 }) => {
     const [value, setValue] = useState(valueProp);
 
+    const [tabValue, setTabValue] = useState(() => activeTab as string);
+
+    const [tabs, setTabs] = useState<Array<Tabs.Tab>>(() => [
+        {
+            value: MarkdownEditorMode.EDIT,
+            index: 0,
+        },
+        {
+            value: MarkdownEditorMode.PREVIEW,
+            index: 1,
+        },
+        {
+            value: MarkdownEditorMode.SPLIT,
+            index: 2,
+        },
+    ]);
+
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
         if (value !== valueProp) {
@@ -40,11 +57,23 @@ export const RootProvider = ({
         [onChange],
     );
 
+    useEffect(() => {
+        setTabValue(activeTab);
+    }, [activeTab]);
+
     return (
         <MarkdownEditorContext.Provider
             value={{ value, setValue: handleValueChange, parse: convertStringToMarkdown, disabled }}
         >
-            <Tabs.Root value={activeTab} loopFocus={true}>
+            <Tabs.Root
+                value={tabValue}
+                loopFocus={true}
+                tabs={tabs}
+                onValueChange={({ value }) => {
+                    setTabValue(value);
+                }}
+                onTabsChange={(newTabs) => setTabs(newTabs)}
+            >
                 {children}
             </Tabs.Root>
         </MarkdownEditorContext.Provider>

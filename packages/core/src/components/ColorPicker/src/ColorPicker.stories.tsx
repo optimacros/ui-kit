@@ -8,14 +8,14 @@ import * as stories from './stories';
 const argTypesRoot: ArgTypesType<
     Omit<ComponentProps<typeof ColorPicker.RootProvider>, 'children'>
 > = {
-    open: {
+    defaultOpen: {
         control: 'boolean',
         description: 'Whether the color picker is open',
         table: { defaultValue: { summary: 'false' } },
     },
-    'open.controlled': {
+    open: {
         control: 'boolean',
-        description: 'Whether the color picker open state is controlled by the user',
+        description: 'Whether the color picker is open',
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {
@@ -98,6 +98,9 @@ const meta: Meta<typeof ColorPicker.RootProvider> = {
             ),
         },
     },
+    args: {
+        open: undefined,
+    },
 };
 export default meta;
 
@@ -116,7 +119,7 @@ export const Swatches: Story = {
 };
 
 export const FormatHSBA: Story = {
-    args: { format: 'hsba', open: true },
+    args: { format: 'hsba', defaultOpen: true },
     render: stories.Basic,
     // 13 пикселей отличаются в 2 случаях из 3
     tags: ['skip-test-runner'],
@@ -133,7 +136,7 @@ export const ReadOnly: Story = {
 };
 
 export const DisableAlpha: Story = {
-    args: { disableAlpha: true, open: true },
+    args: { disableAlpha: true, defaultOpen: true },
     render: stories.Basic,
 };
 
@@ -146,7 +149,7 @@ export const Positioning: Story = {
             shift: 100,
             overlap: true,
         },
-        open: true,
+        defaultOpen: true,
     },
     render: stories.Basic,
 };

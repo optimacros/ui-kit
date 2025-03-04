@@ -2,11 +2,9 @@ import { fn } from '@storybook/test';
 import { EditableProps } from '../Editable';
 
 export const props: EditableProps = {
-    controllable: true,
     submitMode: 'both',
     value: '',
     edit: false,
-    'edit.controlled': false,
     invalid: false,
     disabled: false,
     readOnly: false,

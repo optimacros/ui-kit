@@ -1,47 +1,48 @@
-import {
-    ConnectMachine,
-    createReactApiStateContext,
-    forward,
-    styled,
-    UserContext,
-    UserState,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/collapsible';
 
-export type State = UserState<typeof machine>;
+type Schema = Zag.ModuleSchema<typeof machine>;
 
-export type Context = UserContext<machine.Context, {}>;
-
-const connect = ((api, { state, send }, machine) => {
+const connect = ((api, service) => {
     return {
         ...api,
         getIndicatorProps() {
             return {
                 'data-scope': 'collapsible',
                 'data-part': 'indicator',
-                'data-state': state.context.open ? 'open' : 'closed',
+                'data-state': service.prop('open') ? 'open' : 'closed',
             };
         },
     };
-}) satisfies ConnectMachine<machine.Api, Context, State>;
+}) satisfies Zag.ConnectApi<Schema, machine.Api>;
 
-export const { Api, useApi, RootProvider, useSelector, useProxySelector } =
-    createReactApiStateContext({
-        id: 'collapsible',
-        machine,
-        connect,
-    });
+export const {
+    Api,
+    useApi,
+    RootProvider,
+    useSelector,
+    useProxySelector,
+    select,
+    slice,
+    splitProps,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, ReturnType<typeof connect>>({
+    id: 'collapsible',
+    machine,
+    connect,
+});
 
 export const Root = forward<ComponentProps<typeof RootProvider>, 'div'>(
     ({ children, as, ...context }, ref) => {
         return (
             <RootProvider {...context}>
-                {(api) => (
-                    <styled.div {...api.getRootProps()} ref={ref} as={as}>
-                        {isFunction(children) ? children(api) : children}
+                {(ctx) => (
+                    <styled.div {...ctx.api.getRootProps()} ref={ref} as={as}>
+                        {isFunction(children) ? children(ctx) : children}
                     </styled.div>
                 )}
             </RootProvider>

@@ -26,11 +26,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof SegmentedControl.Root>>> 
         description: 'Whether the checkbox is read-only',
         table: { defaultValue: { summary: 'false' } },
     },
-    controllable: {
-        control: 'boolean',
-        description: 'Whether the component handles props update',
-        table: { defaultValue: { summary: 'false' } },
-    },
     as: {
         table: { disable: true },
     },
@@ -38,9 +33,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof SegmentedControl.Root>>> 
         table: { disable: true },
     },
     children: {
-        table: { disable: true },
-    },
-    defaultContext: {
         table: { disable: true },
     },
     id: {
@@ -60,11 +52,10 @@ type Story = StoryObj<SegmentedControl.RootProps>;
 
 export const Basic: Story = {
     args: {
-        value: items[0],
+        defaultValue: items[0],
         onValueChange: fn(),
         disabled: false,
         readOnly: false,
-        controllable: false,
     },
     render: examples.Basic,
     play: scenarios.basic,
@@ -72,11 +63,10 @@ export const Basic: Story = {
 
 export const States: Story = {
     args: {
-        value: items[0],
+        defaultValue: items[0],
         onValueChange: fn(),
         disabled: false,
         readOnly: false,
-        controllable: false,
     },
     render: examples.States,
 };

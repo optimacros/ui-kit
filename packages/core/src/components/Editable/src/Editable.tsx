@@ -1,12 +1,22 @@
 import type { ComponentProps, PropsWithChildren } from 'react';
 import * as machine from '@zag-js/editable';
-import { createReactApiStateContext, forward, styled } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import { Flex } from '@optimacros-ui/flex';
 
-export const { Api, RootProvider, useApi } = createReactApiStateContext<
-    typeof machine,
-    machine.Api
->({
+type Schema = Zag.ModuleSchema<typeof machine>;
+
+export const {
+    Api,
+    RootProvider,
+    useApi,
+    select,
+    slice,
+    splitProps,
+    useFeatureFlags,
+    useProxySelector,
+    useSelector,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
     id: 'editable',
     machine,
 });

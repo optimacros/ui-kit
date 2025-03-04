@@ -9,5 +9,4 @@ export const props: Partial<ComponentProps<typeof Toggle>> = {
     disabled: false,
     readOnly: false,
     invalid: false,
-    controllable: false,
 };

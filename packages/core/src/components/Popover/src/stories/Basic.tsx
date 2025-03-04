@@ -20,30 +20,36 @@ export const Basic = (props: ComponentProps<typeof Popover.Root>) => {
                     <Popover.Arrow />
 
                     <Flex
-                        gap={2}
+                        gap={5}
                         direction="column"
                         style={{
-                            maxWidth: '200px',
+                            width: '240px',
                             background: 'rgb(240 240 240)',
                             padding: 20,
                             borderRadius: 5,
                         }}
                     >
-                        <Popover.Title>Title</Popover.Title>
+                        <Flex align="center" justify="space-between" fluid>
+                            <Popover.Title>Title</Popover.Title>
 
-                        <Popover.CloseTrigger asChild data-testid="close-trigger">
-                            <IconButton icon="close" variant="transparent" />
-                        </Popover.CloseTrigger>
-
-                        <Popover.Description>Description</Popover.Description>
-                        <div>
+                            <Popover.CloseTrigger asChild data-testid="close-trigger">
+                                <IconButton icon="close" variant="transparent" />
+                            </Popover.CloseTrigger>
+                        </Flex>
+                        <Popover.Description>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde non, ut
+                            aliquam quasi, alias expedita quibusdam rerum deserunt vero veniam
+                            sapiente voluptatibus nesciunt. Nam officiis quasi veniam repellat
+                            consequatur. Saepe.
+                        </Popover.Description>
+                        <Flex align="center" gap={2} fluid>
                             <Popover.CloseTrigger asChild>
                                 <Button variant="accent">Reset</Button>
                             </Popover.CloseTrigger>
                             <Popover.CloseTrigger asChild>
                                 <Button variant="primary">Save</Button>
                             </Popover.CloseTrigger>
-                        </div>
+                        </Flex>
                     </Flex>
                 </Popover.Content>
             </Popover.Positioner>

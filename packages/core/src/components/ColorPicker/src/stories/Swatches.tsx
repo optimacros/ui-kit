@@ -27,7 +27,7 @@ export const Swatches = (props) => {
                 onValueChange={handleValueChange}
                 onValueChangeEnd={handleValueChangeEnd}
             >
-                {(api) => (
+                {({ api }) => (
                     <>
                         <ColorPicker.Root>
                             <ColorPicker.Label>Color</ColorPicker.Label>
