@@ -1,6 +1,6 @@
 import { Children, ComponentProps, PropsWithChildren } from 'react';
 import * as treeview from '@zag-js/tree-view';
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 
 export interface Node {
     id: string;
@@ -8,7 +8,7 @@ export interface Node {
     children?: Node[];
 }
 
-export type Schema = ZagSchema<typeof treeview>;
+export type Schema = Zag.ModuleSchema<typeof treeview>;
 
 export const {
     RootProvider,

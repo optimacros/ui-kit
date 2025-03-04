@@ -1,10 +1,10 @@
 import { PropsWithChildren, ComponentProps, useMemo } from 'react';
-import { ConnectZagApi, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { Zag, forward, styled } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createMachineContext } from '@optimacros-ui/store';
 import * as machine from '@zag-js/slider';
 
-export type Schema = ZagSchema<typeof machine>;
+export type Schema = Zag.ModuleSchema<typeof machine>;
 
 const connect = ((api, { prop }) => {
     return {
@@ -13,7 +13,7 @@ const connect = ((api, { prop }) => {
         max: prop('max'),
         step: prop('step'),
     };
-}) satisfies ConnectZagApi<Schema, machine.Api>;
+}) satisfies Zag.ConnectApi<Schema, machine.Api>;
 
 export const {
     Api,

@@ -1,22 +1,20 @@
 import { isFunction } from '@optimacros-ui/utils';
 import { FC, memo, ReactNode } from 'react';
 import { createMachineApiHook } from './useMachineApi';
-import { createUseFeatureFlagsHooks } from './useFeatureFlags';
+import { createUseFeatureFlagsHooks, createHooks, createHelpers } from '../utils';
 /* biome-ignore lint:wait */
 import type { UiKit } from '@optimacros-ui/kit-store';
-import { ConnectZagApi, Selector, ZagModule } from './types';
-import { MachineSchema as BaseSchema } from '@zag-js/core';
-import { createHooks } from './hooks';
-import { createHelpers } from './helpers';
+import { Zag } from './types';
+import { Selector } from '../types';
 
 /**
  * method for creating optimacros-ui store with additional functionality
  * @param config - default configuration
  */
 export function createMachineContext<
-    Schema extends BaseSchema = BaseSchema,
+    Schema extends Zag.Schema = Zag.Schema,
     Api extends Record<string, any> = Record<string, any>,
-    Connect extends ConnectZagApi<Schema, Api> = any,
+    Connect extends Zag.ConnectApi<Schema, Api> = any,
     Props = Partial<Schema['props']>,
     ID extends string = string,
     Selectors extends Record<string, Selector<Api>> = NonNullable<unknown>,
@@ -27,7 +25,7 @@ export function createMachineContext<
      * zag-js like module
      * @example 'import * as menu from '@zag-js/menu'
      * */
-    machine: ZagModule<any, any, any>;
+    machine: Zag.Module<any, any, any>;
     /**
      *
      * @param initialState - zagjs api
@@ -57,9 +55,11 @@ export function createMachineContext<
     const slice = {
         ...config,
         selectors: createdConfig?.selectors,
-    };
+    } as Record<string, any>;
 
     const useMachine = createMachineApiHook<Schema, Api>(machine, connect);
+
+    type MachineContext = ReturnType<typeof useMachine>;
 
     const useFeatureFlags = GlobalContext
         ? createUseFeatureFlagsHooks(GlobalContext.useProxySelector, id)
@@ -70,7 +70,7 @@ export function createMachineContext<
         useState,
         useProxySelector,
         useSelector,
-    } = createHooks(`${id}Api`, {} as ReturnType<typeof useMachine>, true);
+    } = createHooks(`${id}Api`, {} as MachineContext, true);
 
     function useApi() {
         const { api } = useState();
@@ -82,16 +82,13 @@ export function createMachineContext<
         useState: useApi,
     });
 
-    const { State } = createHelpers<ReturnType<typeof useMachine>, { useState: typeof useState }>(
-        `${id}State`,
-        {
-            useState,
-        },
-    );
+    const { State } = createHelpers<MachineContext, { useState: typeof useState }>(`${id}State`, {
+        useState,
+    });
 
     const StoreProvider: FC<{
         children: ReactNode;
-        api?: ReturnType<typeof useMachine>;
+        api?: MachineContext;
     }> = memo(({ children, api }) => {
         //@ts-ignore
         return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
@@ -99,13 +96,7 @@ export function createMachineContext<
 
     StoreProvider.displayName = id;
 
-    type IRootMachine = Omit<Props, 'id'> & {
-        /** machine id (if its specific) */
-        id?: string;
-        children: ReactNode | ((api: ReturnType<typeof useMachine>) => ReactNode);
-    };
-
-    function RootMachine({ children, ...context }: IRootMachine) {
+    function RootMachine({ children, ...context }: Zag.RootProps<Schema, MachineContext>) {
         const machineApi = useMachine(context as unknown as Props);
 
         return (

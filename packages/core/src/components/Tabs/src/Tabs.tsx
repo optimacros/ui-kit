@@ -1,14 +1,14 @@
 import { forward, styled } from '@optimacros-ui/store';
-import { ComponentProps, PropsWithChildren, ReactNode, useId, useRef } from 'react';
+import { PropsWithChildren, ReactNode, useId, useRef } from 'react';
 import { Menu as BaseMenu } from '@optimacros-ui/menu';
 import { Draggable as DraggableComponent } from '@optimacros-ui/draggable';
-import { RootProvider, useApi } from './state';
+import { RootProvider, useApi, Props } from './state';
 import { Tab } from './types';
 
 export const getTabIndex = (value: string) =>
     parseInt(document.querySelector(`[data-value="${value}"]`).getAttribute('data-index'));
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>> & {
+export type RootProps = PropsWithChildren<Props> & {
     variant?: 'primary' | 'secondary';
 };
 const BaseRoot = forward<RootProps, 'div'>(({ children, variant, className, ...rest }, ref) => {

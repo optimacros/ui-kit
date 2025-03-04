@@ -1,6 +1,6 @@
 import { Button } from '@optimacros-ui/button';
 import { Menu } from '..';
-import { RootProps, useSubmenu } from '../Menu';
+import { Props, useSubmenu } from '../menu.machine';
 import { menuItems } from '../mock';
 
 const Content = ({ parent }) => {
@@ -56,7 +56,7 @@ const Content = ({ parent }) => {
     );
 };
 
-export const Nested = (props: RootProps) => {
+export const Nested = (props: Props) => {
     return (
         <Menu.Root {...props} hoverable>
             <Menu.Trigger asChild>

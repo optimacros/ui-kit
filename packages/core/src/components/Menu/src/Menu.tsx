@@ -1,59 +1,10 @@
-import {
-    ComponentProps,
-    ReactNode,
-    useEffect,
-    ReactElement,
-    createContext,
-    useContext,
-} from 'react';
-import { normalizeProps, Portal, useMachine } from '@zag-js/react';
+import { ComponentProps, ReactNode, ReactElement } from 'react';
+import { Portal } from '@zag-js/react';
 import { forward, styled } from '@optimacros-ui/store';
-import {
-    RootProvider,
-    useApi,
-    useFeatureFlags,
-    useState,
-    connect,
-    machine,
-    Schema,
-} from './menu.machine';
+import { RootProvider, SubMenuContext, useApi, useState, useSubmenuApi } from './menu.machine';
 import * as menu from '@zag-js/menu';
 
 export { RootProvider as Root };
-
-export type RootProps = ComponentProps<typeof RootProvider>;
-const SubMenuContext = createContext<ReturnType<typeof useState>>(null);
-
-export function useSubmenu(parent: ReturnType<typeof useState>, props: Partial<Schema['props']>) {
-    const isEnabled = useFeatureFlags('submenu');
-
-    const service = useMachine(machine.machine, props);
-    const api = connect(machine.connect(service, normalizeProps), service);
-
-    useEffect(() => {
-        if (!isEnabled) {
-            console.warn('submenu feature is disabled');
-        } else {
-            setTimeout(() => {
-                parent.api.setChild(service);
-                api.setParent(parent.service);
-            });
-        }
-    }, []);
-
-    return {
-        service,
-        api,
-        //@ts-ignore
-        props: parent.api.getTriggerItemProps(api),
-    };
-}
-
-export function useSubmenuApi() {
-    const context = useContext(SubMenuContext);
-
-    return context?.api;
-}
 
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();

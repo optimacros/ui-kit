@@ -1,14 +1,14 @@
-import { createMachineContext, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, Zag } from '@optimacros-ui/store';
 import * as toast from '@zag-js/toast';
 
-export type ToastSchema = ZagSchema<typeof toast>;
+export type ToastSchema = Zag.ModuleSchema<typeof toast>;
 
 export const ToastContext = createMachineContext<ToastSchema, toast.Api>({
     id: 'toast',
     machine: toast,
 });
 
-export type Schema = ZagSchema<typeof toast.group>;
+export type Schema = Zag.ModuleSchema<typeof toast.group>;
 
 export const {
     Api,

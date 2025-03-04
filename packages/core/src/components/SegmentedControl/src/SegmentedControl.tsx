@@ -1,14 +1,8 @@
-import {
-    ConnectZagApi,
-    createMachineContext,
-    forward,
-    styled,
-    ZagSchema,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, forward, styled } from '@optimacros-ui/store';
 import * as machine from '@zag-js/radio-group';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export type Schema = ZagSchema<typeof machine>;
+export type Schema = Zag.ModuleSchema<typeof machine>;
 
 const connect = ((api, service) => {
     return {
@@ -39,7 +33,7 @@ const connect = ((api, service) => {
             };
         },
     };
-}) satisfies ConnectZagApi<Schema, machine.Api>;
+}) satisfies Zag.ConnectApi<Schema, machine.Api>;
 
 export const {
     RootProvider,

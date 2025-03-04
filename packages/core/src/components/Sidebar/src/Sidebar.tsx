@@ -1,15 +1,9 @@
 import * as collapsible from '@zag-js/collapsible';
-import {
-    ConnectZagApi,
-    createMachineContext,
-    ExtendSchema,
-    forward,
-    styled,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { PropsWithChildren } from 'react';
 import { extendMachine } from '@optimacros-ui/store';
 
-type Schema = ExtendSchema<
+type Schema = Zag.ExtendModuleSchema<
     typeof collapsible,
     {
         props: {
@@ -95,7 +89,7 @@ const connect = ((api, { send, prop }) => {
             };
         },
     };
-}) satisfies ConnectZagApi<Schema, collapsible.Api>;
+}) satisfies Zag.ConnectApi<Schema, collapsible.Api>;
 
 export type Machine = typeof machine;
 

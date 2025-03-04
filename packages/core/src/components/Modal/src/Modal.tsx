@@ -6,7 +6,7 @@ import {
     useImperativeHandle,
     useRef,
 } from 'react';
-import { ConnectZagApi, ExtendSchema, forward, styled } from '@optimacros-ui/store';
+import { Zag, forward, styled } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
 import * as dialog from '@zag-js/dialog';
 import { createMachineContext } from '@optimacros-ui/store';
@@ -14,7 +14,7 @@ import { extendMachine } from '@optimacros-ui/store';
 import { Draggable } from '@optimacros-ui/draggable';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 
-export type Schema = ExtendSchema<
+export type Schema = Zag.ExtendModuleSchema<
     typeof dialog,
     {
         props: {
@@ -57,7 +57,7 @@ const connect = ((api, service) => {
             content.style.left = `${left}px`;
         },
     };
-}) satisfies ConnectZagApi<Schema, dialog.Api>;
+}) satisfies Zag.ConnectApi<Schema, dialog.Api>;
 
 export type Machine = typeof machine;
 

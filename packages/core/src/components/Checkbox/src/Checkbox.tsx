@@ -1,6 +1,8 @@
-import { ComponentProps, PropsWithChildren } from 'react';
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { PropsWithChildren } from 'react';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import * as machine from '@zag-js/checkbox';
+
+export type Schema = Zag.ModuleSchema<typeof machine>;
 
 export const {
     RootProvider,
@@ -13,12 +15,12 @@ export const {
     useProxySelector,
     useSelector,
     useState,
-} = createMachineContext<ZagSchema<typeof machine>, machine.Api>({
+} = createMachineContext<Schema, machine.Api>({
     id: 'checkbox',
     machine,
 });
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
+export type RootProps = PropsWithChildren<Partial<Schema['props']>>;
 
 export const Root = forward<RootProps, 'label'>(
     function ({ children, ...rest }, ref) {

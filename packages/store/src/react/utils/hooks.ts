@@ -1,5 +1,5 @@
-import { ActionCreator } from '../utils';
-import { invariant, isEqual, mapValues } from '@optimacros-ui/utils';
+import { ActionCreator } from '../../utils';
+import { invariant, isEqual, mapValues, isUndefined } from '@optimacros-ui/utils';
 import { mergeDeepWith } from 'immutable';
 import { memoize } from 'proxy-memoize';
 import {
@@ -16,7 +16,7 @@ import {
     useState,
 } from 'react';
 import { createDisplayName } from './createDisplayName';
-import { Slice } from './types';
+import { Slice } from '../types';
 
 export function createReducerWithMiddleware<M extends Array<any>>(
     Context: Context<any>,
@@ -212,3 +212,30 @@ export function createHooks<State>(
         StateContext,
     };
 }
+
+/**
+ *
+ * @param useStoreSelector - selector that allows to get feature flags
+ * @param componentName - exact store id
+ * @returns boolean
+ */
+export const createUseFeatureFlagsHooks = (useStoreSelector, componentName: string) => {
+    const useFeatureFlag = (featureName: string) => {
+        const isEnabled = useStoreSelector(
+            (context) => {
+                const ff = context.featureFlags[componentName]?.[featureName];
+
+                if (isUndefined(ff)) {
+                    return true;
+                }
+
+                return ff;
+            },
+            [featureName],
+        ) as boolean;
+
+        return isEnabled;
+    };
+
+    return useFeatureFlag;
+};

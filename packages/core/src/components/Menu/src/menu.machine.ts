@@ -1,15 +1,11 @@
-import {
-    ConnectZagApi,
-    createMachineContext,
-    extendMachine,
-    ExtendSchema,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, extendMachine } from '@optimacros-ui/store';
 import { omit, Orientation, OrientationString } from '@optimacros-ui/utils';
 import * as zagMenu from '@zag-js/menu';
 import { UiKit } from '@optimacros-ui/kit-store';
-import type { Service } from '@zag-js/core';
+import { normalizeProps, useMachine } from '@zag-js/react';
+import { createContext, useContext, useEffect } from 'react';
 
-export type Schema = ExtendSchema<
+export type Schema = Zag.ExtendModuleSchema<
     typeof zagMenu,
     {
         props: {
@@ -37,10 +33,10 @@ export const machine = extendMachine<Schema, typeof zagMenu>(zagMenu, {
 
 export type Machine = typeof machine;
 
-export const connect = ((api, service) => {
+const connect = ((api, service) => {
     return {
         ...api,
-        getParent: () => service.refs.get('parent') as Service<Schema>,
+        getParent: () => service.refs.get('parent') as Zag.Service<Schema>,
         orientation: service.context.get('orientation'),
         setOrientation(orientation: OrientationString) {
             service.context.set('orientation', orientation);
@@ -91,7 +87,7 @@ export const connect = ((api, service) => {
         },
         getSubMenuItemProps() {},
     };
-}) satisfies ConnectZagApi<Schema, zagMenu.Api>;
+}) satisfies Zag.ConnectApi<Schema, zagMenu.Api>;
 
 export const {
     Api,
@@ -111,3 +107,38 @@ export const {
     connect,
     GlobalContext: UiKit,
 });
+
+export type Props = Partial<Schema['props']>;
+
+export const SubMenuContext = createContext<ReturnType<typeof useState>>(null);
+
+export function useSubmenu(parent: ReturnType<typeof useState>, props: Partial<Schema['props']>) {
+    const isEnabled = useFeatureFlags('submenu');
+
+    const service = useMachine(machine.machine, props);
+    const api = connect(machine.connect(service, normalizeProps), service);
+
+    useEffect(() => {
+        if (!isEnabled) {
+            console.warn('submenu feature is disabled');
+        } else {
+            setTimeout(() => {
+                parent.api.setChild(service);
+                api.setParent(parent.service);
+            });
+        }
+    }, []);
+
+    return {
+        service,
+        api,
+        //@ts-ignore
+        props: parent.api.getTriggerItemProps(api),
+    };
+}
+
+export function useSubmenuApi() {
+    const context = useContext(SubMenuContext);
+
+    return context?.api;
+}

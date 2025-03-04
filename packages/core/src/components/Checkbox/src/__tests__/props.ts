@@ -1,8 +1,7 @@
-import { ComponentProps } from 'react';
-import { Checkbox } from '..';
 import { fn } from '@storybook/test';
+import { RootProps } from '../Checkbox';
 
-export const props: Omit<ComponentProps<typeof Checkbox.Root>, 'children'> = {
+export const props: Omit<RootProps, 'children'> = {
     checked: undefined,
     onCheckedChange: fn(),
     disabled: false,

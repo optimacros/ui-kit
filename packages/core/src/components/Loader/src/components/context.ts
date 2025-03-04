@@ -1,9 +1,8 @@
-import { ConnectZagApi, createMachineContext, ExtendSchema } from '@optimacros-ui/store';
+import { Zag, createMachineContext } from '@optimacros-ui/store';
 import { extendMachine } from '@optimacros-ui/store';
 import * as loader from '@zag-js/progress';
-import { PropTypes } from '@zag-js/types';
 
-type Schema = ExtendSchema<
+type Schema = Zag.ExtendModuleSchema<
     typeof loader,
     {
         props: {
@@ -140,7 +139,7 @@ const connect = ((api, service) => {
             };
         },
     };
-}) satisfies ConnectZagApi<Schema, loader.Api<PropTypes>>;
+}) satisfies Zag.ConnectApi<Schema, loader.Api<Zag.PropTypes>>;
 
 export const {
     Api,

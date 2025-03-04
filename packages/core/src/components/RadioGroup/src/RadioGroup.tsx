@@ -1,8 +1,8 @@
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import * as radio from '@zag-js/radio-group';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export type Schema = ZagSchema<typeof radio>;
+export type Schema = Zag.ModuleSchema<typeof radio>;
 
 export const {
     RootProvider,

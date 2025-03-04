@@ -1,13 +1,7 @@
-import {
-    ConnectZagApi,
-    createMachineContext,
-    extendMachine,
-    ExtendSchema,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, extendMachine } from '@optimacros-ui/store';
 import * as zagMachine from '@zag-js/file-upload';
-import { PropTypes } from '@zag-js/types';
 
-type Schema = ExtendSchema<
+type Schema = Zag.ExtendModuleSchema<
     typeof zagMachine,
     {
         props: {
@@ -38,7 +32,7 @@ export const connect = ((api, service) => {
         ...api,
         acceptedFiles: service.context.get('acceptedFiles'),
     };
-}) satisfies ConnectZagApi<Schema, zagMachine.Api<PropTypes>>;
+}) satisfies Zag.ConnectApi<Schema, zagMachine.Api<Zag.PropTypes>>;
 
 export const {
     Api,
@@ -56,3 +50,5 @@ export const {
     machine,
     connect,
 });
+
+export type Props = Partial<Schema['props']>;

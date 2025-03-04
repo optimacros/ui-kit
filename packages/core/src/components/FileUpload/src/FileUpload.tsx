@@ -1,9 +1,9 @@
 import { forward, styled } from '@optimacros-ui/store';
-import { ComponentProps, PropsWithChildren, ReactNode, useMemo } from 'react';
+import { PropsWithChildren, ReactNode, useMemo } from 'react';
 import { round, sum } from '@optimacros-ui/utils';
-import { machine, RootProvider, useApi } from './file-upload.machine';
+import { machine, Props, RootProvider, useApi } from './file-upload.machine';
 
-export type RootProps = PropsWithChildren<ComponentProps<typeof RootProvider>>;
+export type RootProps = PropsWithChildren<Props>;
 export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) => {
     const [providerProps, elementProps] = machine.splitProps(context);
 

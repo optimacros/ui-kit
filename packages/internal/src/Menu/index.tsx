@@ -3,7 +3,6 @@ import type React from 'react';
 
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 import { forward } from '@optimacros-ui/store';
-import { useSubmenu } from 'packages/core/src/components/Menu/src/Menu';
 
 interface IMenuItem {
     title?: string;
@@ -46,7 +45,7 @@ export const SubMenu = ({
     const parent = MenuComponent.useState();
     const generatedKey = useId();
 
-    const menu = useSubmenu(parentMenu ?? parent, {
+    const menu = MenuComponent.useSubmenu(parentMenu ?? parent, {
         id: generatedKey,
         closeOnSelect: false,
         positioning: {
@@ -95,7 +94,7 @@ SubMenu.displayName = 'SubMenu';
 export const MenuTrigger = MenuComponent.Trigger;
 
 export const Menu = forward<
-    { children: ReactNode; renderTrigger?: () => ReactNode } & MenuComponent.RootProps,
+    { children: ReactNode; renderTrigger?: () => ReactNode } & MenuComponent.Props,
     'div'
 >((props, ref) => {
     const { children, renderTrigger, ...rest } = props;

@@ -1,17 +1,10 @@
 import * as colorPicker from '@zag-js/color-picker';
-import {
-    createMachineContext,
-    extendMachine,
-    ExtendSchema,
-    forward,
-    styled,
-    ConnectZagApi,
-} from '@optimacros-ui/store';
+import { createMachineContext, extendMachine, Zag, forward, styled } from '@optimacros-ui/store';
 import { ComponentProps, PropsWithChildren } from 'react';
 import { Field } from '@optimacros-ui/field';
 import { Flex } from '@optimacros-ui/flex';
 
-type Schema = ExtendSchema<
+type Schema = Zag.ExtendModuleSchema<
     typeof colorPicker,
     {
         props: {
@@ -31,7 +24,7 @@ const machine = extendMachine<Schema, typeof colorPicker>(colorPicker, {
 
 const connect = ((api, service) => {
     return { ...api, disableAlpha: service.prop('disableAlpha') };
-}) satisfies ConnectZagApi<Schema, colorPicker.Api>;
+}) satisfies Zag.ConnectApi<Schema, colorPicker.Api>;
 
 export const {
     Api,

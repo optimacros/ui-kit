@@ -1,9 +1,10 @@
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import * as machine from '@zag-js/number-input';
-import { ComponentProps, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import './number-input.css';
+import * as $ from '@optimacros-ui/types';
 
-type Schema = ZagSchema<typeof machine>;
+type Schema = $.Merge<Zag.ModuleSchema<typeof machine>, {}>;
 
 export const {
     Api,
@@ -16,24 +17,25 @@ export const {
     splitProps,
     useFeatureFlags,
     useState,
-} = createMachineContext<Schema, machine.Api>({
+    State,
+} = createMachineContext<Zag.Schema, machine.Api>({
     id: 'number-input',
     machine,
 });
 
-export const Root = forward<ComponentProps<typeof RootProvider> & PropsWithChildren, 'div'>(
-    ({ children, ...context }, ref) => {
-        return (
-            <RootProvider {...context}>
-                {({ api }) => (
-                    <styled.div {...api.getRootProps()} ref={ref}>
-                        {children}
-                    </styled.div>
-                )}
-            </RootProvider>
-        );
-    },
-);
+export type Props = Schema['props'];
+
+export const Root = forward<PropsWithChildren<Props>, 'div'>(({ children, ...context }, ref) => {
+    return (
+        <RootProvider {...context}>
+            {({ api }) => (
+                <styled.div {...api.getRootProps()} ref={ref}>
+                    {children}
+                </styled.div>
+            )}
+        </RootProvider>
+    );
+});
 
 export const Input = forward<{}, 'input'>((props, ref) => {
     const api = useApi();

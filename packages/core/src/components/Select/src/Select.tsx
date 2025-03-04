@@ -1,12 +1,11 @@
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 import { Portal } from '@zag-js/react';
 import * as machine from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Virtual } from '@optimacros-ui/virtual';
-import { PropTypes } from '@zag-js/types';
 
-export type Schema = ZagSchema<typeof machine>;
+export type Schema = Zag.ModuleSchema<typeof machine>;
 
 export const {
     useApi,
@@ -20,7 +19,7 @@ export const {
     useFeatureFlags,
     useState,
     select,
-} = createMachineContext<Schema, machine.Api<PropTypes, ItemBase>>({
+} = createMachineContext<Schema, machine.Api<Zag.PropTypes, ItemBase>>({
     id: 'select',
     machine,
 });

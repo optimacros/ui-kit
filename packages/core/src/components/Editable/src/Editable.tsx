@@ -1,9 +1,9 @@
 import type { ComponentProps, PropsWithChildren } from 'react';
 import * as machine from '@zag-js/editable';
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import { Flex } from '@optimacros-ui/flex';
 
-type Schema = ZagSchema<typeof machine>;
+type Schema = Zag.ModuleSchema<typeof machine>;
 
 export const {
     Api,

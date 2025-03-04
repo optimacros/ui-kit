@@ -1,6 +1,5 @@
 import { FC, memo, ReactNode } from 'react';
-import { createHooks } from './hooks';
-import { createHelpers } from './helpers';
+import { createHooks, createHelpers } from '../utils';
 
 type HooksConfig = object;
 

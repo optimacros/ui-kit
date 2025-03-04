@@ -1,6 +1,5 @@
 import { merge } from '@optimacros-ui/utils';
-import { MachineSchema as BaseSchema, Machine as MachineConfig } from '@zag-js/core';
-import { ZagModule } from './types';
+import { Zag } from './types';
 import * as $ from '@optimacros-ui/types';
 /**
  * method for extending {@link ZagMachine}
@@ -10,9 +9,9 @@ import * as $ from '@optimacros-ui/types';
  * @returns ZagJs module with mutated {@link ZagMachine} function
  */
 export function extendMachine<
-    Schema extends BaseSchema,
-    Module extends ZagModule<any, any, any> = ZagModule<any, any, any>,
-    Config extends $.PartialDeep<MachineConfig<Schema>> = $.PartialDeep<MachineConfig<Schema>>,
+    Schema extends Zag.Schema,
+    Module extends Zag.Module<any, any, any> = Zag.Module<any, any, any>,
+    Config extends $.PartialDeep<Zag.Machine<Schema>> = $.PartialDeep<Zag.Machine<Schema>>,
 >(stateMachine: Module, config: Config) {
     const machine = {
         ...merge(true, stateMachine.machine, config),
@@ -29,7 +28,7 @@ export function extendMachine<
     };
 
     const result: Omit<Module, 'machine'> & {
-        machine: MachineConfig<Schema>;
+        machine: Zag.Machine<Schema>;
     } = {
         ...stateMachine,
         machine,

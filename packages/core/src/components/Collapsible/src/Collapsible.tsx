@@ -1,16 +1,10 @@
-import {
-    ConnectZagApi,
-    createMachineContext,
-    forward,
-    styled,
-    ZagSchema,
-} from '@optimacros-ui/store';
+import { Zag, createMachineContext, forward, styled } from '@optimacros-ui/store';
 import { isFunction } from '@optimacros-ui/utils';
 
 import { ComponentProps } from 'react';
 import * as machine from '@zag-js/collapsible';
 
-type Schema = ZagSchema<typeof machine>;
+type Schema = Zag.ModuleSchema<typeof machine>;
 
 const connect = ((api, service) => {
     return {
@@ -23,7 +17,7 @@ const connect = ((api, service) => {
             };
         },
     };
-}) satisfies ConnectZagApi<Schema, machine.Api>;
+}) satisfies Zag.ConnectApi<Schema, machine.Api>;
 
 export const {
     Api,

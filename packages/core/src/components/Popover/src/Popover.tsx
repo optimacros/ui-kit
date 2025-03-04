@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { Portal } from '@zag-js/react';
 import * as machine from '@zag-js/popover';
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 
-export type Schema = ZagSchema<typeof machine>;
+export type Schema = Zag.ModuleSchema<typeof machine>;
 
 export const {
     useApi,

@@ -1,10 +1,14 @@
 import { invariant, mapValues } from '@optimacros-ui/utils';
 import { createContext, FC, memo, ReactNode, useContext, useLayoutEffect } from 'react';
-import { createProxySelectorHook } from './hooks';
 
-import { ActionCreator, createActionCreator, PayloadAction } from '../utils';
-import { createActionsForKeys } from './actions';
-import { createUseHook, createUseSelectorHook } from './hooks';
+import { ActionCreator, createActionCreator, PayloadAction } from '../../utils';
+import {
+    createActionsForKeys,
+    createUseHook,
+    createUseSelectorHook,
+    createProxySelectorHook,
+} from '../utils';
+
 type ReactMiddlewareFn = ({ action, getState }) => void;
 
 type HooksConfig = object;

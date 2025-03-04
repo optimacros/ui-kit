@@ -1,9 +1,4 @@
-import {
-    ConnectZagApi,
-    createMachineContext,
-    extendMachine,
-    ExtendSchema,
-} from '@optimacros-ui/store';
+import { createMachineContext, extendMachine, Zag } from '@optimacros-ui/store';
 import * as tabs from '@zag-js/tabs';
 import { Tab } from '../types';
 import {
@@ -16,7 +11,7 @@ import {
 } from '@optimacros-ui/utils';
 import { raf } from '@zag-js/dom-query';
 
-export type Schema = ExtendSchema<
+export type Schema = Zag.ExtendModuleSchema<
     typeof tabs,
     {
         props: {
@@ -255,6 +250,31 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
     },
 });
 
+interface TriggerProps {
+    /**
+     * The value of the tab
+     */
+    value: string;
+    /**
+     * Whether the tab is disabled
+     */
+    disabled?: boolean | undefined;
+}
+interface TriggerState {
+    /**
+     * Whether the tab is selected
+     */
+    selected: boolean;
+    /**
+     * Whether the tab is focused
+     */
+    focused: boolean;
+    /**
+     * Whether the tab is disabled
+     */
+    disabled: boolean;
+}
+
 const connect = ((api, { state, send, refs, context, prop }) => {
     return {
         ...api,
@@ -311,7 +331,12 @@ const connect = ((api, { state, send, refs, context, prop }) => {
         },
         addTabs: (tabs: Array<Tab>) => send({ type: 'ADD_TABS', value: tabs }),
     };
-}) satisfies ConnectZagApi<Schema, tabs.Api>;
+}) satisfies Zag.ConnectApi<
+    Schema,
+    Omit<tabs.Api, 'getTriggerState'> & {
+        getTriggerState(props: TriggerProps): TriggerState;
+    }
+>;
 
 export const {
     Api,
@@ -330,3 +355,5 @@ export const {
     machine,
     connect,
 });
+
+export type Props = Partial<Schema['props']>;

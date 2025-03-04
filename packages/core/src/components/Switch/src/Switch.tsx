@@ -1,8 +1,8 @@
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import * as machine from '@zag-js/switch';
 import { ComponentProps, PropsWithChildren } from 'react';
 
-export type Schema = ZagSchema<typeof machine>;
+export type Schema = Zag.ModuleSchema<typeof machine>;
 
 export const {
     RootProvider,

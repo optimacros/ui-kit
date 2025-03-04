@@ -1,7 +1,7 @@
-import type { RootProps } from '../Menu';
+import type { Props } from '../menu.machine';
 import { fn } from '@storybook/test';
 
-export const props: Partial<RootProps> = {
+export const props: Partial<Props> = {
     open: false,
     onOpenChange: fn(),
     closeOnSelect: true,

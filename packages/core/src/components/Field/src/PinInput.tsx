@@ -1,8 +1,8 @@
-import { createMachineContext, forward, styled, ZagSchema } from '@optimacros-ui/store';
+import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import * as machine from '@zag-js/pin-input';
 import { ComponentProps } from 'react';
 
-type Schema = ZagSchema<typeof machine>;
+type Schema = Zag.ModuleSchema<typeof machine>;
 
 export const {
     Api,
