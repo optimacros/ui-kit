@@ -13,8 +13,6 @@ export const interactive = async ({
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
     window.testing.updateArgs({ ...props, interactive: true });
 
     await window.waitForPageTrulyReady?.();

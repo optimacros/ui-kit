@@ -1,6 +1,4 @@
 import { Tooltip } from '@optimacros-ui/tooltip';
-import { Button } from '@optimacros-ui/button';
-import { Flex } from '@optimacros-ui/flex';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import * as scenarios from './__tests__/scenarios';
@@ -59,9 +57,6 @@ const meta: Meta<typeof Tooltip.Root> = {
     argTypes,
     title: 'UI Kit core/Tooltip',
     component: Tooltip.Root,
-    args: {
-        open: undefined,
-    },
 };
 
 export default meta;
@@ -98,92 +93,12 @@ export const Disabled: StoryObj<typeof Tooltip.Root> = {
 
 export const Interactive: StoryObj<typeof Tooltip.Root> = {
     args: { interactive: true },
-    render: (props: Tooltip.Props) => {
-        return (
-            <Flex
-                justify="center"
-                align="center"
-                style={{
-                    height: '20rem',
-                    width: '40rem',
-                }}
-            >
-                <Tooltip.Root {...props}>
-                    <Tooltip.Trigger asChild data-testid="trigger">
-                        <Button variant="bordered">hover over me</Button>
-                    </Tooltip.Trigger>
-
-                    <Tooltip.Content>
-                        <Flex
-                            justify="center"
-                            align="center"
-                            style={{
-                                height: 100,
-                                width: 200,
-                                background: 'lightGray',
-                            }}
-                        >
-                            <Button variant="accent" data-testid="content-button">
-                                here we are
-                            </Button>
-                        </Flex>
-                    </Tooltip.Content>
-                </Tooltip.Root>
-            </Flex>
-        );
-    },
+    render: examples.Interactive,
     play: scenarios.interactive,
 };
 
-export const Controlled: StoryObj<typeof Tooltip.Root> = {
+export const ApiControlled: StoryObj<typeof Tooltip.Root> = {
     args: { interactive: true },
-    render: (props: Tooltip.Props) => {
-        return (
-            <Flex
-                justify="center"
-                align="center"
-                style={{
-                    height: '20rem',
-                    width: '40rem',
-                }}
-            >
-                <Tooltip.Root {...props}>
-                    <Tooltip.Api>
-                        {(api) => (
-                            <>
-                                <Button variant="bordered" onClick={() => api.setOpen(true)}>
-                                    click to open
-                                </Button>
-
-                                <Tooltip.Trigger asChild>
-                                    <Button variant="bordered">
-                                        do not click or hover over
-                                        <br />
-                                        this will break everything
-                                    </Button>
-                                </Tooltip.Trigger>
-
-                                <Tooltip.Content>
-                                    <Flex
-                                        justify="center"
-                                        align="center"
-                                        style={{
-                                            height: 100,
-                                            width: 200,
-                                            background: 'lightGray',
-                                        }}
-                                    >
-                                        <Button variant="accent" onClick={() => api.setOpen(false)}>
-                                            click to close
-                                        </Button>
-                                    </Flex>
-                                </Tooltip.Content>
-                            </>
-                        )}
-                    </Tooltip.Api>
-                </Tooltip.Root>
-            </Flex>
-        );
-    },
+    render: examples.ApiControlled,
     tags: ['skip-test-runner'],
 };
