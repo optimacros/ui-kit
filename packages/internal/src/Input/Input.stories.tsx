@@ -145,6 +145,13 @@ export const Readonly: Story = {
     },
 };
 
+// Placeholder input
+export const Placeholder: Story = {
+    args: {
+        placeholder: 'Placeholder',
+    },
+};
+
 // Interactive form validation
 export const FormValidation: Story = {
     render: () => {
