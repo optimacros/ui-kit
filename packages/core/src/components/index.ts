@@ -39,3 +39,4 @@ export * from '@optimacros-ui/color-picker';
 export * from '@optimacros-ui/clipboard';
 export * from '@optimacros-ui/rating-group';
 export * from '@optimacros-ui/hover-card';
+export * from '@optimacros-ui/backdrop';
