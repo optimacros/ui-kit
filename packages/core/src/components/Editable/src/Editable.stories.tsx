@@ -41,6 +41,11 @@ const argTypes: ArgTypes<Partial<EditableProps>> = {
     edit: {
         control: 'boolean',
         description: 'Whether the editable is in edit mode.',
+        table: { defaultValue: { summary: 'undefined' } },
+    },
+    defaultEdit: {
+        control: 'boolean',
+        description: 'Whether the editable is in edit mode.',
         table: { defaultValue: { summary: 'false' } },
     },
 
@@ -98,9 +103,6 @@ const argTypes: ArgTypes<Partial<EditableProps>> = {
 const meta: Meta<typeof Editable.RootProvider> = {
     title: 'UI Kit core/Editable',
     argTypes,
-    args: {
-        defaultValue: '',
-    },
 };
 
 export default meta;
@@ -111,7 +113,6 @@ export const Basic: Story = {
     args: {
         submitMode: 'both',
         defaultValue: 'value',
-
         invalid: false,
         disabled: false,
         readOnly: false,
@@ -138,6 +139,7 @@ export const Controlled: Story = {
         autoResize: false,
     },
     render: stories.Controlled,
+    tags: ['skip-test-runner'],
 };
 
 export const TextArea: Story = {

@@ -7,9 +7,9 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -30,10 +30,6 @@ export const basic = async ({ globals, canvasElement, step }) => {
     const user = userEvent.setup();
 
     await step('open/close', async () => {
-        window.testing.updateArgs(props);
-
-        await sleep(100);
-
         await user.click(editTrigger);
 
         await waitFor(() => expect(input).toBeVisible());
@@ -51,10 +47,11 @@ export const basic = async ({ globals, canvasElement, step }) => {
     });
 
     await step('open/close controlled', async () => {
-        window.testing.updateArgs({ ...props, 'edit.controlled': true });
+        await window.testing.updateArgs({ edit: false });
         window.testing.args.onEditChange.mockClear();
 
-        await sleep(100);
+        expect(input).not.toBeVisible();
+        expect(preview).toBeVisible();
 
         await user.click(canvas.getByTestId('edit-trigger'));
 
@@ -66,7 +63,7 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(window.testing.args.onEditChange).toBeCalledTimes(1);
         expect(window.testing.args.onEditChange).toBeCalledWith({ edit: true });
 
-        window.testing.updateArgs({ edit: true });
+        await window.testing.updateArgs({ edit: true });
 
         await waitFor(() => expect(preview).not.toBeVisible());
         expect(input).toBeVisible();
@@ -80,19 +77,19 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(preview).not.toBeVisible();
 
         // 1,2 - trigger, 3 - outside
-        // expect(window.testing.args.onEditChange).toBeCalledTimes(3);
+        expect(window.testing.args.onEditChange).toBeCalledTimes(3);
         expect(window.testing.args.onEditChange).toBeCalledWith({ edit: false });
 
-        window.testing.updateArgs({ edit: false });
+        await window.testing.updateArgs({ edit: false });
 
         await waitFor(() => expect(preview).toBeVisible());
         expect(input).not.toBeVisible();
     });
 
     await step('edit/submit/revert', async () => {
-        window.testing.updateArgs({ ...props, controllable: false });
+        await window.testing.updateArgs(props);
 
-        await sleep(100);
+        await window.testing.resetStory();
 
         await user.click(canvas.getByTestId('edit-trigger'));
 
@@ -130,56 +127,84 @@ export const basic = async ({ globals, canvasElement, step }) => {
     });
 
     await step('edit/submit/revert controllable', async () => {
-        window.testing.updateArgs(props);
+        await window.testing.updateArgs({ value: '' });
+
         window.testing.args.onValueChange.mockClear();
         window.testing.args.onValueCommit.mockClear();
         window.testing.args.onValueRevert.mockClear();
 
-        await sleep(100);
+        await window.testing.resetStory();
 
         await user.click(canvas.getByTestId('edit-trigger'));
 
-        await waitFor(() => expect(canvas.getByTestId('input')).toBeVisible());
-        expect(canvas.getByTestId('preview')).not.toBeVisible();
-        expect(canvas.getByTestId('submit-trigger')).toBeInTheDocument();
-        expect(canvas.getByTestId('cancel-trigger')).toBeInTheDocument();
+        await waitFor(() => {
+            expect(canvas.getByTestId('input')).toBeVisible();
+            expect(canvas.getByTestId('preview')).not.toBeVisible();
+            expect(canvas.getByTestId('submit-trigger')).toBeInTheDocument();
+            expect(canvas.getByTestId('cancel-trigger')).toBeInTheDocument();
+        });
+
+        expect(canvas.getByTestId('preview')).toHaveTextContent('placeholder');
+        expect(canvas.getByTestId('input')).toHaveValue('');
 
         await user.keyboard('input value');
 
-        expect(canvas.getByTestId('input')).toHaveValue('');
+        expect(canvas.getByTestId('preview')).toHaveTextContent('placeholder');
+        expect(canvas.getByTestId('input')).toHaveValue('input value');
+
         expect(window.testing.args.onValueChange).toBeCalledTimes(11);
-        expect(window.testing.args.onValueChange).toHaveBeenLastCalledWith({ value: 'e' });
-
-        window.testing.updateArgs({ value: 'input value' });
-
-        await waitFor(() => expect(canvas.getByTestId('input')).toHaveValue('input value'));
-
-        await user.click(canvas.getByTestId('submit-trigger'));
-
-        await waitFor(() => expect(canvas.getByTestId('input')).not.toBeVisible());
-        expect(canvas.getByTestId('preview')).toBeVisible();
-
-        expect(canvas.getByTestId('preview')).toHaveTextContent('input value');
-
-        expect(window.testing.args.onValueCommit).toBeCalledTimes(1);
-        expect(window.testing.args.onValueCommit).toHaveBeenLastCalledWith({
+        expect(window.testing.args.onValueChange).toHaveBeenLastCalledWith({
             value: 'input value',
         });
 
+        await user.click(canvas.getByTestId('submit-trigger'));
+
+        await waitFor(() => {
+            expect(canvas.getByTestId('input')).not.toBeVisible();
+            expect(canvas.getByTestId('preview')).toBeVisible();
+        });
+
+        expect(window.testing.args.onValueCommit).toBeCalledTimes(1);
+        expect(window.testing.args.onValueCommit).toHaveBeenLastCalledWith({
+            value: '',
+        });
+
+        expect(canvas.getByTestId('preview')).toHaveTextContent('placeholder');
+        expect(canvas.getByTestId('input')).toHaveValue('input value');
+
+        await window.testing.updateArgs({ value: 'input value' });
+
+        expect(canvas.getByTestId('preview')).toHaveTextContent('input value');
+        expect(canvas.getByTestId('input')).toHaveValue('input value');
+
         await user.click(canvas.getByTestId('edit-trigger'));
 
-        await waitFor(() => expect(canvas.getByTestId('input')).toBeVisible());
-        expect(canvas.getByTestId('preview')).not.toBeVisible();
+        await waitFor(() => {
+            expect(canvas.getByTestId('input')).toBeVisible();
+            expect(canvas.getByTestId('preview')).not.toBeVisible();
+        });
 
-        window.testing.updateArgs({ value: 'input value updated' });
+        expect(canvas.getByTestId('preview')).toHaveTextContent('input value');
+        expect(canvas.getByTestId('input')).toHaveValue('input value');
 
-        await waitFor(() => expect(canvas.getByTestId('input')).toHaveValue('input value updated'));
+        await user.keyboard(' updated');
+
+        expect(canvas.getByTestId('preview')).toHaveTextContent('input value');
+        expect(canvas.getByTestId('input')).toHaveValue('input value updated');
 
         await user.click(canvas.getByTestId('cancel-trigger'));
+
+        await waitFor(() => {
+            expect(canvas.getByTestId('input')).not.toBeVisible();
+            expect(canvas.getByTestId('preview')).toBeVisible();
+        });
 
         expect(window.testing.args.onValueRevert).toBeCalledTimes(1);
         expect(window.testing.args.onValueRevert).toHaveBeenLastCalledWith({
             value: 'input value',
         });
+
+        expect(canvas.getByTestId('preview')).toHaveTextContent('input value');
+        expect(canvas.getByTestId('input')).toHaveValue('input value updated');
     });
 };

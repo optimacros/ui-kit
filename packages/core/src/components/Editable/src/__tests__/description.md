@@ -14,8 +14,9 @@
 
 ### 2.Open/close (controlled)
 
-- передаю пропсы `{ 'edit.controlled': true }`
+- передаю пропсы `{ edit: false }`
 - сбрасываю статистику `onEditChange`
+- проверяю состояние (закрыто)
 - кликаю `edit-trigger`
 - проверяю состояние (закрыто)
 - проверяю вызов `onEditChange`
@@ -49,32 +50,38 @@
 
 ### 4.Edit/submit/revert controllable
 
-- сбрасываю пропсы
+- передаю пропсы `{ value: '' }`
 - сбрасываю статистику функций
 - кликаю `edit-trigger`
 - проверяю состояние (открыто)
 - проверяю значение инпута (пусто)
+- проверяю значение превью (пусто)
 - ввожу `input value`
-- проверяю вызов `onValueChange`
-- передаю пропсы `{ value: 'input value' }`
-- проверяю значение инпута `input value`
+- проверяю значение инпута (input value)
+- проверяю значение превью (пусто)
+- проверяю вызов `onValueChange` (input value)
 - кликаю `submit-trigger`
+- проверяю вызов `onValueCommit` (пусто)
 - проверяю состояние (закрыто)
-- проверяю вызов `onValueCommit`
-- проверяю значение превью (`input value`)
+- проверяю значение инпута (input value)
+- проверяю значение превью (пусто)
+- передаю пропсы `{ value: 'input value' }`
+- проверяю значение инпута (input value)
+- проверяю значение превью (input value)
 - кликаю `edit-trigger`
 - проверяю состояние (открыто)
-- передаю пропсы `{ value: 'input value updated' }`
-- проверяю значение инпута `input value updated`
+- ввожу ` updated`
+- проверяю значение инпута (input value updated)
+- проверяю значение превью (input value)
 - кликаю `cancel-trigger`
 - проверяю состояние (закрыто)
-- проверяю значение превью (`input value updated`)
-- проверяю вызов `onValueCommit` (`input value`)
+- проверяю вызов `onValueRevert` (`input value`)
+- проверяю значение инпута (input value updated)
+- проверяю значение превью (input value)
 
 ## States
 
 - сбрасываю пропсы
-- передаю пропсы `{ 'edit.controlled': true }`
 - проверяю наличие основных элементов на странице
 - проверяю состояние (закрыто)
 - делаю скриншот `default`
@@ -85,7 +92,7 @@
 ## Placeholder
 
 - сбрасываю пропсы
-- передаю пропсы `{ value: '', 'edit.controlled': true }`
+- передаю пропсы `{ value: '' }`
 - проверяю наличие основных элементов на странице
 - проверяю состояние (закрыто)
 - делаю скриншот `default`
@@ -96,7 +103,7 @@
 ## MaxLength
 
 - сбрасываю пропсы
-- передаю пропсы `{ value: '', 'edit.controllable': true, edit: true, maxLength: 10, controllable: false, }`
+- передаю пропсы `{ edit: true, maxLength: 10 }`
 - проверяю наличие основных элементов на странице
 - проверяю значение (ничего)
 - ввожу 10 символов
@@ -107,7 +114,7 @@
 ## AutoResize
 
 - сбрасываю пропсы
-- передаю пропсы `{ value: '', edit: true, 'edit.controlled': true, autoResize: true, controllable: false, }`
+- передаю пропсы `{ edit: true, autoResize: true }`
 - проверяю наличие основных элементов на странице
 - проверяю значение (ничего)
 - делаю скриншот (`default`)

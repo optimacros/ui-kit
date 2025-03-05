@@ -6,12 +6,9 @@ export const states = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs({
-        ...props,
-        'edit.controlled': true,
-    });
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -28,7 +25,7 @@ export const states = async ({ globals, canvasElement }) => {
 
     await window.takeScreenshot?.();
 
-    window.testing.updateArgs({
+    await window.testing.updateArgs({
         edit: true,
     });
 
