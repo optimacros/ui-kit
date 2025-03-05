@@ -112,7 +112,7 @@ export const Group = forward<
         <Portal>
             <styled.div {...api.getGroupProps()} {...rest} ref={ref}>
                 {api.getToasts().map((toast, index) => (
-                    <Fragment key={'toast-' + index}>
+                    <Fragment key={toast.id}>
                         {children({ toast, parent: service, index })}
                     </Fragment>
                 ))}
