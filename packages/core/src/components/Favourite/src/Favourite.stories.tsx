@@ -4,8 +4,9 @@ import { StoryObj, ArgTypes, Meta } from '@storybook/react';
 import * as stories from './stories';
 import * as scenarios from './__tests__/scenarios';
 import { fn } from '@storybook/test';
+import { ComponentProps } from 'react';
 
-const argTypes: ArgTypes<Partial<Favourite.RootProps>> = {
+const argTypes: ArgTypes<Partial<ComponentProps<typeof Favourite.Root>>> = {
     disabled: {
         control: 'boolean',
         description: 'If `true`, component will be disabled',
@@ -23,15 +24,18 @@ const argTypes: ArgTypes<Partial<Favourite.RootProps>> = {
         description: 'The callback invoked when the checked state changes',
         table: { type: { summary: '(details: CheckedChangeDetails) => void' } },
     },
+    as: {
+        table: { disable: true },
+    },
+    asChild: {
+        table: { disable: true },
+    },
 };
 
 const meta: Meta<typeof Favourite.Root> = {
     title: 'UI Kit core/Favourite',
     component: Favourite.Root,
     argTypes,
-    args: {
-        checked: undefined,
-    },
 };
 
 export default meta;
