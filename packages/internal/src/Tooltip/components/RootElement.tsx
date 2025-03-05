@@ -1,5 +1,6 @@
 import { createElement, memo, PropsWithChildren } from 'react';
 import { TooltipProps } from '..';
+import './styles.css';
 
 type Props = PropsWithChildren &
     Pick<
