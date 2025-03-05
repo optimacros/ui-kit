@@ -1,4 +1,4 @@
-import { createEvent, expect, fireEvent, within } from '@storybook/test';
+import { createEvent, expect, fireEvent, waitFor, within } from '@storybook/test';
 import { props } from '../props';
 import { getTextFile, getImgFile } from '../files';
 
@@ -7,9 +7,9 @@ export const dropZone = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -31,18 +31,28 @@ export const dropZone = async ({ globals, canvasElement }) => {
     const dragOverEvent = createEvent.dragOver(dropZone);
     const dropEvent = createEvent.drop(dropZone);
     const fileList = [getImgFile(123), getTextFile(), getImgFile(1243)];
+    const fileEntries = fileList.map((f) => ({
+        isFile: true,
+        name: f.name,
+        fullPath: `folder_one/folder_two/${f.name}`,
+        file: (resolve) => resolve(f),
+    }));
+    const items = fileEntries.map((fe) => ({
+        kind: 'file',
+        webkitGetAsEntry: () => fe,
+    }));
 
     Object.defineProperty(dragOverEvent, 'dataTransfer', {
         value: {
             files: fileList,
-            items: fileList,
+            items: items,
             types: ['Files'],
         },
     });
     Object.defineProperty(dropEvent, 'dataTransfer', {
         value: {
             files: fileList,
-            items: fileList,
+            items: items,
             types: ['Files'],
         },
     });
@@ -50,6 +60,8 @@ export const dropZone = async ({ globals, canvasElement }) => {
     await fireEvent(dropZone, dragOverEvent);
     await fireEvent(dropZone, dropEvent);
 
-    expect(clearTrigger).toBeVisible();
-    expect([...input.files]).toMatchObject(fileList);
+    await waitFor(() => {
+        expect(clearTrigger).toBeVisible();
+        expect([...input.files]).toMatchObject(fileList);
+    });
 };

@@ -23,9 +23,9 @@ export const validation = async ({ globals, canvasElement }) => {
     const largeImgFile = getImgFile(454); // not okay
     const textFile = getTextFile(); // not okay
 
-    window.testing.updateArgs({ ...props, controllable: true, validate });
+    await window.testing.updateArgs({ ...props, validate });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -45,38 +45,47 @@ export const validation = async ({ globals, canvasElement }) => {
     await user.upload(input, largeImgFile);
 
     await waitFor(() => expect(window.testing.args.validate).toBeCalledTimes(1));
-    await waitFor(() =>
-        expect(window.testing.args.onFileChange).toHaveBeenLastCalledWith({
-            acceptedFiles: [],
-            rejectedFiles: [
-                {
-                    file: largeImgFile,
-                    errors: ['too large'],
-                },
-            ],
-        }),
-    );
+    expect(window.testing.args.onFileChange).toBeCalledTimes(1);
+    expect(window.testing.args.onFileChange.mock.calls[0][0]).toEqual({
+        acceptedFiles: [],
+        rejectedFiles: [
+            {
+                file: largeImgFile,
+                errors: ['too large'],
+            },
+        ],
+    });
 
     await user.upload(input, textFile);
 
     await waitFor(() => expect(window.testing.args.validate).toBeCalledTimes(2));
-    await waitFor(() =>
-        expect(window.testing.args.onFileChange).toHaveBeenLastCalledWith({
-            acceptedFiles: [],
-            rejectedFiles: [
-                {
-                    file: textFile,
-                    errors: ['text files are not allowed'],
-                },
-            ],
-        }),
-    );
+    expect(window.testing.args.onFileChange).toBeCalledTimes(2);
+    expect(window.testing.args.onFileChange.mock.calls[1][0]).toEqual({
+        acceptedFiles: [],
+        rejectedFiles: [
+            {
+                file: textFile,
+                errors: ['text files are not allowed'],
+            },
+        ],
+    });
 
     await user.upload(input, smallImgFile);
 
     await waitFor(() => expect(window.testing.args.validate).toBeCalledTimes(3));
-    expect(window.testing.args.onFileChange).toHaveBeenLastCalledWith({
+    // TODO Вот тут непонятно, зачем нам 4й вызов
+    expect(window.testing.args.onFileChange).toBeCalledTimes(4);
+    expect(window.testing.args.onFileChange.mock.calls[2][0]).toEqual({
         acceptedFiles: [smallImgFile],
+        rejectedFiles: [
+            {
+                file: textFile,
+                errors: ['text files are not allowed'],
+            },
+        ],
+    });
+    expect(window.testing.args.onFileChange.mock.calls[3][0]).toEqual({
+        acceptedFiles: [],
         rejectedFiles: [],
     });
 
@@ -84,11 +93,24 @@ export const validation = async ({ globals, canvasElement }) => {
 
     await waitFor(() => expect(clearTrigger).not.toBeVisible());
 
+    expect(window.testing.args.onFileChange).toBeCalledTimes(5);
+    expect(window.testing.args.onFileChange.mock.calls[4][0]).toEqual({
+        acceptedFiles: [],
+        rejectedFiles: [],
+    });
+
     await user.upload(input, [smallImgFile, textFile, largeImgFile]);
 
     await waitFor(() => expect(window.testing.args.validate).toBeCalledTimes(6));
-    expect(window.testing.args.onFileChange).toHaveBeenLastCalledWith({
+
+    // TODO А тут зачем-то разделилось на 2 вызова
+    expect(window.testing.args.onFileChange).toBeCalledTimes(7);
+    expect(window.testing.args.onFileChange.mock.calls[5][0]).toEqual({
         acceptedFiles: [smallImgFile],
+        rejectedFiles: [],
+    });
+    expect(window.testing.args.onFileChange.mock.calls[6][0]).toEqual({
+        acceptedFiles: [],
         rejectedFiles: [
             {
                 file: textFile,

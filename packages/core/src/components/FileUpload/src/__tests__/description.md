@@ -19,12 +19,13 @@
 - проверяю вызов `onFileChange`
 - загружаю текстовый файл
 - проверяю вызов `validate`
-- проверяю вызов `onFileChange
+- проверяю вызов `onFileChange`
 - загружаю годный файл
 - проверяю вызов `validate`
-- проверяю вызов `onFileChange
+- проверяю вызов `onFileChange`
 - кликаю `clear trigger`
 - проверяю видимость элементов
+- проверяю вызов `onFileChange`
 - загружаю 3 файла сразу
 - проверяю вызов `validate`
 - проверяю вызов `onFileChange`
