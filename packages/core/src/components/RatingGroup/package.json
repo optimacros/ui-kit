@@ -1,0 +1,20 @@
+{
+    "name": "@optimacros-ui/rating-group",
+    "private": false,
+    "version": "2.0.3",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "type": "module",
+    "types": "dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup --config ./tsup.config.ts"
+    },
+    "dependencies": {
+        "@optimacros-ui/store": "^2.0.4",
+        "@optimacros-ui/types": "^2.0.4",
+        "@optimacros-ui/utils": "^2.0.4",
+        "@zag-js/rating-group": "1.2.1",
+        "react": "18.2.0"
+    }
+}
