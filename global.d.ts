@@ -20,7 +20,8 @@ declare module globalThis {
         testing: {
             /** Story props */
             args: Record<any, any>;
-            updateArgs: (newArgs: Record<any, any>) => void;
+            updateArgs: (newArgs: Record<any, any>) => Promise<void>;
+            resetStory: () => Promise<void>;
         };
     }
 }
