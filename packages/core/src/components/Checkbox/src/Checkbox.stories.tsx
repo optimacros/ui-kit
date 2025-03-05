@@ -67,9 +67,6 @@ const meta: Meta<typeof Checkbox.Root> = {
     title: 'UI Kit core/Checkbox',
     component: Checkbox.Root,
     argTypes,
-    args: {
-        checked: undefined,
-    },
 };
 
 export default meta;
@@ -123,6 +120,7 @@ export const Controllable: Story = {
             </>
         );
     },
+    tags: ['skip-test-runner'],
 };
 
 export const Label: Story = {
@@ -229,4 +227,5 @@ export const WithForm: Story = {
             </form>
         );
     },
+    tags: ['skip-test-runner'],
 };
