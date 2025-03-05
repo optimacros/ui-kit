@@ -16,6 +16,7 @@ import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
 import { Flex } from '@optimacros-ui/flex';
 import { styled } from '@optimacros-ui/store';
+import './styles.css';
 
 export interface TooltipProps extends PropsWithChildren {
     className?: string;
@@ -45,7 +46,7 @@ const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltip
     const cn = clsx(theme?.tooltip, api.open && theme?.tooltipActive, theme?.[positionClass]);
 
     return (
-        <UITooltip.Content>
+        <UITooltip.Content data-tag="internal">
             <Flex>
                 <Text.Paragraph as="span" className={cn}>
                     <Text.Paragraph as="span" className={theme?.tooltipInner}>
@@ -91,7 +92,7 @@ export const Tooltip = memo(
         return (
             <UITooltip.Root
                 openDelay={tooltipDelay}
-                closeDelay={tooltipDelay}
+                closeDelay={333333333333333}
                 positioning={positioning}
             >
                 <styled.div ref={ref}>

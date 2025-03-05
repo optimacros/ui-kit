@@ -1,5 +1,5 @@
-[data-scope='tooltip'] {
-  &[data-part='content'] {
+[data-scope='tooltip'][data-tag='internal'] {
+  [data-part='content'] {
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-size: 14px;
     font-weight: 500;
@@ -10,7 +10,7 @@
     color: #ffffff;
   }
 
-  &[data-part='arrow'] {
+  [data-part='arrow'] {
     --arrow-background: #3b3b3b;
   }
 }
