@@ -7,9 +7,9 @@ export const basic = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -37,7 +37,7 @@ export const basic = async ({ globals, canvasElement }) => {
     expect(window.testing.args.onDragEnd).toBeCalledTimes(1);
     expect(window.testing.args.cancelDrop).toBeCalledTimes(1);
 
-    window.testing.updateArgs({ cancelDrop: fn(() => true) });
+    await window.testing.updateArgs({ cancelDrop: fn(() => true) });
 
     const newItem = canvas.getByTestId('item');
 
