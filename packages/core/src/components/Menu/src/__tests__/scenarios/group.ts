@@ -8,9 +8,9 @@ export const group: PlayFunction<ReactRenderer> = async ({ canvasElement, global
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
