@@ -116,7 +116,7 @@ export const Basic: Story = {
         height: 100,
         minConstraints: [100, 100],
         maxConstraints: [400, 400],
-        children: text,
+        children: <>{text}</>,
     },
     render: examples.Basic,
 };
@@ -127,7 +127,7 @@ export const DifferentAxis: Story = {
         height: 100,
         minConstraints: [100, 100],
         maxConstraints: [200, 200],
-        children: text,
+        children: <>{text}</>,
     },
     render: (args) => (
         <Flex gap={10}>
