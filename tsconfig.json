@@ -98,6 +98,7 @@
             "@optimacros-ui/hover-card": ["packages/core/src/components/HoverCard/src"],
             "@optimacros-ui/rating-group": ["packages/core/src/components/RatingGroup/src"],
             "@optimacros-ui/backdrop": ["packages/core/src/components/Backdrop/src"],
+            "@optimacros-ui/resizable": ["packages/core/src/components/Resizable/src"],
             "@optimacros-ui/kit-store": ["packages/core/src/store/src"]
         }
     },

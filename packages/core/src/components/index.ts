@@ -40,3 +40,4 @@ export * from '@optimacros-ui/clipboard';
 export * from '@optimacros-ui/rating-group';
 export * from '@optimacros-ui/hover-card';
 export * from '@optimacros-ui/backdrop';
+export * from '@optimacros-ui/resizable';

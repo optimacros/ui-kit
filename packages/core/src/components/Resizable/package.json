@@ -1,0 +1,17 @@
+{
+    "name": "@optimacros-ui/resizable",
+    "private": false,
+    "version": "2.0.4",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "type": "module",
+    "types": "dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup --config tsup.config.ts"
+    },
+    "dependencies": {
+        "react-resizable": "^3.0.5",
+        "react": "18.2.0"
+    }
+}

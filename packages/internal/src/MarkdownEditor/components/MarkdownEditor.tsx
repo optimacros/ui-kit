@@ -1,8 +1,7 @@
 import { memo, useEffect, useMemo, useRef, KeyboardEvent, useCallback } from 'react';
 import { MarkdownEditor as MDE } from '@optimacros-ui/markdown-editor';
 import { forward } from '@optimacros-ui/store';
-import { ResizableBox } from 'react-resizable';
-import 'node_modules/react-resizable/css/styles.css';
+import { Resizable } from '@optimacros-ui/resizable';
 import { isNumber } from '@optimacros-ui/utils';
 
 export interface MarkdownEditorProps {
@@ -116,12 +115,18 @@ export const MarkdownEditor = memo(
                             {splitTabLabel}
                         </MDE.Tabs.Trigger>
                     </MDE.Tabs.List>
-
-                    <ResizableBox axis="y" width={500} height={height} minConstraints={[150, 150]}>
-                        <MDE.Edit ref={ref} />
-                        <MDE.Preview />
-                        <MDE.Split />
-                    </ResizableBox>
+                    <Resizable.Root
+                        axis="y"
+                        width={500}
+                        height={height}
+                        minConstraints={[150, 150]}
+                    >
+                        <>
+                            <MDE.Edit ref={ref} />
+                            <MDE.Preview />
+                            <MDE.Split />
+                        </>
+                    </Resizable.Root>
                 </MDE.Root>
             );
         },
