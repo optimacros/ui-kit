@@ -29,7 +29,7 @@ const argTypes: ArgTypes<Partial<ComponentProps<typeof Collapsible.Root>>> = {
 };
 
 const ChevronDown = ({ className }: { className?: string }) => (
-    <Icon value="chevron_left" className={className ?? 'collapsible-icon'} rotate={-90} />
+    <Icon value="chevron_left" className={className ?? 'collapsible-icon'} />
 );
 
 const css = `
@@ -68,9 +68,10 @@ const css = `
   width: 1rem;
   height: 1rem;
   transition: transform 0.2s ease;
+  transform: rotate(-90deg);
 }
 
-.collapsible-icon[data-state='open'] {
+[data-scope="collapsible"][data-part="indicator"][data-state="open"] {
   transform: rotate(180deg);
 }
 
@@ -128,11 +129,6 @@ const css = `
 .collapsible-icon {
   transition: transform 0.2s ease;
 }
-
-[data-state='open'] .collapsible-icon {
-  transform: rotate(180deg);
-}
-
 `;
 
 const meta = {

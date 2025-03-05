@@ -13,6 +13,7 @@ const connect = ((api, service) => {
             return {
                 'data-scope': 'collapsible',
                 'data-part': 'indicator',
+                // TODO мы так получим проп из пропсов, нет?
                 'data-state': service.prop('open') ? 'open' : 'closed',
             };
         },
@@ -61,13 +62,27 @@ Trigger.displayName = 'Collapsible.Trigger';
 export const Content = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} {...api.getContentProps()} ref={ref} />;
+    return (
+        <styled.div
+            {...props}
+            {...api.getContentProps()}
+            data-state={api.open ? 'open' : 'closed'}
+            ref={ref}
+        />
+    );
 });
 Content.displayName = 'Collapsible.Content';
 
 export const Indicator = forward<{}, 'div'>((props, ref) => {
     const api = useApi();
 
-    return <styled.div {...props} {...api.getIndicatorProps()} ref={ref} />;
+    return (
+        <styled.div
+            {...props}
+            {...api.getIndicatorProps()}
+            data-state={api.open ? 'open' : 'closed'}
+            ref={ref}
+        />
+    );
 });
 Indicator.displayName = 'Collapsible.Indicator';
