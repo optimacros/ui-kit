@@ -30,7 +30,12 @@ const argTypesRoot: ArgTypesType<
     },
     value: {
         control: false,
-        description: 'The current color value',
+        description: 'The controlled color value of the color picker',
+        table: { type: { summary: 'Color' } },
+    },
+    defaultValue: {
+        control: false,
+        description: `The initial color value when rendered. Use when you don't need to control the color value of the color picker`,
         table: { type: { summary: 'Color' } },
     },
     onValueChange: {
@@ -98,22 +103,17 @@ const meta: Meta<typeof ColorPicker.RootProvider> = {
             ),
         },
     },
-    args: {
-        open: undefined,
-    },
 };
 export default meta;
 
 type Story = StoryObj<typeof ColorPicker.RootProvider>;
 
 export const Basic: Story = {
-    args: {},
     render: stories.Basic,
     play: scenarios.basic,
 };
 
 export const Swatches: Story = {
-    args: {},
     render: stories.Swatches,
     play: scenarios.swatches,
 };

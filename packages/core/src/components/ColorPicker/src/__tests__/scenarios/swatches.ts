@@ -6,9 +6,9 @@ export const swatches = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const trigger = canvasElement.querySelector('[data-scope="color-picker"][data-part="trigger"]');
     const content = document.querySelector('[data-scope="color-picker"][data-part="content"]');
