@@ -1,6 +1,5 @@
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { props } from '../props';
-import { sleep } from '@optimacros-ui/utils';
 import { StoryContext } from '@storybook/react';
 import { ComponentProps } from 'react';
 import { TreeView } from '../../';
@@ -21,11 +20,8 @@ export const basic = async ({
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs(props);
-
-    await window.waitForPageTrulyReady?.();
+    await window.testing.updateArgs(props);
+    await window.testing.resetStory();
 
     const tree = within(canvasElement).getByTestId('tree');
 
@@ -144,23 +140,32 @@ export const basic = async ({
     });
 
     await step('keyboard navigation', async () => {
-        window.testing.updateArgs({ controllable: true });
-        await sleep(1);
-        window.testing.updateArgs(props);
-        (document.activeElement as HTMLElement).blur();
-        await sleep(1);
+        await window.testing.resetStory();
 
-        // fuuuuuu
         const tree = within(canvasElement).getByTestId('tree');
+
+        const items = tree.querySelectorAll(
+            '[data-scope="tree-view"][data-part="item"]',
+        ) as NodeListOf<HTMLElement>;
         const branches = tree.querySelectorAll(
             '[data-scope="tree-view"][data-part="tree-node-branch"]',
         ) as NodeListOf<HTMLElement>;
+
         const { control: control1 } = getBranchElements(branches[0]);
-        const item = tree.querySelector('[data-value="2"]');
 
         await user.keyboard('{Tab}');
 
-        await waitFor(() => expect(control1).toHaveAttribute('data-focus'));
+        await waitFor(() => {
+            isBranchNotExpanded(branches[0]);
+            isBranchNotExpanded(branches[1]);
+            isBranchNotExpanded(branches[2]);
+
+            isBranchNotSelected(branches[0]);
+            isBranchNotSelected(branches[1]);
+            isBranchNotSelected(branches[2]);
+
+            expect(control1).toHaveAttribute('data-focus');
+        });
 
         await user.keyboard('{Space}');
 
@@ -176,7 +181,7 @@ export const basic = async ({
 
         await user.keyboard('{ArrowDown}{ArrowDown}');
 
-        await waitFor(() => expect(item).toHaveAttribute('data-focus'));
+        await waitFor(() => expect(items[1]).toHaveAttribute('data-focus'));
 
         await user.keyboard('{Space}');
 
@@ -186,7 +191,7 @@ export const basic = async ({
             isBranchNotExpanded(branches[2]);
 
             isBranchNotSelected(branches[0]);
-            expect(item).toHaveAttribute('data-selected');
+            expect(items[1]).toHaveAttribute('data-selected');
             isBranchNotSelected(branches[1]);
             isBranchNotSelected(branches[2]);
         });

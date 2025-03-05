@@ -1,12 +1,11 @@
 import { expect, within } from '@storybook/test';
 import { props } from '../props';
-import { sleep } from '@optimacros-ui/utils';
 import { StoryContext } from '@storybook/react';
 import { ComponentProps } from 'react';
 import { TreeView } from '../../';
 import { isBranchNotSelected, isBranchExpanded } from './utils';
 
-export const selectedValue = async ({
+export const defaultValues = async ({
     globals,
     canvasElement,
 }: StoryContext<ComponentProps<typeof TreeView.Root>>) => {
@@ -14,15 +13,14 @@ export const selectedValue = async ({
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs({
+    await window.testing.updateArgs({
         ...props,
-        selectedValue: ['1/1', '2', '3/1/1'],
-        expandedValue: ['1', '3', '3/1'],
+        selectionMode: 'multiple',
+        defaultSelectedValue: ['1/1', '2', '3/1/1'],
+        defaultExpandedValue: ['1', '3', '3/1'],
     });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const tree = within(canvasElement).getByTestId('tree');
 

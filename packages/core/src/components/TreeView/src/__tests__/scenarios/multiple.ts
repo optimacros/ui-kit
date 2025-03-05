@@ -1,6 +1,5 @@
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { props } from '../props';
-import { sleep } from '@optimacros-ui/utils';
 import { StoryContext } from '@storybook/react';
 import { ComponentProps } from 'react';
 import { TreeView } from '../../';
@@ -20,11 +19,9 @@ export const multiple = async ({
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs({ ...props, selectionMode: 'multiple' });
+    await window.testing.updateArgs({ ...props, selectionMode: 'multiple' });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const tree = within(canvasElement).getByTestId('tree');
 

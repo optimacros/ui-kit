@@ -16,12 +16,22 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof TreeView.Root>>> = {
     },
     selectedValue: {
         control: { type: 'object' },
-        description: 'Array of selected item IDs',
+        description: 'The controlled selected node ids',
         table: { type: { summary: 'string[]' } },
     },
     expandedValue: {
         control: { type: 'object' },
-        description: 'Array of expanded item IDs',
+        description: 'The controlled expanded node ids',
+        table: { type: { summary: 'string[]' } },
+    },
+    defaultSelectedValue: {
+        control: { type: 'object' },
+        description: `The initial selected node ids when rendered. Use when you don't need to control the selected node ids`,
+        table: { type: { summary: 'string[]' } },
+    },
+    defaultExpandedValue: {
+        control: { type: 'object' },
+        description: `The initial expanded node ids when rendered. Use when you don't need to control the expanded node ids`,
         table: { type: { summary: 'string[]' } },
     },
     onExpandedChange: {
@@ -43,7 +53,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof TreeView.Root>>> = {
     id: { table: { disable: true } },
     as: { table: { disable: true } },
     asChild: { table: { disable: true } },
-    defaultContext: { table: { disable: true } },
 };
 
 const meta: Meta<typeof TreeView.Root> = {
@@ -66,7 +75,13 @@ const menuItems = createMockMenuItems(3);
 type Story = StoryObj<typeof TreeView.Root>;
 
 export const Basic: Story = {
-    args: { menuItems: mockItems },
+    args: {
+        menuItems: mockItems,
+        selectedValue: undefined,
+        expandedValue: undefined,
+        defaultExpandedValue: undefined,
+        defaultSelectedValue: undefined,
+    },
     render: examples.Basic,
     play: scenarios.basic,
 };
@@ -78,18 +93,18 @@ export const WithIcons: Story = {
 };
 
 export const Multiple: Story = {
-    args: { menuItems: mockItems, selectionMode: 'multiple', selectedValue: ['1', '3'] },
+    args: { menuItems: mockItems, selectionMode: 'multiple', defaultSelectedValue: ['1', '3'] },
     render: examples.Basic,
     play: scenarios.multiple,
 };
 
-export const SelectedValue: Story = {
+export const DefaultValues: Story = {
     args: {
         menuItems: mockItems,
         selectionMode: 'multiple',
-        selectedValue: ['1'],
-        expandedValue: ['3', '3/1'],
+        defaultSelectedValue: ['1'],
+        defaultExpandedValue: ['3', '3/1'],
     },
     render: examples.Basic,
-    play: scenarios.selectedValue,
+    play: scenarios.defaultValues,
 };

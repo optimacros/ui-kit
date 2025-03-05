@@ -4,10 +4,11 @@ import { ComponentProps } from 'react';
 import { mockItems } from '../examples/mock';
 
 export const props: Partial<ComponentProps<typeof TreeView.Root>> = {
-    controllable: false,
     menuItems: mockItems,
-    selectedValue: [],
-    expandedValue: [],
+    selectedValue: undefined,
+    expandedValue: undefined,
+    defaultExpandedValue: undefined,
+    defaultSelectedValue: undefined,
     onExpandedChange: fn(),
     onSelectionChange: fn(),
     selectionMode: 'single',
