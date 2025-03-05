@@ -1,14 +1,15 @@
-import { Root, Control, Input, Trigger, Api } from '../parts';
+import { Root, Control, Input, Trigger } from '../parts';
 import { Button } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
+import { Api } from '../state';
 
 export const Basic = (props) => {
     return (
         <Root {...props}>
             <Control>
                 <Flex gap={2} direction="row" align="center">
-                    <Input value="Text" />
+                    <Input />
                     <Trigger>
                         <Api>
                             {({ copied }) => (

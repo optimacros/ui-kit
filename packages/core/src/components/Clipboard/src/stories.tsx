@@ -64,9 +64,15 @@ export default meta;
 type Story = StoryObj<typeof Clipboard.Root>;
 
 export const Basic: Story = {
+    args: {
+        defaultValue: 'Text',
+    },
     render: examples.Basic,
 };
 
 export const Label: Story = {
+    args: {
+        defaultValue: 'https://optimacros.ru',
+    },
     render: examples.WithLabel,
 };
