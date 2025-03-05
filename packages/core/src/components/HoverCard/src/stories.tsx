@@ -46,14 +46,14 @@ const meta: Meta<typeof HoverCard.Root> = {
 
 export default meta;
 
-type Story = StoryObj<typeof HoverCard.Root>;
+type Story = StoryObj<HoverCard.Props>;
 
 export const Basic: Story = {
     render: examples.Basic,
 };
 
 export const Open: Story = {
-    args: { open: true },
+    args: { defaultOpen: true },
     render: examples.Basic,
 };
 
