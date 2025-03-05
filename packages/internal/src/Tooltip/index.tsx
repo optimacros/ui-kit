@@ -92,7 +92,7 @@ export const Tooltip = memo(
         return (
             <UITooltip.Root
                 openDelay={tooltipDelay}
-                closeDelay={333333333333333}
+                closeDelay={tooltipDelay}
                 positioning={positioning}
             >
                 <styled.div ref={ref}>
