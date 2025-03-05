@@ -94,6 +94,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
             readOnly = false,
             autoFocus,
             name,
+            placeholder,
             theme = {},
             ...others
         },
@@ -156,6 +157,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                     />
                 ) : (
                     <Field.Input
+                        placeholder={placeholder}
                         autoFocus={autoFocus}
                         type={type}
                         id={fieldId as string}
