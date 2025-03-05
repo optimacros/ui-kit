@@ -124,22 +124,22 @@ export const Disabled: Story = {
 };
 
 export const DefaultValue: Story = {
-    args: { value: 2.5, allowHalf: true },
+    args: { defaultValue: 2.5, allowHalf: true },
     render: examples.HalfIcon,
 };
 
 export const ReadOnly: Story = {
-    args: { value: 3, readOnly: true },
+    args: { defaultValue: 3, readOnly: true },
     render: examples.WithLabel,
 };
 
 export const CustomCount: Story = {
     render: () => (
         <Flex direction="column" gap={4}>
-            <examples.Basic count={2} value={1} />
-            <examples.Basic count={3} value={2} />
-            <examples.Basic count={4} value={3} />
-            <examples.Basic count={5} value={4} />
+            <examples.Basic count={2} defaultValue={1} />
+            <examples.Basic count={3} defaultValue={2} />
+            <examples.Basic count={4} defaultValue={3} />
+            <examples.Basic count={5} defaultValue={4} />
         </Flex>
     ),
 };

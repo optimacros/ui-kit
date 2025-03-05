@@ -1,8 +1,21 @@
-import { createReactApiStateContext } from '@optimacros-ui/store';
-import * as ratingGroup from '@zag-js/rating-group';
+import { createMachineContext, Zag } from '@optimacros-ui/store';
+import * as machine from '@zag-js/rating-group';
 
-export const { useApi, Api, RootProvider, splitProps, useProxySelector, useSelector } =
-    createReactApiStateContext<typeof ratingGroup, ratingGroup.Api>({
-        id: 'rating-group',
-        machine: ratingGroup,
-    });
+export type Schema = Zag.ModuleSchema<typeof machine>;
+
+export const {
+    useApi,
+    Api,
+    RootProvider,
+    splitProps,
+    useProxySelector,
+    useSelector,
+    State,
+    select,
+    slice,
+    useFeatureFlags,
+    useState,
+} = createMachineContext<Schema, machine.Api>({
+    id: 'rating-group',
+    machine,
+});
