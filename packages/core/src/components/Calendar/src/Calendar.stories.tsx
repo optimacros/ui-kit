@@ -15,7 +15,12 @@ const value = new CalendarDate(2025, 5, 10);
 const argTypes: ArgTypes = {
     value: {
         control: false,
-        description: 'The selected date(s).',
+        description: 'The controlled selected date(s)',
+        table: { type: { summary: 'DateValue[]' } },
+    },
+    defaultValue: {
+        control: false,
+        description: `The initial selected date(s) when rendered. Use when you don't need to control the selected date(s) of the date picker.`,
         table: { type: { summary: 'DateValue[]' } },
     },
     onValueChange: {
@@ -25,12 +30,12 @@ const argTypes: ArgTypes = {
     },
     open: {
         control: 'boolean',
-        description: 'Whether the datepicker is open',
+        description: 'The controlled open state of the date picker',
         table: { defaultValue: { summary: 'false' } },
     },
-    'open.controlled': {
+    defaultOpen: {
         control: 'boolean',
-        description: 'Whether the datepicker open state is controlled by the user',
+        description: `The initial open state of the date picker when rendered. Use when you don't need to control the open state of the date picker`,
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {

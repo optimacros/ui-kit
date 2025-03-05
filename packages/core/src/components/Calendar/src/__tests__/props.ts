@@ -4,8 +4,8 @@ import { fn } from '@storybook/test';
 const value = new CalendarDate(2025, 5, 10);
 
 export const props = {
-    open: false,
-    value: [value],
+    defaultOpen: false,
+    defaultValue: [value],
     onValueChange: fn(),
-    controllable: true,
+    locale: 'en-US',
 };

@@ -6,15 +6,15 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
-    const currentDateValue = props.value[0].toString();
-    const prevDateValue = props.value[0].subtract({ days: 1 }).toString();
-    const prevPrevDateValue = props.value[0].subtract({ days: 2 }).toString();
+    const currentDateValue = props.defaultValue[0].toString();
+    const prevDateValue = props.defaultValue[0].subtract({ days: 1 }).toString();
+    const prevPrevDateValue = props.defaultValue[0].subtract({ days: 2 }).toString();
 
     const trigger = canvas.getByTestId('trigger');
     const content = canvas.getByTestId('content');
@@ -46,7 +46,7 @@ export const basic = async ({ globals, canvasElement, step }) => {
         await user.click(prevDateCell);
 
         await waitFor(() => expect(window.testing.args.onValueChange).toBeCalledTimes(1));
-        expect(window.testing.args.onValueChange.mock.lastCall[0].valueAsString[0]).toEqual(
+        expect(window.testing.args.onValueChange.mock.lastCall[0].value[0].toString()).toEqual(
             prevDateValue,
         );
 
@@ -65,7 +65,7 @@ export const basic = async ({ globals, canvasElement, step }) => {
         await user.keyboard('{enter}');
 
         await waitFor(() => expect(window.testing.args.onValueChange).toBeCalledTimes(2));
-        expect(window.testing.args.onValueChange.mock.lastCall[0].valueAsString[0]).toEqual(
+        expect(window.testing.args.onValueChange.mock.lastCall[0].value[0].toString()).toEqual(
             prevPrevDateValue,
         );
 
