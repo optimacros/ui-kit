@@ -124,6 +124,18 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, .
     );
 });
 
+export const ContextTrigger = forward<{ children: ReactNode }, 'button'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
+
+        return (
+            <styled.button {...rest} {...api.getContextTriggerProps()} ref={ref} role="button">
+                {children}
+            </styled.button>
+        );
+    },
+);
+
 export const Group = forward<menu.ItemGroupProps & { children: ReactNode }, 'ul'>(
     ({ children, id, ...rest }, ref) => {
         const api = useApi();
