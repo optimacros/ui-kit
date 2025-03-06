@@ -1,10 +1,21 @@
 import { PropsWithChildren, ComponentProps, useMemo } from 'react';
-import { Zag, forward, styled } from '@optimacros-ui/store';
+import { Zag, forward, styled, extendMachine } from '@optimacros-ui/store';
 import { map } from '@optimacros-ui/utils';
 import { createMachineContext } from '@optimacros-ui/store';
-import * as machine from '@zag-js/slider';
+import * as slider from '@zag-js/slider';
 
-export type Schema = Zag.ModuleSchema<typeof machine>;
+export type Schema = Zag.ModuleSchema<typeof slider>;
+
+const machine = extendMachine<Schema, typeof slider>(slider, {
+    implementations: {
+        actions: {
+            invokeOnChangeEnd({ prop, context }) {
+                //TODO: fix this issue when zag updates
+                queueMicrotask(() => prop('onValueChangeEnd')?.({ value: context.get('value') }));
+            },
+        },
+    },
+});
 
 const connect = ((api, { prop }) => {
     return {
@@ -13,7 +24,7 @@ const connect = ((api, { prop }) => {
         max: prop('max'),
         step: prop('step'),
     };
-}) satisfies Zag.ConnectApi<Schema, machine.Api>;
+}) satisfies Zag.ConnectApi<Schema, slider.Api>;
 
 export const {
     Api,
