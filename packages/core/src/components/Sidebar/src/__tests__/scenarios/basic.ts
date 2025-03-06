@@ -7,11 +7,9 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -88,23 +86,23 @@ export const basic = async ({ globals, canvasElement, step }) => {
 
         await waitFor(isClosed);
 
-        //await user.click(externalTrigger);
-
-        // await waitFor(isOpen);
-
-        // await user.click(externalTrigger);
-
-        // await waitFor(isClosed);
-    });
-
-    await step('open/close (controlled)', async () => {
-        window.testing.updateArgs({ ...props, controllable: true, 'open.controllable': true });
-        await sleep(1);
-        window.testing.updateArgs({ open: true });
+        await user.click(externalTrigger);
 
         await waitFor(isOpen);
 
-        window.testing.updateArgs({ open: false });
+        await user.click(externalTrigger);
+
+        await waitFor(isClosed);
+    });
+
+    await step('open/close (controlled)', async () => {
+        isClosed();
+
+        await window.testing.updateArgs({ open: true });
+
+        await waitFor(isOpen);
+
+        await window.testing.updateArgs({ open: false });
 
         await waitFor(isClosed);
     });
