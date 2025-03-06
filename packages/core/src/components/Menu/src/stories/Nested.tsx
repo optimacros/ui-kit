@@ -11,8 +11,6 @@ const Content = ({ parent }) => {
     const submenu_1_1 = useSubmenu(submenu_1, { id: 'sub_1_1', hoverable: true });
     const submenu_1_1_1 = useSubmenu(submenu_1_1, { id: 'sub_1_1_1', hoverable: true });
 
-    const submenu_4 = useSubmenu(submenu_1, { id: 'sub_4', hoverable: true });
-
     return (
         <>
             <Menu.Positioner>
@@ -50,8 +48,12 @@ const Content = ({ parent }) => {
             </Menu.Positioner>
 
             <Menu.SubMenuContent menu={submenu_1} data-testid="sub-1-content">
-                <Menu.TriggerItem {...submenu_4.props} value="sub_4" data-testid="sub-4-trigger">
-                    sub 4
+                <Menu.TriggerItem
+                    {...submenu_1_1.props}
+                    value="sub_1_1"
+                    data-testid="sub-1-1-trigger"
+                >
+                    sub 1 1
                 </Menu.TriggerItem>
 
                 {menuItems.map((v) => (
@@ -59,9 +61,6 @@ const Content = ({ parent }) => {
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
-                <Menu.TriggerItem {...submenu_1_1.props} value="sub_1_1">
-                    sub 1 1
-                </Menu.TriggerItem>
             </Menu.SubMenuContent>
 
             <Menu.SubMenuContent menu={submenu_2}>
@@ -80,26 +79,24 @@ const Content = ({ parent }) => {
                 ))}
             </Menu.SubMenuContent>
 
-            <Menu.SubMenuContent menu={submenu_4} data-testid="sub-4-content">
+            <Menu.SubMenuContent menu={submenu_1_1} data-testid="sub-1-1-content">
+                <Menu.TriggerItem
+                    {...submenu_1_1_1.props}
+                    value="sub_1_1_1"
+                    data-testid="sub-1-1-1-trigger"
+                >
+                    sub 1 1 1
+                </Menu.TriggerItem>
                 {menuItems.map((v) => (
                     <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
             </Menu.SubMenuContent>
-            <Menu.SubMenuContent menu={submenu_1_1}>
-                <Menu.TriggerItem {...submenu_1_1_1.props} value="sub_1_1_1">
-                    sub 1 1 1
-                </Menu.TriggerItem>
+
+            <Menu.SubMenuContent menu={submenu_1_1_1} data-testid="sub-1-1-1-content">
                 {menuItems.map((v) => (
-                    <Menu.SubMenuItem {...v} data-testid={v.value}>
-                        {v.valueText}
-                    </Menu.SubMenuItem>
-                ))}
-            </Menu.SubMenuContent>
-            <Menu.SubMenuContent menu={submenu_1_1_1}>
-                {menuItems.map((v) => (
-                    <Menu.SubMenuItem {...v} data-testid={v.value}>
+                    <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
