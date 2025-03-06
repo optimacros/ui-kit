@@ -45,7 +45,7 @@
 ## MinStepBetweenThumbs
 
 - сбрасываю пропсы
-- передаю пропсы `{ value: [4, 6], step: 0.2, min: 2, max: 10, minStepsBetweenThumbs: 1 }`
+- передаю пропсы `{ defaultValue: [4, 6], step: 0.2, min: 2, max: 10, minStepsBetweenThumbs: 1 }`
 - проверяю наличие (отсутствие) элементов на странице
 - проверяю положение `thumb`, значение `output`, скрытые инпуты (4, 6)
 - делаю скриншот (`default`)

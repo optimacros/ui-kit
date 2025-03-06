@@ -11,6 +11,11 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Slider.Root>>> = {
         description: 'The controlled value of the slider',
         table: { type: { summary: 'number[]' } },
     },
+    defaultValue: {
+        control: 'object',
+        description: 'The initial value of the slider',
+        table: { type: { summary: 'number[]' } },
+    },
     onValueChange: {
         control: false,
         description: 'Function invoked when the value of the slider changes',

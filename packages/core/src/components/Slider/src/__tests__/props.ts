@@ -2,7 +2,8 @@ import { fn } from '@storybook/test';
 import { Slider } from '..';
 
 export const props: Omit<Slider.ContainerProps, 'children'> = {
-    value: [33],
+    value: undefined,
+    defaultValue: [33],
     onValueChange: fn(),
     onValueChangeEnd: fn(),
     min: 0,
