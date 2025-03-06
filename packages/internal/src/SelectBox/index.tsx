@@ -7,6 +7,7 @@ import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
 import type { InputTheme } from '../Input';
 import { clsx, isUndefined } from '@optimacros-ui/utils';
+import './styles.css';
 
 export type SelectBoxTheme = {
     active: string;
@@ -120,6 +121,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
             <>
                 {!multiSelect ? (
                     <Select.Root
+                        data-tag="internal"
                         items={items}
                         defaultValue={curValue}
                         value={isUndefined(onChange) ? undefined : curValue}
