@@ -17,6 +17,12 @@
     z-index: var(--z-index-highest) !important;
   }
 
+  & [data-scope='field'][data-part='root'] {
+    &:has([data-part='icon']) {
+      margin-left: 0;
+    }
+  }
+
   &[data-part='content'] {
     color: var(--color-menu-primary-on-default);
     height: auto;
