@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Toast } from '..';
 import { Placement } from '@zag-js/toast';
 import { Flex } from '@optimacros-ui/flex';
@@ -31,6 +31,13 @@ export const Placements = (props) => {
             });
         });
     };
+
+    useEffect(() => {
+        setTimeout(() => {
+            create();
+        }, 1);
+    }, []);
+
     return (
         <>
             <Button onClick={create}>Show</Button>

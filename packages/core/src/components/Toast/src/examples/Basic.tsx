@@ -1,20 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Toast } from '..';
-import { Placement } from '@zag-js/toast';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { createStore } from '../state';
 
 const types = ['info', 'error', 'success', 'loading', 'custom'];
-const placements = [
-    'top-start',
-    'top',
-    'top-end',
-    'bottom-start',
-    'bottom',
-    'bottom-end',
-] as Placement[];
 
 export const Basic = (props) => {
     const [type, setType] = useState('info');
@@ -23,7 +14,7 @@ export const Basic = (props) => {
 
     const create = () => {
         store.create({
-            duration: 5000,
+            duration: 999999,
             title: 'lorem',
             description:
                 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi id explicabo deleniti soluta est',
@@ -48,6 +39,17 @@ export const Basic = (props) => {
 
                 <Button variant="accent" data-testid="create-trigger" onClick={create}>
                     create toast
+                </Button>
+
+                <Button
+                    data-testid="remove-trigger"
+                    variant="accent"
+                    onClick={() => {
+                        // @ts-ignore
+                        store.remove();
+                    }}
+                >
+                    remove all
                 </Button>
             </Flex>
             <Flex direction="column" gap={5}>

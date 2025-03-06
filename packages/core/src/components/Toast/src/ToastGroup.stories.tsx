@@ -1,10 +1,10 @@
 import { Toast } from '.';
 import * as toast from '@zag-js/toast';
-import { Meta, StoryObj } from '@storybook/react';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
 
-const argTypes = {
+const argTypes: Partial<ArgTypes<toast.StoreProps>> = {
     pauseOnPageIdle: {
         control: 'boolean',
         description: 'Whether to pause toast when the user leaves the browser tab',
@@ -38,10 +38,12 @@ const argTypes = {
         description: 'The default placement of the toast',
         table: { defaultValue: { summary: 'bottom' } },
     },
+    // TODO ...
+    // @ts-ignore
     id: { table: { disable: true } },
 };
 
-const meta: Meta<typeof Toast.GroupProvider> = {
+const meta: Meta<typeof Toast.Root> = {
     title: 'UI Kit core/Toast',
     component: Toast.GroupProvider,
     argTypes,
@@ -52,10 +54,7 @@ export default meta;
 type Story = StoryObj<toast.StoreProps>;
 
 export const Basic: Story = {
-    args: {
-        // placement: 'top',
-        // gap: 16,
-    },
+    args: {},
     render: examples.Basic,
     play: scenarios.basic,
 };
