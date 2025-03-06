@@ -2,6 +2,7 @@ import { ComponentProps } from 'react';
 import type React from 'react';
 import { Button as ButtonComponent, type ButtonProps } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
+import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
 import { useThemeClassName } from '../utils';
 
@@ -29,6 +30,7 @@ export type ButtonTheme = ThemeButtonProps & {
 export interface ButtonInitialProps extends ButtonProps {
     label: string;
     icon: string | React.JSX.Element | null;
+    iconPosition?: 'left' | 'right';
     href: string;
     target: string;
     gray: boolean;
@@ -96,6 +98,7 @@ export const Button = forward<
             type = 'button',
             label,
             icon,
+            iconPosition = 'right',
             href,
             theme = {},
             inverse,
@@ -127,6 +130,8 @@ export const Button = forward<
 
         const cn = useThemeClassName(theme, className);
 
+        const btnContentDirection = iconPosition === 'right' ? 'row' : 'row-reverse';
+
         return (
             <ButtonComponent
                 variant={getVariant(primary, accent, bordered, gray, neutral)}
@@ -143,8 +148,10 @@ export const Button = forward<
                 className={cn}
                 {...rest}
             >
-                {label}
-                {icon && <Icon value={icon} />}
+                <Flex direction={btnContentDirection} align="center">
+                    {label}
+                    {icon && <Icon value={icon} />}
+                </Flex>
                 {children}
             </ButtonComponent>
         );

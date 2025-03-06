@@ -221,7 +221,7 @@ export const InverseOnDark: Story = {
 
 export const CustomTooltipDelay: Story = {
     args: {
-        icon: '⏱️',
+        icon: '⏱',
         label: 'Timer',
         tooltip: 'This tooltip has a 2 second delay',
         tooltipDelay: 300,
