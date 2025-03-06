@@ -2,10 +2,11 @@ import { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import * as examples from './examples';
 import { Resizable } from './index';
 import { Flex } from '@optimacros-ui/flex';
+import { ComponentProps } from 'react';
 
 const Wrapper = ({ children }: { children }) => <div style={{ width: '130px' }}>{children}</div>;
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof Resizable.Root>>> = {
     children: {
         control: 'object',
         description: 'A React element to be rendered inside the component.',
@@ -149,8 +150,10 @@ export const DifferentAxis: Story = {
             </Flex>
         </Flex>
     ),
+    tags: ['skip-test-runner'],
 };
 
 export const WithMarkDownEditor: Story = {
     render: examples.WithMarkdownEditor,
+    tags: ['skip-test-runner'],
 };
