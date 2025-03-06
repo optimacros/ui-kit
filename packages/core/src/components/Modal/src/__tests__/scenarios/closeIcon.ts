@@ -7,9 +7,9 @@ export const closeIcon: PlayFunction = async ({ globals }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(document.body);
 

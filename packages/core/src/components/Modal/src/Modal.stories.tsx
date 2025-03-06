@@ -89,7 +89,7 @@ type Story = StoryObj<typeof Modal.Root>;
 export const Basic: Story = {
     args: {
         onOpenChange: fn(),
-        onClose: fn(() => console.info('onclose 1')),
+        onClose: fn(),
         preventScroll: true,
         closeOnEscape: true,
     },

@@ -7,9 +7,9 @@ export const closeOnInteractOutside = async ({ globals }) => {
         return;
     }
 
-    window.testing.updateArgs({ ...props, closeOnInteractOutside: true });
+    await window.testing.updateArgs({ ...props, closeOnInteractOutside: true });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(document.body);
 
@@ -38,9 +38,7 @@ export const closeOnInteractOutside = async ({ globals }) => {
         { timeout: 3000 },
     );
 
-    window.testing.updateArgs({ closeOnInteractOutside: false });
-
-    await sleep(200);
+    await window.testing.updateArgs({ closeOnInteractOutside: false });
 
     await user.click(openTrigger);
 

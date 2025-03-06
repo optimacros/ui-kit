@@ -14,7 +14,7 @@
 ### 2.Open/close (controlled)
 
 - сбрасываю пропсы
-- передаю `{ 'open.controlled': true }`
+- передаю `{ open: false }`
 - сбрасываю статистику `onOpenChange`
 - кликаю триггер (`open`)
 - проверяю состояние (`закрыто`)

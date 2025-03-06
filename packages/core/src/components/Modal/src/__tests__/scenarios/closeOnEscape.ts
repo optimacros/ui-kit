@@ -7,9 +7,9 @@ export const closeOnEscape = async ({ globals }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(document.body);
 
@@ -35,7 +35,7 @@ export const closeOnEscape = async ({ globals }) => {
         { timeout: 3000 },
     );
 
-    window.testing.updateArgs({ closeOnEscape: false });
+    await window.testing.updateArgs({ closeOnEscape: false });
 
     await sleep(200);
 
