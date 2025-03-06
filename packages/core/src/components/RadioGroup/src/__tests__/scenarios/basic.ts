@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { props } from '../props';
 import { sleep } from '@optimacros-ui/utils';
 
@@ -7,9 +7,9 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -58,10 +58,8 @@ export const basic = async ({ globals, canvasElement, step }) => {
     });
 
     await step('select controllable', async () => {
-        window.testing.updateArgs({ ...props, value: null, controllable: true });
+        await window.testing.updateArgs({ ...props, value: null });
         window.testing.args.onValueChange.mockClear();
-
-        await sleep(500);
 
         // перерендер
         root = canvasElement.querySelector('[data-scope="radio-group"][data-part="root"]');
@@ -93,16 +91,16 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(window.testing.args.onValueChange).toBeCalledTimes(1);
         expect(window.testing.args.onValueChange).toBeCalledWith({ value: 'gradient' });
 
-        window.testing.updateArgs({ value: 'gradient' });
+        await window.testing.updateArgs({ value: 'gradient' });
 
-        await sleep(500);
-
-        expect(item1).toHaveAttribute('data-state', 'checked');
-        expect(control1).toHaveAttribute('data-state', 'checked');
-        expect(text1).toHaveAttribute('data-state', 'checked');
-        expect(item2).toHaveAttribute('data-state', 'unchecked');
-        expect(control2).toHaveAttribute('data-state', 'unchecked');
-        expect(text2).toHaveAttribute('data-state', 'unchecked');
+        await waitFor(() => {
+            expect(item1).toHaveAttribute('data-state', 'checked');
+            expect(control1).toHaveAttribute('data-state', 'checked');
+            expect(text1).toHaveAttribute('data-state', 'checked');
+            expect(item2).toHaveAttribute('data-state', 'unchecked');
+            expect(control2).toHaveAttribute('data-state', 'unchecked');
+            expect(text2).toHaveAttribute('data-state', 'unchecked');
+        });
 
         await user.click(control2);
 
@@ -118,15 +116,15 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(window.testing.args.onValueChange).toBeCalledTimes(2);
         expect(window.testing.args.onValueChange).toBeCalledWith({ value: 'partialGradient' });
 
-        window.testing.updateArgs({ value: 'partialGradient' });
+        await window.testing.updateArgs({ value: 'partialGradient' });
 
-        await sleep(500);
-
-        expect(item1).toHaveAttribute('data-state', 'unchecked');
-        expect(control1).toHaveAttribute('data-state', 'unchecked');
-        expect(text1).toHaveAttribute('data-state', 'unchecked');
-        expect(item2).toHaveAttribute('data-state', 'checked');
-        expect(control2).toHaveAttribute('data-state', 'checked');
-        expect(text2).toHaveAttribute('data-state', 'checked');
+        await waitFor(() => {
+            expect(item1).toHaveAttribute('data-state', 'unchecked');
+            expect(control1).toHaveAttribute('data-state', 'unchecked');
+            expect(text1).toHaveAttribute('data-state', 'unchecked');
+            expect(item2).toHaveAttribute('data-state', 'checked');
+            expect(control2).toHaveAttribute('data-state', 'checked');
+            expect(text2).toHaveAttribute('data-state', 'checked');
+        });
     });
 };
