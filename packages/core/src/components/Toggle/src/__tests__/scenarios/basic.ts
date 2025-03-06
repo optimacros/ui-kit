@@ -1,6 +1,5 @@
-import { expect, userEvent, waitFor } from '@storybook/test';
+import { expect, fireEvent, userEvent, waitFor } from '@storybook/test';
 import { props } from '../props';
-import { sleep } from '@optimacros-ui/utils';
 import { StoryContext } from '@storybook/react';
 import { ComponentProps } from 'react';
 import { Toggle } from '../../';
@@ -14,11 +13,9 @@ export const basic = async ({
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const root = canvasElement.querySelector(
         '[data-scope="toggle"][data-part="root"]',
@@ -78,7 +75,8 @@ export const basic = async ({
 
         await window.takeScreenshot?.('unchecked');
 
-        await user.click(control);
+        // ...
+        await fireEvent.click(control);
 
         await waitFor(isChecked);
 
@@ -107,11 +105,13 @@ export const basic = async ({
     });
 
     await step('check/uncheck (prop)', async () => {
-        window.testing.updateArgs({ controllable: true, checked: false });
+        isChecked();
+
+        await window.testing.updateArgs({ checked: false });
 
         await waitFor(isUnChecked);
 
-        window.testing.updateArgs({ checked: true });
+        await window.testing.updateArgs({ checked: true });
 
         await waitFor(isChecked);
     });

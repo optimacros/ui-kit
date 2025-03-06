@@ -28,7 +28,8 @@
 
 ### 3.check/uncheck (prop)
 
-- передаю `{ controllable: true, checked: false }`
+- проверяю состояние (`выбрано`)
+- передаю `{  checked: false }`
 - проверяю состояние (`не выбрано`)
 - передаю `{ checked: true }`
 - проверяю состояние (`выбрано`)
