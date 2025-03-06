@@ -13,13 +13,13 @@ export const basic = async ({ globals, canvasElement, step }) => {
 
     const canvas = within(canvasElement);
 
-    let root = canvasElement.querySelector('[data-scope="radio-group"][data-part="root"]');
-    let item1 = canvas.getByTestId('item-1');
-    let control1 = canvas.getByTestId('control-1');
-    let text1 = canvas.getByTestId('control-1');
-    let item2 = canvas.getByTestId('item-2');
-    let control2 = canvas.getByTestId('control-2');
-    let text2 = canvas.getByTestId('control-2');
+    const root = canvasElement.querySelector('[data-scope="radio-group"][data-part="root"]');
+    const item1 = canvas.getByTestId('item-1');
+    const control1 = canvas.getByTestId('control-1');
+    const text1 = canvas.getByTestId('control-1');
+    const item2 = canvas.getByTestId('item-2');
+    const control2 = canvas.getByTestId('control-2');
+    const text2 = canvas.getByTestId('control-2');
 
     expect(root).toBeInTheDocument();
     expect(item1).toBeInTheDocument();
@@ -60,15 +60,6 @@ export const basic = async ({ globals, canvasElement, step }) => {
     await step('select controllable', async () => {
         await window.testing.updateArgs({ ...props, value: null });
         window.testing.args.onValueChange.mockClear();
-
-        // перерендер
-        root = canvasElement.querySelector('[data-scope="radio-group"][data-part="root"]');
-        item1 = canvas.getByTestId('item-1');
-        control1 = canvas.getByTestId('control-1');
-        text1 = canvas.getByTestId('control-1');
-        item2 = canvas.getByTestId('item-2');
-        control2 = canvas.getByTestId('control-2');
-        text2 = canvas.getByTestId('control-2');
 
         expect(item1).toHaveAttribute('data-state', 'unchecked');
         expect(control1).toHaveAttribute('data-state', 'unchecked');
