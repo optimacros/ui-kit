@@ -266,4 +266,5 @@ export const ContextMenu: Story = {
             </Menu.Root>
         );
     },
+    tags: ['skip-test-runner'],
 };

@@ -11,7 +11,7 @@ const Content = ({ parent }) => {
     const submenu_1_1 = useSubmenu(submenu_1, { id: 'sub_1_1', hoverable: true });
     const submenu_1_1_1 = useSubmenu(submenu_1_1, { id: 'sub_1_1_1', hoverable: true });
 
-    const submenu_4 = useSubmenu(submenu_1, { id: 'sub_4' });
+    const submenu_4 = useSubmenu(submenu_1, { id: 'sub_4', hoverable: true });
 
     return (
         <>
