@@ -23,6 +23,10 @@ export const Types = (props) => {
     };
 
     useEffect(() => {
+        if (window.location.href.includes('--docs')) {
+            return;
+        }
+
         setTimeout(() => {
             create();
         }, 1);

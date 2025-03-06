@@ -33,6 +33,10 @@ export const Placements = (props) => {
     };
 
     useEffect(() => {
+        if (window.location.href.includes('--docs')) {
+            return;
+        }
+
         setTimeout(() => {
             create();
         }, 1);
