@@ -1,6 +1,5 @@
 import { expect, fireEvent, userEvent, waitFor, within } from '@storybook/test';
 import { props } from '../props';
-import { sleep } from '@optimacros-ui/utils';
 import { StoryContext } from '@storybook/react';
 import { ComponentProps } from 'react';
 import { Switch } from '../../';
@@ -14,11 +13,9 @@ export const basic = async ({
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const root = canvasElement.querySelector(
         '[data-scope="switch"][data-part="root"]',
@@ -84,7 +81,6 @@ export const basic = async ({
         expect(window.testing.args.onCheckedChange).toBeCalledTimes(1);
         expect(window.testing.args.onCheckedChange).toHaveBeenLastCalledWith({ checked: false });
 
-        // ...
         await fireEvent.click(root);
 
         await waitFor(isChecked);
@@ -95,6 +91,7 @@ export const basic = async ({
 
     await step('check/uncheck (keyboard)', async () => {
         (document.activeElement as HTMLElement).blur();
+        window.testing.args.onCheckedChange.mockClear();
 
         // первый таб фокусирует на thumb
         await user.keyboard('{Tab>2}');
@@ -109,14 +106,14 @@ export const basic = async ({
 
         await waitFor(isUnChecked);
 
-        expect(window.testing.args.onCheckedChange).toBeCalledTimes(3);
+        expect(window.testing.args.onCheckedChange).toBeCalledTimes(1);
         expect(window.testing.args.onCheckedChange).toHaveBeenLastCalledWith({ checked: false });
 
         await user.keyboard('[Space]');
 
         await waitFor(isChecked);
 
-        expect(window.testing.args.onCheckedChange).toBeCalledTimes(4);
+        expect(window.testing.args.onCheckedChange).toBeCalledTimes(2);
         expect(window.testing.args.onCheckedChange).toHaveBeenLastCalledWith({ checked: true });
     });
 
@@ -145,11 +142,13 @@ export const basic = async ({
     });*/
 
     await step('check/uncheck (prop)', async () => {
-        window.testing.updateArgs({ controllable: true, checked: false });
+        isChecked();
+
+        await window.testing.updateArgs({ checked: false });
 
         await waitFor(isUnChecked);
 
-        window.testing.updateArgs({ checked: true });
+        await window.testing.updateArgs({ checked: true });
 
         await waitFor(isChecked);
     });

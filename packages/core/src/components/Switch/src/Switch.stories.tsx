@@ -10,6 +10,10 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Switch.Root>>> = {
         control: 'boolean',
         description: 'Whether the switch is checked.',
     },
+    defaultChecked: {
+        control: 'boolean',
+        description: 'Whether the switch is checked.',
+    },
     onCheckedChange: {
         control: false,
         description: 'Function called once checked state is changed',
