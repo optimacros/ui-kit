@@ -7,6 +7,7 @@ export const props: Partial<Tooltip.RootProps> = {
     closeDelay: 200,
     interactive: false,
     disabled: false,
+    open: undefined,
     defaultOpen: false,
     onOpenChange: fn(),
 };

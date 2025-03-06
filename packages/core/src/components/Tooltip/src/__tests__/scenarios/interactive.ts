@@ -13,9 +13,9 @@ export const interactive = async ({
         return;
     }
 
-    window.testing.updateArgs({ ...props, interactive: true });
+    await window.testing.updateArgs({ ...props, interactive: true });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 

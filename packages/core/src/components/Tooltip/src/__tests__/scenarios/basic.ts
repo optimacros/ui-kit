@@ -9,9 +9,9 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext<Toolt
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -73,11 +73,13 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext<Toolt
     });
 
     await step('open/close (controlled)', async () => {
-        window.testing.updateArgs({ open: true });
+        isClosed();
+
+        await window.testing.updateArgs({ open: true });
 
         await waitFor(() => isOpen());
 
-        window.testing.updateArgs({ open: false });
+        await window.testing.updateArgs({ open: false });
 
         await waitFor(() => isClosed());
     });
