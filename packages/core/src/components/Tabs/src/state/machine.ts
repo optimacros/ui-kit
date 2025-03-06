@@ -304,7 +304,9 @@ const connect = ((api, { state, send, refs, context, prop }) => {
         getListProps: ({ element }: { element: HTMLUListElement }) => {
             element && refs.set('tabsList', element);
 
-            element && send({ type: 'SYNC_HIDDEN_TABS' });
+            if (context.get('hiddenTabs').length === 0 && element) {
+                send({ type: 'SYNC_HIDDEN_TABS' });
+            }
 
             return {
                 ...api.getListProps(),
