@@ -6,9 +6,11 @@ import { fn } from '@storybook/test';
 export const props: Partial<ComponentProps<typeof Select.Root>> = {
     items: mockItems,
     value: undefined,
+    defaultValue: undefined,
     onValueChange: fn(),
     onOpenChange: fn(),
     open: undefined,
+    defaultOpen: false,
     deselectable: false,
     multiple: false,
     closeOnSelect: true,

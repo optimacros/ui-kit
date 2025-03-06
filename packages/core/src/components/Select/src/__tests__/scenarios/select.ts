@@ -7,19 +7,19 @@ export const select = async ({ globals, step, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
-    const root = canvas.getByTestId('root');
-    const control = within(root).getByTestId('control');
-    const input = within(root).getByTestId('input');
-    const trigger = within(root).getByTestId('trigger');
-    const content = within(document.body).getByTestId('content');
-    const list = within(content).getByTestId('list');
-    const items = within(list).getAllByTestId('item');
+    let root = canvas.getByTestId('root');
+    let control = within(root).getByTestId('control');
+    let input = within(root).getByTestId('input');
+    let trigger = within(root).getByTestId('trigger');
+    let content = within(document.body).getByTestId('content');
+    let list = within(content).getByTestId('list');
+    let items = within(list).getAllByTestId('item');
 
     expect(control).toBeInTheDocument();
     expect(control).toHaveAttribute('data-state', 'closed');
@@ -55,23 +55,24 @@ export const select = async ({ globals, step, canvasElement }) => {
             expect(input).toHaveTextContent(window.testing.args.items[0].label);
             expect(items[0]).toHaveAttribute('data-state', 'checked');
         });
-
-        window.testing.updateArgs({
-            value: [],
-        });
-
-        await waitFor(() => {
-            expect(input).toHaveTextContent('choose value');
-            expect(items[0]).toHaveAttribute('data-state', 'unchecked');
-        });
     });
 
     await step('deselect', async () => {
-        window.testing.updateArgs({
+        await window.testing.updateArgs({
             ...props,
             deselectable: true,
             closeOnSelect: false,
         });
+
+        await window.testing.resetStory();
+
+        root = canvas.getByTestId('root');
+        control = within(root).getByTestId('control');
+        input = within(root).getByTestId('input');
+        trigger = within(root).getByTestId('trigger');
+        content = within(document.body).getByTestId('content');
+        list = within(content).getByTestId('list');
+        items = within(list).getAllByTestId('item');
 
         expect(input).toHaveTextContent('choose value');
         expect(items[0]).toHaveAttribute('data-state', 'unchecked');
@@ -108,7 +109,7 @@ export const select = async ({ globals, step, canvasElement }) => {
     });
 
     await step('select (controlled)', async () => {
-        window.testing.updateArgs({
+        await window.testing.updateArgs({
             ...props,
             value: [],
             closeOnSelect: false,
@@ -140,7 +141,7 @@ export const select = async ({ globals, step, canvasElement }) => {
             value: [window.testing.args.items[0].value],
         });
 
-        window.testing.updateArgs({
+        await window.testing.updateArgs({
             value: [window.testing.args.items[0].value],
         });
 
@@ -162,7 +163,7 @@ export const select = async ({ globals, step, canvasElement }) => {
             value: [],
         });
 
-        window.testing.updateArgs({
+        await window.testing.updateArgs({
             value: [],
         });
 

@@ -6,18 +6,16 @@ export const multipleSelection = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs({
+    await window.testing.updateArgs({
         ...props,
         multiple: true,
         closeOnSelect: false,
         deselectable: true,
     });
 
+    await window.testing.resetStory();
+
     const { args } = window.testing;
-
-    args.onValueChange.mockClear();
-
-    await window.waitForPageTrulyReady?.();
 
     const canvas = within(canvasElement);
 
