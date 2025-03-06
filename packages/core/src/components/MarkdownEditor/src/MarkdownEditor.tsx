@@ -44,8 +44,6 @@ export const EditComponent = forward<{}, HTMLTextAreaElement>(
     (props, ref) => {
         const { value, setValue, disabled } = useApi();
 
-        console.info(disabled);
-
         const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
             setValue(e.target.value);
         };

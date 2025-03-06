@@ -15,18 +15,20 @@ export const Code = forward<TextProps, 'code'>((props, ref) => (
     <styled.code {...props} ref={ref} data-scope="text" data-part="root" data-tag="code" />
 ));
 
-export const Markdown = forward<TextProps, 'div'>(({ children, ...rest }, ref) => (
-    <styled.div
-        {...rest}
-        ref={ref}
-        data-scope="text"
-        data-part="root"
-        data-tag="markdown"
-        dangerouslySetInnerHTML={{
-            __html: marked(children, { sanitize: true }),
-        }}
-    />
-));
+export const Markdown = forward<TextProps & { children: string }, 'div'>(
+    ({ children, ...rest }, ref) => (
+        <styled.div
+            {...rest}
+            ref={ref}
+            data-scope="text"
+            data-part="root"
+            data-tag="markdown"
+            dangerouslySetInnerHTML={{
+                __html: marked(children),
+            }}
+        />
+    ),
+);
 
 export const Title = forward<TextProps, 'h1'>((props, ref) => (
     <styled.h1 {...props} ref={ref} data-scope="text" data-part="root" data-tag="title" />

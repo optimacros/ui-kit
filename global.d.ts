@@ -1,5 +1,3 @@
-declare module 'marked';
-
 interface Mapping {
     [key: string]: string;
 }

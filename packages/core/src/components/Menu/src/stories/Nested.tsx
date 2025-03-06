@@ -4,9 +4,12 @@ import { Props, useSubmenu } from '../menu.machine';
 import { menuItems } from '../mock';
 
 const Content = ({ parent }) => {
-    const submenu_1 = useSubmenu(parent, { id: 'sub_1' });
-    const submenu_2 = useSubmenu(parent, { id: 'sub_2' });
-    const submenu_3 = useSubmenu(parent, { id: 'sub_3' });
+    const submenu_1 = useSubmenu(parent, { id: 'sub_1', hoverable: true });
+    const submenu_2 = useSubmenu(parent, { id: 'sub_2', hoverable: true });
+    const submenu_3 = useSubmenu(parent, { id: 'sub_3', hoverable: true });
+
+    const submenu_1_1 = useSubmenu(submenu_1, { id: 'sub_1_1', hoverable: true });
+    const submenu_1_1_1 = useSubmenu(submenu_1_1, { id: 'sub_1_1_1', hoverable: true });
 
     return (
         <>
@@ -37,6 +40,9 @@ const Content = ({ parent }) => {
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
+                <Menu.TriggerItem {...submenu_1_1.props} value="sub_1_1">
+                    sub 1 1
+                </Menu.TriggerItem>
             </Menu.SubMenuContent>
             <Menu.SubMenuContent menu={submenu_2}>
                 {menuItems.map((v) => (
@@ -46,6 +52,23 @@ const Content = ({ parent }) => {
                 ))}
             </Menu.SubMenuContent>
             <Menu.SubMenuContent menu={submenu_3}>
+                {menuItems.map((v) => (
+                    <Menu.SubMenuItem {...v} data-testid={v.value}>
+                        {v.valueText}
+                    </Menu.SubMenuItem>
+                ))}
+            </Menu.SubMenuContent>
+            <Menu.SubMenuContent menu={submenu_1_1}>
+                <Menu.TriggerItem {...submenu_1_1_1.props} value="sub_1_1_1">
+                    sub 1 1 1
+                </Menu.TriggerItem>
+                {menuItems.map((v) => (
+                    <Menu.SubMenuItem {...v} data-testid={v.value}>
+                        {v.valueText}
+                    </Menu.SubMenuItem>
+                ))}
+            </Menu.SubMenuContent>
+            <Menu.SubMenuContent menu={submenu_1_1_1}>
                 {menuItems.map((v) => (
                     <Menu.SubMenuItem {...v} data-testid={v.value}>
                         {v.valueText}
