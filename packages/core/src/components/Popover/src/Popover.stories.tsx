@@ -3,8 +3,9 @@ import { Popover } from '.';
 import * as stories from './stories';
 import * as scenarios from './__tests__/scenarios';
 import { fn } from '@storybook/test';
+import { ComponentProps } from 'react';
 
-const argTypes: ArgTypes<typeof Popover.Root> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof Popover.Root>>> = {
     open: {
         control: 'boolean',
         description: 'Whether the dialog is open',
@@ -12,11 +13,6 @@ const argTypes: ArgTypes<typeof Popover.Root> = {
     defaultOpen: {
         control: 'boolean',
         description: 'Whether the dialog is open',
-        table: { defaultValue: { summary: 'false' } },
-    },
-    controllable: {
-        control: 'boolean',
-        description: 'Whether the component handles props update',
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {
@@ -82,7 +78,6 @@ const argTypes: ArgTypes<typeof Popover.Root> = {
         description: `Function called when an interaction happens outside the component`,
         table: { type: { summary: '(event: InteractOutsideEvent) => void' } },
     },
-    defaultContext: { table: { disable: true } },
     id: { table: { disable: true } },
 };
 
