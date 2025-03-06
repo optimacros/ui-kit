@@ -1,6 +1,5 @@
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { props } from '../props';
-import { sleep } from '@optimacros-ui/utils';
 import { items } from '../../examples/mock';
 import { StoryContext } from '@storybook/react';
 
@@ -9,17 +8,15 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
         return;
     }
 
-    window.testing.updateArgs({ controllable: true });
-    await sleep(1);
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const root = canvasElement.querySelector(
         '[data-scope="segmented-control"][data-part="root"]',
     ) as HTMLElement;
     const segments = within(root).getAllByTestId('item');
-    const [item1, item2] = segments;
+    const [item1, item2, item3] = segments;
 
     expect(root).toBeInTheDocument();
     expect(segments).toHaveLength(items.length);
@@ -79,15 +76,7 @@ export const basic = async ({ globals, canvasElement, step }: StoryContext) => {
     });
 
     await step('select (controlled)', async () => {
-        window.testing.updateArgs({ controllable: true, value: items[2] });
-
-        // пригорает с этих ререндеров
-        await sleep(1);
-
-        const root = canvasElement.querySelector(
-            '[data-scope="segmented-control"][data-part="root"]',
-        ) as HTMLElement;
-        const item3 = within(root).getAllByTestId('item')[2];
+        await window.testing.updateArgs({ value: items[2] });
 
         await waitFor(() => {
             expect(item3).toHaveAttribute('data-state', 'checked');
