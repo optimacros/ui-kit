@@ -7,8 +7,9 @@
     padding: 8px 0;
     font-size: 14px;
   }
-
-  [data-part='label'] {
+  [data-part='label'],
+  [data-part='error'],
+  [data-part='hint'] {
     font-size: 12px;
   }
 }

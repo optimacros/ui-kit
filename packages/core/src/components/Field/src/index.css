@@ -113,17 +113,28 @@
 
   &[data-tag='floating-top'] {
     position: absolute;
+    display: block;
+    width: 100%;
     top: calc(-1 * var(--spacing-1));
     left: 0;
     pointer-events: none;
+    max-height: var(--spacing-5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &[data-tag='floating-bottom'] {
     position: absolute;
+    width: 100%;
     left: 0;
     bottom: calc(-1 * var(--spacing-1));
     pointer-events: none;
     display: none;
+    max-height: var(--spacing-5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &[data-part='root'] {
