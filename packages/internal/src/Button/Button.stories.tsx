@@ -172,6 +172,13 @@ export const Accent: Story = {
     },
 };
 
+export const Floating: Story = {
+    args: {
+        label: '+',
+        floating: true,
+    },
+};
+
 export const FloatingMini: Story = {
     args: {
         label: '+',
@@ -261,7 +268,7 @@ export const iconPosition: Story = {
                 </Flex>
                 <Flex direction="column" gap={3}>
                     <b>Right:</b>
-                    <Button {...props} />
+                    <Button {...props} iconPosition="right" />
                 </Flex>
             </Flex>
         );

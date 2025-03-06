@@ -5,6 +5,7 @@ import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
 import { useThemeClassName } from '../utils';
+import './styles.css';
 
 export type ThemeButtonProps = {
     button: string;
@@ -98,7 +99,7 @@ export const Button = forward<
             type = 'button',
             label,
             icon,
-            iconPosition = 'right',
+            iconPosition = 'left',
             href,
             theme = {},
             inverse,
@@ -130,10 +131,11 @@ export const Button = forward<
 
         const cn = useThemeClassName(theme, className);
 
-        const btnContentDirection = iconPosition === 'right' ? 'row' : 'row-reverse';
+        const btnContentDirection = iconPosition === 'left' ? 'row' : 'row-reverse';
 
         return (
             <ButtonComponent
+                data-tag="internal"
                 variant={getVariant(primary, accent, bordered, gray, neutral)}
                 float={getFloatStyles(raised, floating)}
                 status={warning ? 'error' : null}
@@ -148,10 +150,14 @@ export const Button = forward<
                 className={cn}
                 {...rest}
             >
-                <Flex direction={btnContentDirection} align="center">
-                    {label}
-                    {icon && <Icon value={icon} />}
-                </Flex>
+                {icon ? (
+                    <Flex direction={btnContentDirection} align="center" gap={2}>
+                        <Icon value={icon} />
+                        {label}
+                    </Flex>
+                ) : (
+                    label
+                )}
                 {children}
             </ButtonComponent>
         );
