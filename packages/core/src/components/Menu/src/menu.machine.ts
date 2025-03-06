@@ -21,11 +21,12 @@ export type Schema = Zag.ExtendModuleSchema<
 
 export const machine = extendMachine<Schema, typeof zagMenu>(zagMenu, {
     context(params) {
-        const { bindable } = params;
+        const { bindable, prop } = params;
         return {
             ...zagMenu.machine.context(params),
             orientation: bindable<Schema['context']['orientation']>(() => ({
                 defaultValue: Orientation.Vertical,
+                value: prop('orientation'),
             })),
         };
     },
