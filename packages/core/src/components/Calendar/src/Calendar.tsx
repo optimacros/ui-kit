@@ -1,5 +1,6 @@
 import { ChangeEvent, ComponentProps, ReactNode } from 'react';
 import { forward, styled } from '@optimacros-ui/store';
+import { Flex } from '@optimacros-ui/flex';
 import { RootProvider, useApi } from './state';
 
 export { RootProvider as Root };
