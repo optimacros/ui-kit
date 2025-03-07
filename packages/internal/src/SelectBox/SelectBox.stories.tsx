@@ -154,12 +154,18 @@ export const LabelPosition: Story = {
         value: '2',
     },
     render: (args) => (
-        <Flex direction="row" gap={10}>
+        <Flex direction="row" gap={20}>
             <Wrapper>
-                <SelectBox {...args} labelPosition="top" />
+                <Flex direction="column" gap={4}>
+                    <b>Top:</b>
+                    <SelectBox {...args} labelPosition="top" />
+                </Flex>
             </Wrapper>
             <Wrapper>
-                <SelectBox {...args} labelPosition="left" />
+                <Flex direction="column" gap={4}>
+                    <b>Left:</b>
+                    <SelectBox {...args} labelPosition="left" />
+                </Flex>
             </Wrapper>
         </Flex>
     ),

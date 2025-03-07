@@ -51,7 +51,7 @@ export const Root = forward<
     );
 
     return (
-        <RootProvider collection={collection} {...providerProps}>
+        <RootProvider collection={collection} {...providerProps} {...rest}>
             {({ api }) => <styled.div {...divProps} {...api.getRootProps()} ref={ref} />}
         </RootProvider>
     );
