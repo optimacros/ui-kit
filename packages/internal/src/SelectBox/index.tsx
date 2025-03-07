@@ -119,6 +119,9 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
             className,
         );
 
+        const isLabelPositionLeft = labelPosition === 'left';
+        const labelStyle = isLabelPositionLeft ? { margin: 0 } : { marginBottom: '-15px' };
+
         return (
             <>
                 {!multiSelect ? (
@@ -140,12 +143,16 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                             ))}
                         </Select.HiddenInput>
 
-                        <Select.Control style={{ flexDirection: 'row' }}>
+                        <Select.Control data-direction={isLabelPositionLeft ? 'row' : 'column'}>
                             <Select.Api>
                                 {(api) => (
                                     <>
                                         {label && (
-                                            <div data-scope="field" data-part="label">
+                                            <div
+                                                data-scope="field"
+                                                data-part="label"
+                                                data-margin={isLabelPositionLeft && 'none'}
+                                            >
                                                 label
                                             </div>
                                         )}
@@ -191,6 +198,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                     </Select.Root>
                 ) : (
                     <Select.Root
+                        data-tag="internal"
                         items={items}
                         value={curValue}
                         onValueChange={handleChange}
