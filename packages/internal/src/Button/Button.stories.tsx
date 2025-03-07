@@ -1,4 +1,5 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
+import { Flex } from '@optimacros-ui/flex';
 import { Button } from './index';
 
 const argTypes: Partial<ArgTypes> = {
@@ -171,6 +172,13 @@ export const Accent: Story = {
     },
 };
 
+export const Floating: Story = {
+    args: {
+        label: '+',
+        floating: true,
+    },
+};
+
 export const FloatingMini: Story = {
     args: {
         label: '+',
@@ -242,6 +250,28 @@ export const IconButton: Story = {
     args: {
         label: 'Icon Button',
         icon: '👋',
+    },
+};
+
+export const iconPosition: Story = {
+    args: {
+        icon: 'check',
+        label: 'Ok',
+        bordered: true,
+    },
+    render: (props) => {
+        return (
+            <Flex gap={10}>
+                <Flex direction="column" gap={3}>
+                    <b>Left:</b>
+                    <Button {...props} iconPosition="left" />
+                </Flex>
+                <Flex direction="column" gap={3}>
+                    <b>Right:</b>
+                    <Button {...props} iconPosition="right" />
+                </Flex>
+            </Flex>
+        );
     },
 };
 
