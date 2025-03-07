@@ -7,9 +7,9 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -55,11 +55,8 @@ export const basic = async ({ globals, canvasElement, step }) => {
     });
 
     await step('controllable', async () => {
-        window.testing.updateArgs(props);
+        await window.testing.updateArgs({ open: false });
         window.testing.args.onOpenChange.mockClear();
-        window.testing.updateArgs({ 'open.controlled': true });
-
-        await sleep(100);
 
         await fireEvent.click(trigger);
 
@@ -71,7 +68,7 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(window.testing.args.onOpenChange).toBeCalledTimes(1);
         expect(window.testing.args.onOpenChange).toBeCalledWith({ open: true });
 
-        window.testing.updateArgs({ open: true });
+        await window.testing.updateArgs({ open: true });
 
         await waitFor(() => expect(content).toHaveAttribute('data-state', 'open'));
         expect(content).toBeVisible();
@@ -86,7 +83,7 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(window.testing.args.onOpenChange).toBeCalledTimes(2);
         expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
 
-        window.testing.updateArgs({ open: false });
+        await window.testing.updateArgs({ open: false });
 
         await waitFor(() => expect(content).toHaveAttribute('data-state', 'closed'));
         expect(content).not.toBeVisible();

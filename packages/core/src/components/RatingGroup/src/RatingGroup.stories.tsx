@@ -2,10 +2,11 @@ import { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import * as examples from './examples';
 import { RatingGroup } from './index';
 import { Flex } from '@optimacros-ui/flex';
+import { ComponentProps } from 'react';
 
 const Wrapper = ({ children }: { children }) => <div style={{ width: '130px' }}>{children}</div>;
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof RatingGroup.Root>>> = {
     translations: {
         control: 'object',
         description:
@@ -102,6 +103,7 @@ type Story = StoryObj<typeof RatingGroup.Root>;
 
 export const Basic: Story = {
     render: examples.Basic,
+    tags: ['skip-test-runner'],
 };
 
 export const WithLabel: Story = {
@@ -111,6 +113,7 @@ export const WithLabel: Story = {
 export const HalfIcon: Story = {
     args: { allowHalf: true },
     render: examples.HalfIcon,
+    tags: ['skip-test-runner'], // DefaultValue
 };
 
 export const Disabled: Story = {

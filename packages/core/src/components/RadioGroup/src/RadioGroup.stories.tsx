@@ -9,7 +9,11 @@ import { ComponentProps } from 'react';
 const argTypes: ArgTypes<Partial<ComponentProps<typeof RadioGroup.Root>>> = {
     value: {
         control: 'text',
-        description: 'Checked value. Submit `null` for `neither`.',
+        description: 'The controlled value of the radio group',
+    },
+    defaultValue: {
+        control: 'text',
+        description: `The initial value of the checked radio when rendered. Use when you don't need to control the value of the radio group`,
     },
     onValueChange: {
         control: false,

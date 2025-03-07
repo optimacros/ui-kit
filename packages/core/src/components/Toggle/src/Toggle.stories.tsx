@@ -11,7 +11,6 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof Toggle>>> = {
     checked: {
         control: 'boolean',
         description: 'Whether the toggle is checked.',
-        table: { disable: true },
     },
     defaultChecked: {
         control: 'boolean',
@@ -46,9 +45,6 @@ const meta: Meta<typeof Toggle> = {
     title: 'UI Kit core/Toggle',
     component: Toggle,
     argTypes,
-    args: {
-        checked: undefined,
-    },
 };
 
 export default meta;
@@ -66,12 +62,6 @@ export const Basic: Story = {
 };
 
 export const States: Story = {
-    args: {
-        defaultChecked: false,
-        onCheckedChange: fn(),
-        value: 'checked',
-        disabled: true,
-    },
+    args: {},
     render: examples.States,
-    tags: ['skip-test-runner'], // смысла 0, будет 6 одинаковых кнопок
 };

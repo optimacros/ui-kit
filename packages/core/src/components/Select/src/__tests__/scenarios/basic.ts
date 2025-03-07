@@ -7,9 +7,9 @@ export const basic = async ({ globals, step, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -82,7 +82,7 @@ export const basic = async ({ globals, step, canvasElement }) => {
     });
 
     await step('open/close (controlled)', async () => {
-        window.testing.updateArgs({ ...props, 'open.controlled': true, controllable: true });
+        await window.testing.updateArgs({ ...props, open: false });
         window.testing.args.onOpenChange.mockClear();
 
         await user.click(trigger);
@@ -96,7 +96,7 @@ export const basic = async ({ globals, step, canvasElement }) => {
         expect(window.testing.args.onOpenChange).toBeCalledTimes(1);
         expect(window.testing.args.onOpenChange).toBeCalledWith({ open: true });
 
-        window.testing.updateArgs({ open: true });
+        await window.testing.updateArgs({ open: true });
 
         await waitFor(() => {
             expect(control).toHaveAttribute('data-state', 'open');
@@ -104,23 +104,27 @@ export const basic = async ({ globals, step, canvasElement }) => {
             expect(content).toHaveAttribute('data-state', 'open');
         });
 
-        await sleep(100);
-
         await user.click(document.body);
 
-        expect(window.testing.args.onOpenChange).toBeCalledTimes(2);
-        expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
+        await waitFor(() => {
+            expect(window.testing.args.onOpenChange).toBeCalledTimes(2);
+            expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
+        });
 
         await user.keyboard('{Escape}');
 
-        expect(window.testing.args.onOpenChange).toBeCalledTimes(3);
-        expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
+        await waitFor(() => {
+            expect(window.testing.args.onOpenChange).toBeCalledTimes(3);
+            expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
+        });
 
         await user.click(items[0]);
 
-        expect(window.testing.args.onOpenChange).toBeCalledTimes(4);
-        expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
-        expect(items[0]).toHaveAttribute('data-state', 'checked');
+        await waitFor(() => {
+            expect(window.testing.args.onOpenChange).toBeCalledTimes(4);
+            expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
+            expect(items[0]).toHaveAttribute('data-state', 'checked');
+        });
 
         await sleep(500);
 
@@ -130,7 +134,7 @@ export const basic = async ({ globals, step, canvasElement }) => {
 
         await window.takeScreenshot?.('field-open-selected');
 
-        window.testing.updateArgs({ open: false });
+        await window.testing.updateArgs({ open: false });
 
         await waitFor(() => {
             expect(control).toHaveAttribute('data-state', 'closed');

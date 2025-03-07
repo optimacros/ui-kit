@@ -7,9 +7,8 @@ export const base = async ({ canvasElement, step, globals }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
-
-    await window.waitForPageTrulyReady();
+    await window.testing.updateArgs(props);
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 

@@ -14,7 +14,7 @@
 ### 2.Select (controlled)
 
 - сбрасываю пропсы
-- передаю `{ controllable: true }`
+- передаю `{ value: null }`
 - сбрасываю статистику `onValueChange`
 - кликаю `gradient`
 - проверяю значение (`ничего`)

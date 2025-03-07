@@ -8,9 +8,9 @@ export const disabled: PlayFunction<ReactRenderer> = async ({ canvasElement, glo
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -21,7 +21,7 @@ export const disabled: PlayFunction<ReactRenderer> = async ({ canvasElement, glo
     expect(content).toBeInTheDocument();
     expect(content).toHaveAttribute('data-state', 'closed');
 
-    window.testing.updateArgs({ disabled: true });
+    await window.testing.updateArgs({ disabled: true });
 
     await waitFor(() => expect(trigger).toHaveAttribute('data-disabled', 'true'));
 

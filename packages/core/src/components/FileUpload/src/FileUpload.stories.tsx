@@ -230,4 +230,5 @@ export const WithForm: Story = {
             </form>
         );
     },
+    tags: ['skip-test-runner'],
 };

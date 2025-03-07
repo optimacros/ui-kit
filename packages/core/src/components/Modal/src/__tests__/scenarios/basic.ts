@@ -8,9 +8,9 @@ export const basic: PlayFunction = async ({ globals, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(document.body);
 
@@ -38,10 +38,8 @@ export const basic: PlayFunction = async ({ globals, step }) => {
     });
 
     await step('open/close (controlled)', async () => {
-        window.testing.updateArgs({ ...props, 'open.controlled': true });
+        await window.testing.updateArgs({ ...props, open: false });
         window.testing.args.onOpenChange.mockClear();
-
-        await sleep(500);
 
         await user.click(openTrigger);
 
@@ -51,7 +49,7 @@ export const basic: PlayFunction = async ({ globals, step }) => {
         expect(window.testing.args.onOpenChange).toBeCalledTimes(1);
         expect(window.testing.args.onOpenChange).toBeCalledWith({ open: true });
 
-        window.testing.updateArgs({ open: true });
+        await window.testing.updateArgs({ open: true });
 
         await waitFor(() => expect(canvas.queryByTestId('content')).toBeInTheDocument());
 
@@ -63,7 +61,7 @@ export const basic: PlayFunction = async ({ globals, step }) => {
         expect(window.testing.args.onOpenChange).toBeCalledTimes(2);
         expect(window.testing.args.onOpenChange).toBeCalledWith({ open: false });
 
-        window.testing.updateArgs({ open: false });
+        await window.testing.updateArgs({ open: false });
 
         await waitFor(() => {
             expect(canvas.queryByTestId('content')).not.toBeInTheDocument();

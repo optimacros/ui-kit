@@ -6,9 +6,9 @@ export const localized = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs({ ...props, locale: 'ru-RU' });
+    await window.testing.updateArgs({ ...props, locale: 'ru-RU' });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -32,4 +32,17 @@ export const localized = async ({ globals, canvasElement }) => {
     expect(within(content).getByText('май 2025')).toBeInTheDocument();
 
     await window.takeScreenshot?.();
+
+    const prevDateValue = props.defaultValue[0].subtract({ days: 1 }).toString();
+    const prevDateCell = calendar.querySelector(`span[data-value="${prevDateValue}"]`);
+
+    await user.click(prevDateCell);
+
+    await waitFor(() => {
+        expect(window.testing.args.onValueChange).toBeCalledTimes(1);
+
+        expect(window.testing.args.onValueChange.mock.lastCall[0].valueAsString[0]).toEqual(
+            '09.05.2025',
+        );
+    });
 };

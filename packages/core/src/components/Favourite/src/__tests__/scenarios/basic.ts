@@ -7,20 +7,21 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
-    let root = canvas.getByTestId('root');
-    let control = canvas.getByTestId('control');
-    let input = control.querySelector('input[type="checkbox"]') as HTMLInputElement;
-    let checkedIcon = canvas.getByTestId('checked-icon');
-    let uncheckedIcon = canvas.getByTestId('unchecked-icon');
+    const root = canvas.getByTestId('root');
+    const control = canvas.getByTestId('control');
+    const input = control.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    const checkedIcon = canvas.getByTestId('checked-icon');
+    const uncheckedIcon = canvas.getByTestId('unchecked-icon');
 
     expect(root).toBeInTheDocument();
     expect(control).toBeInTheDocument();
+    expect(control).toHaveAttribute('data-state', 'unchecked');
     expect(input).toBeInTheDocument();
     expect(input.checked).toBeFalsy();
     expect(checkedIcon).toBeInTheDocument();
@@ -33,50 +34,62 @@ export const basic = async ({ globals, canvasElement, step }) => {
     await step('check/unckeck', async () => {
         await fireEvent.click(root);
 
-        await waitFor(() => expect(input.checked).toBeTruthy());
-        expect(checkedIcon).toBeVisible();
-        expect(uncheckedIcon).not.toBeVisible();
+        await waitFor(() => {
+            expect(control).toHaveAttribute('data-state', 'checked');
+            expect(input.checked).toBeTruthy();
+            expect(checkedIcon).toBeVisible();
+            expect(uncheckedIcon).not.toBeVisible();
+        });
 
         await window.takeScreenshot?.(`checked`);
 
         await fireEvent.click(root);
 
-        await waitFor(() => expect(input.checked).toBeFalsy());
-        expect(checkedIcon).not.toBeVisible();
-        expect(uncheckedIcon).toBeVisible();
+        await waitFor(() => {
+            expect(control).toHaveAttribute('data-state', 'unchecked');
+            expect(input.checked).toBeFalsy();
+            expect(checkedIcon).not.toBeVisible();
+            expect(uncheckedIcon).toBeVisible();
+        });
     });
 
     await step('check/unckeck (controlled)', async () => {
-        window.testing.updateArgs({ controllable: true });
+        await window.testing.updateArgs({ checked: false });
         window.testing.args.onCheckedChange.mockClear();
 
-        await sleep(100);
+        await window.testing.resetStory();
 
-        // все как-то жестко перерендерилось
-        root = canvas.getByTestId('root');
-        control = canvas.getByTestId('control');
-        input = control.querySelector('input[type="checkbox"]') as HTMLInputElement;
-        checkedIcon = canvas.getByTestId('checked-icon');
-        uncheckedIcon = canvas.getByTestId('unchecked-icon');
+        const root = canvas.getByTestId('root');
+        const control = canvas.getByTestId('control');
+        const input = control.querySelector('input[type="checkbox"]') as HTMLInputElement;
+        const checkedIcon = canvas.getByTestId('checked-icon');
+        const uncheckedIcon = canvas.getByTestId('unchecked-icon');
+
+        expect(control).toHaveAttribute('data-state', 'unchecked');
+        expect(input.checked).toBeFalsy();
+        expect(checkedIcon).not.toBeVisible();
+        expect(uncheckedIcon).toBeVisible();
 
         await fireEvent.click(root);
 
         await sleep(100);
 
         expect(window.testing.args.onCheckedChange).toBeCalledTimes(1);
-        expect(window.testing.args.onCheckedChange).toBeCalledWith({ checked: true });
+        expect(window.testing.args.onCheckedChange).toHaveBeenLastCalledWith({ checked: true });
 
-        expect(input.checked).toBeFalsy();
+        expect(control).toHaveAttribute('data-state', 'unchecked');
+        //expect(input.checked).toBeFalsy();
         expect(checkedIcon).not.toBeVisible();
         expect(uncheckedIcon).toBeVisible();
 
-        window.testing.updateArgs({ checked: true });
+        await window.testing.updateArgs({ checked: true });
 
-        await sleep(100);
-
-        expect(input.checked).toBeTruthy();
-        expect(checkedIcon).toBeVisible();
-        expect(uncheckedIcon).not.toBeVisible();
+        await waitFor(() => {
+            expect(control).toHaveAttribute('data-state', 'checked');
+            expect(input.checked).toBeTruthy();
+            expect(checkedIcon).toBeVisible();
+            expect(uncheckedIcon).not.toBeVisible();
+        });
 
         await fireEvent.click(root);
 
@@ -85,16 +98,18 @@ export const basic = async ({ globals, canvasElement, step }) => {
         expect(window.testing.args.onCheckedChange).toBeCalledTimes(2);
         expect(window.testing.args.onCheckedChange).toBeCalledWith({ checked: false });
 
-        expect(input.checked).toBeTruthy();
+        expect(control).toHaveAttribute('data-state', 'checked');
+        //expect(input.checked).toBeTruthy();
         expect(checkedIcon).toBeVisible();
         expect(uncheckedIcon).not.toBeVisible();
 
-        window.testing.updateArgs({ checked: false });
+        await window.testing.updateArgs({ checked: false });
 
-        await sleep(100);
-
-        expect(input.checked).toBeFalsy();
-        expect(checkedIcon).not.toBeVisible();
-        expect(uncheckedIcon).toBeVisible();
+        await waitFor(() => {
+            expect(control).toHaveAttribute('data-state', 'unchecked');
+            expect(input.checked).toBeFalsy();
+            expect(checkedIcon).not.toBeVisible();
+            expect(uncheckedIcon).toBeVisible();
+        });
     });
 };

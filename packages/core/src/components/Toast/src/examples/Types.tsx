@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Toast } from '..';
 import { Flex } from '@optimacros-ui/flex';
 import { IconButton } from '@optimacros-ui/icon-button';
@@ -21,6 +21,16 @@ export const Types = (props) => {
             }),
         );
     };
+
+    useEffect(() => {
+        if (window.location.href.includes('--docs')) {
+            return;
+        }
+
+        setTimeout(() => {
+            create();
+        }, 1);
+    }, []);
 
     return (
         <>

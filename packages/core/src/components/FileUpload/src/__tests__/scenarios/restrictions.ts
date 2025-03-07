@@ -7,7 +7,7 @@ export const restrictions = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs({
+    await window.testing.updateArgs({
         ...props,
         maxFiles: 3,
         maxFileSize: 1000,
@@ -15,7 +15,7 @@ export const restrictions = async ({ globals, canvasElement }) => {
         accept: ['image/*'],
     });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 

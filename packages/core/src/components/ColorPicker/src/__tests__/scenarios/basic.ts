@@ -7,9 +7,9 @@ export const basic = async ({ globals, canvasElement, step }) => {
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const trigger = canvasElement.querySelector('[data-scope="color-picker"][data-part="trigger"]');
     const content = document.querySelector('[data-scope="color-picker"][data-part="content"]');
@@ -55,7 +55,7 @@ export const basic = async ({ globals, canvasElement, step }) => {
     });
 
     await step('controllable', async () => {
-        window.testing.updateArgs({ ...props, 'open.controlled': true });
+        window.testing.updateArgs({ open: false });
         window.testing.args.onOpenChange.mockClear();
 
         await sleep(100);

@@ -3,7 +3,8 @@ import { Switch } from '..';
 import { ComponentProps } from 'react';
 
 export const props: Partial<ComponentProps<typeof Switch.Root>> = {
-    checked: true,
+    checked: undefined,
+    defaultChecked: true,
     onCheckedChange: fn(),
     value: 'checked',
     disabled: false,

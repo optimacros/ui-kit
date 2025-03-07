@@ -6,15 +6,13 @@ export const autoResize = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs({
+    await window.testing.updateArgs({
         ...props,
         edit: true,
-        'edit.controlled': true,
         autoResize: true,
-        controllable: false,
     });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 

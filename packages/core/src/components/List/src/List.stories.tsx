@@ -4,6 +4,8 @@ import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { Divider } from '@optimacros-ui/divider';
 import { Collapsible } from '@optimacros-ui/collapsible';
+import { Fragment } from 'react/jsx-runtime';
+import { css } from '../../Collapsible/src/styles';
 
 export default {
     title: 'Ui kit core/List',
@@ -12,6 +14,14 @@ export default {
         layout: 'centered',
     },
     tags: ['autodocs'],
+    decorators: [
+        (Story) => (
+            <>
+                <style>{css}</style>
+                <Story />
+            </>
+        ),
+    ],
 };
 
 const items = createItems(30);
@@ -31,7 +41,7 @@ export const Basic = () => {
             <List.List>
                 {items.map(({ collapsible, value, key }) => {
                     return (
-                        <>
+                        <Fragment key={key}>
                             {!collapsible ? (
                                 <List.Item key={key}>{value}</List.Item>
                             ) : (
@@ -40,7 +50,10 @@ export const Basic = () => {
                                         <Collapsible.Trigger asChild>
                                             <Flex gap="2">
                                                 <Collapsible.Indicator>
-                                                    <Icon value="chevron_left" rotate={-90} />
+                                                    <Icon
+                                                        value="chevron_left"
+                                                        className="collapsible-icon"
+                                                    />
                                                 </Collapsible.Indicator>
                                                 {value}
                                             </Flex>
@@ -50,7 +63,7 @@ export const Basic = () => {
                                 </List.Item>
                             )}
                             <Divider fluid />
-                        </>
+                        </Fragment>
                     );
                 })}
             </List.List>

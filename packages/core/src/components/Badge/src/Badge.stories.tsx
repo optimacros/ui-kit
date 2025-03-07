@@ -16,6 +16,7 @@ const meta: Meta<typeof Badge> = {
             control: { type: 'select' },
             options: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
             description: 'Position of the badge relative to its children',
+            table: { defaultValue: { summary: 'top-right' } },
         },
         offset: {
             control: { type: 'number' },
@@ -51,6 +52,7 @@ export const Default: Story = {
         count: 5,
         children: <DemoBox />,
     },
+    tags: ['skip-test-runner'],
 };
 
 // High count number

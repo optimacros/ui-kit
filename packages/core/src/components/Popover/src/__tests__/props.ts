@@ -1,9 +1,10 @@
 import { fn } from '@storybook/test';
+import { ComponentProps } from 'react';
+import { Popover } from '..';
 
-export const props = {
-    controllable: true,
-    open: false,
-    'open.controlled': false,
+export const props: Partial<ComponentProps<typeof Popover.Root>> = {
+    open: undefined,
+    defaultOpen: false,
     onOpenChange: fn(),
     onEscapeKeyDown: fn(),
     onPointerDownOutside: fn(),

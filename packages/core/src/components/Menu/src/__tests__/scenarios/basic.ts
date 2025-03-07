@@ -11,9 +11,9 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
         return;
     }
 
-    window.testing.updateArgs(props);
+    await window.testing.updateArgs(props);
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 
@@ -29,8 +29,6 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
     expect(canvasElement.querySelectorAll('[data-testid="menu-list"] > li')).toHaveLength(
         menuItems.length,
     );
-
-    await window.takeScreenshot?.();
 
     const user = userEvent.setup();
 
@@ -57,8 +55,7 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
         await waitFor(() => expect(content).toHaveAttribute('data-state', 'closed'));
         expect(content).not.toBeVisible();
 
-        window.testing.updateArgs({ closeOnSelect: false });
-        await sleep(1000);
+        await window.testing.updateArgs({ closeOnSelect: false });
 
         await fireEvent.click(trigger);
 
@@ -78,12 +75,12 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
     });
 
     await step('open/close controlled', async () => {
-        window.testing.updateArgs({ ...props, 'open.controlled': true });
+        await window.testing.updateArgs({ open: false });
         window.testing.args.onOpenChange.mockClear();
 
         await sleep(100);
 
-        await waitFor(() => expect(content).toHaveAttribute('data-state', 'closed'));
+        expect(content).toHaveAttribute('data-state', 'closed');
         expect(content).not.toBeVisible();
 
         await fireEvent.click(trigger);
@@ -98,8 +95,7 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
         expect(content).toHaveAttribute('data-state', 'closed');
         expect(content).not.toBeVisible();
 
-        // also resets onOpenChange spy
-        window.testing.updateArgs({
+        await window.testing.updateArgs({
             open: true,
         });
 
@@ -118,7 +114,7 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
         expect(content).toHaveAttribute('data-state', 'open');
         expect(content).toBeVisible();
 
-        window.testing.updateArgs({
+        await window.testing.updateArgs({
             open: false,
         });
 
@@ -127,10 +123,9 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
     });
 
     await step('keyboard navigation', async () => {
-        (document.activeElement as HTMLElement).blur();
-        window.testing.updateArgs(props);
+        await window.testing.updateArgs(props);
 
-        await sleep(100);
+        (document.activeElement as HTMLElement).blur();
 
         await user.keyboard('{Tab}');
 
@@ -161,9 +156,7 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
 
         await waitFor(() => expect(enabledElements[4]).toHaveAttribute('data-highlighted'));
 
-        window.testing.updateArgs({ loopFocus: true });
-
-        await sleep(100);
+        await window.testing.updateArgs({ loopFocus: true });
 
         await user.keyboard('{ArrowDown}');
 

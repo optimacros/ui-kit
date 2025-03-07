@@ -7,15 +7,13 @@ export const maxLength = async ({ globals, canvasElement }) => {
         return;
     }
 
-    window.testing.updateArgs({
+    await window.testing.updateArgs({
         ...props,
-        'edit.controlled': true,
         edit: true,
         maxLength: 10,
-        controllable: false,
     });
 
-    await window.waitForPageTrulyReady?.();
+    await window.testing.resetStory();
 
     const canvas = within(canvasElement);
 

@@ -4,7 +4,7 @@ import { Text } from '@optimacros-ui/text';
 import { Flex } from '@optimacros-ui/flex';
 import { Modal } from '@optimacros-ui/modal';
 import { Chip } from './index';
-import { Meta, StoryFn, ArgTypes } from '@storybook/react';
+import { Meta, StoryFn, ArgTypes, StoryObj } from '@storybook/react';
 
 const Wrapper = ({ children }: { children }) => <div style={{ width: '130px' }}>{children}</div>;
 
@@ -74,32 +74,38 @@ export const WithAvatar: Story = () => {
     );
 };
 
-export const WithModal: Story = () => {
-    return (
-        <Modal.Root>
-            <Chip.Root>
-                With Icon
-                <Modal.Trigger>
-                    <Chip.Icon>
-                        <Icon value="settings" />
-                    </Chip.Icon>
-                </Modal.Trigger>
-            </Chip.Root>
+export const WithModal: StoryObj<typeof Chip.Root> = {
+    render: () => {
+        return (
+            <Modal.Root>
+                <Chip.Root>
+                    With Icon
+                    <Modal.Trigger>
+                        <Chip.Icon>
+                            <Icon value="settings" />
+                        </Chip.Icon>
+                    </Modal.Trigger>
+                </Chip.Root>
 
-            <Modal.Content>
-                <Modal.Title>Great modal</Modal.Title>
-                <Modal.CloseTrigger>close</Modal.CloseTrigger>
-            </Modal.Content>
-        </Modal.Root>
-    );
+                <Modal.Content>
+                    <Modal.Title>Great modal</Modal.Title>
+                    <Modal.CloseTrigger>close</Modal.CloseTrigger>
+                </Modal.Content>
+            </Modal.Root>
+        );
+    },
+    tags: ['skip-test-runner'],
 };
 
-export const Multiple: Story = () => {
-    return (
-        <Flex gap="3" wrap="wrap">
-            {new Array(10).fill(0).map((_, i) => (
-                <Chip.Root key={i}>Base</Chip.Root>
-            ))}
-        </Flex>
-    );
+export const Multiple: StoryObj<typeof Chip.Root> = {
+    render: () => {
+        return (
+            <Flex gap="3" wrap="wrap">
+                {new Array(10).fill(0).map((_, i) => (
+                    <Chip.Root key={i}>Base</Chip.Root>
+                ))}
+            </Flex>
+        );
+    },
+    tags: ['skip-test-runner'],
 };

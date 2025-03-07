@@ -5,8 +5,9 @@ import * as stories from './stories';
 import * as scenarios from './__tests__/scenarios';
 import { fn } from '@storybook/test';
 import { createSelectBoxItems, mockItems } from './mock';
+import { ComponentProps } from 'react';
 
-const argTypes: Partial<ArgTypes> = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof Select.Root>>> = {
     items: {
         control: false,
         description: 'Options array',
@@ -33,6 +34,10 @@ const argTypes: Partial<ArgTypes> = {
         description: `The keys of the selected items`,
         table: { type: { summary: 'string[]' } },
     },
+    defaultValue: {
+        description: `The keys of the selected items`,
+        table: { type: { summary: 'string[]' } },
+    },
     deselectable: {
         control: 'boolean',
         description:
@@ -55,7 +60,7 @@ const argTypes: Partial<ArgTypes> = {
     },
     defaultOpen: {
         control: 'boolean',
-        description: 'Whether the dialog is controlled by the user',
+        description: 'Whether the dialog is open',
         table: { defaultValue: { summary: 'false' } },
     },
     onOpenChange: {

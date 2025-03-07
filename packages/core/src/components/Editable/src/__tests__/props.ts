@@ -3,8 +3,10 @@ import { EditableProps } from '../Editable';
 
 export const props: EditableProps = {
     submitMode: 'both',
-    value: '',
-    edit: false,
+    value: undefined,
+    edit: undefined,
+    defaultValue: undefined,
+    defaultEdit: false,
     invalid: false,
     disabled: false,
     readOnly: false,

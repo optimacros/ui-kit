@@ -11,6 +11,10 @@ const argTypes: Partial<ArgTypes<ComponentProps<typeof SegmentedControl.Root>>> 
         control: 'text',
         description: 'Checked value',
     },
+    defaultValue: {
+        control: 'text',
+        description: 'Checked value',
+    },
     onValueChange: {
         control: false,
         description: 'Function called once a value is changed',
