@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/example",
     "private": true,
-    "version": "2.0.4",
+    "version": "2.0.5",
     "type": "module",
     "scripts": {
         "start": "vite",
@@ -11,11 +11,11 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@optimacros-ui/button": "^2.0.4",
-        "@optimacros-ui/kit-internal": "^2.0.4",
-        "@optimacros-ui/kit-store": "^2.0.4",
-        "@optimacros-ui/store": "^2.0.4",
-        "@optimacros-ui/themes": "^2.0.4"
+        "@optimacros-ui/button": "^2.0.5",
+        "@optimacros-ui/kit-internal": "^2.0.5",
+        "@optimacros-ui/kit-store": "^2.0.5",
+        "@optimacros-ui/store": "^2.0.5",
+        "@optimacros-ui/themes": "^2.0.5"
     },
     "devDependencies": {
         "@babel/core": "^7.20.12",

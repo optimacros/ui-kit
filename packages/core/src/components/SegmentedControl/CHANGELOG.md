@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.5 (2025-03-07)</small>
+
+* test(core/segmentedconntrol): refactor, add tests ([c24025a](https://gitlab.optimacros.com/fe/ui-kit/commit/c24025a))
+* test(core/segmentedcontrol): update tests ([c7a070d](https://gitlab.optimacros.com/fe/ui-kit/commit/c7a070d))
+* chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
+* chore(package): added webpack + updated modules ([f59e1d5](https://gitlab.optimacros.com/fe/ui-kit/commit/f59e1d5))
+* chore(package): update zag ([978a2e8](https://gitlab.optimacros.com/fe/ui-kit/commit/978a2e8))
+* chore(release): 2.0.4 ([0791517](https://gitlab.optimacros.com/fe/ui-kit/commit/0791517))
+* chore(release): version update ([46fc23e](https://gitlab.optimacros.com/fe/ui-kit/commit/46fc23e))
+* chore(update-version): release ([76a0181](https://gitlab.optimacros.com/fe/ui-kit/commit/76a0181))
+* chore(version): update ([532ff3b](https://gitlab.optimacros.com/fe/ui-kit/commit/532ff3b))
+* chore(version): update ([cb4eb3f](https://gitlab.optimacros.com/fe/ui-kit/commit/cb4eb3f))
+* chore(zagjs): update ([1f6165b](https://gitlab.optimacros.com/fe/ui-kit/commit/1f6165b))
+* fix: test ([4772671](https://gitlab.optimacros.com/fe/ui-kit/commit/4772671))
+* fix: typings ([cdc95b0](https://gitlab.optimacros.com/fe/ui-kit/commit/cdc95b0))
+* fix(build-namings): changed namings, fixed build ([744e9c2](https://gitlab.optimacros.com/fe/ui-kit/commit/744e9c2))
+* fix(build): fixed ([b6531ba](https://gitlab.optimacros.com/fe/ui-kit/commit/b6531ba))
+* fix(store): fix useapi ([5354c46](https://gitlab.optimacros.com/fe/ui-kit/commit/5354c46))
+* fix(ts): fixed typescript errors ([64c25bd](https://gitlab.optimacros.com/fe/ui-kit/commit/64c25bd))
+* feat(radio): updated context ([5cfce95](https://gitlab.optimacros.com/fe/ui-kit/commit/5cfce95))
+* feat(segmented-control): added ([f82676e](https://gitlab.optimacros.com/fe/ui-kit/commit/f82676e))
+* feat(store): update method name ([125e901](https://gitlab.optimacros.com/fe/ui-kit/commit/125e901))
+
+
+
+
+
 ## <small>2.0.4 (2025-03-04)</small>
 
 * fix: test ([4772671](https://gitlab.optimacros.com/fe/ui-kit/commit/4772671))

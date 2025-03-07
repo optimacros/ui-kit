@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/image",
     "private": false,
-    "version": "2.0.4",
+    "version": "2.0.5",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -11,10 +11,10 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros-ui/store": "^2.0.4",
-        "@optimacros-ui/tabs": "^2.0.4",
-        "@optimacros-ui/types": "^2.0.4",
-        "@optimacros-ui/utils": "^2.0.4",
+        "@optimacros-ui/store": "^2.0.5",
+        "@optimacros-ui/tabs": "^2.0.5",
+        "@optimacros-ui/types": "^2.0.5",
+        "@optimacros-ui/utils": "^2.0.5",
         "@zag-js/avatar": "1.2.1",
         "react": "18.2.0"
     }
