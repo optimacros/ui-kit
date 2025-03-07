@@ -99,7 +99,7 @@ export const DaysTableHead = forward<{}, 'div'>((props, ref) => {
 
     return (
         <styled.div {...props} {...api.getTableHeaderProps({ view: 'day' })} ref={ref}>
-            <Flex justify="around" {...api.getTableRowProps({ view: 'day' })}>
+            <Flex justify="space-around" {...api.getTableRowProps({ view: 'day' })}>
                 {api.weekDays.map((day) => (
                     <div {...api.getWeekdayProps(day)} />
                 ))}
@@ -114,7 +114,7 @@ export const DaysTableBody = forward<{}, 'div'>((props, ref) => {
     return (
         <styled.div {...props} {...api.getTableBodyProps({ view: 'day' })} ref={ref}>
             {api.weeks.map((week, i) => (
-                <Flex justify="between" key={i} {...api.getTableRowProps({ view: 'day' })}>
+                <Flex justify="space-between" key={i} {...api.getTableRowProps({ view: 'day' })}>
                     {week.map((value, i) => (
                         <div key={i} {...api.getDayTableCellProps({ value })}>
                             <span
