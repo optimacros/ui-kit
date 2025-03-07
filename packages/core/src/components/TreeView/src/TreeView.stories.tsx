@@ -1,44 +1,64 @@
-import { ReactNode } from 'react';
-import { Meta } from '@storybook/react';
-import { Icon } from '@optimacros-ui/icon';
+import { ComponentProps, ReactNode } from 'react';
+import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { TreeView } from './index';
-import { createMockMenuItems } from './mock';
+import { createMockMenuItems, mockItems } from './examples/mock';
+import * as examples from './examples';
+import * as scenarios from './__tests__/scenarios';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
 );
 
-const meta: Meta = {
+const argTypes: Partial<ArgTypes<ComponentProps<typeof TreeView.Root>>> = {
+    menuItems: {
+        control: { type: 'object' },
+        description: 'Tree view menu items data structure',
+    },
+    selectedValue: {
+        control: { type: 'object' },
+        description: 'The controlled selected node ids',
+        table: { type: { summary: 'string[]' } },
+    },
+    expandedValue: {
+        control: { type: 'object' },
+        description: 'The controlled expanded node ids',
+        table: { type: { summary: 'string[]' } },
+    },
+    defaultSelectedValue: {
+        control: { type: 'object' },
+        description: `The initial selected node ids when rendered. Use when you don't need to control the selected node ids`,
+        table: { type: { summary: 'string[]' } },
+    },
+    defaultExpandedValue: {
+        control: { type: 'object' },
+        description: `The initial expanded node ids when rendered. Use when you don't need to control the expanded node ids`,
+        table: { type: { summary: 'string[]' } },
+    },
+    onExpandedChange: {
+        action: 'expandedChanged',
+        description: 'Callback fired when expansion state changes',
+        table: { type: { summary: '(details: ExpandedChangeDetails) => void' } },
+    },
+    onSelectionChange: {
+        action: 'selectedChanged',
+        description: 'Callback fired when selection changes',
+        table: { type: { summary: '(details: SelectionChangeDetails) => void' } },
+    },
+    selectionMode: {
+        control: { type: 'radio' },
+        options: ['single', 'multiple'],
+        table: { defaultValue: { summary: 'single' } },
+        description: 'Selection mode for tree items',
+    },
+    id: { table: { disable: true } },
+    as: { table: { disable: true } },
+    asChild: { table: { disable: true } },
+};
+
+const meta: Meta<typeof TreeView.Root> = {
     title: 'UI Kit core/TreeView',
     component: TreeView.Root,
-    argTypes: {
-        menuItems: {
-            control: { type: 'object' },
-            description: 'Tree view menu items data structure',
-        },
-        selectionMode: {
-            control: { type: 'radio' },
-            options: ['single', 'multiple'],
-            defaultValue: 'single',
-            description: 'Selection mode for tree items',
-        },
-        selectedValue: {
-            control: { type: 'object' },
-            description: 'Array of selected item IDs',
-        },
-        expandedValue: {
-            control: { type: 'object' },
-            description: 'Array of expanded item IDs',
-        },
-        onExpandedChange: {
-            action: 'expandedChanged',
-            description: 'Callback fired when expansion state changes',
-        },
-        onSelectedChange: {
-            action: 'selectedChanged',
-            description: 'Callback fired when selection changes',
-        },
-    },
+    argTypes,
     decorators: [
         (Story) => (
             <Wrapper>
@@ -46,75 +66,45 @@ const meta: Meta = {
             </Wrapper>
         ),
     ],
-    tags: ['skip-test-runner'],
 };
 
 export default meta;
 
 const menuItems = createMockMenuItems(3);
 
-export const Basic = () => {
-    return (
-        <TreeView.Root menuItems={menuItems}>
-            <TreeView.Tree>
-                {menuItems.rootNode.children.map((node, index) => (
-                    <TreeView.TreeNode key={node.id} node={node} indexPath={[index]}>
-                        <Icon value="chevron_right" />
-                    </TreeView.TreeNode>
-                ))}
-            </TreeView.Tree>
-        </TreeView.Root>
-    );
+type Story = StoryObj<typeof TreeView.Root>;
+
+export const Basic: Story = {
+    args: {
+        menuItems: mockItems,
+        selectedValue: undefined,
+        expandedValue: undefined,
+        defaultExpandedValue: undefined,
+        defaultSelectedValue: undefined,
+    },
+    render: examples.Basic,
+    play: scenarios.basic,
 };
 
-export const WithIcons = () => {
-    return (
-        <TreeView.Root menuItems={menuItems}>
-            <TreeView.Tree>
-                {menuItems.rootNode.children.map((node, index) => (
-                    <TreeView.TreeNode key={node.id} node={node} indexPath={[index]}>
-                        <Icon value="chevron_right" />
-                        <Icon value="folder_open" />
-                        <Icon value="description" />
-                    </TreeView.TreeNode>
-                ))}
-            </TreeView.Tree>
-        </TreeView.Root>
-    );
+export const WithIcons: Story = {
+    args: { menuItems },
+    render: examples.WithIcons,
+    tags: ['skip-test-runner'],
 };
 
-export const Multiple = () => {
-    return (
-        <TreeView.Root menuItems={menuItems} selectionMode="multiple">
-            <TreeView.Tree>
-                {menuItems.rootNode.children.map((node, index) => (
-                    <TreeView.TreeNode key={node.id} node={node} indexPath={[index]}>
-                        <Icon value="chevron_right" />
-                        <Icon value="folder_open" />
-                        <Icon value="description" />
-                    </TreeView.TreeNode>
-                ))}
-            </TreeView.Tree>
-        </TreeView.Root>
-    );
+export const Multiple: Story = {
+    args: { menuItems: mockItems, selectionMode: 'multiple', defaultSelectedValue: ['1', '3'] },
+    render: examples.Basic,
+    play: scenarios.multiple,
 };
 
-export const selectedValue = () => {
-    return (
-        <TreeView.Root
-            menuItems={menuItems}
-            selectedValue={['selected']}
-            expandedValue={['parent-selected']}
-        >
-            <TreeView.Tree>
-                {menuItems.rootNode.children.map((node, index) => (
-                    <TreeView.TreeNode key={node.id} node={node} indexPath={[index]}>
-                        <Icon value="chevron_right" />
-                        <Icon value="folder_open" />
-                        <Icon value="description" />
-                    </TreeView.TreeNode>
-                ))}
-            </TreeView.Tree>
-        </TreeView.Root>
-    );
+export const DefaultValues: Story = {
+    args: {
+        menuItems: mockItems,
+        selectionMode: 'multiple',
+        defaultSelectedValue: ['1'],
+        defaultExpandedValue: ['3', '3/1'],
+    },
+    render: examples.Basic,
+    play: scenarios.defaultValues,
 };

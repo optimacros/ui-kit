@@ -6,6 +6,7 @@ import { setFigmaLink } from '../../utils';
 //@ts-ignore
 import { UiKitProviderDecorator } from '../Provider';
 import { THEMES } from '@optimacros-ui/themes';
+import { sleep } from '@optimacros-ui/utils';
 
 const previewDev: Preview = {
     parameters: {
@@ -44,13 +45,27 @@ const previewDev: Preview = {
         // Testing args
         (Story, context) => {
             const [refresh, setRefresh] = useState(false);
+            const [reset, setReset] = useState(false);
 
-            const updateArgs = (args: Partial<Args>) => {
+            const updateArgs = async (args: Partial<Args>) => {
                 Object.assign(context.args, args);
                 setRefresh(!refresh);
+                await sleep(1);
             };
 
-            globalThis.testing = { args: context.args, updateArgs };
+            const resetStory = async () => {
+                setReset(true);
+                await sleep(1);
+                setReset(false);
+
+                await window.waitForPageTrulyReady?.();
+            };
+
+            globalThis.testing = { args: context.args, updateArgs, resetStory };
+
+            if (reset) {
+                return null;
+            }
 
             return <Story __refresh={refresh} />;
         },
