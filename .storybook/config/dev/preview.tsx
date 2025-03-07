@@ -8,7 +8,6 @@ import { UiKitProviderDecorator } from '../Provider';
 import { THEMES } from '@optimacros-ui/themes';
 import { sleep } from '@optimacros-ui/utils';
 import { configure } from '@storybook/test';
-import { sleep } from '@optimacros-ui/utils';
 
 configure({
     getElementError: (message) => {
