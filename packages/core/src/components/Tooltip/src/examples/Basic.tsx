@@ -7,7 +7,9 @@ export const Basic = (props: Tooltip.RootProps) => {
             <Tooltip.Trigger asChild data-testid="trigger">
                 <Button variant="bordered">hover over me</Button>
             </Tooltip.Trigger>
-            <Tooltip.Content data-testid="content">here we are</Tooltip.Content>
+            <Tooltip.Content data-testid="content">
+                {(props.children as string) ?? 'here we are'}
+            </Tooltip.Content>
         </Tooltip.Root>
     );
 };

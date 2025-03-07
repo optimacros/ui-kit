@@ -67,6 +67,14 @@ export const Basic: StoryObj<typeof Tooltip.Root> = {
     play: scenarios.basic,
 };
 
+export const LongText: StoryObj<typeof Tooltip.Root> = {
+    args: {
+        children:
+            'The disease was diagnosed as pseudopseudohypoparathyroidism, a rare genetic disorder',
+    },
+    render: examples.Basic,
+};
+
 export const Positioning: StoryObj<typeof Tooltip.Root> = {
     args: {
         open: true,

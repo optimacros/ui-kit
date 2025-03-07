@@ -70,6 +70,14 @@ export const Basic: Story = {
     },
 };
 
+export const LongText: Story = {
+    args: {
+        tooltip:
+            'The disease was diagnosed as pseudopseudohypoparathyroidism, a rare genetic disorder',
+        children: <Button variant="primary">Hover me</Button>,
+    },
+};
+
 export const Positions: Story = {
     render: () => (
         <Flex direction="column" gap="4" align="center" style={{ margin: '60px 0' }}>
