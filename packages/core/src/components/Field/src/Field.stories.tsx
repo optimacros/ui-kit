@@ -126,6 +126,18 @@ export const ErrorStatus: Story = {
     ),
 };
 
+export const LongAdditionText: Story = {
+    render: (props) => (
+        <Field.Root {...props}>
+            <Field.FloatingLabel htmlFor="err">
+                Too loooooooooooooong field name
+            </Field.FloatingLabel>
+            <Field.Input id="err" />
+            <Field.FloatingHint>Too loooooooooooooong hint text</Field.FloatingHint>
+        </Field.Root>
+    ),
+};
+
 export const ErrorOneLine: Story = {
     render: (props) => {
         return (

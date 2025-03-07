@@ -1,12 +1,10 @@
-import { useId } from 'react';
-
-import { TextareaHTMLAttributes, InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, TextareaHTMLAttributes, useId } from 'react';
 import type React from 'react';
-
 import { clsx, isNull, isUndefined } from '@optimacros-ui/utils';
 import { Icon } from '@optimacros-ui/icon';
 import { Field } from '@optimacros-ui/field';
 import { forward } from '@optimacros-ui/store';
+import './styles.css';
 
 export type InputTheme = {
     bar: string;
@@ -133,6 +131,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                 {...elementProps}
                 status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
                 className={cn}
+                data-tag="internal"
             >
                 {icon && (
                     <Field.FloatingIcon>
