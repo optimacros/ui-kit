@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Flex } from '@optimacros-ui/flex';
 import { SelectBox } from '.';
+// import { Wrapper } from '@storybook/blocks';
 
 const meta: Meta<typeof SelectBox> = {
     title: 'UI Kit internal/SelectBox',
@@ -127,6 +129,24 @@ export const DefaultValue: Story = {
         <Wrapper>
             <SelectBox {...args} />
         </Wrapper>
+    ),
+};
+
+export const LabelPosition: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Select an option',
+        value: '2',
+    },
+    render: (args) => (
+        <Flex direction="row" gap={10}>
+            <Wrapper>
+                <SelectBox {...args} labelPosition="top" />
+            </Wrapper>
+            <Wrapper>
+                <SelectBox {...args} labelPosition="left" />
+            </Wrapper>
+        </Flex>
     ),
 };
 
