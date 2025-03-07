@@ -28,6 +28,17 @@
   }
 
   [data-margin='none'] {
-    margin: 0;
+    margin: 0 8px 0 0;
+  }
+
+  [data-scope='field'] {
+    &[data-part='root'] {
+      padding: 16px 0;
+    }
+
+    [data-part='input'] {
+      padding: 8px 0;
+      font-size: 14px;
+    }
   }
 }
