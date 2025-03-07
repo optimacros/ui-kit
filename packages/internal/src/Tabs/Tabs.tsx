@@ -13,6 +13,7 @@ import { Tabs as UITabs } from '@optimacros-ui/tabs';
 import { TabProps, TabsTheme } from './models';
 import { Flex } from '@optimacros-ui/flex';
 import { TabButton } from './TabButton';
+import './styles.css';
 
 interface TabsContentProps extends Omit<TabsProps, 'theme' | 'className'> {
     tabs?: Array<UITabs.Tab>;
@@ -55,7 +56,7 @@ const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) =>
 
     return (
         <>
-            <UITabs.List>
+            <UITabs.List data-tag="internal">
                 {tabs.map((tab, index) => {
                     const { fixed, disabled, value } = tab;
 
