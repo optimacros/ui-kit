@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from '@optimacros-ui/flex';
 import { SelectBox } from '.';
-// import { Wrapper } from '@storybook/blocks';
 
 const meta: Meta<typeof SelectBox> = {
     title: 'UI Kit internal/SelectBox',
