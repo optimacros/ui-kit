@@ -7,6 +7,16 @@ import { setFigmaLink } from '../../utils';
 import { UiKitProviderDecorator } from '../Provider';
 import { THEMES } from '@optimacros-ui/themes';
 import { sleep } from '@optimacros-ui/utils';
+import { configure } from '@storybook/test';
+
+configure({
+    getElementError: (message) => {
+        const error = new Error(message);
+        error.name = 'TestingLibraryElementError';
+        error.stack = null;
+        return error;
+    },
+});
 
 const previewDev: Preview = {
     parameters: {
@@ -18,7 +28,9 @@ const previewDev: Preview = {
             },
             disableSaveFromUI: true,
         },
-        test: { dangerouslyIgnoreUnhandledErrors: true },
+        test: {
+            dangerouslyIgnoreUnhandledErrors: true,
+        },
     },
     decorators: [
         // Load theme
