@@ -15,7 +15,7 @@ export const WithModal = (props: ComponentProps<typeof Toolbar.Root>) => {
         <>
             <Button onClick={() => setOpen(true)}>Open Modal</Button>
 
-            <Modal.Root open={open} onOpenChange={handleOpenChange} controllable>
+            <Modal.Root open={open} onOpenChange={handleOpenChange}>
                 <Modal.Content>
                     <Modal.Header>
                         <Modal.Title>Edit profile</Modal.Title>
