@@ -1,2 +1,12 @@
 [data-scope='select'][data-tag='internal'] {
+  [data-part='control'] {
+    display: flex;
+  }
+
+  [data-part='label'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: -15px;
+  }
 }
