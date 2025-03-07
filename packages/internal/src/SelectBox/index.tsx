@@ -52,6 +52,7 @@ export interface SelectBoxProps {
     onFocus?: React.FocusEventHandler<HTMLDivElement>;
     required?: boolean;
     placeholder?: string;
+    labelPosition?: 'top' | 'left';
 }
 
 const getStatus = (disabled: boolean, error: boolean) => {
@@ -82,6 +83,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
             valueKey,
             placeholder = 'choose value',
             disabled,
+            labelPosition = 'top',
             ...rest
         },
         ref,
@@ -138,28 +140,34 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                             ))}
                         </Select.HiddenInput>
 
-                        <Select.Control>
+                        <Select.Control style={{ flexDirection: 'row' }}>
                             <Select.Api>
                                 {(api) => (
-                                    <Field.Root
-                                        status={getStatus(api.disabled, Boolean(error))}
-                                        required={required}
-                                    >
-                                        <Select.Trigger>
-                                            {label && (
-                                                <Field.FloatingLabel>{label}</Field.FloatingLabel>
-                                            )}
-                                            <Field.TriggerInput
-                                                value={api.empty ? placeholder : api.valueAsString}
-                                                className={theme.value}
-                                            >
-                                                <Field.Icon>
-                                                    <Icon value="arrow_drop_down" />
-                                                </Field.Icon>
-                                            </Field.TriggerInput>
-                                            {error && <span>{error}</span>}
-                                        </Select.Trigger>
-                                    </Field.Root>
+                                    <>
+                                        {label && (
+                                            <div data-scope="field" data-part="label">
+                                                label
+                                            </div>
+                                        )}
+                                        <Field.Root
+                                            status={getStatus(api.disabled, Boolean(error))}
+                                            required={required}
+                                        >
+                                            <Select.Trigger>
+                                                <Field.TriggerInput
+                                                    value={
+                                                        api.empty ? placeholder : api.valueAsString
+                                                    }
+                                                    className={theme.value}
+                                                >
+                                                    <Field.Icon>
+                                                        <Icon value="arrow_drop_down" />
+                                                    </Field.Icon>
+                                                </Field.TriggerInput>
+                                                {error && <span>{error}</span>}
+                                            </Select.Trigger>
+                                        </Field.Root>
+                                    </>
                                 )}
                             </Select.Api>
                         </Select.Control>
