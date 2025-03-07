@@ -8,7 +8,7 @@
   font-weight: 400;
   line-height: normal;
   display: inline-flex;
-  height: 36px;
+  height: 30px;
   letter-spacing: 0;
 
   &[data-float='flat'] {
