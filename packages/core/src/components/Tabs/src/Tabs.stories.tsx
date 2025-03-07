@@ -33,6 +33,7 @@ export const Base: StoryObj = {
                 //@ts-ignore
                 onTabsChange={(t) => setTabs(() => t)}
                 useWheel
+                hiddenTabsEnabled
             >
                 <Tabs.Api>
                     {(api) => (
@@ -112,7 +113,7 @@ export const Secondary = (props) => {
     const ref = useRef(null);
 
     return (
-        <Tabs.Root activationMode="manual" deselectable variant="secondary">
+        <Tabs.Root activationMode="manual" deselectable variant="secondary" hiddenTabsEnabled>
             <Tabs.Api>
                 {(api) => (
                     <div>

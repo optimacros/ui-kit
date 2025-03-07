@@ -24,6 +24,7 @@ export type Schema = Zag.ExtendModuleSchema<
             tabsHidden: boolean;
             useWheel: boolean;
             tabs: Array<Tab>;
+            hiddenTabsEnabled?: boolean;
         };
         context: {
             tabs: Array<Tab>;
@@ -85,6 +86,7 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
             tabsHidden: false,
             useWheel: false,
             tabs: [],
+            hiddenTabsEnabled: false,
             ...tabs.machine.props(params),
         };
     },
@@ -241,7 +243,11 @@ const machine = extendMachine<Schema, typeof tabs>(tabs, {
 
                 raf(() => prop('onPositionChange')(ctx.get('tabs')));
             },
-            syncHiddenTabs({ refs, context }) {
+            syncHiddenTabs({ prop, refs, context }) {
+                if (!prop('hiddenTabsEnabled')) {
+                    return;
+                }
+
                 const hiddenTabs = getHiddenTabs(refs.get('tabsList'));
 
                 context.set('hiddenTabs', hiddenTabs);
@@ -278,6 +284,7 @@ interface TriggerState {
 const connect = ((api, { state, send, refs, context, prop }) => {
     return {
         ...api,
+        isHiddenTabsEnabled: prop('hiddenTabsEnabled'),
         scrollTo: (value: string) => send({ type: 'SCROLL_TO', value }),
         getTabIndex: (value: string) =>
             parseInt(document.querySelector(`[data-value=${value}]`).getAttribute('data-index')),
@@ -304,7 +311,7 @@ const connect = ((api, { state, send, refs, context, prop }) => {
         getListProps: ({ element }: { element: HTMLUListElement }) => {
             element && refs.set('tabsList', element);
 
-            if (context.get('hiddenTabs').length === 0 && element) {
+            if (prop('hiddenTabsEnabled') && context.get('hiddenTabs').length === 0 && element) {
                 send({ type: 'SYNC_HIDDEN_TABS' });
             }
 

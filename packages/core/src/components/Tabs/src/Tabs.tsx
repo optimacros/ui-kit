@@ -149,7 +149,11 @@ export const HiddenTabsList = forward<
     { children: (tab: { value: string; disabled: boolean; onClick: any }) => any },
     'ul'
 >(({ children }, ref) => {
-    const { hiddenTabs, open, syncHiddenTabs } = useApi();
+    const { hiddenTabs, open, isHiddenTabsEnabled } = useApi();
+
+    if (!isHiddenTabsEnabled) {
+        return <></>;
+    }
 
     return hiddenTabs.map((tab) =>
         children({
