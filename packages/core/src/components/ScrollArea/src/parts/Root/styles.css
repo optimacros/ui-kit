@@ -1,0 +1,40 @@
+[data-scope='scroll'] {
+  &[data-part='root'] {
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    border-radius: inherit;
+  }
+
+  [data-part='viewport'] {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    scroll-behavior: auto;
+    margin-right: 10px;
+    scrollbar-width: none;
+  }
+
+  [data-part='scrollbar'] {
+    display: flex;
+    justify-content: center;
+    background-color: #e9ccb3;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+  }
+
+  [data-part='thumb'] {
+    position: relative;
+    top: 0;
+    right: 0;
+    background-color: #0d47a1;
+    border-radius: 5px;
+    width: 8px;
+    cursor: pointer;
+  }
+}
