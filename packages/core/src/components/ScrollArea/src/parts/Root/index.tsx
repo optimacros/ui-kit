@@ -6,14 +6,16 @@ import { Scrollbar } from '../Scrollbar';
 import { Viewport } from '../Viewport';
 import './styles.css';
 import { Draggable } from '@optimacros-ui/draggable';
+import { ButtonUp } from '../ButtonUp';
+import { ButtonDown } from '../ButtonDown';
 
 export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
     const viewportRef = useRef(null);
     const thumbRef = useRef(null);
+    const btnHeight = 20; // Высота кнопки
 
     const [thumbHeight, setThumbHeight] = useState(15);
     const [thumbTop, setThumbTop] = useState(0);
-    const [dragStartY, setDragStartY] = useState(0);
     const [scrollStartTop, setScrollStartTop] = useState(0);
 
     // Обновление высоты ползунка в зависимости от высоты контента и viewport'а
@@ -23,8 +25,12 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
             const updateThumbHeight = () => {
                 const viewportHeight = viewport.clientHeight;
                 const contentHeight = viewport.scrollHeight;
+
+                // Учитываем высоту кнопок (верхней и нижней)
+                const adjustedViewportHeight = viewportHeight - 2 * btnHeight;
+
                 const newThumbHeight = Math.max(
-                    (viewportHeight / contentHeight) * viewportHeight,
+                    (adjustedViewportHeight / contentHeight) * adjustedViewportHeight,
                     20,
                 );
                 setThumbHeight(newThumbHeight);
@@ -45,17 +51,17 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
     const handleScroll = () => {
         const viewport = viewportRef.current;
         const scrollRatio = viewport.scrollTop / (viewport.scrollHeight - viewport.clientHeight);
-        setThumbTop(scrollRatio * (viewport.clientHeight - thumbHeight));
+        const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
+        setThumbTop(scrollRatio * (adjustedViewportHeight - thumbHeight));
     };
 
     // Начало перетаскивания ползунка
     const handleDragStart = (event) => {
-        // Здесь не используем rect.active как раньше
         const activeElement = event?.active;
 
         if (activeElement) {
-            // Сохраняем начальное состояние только если необходимо
-            setScrollStartTop(thumbTop); // Запоминаем начальную позицию ползунка
+            // Сохраняем начальную позицию ползунка
+            setScrollStartTop(thumbTop);
         }
     };
 
@@ -65,8 +71,10 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const viewport = viewportRef.current;
 
         // Реальное смещение ползунка пропорционально высоте контента и области
+        const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
         const scrollableHeight = viewport.scrollHeight - viewport.clientHeight;
-        const maxThumbTop = viewport.clientHeight - thumbHeight;
+
+        const maxThumbTop = adjustedViewportHeight - thumbHeight;
 
         // Сдвиг ползунка в зависимости от дельты
         const newThumbTop = Math.min(
@@ -90,35 +98,39 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
                 </Flex>
             </Viewport>
             <Scrollbar>
-                <button
+                <ButtonUp
+                    style={{ height: btnHeight }}
                     onClick={() => viewportRef.current.scrollBy({ top: -50, behavior: 'smooth' })}
                 >
-                    Scroll Up
-                </button>
-                <Draggable.Root onDragStart={handleDragStart} onDragMove={handleDragMove}>
-                    <Draggable.Container id="container-scroll" style={{ height: '100%' }}>
-                        <Draggable.Item id="item-scroll">
-                            {({ attributes, listeners }) => {
-                                return (
-                                    <Thumb
-                                        {...attributes}
-                                        {...listeners}
-                                        ref={thumbRef}
-                                        style={{
-                                            top: `${thumbTop}px`,
-                                            height: `${thumbHeight}px`,
-                                        }}
-                                    />
-                                );
-                            }}
-                        </Draggable.Item>
-                    </Draggable.Container>
-                </Draggable.Root>
-                <button
+                    ^
+                </ButtonUp>
+                <div data-scope="scroll" data-part="range">
+                    <Draggable.Root onDragStart={handleDragStart} onDragMove={handleDragMove}>
+                        <Draggable.Container id="container-scroll" style={{ height: '100%' }}>
+                            <Draggable.Item id="item-scroll">
+                                {({ attributes, listeners }) => {
+                                    return (
+                                        <Thumb
+                                            {...attributes}
+                                            {...listeners}
+                                            ref={thumbRef}
+                                            style={{
+                                                top: `${thumbTop}px`,
+                                                height: `${thumbHeight}px`,
+                                            }}
+                                        />
+                                    );
+                                }}
+                            </Draggable.Item>
+                        </Draggable.Container>
+                    </Draggable.Root>
+                </div>
+                <ButtonDown
+                    style={{ height: btnHeight }}
                     onClick={() => viewportRef.current.scrollBy({ top: 50, behavior: 'smooth' })}
                 >
-                    Scroll Down
-                </button>
+                    +
+                </ButtonDown>
             </Scrollbar>
         </styled.div>
     );
