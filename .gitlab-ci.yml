@@ -72,11 +72,11 @@ storybook:
     - ${runner}
   script:
     - nvm use 
-    - npm run start:storybook --no-open -p 6006 &  # запускаем в фоне
-    - sleep 10  # даем время на старт
-    - curl --retry 10 --retry-connrefused http://localhost:6006 || (echo "storybook не запустился" && exit 1)  # проверяем доступность
-    - npm run test-storybook
-    - kill $(lsof -t -i:6006) || echo "storybook уже остановлен"
+    - npm run start:storybook --no-open -p 6007 &  # исправлен порт
+    - sleep 10
+    - curl --retry 10 --retry-connrefused http://localhost:6007 || (echo "storybook не запустился" && exit 1)
+    - npm run test-storybook -- --url http://127.0.0.1:6007  # передаем правильный порт
+    - kill $(lsof -t -i:6007) || echo "storybook уже остановлен"
 
 # push artefacts to nexus
 nexus-push-job:
