@@ -72,7 +72,7 @@ storybook:
     - ${runner}
   script:
     - nvm use 
-    - npm run start:storybook
+    - npm run start:storybook -- --ci
     - npm run test-storybook
 
 # push artefacts to nexus
