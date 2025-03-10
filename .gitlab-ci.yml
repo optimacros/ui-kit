@@ -72,8 +72,8 @@ storybook:
     - ${runner}
   script:
     - nvm use 
-    # - npm run start
-    # - npm run test-storybook
+    - npm run start
+    - npm run test-storybook
 
 # push artefacts to nexus
 nexus-push-job:
