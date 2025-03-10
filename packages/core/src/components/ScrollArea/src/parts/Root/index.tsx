@@ -50,12 +50,12 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
 
     // Начало перетаскивания ползунка
     const handleDragStart = (event) => {
-        // Проверим, что событие содержит нужные данные
-        const activeElement = event?.active?.rect?.current?.initial;
+        // Здесь не используем rect.active как раньше
+        const activeElement = event?.active;
 
         if (activeElement) {
-            setDragStartY(activeElement.top); // Начальная координата Y элемента
-            setScrollStartTop(thumbTop); // Запоминаем начальную позицию скролла
+            // Сохраняем начальное состояние только если необходимо
+            setScrollStartTop(thumbTop); // Запоминаем начальную позицию ползунка
         }
     };
 
@@ -68,10 +68,13 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const scrollableHeight = viewport.scrollHeight - viewport.clientHeight;
         const maxThumbTop = viewport.clientHeight - thumbHeight;
 
+        // Сдвиг ползунка в зависимости от дельты
         const newThumbTop = Math.min(
-            Math.max(scrollStartTop + (delta.y - dragStartY), 0),
+            Math.max(scrollStartTop + delta.y, 0), // Используем только delta.y для отслеживания изменения
             maxThumbTop,
         );
+
+        // Обновляем высоту ползунка
         setThumbTop(newThumbTop);
 
         // Пропорционально синхронизируем контент
