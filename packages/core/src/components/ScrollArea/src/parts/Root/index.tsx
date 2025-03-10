@@ -12,9 +12,9 @@ import { ButtonDown } from '../ButtonDown';
 export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
     const viewportRef = useRef(null);
     const thumbRef = useRef(null);
-    const btnHeight = 20; // Высота кнопки
+    const btnHeight = 20; // Высота кнопок
 
-    const [thumbHeight, setThumbHeight] = useState(15);
+    const [thumbHeight, setThumbHeight] = useState(20);
     const [thumbTop, setThumbTop] = useState(0);
     const [scrollStartTop, setScrollStartTop] = useState(0);
 
@@ -52,6 +52,7 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const viewport = viewportRef.current;
         const scrollRatio = viewport.scrollTop / (viewport.scrollHeight - viewport.clientHeight);
         const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
+
         setThumbTop(scrollRatio * (adjustedViewportHeight - thumbHeight));
     };
 
@@ -70,13 +71,13 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const { delta } = event;
         const viewport = viewportRef.current;
 
-        // Реальное смещение ползунка пропорционально высоте контента и области
+        // Учитываем высоту кнопок
         const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
         const scrollableHeight = viewport.scrollHeight - viewport.clientHeight;
 
         const maxThumbTop = adjustedViewportHeight - thumbHeight;
 
-        // Сдвиг ползунка в зависимости от дельты
+        // Сдвиг ползунка с ограничениями
         const newThumbTop = Math.min(
             Math.max(scrollStartTop + delta.y, 0), // Используем только delta.y для отслеживания изменения
             maxThumbTop,
