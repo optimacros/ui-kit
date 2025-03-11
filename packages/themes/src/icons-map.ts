@@ -119,3 +119,17 @@ export const ICONS_MAP = {
 export function isValidIconName(name: string) {
     return typeof ICONS_MAP[name] === 'string';
 }
+
+export enum ICONS_SETS {
+    optimacros = 'optimacros',
+}
+
+export const getSpriteFilePath = (iconsSet: ICONS_SETS, dev: boolean) => {
+    const path = `icons/${iconsSet}/sprite/index.svg`;
+
+    return dev ? `./assets/${path}` : `./${path}`;
+};
+
+export const getSpriteImport = (iconsSet: ICONS_SETS, dev: boolean) => {
+    return () => import(getSpriteFilePath(iconsSet, dev));
+};

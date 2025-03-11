@@ -1,4 +1,6 @@
 {
+    "bundler": "vite",
+    "isDev": true,
     "menu": {
         "submenu": true
     }

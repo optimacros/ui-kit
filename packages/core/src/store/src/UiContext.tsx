@@ -1,5 +1,33 @@
 import { createReactStore } from '@optimacros-ui/store';
-import { ComponentProps } from 'react';
+import { ReactNode, useEffect, useState as ReactUseState } from 'react';
+import { getColorSchemeImport, getSpriteImport, ICONS_SETS, THEMES } from '@optimacros-ui/themes';
+
+import '../../../../themes/src/assets/default/tokens.css';
+import '../../../../themes/src/assets/default/component-tokens.css';
+function appendStylesToHead({ id, value }: { id: string; value: string }) {
+    const head = document.head;
+    let styleTag = head.querySelector(`[id=${id}]`);
+
+    if (!styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.id = id;
+        head.appendChild(styleTag);
+    }
+    styleTag.textContent = value;
+}
+
+function appendLinkToHead({ id, value }: { id: string; value: string }) {
+    const head = document.head;
+    let styleTag = head.querySelector(`[id=${id}]`);
+
+    if (!styleTag) {
+        styleTag = document.createElement('link');
+        styleTag.id = id;
+        head.appendChild(styleTag);
+    }
+
+    styleTag.setAttribute('href', value);
+}
 
 export const {
     useActions,
@@ -15,6 +43,8 @@ export const {
          * must be sprite svg with .svg extension
          * */
         iconsSrc: '',
+        theme: '' as THEMES,
+        iconsSet: '' as ICONS_SETS,
         styles: {
             root: '',
             theme: '',
@@ -41,7 +71,7 @@ export const {
          */
         featureFlags: {} as Record<string, Record<string, boolean>>,
     },
-    actions: { keys: ['iconsSrc', 'styles'] },
+    actions: { keys: ['iconsSrc', 'styles', 'theme'] },
     // on first render
     createConfig(initialState, createdActions) {
         // call in useEffect to assign default styles (useLayoutEffect)
@@ -49,16 +79,7 @@ export const {
             state: typeof initialState,
             { id, value }: { id: string; value: string },
         ) {
-            const head = document.head;
-            let styleTag = head.querySelector(`[id=${id}]`);
-
-            if (!styleTag) {
-                styleTag = document.createElement('style');
-                styleTag.id = id;
-                head.appendChild(styleTag);
-            }
-
-            styleTag.textContent = value;
+            appendStylesToHead({ id, value });
         }
 
         return {
@@ -102,10 +123,54 @@ export const {
     },
 });
 
-export const Provider = (props: ComponentProps<typeof BaseProvider>) => {
+type State = ReturnType<typeof useState>;
+
+const ThemeImport = () => {
+    const { featureFlags, iconsSet, theme } = useState();
+    const { setCustomStyles, setIconsSrc } = useActions();
+
+    useEffect(() => {
+        if (!iconsSet) return;
+
+        const importSrc = getSpriteImport(iconsSet, featureFlags.isDev);
+
+        importSrc().then((v) => setIconsSrc(v.default));
+    }, [iconsSet]);
+
+    useEffect(() => {
+        if (!theme) return;
+
+        const importScheme = getColorSchemeImport(theme, featureFlags.isDev);
+
+        importScheme().then((v) => setCustomStyles(v.default));
+    }, [theme]);
+
+    return <></>;
+};
+
+export const Provider = ({
+    children,
+    featureFlags,
+    theme,
+    iconsSet,
+    styles,
+}: State & {
+    children: ReactNode;
+}) => {
+    const [iconsSrc, setIconsSrc] = ReactUseState('');
+
     return (
         <BaseProvider
-            {...props}
+            state={{
+                featureFlags,
+                theme,
+                styles,
+                iconsSet,
+                iconsSrc,
+            }}
+            onChange={({ iconsSrc }) => {
+                setIconsSrc(iconsSrc);
+            }}
             onStoreCreated={(state, actions) => {
                 const { styles } = state;
                 if (!styles) {
@@ -116,6 +181,9 @@ export const Provider = (props: ComponentProps<typeof BaseProvider>) => {
                 styles.theme && actions.setThemeStyles(styles.theme);
                 styles.custom && actions.setCustomStyles(styles.custom);
             }}
-        />
+        >
+            <ThemeImport />
+            {children}
+        </BaseProvider>
     );
 };

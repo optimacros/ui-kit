@@ -5,9 +5,9 @@ import { withPerformance } from 'storybook-addon-performance';
 import { setFigmaLink } from '../../utils';
 //@ts-ignore
 import { UiKitProviderDecorator } from '../Provider';
-import { THEMES } from '@optimacros-ui/themes';
 import { sleep } from '@optimacros-ui/utils';
 import { configure } from '@storybook/test';
+import { commonGlobalTypes } from '../global-types';
 
 configure({
     getElementError: (message) => {
@@ -96,7 +96,7 @@ const previewDev: Preview = {
             return Story(context);
         },
         withPerformance,
-        UiKitProviderDecorator,
+        UiKitProviderDecorator(true),
     ],
     tags: ['autodocs'],
     globalTypes: {
@@ -112,16 +112,7 @@ const previewDev: Preview = {
                 dynamicTitle: true,
             },
         },
-        theme: {
-            description: 'Global theme of storybook',
-            toolbar: {
-                title: 'Theme',
-                icon: 'circle',
-                items: THEMES.map(({ value, label }) => ({ value, title: label })),
-                dynamicTitle: true,
-            },
-            defaultValue: 'optimacros',
-        },
+        ...commonGlobalTypes,
     },
     initialGlobals: {
         test: window.navigator.userAgent.match(/HeadlessChrome/),
