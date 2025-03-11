@@ -34,7 +34,7 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
                 window.removeEventListener('resize', updateThumbHeight);
             };
         }
-    }, []);
+    }, [thumbHeight, btnHeight]);
 
     // Синхронизация позиции ползунка при прокрутке контента
     const handleScroll = () => {

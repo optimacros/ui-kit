@@ -2,7 +2,7 @@ import { ButtonDown, ButtonUp, Root, Scrollbar, Viewport, Range, Thumb } from '.
 import { Flex } from '@optimacros-ui/flex';
 import { Icon } from '@optimacros-ui/icon';
 
-const TAGS = Array.from({ length: 16 }).map((_, i, a) => (
+const TAGS = Array.from({ length: 1600 }).map((_, i, a) => (
     <div key={i}>{`v1.2.0-beta.${a.length - i}`}</div>
 ));
 

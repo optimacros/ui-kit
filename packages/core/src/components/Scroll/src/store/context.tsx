@@ -26,7 +26,6 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
     const [thumbHeight, setThumbHeight] = useState(20);
     const [thumbTop, setThumbTop] = useState(0);
     const viewportRef = useRef<HTMLDivElement>(null);
-    const rangeRef = useRef<HTMLDivElement>(null);
 
     const btnHeight = 25;
 
