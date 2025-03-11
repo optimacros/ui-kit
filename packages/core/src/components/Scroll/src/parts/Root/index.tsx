@@ -1,32 +1,32 @@
 import { useEffect, useState, useRef } from 'react';
 import { forward, styled } from '@optimacros-ui/store';
 import { Flex } from '@optimacros-ui/flex';
+import { Draggable } from '@optimacros-ui/draggable';
 import { Thumb } from '../Thumb';
 import { Scrollbar } from '../Scrollbar';
 import { Viewport } from '../Viewport';
-import './styles.css';
-import { Draggable } from '@optimacros-ui/draggable';
 import { ButtonUp } from '../ButtonUp';
 import { ButtonDown } from '../ButtonDown';
+import './styles.css';
 
 export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
     const viewportRef = useRef(null);
     const thumbRef = useRef(null);
-    const btnHeight = 20; // Высота кнопок
+    const btnHeight = 20;
 
     const [thumbHeight, setThumbHeight] = useState(20);
     const [thumbTop, setThumbTop] = useState(0);
     const [scrollStartTop, setScrollStartTop] = useState(0);
 
-    // Обновление высоты ползунка в зависимости от высоты контента и viewport'а
     useEffect(() => {
         const viewport = viewportRef.current;
+
         if (viewport) {
             const updateThumbHeight = () => {
                 const viewportHeight = viewport.clientHeight;
                 const contentHeight = viewport.scrollHeight;
 
-                // Учитываем высоту кнопок (верхней и нижней)
+                // Учитываем высоту кнопок
                 const adjustedViewportHeight = viewportHeight - 2 * btnHeight;
 
                 const newThumbHeight = Math.max(
@@ -56,7 +56,6 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         setThumbTop(scrollRatio * (adjustedViewportHeight - thumbHeight));
     };
 
-    // Начало перетаскивания ползунка
     const handleDragStart = (event) => {
         const activeElement = event?.active;
 
@@ -71,22 +70,14 @@ export const Root = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const { delta } = event;
         const viewport = viewportRef.current;
 
-        // Учитываем высоту кнопок
         const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
         const scrollableHeight = viewport.scrollHeight - viewport.clientHeight;
 
         const maxThumbTop = adjustedViewportHeight - thumbHeight;
+        const newThumbTop = Math.min(Math.max(scrollStartTop + delta.y, 0), maxThumbTop);
 
-        // Сдвиг ползунка с ограничениями
-        const newThumbTop = Math.min(
-            Math.max(scrollStartTop + delta.y, 0), // Используем только delta.y для отслеживания изменения
-            maxThumbTop,
-        );
-
-        // Обновляем высоту ползунка
         setThumbTop(newThumbTop);
 
-        // Пропорционально синхронизируем контент
         const scrollRatio = newThumbTop / maxThumbTop;
         viewport.scrollTop = scrollRatio * scrollableHeight;
     };
