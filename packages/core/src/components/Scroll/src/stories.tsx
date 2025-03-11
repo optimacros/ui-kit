@@ -4,7 +4,16 @@ import * as examples from './examples';
 import { Scroll } from './index';
 import { Flex } from '@optimacros-ui/flex';
 
-const argTypes: Partial<ArgTypes> = {};
+const argTypes: Partial<ArgTypes> = {
+    orientation: {
+        control: 'radio',
+        options: ['horizontal', 'vertical'],
+        table: {
+            defaultValue: { summary: 'vertical' },
+        },
+        description: 'The orientation of the scroll',
+    },
+};
 
 const meta: Meta<typeof Scroll.Root> = {
     title: 'UI Kit core/Scroll',
