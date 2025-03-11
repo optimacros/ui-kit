@@ -2,16 +2,12 @@ import { Root, Scrollbar, Viewport, Range, Thumb, ButtonRight, ButtonLeft } from
 import { Flex } from '@optimacros-ui/flex';
 import { Icon } from '@optimacros-ui/icon';
 
-const TAGS = Array.from({ length: 1600 }).map((_, i, a) => (
-    <div key={i}>{`v1.2.0-beta.${a.length - i}`}</div>
-));
-
-export const Horizontal = (props) => {
+export const Horizontal = ({ children, ...rest }) => {
     return (
-        <Root {...props}>
+        <Root {...rest}>
             <Viewport>
                 <Flex direction="row" gap={3}>
-                    {TAGS}
+                    {children}
                 </Flex>
             </Viewport>
             <Scrollbar>

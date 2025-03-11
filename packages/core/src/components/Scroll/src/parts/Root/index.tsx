@@ -5,8 +5,8 @@ import { Provider } from '../../store/context';
 import './styles.css';
 
 export interface IScroll {
-    orientation: Orientation;
-    children: ReactNode;
+    orientation?: Orientation;
+    children?: ReactNode;
 }
 
 export const Root = forward<IScroll, 'div'>(
