@@ -1,4 +1,5 @@
 import { Meta, StoryObj, ArgTypes } from '@storybook/react';
+import { Orientation } from '@optimacros-ui/utils';
 import * as examples from './examples';
 import { Scroll } from './index';
 
@@ -17,4 +18,9 @@ type Story = StoryObj<typeof Scroll.Root>;
 
 export const Basic: Story = {
     render: examples.Basic,
+};
+
+export const Horizontal: Story = {
+    args: { orientation: Orientation.Horizontal },
+    render: examples.Horizontal,
 };

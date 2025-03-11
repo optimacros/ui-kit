@@ -4,7 +4,7 @@ import { Draggable } from '@optimacros-ui/kit';
 import { useApi } from '../../store/context';
 
 export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
-    const { thumbHeight, setThumbHeight, thumbTop, setThumbTop, viewportRef, btnHeight } = useApi();
+    const { thumbHeight, setThumbHeight, thumbTop, setThumbTop, viewportRef, btnSize } = useApi();
     const [scrollStartTop, setScrollStartTop] = useState(0);
 
     useEffect(() => {
@@ -15,8 +15,8 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
                 const viewportHeight = viewport.clientHeight;
                 const contentHeight = viewport.scrollHeight;
 
-                // Учитываем высоту кнопок
-                const adjustedViewportHeight = viewportHeight - 2 * btnHeight;
+                // Учитываем размер кнопок
+                const adjustedViewportHeight = viewportHeight - 2 * btnSize;
 
                 const newThumbHeight = Math.round(
                     Math.max((adjustedViewportHeight / contentHeight) * adjustedViewportHeight, 20),
@@ -34,13 +34,13 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
                 window.removeEventListener('resize', updateThumbHeight);
             };
         }
-    }, [thumbHeight, btnHeight]);
+    }, [thumbHeight, btnSize]);
 
     // Синхронизация позиции ползунка при прокрутке контента
     const handleScroll = () => {
         const viewport = viewportRef.current;
         const scrollRatio = viewport.scrollTop / (viewport.scrollHeight - viewport.clientHeight);
-        const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
+        const adjustedViewportHeight = viewport.clientHeight - 2 * btnSize;
 
         setThumbTop(scrollRatio * (adjustedViewportHeight - thumbHeight));
     };
@@ -58,7 +58,7 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const { delta } = event;
         const viewport = viewportRef.current;
 
-        const adjustedViewportHeight = viewport.clientHeight - 2 * btnHeight;
+        const adjustedViewportHeight = viewport.clientHeight - 2 * btnSize;
         const scrollableHeight = viewport.scrollHeight - viewport.clientHeight;
 
         const maxThumbTop = adjustedViewportHeight - thumbHeight;

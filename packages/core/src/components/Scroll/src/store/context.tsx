@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useRef } from 'react';
+import { Orientation } from '@optimacros-ui/utils';
+import { IScroll } from '../parts';
 
 type ScrollContextType = {
     thumbHeight: number;
@@ -7,12 +9,12 @@ type ScrollContextType = {
     setThumbTop: (top: number) => void;
     viewportRef: React.RefObject<HTMLDivElement>;
     scrollTo: (direction: string, offset: number) => void;
-    btnHeight: number;
+    btnSize: number;
+    orientation: Orientation;
 };
 
 const ScrollContext = createContext<ScrollContextType | undefined>(undefined);
 
-// Хук для использования контекста
 export const useApi = () => {
     const context = useContext(ScrollContext);
     if (!context) {
@@ -21,13 +23,12 @@ export const useApi = () => {
     return context;
 };
 
-// Провайдер контекста
-export const Provider = ({ children }: { children: React.ReactNode }) => {
+export const Provider = ({ children, orientation }: IScroll) => {
     const [thumbHeight, setThumbHeight] = useState(20);
     const [thumbTop, setThumbTop] = useState(0);
     const viewportRef = useRef<HTMLDivElement>(null);
 
-    const btnHeight = 25;
+    const btnSize = 25;
 
     const scrollTo = (direction: string, offset: number) => {
         if (viewportRef.current) {
@@ -43,8 +44,9 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
                 thumbTop,
                 setThumbTop,
                 viewportRef,
-                btnHeight,
+                btnSize,
                 scrollTo,
+                orientation,
             }}
         >
             {children}
