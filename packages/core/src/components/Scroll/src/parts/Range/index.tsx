@@ -18,10 +18,10 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
                 // Учитываем высоту кнопок
                 const adjustedViewportHeight = viewportHeight - 2 * btnHeight;
 
-                const newThumbHeight = Math.max(
-                    (adjustedViewportHeight / contentHeight) * adjustedViewportHeight,
-                    20,
+                const newThumbHeight = Math.round(
+                    Math.max((adjustedViewportHeight / contentHeight) * adjustedViewportHeight, 20),
                 );
+
                 setThumbHeight(newThumbHeight);
             };
 
@@ -49,7 +49,6 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const activeElement = event?.active;
 
         if (activeElement) {
-            // Сохраняем начальную позицию ползунка
             setScrollStartTop(thumbTop);
         }
     };
