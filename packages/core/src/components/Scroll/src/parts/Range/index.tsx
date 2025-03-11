@@ -4,52 +4,69 @@ import { Draggable } from '@optimacros-ui/kit';
 import { useApi } from '../../store/context';
 
 export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
-    const { thumbHeight, setThumbHeight, thumbTop, setThumbTop, viewportRef, btnSize } = useApi();
-    const [scrollStartTop, setScrollStartTop] = useState(0);
+    const {
+        thumbSize,
+        setThumbSize,
+        thumbOffset,
+        setThumbOffset,
+        viewportRef,
+        btnSize,
+        orientation,
+    } = useApi();
+
+    const [scrollStartOffset, setScrollStartOffset] = useState(0);
+
+    const isVertical = orientation === 'vertical';
+    const sizeType = isVertical ? 'Height' : 'Width';
+    const offsetType = isVertical ? 'Top' : 'Left';
 
     useEffect(() => {
         const viewport = viewportRef.current;
 
         if (viewport) {
-            const updateThumbHeight = () => {
-                const viewportHeight = viewport.clientHeight;
-                const contentHeight = viewport.scrollHeight;
+            const updateThumbSize = () => {
+                const viewportSize = viewport['client' + sizeType];
+                const contentSize = viewport['scroll' + sizeType];
 
                 // Учитываем размер кнопок
-                const adjustedViewportHeight = viewportHeight - 2 * btnSize;
+                const adjustedViewportSize = viewportSize - 2 * btnSize;
 
-                const newThumbHeight = Math.round(
-                    Math.max((adjustedViewportHeight / contentHeight) * adjustedViewportHeight, 20),
+                // Рассчитываем размер ползунка (высота для вертикали, ширина для горизонтали)
+                const newThumbSize = Math.round(
+                    Math.max((adjustedViewportSize / contentSize) * adjustedViewportSize, 20),
                 );
 
-                setThumbHeight(newThumbHeight);
+                setThumbSize(newThumbSize);
             };
 
-            updateThumbHeight();
+            updateThumbSize();
             viewport.addEventListener('scroll', handleScroll);
-            window.addEventListener('resize', updateThumbHeight);
+            window.addEventListener('resize', updateThumbSize);
 
             return () => {
                 viewport.removeEventListener('scroll', handleScroll);
-                window.removeEventListener('resize', updateThumbHeight);
+                window.removeEventListener('resize', updateThumbSize);
             };
         }
-    }, [thumbHeight, btnSize]);
+    }, [thumbSize, btnSize, orientation]);
 
     // Синхронизация позиции ползунка при прокрутке контента
     const handleScroll = () => {
         const viewport = viewportRef.current;
-        const scrollRatio = viewport.scrollTop / (viewport.scrollHeight - viewport.clientHeight);
-        const adjustedViewportHeight = viewport.clientHeight - 2 * btnSize;
+        const scrollOffset = viewport['scroll' + offsetType];
+        const contentSize = viewport['scroll' + sizeType];
+        const viewportSize = viewport['client' + sizeType];
+        const adjustedViewportSize = viewportSize - 2 * btnSize;
 
-        setThumbTop(scrollRatio * (adjustedViewportHeight - thumbHeight));
+        const scrollRatio = scrollOffset / (contentSize - viewportSize);
+        setThumbOffset(scrollRatio * (adjustedViewportSize - thumbSize));
     };
 
     const handleDragStart = (event) => {
         const activeElement = event?.active;
 
         if (activeElement) {
-            setScrollStartTop(thumbTop);
+            setScrollStartOffset(thumbOffset);
         }
     };
 
@@ -58,16 +75,26 @@ export const Range = forward<{}, 'div'>(({ children, ...rest }, ref) => {
         const { delta } = event;
         const viewport = viewportRef.current;
 
-        const adjustedViewportHeight = viewport.clientHeight - 2 * btnSize;
-        const scrollableHeight = viewport.scrollHeight - viewport.clientHeight;
+        const viewportSize = viewport['client' + sizeType];
+        const contentSize = viewport['scroll' + sizeType];
 
-        const maxThumbTop = adjustedViewportHeight - thumbHeight;
-        const newThumbTop = Math.min(Math.max(scrollStartTop + delta.y, 0), maxThumbTop);
+        const adjustedViewportSize = viewportSize - 2 * btnSize;
+        const scrollableSize = contentSize - viewportSize;
 
-        setThumbTop(newThumbTop);
+        const maxThumbOffset = adjustedViewportSize - thumbSize;
+        const newThumbOffset = Math.min(
+            Math.max(scrollStartOffset + (isVertical ? delta.y : delta.x), 0),
+            maxThumbOffset,
+        );
 
-        const scrollRatio = newThumbTop / maxThumbTop;
-        viewport.scrollTop = scrollRatio * scrollableHeight;
+        setThumbOffset(newThumbOffset);
+
+        const scrollRatio = newThumbOffset / maxThumbOffset;
+        if (isVertical) {
+            viewport.scrollTop = scrollRatio * scrollableSize;
+        } else {
+            viewport.scrollLeft = scrollRatio * scrollableSize;
+        }
     };
 
     return (

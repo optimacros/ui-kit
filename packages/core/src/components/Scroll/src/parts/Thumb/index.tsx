@@ -3,16 +3,16 @@ import { useApi } from '../../store/context';
 import { Orientation } from '@optimacros-ui/utils';
 
 export const Thumb = forward<{}, 'div'>(({ children, ...rest }, ref) => {
-    const { thumbHeight, thumbTop, orientation } = useApi();
+    const { thumbSize, thumbOffset, orientation } = useApi();
     const thumbPosition =
         orientation === Orientation.Vertical
             ? {
-                  top: `${thumbTop}px`,
-                  height: `${thumbHeight}px`,
+                  top: `${thumbOffset}px`,
+                  height: `${thumbSize}px`,
               }
             : {
-                  left: `${thumbTop}px`,
-                  width: `${thumbHeight}px`,
+                  left: `${thumbOffset}px`,
+                  width: `${thumbSize}px`,
               };
 
     return (

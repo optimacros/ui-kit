@@ -3,10 +3,10 @@ import { Orientation } from '@optimacros-ui/utils';
 import { IScroll } from '../parts';
 
 type ScrollContextType = {
-    thumbHeight: number;
-    setThumbHeight: (height: number) => void;
-    thumbTop: number;
-    setThumbTop: (top: number) => void;
+    thumbSize: number;
+    setThumbSize: (height: number) => void;
+    thumbOffset: number;
+    setThumbOffset: (top: number) => void;
     viewportRef: React.RefObject<HTMLDivElement>;
     scrollTo: (direction: string, offset: number) => void;
     btnSize: number;
@@ -24,8 +24,8 @@ export const useApi = () => {
 };
 
 export const Provider = ({ children, orientation }: IScroll) => {
-    const [thumbHeight, setThumbHeight] = useState(20);
-    const [thumbTop, setThumbTop] = useState(0);
+    const [thumbSize, setThumbSize] = useState(20);
+    const [thumbOffset, setThumbOffset] = useState(0);
     const viewportRef = useRef<HTMLDivElement>(null);
 
     const btnSize = 25;
@@ -39,10 +39,10 @@ export const Provider = ({ children, orientation }: IScroll) => {
     return (
         <ScrollContext.Provider
             value={{
-                thumbHeight,
-                setThumbHeight,
-                thumbTop,
-                setThumbTop,
+                thumbSize,
+                setThumbSize,
+                thumbOffset,
+                setThumbOffset,
                 viewportRef,
                 btnSize,
                 scrollTo,

@@ -23,6 +23,7 @@
     }
 
     [data-part='range'] {
+      justify-content: center;
       width: 100%;
     }
 
@@ -52,6 +53,7 @@
     }
 
     [data-part='range'] {
+      align-items: center;
       height: 100%;
     }
 
@@ -84,7 +86,6 @@
   [data-part='range'] {
     display: flex;
     flex-grow: 1;
-    justify-content: center;
     background-color: #e6e6e6;
   }
 
