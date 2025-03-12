@@ -72,9 +72,8 @@ storybook:
     - ${runner}
   script:
     - nvm use 
-    - npm run start:storybook --no-open -p 6007 &
-    - npm run test-storybook -- --url http://127.0.0.1:6007
-    - kill $(lsof -t -i:6007) || echo "storybook уже остановлен"
+    - npm run start
+    - npm run test-storybook
 
 # push artefacts to nexus
 nexus-push-job:
