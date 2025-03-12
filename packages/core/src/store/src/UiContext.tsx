@@ -110,7 +110,7 @@ export const Provider = ({
     featureFlags,
     theme,
     iconsSet,
-}: State & {
+}: Partial<State> & {
     children: ReactNode;
 }) => {
     const [iconsSrc, setIconsSrc] = ReactUseState('');
