@@ -6,10 +6,6 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const outputConfig = {
-    destPath: './dist',
-};
-
 export default {
     entry: './main.tsx',
     resolve: {
@@ -18,6 +14,7 @@ export default {
     context: path.resolve(__dirname, './src'),
     mode: 'development',
     devServer: {
+        port: 5173,
         hot: true, // enable HMR on the server
         historyApiFallback: true, // fixes error 404-ish errors when using react router :see this SO question: https://stackoverflow.com/questions/43209666/react-router-v4-cannot-get-url
     },
@@ -25,17 +22,17 @@ export default {
     module: {
         rules: [
             {
-                test: [/\.jsx?$/, /\.tsx?$/],
+                test: /\.(jpe?g|png|gif|svg|woff|eot|woff2|ttf)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: [/\.jsx?$/, /\.tsx?$/, /\.js?$/, /\.cjs?$/, /\.ts?$/, /\.cts?$/],
                 use: ['babel-loader'],
                 exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
-            },
-            {
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                type: 'asset/resource',
             },
         ],
     },

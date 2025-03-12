@@ -1,4 +1,5 @@
 {
+    "isDev": true,
     "menu": {
         "submenu": true
     }

@@ -1,14 +1,15 @@
-[data-scope='backdrop'],
-&[data-part='root'] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  z-index: 2111;
-  background-color: var(--color-theme-black);
-  opacity: 0.5;
+[data-scope='backdrop'] {
+  &[data-part='root'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    z-index: 2111;
+    background-color: var(--color-theme-black);
+    opacity: 0.5;
+  }
 }

@@ -1,6 +1,6 @@
 import { Preview } from '@storybook/react';
 import { UiKitProviderDecorator } from '../Provider';
-import { THEMES } from '@optimacros-ui/themes';
+import { commonGlobalTypes } from '../global-types';
 
 const previewProd: Preview = {
     parameters: {
@@ -15,20 +15,9 @@ const previewProd: Preview = {
     },
     decorators: [
         // Load theme
-        UiKitProviderDecorator,
+        UiKitProviderDecorator(false),
     ],
-    globalTypes: {
-        theme: {
-            description: 'Global theme of storybook',
-            toolbar: {
-                title: 'Theme',
-                icon: 'circle',
-                items: THEMES.map(({ value, label }) => ({ value, title: label })),
-                dynamicTitle: true,
-            },
-            defaultValue: 'optimacros',
-        },
-    },
+    globalTypes: commonGlobalTypes,
     tags: ['autodocs'],
 };
 

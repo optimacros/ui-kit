@@ -19,6 +19,7 @@ export default defineConfig({
     bundle: true,
     loader: {
         '.css': 'copy',
+        '.svg': 'copy',
     },
     minify: true,
     minifySyntax: true,
