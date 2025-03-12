@@ -1,4 +1,4 @@
-:root {
+:root[data-theme='magnit'] {
   /* Base Theme Colors */
   --color-theme-primary-default: #eb333e;
   --color-theme-primary-on-default: #f0f6fc;

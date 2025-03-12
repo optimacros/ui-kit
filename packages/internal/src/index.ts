@@ -29,3 +29,4 @@ export * from './Tabs';
 export * from './TextArea';
 export * from './Toolbar';
 export * from './Tooltip';
+export * from '@optimacros-ui/font-icon';

@@ -8,7 +8,9 @@
         "start:webpack": "webpack serve --mode development --progress --hot",
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "build:webpack": "webpack build",
+        "preview": "vite preview",
+        "serve": "http-server ./dist"
     },
     "dependencies": {
         "@optimacros-ui/button": "^2.0.5",

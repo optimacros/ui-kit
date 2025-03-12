@@ -22,12 +22,12 @@ export enum THEMES {
     YADROMAIN = 'yadromain',
 }
 
-export const getColorSchemeFilePath = (theme: THEMES, dev: boolean) => {
-    const path = `color-schemes/${theme}.css`;
+export const importMap = Object.values(THEMES).reduce((acc, v) => {
+    acc[v] = () => import(`./assets/color-schemes/${v}.css`);
 
-    return dev ? `./assets/${path}` : `./${path}`;
-};
+    return acc;
+}, {});
 
-export const getColorSchemeImport = (theme: THEMES, dev: boolean) => {
-    return () => import(getColorSchemeFilePath(theme, dev) + '?raw');
+export const getColorSchemeImport = (theme: THEMES) => {
+    return importMap[theme];
 };

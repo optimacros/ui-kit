@@ -124,12 +124,12 @@ export enum ICONS_SETS {
     optimacros = 'optimacros',
 }
 
-export const getSpriteFilePath = (iconsSet: ICONS_SETS, dev: boolean) => {
-    const path = `icons/${iconsSet}/sprite/index.svg`;
+const spriteMap = Object.values(ICONS_SETS).reduce((acc, v) => {
+    acc[v] = () => import(`./assets/icons/${v}/sprite/index.svg`);
 
-    return dev ? `./assets/${path}` : `./${path}`;
-};
+    return acc;
+}, {});
 
-export const getSpriteImport = (iconsSet: ICONS_SETS, dev: boolean) => {
-    return () => import(getSpriteFilePath(iconsSet, dev));
+export const getSpriteImport = (iconsSet: ICONS_SETS) => {
+    return spriteMap[iconsSet];
 };

@@ -26,11 +26,6 @@ export default {
                 type: 'asset/resource',
             },
             {
-                resourceQuery: /raw/,
-                exclude: /\.(jpe?g|png|gif|svg|woff|eot|woff2|ttf|ts|dts|js|cjs)$/i,
-                type: 'asset/source',
-            },
-            {
                 test: [/\.jsx?$/, /\.tsx?$/, /\.js?$/, /\.cjs?$/, /\.ts?$/, /\.cts?$/],
                 use: ['babel-loader'],
                 exclude: /node_modules/,

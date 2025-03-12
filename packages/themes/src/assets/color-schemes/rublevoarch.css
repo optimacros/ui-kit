@@ -1,4 +1,4 @@
-:root {
+:root[data-theme='rublevoarch'] {
   /* Theme Base Colors */
   --color-theme-black: #010409;
   --color-theme-white: #f0f6fc;
