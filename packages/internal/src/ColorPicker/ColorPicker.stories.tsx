@@ -1,6 +1,8 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ColorPicker } from './';
 import * as Stories from './stories';
+import { Modal } from '../Modal';
+import { Flex } from '@optimacros-ui/flex';
 
 const argTypes: Partial<ArgTypes> = {
     color: {
@@ -100,4 +102,17 @@ export const Disabled: Story = {
 export const TitleWithPositionedTooltip: Story = {
     args: { title: 'title', tooltip: 'tooltip content', tooltipPosition: 'top' },
     render: Stories.Tooltip,
+};
+
+export const WithModal: Story = {
+    args: Basic.args,
+    render: (args) => {
+        return (
+            <Modal isOpen onRequestClose={() => {}}>
+                <Flex width="520px" height="520px">
+                    <Stories.Basic {...args} />
+                </Flex>
+            </Modal>
+        );
+    },
 };
