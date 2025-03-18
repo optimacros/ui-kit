@@ -69,7 +69,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         const isHoverTrigger = trigger[0] === 'hover';
 
         //@ts-ignore
-        const isMenuInOverlay = overlay?.type?.name === 'Menu';
+        const isMenuInOverlay = overlay?.type?.displayName === 'Menu';
 
         return (
             <Menu.Root
@@ -86,9 +86,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                                 onMouseEnter={() => handleMouseEnter(api)}
                                 onMouseLeave={(e) => handleMouseLeave(e, api)}
                             >
-                                <Menu.Trigger asChild>
-                                    <div>{children}</div>
-                                </Menu.Trigger>
+                                <Menu.Trigger as="div">{children}</Menu.Trigger>
                                 <Menu.Positioner>
                                     <Menu.Content size="sm" ref={ref}>
                                         {/** @ts-ignore */}
@@ -98,10 +96,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                             </div>
                         ) : (
                             <>
-                                <Menu.Trigger asChild>
-                                    <div>{children}</div>
-                                </Menu.Trigger>
-                                <Menu.Positioner>
+                                <Menu.Trigger as="div">{children}</Menu.Trigger>
+                                <Menu.Positioner portalled>
                                     <Menu.Content size="sm" ref={ref}>
                                         <Menu.List>
                                             {isMenuInOverlay

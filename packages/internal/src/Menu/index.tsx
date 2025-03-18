@@ -108,3 +108,5 @@ export const Menu = forward<
         </MenuComponent.Root>
     );
 });
+
+Menu.displayName = 'Menu';
