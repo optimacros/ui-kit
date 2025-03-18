@@ -1,5 +1,5 @@
 import * as _ from '@optimacros-ui/utils';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 
 import { driveLandingState } from '../../../../../state/DriveLandingState';
 import { FontIcon } from '../../../../../components';
@@ -14,7 +14,7 @@ export function BreadCrumbsFolders() {
 
     const list = _.map(driveLandingState.breadCrumbsFolders, (element, index) => {
         const id = element.entityLongId;
-        const className = classNames({
+        const className = clsx({
             [styles.HeaderFoldersItem]: true,
             [styles.HeaderFoldersItem_active]: lastId == id,
         });

@@ -29,4 +29,13 @@ export * from './Tabs';
 export * from './TextArea';
 export * from './Toolbar';
 export * from './Tooltip';
+
+export * from './Layout';
+export * from './TextShortener';
+export * from './LayoutFixedContainer';
+export * from './Header';
+export * from './DownloadIframe';
+
 export * from '@optimacros-ui/font-icon';
+export { default as InputMask } from 'react-input-mask';
+export { default as SplitPane } from 'react-split-pane';

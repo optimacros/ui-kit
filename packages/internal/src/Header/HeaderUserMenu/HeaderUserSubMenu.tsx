@@ -1,15 +1,16 @@
 import { clsx } from '@optimacros-ui/utils';
-import React from 'react';
+import { ReactNode } from 'react';
+
 import styles from './HeaderUserMenu.module.css';
 
 interface Props {
     label: string;
+    className: string;
+    children: ReactNode;
     onClick: () => void;
-    className?: string;
-    children?: React.JSX.Element | React.JSX.Element[];
 }
 
-const HeaderUserSubMenu = (props: Props) => {
+export const HeaderUserSubMenu = (props: Props) => {
     const className = clsx(styles.userMenu_List, styles.userMenu_List_SubMenu, props.className);
 
     return (
@@ -22,5 +23,3 @@ const HeaderUserSubMenu = (props: Props) => {
         </li>
     );
 };
-
-export { HeaderUserSubMenu };

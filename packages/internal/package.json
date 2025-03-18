@@ -65,7 +65,11 @@
         "@optimacros-ui/visually-hidden": "^2.0.5",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-resizable": "^3.0.5"
+        "react-resizable": "^3.0.5",
+        "react-input-mask": "2.0.4",
+        "react-split-pane": "0.1.87",
+        "mobx": "6.9.0",
+        "mobx-react": "7.6.0"
     },
     "devDependencies": {
         "@optimacros-ui/kit-legacy": "^2.0.5",

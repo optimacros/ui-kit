@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { FC } from 'react';
 import { Icon } from '@optimacros-ui/icon';
 
@@ -20,7 +20,7 @@ export const MemoryCounter: FC<SpaceCounterProps> = (props) => {
     };
 
     return (
-        <div className={classNames(styles.Container, className)}>
+        <div className={clsx(styles.Container, className)}>
             <div className={styles.Wrapper}>
                 <div className={styles.Value} style={styleValue}>
                     {filledSize}

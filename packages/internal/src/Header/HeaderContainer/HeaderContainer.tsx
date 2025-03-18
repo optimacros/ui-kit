@@ -1,10 +1,11 @@
 import { clsx } from '@optimacros-ui/utils';
-import React from 'react';
+import type { JSX } from 'react';
+
 import styles from './HeaderContainer.module.css';
 
 interface Props {
     className?: string;
-    children?: React.JSX.Element | React.JSX.Element[];
+    children?: JSX.Element | JSX.Element[];
 }
 
 export const HeaderContainer = (props: Props) => {

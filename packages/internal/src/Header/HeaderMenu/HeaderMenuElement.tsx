@@ -1,50 +1,33 @@
-import React from 'react';
-import { isEmpty } from '@optimacros-ui/utils';
 import { clsx } from '@optimacros-ui/utils';
+import _ from 'lodash';
 import { observer } from 'mobx-react';
+import { Component, createRef, RefObject } from 'react';
 
-import { HeaderMenuElementContainer } from './HeaderMenuElementContainer';
-import { HeaderSubMenu } from './HeaderSubMenu';
+import HeaderMenuElementContainer from './HeaderMenuElementContainer';
+import HeaderSubMenu from './HeaderSubMenu';
 
 import styles from './HeaderMenu.module.css';
 
-export type Element = {
-    id: string;
-    title: string;
-    open?: () => void;
-    icon?: string;
-    hidden?: boolean;
-    disabled?: boolean;
-    isChild?: boolean;
-    isParent?: boolean;
-    children?: Element[];
-    type?: string;
-};
-
-type Props = {
-    element: Element;
+interface Props {
     firstLevel?: boolean;
-};
-
-type State = {
-    showMenu: boolean;
-};
+    element: any;
+}
 
 @observer
-export class HeaderMenuElement extends React.Component<Props, State> {
-    constructor(props: Props) {
+export class HeaderMenuElement extends Component<Props> {
+    constructor(props) {
         super(props);
 
-        this.node = React.createRef();
+        this._node = createRef();
     }
 
-    private readonly node: React.RefObject<HTMLLIElement>;
+    _node = null as RefObject<HTMLLIElement>;
 
     state = {
         showMenu: false,
     };
 
-    render(): React.JSX.Element | null {
+    render() {
         const { element } = this.props;
 
         if (element.hidden) {
@@ -60,26 +43,25 @@ export class HeaderMenuElement extends React.Component<Props, State> {
 
         return (
             <li
+                ref={this._node}
                 className={className}
-                ref={this.node}
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
                 title={element.title}
+                onMouseEnter={this._onMouseEnter}
+                onMouseLeave={this._onMouseLeave}
             >
                 <HeaderMenuElementContainer
                     element={element}
                     isFirstLevel={this.props.firstLevel}
                 />
-
                 {this.renderSubMenu()}
             </li>
         );
     }
 
-    renderSubMenu(): React.JSX.Element | null {
+    renderSubMenu() {
         const { element } = this.props;
 
-        if (!this.state.showMenu || isEmpty(element.children)) {
+        if (!this.state.showMenu || _.isEmpty(element.children)) {
             return null;
         }
 
@@ -87,13 +69,13 @@ export class HeaderMenuElement extends React.Component<Props, State> {
             <HeaderSubMenu
                 element={element}
                 elements={element.children}
-                rootElementNode={this.node}
                 firstLevel={this.props.firstLevel}
+                rootElementNode={this._node}
             />
         );
     }
 
-    private onMouseEnter = (): void => {
+    _onMouseEnter = () => {
         this.setState(() => {
             return {
                 showMenu: true,
@@ -101,7 +83,7 @@ export class HeaderMenuElement extends React.Component<Props, State> {
         });
     };
 
-    private onMouseLeave = (): void => {
+    _onMouseLeave = () => {
         this.setState(() => {
             return {
                 showMenu: false,

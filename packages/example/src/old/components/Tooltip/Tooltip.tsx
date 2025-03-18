@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-import classnames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { mergeStyles, getViewport } from '../../utils';
 import events from '../../utils/events';
 
@@ -88,7 +88,7 @@ class TooltippedComponent extends Component<TooltipProps, State> {
 
         const theme = mergeStyles(defaults.theme, other.theme);
 
-        const _className = classnames(theme.tooltip, {
+        const _className = clsx(theme.tooltip, {
             [theme.tooltipActive]: active,
             [theme[positionClass]]: theme[positionClass],
         });

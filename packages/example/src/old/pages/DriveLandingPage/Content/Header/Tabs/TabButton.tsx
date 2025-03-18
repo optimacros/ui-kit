@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 
 import styles from './Tabs.module.css';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const TabButton = observer((props: Props) => {
-    const className = classNames({
+    const className = clsx({
         [styles.TabButton]: true,
         [styles.TabButton__active]: props.active,
     });

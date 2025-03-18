@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 
 import { FontIcon, Input } from '../../../../../components';
 
@@ -17,12 +17,12 @@ export function Search() {
         setIsShow(false);
     };
 
-    const className = classNames({
+    const className = clsx({
         [styles.Search]: true,
         [styles.Search__active]: isShow,
     });
 
-    const classNameInputContainer = classNames({
+    const classNameInputContainer = clsx({
         [styles.InputContainer]: true,
         [styles.InputContainer__active]: isShow,
     });

@@ -25,6 +25,9 @@ export {
     isEqual,
     cloneDeep,
     uniqWith,
+    isEmpty,
+    toLower,
+    trim,
 } from 'lodash-es';
 
 export {

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { ReactSVG } from 'react-svg';
 import { observer } from 'mobx-react';
 
@@ -43,7 +43,7 @@ export class ModelsItem extends React.Component<Props, State> {
         const { name, date, dateCreate, dateUpdate, isOffline, isPrivate } = this.props.element;
         const { storageVersion } = this.props.element.summary || {};
 
-        const className = classNames({
+        const className = clsx({
             [this.styles.Container]: true,
             [this.styles.Container_offline]: isOffline,
             [this.styles.Container_hasPrivate]: !isPrivate && this.props.hasPrivateModel,

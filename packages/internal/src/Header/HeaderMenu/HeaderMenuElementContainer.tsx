@@ -1,21 +1,17 @@
+import { clsx, isEmpty } from '@optimacros-ui/utils';
 import React from 'react';
-import { clsx } from '@optimacros-ui/utils';
-import { isEmpty } from '@optimacros-ui/utils';
-import { observer } from 'mobx-react';
 
-import type { Element } from './HeaderMenuElement';
-import { Icon } from '..';
+import { Icon } from '../../Icon';
 
 import styles from './HeaderMenu.module.css';
 
-type Props = {
-    element: Element;
-    isFirstLevel?: boolean;
-};
+interface Props {
+    isFirstLevel: boolean;
+    element: any;
+}
 
-@observer
-export class HeaderMenuElementContainer extends React.Component<Props> {
-    render(): React.JSX.Element {
+export default class HeaderMenuElementContainer extends React.Component<Props> {
+    render() {
         const { element } = this.props;
 
         const className = clsx({
@@ -25,7 +21,12 @@ export class HeaderMenuElementContainer extends React.Component<Props> {
         });
 
         return (
-            <div role="none" className={className} onClick={this.onClick}>
+            <div
+                className={className}
+                //@ts-ignore
+                disabled={element.disabled}
+                onClick={this._onClick}
+            >
                 {this.renderIcon(element)}
 
                 <div className={styles.Element_Title}>{element.title}</div>
@@ -35,7 +36,7 @@ export class HeaderMenuElementContainer extends React.Component<Props> {
         );
     }
 
-    renderIcon(element: Element): React.JSX.Element | null {
+    renderIcon(element) {
         if (!element.icon) {
             return null;
         }
@@ -47,9 +48,10 @@ export class HeaderMenuElementContainer extends React.Component<Props> {
         );
     }
 
-    renderArrowIcon(): React.JSX.Element | null {
+    renderArrowIcon() {
         const { element, isFirstLevel } = this.props;
 
+        //@ts-ignore
         if (isFirstLevel || isEmpty(element.children) || element.disabled) {
             return null;
         }
@@ -61,10 +63,12 @@ export class HeaderMenuElementContainer extends React.Component<Props> {
         );
     }
 
-    private onClick = (): void => {
+    _onClick = () => {
         const { element } = this.props;
 
+        //@ts-ignore
         if (!element.disabled && element.open) {
+            //@ts-ignore
             element.open();
         }
     };

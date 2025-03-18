@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import classnames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { FontIcon } from '../FontIcon';
 import { mergeStyles, isValuePresent } from '../../utils';
 
@@ -114,11 +114,11 @@ export class Input extends React.Component<Props> {
         const theme = customTheme ? mergeStyles(themeStyles, customTheme) : themeStyles;
 
         const length = maxLength && value ? value.length : 0;
-        const labelClassName = classnames(theme.label, {
+        const labelClassName = clsx(theme.label, {
             [theme.fixed]: !floating,
         });
 
-        const className = classnames(
+        const className = clsx(
             theme.input,
             {
                 [theme.disabled]: disabled,
@@ -134,7 +134,7 @@ export class Input extends React.Component<Props> {
 
         const inputElementProps = {
             ...others,
-            className: classnames(theme.inputElement, {
+            className: clsx(theme.inputElement, {
                 [theme.filled]: valuePresent,
             }),
             onChange: this.handleChange,

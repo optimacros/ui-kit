@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 
 interface FontIconProps {
     alt?: string;
@@ -18,7 +18,7 @@ const FontIcon = ({
     value,
     ...other
 }: FontIconProps) => {
-    const classNameIcon = classnames(
+    const classNameIcon = clsx(
         {
             'material-icons': typeof value === 'string' || typeof children === 'string',
         },

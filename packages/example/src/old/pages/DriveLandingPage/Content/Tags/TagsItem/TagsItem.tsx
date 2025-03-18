@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 
 import { Element } from '../Tags';
 
@@ -16,7 +16,7 @@ export function TagsItem(props: Props) {
         props.onChange(longId);
     };
 
-    const className = classNames({
+    const className = clsx({
         [styles.Container]: true,
         [styles.Container_active]: props.active,
         [styles.Container_personal]: props.element.isPersonal,

@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { mergeStyles } from '../../utils';
 import { Input as BaseInput } from './Input';
 
@@ -29,7 +29,7 @@ const Input = (props: Props, ref) => {
     const { hint, placeholder, label, title, collapsed, theme: customTheme, ...otherProps } = props;
     const theme: Record<string, string> = mergeStyles(customTheme, styles);
     const newLabel = !collapsed ? label || title : '';
-    const className = classNames(
+    const className = clsx(
         {
             [theme.collapsed]: collapsed,
         },
