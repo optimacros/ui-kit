@@ -98,8 +98,14 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
         const itemToString = (item: SourceItem) => item[labelKey];
         const itemToValue = (item: SourceItem) => item[valueKey];
 
-        const curValue = !value || Array.isArray(value) ? value : [value];
-        const items = source || options;
+        let items = source || options;
+        let curValue = !value || Array.isArray(value) ? value : [value];
+
+        const isNullInItems = items.some((item) => item.value === null);
+        if (isNullInItems) {
+            curValue = ['null'];
+            items = items.map((item) => (item.value === null ? { ...item, value: 'null' } : item));
+        }
 
         const cn = clsx(
             theme.dropdown,
