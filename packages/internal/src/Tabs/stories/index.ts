@@ -5,3 +5,4 @@ export * from './Draggable';
 export * from './Disabled';
 export * from './Scroll';
 export * from './TabHeader';
+export * from './HardChildren';

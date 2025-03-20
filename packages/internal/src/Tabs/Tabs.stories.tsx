@@ -241,6 +241,17 @@ export const Basic: Story = {
     render: Stories.Basic,
 };
 
+export const HardContent: Story = {
+    args: {
+        active: 2,
+        className: 'className',
+        contentClassName: 'contentClassName',
+        headerClassName: 'headerClassName',
+        onTabSwitch: (n) => console.info(n),
+    },
+    render: Stories.HardChildren,
+};
+
 export const Icons: Story = {
     args: {
         active: 2,
