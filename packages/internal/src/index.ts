@@ -28,6 +28,7 @@ export * from './SelectBox';
 export * from './SliderScale';
 export * from './Snackbar';
 export * from './Tabs';
+export * from './WSTabs';
 export * from './TextArea';
 export * from './Toolbar';
 export * from './Tooltip';
