@@ -1,5 +1,4 @@
 // @ts-nocheck
-import classNames from 'classnames';
 import { Component } from 'react';
 
 import { WSTabContent as TabContent } from './TabContent';
@@ -35,7 +34,7 @@ export class WSTabsContainer extends Component<Props> {
         const theme = mergeStyles(this.props.theme, styles) as Props['theme'];
 
         const { headerClassName, contentClassName, ...otherProps } = this.props;
-        const className = classNames(theme.TabsContainer, this.props.className);
+        const className = `${theme.TabsContainer} ${this.props.className || ''}`.trim();
 
         return (
             <div className={className}>

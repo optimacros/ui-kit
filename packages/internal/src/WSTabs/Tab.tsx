@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 
 import styles from './Tab.module.css';
@@ -11,7 +10,7 @@ interface Props {
 }
 
 export const WSTab: React.FC<Props> = ({ children, className }) => {
-    const newClassName = classNames(styles.Tab, className);
+    const newClassName = `${styles.Tab} ${className || ''}`.trim();
 
     return <div className={newClassName}>{children}</div>;
 };

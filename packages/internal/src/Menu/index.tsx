@@ -14,12 +14,16 @@ interface IMenuItem {
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
-    ({ label, title, value, children, onClick, ...restProps }, ref) => {
+    ({ label, title, value, children, onClick, key, ...restProps }, ref) => {
         const generatedKey = useId();
 
         return (
             <div onClick={onClick}>
-                <MenuComponent.Item {...restProps} value={value || generatedKey} ref={ref}>
+                <MenuComponent.Item
+                    {...restProps}
+                    value={value || String(key) || generatedKey}
+                    ref={ref}
+                >
                     {label || title || children}
                 </MenuComponent.Item>
             </div>

@@ -1,5 +1,4 @@
 // @ts-nocheck
-import classNames from 'classnames';
 import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
@@ -116,11 +115,13 @@ export class WSTabHeader extends Component<Props> {
 
     render() {
         const theme = mergeStyles(this.props.theme, styles);
-        const className = classNames(
+        const className = [
             theme.TabHeaderContainer,
             !this._state.countScrollableTabs && styles.TabHeaderContainer_noScroller,
             this.props.className,
-        );
+        ]
+            .filter(Boolean)
+            .join(' ');
 
         return (
             <nav className={className}>
@@ -176,15 +177,15 @@ export class WSTabHeader extends Component<Props> {
             const isActive = this.props.active === position;
             const elementTitle = title || label;
 
-            const className = classNames(
-                {
-                    [theme.TabButton]: true,
-                    [theme.TabButton__active]: isActive,
-                    [theme.TabButton__draggable]: isDraggableTab,
-                    [theme.TabButton__disabled]: isDisabled,
-                },
+            const className = [
+                theme.TabButton,
+                isActive && theme.TabButton__active,
+                isDraggableTab && theme.TabButton__draggable,
+                isDisabled && theme.TabButton__disabled,
                 tab.props.className,
-            );
+            ]
+                .filter(Boolean)
+                .join(' ');
 
             styleContainer.zIndex = countScrollableTabs - index;
             style.transform = 'translateX(0)';
@@ -198,10 +199,12 @@ export class WSTabHeader extends Component<Props> {
                 style.transform = 'translateX(0)';
             }
 
-            const classNameTabButtonInner = classNames({
-                [theme.TabButton_Inner]: true,
-                [theme.TabButton_Inner_narrow]: this.props.hasNarrowTabs,
-            });
+            const classNameTabButtonInner = [
+                theme.TabButton_Inner,
+                this.props.hasNarrowTabs && theme.TabButton_Inner_narrow,
+            ]
+                .filter(Boolean)
+                .join(' ');
 
             const tabButtonInnerProps = {
                 className: classNameTabButtonInner,
@@ -286,10 +289,12 @@ export class WSTabHeader extends Component<Props> {
     renderDropdownList() {
         return _.map(this._state.hiddenTabs, (element, index) => {
             const { content, active, position, disabled } = element;
-            const className = classNames({
-                [styles.DropdownButtonElement]: true,
-                [styles.DropdownButtonElement_active]: active,
-            });
+            const className = [
+                styles.DropdownButtonElement,
+                active && styles.DropdownButtonElement_active,
+            ]
+                .filter(Boolean)
+                .join(' ');
 
             return (
                 <MenuItem
