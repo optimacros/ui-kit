@@ -34,6 +34,10 @@
     box-sizing: border-box;
     word-wrap: break-word;
   }
+
+  &[data-part='positioner'] {
+    z-index: var(--z-index-higher) !important;
+  }
 }
 
 [data-scope='color-picker'][data-part='label'] {

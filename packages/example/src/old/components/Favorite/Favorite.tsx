@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 
 import { FontIcon } from '../FontIcon';
 
@@ -14,7 +14,7 @@ interface Props {
 
 export class Favorite extends Component<Props> {
     render() {
-        const className = classNames(styles.Container, this.props.className);
+        const className = clsx(styles.Container, this.props.className);
 
         const iconValue = this.props.checked ? 'star' : 'star_border';
 

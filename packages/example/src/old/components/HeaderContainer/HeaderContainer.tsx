@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import React from 'react';
 import styles from './HeaderContainer.module.css';
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const HeaderContainer = (props: Props) => {
-    const className = classNames(styles.Container, props.className);
+    const className = clsx(styles.Container, props.className);
 
     return <div className={className}>{props.children}</div>;
 };

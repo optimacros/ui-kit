@@ -32,3 +32,909 @@
     url('./font-icons/MaterialIcons-Regular.woff') format('woff'),
     url('./font-icons/MaterialIcons-Regular.ttf') format('truetype');
 }
+
+/* -------------------------------------------------- */
+/* font family Roboto */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/roboto/Roboto-BoldItalic.eot');
+  src: url('./fonts/roboto/Roboto-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/roboto/Roboto-BoldItalic.woff2') format('woff2'),
+    url('./fonts/roboto/Roboto-BoldItalic.woff') format('woff'),
+    url('./fonts/roboto/Roboto-BoldItalic.ttf') format('truetype'),
+    url('./fonts/roboto/Roboto-BoldItalic.svg#Roboto-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/roboto/Roboto-Italic.eot');
+  src: url('./fonts/roboto/Roboto-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/roboto/Roboto-Italic.woff2') format('woff2'),
+    url('./fonts/roboto/Roboto-Italic.woff') format('woff'), url('./fonts/roboto/Roboto-Italic.ttf')
+    format('truetype'), url('./fonts/roboto/Roboto-Italic.svg#Roboto-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/roboto/Roboto-Regular.eot');
+  src: url('./fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+    url('./fonts/roboto/Roboto-Regular.woff') format('woff'),
+    url('./fonts/roboto/Roboto-Regular.ttf') format('truetype'),
+    url('./fonts/roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/roboto/Roboto-Bold.eot');
+  src: url('./fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/roboto/Roboto-Bold.woff2') format('woff2'), url('./fonts/roboto/Roboto-Bold.woff')
+    format('woff'), url('./fonts/roboto/Roboto-Bold.ttf') format('truetype'),
+    url('./fonts/roboto/Roboto-Bold.svg#Roboto-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Alegreya */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Alegreya';
+  src: url('./fonts/alegreya/Alegreya-BoldItalic.eot');
+  src: url('./fonts/alegreya/Alegreya-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/alegreya/Alegreya-BoldItalic.woff2') format('woff2'),
+    url('./fonts/alegreya/Alegreya-BoldItalic.woff') format('woff'),
+    url('./fonts/alegreya/Alegreya-BoldItalic.ttf') format('truetype'),
+    url('./fonts/alegreya/Alegreya-BoldItalic.svg#Alegreya-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url('./fonts/alegreya/Alegreya-Bold.eot');
+  src: url('./fonts/alegreya/Alegreya-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/alegreya/Alegreya-Bold.woff2') format('woff2'),
+    url('./fonts/alegreya/Alegreya-Bold.woff') format('woff'),
+    url('./fonts/alegreya/Alegreya-Bold.ttf') format('truetype'),
+    url('./fonts/alegreya/Alegreya-Bold.svg#Alegreya-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url('./fonts/alegreya/Alegreya-Regular.eot');
+  src: url('./fonts/alegreya/Alegreya-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/alegreya/Alegreya-Regular.woff2') format('woff2'),
+    url('./fonts/alegreya/Alegreya-Regular.woff') format('woff'),
+    url('./fonts/alegreya/Alegreya-Regular.ttf') format('truetype'),
+    url('./fonts/alegreya/Alegreya-Regular.svg#Alegreya-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url('./fonts/alegreya/Alegreya-Italic.eot');
+  src: url('./fonts/alegreya/Alegreya-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/alegreya/Alegreya-Italic.woff2') format('woff2'),
+    url('./fonts/alegreya/Alegreya-Italic.woff') format('woff'),
+    url('./fonts/alegreya/Alegreya-Italic.ttf') format('truetype'),
+    url('./fonts/alegreya/Alegreya-Italic.svg#Alegreya-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family B612 */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'B612';
+  src: url('./fonts/b612/B612-Bold.eot');
+  src: url('./fonts/b612/B612-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/b612/B612-Bold.woff2') format('woff2'), url('./fonts/b612/B612-Bold.woff')
+    format('woff'), url('./fonts/b612/B612-Bold.ttf') format('truetype'),
+    url('./fonts/b612/B612-Bold.svg#B612-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'B612';
+  src: url('./fonts/b612/B612-BoldItalic.eot');
+  src: url('./fonts/b612/B612-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/b612/B612-BoldItalic.woff2') format('woff2'),
+    url('./fonts/b612/B612-BoldItalic.woff') format('woff'), url('./fonts/b612/B612-BoldItalic.ttf')
+    format('truetype'), url('./fonts/b612/B612-BoldItalic.svg#B612-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'B612';
+  src: url('./fonts/b612/B612-Italic.eot');
+  src: url('./fonts/b612/B612-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/b612/B612-Italic.woff2') format('woff2'), url('./fonts/b612/B612-Italic.woff')
+    format('woff'), url('./fonts/b612/B612-Italic.ttf') format('truetype'),
+    url('./fonts/b612/B612-Italic.svg#B612-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'B612';
+  src: url('./fonts/b612/B612-Regular.eot');
+  src: url('./fonts/b612/B612-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/b612/B612-Regular.woff2') format('woff2'), url('./fonts/b612/B612-Regular.woff')
+    format('woff'), url('./fonts/b612/B612-Regular.ttf') format('truetype'),
+    url('./fonts/b612/B612-Regular.svg#B612-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Muli */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Mulish';
+  src: url('./fonts/mulish/Mulish-BoldItalic.eot');
+  src: url('./fonts/mulish/Mulish-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/mulish/Mulish-BoldItalic.woff2') format('woff2'),
+    url('./fonts/mulish/Mulish-BoldItalic.woff') format('woff'),
+    url('./fonts/mulish/Mulish-BoldItalic.ttf') format('truetype'),
+    url('./fonts/mulish/Mulish-BoldItalic.svg#Mulish-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url('./fonts/mulish/Mulish-Bold.eot');
+  src: url('./fonts/mulish/Mulish-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/mulish/Mulish-Bold.woff2') format('woff2'), url('./fonts/mulish/Mulish-Bold.woff')
+    format('woff'), url('./fonts/mulish/Mulish-Bold.ttf') format('truetype'),
+    url('./fonts/mulish/Mulish-Bold.svg#Mulish-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url('./fonts/mulish/Mulish-Italic.eot');
+  src: url('./fonts/mulish/Mulish-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/mulish/Mulish-Italic.woff2') format('woff2'),
+    url('./fonts/mulish/Mulish-Italic.woff') format('woff'), url('./fonts/mulish/Mulish-Italic.ttf')
+    format('truetype'), url('./fonts/mulish/Mulish-Italic.svg#Mulish-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url('./fonts/mulish/Mulish-Regular.eot');
+  src: url('./fonts/mulish/Mulish-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/mulish/Mulish-Regular.woff2') format('woff2'),
+    url('./fonts/mulish/Mulish-Regular.woff') format('woff'),
+    url('./fonts/mulish/Mulish-Regular.ttf') format('truetype'),
+    url('./fonts/mulish/Mulish-Regular.svg#Mulish-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Titillium Web */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('./fonts/titilliumWeb/TitilliumWeb-Bold.eot');
+  src: url('./fonts/titilliumWeb/TitilliumWeb-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Bold.woff2') format('woff2'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Bold.woff') format('woff'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Bold.ttf') format('truetype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Bold.svg#TitilliumWeb-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('./fonts/titilliumWeb/TitilliumWeb-Italic.eot');
+  src: url('./fonts/titilliumWeb/TitilliumWeb-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Italic.woff2') format('woff2'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Italic.woff') format('woff'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Italic.ttf') format('truetype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Italic.svg#TitilliumWeb-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('./fonts/titilliumWeb/TitilliumWeb-BoldItalic.eot');
+  src: url('./fonts/titilliumWeb/TitilliumWeb-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-BoldItalic.woff2') format('woff2'),
+    url('./fonts/titilliumWeb/TitilliumWeb-BoldItalic.woff') format('woff'),
+    url('./fonts/titilliumWeb/TitilliumWeb-BoldItalic.ttf') format('truetype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-BoldItalic.svg#TitilliumWeb-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Titillium Web';
+  src: url('./fonts/titilliumWeb/TitilliumWeb-Regular.eot');
+  src: url('./fonts/titilliumWeb/TitilliumWeb-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Regular.woff2') format('woff2'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Regular.woff') format('woff'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Regular.ttf') format('truetype'),
+    url('./fonts/titilliumWeb/TitilliumWeb-Regular.svg#TitilliumWeb-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Varela */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Varela';
+  src: url('./fonts/varela/Varela.eot');
+  src: url('./fonts/varela/Varela.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/varela/Varela.woff2') format('woff2'), url('./fonts/varela/Varela.woff')
+    format('woff'), url('./fonts/varela/Varela.ttf') format('truetype'),
+    url('./fonts/varela/Varela.svg#Varela') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Vollkorn */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Vollkorn';
+  src: url('./fonts/vollkorn/Vollkorn-Bold.eot');
+  src: url('./fonts/vollkorn/Vollkorn-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/vollkorn/Vollkorn-Bold.woff2') format('woff2'),
+    url('./fonts/vollkorn/Vollkorn-Bold.woff') format('woff'),
+    url('./fonts/vollkorn/Vollkorn-Bold.ttf') format('truetype'),
+    url('./fonts/vollkorn/Vollkorn-Bold.svg#Vollkorn-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vollkorn';
+  src: url('./fonts/vollkorn/Vollkorn-Italic.eot');
+  src: url('./fonts/vollkorn/Vollkorn-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/vollkorn/Vollkorn-Italic.woff2') format('woff2'),
+    url('./fonts/vollkorn/Vollkorn-Italic.woff') format('woff'),
+    url('./fonts/vollkorn/Vollkorn-Italic.ttf') format('truetype'),
+    url('./fonts/vollkorn/Vollkorn-Italic.svg#Vollkorn-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vollkorn';
+  src: url('./fonts/vollkorn/Vollkorn-Regular.eot');
+  src: url('./fonts/vollkorn/Vollkorn-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/vollkorn/Vollkorn-Regular.woff2') format('woff2'),
+    url('./fonts/vollkorn/Vollkorn-Regular.woff') format('woff'),
+    url('./fonts/vollkorn/Vollkorn-Regular.ttf') format('truetype'),
+    url('./fonts/vollkorn/Vollkorn-Regular.svg#Vollkorn-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vollkorn';
+  src: url('./fonts/vollkorn/Vollkorn-BoldItalic.eot');
+  src: url('./fonts/vollkorn/Vollkorn-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/vollkorn/Vollkorn-BoldItalic.woff2') format('woff2'),
+    url('./fonts/vollkorn/Vollkorn-BoldItalic.woff') format('woff'),
+    url('./fonts/vollkorn/Vollkorn-BoldItalic.ttf') format('truetype'),
+    url('./fonts/vollkorn/Vollkorn-BoldItalic.svg#Vollkorn-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family IBM Plex Sans */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-BoldItalic.eot');
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-BoldItalic.woff2') format('woff2'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-BoldItalic.woff') format('woff'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-BoldItalic.ttf') format('truetype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-BoldItalic.svg#IBMPlexSans-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-Italic.eot');
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Italic.woff2') format('woff2'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Italic.woff') format('woff'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Italic.ttf') format('truetype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Italic.svg#IBMPlexSans-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-Bold.eot');
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Bold.woff2') format('woff2'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Bold.woff') format('woff'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Bold.ttf') format('truetype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Bold.svg#IBMPlexSans-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-Regular.eot');
+  src: url('./fonts/ibmPlexSans/IBMPlexSans-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Regular.woff2') format('woff2'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Regular.woff') format('woff'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Regular.ttf') format('truetype'),
+    url('./fonts/ibmPlexSans/IBMPlexSans-Regular.svg#IBMPlexSans-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Crimson Text */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('./fonts/crimsonText/CrimsonText-Italic.eot');
+  src: url('./fonts/crimsonText/CrimsonText-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/crimsonText/CrimsonText-Italic.woff2') format('woff2'),
+    url('./fonts/crimsonText/CrimsonText-Italic.woff') format('woff'),
+    url('./fonts/crimsonText/CrimsonText-Italic.ttf') format('truetype'),
+    url('./fonts/crimsonText/CrimsonText-Italic.svg#CrimsonText-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('./fonts/crimsonText/CrimsonText-BoldItalic.eot');
+  src: url('./fonts/crimsonText/CrimsonText-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/crimsonText/CrimsonText-BoldItalic.woff2') format('woff2'),
+    url('./fonts/crimsonText/CrimsonText-BoldItalic.woff') format('woff'),
+    url('./fonts/crimsonText/CrimsonText-BoldItalic.ttf') format('truetype'),
+    url('./fonts/crimsonText/CrimsonText-BoldItalic.svg#CrimsonText-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('./fonts/crimsonText/CrimsonText-Bold.eot');
+  src: url('./fonts/crimsonText/CrimsonText-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/crimsonText/CrimsonText-Bold.woff2') format('woff2'),
+    url('./fonts/crimsonText/CrimsonText-Bold.woff') format('woff'),
+    url('./fonts/crimsonText/CrimsonText-Bold.ttf') format('truetype'),
+    url('./fonts/crimsonText/CrimsonText-Bold.svg#CrimsonText-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('./fonts/crimsonText/CrimsonText-Regular.eot');
+  src: url('./fonts/crimsonText/CrimsonText-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/crimsonText/CrimsonText-Regular.woff2') format('woff2'),
+    url('./fonts/crimsonText/CrimsonText-Regular.woff') format('woff'),
+    url('./fonts/crimsonText/CrimsonText-Regular.ttf') format('truetype'),
+    url('./fonts/crimsonText/CrimsonText-Regular.svg#CrimsonText-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Cairo */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Cairo';
+  src: url('./fonts/cairo/Cairo-Bold.eot');
+  src: url('./fonts/cairo/Cairo-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/cairo/Cairo-Bold.woff2') format('woff2'), url('./fonts/cairo/Cairo-Bold.woff')
+    format('woff'), url('./fonts/cairo/Cairo-Bold.ttf') format('truetype'),
+    url('./fonts/cairo/Cairo-Bold.svg#Cairo-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('./fonts/cairo/Cairo-Regular.eot');
+  src: url('./fonts/cairo/Cairo-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/cairo/Cairo-Regular.woff2') format('woff2'),
+    url('./fonts/cairo/Cairo-Regular.woff') format('woff'), url('./fonts/cairo/Cairo-Regular.ttf')
+    format('truetype'), url('./fonts/cairo/Cairo-Regular.svg#Cairo-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family BioRhyme */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'BioRhyme';
+  src: url('./fonts/bioRhyme/BioRhyme-Regular.eot');
+  src: url('./fonts/bioRhyme/BioRhyme-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/bioRhyme/BioRhyme-Regular.woff2') format('woff2'),
+    url('./fonts/bioRhyme/BioRhyme-Regular.woff') format('woff'),
+    url('./fonts/bioRhyme/BioRhyme-Regular.ttf') format('truetype'),
+    url('./fonts/bioRhyme/BioRhyme-Regular.svg#BioRhyme-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BioRhyme';
+  src: url('./fonts/bioRhyme/BioRhyme-Bold.eot');
+  src: url('./fonts/bioRhyme/BioRhyme-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/bioRhyme/BioRhyme-Bold.woff2') format('woff2'),
+    url('./fonts/bioRhyme/BioRhyme-Bold.woff') format('woff'),
+    url('./fonts/bioRhyme/BioRhyme-Bold.ttf') format('truetype'),
+    url('./fonts/bioRhyme/BioRhyme-Bold.svg#BioRhyme-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Karla */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Karla';
+  src: url('./fonts/karla/Karla-BoldItalic.eot');
+  src: url('./fonts/karla/Karla-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/karla/Karla-BoldItalic.woff2') format('woff2'),
+    url('./fonts/karla/Karla-BoldItalic.woff') format('woff'),
+    url('./fonts/karla/Karla-BoldItalic.ttf') format('truetype'),
+    url('./fonts/karla/Karla-BoldItalic.svg#Karla-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url('./fonts/karla/Karla-Bold.eot');
+  src: url('./fonts/karla/Karla-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/karla/Karla-Bold.woff2') format('woff2'), url('./fonts/karla/Karla-Bold.woff')
+    format('woff'), url('./fonts/karla/Karla-Bold.ttf') format('truetype'),
+    url('./fonts/karla/Karla-Bold.svg#Karla-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url('./fonts/karla/Karla-Regular.eot');
+  src: url('./fonts/karla/Karla-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/karla/Karla-Regular.woff2') format('woff2'),
+    url('./fonts/karla/Karla-Regular.woff') format('woff'), url('./fonts/karla/Karla-Regular.ttf')
+    format('truetype'), url('./fonts/karla/Karla-Regular.svg#Karla-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Karla';
+  src: url('./fonts/karla/Karla-Italic.eot');
+  src: url('./fonts/karla/Karla-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/karla/Karla-Italic.woff2') format('woff2'), url('./fonts/karla/Karla-Italic.woff')
+    format('woff'), url('./fonts/karla/Karla-Italic.ttf') format('truetype'),
+    url('./fonts/karla/Karla-Italic.svg#Karla-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Lora */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Lora';
+  src: url('./fonts/lora/Lora-Regular.eot');
+  src: url('./fonts/lora/Lora-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/lora/Lora-Regular.woff2') format('woff2'), url('./fonts/lora/Lora-Regular.woff')
+    format('woff'), url('./fonts/lora/Lora-Regular.ttf') format('truetype'),
+    url('./fonts/lora/Lora-Regular.svg#Lora-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url('./fonts/lora/Lora-BoldItalic.eot');
+  src: url('./fonts/lora/Lora-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/lora/Lora-BoldItalic.woff2') format('woff2'),
+    url('./fonts/lora/Lora-BoldItalic.woff') format('woff'), url('./fonts/lora/Lora-BoldItalic.ttf')
+    format('truetype'), url('./fonts/lora/Lora-BoldItalic.svg#Lora-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url('./fonts/lora/Lora-Bold.eot');
+  src: url('./fonts/lora/Lora-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/lora/Lora-Bold.woff2') format('woff2'), url('./fonts/lora/Lora-Bold.woff')
+    format('woff'), url('./fonts/lora/Lora-Bold.ttf') format('truetype'),
+    url('./fonts/lora/Lora-Bold.svg#Lora-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lora';
+  src: url('./fonts/lora/Lora-Italic.eot');
+  src: url('./fonts/lora/Lora-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/lora/Lora-Italic.woff2') format('woff2'), url('./fonts/lora/Lora-Italic.woff')
+    format('woff'), url('./fonts/lora/Lora-Italic.ttf') format('truetype'),
+    url('./fonts/lora/Lora-Italic.svg#Lora-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Frank Ruhl Libre */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  src: url('./fonts/frankRuhlLibre/FrankRuhlLibre-Regular.eot');
+  src: url('./fonts/frankRuhlLibre/FrankRuhlLibre-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Regular.woff2') format('woff2'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Regular.woff') format('woff'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Regular.ttf') format('truetype'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Regular.svg#FrankRuhlLibre-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  src: url('./fonts/frankRuhlLibre/FrankRuhlLibre-Bold.eot');
+  src: url('./fonts/frankRuhlLibre/FrankRuhlLibre-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Bold.woff2') format('woff2'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Bold.woff') format('woff'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Bold.ttf') format('truetype'),
+    url('./fonts/frankRuhlLibre/FrankRuhlLibre-Bold.svg#FrankRuhlLibre-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Playfair Display */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-Bold.eot');
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Bold.woff2') format('woff2'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Bold.woff') format('woff'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Bold.ttf') format('truetype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Bold.svg#PlayfairDisplay-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-Regular.eot');
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Regular.woff2') format('woff2'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Regular.woff') format('woff'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Regular.ttf') format('truetype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Regular.svg#PlayfairDisplay-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-BoldItalic.eot');
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-BoldItalic.eot?#iefix')
+    format('embedded-opentype'), url('./fonts/playfairDisplay/PlayfairDisplay-BoldItalic.woff2')
+    format('woff2'), url('./fonts/playfairDisplay/PlayfairDisplay-BoldItalic.woff') format('woff'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-BoldItalic.ttf') format('truetype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-BoldItalic.svg#PlayfairDisplay-BoldItalic')
+    format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-Italic.eot');
+  src: url('./fonts/playfairDisplay/PlayfairDisplay-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Italic.woff2') format('woff2'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Italic.woff') format('woff'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Italic.ttf') format('truetype'),
+    url('./fonts/playfairDisplay/PlayfairDisplay-Italic.svg#PlayfairDisplay-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Archivo */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/archivo/Archivo-Bold.eot');
+  src: url('./fonts/archivo/Archivo-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/archivo/Archivo-Bold.woff2') format('woff2'),
+    url('./fonts/archivo/Archivo-Bold.woff') format('woff'), url('./fonts/archivo/Archivo-Bold.ttf')
+    format('truetype'), url('./fonts/archivo/Archivo-Bold.svg#Archivo-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/archivo/Archivo-Regular.eot');
+  src: url('./fonts/archivo/Archivo-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/archivo/Archivo-Regular.woff2') format('woff2'),
+    url('./fonts/archivo/Archivo-Regular.woff') format('woff'),
+    url('./fonts/archivo/Archivo-Regular.ttf') format('truetype'),
+    url('./fonts/archivo/Archivo-Regular.svg#Archivo-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/archivo/Archivo-Italic.eot');
+  src: url('./fonts/archivo/Archivo-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/archivo/Archivo-Italic.woff2') format('woff2'),
+    url('./fonts/archivo/Archivo-Italic.woff') format('woff'),
+    url('./fonts/archivo/Archivo-Italic.ttf') format('truetype'),
+    url('./fonts/archivo/Archivo-Italic.svg#Archivo-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/archivo/Archivo-BoldItalic.eot');
+  src: url('./fonts/archivo/Archivo-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/archivo/Archivo-BoldItalic.woff2') format('woff2'),
+    url('./fonts/archivo/Archivo-BoldItalic.woff') format('woff'),
+    url('./fonts/archivo/Archivo-BoldItalic.ttf') format('truetype'),
+    url('./fonts/archivo/Archivo-BoldItalic.svg#Archivo-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Spectral */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Spectral';
+  src: url('./fonts/spectral/Spectral-Bold.eot');
+  src: url('./fonts/spectral/Spectral-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/spectral/Spectral-Bold.woff2') format('woff2'),
+    url('./fonts/spectral/Spectral-Bold.woff') format('woff'),
+    url('./fonts/spectral/Spectral-Bold.ttf') format('truetype'),
+    url('./fonts/spectral/Spectral-Bold.svg#Spectral-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('./fonts/spectral/Spectral-BoldItalic.eot');
+  src: url('./fonts/spectral/Spectral-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/spectral/Spectral-BoldItalic.woff2') format('woff2'),
+    url('./fonts/spectral/Spectral-BoldItalic.woff') format('woff'),
+    url('./fonts/spectral/Spectral-BoldItalic.ttf') format('truetype'),
+    url('./fonts/spectral/Spectral-BoldItalic.svg#Spectral-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('./fonts/spectral/Spectral-Italic.eot');
+  src: url('./fonts/spectral/Spectral-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/spectral/Spectral-Italic.woff2') format('woff2'),
+    url('./fonts/spectral/Spectral-Italic.woff') format('woff'),
+    url('./fonts/spectral/Spectral-Italic.ttf') format('truetype'),
+    url('./fonts/spectral/Spectral-Italic.svg#Spectral-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('./fonts/spectral/Spectral-Regular.eot');
+  src: url('./fonts/spectral/Spectral-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/spectral/Spectral-Regular.woff2') format('woff2'),
+    url('./fonts/spectral/Spectral-Regular.woff') format('woff'),
+    url('./fonts/spectral/Spectral-Regular.ttf') format('truetype'),
+    url('./fonts/spectral/Spectral-Regular.svg#Spectral-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Fjalla One */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Fjalla One';
+  src: url('./fonts/fjallaOne/FjallaOne-Regular.eot');
+  src: url('./fonts/fjallaOne/FjallaOne-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/fjallaOne/FjallaOne-Regular.woff2') format('woff2'),
+    url('./fonts/fjallaOne/FjallaOne-Regular.woff') format('woff'),
+    url('./fonts/fjallaOne/FjallaOne-Regular.ttf') format('truetype'),
+    url('./fonts/fjallaOne/FjallaOne-Regular.svg#FjallaOne-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Montserrat */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/montserrat/Montserrat-Bold.eot');
+  src: url('./fonts/montserrat/Montserrat-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/montserrat/Montserrat-Bold.woff2') format('woff2'),
+    url('./fonts/montserrat/Montserrat-Bold.woff') format('woff'),
+    url('./fonts/montserrat/Montserrat-Bold.ttf') format('truetype'),
+    url('./fonts/montserrat/Montserrat-Bold.svg#Montserrat-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/montserrat/Montserrat-Regular.eot');
+  src: url('./fonts/montserrat/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/montserrat/Montserrat-Regular.woff2') format('woff2'),
+    url('./fonts/montserrat/Montserrat-Regular.woff') format('woff'),
+    url('./fonts/montserrat/Montserrat-Regular.ttf') format('truetype'),
+    url('./fonts/montserrat/Montserrat-Regular.svg#Montserrat-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/montserrat/Montserrat-BoldItalic.eot');
+  src: url('./fonts/montserrat/Montserrat-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/montserrat/Montserrat-BoldItalic.woff2') format('woff2'),
+    url('./fonts/montserrat/Montserrat-BoldItalic.woff') format('woff'),
+    url('./fonts/montserrat/Montserrat-BoldItalic.ttf') format('truetype'),
+    url('./fonts/montserrat/Montserrat-BoldItalic.svg#Montserrat-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/montserrat/Montserrat-Italic.eot');
+  src: url('./fonts/montserrat/Montserrat-Italic.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/montserrat/Montserrat-Italic.woff2') format('woff2'),
+    url('./fonts/montserrat/Montserrat-Italic.woff') format('woff'),
+    url('./fonts/montserrat/Montserrat-Italic.ttf') format('truetype'),
+    url('./fonts/montserrat/Montserrat-Italic.svg#Montserrat-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* font family Yatra One */
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'Yatra One';
+  src: url('./fonts/yatraOne/YatraOne-Regular.eot');
+  src: url('./fonts/yatraOne/YatraOne-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/yatraOne/YatraOne-Regular.woff2') format('woff2'),
+    url('./fonts/yatraOne/YatraOne-Regular.woff') format('woff'),
+    url('./fonts/yatraOne/YatraOne-Regular.ttf') format('truetype'),
+    url('./fonts/yatraOne/YatraOne-Regular.svg#YatraOne-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

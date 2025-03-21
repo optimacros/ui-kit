@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import React from 'react';
 import styles from './HeaderUserMenu.module.css';
 
@@ -10,11 +10,7 @@ interface Props {
 }
 
 const HeaderUserSubMenu = (props: Props) => {
-    const className = classNames(
-        styles.userMenu_List,
-        styles.userMenu_List_SubMenu,
-        props.className,
-    );
+    const className = clsx(styles.userMenu_List, styles.userMenu_List_SubMenu, props.className);
 
     return (
         <li>

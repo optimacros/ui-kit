@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { isEmpty } from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 
@@ -18,7 +18,7 @@ export class HeaderMenuElementContainer extends React.Component<Props> {
     render(): React.JSX.Element {
         const { element } = this.props;
 
-        const className = classNames({
+        const className = clsx({
             [styles.Element]: true,
             [styles.Element_withIcon]: !!element.icon,
             [styles.ElementContainer]: true,

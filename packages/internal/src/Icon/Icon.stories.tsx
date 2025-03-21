@@ -6,7 +6,7 @@ import { Text } from '@optimacros-ui/text';
 import { Popover } from '@optimacros-ui/popover';
 import { Button } from '@optimacros-ui/button';
 import { IconButton } from '@optimacros-ui/icon-button';
-import { Icon } from './index';
+import { Icon, WSIcon } from './index';
 import { Tooltip } from '../Tooltip';
 
 const argTypes: Partial<ArgTypes> = {
@@ -58,6 +58,40 @@ export const Basic = () => {
                     >
                         <Flex direction="column" gap="4" align="center">
                             <Icon value={icon} />
+                            <div
+                                style={{
+                                    fontSize: '16px',
+                                    opacity: '60%',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                {icon}
+                            </div>
+                        </Flex>
+                    </div>
+                ))}
+            </Grid.Root>
+            <Grid.Root cols="6" gap="16">
+                {Object.values(ICONS_MAP).map((icon) => (
+                    <div
+                        key={icon}
+                        onClick={() => onClickHandler(icon)}
+                        style={{
+                            border: '1px solid transparent',
+                            borderRadius: '4px',
+                            padding: '8px',
+                            cursor: 'pointer',
+                            transition: 'border-color 0.2s ease',
+                        }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.borderColor = '#007bff';
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.borderColor = 'transparent';
+                        }}
+                    >
+                        <Flex direction="column" gap="4" align="center">
+                            <WSIcon value={icon} />
                             <div
                                 style={{
                                     fontSize: '16px',

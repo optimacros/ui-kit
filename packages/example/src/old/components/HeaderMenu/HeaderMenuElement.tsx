@@ -1,6 +1,6 @@
 import React from 'react';
 import { isEmpty } from '@optimacros-ui/utils';
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 
 import { HeaderMenuElementContainer } from './HeaderMenuElementContainer';
@@ -51,7 +51,7 @@ export class HeaderMenuElement extends React.Component<Props, State> {
             return null;
         }
 
-        const className = classNames({
+        const className = clsx({
             [styles.MenuItem]: true,
             [styles.MenuItem__disabled]: element.disabled,
             [styles.MenuItem_child]: element.isChild,

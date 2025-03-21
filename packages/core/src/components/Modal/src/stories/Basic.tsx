@@ -1,6 +1,6 @@
 import { Button } from '@optimacros-ui/button';
 import { Modal } from '../index';
-
+import { Menu } from '@optimacros-ui/menu';
 export const Basic = (props: Modal.Props) => {
     return (
         <>
@@ -12,6 +12,7 @@ export const Basic = (props: Modal.Props) => {
                         <Modal.Title>Edit profile</Modal.Title>
                     </Modal.Header>
                     <Modal.ScrollContainer>
+                        <Menu.Examples.Nested />
                         <p>Make changes to your profile here. Click save when you are done.</p>
                         <div>
                             <input placeholder="Enter name..." />

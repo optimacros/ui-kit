@@ -1,5 +1,5 @@
 import { createReactStore } from '@optimacros-ui/store';
-import { ReactNode, useEffect, useState as ReactUseState } from 'react';
+import { type ReactNode, useEffect, useState as useRState } from 'react';
 import { getColorSchemeImport, getSpriteImport, ICONS_SETS, THEMES } from '@optimacros-ui/themes';
 
 function appendStylesToHead({ id, value }: { id: string; value: string }) {
@@ -113,7 +113,7 @@ export const Provider = ({
 }: Partial<State> & {
     children: ReactNode;
 }) => {
-    const [iconsSrc, setIconsSrc] = ReactUseState('');
+    const [iconsSrc, setIconsSrc] = useRState('');
 
     return (
         <BaseProvider

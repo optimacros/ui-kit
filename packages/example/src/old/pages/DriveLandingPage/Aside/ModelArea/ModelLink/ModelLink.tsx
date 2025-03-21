@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from '@optimacros-ui/utils';
 
 import { Tooltip, FontIcon } from '../../../../../components';
 
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const ModelLink = (props: Props) => {
-    const className = classNames({
+    const className = clsx({
         [styles.Container]: true,
         [styles.Container__active]: props.element.active,
         [styles.Container__disabled]: props.element.disabled,
