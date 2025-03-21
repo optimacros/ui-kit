@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Flex } from '@optimacros-ui/flex';
 import { SelectBox } from '.';
 
 const meta: Meta<typeof SelectBox> = {
@@ -142,6 +143,30 @@ export const SourceWithNull: Story = {
         <Wrapper>
             <SelectBox {...args} />
         </Wrapper>
+    ),
+};
+
+export const LabelPosition: Story = {
+    args: {
+        source: defaultSource,
+        label: 'Select an option',
+        value: '2',
+    },
+    render: (args) => (
+        <Flex direction="row" gap={20}>
+            <Wrapper>
+                <Flex direction="column" gap={4}>
+                    <b>Top:</b>
+                    <SelectBox {...args} labelPosition="top" />
+                </Flex>
+            </Wrapper>
+            <Wrapper>
+                <Flex direction="column" gap={4}>
+                    <b>Left:</b>
+                    <SelectBox {...args} labelPosition="left" />
+                </Flex>
+            </Wrapper>
+        </Flex>
     ),
 };
 

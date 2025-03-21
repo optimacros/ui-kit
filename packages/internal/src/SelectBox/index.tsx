@@ -7,6 +7,7 @@ import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
 import type { InputTheme } from '../Input';
 import { clsx, isUndefined } from '@optimacros-ui/utils';
+import './styles.css';
 
 export type SelectBoxTheme = {
     active: string;
@@ -51,6 +52,7 @@ export interface SelectBoxProps {
     onFocus?: React.FocusEventHandler<HTMLDivElement>;
     required?: boolean;
     placeholder?: string;
+    labelPosition?: 'top' | 'left';
 }
 
 const getStatus = (disabled: boolean, error: boolean) => {
@@ -81,6 +83,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
             valueKey,
             placeholder = 'choose value',
             disabled,
+            labelPosition = 'top',
             ...rest
         },
         ref,
@@ -116,10 +119,13 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
             className,
         );
 
+        const isLabelPositionLeft = labelPosition === 'left';
+
         return (
             <>
                 {!multiSelect ? (
                     <Select.Root
+                        data-tag="internal"
                         items={items}
                         defaultValue={curValue}
                         value={isUndefined(onChange) ? undefined : curValue}
@@ -136,28 +142,38 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                             ))}
                         </Select.HiddenInput>
 
-                        <Select.Control>
+                        <Select.Control data-direction={isLabelPositionLeft ? 'row' : 'column'}>
                             <Select.Api>
                                 {(api) => (
-                                    <Field.Root
-                                        status={getStatus(api.disabled, Boolean(error))}
-                                        required={required}
-                                    >
-                                        <Select.Trigger>
-                                            {label && (
-                                                <Field.FloatingLabel>{label}</Field.FloatingLabel>
-                                            )}
-                                            <Field.TriggerInput
-                                                value={api.empty ? placeholder : api.valueAsString}
-                                                className={theme.value}
+                                    <>
+                                        {label && (
+                                            <div
+                                                data-scope="field"
+                                                data-part="label"
+                                                data-margin={isLabelPositionLeft ? 'none' : ''}
                                             >
-                                                <Field.Icon>
-                                                    <Icon value="arrow_drop_down" />
-                                                </Field.Icon>
-                                            </Field.TriggerInput>
-                                            {error && <span>{error}</span>}
-                                        </Select.Trigger>
-                                    </Field.Root>
+                                                label
+                                            </div>
+                                        )}
+                                        <Field.Root
+                                            status={getStatus(api.disabled, Boolean(error))}
+                                            required={required}
+                                        >
+                                            <Select.Trigger>
+                                                <Field.TriggerInput
+                                                    value={
+                                                        api.empty ? placeholder : api.valueAsString
+                                                    }
+                                                    className={theme.value}
+                                                >
+                                                    <Field.Icon>
+                                                        <Icon value="arrow_drop_down" />
+                                                    </Field.Icon>
+                                                </Field.TriggerInput>
+                                                {error && <span>{error}</span>}
+                                            </Select.Trigger>
+                                        </Field.Root>
+                                    </>
                                 )}
                             </Select.Api>
                         </Select.Control>
@@ -181,6 +197,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                     </Select.Root>
                 ) : (
                     <Select.Root
+                        data-tag="internal"
                         items={items}
                         value={curValue}
                         onValueChange={handleChange}
@@ -222,31 +239,41 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                     }
                                 </Select.Api>
                             </Flex>
-                            <Select.Control>
+                            <Select.Control data-direction={isLabelPositionLeft ? 'row' : 'column'}>
                                 <Select.Api>
                                     {(api) => (
-                                        <Field.Root
-                                            status={getStatus(api.disabled, Boolean(error))}
-                                            required={required}
-                                        >
+                                        <>
                                             {label && (
-                                                <Field.FloatingLabel>{label}</Field.FloatingLabel>
-                                            )}
-                                            <Select.Trigger {...api.getTriggerProps()}>
-                                                <Field.TriggerInput
-                                                    value={
-                                                        api.empty ? placeholder : api.valueAsString
-                                                    }
-                                                    className={theme.value}
+                                                <div
+                                                    data-scope="field"
+                                                    data-part="label"
+                                                    data-margin={isLabelPositionLeft ? 'none' : ''}
                                                 >
-                                                    <Field.Icon>
-                                                        <Icon value="arrow_drop_down" />
-                                                    </Field.Icon>
-                                                </Field.TriggerInput>
-                                            </Select.Trigger>
+                                                    label
+                                                </div>
+                                            )}
+                                            <Field.Root
+                                                status={getStatus(api.disabled, Boolean(error))}
+                                                required={required}
+                                            >
+                                                <Select.Trigger {...api.getTriggerProps()}>
+                                                    <Field.TriggerInput
+                                                        value={
+                                                            api.empty
+                                                                ? placeholder
+                                                                : api.valueAsString
+                                                        }
+                                                        className={theme.value}
+                                                    >
+                                                        <Field.Icon>
+                                                            <Icon value="arrow_drop_down" />
+                                                        </Field.Icon>
+                                                    </Field.TriggerInput>
+                                                </Select.Trigger>
 
-                                            {error && <span>{error}</span>}
-                                        </Field.Root>
+                                                {error && <span>{error}</span>}
+                                            </Field.Root>
+                                        </>
                                     )}
                                 </Select.Api>
                             </Select.Control>
