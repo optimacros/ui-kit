@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/example",
     "private": true,
-    "version": "2.0.5",
+    "version": "2.0.6",
     "type": "module",
     "scripts": {
         "start": "vite",
@@ -13,11 +13,11 @@
         "serve": "http-server ./dist"
     },
     "dependencies": {
-        "@optimacros-ui/button": "^2.0.5",
-        "@optimacros-ui/kit-internal": "^2.0.5",
-        "@optimacros-ui/kit-store": "^2.0.5",
-        "@optimacros-ui/store": "^2.0.5",
-        "@optimacros-ui/themes": "^2.0.5"
+        "@optimacros-ui/button": "^2.0.6",
+        "@optimacros-ui/kit-internal": "^2.0.6",
+        "@optimacros-ui/kit-store": "^2.0.6",
+        "@optimacros-ui/store": "^2.0.6",
+        "@optimacros-ui/themes": "^2.0.6"
     },
     "devDependencies": {
         "@babel/core": "^7.20.12",
@@ -29,16 +29,16 @@
         "@vitejs/plugin-react": "4.3.4",
         "babel-loader": "^9.1.2",
         "css-loader": "^6.7.3",
+        "file-loader": "6.2.0",
         "fs-extra": "7.0.1",
         "html-webpack-plugin": "5.6.3",
         "http-server": "14.1.1",
+        "raw-loader": "4.0.2",
         "style-loader": "4.0.0",
+        "svg-inline-loader": "0.8.2",
         "vite": "6.1.1",
         "webpack": "5.98.0",
         "webpack-cli": "6.0.1",
-        "webpack-dev-server": "5.2.0",
-        "raw-loader": "4.0.2",
-        "svg-inline-loader": "0.8.2",
-        "file-loader": "6.2.0"
+        "webpack-dev-server": "5.2.0"
     }
 }

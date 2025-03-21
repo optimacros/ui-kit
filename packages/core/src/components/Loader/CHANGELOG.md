@@ -3,6 +3,67 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.6 (2025-03-21)</small>
+
+* chore: update package-lock ([a93ea70](https://gitlab.optimacros.com/fe/ui-kit/commit/a93ea70))
+* chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
+* chore(package): added webpack + updated modules ([f59e1d5](https://gitlab.optimacros.com/fe/ui-kit/commit/f59e1d5))
+* chore(package): update zag ([978a2e8](https://gitlab.optimacros.com/fe/ui-kit/commit/978a2e8))
+* chore(release): 2.0.4 ([0791517](https://gitlab.optimacros.com/fe/ui-kit/commit/0791517))
+* chore(release): version update ([46fc23e](https://gitlab.optimacros.com/fe/ui-kit/commit/46fc23e))
+* chore(ui-kit): migrate components ([3437b2d](https://gitlab.optimacros.com/fe/ui-kit/commit/3437b2d))
+* chore(update-version): release ([76a0181](https://gitlab.optimacros.com/fe/ui-kit/commit/76a0181))
+* chore(update-version): upd to 2.0.5 ([7e410c4](https://gitlab.optimacros.com/fe/ui-kit/commit/7e410c4))
+* chore(version): update ([532ff3b](https://gitlab.optimacros.com/fe/ui-kit/commit/532ff3b))
+* chore(version): update ([cb4eb3f](https://gitlab.optimacros.com/fe/ui-kit/commit/cb4eb3f))
+* chore(zagjs): update ([1f6165b](https://gitlab.optimacros.com/fe/ui-kit/commit/1f6165b))
+* fix: fixed build errors ([9baa950](https://gitlab.optimacros.com/fe/ui-kit/commit/9baa950))
+* fix: test ([4772671](https://gitlab.optimacros.com/fe/ui-kit/commit/4772671))
+* fix: typings ([f313846](https://gitlab.optimacros.com/fe/ui-kit/commit/f313846))
+* fix(build-namings): changed namings, fixed build ([744e9c2](https://gitlab.optimacros.com/fe/ui-kit/commit/744e9c2))
+* fix(build): fixed ([b6531ba](https://gitlab.optimacros.com/fe/ui-kit/commit/b6531ba))
+* fix(components): a lot of fixing ([8756599](https://gitlab.optimacros.com/fe/ui-kit/commit/8756599))
+* fix(core/loader): change infinite logic ([c045f45](https://gitlab.optimacros.com/fe/ui-kit/commit/c045f45))
+* fix(core/loader): fix infinite mode ([2072fd1](https://gitlab.optimacros.com/fe/ui-kit/commit/2072fd1))
+* fix(loader): fix merge ([4f7099a](https://gitlab.optimacros.com/fe/ui-kit/commit/4f7099a))
+* fix(loader): fix ValueText position ([935bd73](https://gitlab.optimacros.com/fe/ui-kit/commit/935bd73))
+* fix(loader): fix ValueText position ([2cc5521](https://gitlab.optimacros.com/fe/ui-kit/commit/2cc5521))
+* fix(store): fix useapi ([5354c46](https://gitlab.optimacros.com/fe/ui-kit/commit/5354c46))
+* fix(storybook): build ([a28792d](https://gitlab.optimacros.com/fe/ui-kit/commit/a28792d))
+* fix(ts): fixed typescript errors ([64c25bd](https://gitlab.optimacros.com/fe/ui-kit/commit/64c25bd))
+* fix(types): fix ([ed19fa2](https://gitlab.optimacros.com/fe/ui-kit/commit/ed19fa2))
+* fix(types): fixed types ([e977633](https://gitlab.optimacros.com/fe/ui-kit/commit/e977633))
+* feat(internal-stories): created ([cf080b3](https://gitlab.optimacros.com/fe/ui-kit/commit/cf080b3))
+* feat(loader): add FloatingCancelTrigger ([f8b1476](https://gitlab.optimacros.com/fe/ui-kit/commit/f8b1476))
+* feat(loader): add ValueText and CancelTrigger ([764e815](https://gitlab.optimacros.com/fe/ui-kit/commit/764e815))
+* feat(loader): add ValueText and CancelTrigger ([862c60e](https://gitlab.optimacros.com/fe/ui-kit/commit/862c60e))
+* feat(loader): add ValueText component ([c28a5ee](https://gitlab.optimacros.com/fe/ui-kit/commit/c28a5ee))
+* feat(loader): add ValueText component ([7659184](https://gitlab.optimacros.com/fe/ui-kit/commit/7659184))
+* feat(loader): update docs ([6bbcbd9](https://gitlab.optimacros.com/fe/ui-kit/commit/6bbcbd9))
+* feat(loader): updated context ([fc67e2f](https://gitlab.optimacros.com/fe/ui-kit/commit/fc67e2f))
+* feat(monorepo): added monorepo ([1a4fa98](https://gitlab.optimacros.com/fe/ui-kit/commit/1a4fa98))
+* feat(packages): migration to individual components ([2fbb32f](https://gitlab.optimacros.com/fe/ui-kit/commit/2fbb32f))
+* feat(state-context): rewrite ([1ca44ee](https://gitlab.optimacros.com/fe/ui-kit/commit/1ca44ee))
+* feat(store): update method name ([125e901](https://gitlab.optimacros.com/fe/ui-kit/commit/125e901))
+* feat(styles): changes ([6fac204](https://gitlab.optimacros.com/fe/ui-kit/commit/6fac204))
+* feat(tabs): half-update context ([a233cec](https://gitlab.optimacros.com/fe/ui-kit/commit/a233cec))
+* feat(type-check): refactor ([62a00d8](https://gitlab.optimacros.com/fe/ui-kit/commit/62a00d8))
+* feat(use-selector): updated useSelector hook ([3cb35aa](https://gitlab.optimacros.com/fe/ui-kit/commit/3cb35aa))
+* feat(utils): created package ([a43542e](https://gitlab.optimacros.com/fe/ui-kit/commit/a43542e))
+* test: generate image snapshots ([4bd1e80](https://gitlab.optimacros.com/fe/ui-kit/commit/4bd1e80))
+* test(core/loader): add circle infinite test ([64dbdc4](https://gitlab.optimacros.com/fe/ui-kit/commit/64dbdc4))
+* test(core/loader): add snapshots ([11783ff](https://gitlab.optimacros.com/fe/ui-kit/commit/11783ff))
+* test(core/loader): add tests ([eeffb04](https://gitlab.optimacros.com/fe/ui-kit/commit/eeffb04))
+* test(core/loader): enable infinite tests ([32b1164](https://gitlab.optimacros.com/fe/ui-kit/commit/32b1164))
+* test(core/loader): update description ([4766132](https://gitlab.optimacros.com/fe/ui-kit/commit/4766132))
+* refactor(loader): change CancelTrigger and ValueText styling ([3be3711](https://gitlab.optimacros.com/fe/ui-kit/commit/3be3711))
+* refactor(loader): change CancelTrigger and ValueText styling ([b2eff65](https://gitlab.optimacros.com/fe/ui-kit/commit/b2eff65))
+* refactor(loader): convert tw styles into css ([1fa6c5b](https://gitlab.optimacros.com/fe/ui-kit/commit/1fa6c5b))
+
+
+
+
+
 ## <small>2.0.5 (2025-03-07)</small>
 
 * chore: update package-lock ([a93ea70](https://gitlab.optimacros.com/fe/ui-kit/commit/a93ea70))
