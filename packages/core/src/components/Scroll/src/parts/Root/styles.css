@@ -1,0 +1,109 @@
+[data-scope='scroll'] {
+  &[data-part='root'] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  &[data-orientation='vertical'] {
+    [data-part='viewport'] {
+      padding-right: 20px;
+    }
+
+    [data-part='scrollbar'] {
+      flex-direction: column;
+      align-items: baseline;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 20px;
+    }
+
+    [data-part='range'] {
+      justify-content: center;
+      width: 100%;
+    }
+
+    [data-part='thumb'] {
+      width: 18px;
+    }
+
+    [data-part='button-up'],
+    [data-part='button-down'],
+    [data-part='button-left'],
+    [data-part='button-right'] {
+      width: 100%;
+    }
+  }
+
+  &[data-orientation='horizontal'] {
+    [data-part='viewport'] {
+      padding-bottom: 20px;
+    }
+
+    [data-part='scrollbar'] {
+      flex-direction: row;
+      left: 0;
+      bottom: 0;
+      height: 20px;
+      width: 100%;
+    }
+
+    [data-part='range'] {
+      align-items: center;
+      height: 100%;
+    }
+
+    [data-part='thumb'] {
+      height: 18px;
+    }
+
+    [data-part='button-up'],
+    [data-part='button-down'],
+    [data-part='button-left'],
+    [data-part='button-right'] {
+      height: 100%;
+    }
+  }
+
+  [data-part='viewport'] {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    box-sizing: border-box;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+  }
+
+  [data-part='scrollbar'] {
+    display: flex;
+    position: absolute;
+  }
+
+  [data-part='range'] {
+    display: flex;
+    flex-grow: 1;
+    background-color: #e6e6e6;
+  }
+
+  [data-part='thumb'] {
+    position: relative;
+    background-color: #959595;
+    border-radius: 2px;
+  }
+
+  [data-part='button-up'],
+  [data-part='button-down'],
+  [data-part='button-left'],
+  [data-part='button-right'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e6e6e6;
+    border: none;
+    box-sizing: border-box;
+  }
+}
