@@ -101,6 +101,8 @@ const customSource = [
     { title: 'Two', key: 2 },
 ];
 
+const sourceWithNull = [{ label: 'Не выбрано', value: null }];
+
 const Wrapper = ({ children }: { children: ReactNode }) => (
     <div style={{ width: '200px' }}>{children}</div>
 );
@@ -122,6 +124,19 @@ export const DefaultValue: Story = {
         source: defaultSource,
         label: 'Select an option',
         value: '2',
+    },
+    render: (args) => (
+        <Wrapper>
+            <SelectBox {...args} />
+        </Wrapper>
+    ),
+};
+
+export const SourceWithNull: Story = {
+    args: {
+        source: sourceWithNull,
+        label: 'Select an option',
+        value: null,
     },
     render: (args) => (
         <Wrapper>
