@@ -1,5 +1,4 @@
 // @ts-nocheck
-import classNames from 'classnames';
 import _ from 'lodash';
 import { Component, ReactNode } from 'react';
 
@@ -28,7 +27,7 @@ export class WSTabContent extends Component<Props> {
 
     render() {
         const theme = mergeStyles(this.props.theme, styles);
-        const className = classNames((theme as Theme).TabContent, this.props.className);
+        const className = `${(theme as Theme).TabContent} ${this.props.className || ''}`.trim();
 
         return <div className={className}>{this.renderPanel()}</div>;
     }
