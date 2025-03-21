@@ -1,5 +1,5 @@
 import { clsx } from '@optimacros-ui/utils';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import styles from './HeaderUserMenu.module.css';
 

@@ -47,7 +47,7 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
         return (
             <SubMenuContext.Provider value={machine}>
                 <Portal>
-                    <div {...machine.api.getPositionerProps()}>
+                    <div {...machine.api.getPositionerProps()} data-tag="sub-menu">
                         <div {...machine.api.getContentProps()} ref={ref} {...rest}>
                             <List>{children}</List>
                         </div>

@@ -13,6 +13,10 @@
     "dependencies": {
         "@optimacros-ui/store": "^2.0.5",
         "@optimacros-ui/themes": "^2.0.5",
-        "react": "18.2.0"
+        "@optimacros-ui/types": "^2.0.5"
+    },
+    "peerDependencies": {
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
     }
 }

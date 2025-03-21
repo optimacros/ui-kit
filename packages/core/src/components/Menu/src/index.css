@@ -14,11 +14,18 @@
     }
   }
 
-  &[data-part='positioner'][data-tag='sub-menu'] {
-    z-index: var(--z-index-highest) !important;
-  }
+  /* &[data-part='positioner'] {
+    z-index: var(--z-index-high) !important;
+  } */
+
+  /* &[data-part='positioner'][data-tag='sub-menu'] {
+    z-index: var(--z-index-higher) !important;
+  } */
 
   &[data-part='content'] {
+    z-index: calc(var(--z-index-high) * var(--layer-index));
+    /* position: relative; */
+
     color: var(--color-menu-primary-on-default);
     height: auto;
     width: auto;

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 import { Component } from 'react';
 

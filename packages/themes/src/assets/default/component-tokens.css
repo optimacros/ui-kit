@@ -14,7 +14,7 @@
   --color-button-accent-on-default: var(--color-theme-accent-on-default);
   --color-button-primary-on-disabled: var(--color-theme-primary-disabled-on-default);
   --color-button-primary-on-default: var(--color-theme-primary-800);
-  --color-button-neutral-on-default: var(--color-pallete-gray-900);
+  --color-button-neutral-on-default: var(--color-pallete-gray-500);
   --color-button-inverse-on-default: var(--color-theme-background-primary-default);
   --color-button-bordered-on-default: var(--color-theme-primary-default);
   --color-button-bordered-active: var(--color-theme-primary-700);

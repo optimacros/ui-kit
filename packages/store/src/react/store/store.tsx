@@ -1,5 +1,5 @@
 import { invariant, mapValues } from '@optimacros-ui/utils';
-import { createContext, FC, memo, ReactNode, useContext, useLayoutEffect } from 'react';
+import { createContext, type FC, memo, type ReactNode, useContext, useLayoutEffect } from 'react';
 
 import { ActionCreator, createActionCreator, PayloadAction } from '../../utils';
 import {

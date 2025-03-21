@@ -1,7 +1,7 @@
 import { clsx } from '@optimacros-ui/utils';
-import _ from 'lodash';
+import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
-import { Component, createRef, RefObject } from 'react';
+import { Component, createRef, type RefObject } from 'react';
 
 import HeaderMenuElementContainer from './HeaderMenuElementContainer';
 import HeaderSubMenu from './HeaderSubMenu';
