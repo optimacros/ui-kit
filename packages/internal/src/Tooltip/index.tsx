@@ -71,6 +71,7 @@ export const Tooltip = memo(
             tooltipDelay = 0,
             tooltipPosition = 'vertical',
             tooltipOffset = 0,
+            className,
             ...rest
         } = props;
 
@@ -98,7 +99,7 @@ export const Tooltip = memo(
                 <styled.div ref={ref}>
                     <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
 
-                    <UITooltip.Trigger as="div">
+                    <UITooltip.Trigger as="div" className={className}>
                         <RootElement
                             composedComponent={composedComponent}
                             composedComponentProps={composedComponentProps}

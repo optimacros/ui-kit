@@ -78,6 +78,13 @@ export const LongText: Story = {
     },
 };
 
+export const ShortText: Story = {
+    args: {
+        tooltip: '-',
+        children: <Button variant="primary">Hover me</Button>,
+    },
+};
+
 export const Positions: Story = {
     render: () => (
         <Flex direction="column" gap="4" align="center" style={{ margin: '60px 0' }}>
