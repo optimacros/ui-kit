@@ -1,4 +1,4 @@
-[data-scope='button'][data-tag='internal'] {
+[data-tag='btn-internal'] {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   text-transform: none;
   border: 1px solid #0000;
@@ -11,7 +11,7 @@
   height: 30px;
   letter-spacing: 0;
 
-  &[data-float='flat'] {
+  &[data-float='squared'] {
     padding: 0 12px;
     min-width: 90px;
   }

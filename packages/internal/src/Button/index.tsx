@@ -135,7 +135,7 @@ export const Button = forward<
 
         return (
             <ButtonComponent
-                data-tag="internal"
+                data-tag="btn-internal"
                 variant={getVariant(primary, accent, bordered, gray, neutral)}
                 float={getFloatStyles(raised, floating)}
                 status={warning ? 'error' : null}
