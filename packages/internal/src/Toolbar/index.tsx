@@ -7,6 +7,7 @@ type AlignProp = 'left' | 'center' | 'right' | 'rightInRow';
 export interface ToolbarProps extends PropsWithChildren {
     align?: AlignProp;
     className?: string;
+    gap?: number;
 }
 
 const getAlign = (align: AlignProp) => {
@@ -23,12 +24,13 @@ const getAlign = (align: AlignProp) => {
 };
 
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
-    ({ align, className, children }, ref) => (
+    ({ align, className, children, gap }, ref) => (
         <UIToolbar.Root className={className} ref={ref}>
             <Flex
                 justify={getAlign(align)}
                 data-role="toolbar-content"
                 style={align === 'rightInRow' && { marginTop: 0 }}
+                gap={gap ?? 3}
             >
                 {children}
             </Flex>

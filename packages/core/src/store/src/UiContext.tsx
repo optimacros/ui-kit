@@ -1,6 +1,7 @@
 import { createReactStore } from '@optimacros-ui/store';
 import { type ReactNode, useEffect, useState as useRState } from 'react';
 import { getColorSchemeImport, getSpriteImport, ICONS_SETS, THEMES } from '@optimacros-ui/themes';
+import defaultFF from '../config/feature_flags/feature_flags.json';
 
 function appendStylesToHead({ id, value }: { id: string; value: string }) {
     const head = document.head;
@@ -52,7 +53,7 @@ export const {
          * feature flags of ui-kit
          * @see "packages/core/src/store/config/feature_flags.md"
          */
-        featureFlags: {} as Record<string, Record<string, boolean>>,
+        featureFlags: defaultFF,
     },
     actions: { keys: ['iconsSrc', 'theme'] },
     // on first render

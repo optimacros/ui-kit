@@ -97,15 +97,21 @@ export const FloatingCloseTrigger = (props) => {
     return <CloseTrigger className="top-1 right-1 absolute" {...props} />;
 };
 
-export const Positioner = forward<{}, 'div'>((props, ref) => {
-    const api = useApi();
+export const Positioner = forward<{ portalled?: boolean }, 'div'>(
+    ({ portalled, ...props }, ref) => {
+        const api = useApi();
 
-    return (
-        <Portal>
-            <styled.div {...props} {...api.getPositionerProps()} ref={ref} />
-        </Portal>
-    );
-});
+        if (!portalled) {
+            return <styled.div {...props} {...api.getPositionerProps()} ref={ref} />;
+        }
+
+        return (
+            <Portal>
+                <styled.div {...props} {...api.getPositionerProps()} ref={ref} />
+            </Portal>
+        );
+    },
+);
 
 export const Content = forward<{ size?: 'sm' | 'md' }, 'div'>(({ size, ...rest }, ref) => {
     const api = useApi();

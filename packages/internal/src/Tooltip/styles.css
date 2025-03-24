@@ -10,6 +10,7 @@
     padding: 8px;
     background-color: #3b3b3b;
     color: #ffffff;
+    z-index: var(--z-index-higher);
   }
 
   [data-scope='tooltip'][data-part='arrow'] {

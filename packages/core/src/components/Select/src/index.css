@@ -36,6 +36,7 @@
 
     max-width: 100%;
     max-height: var(--size-sm);
+    z-index: calc(var(--z-index-higher) * var(--layer-index));
   }
 
   &[data-part='content'][data-size='sm'] {

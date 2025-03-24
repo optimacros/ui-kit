@@ -7,7 +7,6 @@ export const UiKitProviderDecorator = (isDev) => (Story, context) => {
             iconsSet={context.globals.iconsSet}
             featureFlags={{
                 ...featureFlags,
-
                 isDev,
             }}
             theme={context.globals.theme}
