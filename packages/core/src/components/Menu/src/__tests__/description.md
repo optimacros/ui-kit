@@ -110,3 +110,25 @@
 - делаю скриншот `default`
 - кликаю первый `enabled` элемент
 - проверяю состояние (закрыто)
+
+## Highlighted
+
+- сбрасываю пропсы
+- передаю `{ defaultHighlightedValue: 1й item}`
+- проверяю основные элементы на странице
+- кликаю правой кнопкой на `trigger`
+- проверяю состояние (открыто)
+- проверяю highlighted item (1)
+- нажимаю `ArrowDown`
+- проверяю highlighted item (2)
+- проверяю вызов `onHighlightChange`
+- нажимаю `t` (typeahead)
+- проверяю highlighted item (3)
+- проверяю вызов `onHighlightChange`
+- передаю `{ highlightedValue: id 4го item}`
+- проверяю highlighted item (4)
+- нажимаю `ArrowDown`
+- проверяю highlighted item (4)
+- проверяю вызов `onHighlightChange`
+- нажимаю `Enter`
+- проверяю состояние (закрыто)

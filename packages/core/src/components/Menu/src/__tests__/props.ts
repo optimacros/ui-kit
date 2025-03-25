@@ -5,6 +5,9 @@ import { fn } from '@storybook/test';
 export const props: Partial<Props> = {
     open: undefined,
     defaultOpen: false,
+    highlightedValue: undefined,
+    defaultHighlightedValue: undefined,
+    onHighlightChange: fn(),
     onOpenChange: fn(),
     onSelect: fn(),
     closeOnSelect: true,

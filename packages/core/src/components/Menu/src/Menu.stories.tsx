@@ -5,6 +5,7 @@ import { Orientation } from '@optimacros-ui/utils';
 import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
 import { fn } from '@storybook/test';
+import { menuItems } from './mock';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', marginLeft: '20px' }}>{children}</div>
@@ -126,6 +127,12 @@ type Story = StoryObj<typeof Menu.Root>;
 export const Basic: Story = {
     render: examples.Basic,
     play: scenarios.basic,
+};
+
+export const highlighted: Story = {
+    args: { defaultOpen: true, defaultHighlightedValue: menuItems[1].value },
+    render: examples.Basic,
+    play: scenarios.highlighted,
 };
 
 export const OrientationExample: Story = {
