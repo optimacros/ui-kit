@@ -13,7 +13,7 @@ const Content = ({ parent }) => {
 
     return (
         <>
-            <Menu.Positioner portalled>
+            <Menu.Positioner>
                 <Menu.Content data-testid="menu-content">
                     <Menu.List>
                         <Menu.TriggerItem
