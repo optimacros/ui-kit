@@ -5,7 +5,7 @@ import { menuItems } from './mock';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from '@optimacros-ui/button';
 import { Orientation } from '@optimacros-ui/utils';
-import * as stories from './stories';
+import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
 import { Spacer } from '@optimacros-ui/spacer';
 
@@ -97,77 +97,20 @@ export default meta;
 type Story = StoryObj<typeof Menu.Root>;
 
 export const Basic: Story = {
-    args: {
-        defaultOpen: false,
-        closeOnSelect: true,
-    },
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild>
-                    <Button data-testid="trigger">Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content size="sm" data-testid="menu-content">
-                        <Menu.List data-testid="menu-list">
-                            {menuItems.map((v) => (
-                                <Menu.Item key={v.value} {...v}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    args: {},
+    render: examples.Basic,
     play: scenarios.basic,
 };
 
 export const OrientationExample: Story = {
-    render: () => {
-        return (
-            <Menu.Root>
-                <Menu.Trigger data-testid="trigger">
-                    <div>Click me</div>
-                </Menu.Trigger>
-                <Menu.Api>
-                    {(api) => (
-                        <div
-                            data-testid="orientation-trigger"
-                            onClick={() =>
-                                api.setOrientation(
-                                    api.orientation === Orientation.Horizontal
-                                        ? Orientation.Vertical
-                                        : Orientation.Horizontal,
-                                )
-                            }
-                        >
-                            Change orientation
-                        </div>
-                    )}
-                </Menu.Api>
-
-                <Menu.Positioner>
-                    <Menu.Content size="sm" data-testid="menu-content">
-                        <Menu.List>
-                            {menuItems.map((v) => (
-                                <Menu.Item {...v} key={v.value}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    args: { orientation: Orientation.Vertical },
+    render: examples.Basic,
     play: scenarios.orientation,
 };
 
 export const Nested: Story = {
     args: { closeOnSelect: true, hoverable: true },
-    render: stories.Nested,
+    render: examples.Nested,
     play: scenarios.nested,
 };
 

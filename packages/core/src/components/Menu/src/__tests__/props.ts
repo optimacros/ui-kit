@@ -1,3 +1,4 @@
+import { Orientation } from '@optimacros-ui/utils';
 import type { Props } from '../menu.machine';
 import { fn } from '@storybook/test';
 
@@ -5,6 +6,7 @@ export const props: Partial<Props> = {
     open: undefined,
     defaultOpen: false,
     onOpenChange: fn(),
+    onSelect: fn(),
     closeOnSelect: true,
     disabled: false,
     positioning: {
@@ -14,4 +16,5 @@ export const props: Partial<Props> = {
         strategy: 'absolute',
     },
     loopFocus: false,
+    orientation: Orientation.Vertical,
 };
