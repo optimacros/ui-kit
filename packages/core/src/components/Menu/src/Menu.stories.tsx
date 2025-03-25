@@ -153,5 +153,5 @@ export const Disabled: Story = {
 
 export const ContextMenu: Story = {
     render: examples.ContextMenu,
-    tags: ['skip-test-runner'],
+    play: scenarios.contextMenu,
 };
