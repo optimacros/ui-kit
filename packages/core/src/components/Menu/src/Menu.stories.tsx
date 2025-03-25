@@ -166,6 +166,7 @@ export const OrientationExample: Story = {
 };
 
 export const Nested: Story = {
+    args: { closeOnSelect: true, hoverable: true },
     render: stories.Nested,
     play: scenarios.nested,
 };
