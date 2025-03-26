@@ -4,7 +4,11 @@ import { Icon } from '@optimacros-ui/icon';
 import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 
-export type ButtonMenuTheme = Partial<ButtonTheme>;
+export type ButtonMenuTheme = Partial<ButtonTheme> & {
+    ButtonMenu?: string;
+    buttonText?: string;
+    buttonIcon?: string;
+};
 
 type Props = {
     label?: string;
@@ -56,8 +60,8 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
         const renderContent = () => {
             return (
                 <>
-                    {!showOnlyIcon && <div>{label}</div>}
-                    <div>
+                    {!showOnlyIcon && <div className={theme.buttonText}>{label}</div>}
+                    <div className={theme.buttonIcon}>
                         <Icon value={iconValue} />
                     </div>
                 </>
@@ -69,10 +73,13 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
                 <Tooltip
                     composedComponent={Button}
                     composedComponentProps={{
+                        theme,
+                        className: theme.ButtonMenu,
                         ...otherProps,
                         'data-label': label,
                         'data-name': dataName,
                     }}
+                    theme={theme}
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
@@ -95,6 +102,7 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
                 data-label={label}
                 data-name={dataName}
                 theme={theme}
+                className={theme.ButtonMenu}
             >
                 {renderContent()}
             </Button>
@@ -106,7 +114,6 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
             closeOnSelect={closeOnSelect}
             disabled={disabled}
             open={visible}
-            {...{ 'open.controlled': false }}
             renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
             controllable

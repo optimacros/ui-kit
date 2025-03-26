@@ -134,9 +134,7 @@
 
     &:hover,
     &:focus-visible {
-      background: transparent;
-      color: var(--color-button-neutral-on-default);
-      border-color: var(--color-button-neutral-on-default);
+      background: var(--color-button-neutral-default-hover);
     }
   }
 

@@ -12,6 +12,7 @@ export interface IconProps {
     variant?: 'primary' | 'secondary';
     /** color as variable */
     color?: string;
+    className?: string;
 }
 
 export const Icon = forward<IconProps, 'svg'>(function Icon(

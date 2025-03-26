@@ -34,10 +34,6 @@
     box-sizing: border-box;
     word-wrap: break-word;
   }
-
-  &[data-part='positioner'] {
-    z-index: var(--z-index-higher) !important;
-  }
 }
 
 [data-scope='color-picker'][data-part='label'] {
@@ -115,6 +111,7 @@ div:has(> [data-scope='color-picker'][data-part='channel-input'] ~ span) {
   isolation: isolate;
   padding: var(--spacing-4);
   background: var(--colors-color-picker-bg-subtle);
+  z-index: calc(var(--z-index-higher) * var(--layer-index));
 }
 
 [data-scope='color-picker'][data-part='area']

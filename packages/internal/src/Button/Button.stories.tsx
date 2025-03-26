@@ -243,6 +243,7 @@ export const LinkButton: Story = {
         label: 'Link Button',
         href: 'https://example.com',
         target: '_blank',
+        icon: 'action',
     },
 };
 
