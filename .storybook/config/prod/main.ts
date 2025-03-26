@@ -20,7 +20,7 @@ const configProd: StorybookConfig = {
 
             plugins: [...cfg.plugins, tsconfigPaths()],
             css: {
-                transformer: 'lightningcss',
+                transformer: 'postcss',
             },
         };
     },

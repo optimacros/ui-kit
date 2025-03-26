@@ -8,7 +8,8 @@ import {
 } from '@optimacros-ui/kit-internal';
 import { IconButton as IconButtonCore } from '@optimacros-ui/icon-button';
 import { forward } from '@optimacros-ui/store';
-import { useThemeClassName } from '../utils';
+import { clsx } from '@optimacros-ui/utils';
+import './styles.css';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
@@ -30,7 +31,7 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
             label,
             icon,
             href,
-            theme = {},
+            theme = {} as IconBtnProps['theme'],
             inverse,
             mini,
             neutral,
@@ -57,7 +58,7 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
             fontSize,
         };
 
-        const cn = useThemeClassName(theme, className);
+        const cn = clsx(theme.IconButton, className);
 
         return (
             <IconButtonCore
@@ -72,8 +73,12 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
                 icon={icon}
                 style={style}
                 className={cn}
+                iconProps={{
+                    className: theme.icon,
+                }}
                 {...rest}
                 ref={ref}
+                data-style-tag="internal"
             />
         );
     },
@@ -101,6 +106,8 @@ export const IconButton = forward<IconButtonProps, 'button'>(
             <Tooltip
                 composedComponent={IconButtonComponent}
                 composedComponentProps={{
+                    className,
+                    theme,
                     ...otherProps,
                     ref,
                     'data-label': label,
@@ -108,7 +115,6 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                 onClick={onClick}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                className={className}
                 tooltip={label ?? tooltip}
                 tooltipDelay={tooltipDelay}
                 tooltipPosition={tooltipPosition}

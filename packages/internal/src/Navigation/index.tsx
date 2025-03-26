@@ -2,6 +2,7 @@ import type React from 'react';
 import { Orientation } from '@optimacros-ui/utils';
 import { Navigation as NavigationComponent } from '@optimacros-ui/navigation';
 import { forward } from '@optimacros-ui/store';
+import { Children, cloneElement, isValidElement } from 'react';
 
 type NavigationTheme = {
     horizontal: string;
@@ -32,14 +33,17 @@ const getOrientation = (type: NavigationType, vertical: boolean): Orientation =>
 };
 
 export const Navigation = forward<NavigationProps, 'nav'>(
-    ({ type, children, className, vertical }, ref) => {
+    ({ type, children, className, vertical, theme, ...rest }, ref) => {
         return (
             <NavigationComponent.Root
+                {...rest}
                 orientation={getOrientation(type, vertical)}
                 className={className}
                 ref={ref}
             >
-                {children}
+                {Children.map(Children.toArray(children), (child) =>
+                    isValidElement(child) ? cloneElement<any>(child, { theme }) : null,
+                )}
             </NavigationComponent.Root>
         );
     },

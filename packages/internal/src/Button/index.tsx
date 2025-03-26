@@ -4,7 +4,8 @@ import { Button as ButtonComponent, type ButtonProps } from '@optimacros-ui/butt
 import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
-import { useThemeClassName } from '../utils';
+import { clsx } from '@optimacros-ui/utils';
+
 import './styles.css';
 
 export type ThemeButtonProps = {
@@ -129,7 +130,7 @@ export const Button = forward<
             fontSize,
         };
 
-        const cn = useThemeClassName(theme, className);
+        const cn = clsx(theme.button, theme.Button, className);
 
         const btnContentDirection = iconPosition === 'left' ? 'row' : 'row-reverse';
 
@@ -152,7 +153,7 @@ export const Button = forward<
             >
                 {icon ? (
                     <Flex direction={btnContentDirection} align="center" gap={2}>
-                        <Icon value={icon} />
+                        <Icon value={icon} className={theme.icon} />
                         {label}
                     </Flex>
                 ) : (

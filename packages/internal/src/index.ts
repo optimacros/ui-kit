@@ -1,3 +1,5 @@
+import './styles.css';
+
 export * from './Button';
 export * from './ButtonMenu';
 export * from './Calendar';

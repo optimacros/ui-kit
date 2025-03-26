@@ -1,0 +1,213 @@
+.NavigationContainer_small {
+  padding: 2px 5px;
+
+  & > * {
+    height: 27px !important;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+
+  & > *:not(:last-child) {
+    margin-right: 3px !important;
+  }
+
+  & .ButtonMenu {
+    height: 27px !important;
+    padding: 0 1px 0 5px;
+
+    /* stylelint-disable selector-class-pattern */
+    & .buttonIcon > * {
+      font-size: 18px;
+    }
+
+    & .buttonText {
+      font-size: 12px;
+    }
+    /* stylelint-enable selector-class-pattern */
+  }
+
+  & .IconButton {
+    height: 27px !important;
+
+    /* stylelint-disable-next-line selector-class-pattern */
+    & .icon {
+      font-size: 15px !important;
+    }
+
+    & img {
+      width: 85% !important;
+    }
+  }
+}
+.NavigationContainer {
+  margin: 0;
+  padding: 5px 5px;
+
+  &_small {
+    padding: 2px 5px;
+
+    & > * {
+      height: 27px !important;
+      margin-top: 2px !important;
+      margin-bottom: 2px !important;
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 3px !important;
+    }
+
+    & .ButtonMenu {
+      height: 27px !important;
+      padding: 0 1px 0 5px;
+
+      /* stylelint-disable selector-class-pattern */
+      & .buttonIcon > * {
+        font-size: 18px;
+      }
+
+      & .buttonText {
+        font-size: 12px;
+      }
+      /* stylelint-enable selector-class-pattern */
+    }
+
+    & .IconButton {
+      height: 27px !important;
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      & .icon {
+        font-size: 15px !important;
+      }
+
+      & img {
+        width: 85% !important;
+      }
+    }
+  }
+
+  &_normal {
+    padding: 3px 5px;
+
+    & > * {
+      height: 28px !important;
+      margin-top: 2px !important;
+      margin-bottom: 2px !important;
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 4px !important;
+    }
+
+    & .ButtonMenu {
+      height: 28px !important;
+      padding: 0 2px 0 6px;
+
+      /* stylelint-disable selector-class-pattern */
+      & .buttonIcon > * {
+        font-size: 20px;
+      }
+
+      & .buttonText {
+        font-size: 12px;
+      }
+      /* stylelint-enable selector-class-pattern */
+    }
+
+    & .IconButton {
+      height: 28px !important;
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      & .icon {
+        font-size: 16px !important;
+      }
+
+      & img {
+        width: 90% !important;
+      }
+    }
+  }
+
+  &_big {
+    padding: 4px 5px;
+
+    & > * {
+      height: 29px !important;
+      margin-top: 3px !important;
+      margin-bottom: 3px !important;
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 5px !important;
+    }
+
+    & .ButtonMenu {
+      height: 29px !important;
+      padding: 0 2px 0 8px;
+
+      /* stylelint-disable selector-class-pattern */
+      & .buttonIcon > * {
+        font-size: 22px;
+      }
+
+      & .buttonText {
+        font-size: 13px;
+      }
+      /* stylelint-enable selector-class-pattern */
+    }
+
+    & .IconButton {
+      height: 29px !important;
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      & .icon {
+        font-size: 16px !important;
+      }
+
+      & img {
+        width: 95% !important;
+      }
+    }
+  }
+
+  &_largest {
+    padding: 5px 5px;
+
+    & > * {
+      height: 30px !important;
+      margin-top: 3px !important;
+      margin-bottom: 3px !important;
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 6px !important;
+    }
+
+    & .ButtonMenu {
+      height: 30px !important;
+      padding: 0 3px 0 10px;
+
+      /* stylelint-disable selector-class-pattern */
+      & .buttonIcon > * {
+        font-size: 24px;
+      }
+
+      & .buttonText {
+        font-size: 14px;
+      }
+      /* stylelint-enable selector-class-pattern */
+    }
+
+    & .IconButton {
+      height: 30px !important;
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      & .icon {
+        font-size: 17px !important;
+      }
+
+      & img {
+        width: 100% !important;
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { ButtonMenu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 import { Flex } from '@optimacros-ui/flex';
+import theme from './custom.module.css';
 
 const argTypes: Partial<ArgTypes> = {
     disabled: {
@@ -167,6 +168,22 @@ export const Visible: Story = {
     args: {
         label: 'Menu',
         visible: true,
+        children: [
+            <MenuItem value="1" key={1}>
+                <span>Option</span>
+            </MenuItem>,
+            <MenuItem value="2" key={2}>
+                <span>Option</span>
+            </MenuItem>,
+        ],
+    },
+};
+
+export const CustomStyles: Story = {
+    args: {
+        label: 'Menu',
+        visible: true,
+        theme,
         children: [
             <MenuItem value="1" key={1}>
                 <span>Option</span>

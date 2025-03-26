@@ -1,7 +1,11 @@
 import { ReactNode } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { Button } from '@optimacros-ui/button';
+import { Button } from '../Button';
 import { Navigation } from './index';
+import { ButtonMenu } from '../ButtonMenu';
+import { IconButton } from '../IconButton';
+import { MenuItem } from '../Menu';
+import theme from './custom.module.css';
 
 const meta: Meta<typeof Navigation> = {
     title: 'UI Kit internal/Navigation',
@@ -48,6 +52,36 @@ export const Basic: Story = {
                 <Button>Contact</Button>
             </>
         ),
+    },
+};
+
+export const IconButtonNav: Story = {
+    args: {
+        type: 'horizontal',
+        theme,
+        className: `${theme.NavigationContainer_small}`,
+        children: [
+            <ButtonMenu dataName="viewButton" label={'viewMenuLabel'} disabled>
+                <MenuItem data-name="saveAsMenuItem" label={'saveAsMenuItemLabel'} disabled />
+            </ButtonMenu>,
+            <ButtonMenu dataName="dataButton" label={'dataMenuLabel'}>
+                <MenuItem data-name="importResultsMenuItem" label={'importResultsMenuLabel'} />
+            </ButtonMenu>,
+            <IconButton icon="play_arrow" label={'runButtonLabel'} />,
+            <IconButton icon="save" label={'saveAsToolbarButtonLabel'} disabled />,
+            <IconButton icon="content_copy" label={'copyAsToolbarButtonLabel'} disabled />,
+            <ButtonMenu dataName="viewButton" icon="cloud_download" tooltip={'exportRequestLabel'}>
+                <MenuItem data-name="downloadLP" label="LP" />
+
+                <MenuItem data-name="downloadMPS" label="MPS" disabled />
+
+                <MenuItem data-name="downloadAMPL" label="AMPL" disabled />
+            </ButtonMenu>,
+            <IconButton icon="vertical_align_bottom" label={'exportToolbarButtonLabel'} disabled />,
+            <IconButton icon="refresh" label={'labelRefreshButton'} disabled />,
+            <IconButton icon="search" label="Search" disabled />,
+            <IconButton icon="build" label={'RequestSettingsLabel'} />,
+        ],
     },
 };
 
