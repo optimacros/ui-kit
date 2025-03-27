@@ -1,7 +1,8 @@
 import { forwardRef, useEffect } from 'react';
 import type React from 'react';
 import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
-import { Icon } from '@optimacros-ui/icon';
+import { IconButton } from '../IconButton';
+import { Button } from '@optimacros-ui/button';
 
 interface CalendarProps {
     active?: boolean;
@@ -61,21 +62,21 @@ const Content = forwardRef<HTMLDivElement, CalendarProps>(
                     <CalendarComponent.HeaderMonths className={theme.date} />
                 </CalendarComponent.Header>
                 <CalendarComponent.DaysViewControl className={theme.navigation}>
-                    <CalendarComponent.DaysPrevTrigger className={theme.button}>
-                        <Icon value="chevron_left" />
+                    <CalendarComponent.DaysPrevTrigger className={theme.button} asChild>
+                        <IconButton icon="chevron_left" float="flat" variant="primary" />
                     </CalendarComponent.DaysPrevTrigger>
                     <CalendarComponent.DaysRangeText className={theme.monthsDisplay} />
-                    <CalendarComponent.DaysNextTrigger className={theme.button}>
-                        <Icon value="chevron_right" />
+                    <CalendarComponent.DaysNextTrigger className={theme.button} asChild>
+                        <IconButton icon="chevron_right" float="flat" variant="primary" />
                     </CalendarComponent.DaysNextTrigger>
                 </CalendarComponent.DaysViewControl>
                 <CalendarComponent.YearsViewControl>
-                    <CalendarComponent.YearsPrevTrigger className={theme.button}>
-                        <Icon value="chevron_left" />
+                    <CalendarComponent.YearsPrevTrigger className={theme.button} asChild>
+                        <IconButton icon="chevron_left" float="flat" variant="primary" />
                     </CalendarComponent.YearsPrevTrigger>
                     <CalendarComponent.YearsRangeText className={theme.yearsDisplay} />
-                    <CalendarComponent.YearsNextTrigger className={theme.button}>
-                        <Icon value="chevron_right" />
+                    <CalendarComponent.YearsNextTrigger className={theme.button} asChild>
+                        <IconButton icon="chevron_right" float="flat" variant="primary" />
                     </CalendarComponent.YearsNextTrigger>
                 </CalendarComponent.YearsViewControl>
                 <CalendarComponent.YearsTable className={theme.calendarWrapper}>
@@ -86,11 +87,19 @@ const Content = forwardRef<HTMLDivElement, CalendarProps>(
                     <CalendarComponent.DaysTableBody />
                 </CalendarComponent.DaysTable>
                 <CalendarComponent.Footer>
-                    <CalendarComponent.DismissButton onSelect={onDismiss} className={theme.button}>
-                        {cancelLabel}
+                    <CalendarComponent.DismissButton
+                        onDismiss={onDismiss}
+                        className={theme.button}
+                        asChild
+                    >
+                        <Button variant="primary">{cancelLabel}</Button>
                     </CalendarComponent.DismissButton>
-                    <CalendarComponent.SuccessButton onSelect={onSelect} className={theme.button}>
-                        {okLabel}
+                    <CalendarComponent.SuccessButton
+                        onSelect={onSelect}
+                        className={theme.button}
+                        asChild
+                    >
+                        <Button variant="primary">{okLabel}</Button>
                     </CalendarComponent.SuccessButton>
                 </CalendarComponent.Footer>
             </CalendarComponent.Content>
