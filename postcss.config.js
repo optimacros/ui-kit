@@ -4,11 +4,9 @@ module.exports = {
         'postcss-import': {
             path: ['src'],
         },
-        'postcss-rem-to-responsive-pixel': {
-            rootValue: 16,
+        'postcss-rem-to-rem-multiplier': {
+            multiplier: 1.6,
             propList: ['*'],
-            transformUnit: 'px',
-            replace: true,
             mediaQuery: true,
         },
         // 'postcss-apply': {},

@@ -91,7 +91,7 @@
         "postcss-nested": "4.2.3",
         "postcss-normalize": "10.0.1",
         "postcss-preset-env": "7.8.3",
-        "postcss-rem-to-responsive-pixel": "^6.0.2",
+        "postcss-rem-to-rem-multiplier": "^4.2.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "semantic-ui-react": "^2.1.5",
