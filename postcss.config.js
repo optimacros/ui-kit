@@ -4,6 +4,11 @@ module.exports = {
         'postcss-import': {
             path: ['src'],
         },
+        'postcss-rem-to-rem-multiplier': {
+            multiplier: 1.6,
+            propList: ['*'],
+            mediaQuery: true,
+        },
         // 'postcss-apply': {},
         // 'postcss-preset-env': {
         //     features: {

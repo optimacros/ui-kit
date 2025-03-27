@@ -24,6 +24,7 @@ function App() {
                             t === THEMES.ADVEXCEL ? THEMES.OPTIMACROS : THEMES.ADVEXCEL,
                         );
                     }}
+                    icon={ICONS_MAP.add}
                 >
                     Button
                 </Button>
