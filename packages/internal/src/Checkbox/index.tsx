@@ -46,6 +46,7 @@ export type CheckboxTooltipProps = {
 
 type InitialProps = {
     checked?: boolean;
+    value?: boolean;
     name?: string;
     label?: React.ReactNode | string;
     tooltipLabel?: string;
@@ -111,6 +112,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
     (
         {
             checked = false,
+            value = false,
             children,
             disabled = false,
             label,
@@ -128,7 +130,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
             <CheckboxCore.Root
                 name={name}
                 defaultChecked={checked}
-                checked={isUndefined(onChange) ? undefined : checked}
+                checked={isUndefined(onChange) ? undefined : checked || value}
                 disabled={disabled}
                 //@ts-ignore
                 onCheckedChange={(e) => onChange?.(e.checked, {})}
