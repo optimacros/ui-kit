@@ -1,7 +1,3 @@
-@import './default/tokens.css';
-@import './default/component-tokens.css';
-@import './default/utils.css';
-
 :root {
   font-size: 10px;
 }
