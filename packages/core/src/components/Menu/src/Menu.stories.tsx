@@ -1,13 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import { Menu } from './index';
-import { menuItems } from './mock';
-import { Flex } from '@optimacros-ui/flex';
-import { Button } from '@optimacros-ui/button';
 import { Orientation } from '@optimacros-ui/utils';
-import * as stories from './stories';
+import * as examples from './examples';
 import * as scenarios from './__tests__/scenarios';
-import { Spacer } from '@optimacros-ui/spacer';
+import { fn } from '@storybook/test';
+import { menuItems } from './mock';
 
 const Wrapper = ({ children }: { children }) => (
     <div style={{ width: '100%', marginLeft: '20px' }}>{children}</div>
@@ -44,6 +42,26 @@ const meta: Meta<typeof Menu.Root> = {
                 'Whether to close the menu when an item is selected. This prop can be passed both to `Root` and `Item` components',
             table: { defaultValue: { summary: 'true' } },
         },
+        onSelect: {
+            control: false,
+            description: 'Function called when a menu item is selected',
+            table: { type: { summary: '(details: SelectionDetails) => void' } },
+        },
+        onHighlightChange: {
+            control: false,
+            description: 'Function called when the highlighted menu item changes',
+            table: { type: { summary: '(details: HighlightChangeDetails) => void' } },
+        },
+        highlightedValue: {
+            control: 'text',
+            description: 'The controlled highlighted value of the menu item',
+            table: { type: { summary: 'string' } },
+        },
+        defaultHighlightedValue: {
+            control: 'text',
+            description: `The initial highlighted value of the menu item when rendered. Use when you don't need to control the highlighted value of the menu item`,
+            table: { type: { summary: 'string' } },
+        },
 
         // Positioning
         positioning: {
@@ -59,6 +77,12 @@ const meta: Meta<typeof Menu.Root> = {
             }`,
                 },
             },
+        },
+        orientation: {
+            control: 'radio',
+            options: ['horizontal', 'vertical'],
+            description: 'Orientation of the menu',
+            table: { defaultValue: { summary: 'vertical' } },
         },
 
         // Behavior
@@ -89,6 +113,10 @@ const meta: Meta<typeof Menu.Root> = {
     ],
     args: {
         open: undefined,
+        orientation: Orientation.Vertical,
+        onSelect: fn(),
+        onOpenChange: fn(),
+        onHighlightChange: fn(),
     },
 };
 
@@ -97,174 +125,40 @@ export default meta;
 type Story = StoryObj<typeof Menu.Root>;
 
 export const Basic: Story = {
-    args: {
-        defaultOpen: false,
-        closeOnSelect: true,
-    },
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild>
-                    <Button data-testid="trigger">Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content size="sm" data-testid="menu-content">
-                        <Menu.List data-testid="menu-list">
-                            {menuItems.map((v) => (
-                                <Menu.Item key={v.value} {...v}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    render: examples.Basic,
     play: scenarios.basic,
 };
 
-export const OrientationExample: Story = {
-    render: () => {
-        return (
-            <Menu.Root>
-                <Menu.Trigger data-testid="trigger">
-                    <div>Click me</div>
-                </Menu.Trigger>
-                <Menu.Api>
-                    {(api) => (
-                        <div
-                            data-testid="orientation-trigger"
-                            onClick={() =>
-                                api.setOrientation(
-                                    api.orientation === Orientation.Horizontal
-                                        ? Orientation.Vertical
-                                        : Orientation.Horizontal,
-                                )
-                            }
-                        >
-                            Change orientation
-                        </div>
-                    )}
-                </Menu.Api>
+export const highlighted: Story = {
+    args: { defaultOpen: true, defaultHighlightedValue: menuItems[1].value },
+    render: examples.Basic,
+    play: scenarios.highlighted,
+};
 
-                <Menu.Positioner>
-                    <Menu.Content size="sm" data-testid="menu-content">
-                        <Menu.List>
-                            {menuItems.map((v) => (
-                                <Menu.Item {...v} key={v.value}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+export const OrientationExample: Story = {
+    args: { orientation: Orientation.Vertical },
+    render: examples.Basic,
     play: scenarios.orientation,
 };
 
 export const Nested: Story = {
-    render: stories.Nested,
+    args: { closeOnSelect: true, hoverable: true },
+    render: examples.Nested,
     play: scenarios.nested,
 };
 
 export const Group: Story = {
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild data-testid="trigger">
-                    <Button data-testid="trigger">Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content data-testid="menu-content">
-                        <Flex direction="column">
-                            <Menu.Group id="first">
-                                <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>
-                                {menuItems.slice(0, 2).map((v) => (
-                                    <Menu.Item {...v} key={`${v.value} 1`}>
-                                        {v.valueText}
-                                    </Menu.Item>
-                                ))}
-                            </Menu.Group>
-
-                            <Spacer size={3} orientation={Orientation.Vertical} />
-
-                            <Menu.Group id="second">
-                                <Menu.GroupLabel htmlFor="second">second</Menu.GroupLabel>
-                                {menuItems.slice(3, 5).map((v) => (
-                                    <Menu.Item {...v} key={`${v.value} 2`}>
-                                        {v.valueText}
-                                    </Menu.Item>
-                                ))}
-                            </Menu.Group>
-
-                            <Spacer size={3} orientation={Orientation.Vertical} />
-
-                            <Menu.Group id="third">
-                                <Menu.GroupLabel htmlFor="third">third</Menu.GroupLabel>
-                                {menuItems.slice(5, 8).map((v) => (
-                                    <Menu.Item {...v} key={`${v.value} 3`}>
-                                        {v.valueText}
-                                    </Menu.Item>
-                                ))}
-                            </Menu.Group>
-                        </Flex>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    render: examples.Group,
     play: scenarios.group,
 };
 
 export const Disabled: Story = {
     args: { disabled: true },
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.Trigger asChild data-testid="trigger">
-                    <Button>Click me</Button>
-                </Menu.Trigger>
-                <Menu.Positioner>
-                    <Menu.Content data-testid="menu-content">
-                        <Menu.List>
-                            {menuItems.map((v) => (
-                                <Menu.Item {...v} key={v.value}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
+    render: examples.Basic,
     play: scenarios.disabled,
 };
 
 export const ContextMenu: Story = {
-    args: {},
-    render: (props) => {
-        return (
-            <Menu.Root {...props}>
-                <Menu.ContextTrigger asChild data-testid="context-trigger">
-                    <Button>Click me</Button>
-                </Menu.ContextTrigger>
-                <Menu.Positioner>
-                    <Menu.Content data-testid="menu-content">
-                        <Menu.List>
-                            {menuItems.map((v) => (
-                                <Menu.Item {...v} key={v.value}>
-                                    {v.valueText}
-                                </Menu.Item>
-                            ))}
-                        </Menu.List>
-                    </Menu.Content>
-                </Menu.Positioner>
-            </Menu.Root>
-        );
-    },
-    tags: ['skip-test-runner'],
+    render: examples.ContextMenu,
+    play: scenarios.contextMenu,
 };

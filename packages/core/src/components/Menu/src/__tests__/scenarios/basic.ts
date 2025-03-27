@@ -48,12 +48,20 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
         expect(content).toHaveAttribute('data-state', 'open');
         expect(content).toBeVisible();
 
-        const firstEnabledMenuItemValue = menuItems.find((item) => !item.disabled).valueText;
+        const firstEnabledMenuItem = menuItems.find((item) => !item.disabled);
+        const firstEnabledMenuItemElement = within(content).getByTitle(
+            firstEnabledMenuItem.valueText,
+        );
 
-        await fireEvent.click(within(content).getByTitle(firstEnabledMenuItemValue));
+        await user.hover(firstEnabledMenuItemElement);
+        await fireEvent.click(firstEnabledMenuItemElement);
 
-        await waitFor(() => expect(content).toHaveAttribute('data-state', 'closed'));
-        expect(content).not.toBeVisible();
+        await waitFor(() => {
+            expect(window.testing.args.onSelect).toHaveBeenCalledTimes(1);
+            expect(window.testing.args.onSelect).toHaveBeenLastCalledWith({
+                value: firstEnabledMenuItem.value,
+            });
+        });
 
         await window.testing.updateArgs({ closeOnSelect: false });
 
@@ -62,7 +70,7 @@ export const basic: PlayFunction<ReactRenderer> = async ({ canvasElement, step, 
         await waitFor(() => expect(content).toHaveAttribute('data-state', 'open'));
         expect(content).toBeVisible();
 
-        await fireEvent.click(within(content).getByTitle(firstEnabledMenuItemValue));
+        await fireEvent.click(within(content).getByTitle(firstEnabledMenuItem.valueText));
 
         await sleep(100);
         expect(content).toHaveAttribute('data-state', 'open');

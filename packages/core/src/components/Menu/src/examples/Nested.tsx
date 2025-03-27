@@ -13,7 +13,7 @@ const Content = ({ parent }) => {
 
     return (
         <>
-            <Menu.Positioner portalled>
+            <Menu.Positioner>
                 <Menu.Content data-testid="menu-content">
                     <Menu.List>
                         <Menu.TriggerItem
@@ -57,7 +57,12 @@ const Content = ({ parent }) => {
                 </Menu.TriggerItem>
 
                 {menuItems.map((v) => (
-                    <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
+                    <Menu.SubMenuItem
+                        key={v.value}
+                        {...v}
+                        value={`submenu_1_${v.value}`}
+                        data-testid={v.value}
+                    >
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
@@ -65,7 +70,12 @@ const Content = ({ parent }) => {
 
             <Menu.SubMenuContent menu={submenu_2}>
                 {menuItems.map((v) => (
-                    <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
+                    <Menu.SubMenuItem
+                        key={v.value}
+                        {...v}
+                        value={`submenu_2_${v.value}`}
+                        data-testid={v.value}
+                    >
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
@@ -73,7 +83,12 @@ const Content = ({ parent }) => {
 
             <Menu.SubMenuContent menu={submenu_3}>
                 {menuItems.map((v) => (
-                    <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
+                    <Menu.SubMenuItem
+                        key={v.value}
+                        {...v}
+                        value={`submenu_3_${v.value}`}
+                        data-testid={v.value}
+                    >
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
@@ -88,7 +103,12 @@ const Content = ({ parent }) => {
                     sub 1 1 1
                 </Menu.TriggerItem>
                 {menuItems.map((v) => (
-                    <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
+                    <Menu.SubMenuItem
+                        key={v.value}
+                        {...v}
+                        value={`submenu_1_1_${v.value}`}
+                        data-testid={v.value}
+                    >
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
@@ -96,7 +116,12 @@ const Content = ({ parent }) => {
 
             <Menu.SubMenuContent menu={submenu_1_1_1} data-testid="sub-1-1-1-content">
                 {menuItems.map((v) => (
-                    <Menu.SubMenuItem key={v.value} {...v} data-testid={v.value}>
+                    <Menu.SubMenuItem
+                        key={v.value}
+                        {...v}
+                        value={`submenu_1_1_1_${v.value}`}
+                        data-testid={v.value}
+                    >
                         {v.valueText}
                     </Menu.SubMenuItem>
                 ))}
@@ -107,7 +132,7 @@ const Content = ({ parent }) => {
 
 export const Nested = (props: Props) => {
     return (
-        <Menu.Root {...props} hoverable>
+        <Menu.Root {...props}>
             <Menu.Trigger asChild>
                 <Button data-testid="trigger">Click me</Button>
             </Menu.Trigger>

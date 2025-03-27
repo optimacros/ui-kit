@@ -12,7 +12,7 @@ export const Basic = (props: Modal.Props) => {
                         <Modal.Title>Edit profile</Modal.Title>
                     </Modal.Header>
                     <Modal.ScrollContainer>
-                        <Menu.Examples.Nested />
+                        <Menu.Examples.Nested hoverable />
                         <p>Make changes to your profile here. Click save when you are done.</p>
                         <div>
                             <input placeholder="Enter name..." />
