@@ -3,6 +3,92 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.9 (2025-03-28)</small>
+
+* chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
+* chore(core/menu): ignore ts error ([8c685f0](https://gitlab.optimacros.com/fe/ui-kit/commit/8c685f0))
+* chore(kit-store): created package ([9aa51d7](https://gitlab.optimacros.com/fe/ui-kit/commit/9aa51d7))
+* chore(menu): ref ([bafe81e](https://gitlab.optimacros.com/fe/ui-kit/commit/bafe81e))
+* chore(menu): tsc ([b2910cb](https://gitlab.optimacros.com/fe/ui-kit/commit/b2910cb))
+* chore(package): added webpack + updated modules ([f59e1d5](https://gitlab.optimacros.com/fe/ui-kit/commit/f59e1d5))
+* chore(package): update zag ([978a2e8](https://gitlab.optimacros.com/fe/ui-kit/commit/978a2e8))
+* chore(release): 2.0.4 ([0791517](https://gitlab.optimacros.com/fe/ui-kit/commit/0791517))
+* chore(release): version update ([46fc23e](https://gitlab.optimacros.com/fe/ui-kit/commit/46fc23e))
+* chore(update-version): release ([76a0181](https://gitlab.optimacros.com/fe/ui-kit/commit/76a0181))
+* chore(update-version): upd to 2.0.5 ([7e410c4](https://gitlab.optimacros.com/fe/ui-kit/commit/7e410c4))
+* chore(version): release ([0f329dd](https://gitlab.optimacros.com/fe/ui-kit/commit/0f329dd))
+* chore(version): upd ([8b3c375](https://gitlab.optimacros.com/fe/ui-kit/commit/8b3c375))
+* chore(version): update ([22d96ca](https://gitlab.optimacros.com/fe/ui-kit/commit/22d96ca))
+* chore(version): update ([532ff3b](https://gitlab.optimacros.com/fe/ui-kit/commit/532ff3b))
+* chore(version): update ([cb4eb3f](https://gitlab.optimacros.com/fe/ui-kit/commit/cb4eb3f))
+* chore(zagjs): update ([1f6165b](https://gitlab.optimacros.com/fe/ui-kit/commit/1f6165b))
+* fix: fixed nestedmenu, checkbox ([66cad3e](https://gitlab.optimacros.com/fe/ui-kit/commit/66cad3e))
+* fix: lint fix ([3dc1344](https://gitlab.optimacros.com/fe/ui-kit/commit/3dc1344))
+* fix: test ([4772671](https://gitlab.optimacros.com/fe/ui-kit/commit/4772671))
+* fix: ts ([d514030](https://gitlab.optimacros.com/fe/ui-kit/commit/d514030))
+* fix: types and imports ([5d3376a](https://gitlab.optimacros.com/fe/ui-kit/commit/5d3376a))
+* fix: typings ([f313846](https://gitlab.optimacros.com/fe/ui-kit/commit/f313846))
+* fix(build-namings): changed namings, fixed build ([744e9c2](https://gitlab.optimacros.com/fe/ui-kit/commit/744e9c2))
+* fix(build): fixed ([b6531ba](https://gitlab.optimacros.com/fe/ui-kit/commit/b6531ba))
+* fix(changes): upd ([33fc192](https://gitlab.optimacros.com/fe/ui-kit/commit/33fc192))
+* fix(core/menu): controllable ([c2ef391](https://gitlab.optimacros.com/fe/ui-kit/commit/c2ef391))
+* fix(core/menu): fix types ([d15b876](https://gitlab.optimacros.com/fe/ui-kit/commit/d15b876))
+* fix(core/menu): pass ref prop to element ([5e7c538](https://gitlab.optimacros.com/fe/ui-kit/commit/5e7c538))
+* fix(core/menu): remove another unnecessary portal ([faf1a47](https://gitlab.optimacros.com/fe/ui-kit/commit/faf1a47))
+* fix(core/menu): remove submenu portal ([515a0e0](https://gitlab.optimacros.com/fe/ui-kit/commit/515a0e0))
+* fix(core/menu): set correct nested item ids ([6f838d0](https://gitlab.optimacros.com/fe/ui-kit/commit/6f838d0))
+* fix(internal-menu): refactor ([0975ecf](https://gitlab.optimacros.com/fe/ui-kit/commit/0975ecf))
+* fix(internal): fixed bugs ([421a7dd](https://gitlab.optimacros.com/fe/ui-kit/commit/421a7dd))
+* fix(menu): fixed stories ([674a551](https://gitlab.optimacros.com/fe/ui-kit/commit/674a551))
+* fix(menu): lint ([1d60e08](https://gitlab.optimacros.com/fe/ui-kit/commit/1d60e08))
+* fix(styles): fixed styles ([46790fe](https://gitlab.optimacros.com/fe/ui-kit/commit/46790fe))
+* fix(ts): fixed typescript errors ([64c25bd](https://gitlab.optimacros.com/fe/ui-kit/commit/64c25bd))
+* fix(types): fix ([ed19fa2](https://gitlab.optimacros.com/fe/ui-kit/commit/ed19fa2))
+* fix(types): fixed types ([e977633](https://gitlab.optimacros.com/fe/ui-kit/commit/e977633))
+* test(core/menu): add context menu test ([d0f4818](https://gitlab.optimacros.com/fe/ui-kit/commit/d0f4818))
+* test(core/menu): add highlighted test ([7fea3c8](https://gitlab.optimacros.com/fe/ui-kit/commit/7fea3c8))
+* test(core/menu): add onSelect test ([d8509db](https://gitlab.optimacros.com/fe/ui-kit/commit/d8509db))
+* test(core/menu): add tests ([3298f09](https://gitlab.optimacros.com/fe/ui-kit/commit/3298f09))
+* test(core/menu): argTypes, split code ([8600b7d](https://gitlab.optimacros.com/fe/ui-kit/commit/8600b7d))
+* test(core/menu): fix play tests ([fd3cf0b](https://gitlab.optimacros.com/fe/ui-kit/commit/fd3cf0b))
+* test(core/menu): update basic and orientation stories ([4ffe662](https://gitlab.optimacros.com/fe/ui-kit/commit/4ffe662))
+* test(core/menu): update tests ([3dce3df](https://gitlab.optimacros.com/fe/ui-kit/commit/3dce3df))
+* test(core/menu): update tests ([eeeb77f](https://gitlab.optimacros.com/fe/ui-kit/commit/eeeb77f))
+* test(core/menu): update tests ([bcead0c](https://gitlab.optimacros.com/fe/ui-kit/commit/bcead0c))
+* feat(context-menu): added trigger and stories ([44fc3da](https://gitlab.optimacros.com/fe/ui-kit/commit/44fc3da))
+* feat(feature-flags): implemented ([0601fbc](https://gitlab.optimacros.com/fe/ui-kit/commit/0601fbc))
+* feat(menu): added many nested menus ([1892927](https://gitlab.optimacros.com/fe/ui-kit/commit/1892927))
+* feat(menu): added switchable orientation ([c8f4c37](https://gitlab.optimacros.com/fe/ui-kit/commit/c8f4c37))
+* feat(menu): migrate to new context ([87a7153](https://gitlab.optimacros.com/fe/ui-kit/commit/87a7153))
+* feat(menu): some changes ([4f88b9a](https://gitlab.optimacros.com/fe/ui-kit/commit/4f88b9a))
+* feat(store): update method name ([125e901](https://gitlab.optimacros.com/fe/ui-kit/commit/125e901))
+* feat(tests): added tests ([8713600](https://gitlab.optimacros.com/fe/ui-kit/commit/8713600))
+* feat(type-check): refactor ([62a00d8](https://gitlab.optimacros.com/fe/ui-kit/commit/62a00d8))
+* feat(use-selector): updated useSelector hook ([3cb35aa](https://gitlab.optimacros.com/fe/ui-kit/commit/3cb35aa))
+* Ukf-286 Menu ([00f6548](https://gitlab.optimacros.com/fe/ui-kit/commit/00f6548))
+
+
+
+## <small>1.0.7-storybook-v3 (2024-12-25)</small>
+
+* fix: provide refs, add key props ([be98fcd](https://gitlab.optimacros.com/fe/ui-kit/commit/be98fcd))
+* fix(storybook): build ([a28792d](https://gitlab.optimacros.com/fe/ui-kit/commit/a28792d))
+* fix(styles): styles and bugs ([7c64d4c](https://gitlab.optimacros.com/fe/ui-kit/commit/7c64d4c))
+* feat: temp ([eacedcf](https://gitlab.optimacros.com/fe/ui-kit/commit/eacedcf))
+* feat(menu): group ([4c8822f](https://gitlab.optimacros.com/fe/ui-kit/commit/4c8822f))
+* feat(monorepo): added monorepo ([1a4fa98](https://gitlab.optimacros.com/fe/ui-kit/commit/1a4fa98))
+* feat(nested-menu): added nested menu ([86315e5](https://gitlab.optimacros.com/fe/ui-kit/commit/86315e5))
+* feat(packages): migration to individual components ([2fbb32f](https://gitlab.optimacros.com/fe/ui-kit/commit/2fbb32f))
+* feat(state-context): added functionality ([864f6e4](https://gitlab.optimacros.com/fe/ui-kit/commit/864f6e4))
+* feat(state-context): rewrite ([1ca44ee](https://gitlab.optimacros.com/fe/ui-kit/commit/1ca44ee))
+* feat(styles): migration ([bfb7849](https://gitlab.optimacros.com/fe/ui-kit/commit/bfb7849))
+* chore: temp ([7db384a](https://gitlab.optimacros.com/fe/ui-kit/commit/7db384a))
+* chore(ui-kit): migrate components ([3437b2d](https://gitlab.optimacros.com/fe/ui-kit/commit/3437b2d))
+
+
+
+
+
 ## <small>2.0.8 (2025-03-28)</small>
 
 * chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
