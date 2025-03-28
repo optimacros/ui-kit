@@ -97,7 +97,7 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
             onChange?.(value[0]);
         };
 
-        const isOutput = pinned && !editable;
+        const isOutput = !editable;
         const isInput = editable;
         const isMarkers = snaps;
 
