@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/tabs",
     "private": false,
-    "version": "2.0.8",
+    "version": "2.0.9",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -11,17 +11,17 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros-ui/draggable": "^2.0.8",
-        "@optimacros-ui/menu": "^2.0.8",
-        "@optimacros-ui/store": "^2.0.8",
-        "@optimacros-ui/types": "^2.0.8",
-        "@optimacros-ui/utils": "^2.0.8",
+        "@optimacros-ui/draggable": "^2.0.9",
+        "@optimacros-ui/menu": "^2.0.9",
+        "@optimacros-ui/store": "^2.0.9",
+        "@optimacros-ui/types": "^2.0.9",
+        "@optimacros-ui/utils": "^2.0.9",
         "@zag-js/tabs": "1.2.1",
         "react": "18.2.0"
     },
     "devDependencies": {
-        "@optimacros-ui/button": "^2.0.8",
-        "@optimacros-ui/icon": "^2.0.8",
-        "@optimacros-ui/icon-button": "^2.0.8"
+        "@optimacros-ui/button": "^2.0.9",
+        "@optimacros-ui/icon": "^2.0.9",
+        "@optimacros-ui/icon-button": "^2.0.9"
     }
 }
