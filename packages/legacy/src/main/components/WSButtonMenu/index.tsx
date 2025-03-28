@@ -1,6 +1,8 @@
 //@ts-nocheck
 
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import type React from 'react';
+
 import { mergeStyles, ButtonMenu as BaseIconButton } from 'ui-kit-core';
 import type { ButtonMenuProps } from 'ui-kit-core/dist/components/ButtonMenu';
 

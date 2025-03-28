@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
+
 import { FontIcon } from 'ui-kit-core';
 
 import { Checkbox } from '../Checkbox';

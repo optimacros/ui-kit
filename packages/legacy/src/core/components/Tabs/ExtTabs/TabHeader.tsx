@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import { has, isEmpty, isEqual, isString, map } from 'lodash';
 import { observer } from 'mobx-react';
 import type { CSSProperties, KeyboardEvent } from 'react';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
+import type React from 'react';
 
 import { TabHeaderState } from './TabHeaderState';
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer';
@@ -224,7 +225,7 @@ export class TabHeader extends Component<Props> {
             };
 
             if (isScrollableTabs) {
-                this.scrollableTabsNodes[index] = React.createRef();
+                this.scrollableTabsNodes[index] = createRef();
                 tabButtonInnerProps.ref = this.scrollableTabsNodes[index];
             }
 

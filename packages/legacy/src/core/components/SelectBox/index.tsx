@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { find, indexOf, map, without, filter } from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
 
 import type { SelectBoxTheme, SelectBoxProps as Props } from './SelectBox';
 import { SelectBoxComponent } from './SelectBox';

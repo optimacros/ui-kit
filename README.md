@@ -64,3 +64,7 @@ A: do `ctrl+f5`
 
 - Copy the `.idea.example` folder inside the project and rename it to `.idea`, if this folder already exists, delete it.
 - Install extension **[Biome](https://plugins.jetbrains.com/plugin/22761-biome)**: Linter and formatter plugin.
+
+## TODO
+biome config error React import
+https://github.com/biomejs/biome/issues/5289

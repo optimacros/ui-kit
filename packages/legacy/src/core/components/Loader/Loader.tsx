@@ -1,5 +1,6 @@
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
 
 import { mergeStyles } from '../../utils/mergeStyle';
 import prefixer from '../../utils/react-toolbox-utils/prefixer';

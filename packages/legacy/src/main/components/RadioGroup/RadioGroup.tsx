@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
 
 import { RadioGroup as Base } from './BaseRadioGroup';
 import { RadioButton } from '../RadioButton';

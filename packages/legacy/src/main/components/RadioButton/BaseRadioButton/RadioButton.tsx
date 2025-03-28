@@ -1,6 +1,7 @@
-// @ts-nocheck
+//@ts-nocheck
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
 
 import { RadioProps } from './Radio';
 

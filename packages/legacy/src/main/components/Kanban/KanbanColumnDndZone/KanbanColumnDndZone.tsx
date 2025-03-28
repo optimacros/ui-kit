@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { JSX } from 'react';
+import { JSX, PureComponent } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
 import styles from './KanbanColumnDndZone.module.css';
@@ -20,7 +20,7 @@ enum Direction {
 }
 
 @observer
-export class KanbanColumnDndZone extends React.PureComponent<Props> {
+export class KanbanColumnDndZone extends PureComponent<Props> {
     static identifier = 'kanbanColumnDndZone';
 
     static componentLabel = 'kanbanColumnDndZoneLabel';

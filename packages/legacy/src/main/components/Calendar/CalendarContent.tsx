@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import { IconButton } from 'ui-kit-core';
+import type React from 'react';
 
 import CalendarMonth from './CalendarMonth';
 import time from '../../utils/react-toolbox-utils/time';

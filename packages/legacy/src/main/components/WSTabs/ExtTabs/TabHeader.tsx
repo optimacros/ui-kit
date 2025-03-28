@@ -2,7 +2,8 @@
 import classNames from 'classnames';
 import _ from 'lodash';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
+import type React from 'react';
 
 import { TabHeaderState } from './TabHeaderState';
 import { KEY_CODES } from '../../../constants';
@@ -216,8 +217,7 @@ export class WSTabHeader extends Component<Props> {
             };
 
             if (isScrollableTabs) {
-                this._scrollableTabsNodes[index] =
-                    this._scrollableTabsNodes[index] || React.createRef();
+                this._scrollableTabsNodes[index] = this._scrollableTabsNodes[index] || createRef();
                 tabButtonInnerProps.ref = this._scrollableTabsNodes[index];
             }
 

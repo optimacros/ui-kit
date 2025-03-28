@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
+import type React from 'react';
 
 import { mergeStyles } from '../../utils/mergeStyle';
 import { Button, ButtonTheme } from '../Button';

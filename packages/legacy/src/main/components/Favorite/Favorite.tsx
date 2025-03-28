@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { FontIcon } from 'ui-kit-core';
+import type React from 'react';
 
 import { WSCheckbox as Checkbox } from '../WSCheckbox';
 

@@ -1,7 +1,7 @@
-// @ts-nocheck
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { mergeStyles } from 'ui-kit-core';
+import type React from 'react';
 
 import prefixer from '../../utils/react-toolbox-utils/prefixer';
 

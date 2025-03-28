@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import { isUndefined } from 'lodash';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
+import type React from 'react';
 
 import { Key } from '../../types/KeyboardKeyList';
 import events from '../../utils/react-toolbox-utils/events';
@@ -58,8 +59,8 @@ export class SelectBoxComponent extends Component<SelectBoxProps, State> {
     constructor(props: SelectBoxProps) {
         super(props);
 
-        this.refNode = React.createRef();
-        this.dropdownNode = React.createRef();
+        this.refNode = createRef();
+        this.dropdownNode = createRef();
     }
 
     state = {

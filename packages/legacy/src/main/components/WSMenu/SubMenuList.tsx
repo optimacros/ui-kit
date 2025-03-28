@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
 
 import styles from './Menu.module.css';
 
@@ -11,7 +11,7 @@ export default class SubMenuList extends Component {
     constructor(props) {
         super(props);
 
-        this._rootMenuNode = React.createRef();
+        this._rootMenuNode = createRef();
     }
 
     componentDidMount() {
