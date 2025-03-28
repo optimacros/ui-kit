@@ -97,7 +97,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                         ) : (
                             <>
                                 <Menu.Trigger as="div">{children}</Menu.Trigger>
-                                <Menu.Positioner portalled>
+                                <Menu.Positioner>
                                     <Menu.Content size="sm" ref={ref}>
                                         <Menu.List>
                                             {isMenuInOverlay

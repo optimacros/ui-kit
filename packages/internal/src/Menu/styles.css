@@ -1,0 +1,5 @@
+.menu-content[data-scope='menu'][data-part='content'] {
+  max-height: unset !important;
+  width: unset !important;
+  overflow-y: unset !important;
+}
