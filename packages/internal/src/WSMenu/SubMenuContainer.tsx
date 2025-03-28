@@ -1,6 +1,6 @@
 import { clsx } from '@optimacros-ui/utils';
 import { Component, createRef } from 'react';
-import { FontIcon } from 'ui-kit-core';
+import { FontIcon } from '../index';
 
 import SubMenuList from './SubMenuList';
 

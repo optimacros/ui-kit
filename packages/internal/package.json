@@ -16,6 +16,7 @@
         "@optimacros-ui/button-group": "^2.0.8",
         "@optimacros-ui/calendar": "^2.0.8",
         "@optimacros-ui/checkbox": "^2.0.8",
+        "@optimacros-ui/color-picker": "^2.0.8",
         "@optimacros-ui/chip": "^2.0.8",
         "@optimacros-ui/collapsible": "^2.0.8",
         "@optimacros-ui/counter": "^2.0.8",
