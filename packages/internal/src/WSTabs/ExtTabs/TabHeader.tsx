@@ -1,12 +1,10 @@
-// @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
-
+import { Component, createRef } from 'react';
+import type React from 'react';
 import { TabHeaderState } from './TabHeaderState';
-import { KEY_CODES, mergeStyles } from '../utils';
 import { ButtonMenu } from '../../ButtonMenu';
-import { Icon } from '@optimacros-ui/icon';
+import { Icon } from '../../Icon';
 import { MenuItem } from '../../Menu';
 
 import styles from './TabHeader.module.css';
@@ -114,7 +112,7 @@ export class WSTabHeader extends Component<Props> {
     }
 
     render() {
-        const theme = mergeStyles(this.props.theme, styles);
+        const theme = _.mergeStyles(this.props.theme, styles);
         const className = [
             theme.TabHeaderContainer,
             !this._state.countScrollableTabs && styles.TabHeaderContainer_noScroller,
@@ -150,7 +148,7 @@ export class WSTabHeader extends Component<Props> {
     }
 
     renderTabsHeaderButton(isScrollableTabs) {
-        const theme = mergeStyles(this.props.theme, styles);
+        const theme = _.mergeStyles(this.props.theme, styles);
         const { scrollableTabsChildren, fixedTabsChildren, countFixedTabs, countScrollableTabs } =
             this._state;
         const tabs = isScrollableTabs ? scrollableTabsChildren : fixedTabsChildren;
@@ -218,8 +216,7 @@ export class WSTabHeader extends Component<Props> {
             };
 
             if (isScrollableTabs) {
-                this._scrollableTabsNodes[index] =
-                    this._scrollableTabsNodes[index] || React.createRef();
+                this._scrollableTabsNodes[index] = this._scrollableTabsNodes[index] || createRef();
                 tabButtonInnerProps.ref = this._scrollableTabsNodes[index];
             }
 
@@ -248,7 +245,7 @@ export class WSTabHeader extends Component<Props> {
     }
 
     renderCounter(tab) {
-        const theme = mergeStyles(this.props.theme, styles);
+        const theme = _.mergeStyles(this.props.theme, styles);
 
         if (!tab.props.counter) {
             return null;
@@ -268,7 +265,7 @@ export class WSTabHeader extends Component<Props> {
             return null;
         }
 
-        const theme = mergeStyles(this.props.theme, styles);
+        const theme = _.mergeStyles(this.props.theme, styles);
 
         return (
             <div className={styles.Dropdown}>
@@ -311,7 +308,7 @@ export class WSTabHeader extends Component<Props> {
     }
 
     _onKeyPress(event, position) {
-        const { SPACE, ENTER } = KEY_CODES;
+        const { SPACE, ENTER } = _.KEY_CODES;
 
         this._state.scrollToTab(position);
 

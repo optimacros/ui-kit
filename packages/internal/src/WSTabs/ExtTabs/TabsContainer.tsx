@@ -3,7 +3,7 @@ import { Component } from 'react';
 
 import { WSTabContent as TabContent } from './TabContent';
 import { WSTabHeader as TabHeader } from './TabHeader';
-import { mergeStyles } from '../utils';
+import { mergeStyles } from '@optimacros-ui/utils';
 
 import styles from './TabsContainer.module.css';
 

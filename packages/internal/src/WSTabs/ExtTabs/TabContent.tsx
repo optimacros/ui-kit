@@ -1,8 +1,5 @@
-// @ts-nocheck
-import _ from 'lodash';
+import * as _ from '@optimacros-ui/utils';
 import { Component, ReactNode } from 'react';
-
-import { mergeStyles } from '../utils';
 
 import styles from './TabContent.module.css';
 
@@ -26,7 +23,7 @@ export class WSTabContent extends Component<Props> {
     };
 
     render() {
-        const theme = mergeStyles(this.props.theme, styles);
+        const theme = _.mergeStyles(this.props.theme as {}, styles);
         const className = `${(theme as Theme).TabContent} ${this.props.className || ''}`.trim();
 
         return <div className={className}>{this.renderPanel()}</div>;
@@ -34,7 +31,7 @@ export class WSTabContent extends Component<Props> {
 
     renderPanel() {
         const { active } = this.props;
-        const theme = mergeStyles(this.props.theme, styles) as Theme;
+        const theme = _.mergeStyles(this.props.theme as {}, styles) as Theme;
 
         return _.map(this.props.children, (panel, index) => {
             if (active !== index) {

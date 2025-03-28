@@ -1,7 +1,6 @@
-// @ts-nocheck
-import _ from 'lodash';
-import React from 'react';
-
+import * as _ from '@optimacros-ui/utils';
+import { Component } from 'react';
+import type React from 'react';
 import { WSTabsContainer as ExtTabs } from './ExtTabs';
 
 interface Props {
@@ -17,7 +16,7 @@ interface State {
     activeTab: number;
 }
 
-export class WSTabs extends React.Component<Props, State> {
+export class WSTabs extends Component<Props, State> {
     state = {
         activeTab: 0,
     };
@@ -58,7 +57,12 @@ export class WSTabs extends React.Component<Props, State> {
         const { children, ...otherProps } = this.props;
 
         return (
-            <ExtTabs active={this.state.activeTab} onTabSwitch={this._onTabSwitch} {...otherProps}>
+            <ExtTabs
+                active={this.state.activeTab}
+                /* @ts-ignore */
+                onTabSwitch={this._onTabSwitch}
+                {...otherProps}
+            >
                 {this.renderContent()}
             </ExtTabs>
         );
@@ -110,6 +114,7 @@ export class WSTabs extends React.Component<Props, State> {
         const children = _.compact(props.children);
         const currentTab = children[state.activeTab];
 
+        //@ts-ignore
         return !currentTab || currentTab.props.disabled;
     }
 
@@ -120,6 +125,7 @@ export class WSTabs extends React.Component<Props, State> {
 
         const children = _.compact(props.children);
 
+        //@ts-ignore
         return _.findIndex(children, (child) => child && !!child.props.disabled == false);
     }
 

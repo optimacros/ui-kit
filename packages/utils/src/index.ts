@@ -28,6 +28,16 @@ export {
     isEmpty,
     toLower,
     trim,
+    isArray,
+    compact,
+    findIndex,
+    each,
+    reduce,
+    isString,
+    size,
+    floor,
+    ceil,
+    round,
 } from 'lodash-es';
 
 export {
