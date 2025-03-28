@@ -1,11 +1,12 @@
+//@ts-nocheck
 import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
-import { Component, createRef } from 'react';
+import { Children, Component, createRef } from 'react';
 import type React from 'react';
 import { TabHeaderState } from './TabHeaderState';
 import { ButtonMenu } from '../../ButtonMenu';
 import { Icon } from '../../Icon';
-import { MenuItem } from '../../Menu';
+import { WSMenuItem as MenuItem } from '../../WSMenu';
 
 import styles from './TabHeader.module.css';
 
@@ -64,7 +65,8 @@ export class WSTabHeader extends Component<Props> {
 
     componentDidMount() {
         this._state.setActiveTab(this.props.active);
-        this._state.setTabsChildren(this.props.children);
+
+        this._state.setTabsChildren(Children.toArray(this.props.children));
 
         // setTimeout для получения верных значений getBoundingClientRect
         // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
@@ -88,6 +90,7 @@ export class WSTabHeader extends Component<Props> {
 
     componentDidUpdate(prevProps: Props) {
         if (!_.isEqual(prevProps.children, this.props.children)) {
+            //@ts-ignore
             this._state.setTabsChildren(this.props.children);
 
             // setTimeout для получения верных значений getBoundingClientRect

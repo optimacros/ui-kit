@@ -28,7 +28,7 @@ export class TabHeaderState {
         this.activeTab = index;
     }
 
-    @action setTabsChildren(children = []) {
+    @action setTabsChildren(children = [] as Array<any>) {
         const _fixedTabsChildren = [];
         const _scrollableTabsChildren = [];
 

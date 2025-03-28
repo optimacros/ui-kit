@@ -28,7 +28,6 @@ export * from './SelectBox';
 export * from './SliderScale';
 export * from './Snackbar';
 export * from './Tabs';
-export * from './WSTabs';
 export * from './TextArea';
 export * from './Toolbar';
 export * from './Tooltip';
@@ -39,6 +38,9 @@ export * from './LayoutFixedContainer';
 export * from './Header';
 export * from './DownloadIframe';
 export * from './LocalLoader';
+
+export * from './WSMenu';
+export * from './WSTabs';
 
 export { FontIcon, type FontIconProps } from '@optimacros-ui/font-icon';
 export { default as InputMask } from 'react-input-mask';

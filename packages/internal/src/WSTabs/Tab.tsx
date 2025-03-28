@@ -7,6 +7,7 @@ interface Props {
     title?: string;
     className?: string;
     children?: React.ReactNode;
+    isFixed?: boolean;
 }
 
 export const WSTab: React.FC<Props> = ({ children, className }) => {
