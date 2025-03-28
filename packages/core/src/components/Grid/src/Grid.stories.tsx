@@ -1,6 +1,7 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/react';
 import { Grid } from '.';
-import React, { ComponentProps } from 'react';
+import { ComponentProps } from 'react';
+import type React from 'react';
 
 const argTypes: ArgTypes<ComponentProps<typeof Grid.Root>> = {
     cols: {

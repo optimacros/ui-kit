@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import type { MouseEvent } from 'react';
-import React, { Component } from 'react';
+import { Component, createElement, createRef } from 'react';
+import type React from 'react';
 
 import type { IconButtonProps, IconButtonTheme } from './index';
 import { FontIcon } from '../FontIcon';
@@ -13,7 +14,7 @@ export class IconButtonComponent extends Component<Props> {
     constructor(props: Props) {
         super(props);
 
-        this.buttonNode = React.createRef();
+        this.buttonNode = createRef();
     }
 
     buttonNode: React.RefObject<HTMLButtonElement>;
@@ -62,7 +63,7 @@ export class IconButtonComponent extends Component<Props> {
         const iconElement =
             typeof icon === 'string' ? <FontIcon className={theme.icon} value={icon} /> : icon;
 
-        return React.createElement(element, props, icon && iconElement, children);
+        return createElement(element, props, icon && iconElement, children);
     }
 
     getLevel = (): 'primary' | 'accent' | 'bordered' | 'neutral' => {

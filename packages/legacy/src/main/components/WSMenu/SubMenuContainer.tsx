@@ -1,6 +1,6 @@
 // @ts-nocheck
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
 import { FontIcon } from 'ui-kit-core';
 
 import SubMenuList from './SubMenuList';
@@ -12,7 +12,7 @@ export default class SubMenuContainer extends Component {
     constructor(props) {
         super(props);
 
-        this._rootMenuItemNode = React.createRef();
+        this._rootMenuItemNode = createRef();
     }
 
     state = {

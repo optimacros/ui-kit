@@ -1,6 +1,6 @@
 import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
-import React, { RefObject } from 'react';
+import { Component, createRef, type RefObject } from 'react';
 import { FontIcon, Input } from '../../index';
 
 import { HeaderMenuElement } from './HeaderMenuElement';
@@ -18,13 +18,13 @@ interface Props {
 }
 
 @observer
-export default class HeaderSubMenu extends React.Component<Props> {
+export default class HeaderSubMenu extends Component<Props> {
     _rootMenuNode = null;
 
     constructor(props) {
         super(props);
 
-        this._rootMenuNode = React.createRef();
+        this._rootMenuNode = createRef();
 
         this.state = {
             searchValue: '',

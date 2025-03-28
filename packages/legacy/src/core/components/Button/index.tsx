@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type { ButtonHTMLAttributes } from 'react';
-import React, { Component } from 'react';
-
+import { Component } from 'react';
+import type React from 'react';
 import { ButtonComponent } from './Button';
 import { mergeStyles } from '../../utils/mergeStyle';
 

@@ -1,8 +1,9 @@
 //@ts-nocheck
 
-import React, { isValidElement } from 'react';
+import { isValidElement } from 'react';
 import { Icon as BaseIcon } from 'ui-kit-core';
 import type { IconProps as BaseIconProps } from 'ui-kit-core/dist/components/Icon';
+import type React from 'react';
 
 import * as icons from './iconsList';
 

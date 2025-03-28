@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import type { MouseEvent } from 'react';
-import React, { Component } from 'react';
+import type React from 'react';
+import { Component, createElement, createRef } from 'react';
 
 import type { ButtonInitialProps, ButtonTheme } from './index';
 import { FontIcon } from '../FontIcon';
@@ -13,7 +13,7 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
     constructor(props: ButtonComponentProps) {
         super(props);
 
-        this.buttonNode = React.createRef();
+        this.buttonNode = createRef();
     }
 
     buttonNode: React.RefObject<HTMLButtonElement | HTMLAnchorElement>;
@@ -83,7 +83,7 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
 
         const iconContent = icon ? <FontIcon className={theme.icon} value={icon} /> : null;
 
-        const buttonElement = React.createElement(element, props, iconContent, label, children);
+        const buttonElement = createElement(element, props, iconContent, label, children);
 
         if (this.props.onMouseEnter && this.props.disabled) {
             return <span {...mouseEvents}>{buttonElement}</span>;
@@ -120,7 +120,7 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
         return 'flat';
     };
 
-    handleMouseUp = (event: MouseEvent<HTMLButtonElement>): void => {
+    handleMouseUp = (event: React.MouseEvent<HTMLButtonElement>): void => {
         if (this.buttonNode.current) {
             // TODO проверить не сломает ли это тесты в АМ
             this.buttonNode.current.blur();
@@ -131,7 +131,7 @@ export class ButtonComponent extends Component<ButtonComponentProps> {
         }
     };
 
-    handleMouseLeave = (event: MouseEvent<HTMLButtonElement>): void => {
+    handleMouseLeave = (event: React.MouseEvent<HTMLButtonElement>): void => {
         if (this.buttonNode.current) {
             // TODO проверить не сломает ли это тесты в АМ
             this.buttonNode.current.blur();

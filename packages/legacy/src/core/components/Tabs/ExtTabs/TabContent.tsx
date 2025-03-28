@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { map } from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
 
 import type { TabsContainerProps, TabsContainerTheme } from './TabsContainer';
 import { mergeStyles } from '../../../utils/mergeStyle';

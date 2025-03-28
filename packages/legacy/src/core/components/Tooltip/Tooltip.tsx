@@ -1,6 +1,7 @@
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component, createElement, createRef } from 'react';
 import { createPortal } from 'react-dom';
+import type React from 'react';
 
 import { mergeStyles } from '../../utils/mergeStyle';
 import events from '../../utils/react-toolbox-utils/events';
@@ -59,7 +60,7 @@ export class Tooltip extends Component<TooltipProps, State> {
     constructor(props: Props) {
         super(props);
 
-        this.tooltipNode = React.createRef();
+        this.tooltipNode = createRef();
     }
 
     private tooltipNode: React.RefObject<HTMLSpanElement>;
@@ -116,7 +117,7 @@ export class Tooltip extends Component<TooltipProps, State> {
         const shouldPass = typeof composedComponent !== 'string';
         const finalProps = shouldPass ? { ...childProps, theme } : childProps;
 
-        return React.createElement(
+        return createElement(
             composedComponent,
             { ...finalProps, ...composedComponentProps },
             children,

@@ -1,10 +1,11 @@
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { SelectBox as BaseSelectBox } from 'ui-kit-core';
 import type { InputTheme } from 'ui-kit-core/dist/components/Input';
 import type { SelectBoxProps as BaseSelectBoxProps } from 'ui-kit-core/dist/components/SelectBox';
 import type { SelectBoxTheme } from 'ui-kit-core/dist/components/SelectBox/SelectBox';
+import type React from 'react';
 
 import { mergeStyles } from '../../utils';
 

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { clsx } from '@optimacros-ui/utils';
+import type React from 'react';
 
 import { FontIcon } from '../FontIcon';
 

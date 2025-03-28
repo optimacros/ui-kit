@@ -1,5 +1,6 @@
 // @ts-nocheck
-import React, { Component } from 'react';
+import { Children, cloneElement, Component } from 'react';
+import type React from 'react';
 
 import isComponentOfType from '../../../utils/react-toolbox-utils/is-component-of-type';
 import { RadioProps } from '../../RadioButton/BaseRadioButton/Radio';
@@ -32,10 +33,10 @@ class RadioGroupComponent extends Component<RadioGroupProps> {
     renderRadioButtons() {
         const { children, RadioButton, value, disabled } = this.props;
 
-        return React.Children.map(children, (child) => {
+        return Children.map(children, (child) => {
             return !isComponentOfType(RadioButton, child)
                 ? child
-                : React.cloneElement(child, {
+                : cloneElement(child, {
                       disabled: disabled || child.props.disabled,
                       checked: child.props.value === value,
                       onChange: this.handleChange.bind(this, child.props.value),

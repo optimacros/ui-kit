@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef } from 'react';
+import { createContext, useContext, useState, useRef, RefObject } from 'react';
 import { Orientation } from '@optimacros-ui/utils';
 import { IScroll } from '../parts';
 
@@ -7,7 +7,7 @@ type ScrollContextType = {
     setThumbSize: (height: number) => void;
     thumbOffset: number;
     setThumbOffset: (top: number) => void;
-    viewportRef: React.RefObject<HTMLDivElement>;
+    viewportRef: RefObject<HTMLDivElement>;
     scrollTo: (direction: string, offset: number) => void;
     btnSize: number;
     orientation: Orientation;

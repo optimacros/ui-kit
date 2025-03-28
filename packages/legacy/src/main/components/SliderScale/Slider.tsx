@@ -1,7 +1,7 @@
-// @ts-nocheck
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
 import { events, Input as ThemedInput } from 'ui-kit-core';
+import type React from 'react';
 
 import { round, range } from '../../utils/react-toolbox-utils/utils';
 import { ProgressBar as InjectProgressBar } from '../ProgressBar';
@@ -74,7 +74,7 @@ class SliderComponent extends Component<SliderProps, State> {
         value: 0,
     };
 
-    progressbarRef = React.createRef();
+    progressbarRef = createRef();
 
     state = {
         inputFocused: false,

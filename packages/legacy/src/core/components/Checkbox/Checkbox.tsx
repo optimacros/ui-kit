@@ -1,5 +1,6 @@
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
+import type React from 'react';
 
 import { Box } from './Box';
 import type { InitialProps, Theme } from './index';
@@ -15,7 +16,7 @@ export class CheckboxComponent extends Component<React.PropsWithChildren<Checkbo
     constructor(props: CheckboxComponentProps) {
         super(props);
 
-        this.inputNode = React.createRef();
+        this.inputNode = createRef();
     }
 
     inputNode: React.RefObject<HTMLInputElement>;

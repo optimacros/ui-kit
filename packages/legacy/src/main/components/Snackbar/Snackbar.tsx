@@ -1,6 +1,8 @@
-// @ts-nocheck
+//@ts-nocheck
 import classnames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type React from 'react';
+
 import { BaseButton } from 'ui-kit-core';
 
 export interface SnackbarProps {
