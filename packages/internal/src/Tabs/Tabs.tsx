@@ -124,6 +124,33 @@ export interface TabsProps {
     onChange?: (index: number) => void;
 }
 
+const getValue = (element: any) => {
+    if (element && element.$$typeof === Symbol.for('react.element')) {
+        if (element.props && element.props.value && typeof element.props.value === 'string') {
+            return { value: element.props.value, icon: element.props.value, title: '' };
+        }
+
+        if (element.props && !element.props.value && typeof element.props.children === 'string') {
+            return { value: element.props.children, title: element.props.children };
+        }
+
+        if (element.props && element.props.children) {
+            const children = element.props.children;
+
+            if (Array.isArray(children)) {
+                for (const child of children) {
+                    const value = getValue(child);
+                    if (value) {
+                        return value;
+                    }
+                }
+            } else {
+                return getValue(children);
+            }
+        }
+    }
+};
+
 export const Tabs = memo(
     forwardRef<HTMLDivElement, TabsProps>(
         (
@@ -136,11 +163,13 @@ export const Tabs = memo(
                 childrenArr.map(({ props }, index) => {
                     const { isFixed, title: propsTitle, disabled } = props;
 
-                    const title = typeof propsTitle === 'string' && propsTitle;
-                    const value = title;
+                    const params =
+                        typeof propsTitle === 'string'
+                            ? { title: propsTitle, value: propsTitle }
+                            : getValue(propsTitle);
 
                     return {
-                        value,
+                        value: params.value,
                         fixed: isFixed,
                         disabled,
                         index,
@@ -159,16 +188,18 @@ export const Tabs = memo(
                         children,
                     } = props;
 
-                    const title = typeof propsTitle === 'string' && propsTitle;
-                    const value = title ?? index.toString();
+                    const params =
+                        typeof propsTitle === 'string'
+                            ? { title: propsTitle, value: propsTitle, icon: icon }
+                            : getValue(propsTitle);
 
-                    acc[value] = {
+                    acc[params.value] = {
                         children,
-                        icon,
+                        icon: params.icon,
                         onDoubleClick,
                         nonDraggable,
                         onHeaderContextMenu,
-                        title,
+                        title: params.title,
                     };
 
                     return acc;

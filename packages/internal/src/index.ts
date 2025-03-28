@@ -39,6 +39,9 @@ export * from './Header';
 export * from './DownloadIframe';
 export * from './LocalLoader';
 
+export * from './WSMenu';
+export * from './WSTabs';
+
 export { FontIcon, type FontIconProps } from '@optimacros-ui/font-icon';
 export { default as InputMask } from 'react-input-mask';
 export { default as SplitPane } from 'react-split-pane';
