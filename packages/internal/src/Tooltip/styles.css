@@ -19,4 +19,9 @@
   [data-scope='flex'][data-part='root'][data-align='start'] {
     justify-content: center;
   }
+
+  /* TODO перенести переменную в тему? */
+  &[data-part='positioner'] {
+    z-index: 9999 !important;
+  }
 }
