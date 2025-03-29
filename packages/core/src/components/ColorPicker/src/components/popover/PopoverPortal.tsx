@@ -3,19 +3,17 @@ import { PropsWithChildren } from 'react';
 import { useApi } from '../../exports';
 import { Portal } from '@zag-js/react';
 
-export const PopoverPortal = forward<PropsWithChildren, 'div'>(
-    ({ children, ...rest }, ref) => {
+export const PopoverPortal = forward<PropsWithChildren & { portalled?: boolean }, 'div'>(
+    ({ children, portalled, ...rest }, ref) => {
         const api = useApi();
-
-        return (
-            <Portal>
-                <div {...rest} ref={ref} {...api.getPositionerProps()}>
-                    <div {...api.getContentProps()}>
-                        <div>{children}</div>
-                    </div>
+        const Component = (
+            <div {...rest} ref={ref} {...api.getPositionerProps()}>
+                <div {...api.getContentProps()}>
+                    <div>{children}</div>
                 </div>
-            </Portal>
+            </div>
         );
+        return portalled ? <Portal>{Component}</Portal> : Component;
     },
     { displayName: 'PopoverPortal' },
 );

@@ -14,16 +14,12 @@ interface IMenuItem {
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
-    ({ label, title, value, children, onClick, key, ...restProps }, ref) => {
+    ({ label, title, value, children, onClick, ...restProps }, ref) => {
         const generatedKey = useId();
 
         return (
             <div onClick={onClick}>
-                <MenuComponent.Item
-                    {...restProps}
-                    value={value || String(key) || generatedKey}
-                    ref={ref}
-                >
+                <MenuComponent.Item {...restProps} value={value ?? generatedKey} ref={ref}>
                     {label || title || children}
                 </MenuComponent.Item>
             </div>
@@ -102,7 +98,6 @@ export const Menu = forward<
     'div'
 >((props, ref) => {
     const { children, renderTrigger, ...rest } = props;
-
     return (
         <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
             {renderTrigger?.()}

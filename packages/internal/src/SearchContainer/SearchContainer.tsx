@@ -1,6 +1,7 @@
 import { memo, ChangeEvent, KeyboardEvent, forwardRef } from 'react';
 import { Field } from '@optimacros-ui/field';
-import { Icon } from '@optimacros-ui/icon';
+import styles from './SearchContainer.module.css';
+import { FontIcon } from '@optimacros-ui/font-icon';
 
 export interface SearchContainerProps {
     name: string;
@@ -39,10 +40,13 @@ export const SearchContainer = memo(
                     onKeyDown={onKeyDown}
                     value={value}
                     placeholder={placeholder}
+                    className={styles.InputElement}
+                    type="text"
+                    autoFocus
                 />
                 {!!showIcon && (
                     <Field.FloatingIcon onClick={onClose} position="right">
-                        <Icon value="close" />
+                        <FontIcon value="close" className={styles.CloseIcon} />
                     </Field.FloatingIcon>
                 )}
             </Field.Root>

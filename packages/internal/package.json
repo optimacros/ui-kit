@@ -8,7 +8,8 @@
     "types": "dist/index.d.ts",
     "files": ["dist"],
     "scripts": {
-        "build": "tsup --config ./tsup.config.ts"
+        "build": "tsup --config ./tsup.config.ts",
+        "build:wsfe": "tsup --config ./tsup.wsfe.ts --watch"
     },
     "dependencies": {
         "@optimacros-ui/badge": "^2.0.9",
