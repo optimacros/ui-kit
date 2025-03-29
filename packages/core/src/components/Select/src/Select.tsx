@@ -7,6 +7,8 @@ import { Virtual } from '@optimacros-ui/virtual';
 
 export type Schema = Zag.ModuleSchema<typeof machine>;
 
+export * as Examples from './stories';
+
 export const {
     useApi,
     RootProvider,
@@ -97,15 +99,19 @@ export const FloatingCloseTrigger = (props) => {
     return <CloseTrigger className="top-1 right-1 absolute" {...props} />;
 };
 
-export const Positioner = forward<{}, 'div'>((props, ref) => {
-    const api = useApi();
+export const Positioner = forward<{ portalled?: boolean }, 'div'>(
+    ({ portalled, ...props }, ref) => {
+        const api = useApi();
 
-    return (
-        <Portal>
+        return portalled ? (
+            <Portal>
+                <styled.div {...props} {...api.getPositionerProps()} ref={ref} />
+            </Portal>
+        ) : (
             <styled.div {...props} {...api.getPositionerProps()} ref={ref} />
-        </Portal>
-    );
-});
+        );
+    },
+);
 
 export const Content = forward<{ size?: 'sm' | 'md' }, 'div'>(({ size, ...rest }, ref) => {
     const api = useApi();

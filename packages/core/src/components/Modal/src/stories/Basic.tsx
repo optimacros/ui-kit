@@ -1,6 +1,18 @@
 import { Button } from '@optimacros-ui/button';
 import { Modal } from '../index';
 import { Menu } from '@optimacros-ui/menu';
+import { Select } from '@optimacros-ui/select';
+import {} from '@optimacros-ui/select';
+
+const options = new Array(20).fill(0).map((_, i) => {
+    return {
+        label: `item ${i}`,
+        value: `item-value-${i}`,
+        key: `item-value-${i}`,
+        index: i,
+    };
+});
+
 export const Basic = (props: Modal.Props) => {
     return (
         <>
@@ -13,6 +25,7 @@ export const Basic = (props: Modal.Props) => {
                     </Modal.Header>
                     <Modal.ScrollContainer>
                         <Menu.Examples.Nested hoverable />
+                        <Select.Examples.Basic items={options} />
                         <p>Make changes to your profile here. Click save when you are done.</p>
                         <div>
                             <input placeholder="Enter name..." />

@@ -5,6 +5,7 @@ import { HSB, HSL, RGB } from './FormatControls';
 
 interface PopoverProps extends PropsWithChildren {
     eyeDropperIcon: ReactNode;
+    portalled?: boolean;
 }
 
 export const Popover = forward<PopoverProps, 'div'>(
