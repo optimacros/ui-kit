@@ -95,6 +95,7 @@ export const ICONS_MAP = {
     'risk-manager-chart': 'risk-manager-chart',
     'route-map-chart': 'route-map-chart',
     rows: 'rows',
+    'sankey-chart': 'sankey-chart',
     satellite: 'satellite',
     save: 'save',
     'saved-view': 'saved-view',
