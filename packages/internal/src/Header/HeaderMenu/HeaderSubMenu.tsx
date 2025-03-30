@@ -85,6 +85,7 @@ export default class HeaderSubMenu extends Component<Props> {
                     value={this.state.searchValue}
                     collapsed
                     onChange={this.onChange}
+                    className={styles.inputElement}
                 />
 
                 {this.state.searchValue && (
