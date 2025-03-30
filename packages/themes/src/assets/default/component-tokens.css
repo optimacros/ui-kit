@@ -120,7 +120,7 @@
   --color-checkbox-primary-box-control-border-checked: var(
     --color-checkbox-primary-box-control-checked
   );
-  --color-checkbox-primary-box-control-border-default: var(--color-theme-black);
+  --color-checkbox-primary-box-control-border-default: #757575;
   --color-checkbox-primary-box-control-on-default: var(--color-theme-transparent);
   --color-checkbox-primary-label-default: var(--color-theme-text-primary-default);
   --color-checkbox-primary-label-active: var(--color-theme-text-primary-active);

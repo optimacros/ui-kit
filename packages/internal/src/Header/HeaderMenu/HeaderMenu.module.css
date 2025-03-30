@@ -87,7 +87,7 @@ https://optimacros.myjetbrains.com/youtrack/issue/OM-1575
   white-space: nowrap;
   border: 1px solid transparent;
   border-bottom-width: 2px;
-  font-size: 1.3rem;
+  font-size: 0.8125rem;
   margin: 0 2px;
 
   &__disabled {

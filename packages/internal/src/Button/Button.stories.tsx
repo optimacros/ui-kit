@@ -1,6 +1,7 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Flex } from '@optimacros-ui/flex';
 import { Button } from './index';
+import styles from './custom.module.css';
 
 const argTypes: Partial<ArgTypes> = {
     accent: {
@@ -301,5 +302,6 @@ export const AllFeatures: Story = {
             button_uppercase: 'uppercase',
             Button: 'custom-buttom-class',
         },
+        className: styles.button,
     },
 };

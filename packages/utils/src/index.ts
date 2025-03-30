@@ -1,5 +1,6 @@
 export {
     sum,
+    lowerCase,
     upperFirst,
     mapValues,
     isPlainObject,

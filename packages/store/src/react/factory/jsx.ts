@@ -1,4 +1,4 @@
-import { capitalize, merge } from '@optimacros-ui/utils';
+import { capitalize, lowerCase, merge } from '@optimacros-ui/utils';
 import {
     Children,
     ComponentPropsWithRef,
@@ -49,12 +49,17 @@ export type JsxElements = {
 
 const withAsChild = (Component: ElementType) => {
     const Comp = forwardRef<unknown, any>((props, ref) => {
-        const { asChild, children, as, ...restProps } = props;
+        const { asChild, children, as, className = '', ...restProps } = props;
+        let cn = className;
+
+        if (restProps['data-part'] && restProps['data-scope']) {
+            cn = `${lowerCase(restProps['data-scope'])} ${lowerCase(restProps['data-part'])}${className && ' ' + className}`;
+        }
 
         if (!asChild) {
             return !as
-                ? createElement(Component, { ...restProps, ref }, children)
-                : createElement(as, { ...restProps, ref }, children);
+                ? createElement(Component, { ...restProps, className: cn, ref }, children)
+                : createElement(as, { ...restProps, className: cn, ref }, children);
         }
 
         const onlyChild = Children.only(children);
@@ -62,7 +67,7 @@ const withAsChild = (Component: ElementType) => {
         return isValidElement(onlyChild)
             ? cloneElement(onlyChild, {
                   ...merge(false, restProps, onlyChild.props as any),
-
+                  className: cn,
                   ref: ref ? composeRefs(ref, (onlyChild as any).ref) : (onlyChild as any).ref,
               })
             : null;

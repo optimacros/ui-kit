@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   font-weight: normal;
-  font-size: var(--text-xl);
+  font-size: var(--text-sm);
   border-radius: var(--radius-sm);
   cursor: pointer;
   letter-spacing: normal;
@@ -129,12 +129,12 @@
 
   &[data-variant='neutral'] {
     background: transparent;
-    color: var(--color-button-neutral-on-default);
+    /* border-color: var(--color-button-neutral-on-default); */
     border: 1px solid transparent;
 
     &:hover,
     &:focus-visible {
-      background: var(--color-button-neutral-default-hover);
+      border-color: var(--color-button-neutral-default-hover);
     }
   }
 
