@@ -235,13 +235,21 @@ https://optimacros.myjetbrains.com/youtrack/issue/OM-1575
   }
 
   & .inputElement {
-    padding: 8px;
-    padding-right: 32px;
-    border: none;
-    font-size: 13px;
+    padding: 0 !important;
 
-    &:focus:not([disabled]):not([readonly]) + .icon {
-      color: #c1c1c1;
+    & input {
+      border-bottom: none !important;
+      padding: 8px !important;
+      padding-right: 32px !important;
+      font-size: 13px;
+
+      &:focus:not([disabled]):not([readonly]) + .icon {
+        color: #c1c1c1;
+      }
+
+      &::placeholder {
+        font-size: 13px;
+      }
     }
   }
 

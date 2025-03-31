@@ -1,6 +1,8 @@
 import { memo, ChangeEvent, KeyboardEvent, forwardRef } from 'react';
 import { Field } from '@optimacros-ui/field';
 import { Icon } from '@optimacros-ui/icon';
+import styles from './SearchContainer.module.css';
+import { clsx } from '@optimacros-ui/utils';
 
 export interface SearchContainerProps {
     name: string;
@@ -29,24 +31,31 @@ export const SearchContainer = memo(
                 showIcon = true,
             },
             ref,
-        ) => (
-            <Field.Root data-role="search-container" className={style}>
-                <Field.Input
-                    ref={ref}
-                    name={name}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    onKeyDown={onKeyDown}
-                    value={value}
-                    placeholder={placeholder}
-                />
-                {!!showIcon && (
-                    <Field.FloatingIcon onClick={onClose} position="right">
-                        <Icon value="close" />
-                    </Field.FloatingIcon>
-                )}
-            </Field.Root>
-        ),
+        ) => {
+            const cn = clsx(styles.SearchContainer, style);
+
+            return (
+                <Field.Root data-role="search-container" className={cn}>
+                    <Field.Input
+                        ref={ref}
+                        name={name}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        onKeyDown={onKeyDown}
+                        value={value}
+                        placeholder={placeholder}
+                        className={styles.InputElement}
+                        type="text"
+                        autoFocus
+                    />
+                    {!!showIcon && (
+                        <Field.FloatingIcon onClick={onClose} position="right">
+                            <Icon value="close" className={styles.CloseIcon} />
+                        </Field.FloatingIcon>
+                    )}
+                </Field.Root>
+            );
+        },
     ),
 );
 
