@@ -1,0 +1,13 @@
+[data-tag='color-picker-root'][data-style-tag='internal'] {
+  [data-scope='color-picker'][data-part='control'] > [data-scope='flex'] {
+    padding: 1px;
+    background: #dcdcdc;
+    border-radius: 1px;
+    border-width: 0;
+
+    & [data-part='swatch'] {
+      width: 36px;
+      height: 14px;
+    }
+  }
+}

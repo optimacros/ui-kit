@@ -1,0 +1,40 @@
+[data-tag='color-picker-root'][data-style-tag='internal'] {
+  [data-scope='color-picker'][data-part='content'] {
+    width: 220px;
+    padding: 10px;
+  }
+
+  [data-scope='color-picker'][data-part='area'] {
+    height: 150px;
+  }
+
+  [data-tag='inputs'] {
+    [data-scope='field'][data-part='input'] {
+      font-size: 0.875rem;
+    }
+
+    & > :nth-child(1) {
+      width: 65px;
+      flex-shrink: 0;
+    }
+
+    & > :nth-child(2) > div {
+      gap: var(--spacing-1);
+    }
+  }
+
+  [data-scope='color-picker'][data-part='swatch-group'] {
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  [data-scope='color-picker'][data-part='swatch'] {
+    width: 18 / 20rem;
+    height: 18 / 20rem;
+  }
+
+  [data-tag='toolbar'] [data-scope='button'] {
+    padding: 0 12px;
+    min-width: 0;
+  }
+}

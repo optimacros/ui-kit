@@ -6,9 +6,11 @@ import { IconButton } from '@optimacros-ui/icon-button';
 import { Tooltip } from '@optimacros-ui/tooltip';
 import { Divider } from '@optimacros-ui/divider';
 import { Orientation } from '@optimacros-ui/utils';
-import { HexInput } from './HexInput';
-import { ColorPickerProps } from '../ColorPicker';
-import { RGBInput } from '.';
+import { HexInput } from '../HexInput';
+import { ColorPickerProps } from '../../ColorPicker';
+import { RGBInput } from '../';
+
+import './styles.css';
 
 interface PopoverProps
     extends Omit<ColorPickerProps, 'disabled' | 'title' | 'color' | 'name' | 'onChange'> {
@@ -45,9 +47,11 @@ export const Popover = memo<PopoverProps>(
         const SettingsBtn = <IconButton onClick={handleSettingsOk} icon="settings" />;
 
         const Toolbar = (
-            <Flex gap={3} justify="end">
-                <Button onClick={handleCancel}>{cancelLabel}</Button>
-                <Button onClick={handleOk} variant="accent">
+            <Flex gap={3}>
+                <Button onClick={handleCancel} variant="gray" data-tag="internal">
+                    {cancelLabel}
+                </Button>
+                <Button onClick={handleOk} variant="accent" data-tag="internal">
                     {applyLabel}
                 </Button>
             </Flex>
@@ -60,7 +64,7 @@ export const Popover = memo<PopoverProps>(
                 <UIColorPicker.Area />
                 <UIColorPicker.ChannelSlider />
 
-                <Flex justify="between" gap={2}>
+                <Flex justify="between" gap={2} data-tag="inputs">
                     <HexInput />
                     <RGBInput />
                 </Flex>
@@ -89,7 +93,7 @@ export const Popover = memo<PopoverProps>(
                 )}
 
                 {showSettings ? (
-                    <Flex align="center" justify="between">
+                    <Flex align="center" justify="between" gap={3} data-tag="toolbar">
                         {colorSettingsLabel ? (
                             <Tooltip.Root>
                                 <Tooltip.Trigger as="div">{SettingsBtn}</Tooltip.Trigger>

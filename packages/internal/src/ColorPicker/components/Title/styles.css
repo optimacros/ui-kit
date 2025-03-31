@@ -1,0 +1,11 @@
+[data-tag='color-picker-root'][data-style-tag='internal'] {
+  & > span,
+  & > [data-scope='tooltip'] > span {
+    line-height: 2;
+    font-size: 0.875rem;
+  }
+
+  &[data-disabled='true'] {
+    opacity: 0.3;
+  }
+}
