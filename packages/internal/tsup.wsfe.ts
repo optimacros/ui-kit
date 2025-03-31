@@ -6,12 +6,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const wsfe_path = path.resolve(__dirname, '../../../om_ws_fe');
-const output = wsfe_path + '/src/common/widgets/ui-kit';
-// console.log(path.resolve(__dirname, '../themes/src/assets'));
+const output = path.resolve(
+    __dirname,
+    '../../../om_ws_fe/node_modules/@optimacros-ui/kit-internal/dist',
+);
+
 export default defineConfig({
     ...conf,
-    outDir: `${output}/kit`,
+    outDir: output,
     dts: false,
     publicDir: path.resolve(__dirname, '../themes/src/assets'),
     minify: false,
