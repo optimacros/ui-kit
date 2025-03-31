@@ -30,7 +30,7 @@ export const Icon = forward<IconProps, 'svg'>(function Icon(
         style: {
             ...(style && style),
             '--rotate': `${rotate ?? 0}deg`,
-            '--size': `var(--spacing-${size})`,
+            ...(size ? { '--size': `var(--spacing-${size})` } : null),
         } as Record<string, string>,
     };
 
