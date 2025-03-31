@@ -6,3 +6,4 @@ import './assets/fonts.css';
 
 export * from './icons-map';
 export * from './themes';
+export * as themes from './assets/ws_fe_colors';
