@@ -3,6 +3,9 @@ import type React from 'react';
 
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 import { forward } from '@optimacros-ui/store';
+import { FontIcon } from '@optimacros-ui/font-icon';
+
+import './styles.css';
 
 import './styles.css';
 
@@ -57,6 +60,7 @@ export const SubMenu = ({
         positioning: {
             fitViewport: false,
             overlap: false,
+            offset: { mainAxis: 4 },
         },
         hoverable: true,
     });
@@ -67,6 +71,7 @@ export const SubMenu = ({
         <>
             <MenuComponent.TriggerItem {...menu.props} value={value || title || label}>
                 {label || title}
+                <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
             <MenuComponent.SubMenuContent menu={menu}>
                 {childrenArr
@@ -108,10 +113,8 @@ export const Menu = forward<
     return (
         <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
             {renderTrigger?.()}
-            <MenuComponent.Positioner>
-                <MenuComponent.Content className="menu-content" ref={ref}>
-                    {children}
-                </MenuComponent.Content>
+            <MenuComponent.Positioner data-tag="internal">
+                <MenuComponent.Content ref={ref}>{children}</MenuComponent.Content>
             </MenuComponent.Positioner>
         </MenuComponent.Root>
     );
