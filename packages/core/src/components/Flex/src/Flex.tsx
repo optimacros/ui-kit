@@ -22,7 +22,7 @@ export const Flex = forward<FlexProps, 'div'>(
             align = 'start',
             justify = 'start',
             wrap = 'nowrap',
-            gap = 0,
+            gap,
             style,
             fluid,
             width,
@@ -42,7 +42,7 @@ export const Flex = forward<FlexProps, 'div'>(
                 data-wrap={wrap}
                 data-fluid={fluid}
                 style={{
-                    gap: `var(--spacing-${gap})`,
+                    ...(gap !== undefined ? { gap: `var(--spacing-${gap})` } : null),
                     width,
                     height,
                     ...style,
