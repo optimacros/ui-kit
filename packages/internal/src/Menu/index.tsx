@@ -4,6 +4,8 @@ import type React from 'react';
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
 import { forward } from '@optimacros-ui/store';
 
+import './styles.css';
+
 interface IMenuItem {
     title?: string;
     label?: string;
@@ -107,7 +109,9 @@ export const Menu = forward<
         <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
             {renderTrigger?.()}
             <MenuComponent.Positioner>
-                <MenuComponent.Content ref={ref}>{children}</MenuComponent.Content>
+                <MenuComponent.Content className="menu-content" ref={ref}>
+                    {children}
+                </MenuComponent.Content>
             </MenuComponent.Positioner>
         </MenuComponent.Root>
     );
