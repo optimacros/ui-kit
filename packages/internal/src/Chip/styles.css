@@ -1,0 +1,10 @@
+[data-scope='chip'][data-part='root'][data-tag='internal'] {
+  border-radius: 2px;
+  padding: 5px 12px;
+
+  [data-scope='flex'][data-tag='controls'] {
+    & > div {
+      display: flex;
+    }
+  }
+}

@@ -3,6 +3,10 @@ import type React from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Chip as ChipComponent } from '@optimacros-ui/chip';
 import { forward } from '@optimacros-ui/store';
+import { clsx } from '@optimacros-ui/utils';
+import { Flex } from '@optimacros-ui/flex';
+
+import './styles.css';
 
 export type ChipTheme = {
     avatar: string;
@@ -18,6 +22,8 @@ type Props = {
     onDeleteClick?: MouseEventHandler<SVGSVGElement | HTMLSpanElement>;
     settingsDialog?: React.JSX.Element;
     customDeleteIcon?: React.JSX.Element;
+    /** TODO remove */
+    incomeDeleteIcon?: React.JSX.Element;
     style?: Record<string, any>;
     theme?: Partial<ChipTheme>;
     className?: string;
@@ -35,13 +41,15 @@ export const Chip = forward<ChipProps, 'div'>(
             settingsDialog,
             theme: customTheme = {},
             customDeleteIcon,
+            incomeDeleteIcon,
             theme = {},
+            style,
             ...other
         },
         ref,
     ) => {
         const renderDeleteIcon = (): ReactNode => {
-            if (customDeleteIcon) {
+            if (customDeleteIcon || incomeDeleteIcon) {
                 return (
                     <span
                         data-scope="chip"
@@ -49,7 +57,7 @@ export const Chip = forward<ChipProps, 'div'>(
                         onClick={onDeleteClick}
                         className={theme.deleteIcon}
                     >
-                        {customDeleteIcon}
+                        {customDeleteIcon || incomeDeleteIcon}
                     </span>
                 );
             }
@@ -61,13 +69,15 @@ export const Chip = forward<ChipProps, 'div'>(
             );
         };
 
+        const cn = clsx(className, theme.chip);
+
         return (
-            <ChipComponent.Root {...other} className={theme.chip} ref={ref}>
+            <ChipComponent.Root {...other} className={cn} ref={ref} data-tag="internal">
                 {children}
-                <div>
-                    {settingsDialog && <span>{settingsDialog}</span>}
+                <Flex data-tag="controls" align="center">
+                    {settingsDialog && settingsDialog}
                     {deletable && renderDeleteIcon()}
-                </div>
+                </Flex>
             </ChipComponent.Root>
         );
     },
