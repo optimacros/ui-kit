@@ -103,6 +103,7 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
                 data-name={dataName}
                 theme={theme}
                 className={theme.ButtonMenu}
+                disabled={disabled}
             >
                 {renderContent()}
             </Button>
