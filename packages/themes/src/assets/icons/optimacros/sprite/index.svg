@@ -557,20 +557,10 @@
 <path d="M8.33317 16.6667V11.6667H11.6665V16.6667H15.8332V10H18.3332L9.99984 2.5L1.6665 10H4.1665V16.6667H8.33317Z"/>
 </symbol>
 
-<symbol id="horizontal-lines"
-            viewBox="0 0 48 48"
-           
-        >
-            <path
-                d="M0 7H48V11.8H0V7Z"
-            />
-            <path
-                d="M0 21.4H48V26.2H0V21.4Z"
-            />
-            <path
-                d="M0 35.8H48V40.6H0V35.8Z"
-            />
-        </symbol>
+<symbol id="horizontal-lines" viewBox="0 0 15 15"><line stroke="var(--primary-text-color)" stroke-width="1.25" x1="1.875" x2="13.125" y1="4.375" y2="4.375"></line><line stroke="var(--primary-text-color)" stroke-width="1.25" x1="1.875" x2="13.125" y1="7.5" y2="7.5"></line><line stroke="var(--primary-text-color)" stroke-width="1.25" x1="1.875" x2="13.125" y1="10.625" y2="10.625"></line>
+</symbol>
+
+
 <symbol id="images-with-objects-chart" viewBox="0 0 48 48" >
     <g clipPath="url(#clip0_29_778)">
         <path d="M21.7132 48C15.7726 47.419 10.2597 44.643 6.24658 40.2119C2.23347 35.7808 0.00696827 30.0113 1.63288e-05 24.0253C-0.00693561 18.0393 2.20616 12.2646 6.20897 7.82419C10.2118 3.38375 15.7182 0.59492 21.6575 0L21.6801 5.37869C17.016 5.84587 13.1825 7.80978 10.0392 11.2968C6.89581 14.7838 5.1579 19.3186 5.16336 24.0193C5.16882 28.72 6.91726 33.2507 10.0687 36.7304C13.2201 40.21 17.0481 42.5344 21.7132 42.9907V48Z" />
