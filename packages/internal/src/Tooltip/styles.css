@@ -1,7 +1,7 @@
 [data-scope='tooltip'][data-tag='internal'] {
   [data-scope='tooltip'][data-part='content'] {
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.3;
     min-height: 20px;
@@ -10,6 +10,12 @@
     padding: 8px;
     background-color: #3b3b3b;
     color: #ffffff;
+    z-index: var(--z-index-higher);
+
+    [data-scope='text'][data-tag='paragraph'],
+    [data-scope='text'][data-tag='span'] {
+      font-size: 0.875rem;
+    }
   }
 
   [data-scope='tooltip'][data-part='arrow'] {

@@ -4,6 +4,8 @@ import React from 'react';
 import { Icon } from '../../Icon';
 
 import styles from './HeaderMenu.module.css';
+import { Flex } from '@optimacros-ui/flex';
+import { FontIcon } from '@optimacros-ui/font-icon';
 
 interface Props {
     isFirstLevel: boolean;
@@ -41,10 +43,19 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
             return null;
         }
 
+        // Иконки, которые (пока) в свг выглядят некорректно
+        if (['add', 'dashboard', 'list'].includes(element.icon)) {
+            return (
+                <Flex justify="center" className={styles.Element_IconContainer}>
+                    <FontIcon className={styles.Element_Icon} value={element.icon} />
+                </Flex>
+            );
+        }
+
         return (
-            <div className={styles.Element_IconContainer}>
+            <Flex justify="center" className={styles.Element_IconContainer}>
                 <Icon className={styles.Element_Icon} value={element.icon} />
-            </div>
+            </Flex>
         );
     }
 
