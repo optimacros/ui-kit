@@ -7,11 +7,13 @@ import { fn } from '@storybook/test';
 
 const argTypes: ArgTypes<ComponentProps<typeof Image.Root>> = {
     ratio: {
-        control: 'radio',
-        options: ['square', 'portrait', 'landscape', 'wide', 'ultrawide', 'golden', 'custom'],
-        description:
-            'Image aspect ratio preset. If `custom` is selected, `--aspect-ratio` variable will be used',
-        type: { name: 'string', required: true },
+        control: 'text',
+        description: 'Image aspect ratio',
+        table: {
+            type: {
+                summary: 'square | portrait | landscape | wide | ultrawide | golden | number',
+            },
+        },
     },
     onStatusChange: {
         control: false,

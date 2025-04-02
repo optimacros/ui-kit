@@ -1,3 +1,5 @@
+import 'react';
+
 interface Mapping {
     [key: string]: string;
 }
@@ -23,5 +25,11 @@ declare module globalThis {
             updateArgs: (newArgs: Record<any, any>) => Promise<void>;
             resetStory: () => Promise<void>;
         };
+    }
+}
+
+declare module 'react' {
+    interface CSSProperties {
+        [key: `--${string}`]: string | number;
     }
 }

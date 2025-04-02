@@ -7,17 +7,17 @@ export const Avatar = () => (
             <Image.Avatar src="https://picsum.photos/id/1018/800/600" alt="Mountain landscape" />
             <Image.Fallback>Loading...</Image.Fallback>
         </Image.Root>
-        <Image.Root style={{ width: 100 }} ratio="square">
+        <Image.Root style={{ width: 100 }} ratio="portrait">
             <Image.Avatar src="https://picsum.photos/id/1018/800/600" alt="Mountain landscape" />
             <Image.Fallback>Loading...</Image.Fallback>
         </Image.Root>
 
-        <Image.Root style={{ width: 100 }} ratio="square">
+        <Image.Root style={{ width: 100 }} ratio="landscape">
             <Image.Avatar src="https://picsum.photos/id/1018/800/600" alt="Mountain landscape" />
             <Image.Fallback>Loading...</Image.Fallback>
         </Image.Root>
 
-        <Image.Root style={{ width: 100 }} ratio="square">
+        <Image.Root style={{ width: 100 }} ratio="ultrawide">
             <Image.Avatar src="https://picsum.photos/id/1018/800/600" alt="Mountain landscape" />
             <Image.Fallback>Loading...</Image.Fallback>
         </Image.Root>
