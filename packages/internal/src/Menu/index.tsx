@@ -69,18 +69,14 @@ export const SubMenu = ({
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
             <MenuComponent.SubMenuContent menu={menu}>
-                {childrenArr
-                    .filter(
-                        (c) =>
-                            //@ts-ignore
-                            c.type.displayName === 'MenuItem' || c.type.displayName === 'SubMenu',
-                    )
-                    .map((c, i) => {
-                        //@ts-ignore
-                        if (c.type.displayName === 'SubMenu') {
-                            return <SubMenu {...c.props} parent={menu} />;
-                        }
-
+                {}
+                {childrenArr.map((c, i) => {
+                    //@ts-ignore
+                    if (c.type.displayName === 'SubMenu') {
+                        return <SubMenu {...c.props} parent={menu} />;
+                    }
+                    //@ts-ignore
+                    if (c.type.displayName === 'MenuItem') {
                         return (
                             <MenuComponent.SubMenuItem
                                 {...c.props}
@@ -94,7 +90,9 @@ export const SubMenu = ({
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
                         );
-                    })}
+                    }
+                    return c;
+                })}
             </MenuComponent.SubMenuContent>
         </>
     );

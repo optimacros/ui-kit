@@ -117,8 +117,6 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
             open={visible}
             renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
-            controllable
-            //@ts-ignore
             ref={ref}
         >
             {children}
