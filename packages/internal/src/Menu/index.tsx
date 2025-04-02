@@ -21,7 +21,6 @@ interface IMenuItem {
 export const MenuItem = forward<IMenuItem, 'li'>(
     ({ label, title, value, children, onClick, ...restProps }, ref) => {
         const generatedKey = useId();
-
         return (
             <div onClick={onClick}>
                 <MenuComponent.Item {...restProps} value={value ?? generatedKey} ref={ref}>
@@ -76,7 +75,7 @@ export const SubMenu = ({
                             //@ts-ignore
                             c.type.displayName === 'MenuItem' || c.type.displayName === 'SubMenu',
                     )
-                    .map((c) => {
+                    .map((c, i) => {
                         //@ts-ignore
                         if (c.type.displayName === 'SubMenu') {
                             return <SubMenu {...c.props} parent={menu} />;
@@ -85,7 +84,12 @@ export const SubMenu = ({
                         return (
                             <MenuComponent.SubMenuItem
                                 {...c.props}
-                                value={c.props.value || c.props.label || c.props.title}
+                                value={
+                                    c.props.value ||
+                                    c.props.label ||
+                                    c.props.title ||
+                                    `${generatedKey}${i}`
+                                }
                             >
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
@@ -101,17 +105,34 @@ SubMenu.displayName = 'SubMenu';
 export const MenuTrigger = MenuComponent.Trigger;
 
 export const Menu = forward<
-    { children: ReactNode; renderTrigger?: () => ReactNode } & MenuComponent.Props,
+    {
+        children: ReactNode;
+        renderTrigger?: () => ReactNode;
+        onlyContent?: boolean;
+    } & MenuComponent.Props,
     'div'
 >((props, ref) => {
-    const { children, renderTrigger, ...rest } = props;
+    const { children, renderTrigger, onlyContent, ...rest } = props;
+
+    if (onlyContent) {
+        return (
+            <div data-scope="menu" data-part="root">
+                {children}
+            </div>
+        );
+    }
+
     return (
-        <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
-            {renderTrigger?.()}
-            <MenuComponent.Positioner data-tag="internal">
-                <MenuComponent.Content ref={ref}>{children}</MenuComponent.Content>
-            </MenuComponent.Positioner>
-        </MenuComponent.Root>
+        <div data-scope="menu" data-part="root">
+            <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
+                {renderTrigger?.()}
+                <MenuComponent.Positioner>
+                    <MenuComponent.Content className="menu-content" ref={ref}>
+                        {children}
+                    </MenuComponent.Content>
+                </MenuComponent.Positioner>
+            </MenuComponent.Root>
+        </div>
     );
 });
 

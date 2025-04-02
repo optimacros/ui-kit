@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, ReactElement, useEffect, useRef, useState } from 'react';
 import type React from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
@@ -8,6 +8,7 @@ interface Props extends RCDropdownProps {
     closeOnSelect?: boolean;
     controllable?: boolean;
     className?: string;
+    renderOverlay?: (props: Menu.Props) => ReactElement;
 }
 
 export type DropdownProps = React.PropsWithChildren<Props>;
@@ -25,12 +26,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             overlay,
             visible,
             trigger,
+            renderOverlay,
             ...otherProps
         },
         ref,
     ) => {
         let closeTimeout;
-
+        const menuRef = useRef<HTMLDivElement>(null);
+        const [hasMenu, setHasMenu] = useState(false);
         useEffect(() => {
             return clearTimeout(closeTimeout);
         }, []);
@@ -68,49 +71,34 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         const isHoverTrigger = trigger[0] === 'hover';
 
-        //@ts-ignore
-        const isMenuInOverlay = overlay?.type?.displayName === 'Menu';
+        const content = (
+            <>
+                <Menu.Trigger as="div">{children}</Menu.Trigger>
+                <Menu.Positioner>
+                    <Menu.Content>{renderOverlay?.({ onlyContent: true }) ?? overlay}</Menu.Content>
+                </Menu.Positioner>
+            </>
+        );
 
         return (
-            <Menu.Root
-                {...otherProps}
-                open={visible}
-                onOpenChange={handleVisibleChange}
-                hoverable={isHoverTrigger}
-            >
-                <Menu.Api>
-                    {(api) => {
-                        return isHoverTrigger ? (
-                            <div
-                                style={{ width: 'fit-content' }}
-                                onMouseEnter={() => handleMouseEnter(api)}
-                                onMouseLeave={(e) => handleMouseLeave(e, api)}
-                            >
-                                <Menu.Trigger as="div">{children}</Menu.Trigger>
-                                <Menu.Positioner>
-                                    <Menu.Content size="sm" ref={ref}>
-                                        {/** @ts-ignore */}
-                                        <Menu.List>{overlay}</Menu.List>
-                                    </Menu.Content>
-                                </Menu.Positioner>
-                            </div>
-                        ) : (
-                            <>
-                                <Menu.Trigger as="div">{children}</Menu.Trigger>
-                                <Menu.Positioner>
-                                    <Menu.Content size="sm" ref={ref}>
-                                        <Menu.List>
-                                            {isMenuInOverlay
-                                                ? //@ts-ignore
-                                                  overlay?.props?.children
-                                                : overlay}
-                                        </Menu.List>
-                                    </Menu.Content>
-                                </Menu.Positioner>
-                            </>
-                        );
-                    }}
-                </Menu.Api>
+            <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange} hoverable>
+                <div ref={menuRef} data-scope="menu" data-part="root">
+                    <Menu.Api>
+                        {(api) => {
+                            return isHoverTrigger ? (
+                                <div
+                                    style={{ width: 'fit-content' }}
+                                    onMouseEnter={() => handleMouseEnter(api)}
+                                    onMouseLeave={(e) => handleMouseLeave(e, api)}
+                                >
+                                    {content}
+                                </div>
+                            ) : (
+                                content
+                            );
+                        }}
+                    </Menu.Api>
+                </div>
             </Menu.Root>
         );
     },

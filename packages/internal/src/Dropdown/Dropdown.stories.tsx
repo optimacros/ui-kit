@@ -1,7 +1,6 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
-import { Dropdown, Button, Menu, MenuItem } from '@optimacros-ui/kit-internal';
+import { Dropdown, Button, Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 import { Flex } from '@optimacros-ui/flex';
-
 const argTypes: Partial<ArgTypes> = {
     disabled: {
         control: 'boolean',
@@ -165,10 +164,39 @@ export const TriggerClick: Story = {
     args: {
         trigger: ['click'],
         children: <Button label="Users" />,
-        overlay: (
-            <Menu>
-                <MenuItem>Item 1</MenuItem>
-                <MenuItem>Item 2</MenuItem>
+        renderOverlay: (props) => (
+            <Menu {...props}>
+                <MenuItem>1</MenuItem>
+                <SubMenu title="2">
+                    <MenuItem>2-1</MenuItem>
+                    <SubMenu title="3">
+                        <MenuItem>3-1</MenuItem>
+                        <SubMenu title="4">
+                            <MenuItem>4-1</MenuItem>
+                            <MenuItem>4-2</MenuItem>
+                            <MenuItem>4-3</MenuItem>
+                            <MenuItem>4-4</MenuItem>
+                            <SubMenu title="5">
+                                <MenuItem>5-1</MenuItem>
+                                <MenuItem>5-2</MenuItem>
+                                <SubMenu title="6">
+                                    <MenuItem>6-1</MenuItem>
+                                    <MenuItem>6-2</MenuItem>
+                                    <SubMenu title="7">
+                                        <MenuItem>7-1</MenuItem>
+                                        <MenuItem>7-2</MenuItem>
+                                        <MenuItem>7-3</MenuItem>
+                                        <MenuItem>7-4</MenuItem>
+                                    </SubMenu>
+                                    <MenuItem>6-3</MenuItem>
+                                    <MenuItem>6-4</MenuItem>
+                                </SubMenu>
+                                <MenuItem>5-3</MenuItem>
+                                <MenuItem>5-4</MenuItem>
+                            </SubMenu>
+                        </SubMenu>
+                    </SubMenu>
+                </SubMenu>
             </Menu>
         ),
     },
