@@ -1,0 +1,7 @@
+[data-scope='toolbar'][data-part='root'][data-tag='internal'] {
+  [data-role='toolbar-content'] {
+    /* нет spacing 0.5rem (16/2=8пх), есть только 0.4 и 0.6 */
+    /* TODO добавить в flex возможность передать кастомный гэп */
+    gap: 8px;
+  }
+}

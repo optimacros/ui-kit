@@ -8,6 +8,8 @@ import { TooltipPosition } from '../Tooltip/models';
 import { convertToObject, parseHex } from './utils';
 import { Popover, Title } from './components';
 
+import './styles.css';
+
 interface ColorPickerComponentProps extends Omit<ColorPickerProps, 'disabled' | 'title'> {
     color: string;
     setColor: (color: string) => void;
@@ -118,7 +120,12 @@ export const ColorPicker = memo(
             const hexColor = useMemo(() => parseHex(color), [color]);
 
             return (
-                <Flex direction="column">
+                <Flex
+                    direction="column"
+                    data-style-tag="internal"
+                    data-tag="color-picker-root"
+                    data-disabled={disabled}
+                >
                     {!!title && (
                         <Title title={title} tooltip={tooltip} tooltipPosition={tooltipPosition} />
                     )}

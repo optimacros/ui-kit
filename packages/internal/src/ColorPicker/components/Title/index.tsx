@@ -1,8 +1,10 @@
 import { memo, useMemo } from 'react';
-import { ColorPickerProps } from '../ColorPicker';
+import { ColorPickerProps } from '../../ColorPicker';
 import { Text } from '@optimacros-ui/text';
 import { Tooltip } from '@optimacros-ui/tooltip';
-import { tooltipPositionMapping } from '../../Tooltip/settings';
+import { tooltipPositionMapping } from '../../../Tooltip/settings';
+
+import './styles.css';
 
 type Props = Pick<ColorPickerProps, 'title' | 'tooltip' | 'tooltipPosition'>;
 
