@@ -50,7 +50,7 @@ const connect = ((api, service) => {
 
             if (!isNaN(+ratio) && !!ratio) {
                 props['data-aspect-ratio'] = 'custom';
-                props.style = { '--aspect-ratio': `${+ratio}%` };
+                props.style = { '--aspect-ratio': `${+ratio * 100}%` };
             } else if (typeof ratio === 'string' && !!ratio) {
                 props['data-aspect-ratio'] = ratio;
             }

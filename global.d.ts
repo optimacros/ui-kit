@@ -1,5 +1,3 @@
-import 'react';
-
 interface Mapping {
     [key: string]: string;
 }
@@ -29,7 +27,11 @@ declare module globalThis {
 }
 
 declare module 'react' {
-    interface CSSProperties {
+    import * as ReactTypings from '@types/react';
+
+    export interface CSSProperties extends ReactTypings.CSSProperties {
         [key: `--${string}`]: string | number;
     }
+
+    export = ReactTypings;
 }

@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 // Types
 type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 
-interface BadgeProps {
+interface BadgeProps extends ComponentPropsWithoutRef<'div'> {
     /** The content to display inside the badge */
     count?: number;
     /** Badge position relative to the child element */
@@ -14,8 +14,6 @@ interface BadgeProps {
     children: ReactNode;
     /** any size as css value */
     size?: string;
-    style?: object;
-    className?: string;
 }
 
 export const Badge = ({
