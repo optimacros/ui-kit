@@ -136,11 +136,8 @@
   flex-shrink: 0;
   align-items: center;
   display: flex;
-
-  & svg {
-    width: 21px;
-    height: 21px;
-  }
+  font-size: 21px;
+  color: transparent;
 }
 
 .Label {
