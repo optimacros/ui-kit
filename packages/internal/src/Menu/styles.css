@@ -1,4 +1,5 @@
-[data-scope='menu'][data-part='positioner'][data-tag='internal'] {
+[data-scope='menu'][data-part='positioner'][data-tag='internal'],
+nav[class*='NavigationContainer'] [data-scope='menu'][data-part='positioner'] {
   [data-scope='menu'][data-part='content'] {
     max-height: unset !important;
     width: unset !important;
@@ -20,6 +21,14 @@
         height: 14px;
         left: 12px;
       }
+    }
+  }
+
+  [class*='SubMenuContent'] {
+    [data-scope='menu'][data-part='item'],
+    [data-scope='menu'][data-part='trigger-item'],
+    [data-scope='menu'][data-part='trigger'] {
+      padding: 0.5rem;
     }
   }
 

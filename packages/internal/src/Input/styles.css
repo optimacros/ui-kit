@@ -13,3 +13,26 @@
     font-size: 12px;
   }
 }
+
+nav[class*='NavigationContainer'] {
+  [data-scope='field'][data-tag='internal'] {
+    &[data-part='root'] {
+      padding: 0;
+    }
+
+    [data-part='input'] {
+      padding: 8px !important;
+      padding-right: 32px !important;
+      font-size: 13px !important;
+
+      &::placeholder {
+        font-size: 13px !important;
+      }
+    }
+    [data-part='label'],
+    [data-part='error'],
+    [data-part='hint'] {
+      font-size: 12px;
+    }
+  }
+}

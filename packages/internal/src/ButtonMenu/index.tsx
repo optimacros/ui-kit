@@ -5,10 +5,18 @@ import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-inter
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 
 export type ButtonMenuTheme = Partial<ButtonTheme> & {
-    ButtonMenu?: string;
+    ButtonMenu?: string; // +
     buttonText?: string;
     buttonIcon?: string;
 };
+
+//     "IconButton": "SecondNavigationTheme__IconButton___kdy_g",
+//     "icon": "SecondNavigationTheme__icon___ann9h",
+//     "NavigationContainer_normal": "SecondNavigationTheme__NavigationContainer_normal___aJ62a",
+//     "NavigationContainer_big": "SecondNavigationTheme__NavigationContainer_big___B4lP5",
+//     "NavigationContainer_largest": "SecondNavigationTheme__NavigationContainer_largest____FWxb"
+//     "NavigationContainer": "SecondNavigationTheme__NavigationContainer___nn_BV",
+//     "NavigationContainer_small": "SecondNavigationTheme__NavigationContainer_small___N1dCr",
 
 type Props = {
     label?: string;
@@ -75,6 +83,7 @@ export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props,
                     composedComponentProps={{
                         theme,
                         className: theme.ButtonMenu,
+                        disabled,
                         ...otherProps,
                         'data-label': label,
                         'data-name': dataName,

@@ -35,3 +35,19 @@
     font-size: 120%;
   }
 }
+
+[class^='ActionButton'],
+[class*='NavigationContainer'] {
+  [data-scope='button'][data-tag='internal'][data-part='root'][data-float='flat'],
+  [data-scope='button'][data-style-tag='internal'][data-part='root'][data-float='flat'] {
+    height: 28px !important;
+    padding: 0 2px 0 6px !important;
+    min-width: 0 !important;
+    gap: 0 !important;
+
+    &:disabled,
+    &[data-disabled='true'] {
+      background: none;
+    }
+  }
+}

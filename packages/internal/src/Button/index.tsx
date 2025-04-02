@@ -5,6 +5,7 @@ import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
 import { clsx } from '@optimacros-ui/utils';
+import { FontIcon } from '@optimacros-ui/font-icon';
 
 import './styles.css';
 
@@ -153,7 +154,11 @@ export const Button = forward<
             >
                 {icon ? (
                     <Flex direction={btnContentDirection} align="center" gap={2}>
-                        <Icon value={icon} className={theme.icon} />
+                        {typeof icon === 'string' && ['undo'].includes(icon) ? (
+                            <FontIcon value={icon} className={theme.icon} />
+                        ) : (
+                            <Icon value={icon} className={theme.icon} />
+                        )}
                         {label}
                     </Flex>
                 ) : (
