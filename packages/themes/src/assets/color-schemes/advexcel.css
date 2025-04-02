@@ -107,6 +107,9 @@
   --color-theme-disabled-200: var(--color-pallete-gray-200);
   --color-theme-disabled-400: var(--color-pallete-gray-400);
   --color-theme-disabled-500: var(--color-pallete-gray-500);
+
+  --color-menu-primary-default: #ffffff;
+  --color-menu-primary-item-active: #ebfaff;
 }
 
 /** ws fe custom colors*/

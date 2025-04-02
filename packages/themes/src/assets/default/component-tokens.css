@@ -45,7 +45,7 @@
   --color-color-picker-primary-focus: #ffffff;
   --color-color-picker-primary-active: #ffffff;
   --color-divider-primary-default: var(--color-theme-divider-dark-default);
-  --color-menu-primary-default: var(--color-theme-white);
+  --color-menu-primary-default: #ffffff;
   --color-menu-primary-shadow-default: var(--color-theme-gray-100);
   --color-menu-primary-border-default: var(--color-theme-gray-100);
   --color-menu-primary-on-default: var(--color-theme-text-primary-default);
@@ -149,6 +149,7 @@
   --color-icon-button-accent-default: var(--color-pallete-gray-200);
   --color-icon-button-accent-on-default: var(--color-theme-text-secondary-default);
   --color-icon-button-border-default: var(--color-pallete-gray-400);
+  --color-icon-button-on-default: var(--color-pallete-gray-500);
   --color-loader-primary-track-default: var(--color-divider-primary-default);
   --color-loader-primary-range-disabled: var(--color-divider-primary-default);
   --color-loader-primary-range-default: var(--color-theme-primary-default);

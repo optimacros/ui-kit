@@ -139,6 +139,9 @@
   --color-grid-primary-cell-default: #ffffff;
   --color-grid-primary-header-default: #f1f1f1;
   --color-grid-primary-inner-default: #d7d7d7;
+
+  --color-menu-primary-default: #ffffff;
+  --color-menu-primary-item-active: #ebfaff;
 }
 
 /** ws fe theme */

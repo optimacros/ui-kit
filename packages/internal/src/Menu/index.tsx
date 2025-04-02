@@ -41,7 +41,7 @@ export const SubMenu = ({
     parent: parentMenu,
 }: {
     label?: string;
-    title?: string;
+    title?: ReactNode;
     value?: string;
     children: Array<ReactNode>;
     parent?: ReturnType<typeof MenuComponent.useState>;
@@ -64,7 +64,10 @@ export const SubMenu = ({
 
     return (
         <>
-            <MenuComponent.TriggerItem {...menu.props} value={value || title || label}>
+            <MenuComponent.TriggerItem
+                {...menu.props}
+                value={value || (typeof title === 'string' && title) || label || generatedKey}
+            >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>

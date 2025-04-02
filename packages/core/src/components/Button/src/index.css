@@ -129,23 +129,19 @@
 
   &[data-variant='neutral'] {
     background: transparent;
-    /* border-color: var(--color-button-neutral-on-default); */
-    border: 1px solid transparent;
 
     &:hover,
     &:focus-visible {
-      border-color: var(--color-button-neutral-default-hover);
+      background: var(--color-button-neutral-default-hover);
     }
   }
 
   &[data-variant='gray'] {
     background: var(--color-button-gray-default);
-    color: var(--color-button-gray-on-default);
 
     &:hover,
     &:focus-visible {
       background: var(--color-button-gray-active);
-      color: var(--color-button-gray-default);
     }
   }
 

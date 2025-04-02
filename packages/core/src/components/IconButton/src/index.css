@@ -28,4 +28,19 @@
   &[data-size='md'] {
     padding: var(--spacing-1-5) var(--spacing-2);
   }
+
+  &[data-variant='neutral'] {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-icon-button-on-default);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--color-button-neutral-default-hover);
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+  }
 }
