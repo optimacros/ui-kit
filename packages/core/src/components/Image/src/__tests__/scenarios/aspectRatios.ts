@@ -2,7 +2,7 @@ import { expect, waitFor, within } from '@storybook/test';
 import type { ImageRatio } from '../../Image';
 import { round } from '@optimacros-ui/utils';
 
-const allRatios: Record<ImageRatio, number> = {
+const allRatios: Record<ImageRatio | 'custom', number> = {
     square: 1,
     portrait: 1.5,
     landscape: 0.75,

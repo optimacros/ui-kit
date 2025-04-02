@@ -1,9 +1,25 @@
 import { Zag, createMachineContext, forward, styled } from '@optimacros-ui/store';
-import { ComponentProps } from 'react';
+import { ComponentProps, CSSProperties } from 'react';
 import * as machine from '@zag-js/avatar';
 import { isFunction } from '@optimacros-ui/utils';
 
-type Schema = Zag.ModuleSchema<typeof machine>;
+type Schema = Zag.ExtendModuleSchema<
+    typeof machine,
+    {
+        props: {
+            ratio: any;
+        };
+    }
+>;
+
+type Api = machine.Api & {
+    getWrapperProps(ratio: ImageRatio | number): {
+        'data-scope': string;
+        'data-part': string;
+        'data-aspect-ratio': string;
+        style?: CSSProperties;
+    };
+};
 
 const connect = ((api, service) => {
     return {
@@ -26,8 +42,23 @@ const connect = ((api, service) => {
                 'data-scope': 'image',
             };
         },
+        getWrapperProps(ratio: ImageRatio | number) {
+            const props: Partial<ReturnType<Api['getWrapperProps']>> = {
+                'data-scope': 'image',
+                'data-part': 'wrapper',
+            };
+
+            if (!isNaN(+ratio) && !!ratio) {
+                props['data-aspect-ratio'] = 'custom';
+                props.style = { '--aspect-ratio': `${+ratio * 100}%` };
+            } else if (typeof ratio === 'string' && !!ratio) {
+                props['data-aspect-ratio'] = ratio;
+            }
+
+            return props;
+        },
     };
-}) satisfies Zag.ConnectApi<Schema, machine.Api>;
+}) satisfies Zag.ConnectApi<Schema, Api>;
 
 export const {
     Api,
@@ -40,24 +71,17 @@ export const {
     splitProps,
     useFeatureFlags,
     useState,
-} = createMachineContext<Schema, machine.Api>({
+} = createMachineContext<Schema, Api>({
     id: 'image',
     machine,
     connect,
 });
 
-export type ImageRatio =
-    | 'square'
-    | 'portrait'
-    | 'landscape'
-    | 'wide'
-    | 'ultrawide'
-    | 'golden'
-    | 'custom';
+export type ImageRatio = 'square' | 'portrait' | 'landscape' | 'wide' | 'ultrawide' | 'golden';
 
 export const Root = forward<
     {
-        ratio: ImageRatio;
+        ratio?: ImageRatio | number;
     } & ComponentProps<typeof RootProvider>,
     'div'
 >(({ children, style, className, ratio, ...props }, ref) => {
@@ -69,9 +93,10 @@ export const Root = forward<
                     ref={ref}
                     style={style}
                     className={className}
-                    data-aspect-ratio={ratio}
                 >
-                    {isFunction(children) ? children(ctx) : children}
+                    <styled.div {...ctx.api.getWrapperProps(ratio)}>
+                        {isFunction(children) ? children(ctx) : children}
+                    </styled.div>
                 </styled.div>
             )}
         </RootProvider>

@@ -25,3 +25,13 @@ declare module globalThis {
         };
     }
 }
+
+declare module 'react' {
+    import * as ReactTypings from '@types/react';
+
+    export interface CSSProperties extends ReactTypings.CSSProperties {
+        [key: `--${string}`]: string | number;
+    }
+
+    export = ReactTypings;
+}

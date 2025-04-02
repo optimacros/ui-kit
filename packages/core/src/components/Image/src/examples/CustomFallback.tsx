@@ -2,7 +2,7 @@ import { Image } from '../';
 import { Flex } from '@optimacros-ui/flex';
 
 export const CustomFallback = () => (
-    <Image.Root ratio="square">
+    <Image.Root ratio={50}>
         <Image.Image src="invalid-url.jpg" alt="Invalid image" />
         <Image.Fallback>
             <Flex
@@ -13,6 +13,9 @@ export const CustomFallback = () => (
                     justifyContent: 'center',
                     flexDirection: 'column',
                     gap: '0.5rem',
+                    width: '100%',
+                    height: '100%',
+                    boxSizing: 'border-box',
                 }}
             >
                 <span style={{ fontSize: '2rem' }}>🖼</span>
