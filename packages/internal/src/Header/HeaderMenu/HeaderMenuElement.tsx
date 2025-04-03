@@ -39,6 +39,7 @@ export class HeaderMenuElement extends Component<Props> {
             [styles.MenuItem__disabled]: element.disabled,
             [styles.MenuItem_child]: element.isChild,
             [styles.MenuItem_parent]: element.isParent,
+            'HeaderMenu-module__MenuItem': true, // для тестов
         });
 
         return (
