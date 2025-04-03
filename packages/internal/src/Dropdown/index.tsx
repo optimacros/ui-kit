@@ -1,14 +1,16 @@
-import { forwardRef, ReactElement, useEffect, useRef, useState } from 'react';
+import { forwardRef, ReactElement, useEffect, useRef } from 'react';
 import type React from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
+import { MenuProps } from '../Menu';
 
 interface Props extends RCDropdownProps {
     disabled?: boolean;
     closeOnSelect?: boolean;
     controllable?: boolean;
     className?: string;
-    renderOverlay?: (props: Menu.Props) => ReactElement;
+    renderOverlay?: (props: Partial<MenuProps>) => ReactElement;
+    overlay?: ReactElement;
 }
 
 export type DropdownProps = React.PropsWithChildren<Props>;
@@ -33,7 +35,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     ) => {
         let closeTimeout;
         const menuRef = useRef<HTMLDivElement>(null);
-        const [hasMenu, setHasMenu] = useState(false);
+
         useEffect(() => {
             return clearTimeout(closeTimeout);
         }, []);

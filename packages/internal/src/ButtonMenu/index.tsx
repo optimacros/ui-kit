@@ -29,7 +29,7 @@ type Props = {
 
 export type ButtonMenuProps = React.PropsWithChildren<Props>;
 
-export const ButtonMenu = forwardRef<HTMLButtonElement, ButtonMenuProps>((props, ref) => {
+export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, ref) => {
     const {
         disabled,
         onVisibleChange,

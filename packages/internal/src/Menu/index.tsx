@@ -103,15 +103,13 @@ export const SubMenu = ({
 SubMenu.displayName = 'SubMenu';
 
 export const MenuTrigger = MenuComponent.Trigger;
+export type MenuProps = {
+    children: ReactNode;
+    renderTrigger?: () => ReactNode;
+    onlyContent?: boolean;
+} & MenuComponent.Props;
 
-export const Menu = forward<
-    {
-        children: ReactNode;
-        renderTrigger?: () => ReactNode;
-        onlyContent?: boolean;
-    } & MenuComponent.Props,
-    'div'
->((props, ref) => {
+export const Menu = forward<MenuProps, 'div'>((props, ref) => {
     const { children, renderTrigger, onlyContent, ...rest } = props;
 
     if (onlyContent) {

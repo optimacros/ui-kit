@@ -69,7 +69,7 @@ export const {
                         theme,
                         iconsSet,
                         brand,
-                    }: { theme?: THEMES; iconsSet?: ICONS_SETS; brand: string },
+                    }: { theme?: THEMES; iconsSet?: ICONS_SETS; brand?: string },
                 ) {
                     theme && document.documentElement.setAttribute(HEAD_STYLE_ATTRS.THEME, theme);
                     iconsSet &&

@@ -5,6 +5,8 @@ import * as machine from '@zag-js/select';
 import { ComponentProps, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Virtual } from '@optimacros-ui/virtual';
 
+export * as Examples from './stories';
+
 export type Schema = Zag.ModuleSchema<typeof machine>;
 
 // export * as Examples from './stories';

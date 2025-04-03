@@ -3,7 +3,7 @@ import { Select } from '../index';
 import { Field } from '@optimacros-ui/field';
 import { ComponentProps } from 'react';
 
-export const Basic = (props?: ComponentProps<typeof Select.Root>) => {
+export const Basic = (props?: Omit<ComponentProps<typeof Select.Root>, 'children'>) => {
     const getFieldStatus = (api: ReturnType<typeof Select.useApi>): Field.FieldStatus => {
         if (api.disabled) {
             return 'readonly';
