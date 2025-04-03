@@ -39,6 +39,8 @@ export {
     floor,
     ceil,
     round,
+    startsWith,
+    kebabCase,
 } from 'lodash-es';
 
 export {
