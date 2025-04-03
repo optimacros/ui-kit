@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import type React from 'react';
 import { ColorPicker as UIColorPicker } from '@optimacros-ui/color-picker';
 import { Flex } from '@optimacros-ui/flex';
@@ -117,7 +117,37 @@ export const ColorPicker = memo(
             },
             ref,
         ) => {
+            const rootRef = useRef<HTMLDivElement>();
+            const apiRef = useRef<ReturnType<typeof UIColorPicker.useApi>>();
+
             const hexColor = useMemo(() => parseHex(color), [color]);
+
+            useLayoutEffect(() => {
+                const parent = rootRef.current?.parentElement as HTMLDivElement;
+
+                if (parent && ['change-color', 'add-color'].includes(parent.id)) {
+                    const element = parent.children[0]?.children[0]?.children[0] as HTMLDivElement;
+
+                    if (element) {
+                        const cb = (e: React.MouseEvent<HTMLDivElement>) => {
+                            console.info('clicl');
+
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            apiRef.current.setOpen(true);
+                        };
+
+                        // @ts-ignore
+                        element.addEventListener('click', cb);
+
+                        return () => {
+                            // @ts-ignore
+                            element.removeEventListener('click', cb);
+                        };
+                    }
+                }
+            }, []);
 
             return (
                 <Flex
@@ -125,30 +155,35 @@ export const ColorPicker = memo(
                     data-style-tag="internal"
                     data-tag="color-picker-root"
                     data-disabled={disabled}
+                    ref={rootRef}
                 >
                     {!!title && (
                         <Title title={title} tooltip={tooltip} tooltipPosition={tooltipPosition} />
                     )}
 
                     <UIColorPicker.RootProvider format="rgba" disabled={disabled}>
-                        {({ api }) => (
-                            <UIColorPicker.Root ref={ref}>
-                                <ColorPickerComponent
-                                    color={hexColor}
-                                    name={name}
-                                    onChange={onChange}
-                                    saveColor={saveColor}
-                                    cancelLabel={cancelLabel}
-                                    applyLabel={applyLabel}
-                                    showSettings={showSettings}
-                                    colorSettingsLabel={colorSettingsLabel}
-                                    onClickSettingsIcon={onClickSettingsIcon}
-                                    presetColors={presetColors}
-                                    recentColors={recentColors}
-                                    setColor={api.setValue}
-                                />
-                            </UIColorPicker.Root>
-                        )}
+                        {({ api }) => {
+                            apiRef.current = api;
+
+                            return (
+                                <UIColorPicker.Root ref={ref}>
+                                    <ColorPickerComponent
+                                        color={hexColor}
+                                        name={name}
+                                        onChange={onChange}
+                                        saveColor={saveColor}
+                                        cancelLabel={cancelLabel}
+                                        applyLabel={applyLabel}
+                                        showSettings={showSettings}
+                                        colorSettingsLabel={colorSettingsLabel}
+                                        onClickSettingsIcon={onClickSettingsIcon}
+                                        presetColors={presetColors}
+                                        recentColors={recentColors}
+                                        setColor={api.setValue}
+                                    />
+                                </UIColorPicker.Root>
+                            );
+                        }}
                     </UIColorPicker.RootProvider>
                 </Flex>
             );

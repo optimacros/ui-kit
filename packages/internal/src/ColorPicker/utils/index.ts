@@ -15,6 +15,11 @@ export const parseHex = (color: string | ColorFormat | ColorPicker.ValueChangeDe
         return color.valueAsString as string;
     }
 
+    // Какой-то внутренний формат всфе { id, value }
+    if (has(color, 'value')) {
+        return color.value as string;
+    }
+
     return null;
 };
 

@@ -29,12 +29,17 @@
   }
 
   [data-scope='color-picker'][data-part='swatch'] {
-    width: 18 / 20rem;
-    height: 18 / 20rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
   }
 
-  [data-tag='toolbar'] [data-scope='button'] {
-    padding: 0 12px;
-    min-width: 0;
+  [data-tag='toolbar'] {
+    margin-top: 10px;
+
+    [data-scope='button'] {
+      padding: 0 12px;
+      min-width: 0;
+    }
   }
 }

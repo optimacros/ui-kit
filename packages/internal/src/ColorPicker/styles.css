@@ -8,6 +8,19 @@
     & [data-part='swatch'] {
       width: 36px;
       height: 14px;
+      box-shadow: none;
     }
+  }
+}
+
+/* меню Настройки палитры */
+#change-color,
+#add-color {
+  opacity: 1 !important;
+
+  [data-scope='color-picker'][data-part='control'] {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 }
