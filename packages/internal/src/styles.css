@@ -16,7 +16,8 @@
   }
 
   &[data-part='item'],
-  &[data-part='trigger-item'] {
+  &[data-part='trigger-item'],
+  &[data-part='trigger'] {
     padding: 12px 24px 12px 16px;
     font-size: 12px;
   }

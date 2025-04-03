@@ -58,7 +58,7 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
 
 export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest }, ref) => {
     return (
-        <styled.li {...rest} title={rest.valueText ?? rest.value} ref={ref}>
+        <styled.li {...rest} title={rest.valueText} ref={ref}>
             {children}
         </styled.li>
     );

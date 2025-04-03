@@ -7,8 +7,6 @@ import { FontIcon } from '@optimacros-ui/font-icon';
 
 import './styles.css';
 
-import './styles.css';
-
 interface IMenuItem {
     title?: string;
     label?: string;
@@ -67,16 +65,16 @@ export const SubMenu = ({
             <MenuComponent.TriggerItem
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
+                key={generatedKey}
             >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
             <MenuComponent.SubMenuContent menu={menu}>
-                {}
                 {childrenArr.map((c, i) => {
                     //@ts-ignore
                     if (c.type.displayName === 'SubMenu') {
-                        return <SubMenu {...c.props} parent={menu} />;
+                        return <SubMenu {...c.props} parent={menu} key={`${generatedKey}${i}`} />;
                     }
                     //@ts-ignore
                     if (c.type.displayName === 'MenuItem') {
@@ -89,6 +87,7 @@ export const SubMenu = ({
                                     c.props.title ||
                                     `${generatedKey}${i}`
                                 }
+                                key={`${generatedKey}${i}`}
                             >
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
