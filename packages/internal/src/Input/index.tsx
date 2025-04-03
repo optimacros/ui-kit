@@ -152,7 +152,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         autoFocus={autoFocus}
                         onChange={onChange}
                         name={name}
-                        className={theme.input}
+                        className={theme.inputElement}
                     />
                 ) : (
                     <Field.Input
@@ -165,7 +165,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         value={fieldValue}
                         defaultValue={defaultValue}
                         onChange={(e) => onChange?.(e.target.value, e)}
-                        className={theme.input}
+                        className={theme.inputElement}
                         ref={ref}
                     />
                 )}

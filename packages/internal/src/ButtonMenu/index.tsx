@@ -3,6 +3,7 @@ import type React from 'react';
 import { Icon } from '@optimacros-ui/icon';
 import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
+import { clsx } from '@optimacros-ui/utils';
 
 export type ButtonMenuTheme = Partial<ButtonTheme> & {
     ButtonMenu?: string;
@@ -55,6 +56,8 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
         ...otherProps
     } = props;
 
+    const btnClassName = clsx(theme.ButtonMenu, className);
+
     const renderButton = () => {
         const iconValue = arrowUp ? 'arrow_drop_up' : 'arrow_drop_down';
         const renderContent = () => {
@@ -74,7 +77,7 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                     composedComponent={Button}
                     composedComponentProps={{
                         theme,
-                        className: theme.ButtonMenu,
+                        className: btnClassName,
                         ...otherProps,
                         'data-label': label,
                         'data-name': dataName,
@@ -102,7 +105,7 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                 data-label={label}
                 data-name={dataName}
                 theme={theme}
-                className={theme.ButtonMenu}
+                className={btnClassName}
                 disabled={disabled}
             >
                 {renderContent()}

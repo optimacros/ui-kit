@@ -1,4 +1,4 @@
-[data-scope='button'][data-tag='internal'][data-part='root'] {
+[data-scope='button'][data-style-tag='internal'][data-part='root'] {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   text-transform: none;
   border: 1px solid #0000;
@@ -14,7 +14,7 @@
     height: 1rem;
   }
 
-  &[data-float='flat'] {
+  &[data-float='flat']:not([data-tag='icon-button']) {
     padding: 0 12px;
     min-width: 90px;
     height: 36px;

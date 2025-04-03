@@ -34,9 +34,10 @@
     text-decoration: none;
   }
 
-  & span[data-scope='icon'] {
+  & span[data-scope='font-icon'] {
     color: inherit;
     line-height: normal;
+    font-size: 120%;
   }
 
   & svg[data-scope='icon'] {
@@ -180,6 +181,18 @@
     &:focus-visible {
       background: transparent;
       border-color: transparent;
+    }
+
+    &[data-disabled],
+    &[data-disabled='true'],
+    &[disabled] {
+      background: transparent;
+      border-color: transparent;
+
+      &:hover {
+        background: transparent;
+        border-color: transparent;
+      }
     }
   }
 
