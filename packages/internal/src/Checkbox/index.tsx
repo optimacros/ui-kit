@@ -1,9 +1,9 @@
-import { type CSSProperties, type MouseEventHandler } from 'react';
+import { forwardRef, type CSSProperties, type MouseEventHandler } from 'react';
 import type React from 'react';
 import { forward } from '@optimacros-ui/store';
 import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
-import { isUndefined } from '@optimacros-ui/utils';
+import { clsx, isUndefined } from '@optimacros-ui/utils';
 
 export type CheckboxTheme = {
     field?: string;
@@ -108,6 +108,8 @@ export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
     },
 );
 
+Checkbox.displayName = 'Checkbox';
+
 const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInputElement>(
     (
         {
@@ -135,17 +137,51 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
                 //@ts-ignore
                 onCheckedChange={(e) => onChange?.(e.checked, {})}
                 className={theme.field}
+                data-react-toolbox="checkbox"
                 {...rest}
             >
-                <CheckboxCore.BoxControl
-                    className={theme.input}
-                    ref={ref}
+                <CheckboxContent
+                    label={label}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                />
-                {label && <CheckboxCore.Label className={theme.text}>{label}</CheckboxCore.Label>}
-                {children}
+                    theme={theme}
+                >
+                    {children}
+                </CheckboxContent>
             </CheckboxCore.Root>
         );
     },
 );
+
+CheckboxComponent.displayName = 'CheckboxComponent';
+
+const CheckboxContent = forwardRef<
+    HTMLInputElement,
+    React.PropsWithChildren<Partial<InitialProps>>
+>(({ children, label, onMouseEnter, onMouseLeave, theme }, ref) => {
+    const api = CheckboxCore.useApi();
+
+    const boxCN = clsx({
+        [theme.input]: !!theme.input,
+        'checkboxTheme-module__checked': api.checked,
+    });
+
+    return (
+        <>
+            <CheckboxCore.BoxControl
+                className={boxCN}
+                ref={ref}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            />
+            {label && (
+                <CheckboxCore.Label className={theme.text} data-react-toolbox="label">
+                    {label}
+                </CheckboxCore.Label>
+            )}
+            {children}
+        </>
+    );
+});
+
+CheckboxContent.displayName = 'CheckboxContent';
