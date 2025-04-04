@@ -34,7 +34,7 @@ const getOrientation = (type: NavigationType, vertical: boolean): Orientation =>
 
 export const Navigation = forward<NavigationProps, 'nav'>(
     ({ type, children, className, vertical, theme, ...rest }, ref) => {
-        const { pluginParams, viewer, tab, wrap, ...restRest } = rest;
+        const { pluginParams, viewer, tab, compact, wrap, ...restRest } = rest;
 
         return (
             <NavigationComponent.Root
