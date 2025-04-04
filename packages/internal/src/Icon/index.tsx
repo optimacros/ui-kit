@@ -1,5 +1,19 @@
-export { Icon, type IconProps } from '@optimacros-ui/icon';
-import { Icon, type IconProps } from '@optimacros-ui/icon';
+import { Icon as BaseIcon, type IconProps } from '@optimacros-ui/icon';
+import { hasIn } from 'lodash-es';
+import { isObject } from '@optimacros-ui/utils';
+
+export const Icon = ({
+    value,
+    ...rest
+}: Omit<IconProps, 'value'> & {
+    value: IconProps['value'] | { name: string; fill: string; opacity: number };
+}) => {
+    if (isObject(value) && hasIn(value, 'name')) {
+        return <BaseIcon value={value.name} {...value} {...rest} />;
+    }
+
+    return <BaseIcon value={value} {...rest} />;
+};
 
 import { startsWith, kebabCase } from '@optimacros-ui/utils';
 

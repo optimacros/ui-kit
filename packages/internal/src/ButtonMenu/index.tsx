@@ -81,6 +81,7 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                         ...otherProps,
                         'data-label': label,
                         'data-name': dataName,
+                        'data-tag': 'button-menu',
                     }}
                     theme={theme}
                     onClick={onClick}
@@ -107,6 +108,7 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                 theme={theme}
                 className={btnClassName}
                 disabled={disabled}
+                data-tag="button-menu"
             >
                 {renderContent()}
             </Button>

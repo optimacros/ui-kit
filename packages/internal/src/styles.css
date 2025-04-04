@@ -26,3 +26,21 @@
   display: flex;
   align-items: center;
 }
+
+[data-scope='button'][data-part='root'][data-tag='button-menu'] {
+  &[data-variant='neutral'] {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-button-menu-primary-on-default);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--color-button-neutral-default-hover);
+      background: transparent;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+  }
+}

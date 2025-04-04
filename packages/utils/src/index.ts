@@ -1,4 +1,5 @@
 export {
+    isObject,
     sum,
     lowerCase,
     upperFirst,
