@@ -21,3 +21,8 @@
     font-size: 12px;
   }
 }
+
+[class*='ContextTableTabButtons__RightToolbarButtons'] {
+  display: flex;
+  align-items: center;
+}
