@@ -31,6 +31,9 @@ export interface TooltipProps extends PropsWithChildren {
     tooltipPosition?: TooltipPosition;
     tooltipOffset?: number;
     label?: string;
+    onChange?: any;
+    value?: any;
+    checked?: boolean;
 }
 
 type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
@@ -64,7 +67,7 @@ export const Tooltip = memo(
         const {
             children,
             composedComponent,
-            composedComponentProps,
+            composedComponentProps = {},
             onClick,
             onMouseEnter,
             onMouseLeave,
@@ -74,6 +77,9 @@ export const Tooltip = memo(
             tooltipOffset = 0,
             className,
             label,
+            onChange,
+            value,
+            checked,
             ...rest
         } = props;
 
@@ -104,12 +110,17 @@ export const Tooltip = memo(
                     <UITooltip.Trigger as="div" className={className}>
                         <RootElement
                             composedComponent={composedComponent}
-                            composedComponentProps={composedComponentProps}
+                            composedComponentProps={{
+                                label,
+                                onChange,
+                                value,
+                                checked,
+                                ...composedComponentProps,
+                            }}
                             onClick={onClick}
                             onMouseEnter={onMouseEnter}
                             onMouseLeave={onMouseLeave}
                             theme={theme}
-                            label={label}
                         >
                             {children}
                         </RootElement>

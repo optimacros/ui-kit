@@ -64,6 +64,7 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                     onMouseLeave={onMouseLeave}
                     data-scope="radio-group"
                     data-part="item"
+                    data-react-toolbox="radio-button"
                     {...state}
                 >
                     <div
@@ -88,6 +89,7 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                             opacity: 0,
                             pointerEvents: 'none',
                         }}
+                        className={checked ? 'theme-module__checked' : undefined}
                         {...others}
                     />
                     {label && (
