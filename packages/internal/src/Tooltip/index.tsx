@@ -30,6 +30,7 @@ export interface TooltipProps extends PropsWithChildren {
     tooltipDelay?: number;
     tooltipPosition?: TooltipPosition;
     tooltipOffset?: number;
+    label?: string;
 }
 
 type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
@@ -72,6 +73,7 @@ export const Tooltip = memo(
             tooltipPosition = 'vertical',
             tooltipOffset = 0,
             className,
+            label,
             ...rest
         } = props;
 
@@ -107,6 +109,7 @@ export const Tooltip = memo(
                             onMouseEnter={onMouseEnter}
                             onMouseLeave={onMouseLeave}
                             theme={theme}
+                            label={label}
                         >
                             {children}
                         </RootElement>

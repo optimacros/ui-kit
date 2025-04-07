@@ -11,6 +11,7 @@ type Props = PropsWithChildren &
         | 'onMouseEnter'
         | 'onMouseLeave'
         | 'theme'
+        | 'label'
     >;
 
 export const RootElement = memo<Props>(

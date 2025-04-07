@@ -105,4 +105,5 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
             </div>
         );
     },
+    { displayName: 'RadioButton' },
 );
