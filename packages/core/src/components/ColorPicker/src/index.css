@@ -114,13 +114,6 @@ div:has(> [data-scope='color-picker'][data-part='channel-input'] ~ span) {
   z-index: calc(var(--z-index-higher) * var(--layer-index));
 }
 
-[data-scope='color-picker'][data-part='area']
-  ~ div:not(:nth-child(2)):not([data-part='swatch-group']) {
-  display: flex;
-  width: 100%;
-  gap: var(--spacing-0-5);
-}
-
 [data-scope='color-picker'][data-part='content'] > div {
   display: flex;
   flex-direction: column;

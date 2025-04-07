@@ -48,10 +48,10 @@ export const Popover = memo<PopoverProps>(
 
         const Toolbar = (
             <Flex gap={3}>
-                <Button onClick={handleCancel} variant="gray" data-tag="internal">
+                <Button onClick={handleCancel} variant="gray" data-tag="internal" uppercase>
                     {cancelLabel}
                 </Button>
-                <Button onClick={handleOk} variant="accent" data-tag="internal">
+                <Button onClick={handleOk} variant="accent" data-tag="internal" uppercase>
                     {applyLabel}
                 </Button>
             </Flex>
@@ -64,7 +64,7 @@ export const Popover = memo<PopoverProps>(
                 <UIColorPicker.Area />
                 <UIColorPicker.ChannelSlider />
 
-                <Flex justify="between" gap={2} data-tag="inputs">
+                <Flex justify="space-between" data-tag="inputs" align="center" fluid>
                     <HexInput />
                     <RGBInput />
                 </Flex>
@@ -93,7 +93,7 @@ export const Popover = memo<PopoverProps>(
                 )}
 
                 {showSettings ? (
-                    <Flex align="center" justify="between" gap={3} data-tag="toolbar">
+                    <Flex align="center" justify="space-between" data-tag="toolbar">
                         {colorSettingsLabel ? (
                             <Tooltip.Root>
                                 <Tooltip.Trigger as="div">{SettingsBtn}</Tooltip.Trigger>

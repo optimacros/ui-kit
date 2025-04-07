@@ -1,18 +1,18 @@
 [data-scope='button'][data-part='root'][data-tag='icon-button'] {
   & img {
-    width: var(--font-size-big);
-    max-width: var(--font-size-big);
-    max-height: var(--font-size-big);
+    width: var(--text-lg);
+    max-width: var(--text-lg);
+    max-height: var(--text-lg);
     display: flex;
   }
 
   & span[data-scope='icon'] {
-    font-size: var(--font-size-big);
+    font-size: var(--text-lg);
   }
 
   & svg[data-scope='icon'] {
-    width: var(--font-size-big);
-    height: var(--font-size-big);
+    width: var(--text-lg);
+    height: var(--text-lg);
   }
 
   &[data-variant='accent'] {

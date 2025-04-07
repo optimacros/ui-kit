@@ -1,3 +1,4 @@
+import { startsWith, kebabCase } from '@optimacros-ui/utils';
 export const ICONS_MAP = {
     action: 'action',
     'add-abc': 'add-abc',
@@ -118,48 +119,67 @@ export const ICONS_MAP = {
     'waterfall-chart': 'waterfall-chart',
     widgets: 'widgets',
     workspaces: 'workspaces',
-    iconNotification: 'notification',
-    iconColumnStackedChart: 'column-stacked-chart',
-    iconBarChart: 'bar-chart',
-    iconBarStackedChart: 'bar-stacked-chart',
-    iconLineChart: 'line-chart',
-    iconRouteMapChart: 'route-map-chart',
-    iconMapChart: 'map-chart',
-    iconMapWithObjectsChart: 'map-with-objects-chart',
-    iconFullStackedBarChart: 'full-stacked-bar-chart',
-    iconFullStackedColumnChart: 'full-stacked-column-chart',
-    iconFunnelChart: 'funnel-chart',
-    iconGanttChart: 'gantt-chart',
-    iconImagesWithObjectsChart: 'images-with-objects-chart',
-    iconAreaChart: 'area-chart',
-    iconColumnChart: 'column-chart',
-    iconBiaxialBarChart: 'biaxial-bar-chart',
-    iconRadialSensorIndicator: 'radial-sensor-indicator',
-    iconProgressBarIndicator: 'progress-bar-indicator',
-    iconOneNumberIndicator: 'one-number-indicator',
-    iconSliderControlElement: 'slider-control-element',
-    iconCombinationChart: 'combination-chart',
-    iconPieChart: 'pie-chart',
-    iconWaterfallChart: 'waterfall-chart',
-    iconStockChart: 'stock-chart',
-    iconRiskManagerChart: 'risk-manager-chart',
-    iconTreemapChart: 'treemap-chart',
-    iconScatterPlot: 'scatter-plot',
-    iconBiaxialLineChart: 'biaxial-line-chart',
-    iconModule: 'module',
-    iconDashboard: 'dashboard',
-    iconCopy: 'copy',
-    iconRename: 'rename',
+    // iconNotification: 'notification',
+    // iconColumnStackedChart: 'column-stacked-chart',
+    // iconBarChart: 'bar-chart',
+    // iconBarStackedChart: 'bar-stacked-chart',
+    // iconLineChart: 'line-chart',
+    // iconRouteMapChart: 'route-map-chart',
+    // iconMapChart: 'map-chart',
+    // iconMapWithObjectsChart: 'map-with-objects-chart',
+    // iconFullStackedBarChart: 'full-stacked-bar-chart',
+    // iconFullStackedColumnChart: 'full-stacked-column-chart',
+    // iconFunnelChart: 'funnel-chart',
+    // iconGanttChart: 'gantt-chart',
+    // iconImagesWithObjectsChart: 'images-with-objects-chart',
+    // iconAreaChart: 'area-chart',
+    // iconColumnChart: 'column-chart',
+    // iconBiaxialBarChart: 'biaxial-bar-chart',
+    // iconRadialSensorIndicator: 'radial-sensor-indicator',
+    // iconProgressBarIndicator: 'progress-bar-indicator',
+    // iconOneNumberIndicator: 'one-number-indicator',
+    // iconSliderControlElement: 'slider-control-element',
+    // iconCombinationChart: 'combination-chart',
+    // iconPieChart: 'pie-chart',
+    // iconWaterfallChart: 'waterfall-chart',
+    // iconStockChart: 'stock-chart',
+    // iconRiskManagerChart: 'risk-manager-chart',
+    // iconTreemapChart: 'treemap-chart',
+    // iconScatterPlot: 'scatter-plot',
+    // iconBiaxialLineChart: 'biaxial-line-chart',
+    // iconModule: 'module',
+    // iconDashboard: 'dashboard',
+    // iconCopy: 'copy',
+    // iconRename: 'rename',
+    // iconList: 'list'
 } as const;
 
 export type IconName = keyof typeof ICONS_MAP;
 
+const ignoreIcons = ['refresh'];
+
 export function isValidIconName(name: string) {
-    return typeof ICONS_MAP[name] === 'string';
+    let possibleName = name;
+
+    if (startsWith(name, 'icon')) {
+        possibleName = kebabCase(name.replace('icon', ''));
+    }
+
+    if (ignoreIcons.some((i) => i === possibleName)) {
+        return false;
+    }
+
+    return typeof ICONS_MAP[possibleName] === 'string';
 }
 
 export function getIconName(name: IconName) {
-    return ICONS_MAP[name];
+    let possibleName = name;
+
+    if (startsWith(name, 'icon')) {
+        possibleName = kebabCase(name.replace('icon', ''));
+    }
+
+    return ICONS_MAP[possibleName];
 }
 
 export enum ICONS_SETS {
