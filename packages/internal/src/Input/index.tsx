@@ -91,7 +91,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
             id,
             readOnly = false,
             autoFocus,
-            name,
+            name: nameProp,
             placeholder,
             theme = {},
             ...others
@@ -125,6 +125,8 @@ export const Input = forward<InputProps, HTMLInputElement>(
             },
             className,
         );
+
+        const name = others['data-name'] || nameProp;
 
         return (
             <Field.Root
