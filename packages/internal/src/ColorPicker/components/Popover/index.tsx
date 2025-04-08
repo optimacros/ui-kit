@@ -15,6 +15,7 @@ import './styles.css';
 interface PopoverProps
     extends Omit<ColorPickerProps, 'disabled' | 'title' | 'color' | 'name' | 'onChange'> {
     onOk: () => void;
+    className?: string;
 }
 
 export const Popover = memo<PopoverProps>(
@@ -27,6 +28,7 @@ export const Popover = memo<PopoverProps>(
         onClickSettingsIcon,
         presetColors,
         recentColors,
+        className,
     }) => {
         const api = UIColorPicker.useApi();
 
@@ -60,7 +62,7 @@ export const Popover = memo<PopoverProps>(
         const isColorsPanel = presetColors || recentColors;
 
         return (
-            <UIColorPicker.PopoverPortal>
+            <UIColorPicker.PopoverPortal className={className}>
                 <UIColorPicker.Area />
                 <UIColorPicker.ChannelSlider />
 
