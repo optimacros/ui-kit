@@ -155,6 +155,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         onChange={onChange}
                         name={name}
                         className={theme.inputElement}
+                        onKeyDown={onKeyDown}
                     />
                 ) : (
                     <Field.Input
@@ -169,6 +170,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         onChange={(e) => onChange?.(e.target.value, e)}
                         className={theme.inputElement}
                         ref={ref}
+                        onKeyDown={onKeyDown}
                     />
                 )}
                 {maxLength && (
