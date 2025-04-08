@@ -33,6 +33,7 @@ export interface TooltipProps extends PropsWithChildren {
     onChange?: any;
     value?: any;
     checked?: boolean;
+    name?: string;
 }
 
 type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
@@ -80,6 +81,7 @@ export const Tooltip = memo(
             onChange,
             value,
             checked,
+            name,
             ...rest
         } = props;
 
@@ -112,6 +114,7 @@ export const Tooltip = memo(
                             composedComponent={composedComponent}
                             composedComponentProps={{
                                 label,
+                                name,
                                 onChange,
                                 value,
                                 checked,
