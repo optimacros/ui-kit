@@ -1,8 +1,3 @@
-.material-icons {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
 [data-scope='menu'],
 [data-scope='select'] {
   &[data-part='content'] {

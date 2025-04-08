@@ -14,7 +14,6 @@ import { RootElement } from './components/RootElement';
 import { clsx, includes, isNumber } from '@optimacros-ui/utils';
 import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
-import { Flex } from '@optimacros-ui/flex';
 import { styled } from '@optimacros-ui/store';
 import './styles.css';
 
@@ -50,14 +49,15 @@ const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltip
     const cn = clsx(theme?.tooltip, api.open && theme?.tooltipActive, theme?.[positionClass]);
 
     return (
-        <UITooltip.Content data-tag="internal">
-            <Flex>
-                <Text.Paragraph as="span" className={cn}>
-                    <Text.Paragraph as="span" className={theme?.tooltipInner}>
-                        {tooltip}
-                    </Text.Paragraph>
-                </Text.Paragraph>
-            </Flex>
+        <UITooltip.Content
+            data-tag="internal"
+            as="span"
+            data-react-toolbox="tooltip"
+            className={cn}
+        >
+            <Text.Paragraph as="span" className={theme?.tooltipInner}>
+                {tooltip}
+            </Text.Paragraph>
         </UITooltip.Content>
     );
 });
@@ -73,7 +73,7 @@ export const Tooltip = memo(
             onMouseLeave,
             theme = {},
             tooltipDelay = 0,
-            tooltipPosition = 'vertical',
+            tooltipPosition = 'top',
             tooltipOffset = 0,
             className,
             label,

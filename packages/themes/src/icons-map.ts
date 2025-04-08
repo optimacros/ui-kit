@@ -38,6 +38,7 @@ export const ICONS_MAP = {
     cycle: 'cycle',
     dashboard: 'dashboard',
     drilldown: 'drilldown',
+    'drill-down': 'drilldown',
     database: 'database',
     download: 'download',
     'edit-mode': 'edit-mode',

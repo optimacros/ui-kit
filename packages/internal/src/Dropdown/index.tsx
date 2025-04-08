@@ -91,7 +91,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         return (
             <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange} hoverable>
-                <div ref={menuRef} data-scope="menu" data-part="root">
+                <div ref={menuRef} data-scope="menu" data-part="container">
                     <Menu.Api>
                         {(api) => {
                             return isHoverTrigger ? (

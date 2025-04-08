@@ -23,13 +23,20 @@ export const {
 
 export type RootProps = ComponentProps<typeof Root>;
 
-export const Content = ({ children, ...rest }: { children: ReactNode }) => {
+export const Content = ({
+    children,
+    as,
+    className,
+    ...rest
+}: { children: ReactNode; as: string; className: string }) => {
     const api = useApi();
 
     return (
         api.open && (
             <div {...api.getPositionerProps()} {...rest}>
-                <div {...api.getContentProps()}>{children}</div>
+                <div {...api.getContentProps()}>
+                    <span className={className}>{children}</span>
+                </div>
                 <div {...api.getArrowProps()}>
                     <div {...api.getArrowTipProps()} />
                 </div>

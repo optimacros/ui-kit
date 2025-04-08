@@ -72,8 +72,7 @@ export const Basic: Story = {
 
 export const LongText: Story = {
     args: {
-        tooltip:
-            'The disease was diagnosed as pseudopseudohypoparathyroidism, a rare genetic disorder',
+        tooltip: 'Thediseasewasdiagnosedaspseudo pseudohypoparathyroidism,a raregeneticdisorder',
         children: <Button variant="primary">Hover me</Button>,
     },
 };

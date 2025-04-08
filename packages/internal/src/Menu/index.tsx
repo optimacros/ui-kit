@@ -11,20 +11,25 @@ interface IMenuItem {
     title?: string;
     label?: string;
     value?: string;
-    onClick?: MouseEventHandler<HTMLDivElement>;
+    onClick?: MouseEventHandler<HTMLLIElement>;
     children?: React.ReactNode;
     disabled?: boolean;
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
-    ({ label, title, value, children, onClick, ...restProps }, ref) => {
+    ({ label, title, value, children, onClick, id, ...restProps }, ref) => {
         const generatedKey = useId();
         return (
-            <div onClick={onClick}>
-                <MenuComponent.Item {...restProps} value={value ?? generatedKey} ref={ref}>
-                    {label || title || children}
-                </MenuComponent.Item>
-            </div>
+            <MenuComponent.Item
+                onClick={onClick}
+                id={id ?? value ?? generatedKey}
+                key={id ?? value ?? generatedKey}
+                {...restProps}
+                value={value ?? generatedKey}
+                ref={ref}
+            >
+                {label || title || children}
+            </MenuComponent.Item>
         );
     },
 );
@@ -74,21 +79,17 @@ export const SubMenu = ({
                 {childrenArr.map((c, i) => {
                     //@ts-ignore
                     if (c.type.displayName === 'SubMenu') {
-                        return <SubMenu {...c.props} parent={menu} key={`${generatedKey}${i}`} />;
+                        return <SubMenu {...c.props} parent={menu} />;
                     }
                     //@ts-ignore
                     if (c.type.displayName === 'MenuItem') {
+                        const value =
+                            c.props.value ||
+                            c.props.label ||
+                            c.props.title ||
+                            `${generatedKey}${i}`;
                         return (
-                            <MenuComponent.SubMenuItem
-                                {...c.props}
-                                value={
-                                    c.props.value ||
-                                    c.props.label ||
-                                    c.props.title ||
-                                    `${generatedKey}${i}`
-                                }
-                                key={`${generatedKey}${i}`}
-                            >
+                            <MenuComponent.SubMenuItem {...c.props} value={value} key={value}>
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
                         );
@@ -124,7 +125,7 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
         <div data-scope="menu" data-part="root">
             <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
                 {renderTrigger?.()}
-                <MenuComponent.Positioner>
+                <MenuComponent.Positioner portalled>
                     <MenuComponent.Content className="menu-content" ref={ref}>
                         {children}
                     </MenuComponent.Content>
