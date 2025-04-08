@@ -73,11 +73,18 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         const isHoverTrigger = trigger[0] === 'hover';
 
+        // Зачем обнуляем контент при смене visible
+        // Во-1х, а в чем смысл его существования?
+        // Во-2х, тесты в сценарии выбора пункта в меню ждут появления-пропадания лоадера над меню. При первом открытии дропдауна с меню, все данные загружаются и сохраняются. При последующих открытиях, лоадер не появляется (данные-то есть) = тест не видит лоадер = фейл
         const content = (
             <>
                 <Menu.Trigger as="div">{children}</Menu.Trigger>
                 <Menu.Positioner>
-                    <Menu.Content>{renderOverlay?.({ onlyContent: true }) ?? overlay}</Menu.Content>
+                    {visible ? (
+                        <Menu.Content className="dropdown">
+                            {renderOverlay?.({ onlyContent: true }) ?? overlay}
+                        </Menu.Content>
+                    ) : null}
                 </Menu.Positioner>
             </>
         );
