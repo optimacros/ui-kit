@@ -6,6 +6,7 @@ import { forward } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
 
 import './styles.css';
+import { clsx } from '@optimacros-ui/utils';
 
 interface IMenuItem {
     title?: string;
@@ -17,8 +18,14 @@ interface IMenuItem {
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
-    ({ label, title, value, children, onClick, id, ...restProps }, ref) => {
+    (
+        { label, title, value, children, onClick, id, className: classNameProp, ...restProps },
+        ref,
+    ) => {
         const generatedKey = useId();
+
+        const className = clsx(classNameProp, 'menuItem');
+
         return (
             <MenuComponent.Item
                 onClick={onClick}
@@ -27,6 +34,7 @@ export const MenuItem = forward<IMenuItem, 'li'>(
                 {...restProps}
                 value={value ?? generatedKey}
                 ref={ref}
+                className={className}
             >
                 {label || title || children}
             </MenuComponent.Item>
