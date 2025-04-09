@@ -177,6 +177,7 @@ export function getIconName(name: IconName) {
     let possibleName = name;
 
     if (startsWith(name, 'icon')) {
+        //@ts-ignore
         possibleName = kebabCase(name.replace('icon', ''));
     }
 

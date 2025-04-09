@@ -17,6 +17,10 @@ type BaseNavigationProps = {
     theme?: Partial<NavigationTheme>;
     className?: string;
     wrap?: boolean;
+    pluginParams;
+    viewer;
+    tab;
+    compact;
 };
 
 export type NavigationProps = React.PropsWithChildren<BaseNavigationProps>;

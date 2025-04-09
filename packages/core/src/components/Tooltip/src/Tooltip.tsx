@@ -30,7 +30,7 @@ export const Content = ({
     className,
     portalled,
     ...rest
-}: { children: ReactNode; as: string; className: string; portalled?: boolean }) => {
+}: { children: ReactNode; as?: string; className?: string; portalled?: boolean }) => {
     const api = useApi();
     const Component = api.open && (
         <div {...api.getPositionerProps()} {...rest}>
