@@ -15,25 +15,33 @@ interface IMenuItem {
     onClick?: MouseEventHandler<HTMLLIElement>;
     children?: React.ReactNode;
     disabled?: boolean;
-    eventKey;
+    eventKey?: any;
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
     (
-        { label, title, value, children, onClick, id, className: classNameProp, ...restProps },
+        {
+            label,
+            title,
+            value,
+            children,
+            onClick,
+            id,
+            className: classNameProp,
+            eventKey,
+            ...restProps
+        },
         ref,
     ) => {
         const generatedKey = useId();
 
         const className = clsx(classNameProp, 'menuItem');
 
-        const { eventKey, ...restRestProps } = restProps;
-
         return (
             <MenuComponent.Item
                 onClick={onClick}
                 key={id ?? value ?? generatedKey}
-                {...restRestProps}
+                {...restProps}
                 value={value ?? generatedKey}
                 ref={ref}
                 className={className}
