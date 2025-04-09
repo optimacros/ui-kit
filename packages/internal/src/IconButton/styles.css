@@ -1,5 +1,8 @@
 [data-scope='button'][data-part='root'][data-tag='icon-button'][data-style-tag='internal'] {
   font-size: 17px;
   line-height: normal;
-  opacity: 1;
+
+  [data-tag2='icon-name'] {
+    display: none;
+  }
 }

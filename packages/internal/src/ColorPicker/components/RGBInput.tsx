@@ -45,7 +45,7 @@ export const RGBInput = memo(() => {
     }, []);
 
     return (
-        <Flex gap="0-5">
+        <Flex gap="1">
             <div>
                 <input {...redInputProps} />
                 <span>R</span>

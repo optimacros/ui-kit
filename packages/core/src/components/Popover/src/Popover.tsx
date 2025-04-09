@@ -38,20 +38,11 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>((props, ref) =
     );
 });
 
-export const Positioner = forward<{}, 'div'>((props, ref) => {
+export const Positioner = forward<{ portalled?: boolean }, 'div'>(({ portalled, ...rest }, ref) => {
     const api = useApi();
+    const content = <styled.div {...rest} {...api.getPositionerProps()} ref={ref} />;
 
-    return (
-        <Portal>
-            <styled.div
-                data-scope="popover"
-                data-part="positioner"
-                {...props}
-                {...api.getPositionerProps()}
-                ref={ref}
-            />
-        </Portal>
-    );
+    return portalled ? content : <Portal>{content}</Portal>;
 });
 
 export const Arrow = forward<{}, 'div'>((props, ref) => {

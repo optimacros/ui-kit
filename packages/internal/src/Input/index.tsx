@@ -91,7 +91,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
             id,
             readOnly = false,
             autoFocus,
-            name,
+            name: nameProp,
             placeholder,
             theme = {},
             ...others
@@ -126,6 +126,8 @@ export const Input = forward<InputProps, HTMLInputElement>(
             className,
         );
 
+        const name = others['data-name'] || nameProp;
+
         return (
             <Field.Root
                 {...elementProps}
@@ -152,7 +154,8 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         autoFocus={autoFocus}
                         onChange={onChange}
                         name={name}
-                        className={theme.input}
+                        className={theme.inputElement}
+                        onKeyDown={onKeyDown}
                     />
                 ) : (
                     <Field.Input
@@ -165,8 +168,9 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         value={fieldValue}
                         defaultValue={defaultValue}
                         onChange={(e) => onChange?.(e.target.value, e)}
-                        className={theme.input}
+                        className={theme.inputElement}
                         ref={ref}
+                        onKeyDown={onKeyDown}
                     />
                 )}
                 {maxLength && (

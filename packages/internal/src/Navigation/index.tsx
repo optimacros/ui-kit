@@ -17,6 +17,10 @@ type BaseNavigationProps = {
     theme?: Partial<NavigationTheme>;
     className?: string;
     wrap?: boolean;
+    pluginParams;
+    viewer;
+    tab;
+    compact;
 };
 
 export type NavigationProps = React.PropsWithChildren<BaseNavigationProps>;
@@ -34,12 +38,15 @@ const getOrientation = (type: NavigationType, vertical: boolean): Orientation =>
 
 export const Navigation = forward<NavigationProps, 'nav'>(
     ({ type, children, className, vertical, theme, ...rest }, ref) => {
+        const { pluginParams, viewer, tab, compact, wrap, ...restRest } = rest;
+
         return (
             <NavigationComponent.Root
-                {...rest}
+                {...restRest}
                 orientation={getOrientation(type, vertical)}
                 className={className}
                 ref={ref}
+                data-react-toolbox="navigation"
             >
                 {Children.map(Children.toArray(children), (child) =>
                     isValidElement(child) ? cloneElement<any>(child, { theme }) : null,

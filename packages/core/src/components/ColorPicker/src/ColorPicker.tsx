@@ -125,7 +125,7 @@ export const Swatches = forward<SwatchesProps, 'div'>(
                     <button key={preset} {...api.getSwatchTriggerProps({ value: preset })}>
                         <div>
                             <div {...api.getTransparencyGridProps({ size: '4px' })} />
-                            <div {...api.getSwatchProps({ value: preset })} />
+                            <div {...api.getSwatchProps({ value: preset })} title={preset} />
                         </div>
                     </button>
                 ))}

@@ -1,13 +1,16 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, ReactElement, useEffect, useRef } from 'react';
 import type React from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
+import { MenuProps } from '../Menu';
 
 interface Props extends RCDropdownProps {
     disabled?: boolean;
     closeOnSelect?: boolean;
     controllable?: boolean;
     className?: string;
+    renderOverlay?: (props: Partial<MenuProps>) => ReactElement;
+    overlay?: ReactElement;
 }
 
 export type DropdownProps = React.PropsWithChildren<Props>;
@@ -25,11 +28,13 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             overlay,
             visible,
             trigger,
+            renderOverlay,
             ...otherProps
         },
         ref,
     ) => {
         let closeTimeout;
+        const menuRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
             return clearTimeout(closeTimeout);
@@ -68,49 +73,41 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         const isHoverTrigger = trigger[0] === 'hover';
 
-        //@ts-ignore
-        const isMenuInOverlay = overlay?.type?.displayName === 'Menu';
+        // Зачем обнуляем контент при смене visible
+        // Во-1х, а в чем смысл его существования?
+        // Во-2х, тесты в сценарии выбора пункта в меню ждут появления-пропадания лоадера над меню. При первом открытии дропдауна с меню, все данные загружаются и сохраняются. При последующих открытиях, лоадер не появляется (данные-то есть) = тест не видит лоадер = фейл
+        const content = (
+            <>
+                <Menu.Trigger as="div">{children}</Menu.Trigger>
+                <Menu.Positioner>
+                    {visible ? (
+                        <Menu.Content className="dropdown">
+                            {renderOverlay?.({ onlyContent: true }) ?? overlay}
+                        </Menu.Content>
+                    ) : null}
+                </Menu.Positioner>
+            </>
+        );
 
         return (
-            <Menu.Root
-                {...otherProps}
-                open={visible}
-                onOpenChange={handleVisibleChange}
-                hoverable={isHoverTrigger}
-            >
-                <Menu.Api>
-                    {(api) => {
-                        return isHoverTrigger ? (
-                            <div
-                                style={{ width: 'fit-content' }}
-                                onMouseEnter={() => handleMouseEnter(api)}
-                                onMouseLeave={(e) => handleMouseLeave(e, api)}
-                            >
-                                <Menu.Trigger as="div">{children}</Menu.Trigger>
-                                <Menu.Positioner>
-                                    <Menu.Content size="sm" ref={ref}>
-                                        {/** @ts-ignore */}
-                                        <Menu.List>{overlay}</Menu.List>
-                                    </Menu.Content>
-                                </Menu.Positioner>
-                            </div>
-                        ) : (
-                            <>
-                                <Menu.Trigger as="div">{children}</Menu.Trigger>
-                                <Menu.Positioner>
-                                    <Menu.Content size="sm" ref={ref}>
-                                        <Menu.List>
-                                            {isMenuInOverlay
-                                                ? //@ts-ignore
-                                                  overlay?.props?.children
-                                                : overlay}
-                                        </Menu.List>
-                                    </Menu.Content>
-                                </Menu.Positioner>
-                            </>
-                        );
-                    }}
-                </Menu.Api>
+            <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange} hoverable>
+                <div ref={menuRef} data-scope="menu" data-part="container">
+                    <Menu.Api>
+                        {(api) => {
+                            return isHoverTrigger ? (
+                                <div
+                                    style={{ width: 'fit-content' }}
+                                    onMouseEnter={() => handleMouseEnter(api)}
+                                    onMouseLeave={(e) => handleMouseLeave(e, api)}
+                                >
+                                    {content}
+                                </div>
+                            ) : (
+                                content
+                            );
+                        }}
+                    </Menu.Api>
+                </div>
             </Menu.Root>
         );
     },

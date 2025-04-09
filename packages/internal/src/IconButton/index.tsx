@@ -10,6 +10,9 @@ import { IconButton as IconButtonCore } from '@optimacros-ui/icon-button';
 import { forward } from '@optimacros-ui/store';
 import { clsx } from '@optimacros-ui/utils';
 import './styles.css';
+import { Text } from '@optimacros-ui/text';
+import { useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export type IconButtonTheme = ThemeButtonProps & { IconButton: string };
 
@@ -50,8 +53,17 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
             disabled,
             ...rest
         },
-        ref,
+        refProp,
     ) => {
+        const ref = useRef<HTMLButtonElement>();
+        const [portalRoot, setPortalRoot] = useState<HTMLButtonElement>(null);
+
+        useImperativeHandle(refProp, () => ref.current);
+
+        useLayoutEffect(() => {
+            setPortalRoot(ref.current);
+        }, [ref.current]);
+
         const style = {
             backgroundColor: buttonColor,
             color: fontColor,
@@ -61,25 +73,29 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
         const cn = clsx(theme.IconButton, className);
 
         return (
-            <IconButtonCore
-                variant={getVariant(primary, accent, bordered, gray, neutral)}
-                float={getFloatStyles(raised, floating)}
-                status={warning ? 'warning' : null}
-                href={href ? href : null}
-                size={mini ? 'xs' : 'md'}
-                disabled={disabled}
-                inverse={inverse}
-                uppercase={uppercase}
-                icon={icon}
-                style={style}
-                className={cn}
-                iconProps={{
-                    className: theme.icon,
-                }}
-                {...rest}
-                ref={ref}
-                data-style-tag="internal"
-            />
+            <>
+                <IconButtonCore
+                    variant={getVariant(primary, accent, bordered, gray, neutral)}
+                    float={getFloatStyles(raised, floating)}
+                    status={warning ? 'warning' : null}
+                    href={href ? href : null}
+                    size={mini ? 'xs' : 'md'}
+                    disabled={disabled}
+                    inverse={inverse}
+                    uppercase={uppercase}
+                    icon={icon}
+                    style={style}
+                    className={cn}
+                    iconProps={{
+                        className: theme.icon,
+                    }}
+                    {...rest}
+                    ref={ref}
+                    data-style-tag="internal"
+                />
+                {portalRoot &&
+                    createPortal(<Text.Span data-tag2="icon-name">{icon}</Text.Span>, portalRoot)}
+            </>
         );
     },
 );

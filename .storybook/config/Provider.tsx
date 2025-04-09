@@ -10,6 +10,7 @@ export const UiKitProviderDecorator = (isDev) => (Story, context) => {
 
                 isDev,
             }}
+            brand="optisoft"
             theme={context.globals.theme}
         >
             <Story />

@@ -1,5 +1,7 @@
 export {
+    isObject,
     sum,
+    lowerCase,
     upperFirst,
     mapValues,
     isPlainObject,
@@ -38,6 +40,8 @@ export {
     floor,
     ceil,
     round,
+    startsWith,
+    kebabCase,
 } from 'lodash-es';
 
 export {

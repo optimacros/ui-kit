@@ -37,7 +37,7 @@
     font-weight: normal;
 
     max-width: 100%;
-    max-height: var(--size-sm);
+    max-height: auto;
   }
 
   &[data-part='content'][data-size='sm'] {

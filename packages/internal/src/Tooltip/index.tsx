@@ -14,7 +14,6 @@ import { RootElement } from './components/RootElement';
 import { clsx, includes, isNumber } from '@optimacros-ui/utils';
 import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
-import { Flex } from '@optimacros-ui/flex';
 import { styled } from '@optimacros-ui/store';
 import './styles.css';
 
@@ -30,6 +29,11 @@ export interface TooltipProps extends PropsWithChildren {
     tooltipDelay?: number;
     tooltipPosition?: TooltipPosition;
     tooltipOffset?: number;
+    label?: string;
+    onChange?: any;
+    value?: any;
+    checked?: boolean;
+    name?: string;
 }
 
 type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
@@ -46,14 +50,16 @@ const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltip
     const cn = clsx(theme?.tooltip, api.open && theme?.tooltipActive, theme?.[positionClass]);
 
     return (
-        <UITooltip.Content data-tag="internal">
-            <Flex>
-                <Text.Paragraph as="span" className={cn}>
-                    <Text.Paragraph as="span" className={theme?.tooltipInner}>
-                        {tooltip}
-                    </Text.Paragraph>
-                </Text.Paragraph>
-            </Flex>
+        <UITooltip.Content
+            data-tag="internal"
+            as="span"
+            data-react-toolbox="tooltip"
+            className={cn}
+            portalled
+        >
+            <Text.Paragraph as="span" className={theme?.tooltipInner}>
+                {tooltip}
+            </Text.Paragraph>
         </UITooltip.Content>
     );
 });
@@ -63,15 +69,20 @@ export const Tooltip = memo(
         const {
             children,
             composedComponent,
-            composedComponentProps,
+            composedComponentProps = {},
             onClick,
             onMouseEnter,
             onMouseLeave,
             theme = {},
             tooltipDelay = 0,
-            tooltipPosition = 'vertical',
+            tooltipPosition = 'top',
             tooltipOffset = 0,
             className,
+            label,
+            onChange,
+            value,
+            checked,
+            name,
             ...rest
         } = props;
 
@@ -102,7 +113,14 @@ export const Tooltip = memo(
                     <UITooltip.Trigger as="div" className={className}>
                         <RootElement
                             composedComponent={composedComponent}
-                            composedComponentProps={composedComponentProps}
+                            composedComponentProps={{
+                                label,
+                                name,
+                                onChange,
+                                value,
+                                checked,
+                                ...composedComponentProps,
+                            }}
                             onClick={onClick}
                             onMouseEnter={onMouseEnter}
                             onMouseLeave={onMouseLeave}

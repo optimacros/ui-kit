@@ -7,11 +7,12 @@ interface IMenu {
     className;
     children;
     prefixCls;
+    onlyContent;
 }
 
 export default class Menu extends PureComponent<IMenu> {
     render() {
-        const { className, children, prefixCls, ...otherProps } = this.props;
+        const { className, children, prefixCls, onlyContent, ...otherProps } = this.props;
         const classNameContainer = clsx(styles.MenuContainer, className);
 
         return (

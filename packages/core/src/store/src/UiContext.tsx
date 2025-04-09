@@ -30,6 +30,7 @@ function appendLinkToHead({ id, value }: { id: string; value: string }) {
 export enum HEAD_STYLE_ATTRS {
     THEME = 'data-theme',
     ICONS_SET = 'data-icon-set',
+    BRAND = 'data-brand',
 }
 
 export const {
@@ -48,6 +49,7 @@ export const {
         iconsSrc: '',
         theme: '' as THEMES,
         iconsSet: '' as ICONS_SETS,
+        brand: '' as string,
         /**
          * feature flags of ui-kit
          * @see "packages/core/src/store/config/feature_flags.md"
@@ -63,11 +65,17 @@ export const {
             reducers: {
                 updateHeadAttributes(
                     state: typeof initialState,
-                    { theme, iconsSet }: { theme?: THEMES; iconsSet?: ICONS_SETS },
+                    {
+                        theme,
+                        iconsSet,
+                        brand,
+                    }: { theme?: THEMES; iconsSet?: ICONS_SETS; brand?: string },
                 ) {
                     theme && document.documentElement.setAttribute(HEAD_STYLE_ATTRS.THEME, theme);
                     iconsSet &&
                         document.documentElement.setAttribute(HEAD_STYLE_ATTRS.ICONS_SET, iconsSet);
+
+                    brand && document.documentElement.setAttribute(HEAD_STYLE_ATTRS.BRAND, brand);
 
                     return state;
                 },
@@ -79,7 +87,7 @@ export const {
 type State = ReturnType<typeof useState>;
 
 const ThemeImport = () => {
-    const { iconsSet, theme } = useState();
+    const { iconsSet, theme, brand } = useState();
     const { setIconsSrc, updateHeadAttributes } = useActions();
 
     useEffect(() => {
@@ -102,6 +110,10 @@ const ThemeImport = () => {
         updateHeadAttributes({ theme });
     }, [theme]);
 
+    useEffect(() => {
+        updateHeadAttributes({ brand });
+    }, [brand]);
+
     return <></>;
 };
 
@@ -110,6 +122,7 @@ export const Provider = ({
     featureFlags,
     theme,
     iconsSet,
+    brand,
 }: Partial<State> & {
     children: ReactNode;
 }) => {
@@ -122,6 +135,7 @@ export const Provider = ({
                 theme,
                 iconsSet,
                 iconsSrc,
+                brand,
             }}
             onChange={({ iconsSrc }) => {
                 setIconsSrc(iconsSrc);

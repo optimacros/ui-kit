@@ -1,3 +1,3 @@
 import './index.css';
 
-export * as Checkbox from './Checkbox';
+export * as Checkbox from './exports';

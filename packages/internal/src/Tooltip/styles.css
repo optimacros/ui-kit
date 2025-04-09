@@ -11,6 +11,7 @@
     background-color: #3b3b3b;
     color: #ffffff;
     z-index: var(--z-index-higher);
+    word-wrap: break-word;
 
     [data-scope='text'][data-tag='paragraph'],
     [data-scope='text'][data-tag='span'] {

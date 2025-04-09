@@ -152,7 +152,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                                 data-part="label"
                                                 data-margin={isLabelPositionLeft ? 'none' : ''}
                                             >
-                                                label
+                                                {label}
                                             </div>
                                         )}
                                         <Field.Root
@@ -249,7 +249,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                                     data-part="label"
                                                     data-margin={isLabelPositionLeft ? 'none' : ''}
                                                 >
-                                                    label
+                                                    {label}
                                                 </div>
                                             )}
                                             <Field.Root

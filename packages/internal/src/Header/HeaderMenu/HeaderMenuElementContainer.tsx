@@ -43,7 +43,6 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
             return null;
         }
 
-        // Иконки, которые (пока) в свг выглядят некорректно
         if (['add', 'dashboard', 'list'].includes(element.icon)) {
             return (
                 <Flex justify="center" className={styles.Element_IconContainer}>

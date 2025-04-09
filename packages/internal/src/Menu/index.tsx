@@ -6,32 +6,37 @@ import { forward } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
 
 import './styles.css';
-
-import './styles.css';
+import { clsx } from '@optimacros-ui/utils';
 
 interface IMenuItem {
     title?: string;
     label?: string;
     value?: string;
-    onClick?: MouseEventHandler<HTMLDivElement>;
+    onClick?: MouseEventHandler<HTMLLIElement>;
     children?: React.ReactNode;
     disabled?: boolean;
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
-    ({ label, title, value, children, onClick, key, ...restProps }, ref) => {
+    (
+        { label, title, value, children, onClick, id, className: classNameProp, ...restProps },
+        ref,
+    ) => {
         const generatedKey = useId();
 
+        const className = clsx(classNameProp, 'menuItem');
+
         return (
-            <div onClick={onClick}>
-                <MenuComponent.Item
-                    {...restProps}
-                    value={value || String(key) || generatedKey}
-                    ref={ref}
-                >
-                    {label || title || children}
-                </MenuComponent.Item>
-            </div>
+            <MenuComponent.Item
+                onClick={onClick}
+                key={id ?? value ?? generatedKey}
+                {...restProps}
+                value={value ?? generatedKey}
+                ref={ref}
+                className={className}
+            >
+                {label || title || children}
+            </MenuComponent.Item>
         );
     },
 );
@@ -44,12 +49,15 @@ export const SubMenu = ({
     value,
     children,
     parent: parentMenu,
+    className: classNameProp,
+    ...rest
 }: {
     label?: string;
-    title?: string;
+    title?: ReactNode;
     value?: string;
     children: Array<ReactNode>;
     parent?: ReturnType<typeof MenuComponent.useState>;
+    className?: string;
 }) => {
     const parent = MenuComponent.useState();
     const generatedKey = useId();
@@ -67,34 +75,49 @@ export const SubMenu = ({
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
 
+    const className = clsx(classNameProp, 'menuItem');
+
     return (
         <>
-            <MenuComponent.TriggerItem {...menu.props} value={value || title || label}>
+            <MenuComponent.TriggerItem
+                {...rest}
+                {...menu.props}
+                value={value || (typeof title === 'string' && title) || label || generatedKey}
+                key={generatedKey}
+                className={className}
+            >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
             <MenuComponent.SubMenuContent menu={menu}>
-                {childrenArr
-                    .filter(
-                        (c) =>
-                            //@ts-ignore
-                            c.type.displayName === 'MenuItem' || c.type.displayName === 'SubMenu',
-                    )
-                    .map((c) => {
-                        //@ts-ignore
-                        if (c.type.displayName === 'SubMenu') {
-                            return <SubMenu {...c.props} parent={menu} />;
-                        }
+                {childrenArr.map((c, i) => {
+                    //@ts-ignore
+                    if (c.type.displayName === 'SubMenu') {
+                        return <SubMenu {...c.props} parent={menu} />;
+                    }
+                    //@ts-ignore
+                    if (c.type.displayName === 'MenuItem') {
+                        const value =
+                            c.props.value ||
+                            c.props.label ||
+                            c.props.title ||
+                            `${generatedKey}${i}`;
+
+                        const className = clsx(c.props.className, 'menuItem');
 
                         return (
                             <MenuComponent.SubMenuItem
                                 {...c.props}
-                                value={c.props.value || c.props.label || c.props.title}
+                                className={className}
+                                value={value}
+                                key={value}
                             >
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
                         );
-                    })}
+                    }
+                    return c;
+                })}
             </MenuComponent.SubMenuContent>
         </>
     );
@@ -103,20 +126,34 @@ export const SubMenu = ({
 SubMenu.displayName = 'SubMenu';
 
 export const MenuTrigger = MenuComponent.Trigger;
+export type MenuProps = {
+    children: ReactNode;
+    renderTrigger?: () => ReactNode;
+    onlyContent?: boolean;
+} & MenuComponent.Props;
 
-export const Menu = forward<
-    { children: ReactNode; renderTrigger?: () => ReactNode } & MenuComponent.Props,
-    'div'
->((props, ref) => {
-    const { children, renderTrigger, ...rest } = props;
+export const Menu = forward<MenuProps, 'div'>((props, ref) => {
+    const { children, renderTrigger, onlyContent, ...rest } = props;
+
+    if (onlyContent) {
+        return (
+            <div data-scope="menu" data-part="root">
+                {children}
+            </div>
+        );
+    }
 
     return (
-        <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
-            {renderTrigger?.()}
-            <MenuComponent.Positioner data-tag="internal">
-                <MenuComponent.Content ref={ref}>{children}</MenuComponent.Content>
-            </MenuComponent.Positioner>
-        </MenuComponent.Root>
+        <div data-scope="menu" data-part="root">
+            <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
+                {renderTrigger?.()}
+                <MenuComponent.Positioner portalled>
+                    <MenuComponent.Content className="menu-content" ref={ref}>
+                        {children}
+                    </MenuComponent.Content>
+                </MenuComponent.Positioner>
+            </MenuComponent.Root>
+        </div>
     );
 });
 

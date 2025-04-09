@@ -9,8 +9,9 @@ import { convertToObject, parseHex } from './utils';
 import { Popover, Title } from './components';
 
 import './styles.css';
+import { clsx } from '@optimacros-ui/utils';
 
-interface ColorPickerComponentProps extends Omit<ColorPickerProps, 'disabled' | 'title'> {
+interface ColorPickerComponentProps extends Omit<ColorPickerProps, 'title'> {
     color: string;
     setColor: (color: string) => void;
 }
@@ -28,14 +29,24 @@ const ColorPickerComponent = memo<ColorPickerComponentProps>(
         onClickSettingsIcon,
         presetColors,
         recentColors,
+        disabled,
     }) => {
         const api = UIColorPicker.useApi();
 
         // original swatch does not change color until it is saved
         // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
         const swatchProps = useMemo(() => {
-            return api.getSwatchProps({ value: UIColorPicker.parse(color) });
-        }, [color]);
+            const { className, ...apiProps } = api.getSwatchProps({
+                value: UIColorPicker.parse(color),
+            });
+
+            return {
+                ...apiProps,
+                className: clsx('Color-module__color', className),
+                'data-name': name,
+                disabled: disabled,
+            };
+        }, [color, name, disabled]);
 
         // reset to external value on open/close
         // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -60,16 +71,19 @@ const ColorPickerComponent = memo<ColorPickerComponentProps>(
                     </Flex>
                 </UIColorPicker.Control>
 
-                <Popover
-                    onOk={handleOk}
-                    cancelLabel={cancelLabel}
-                    applyLabel={applyLabel}
-                    showSettings={showSettings}
-                    onClickSettingsIcon={onClickSettingsIcon}
-                    colorSettingsLabel={colorSettingsLabel}
-                    presetColors={presetColors}
-                    recentColors={recentColors}
-                />
+                {api.open && (
+                    <Popover
+                        onOk={handleOk}
+                        cancelLabel={cancelLabel}
+                        applyLabel={applyLabel}
+                        showSettings={showSettings}
+                        onClickSettingsIcon={onClickSettingsIcon}
+                        colorSettingsLabel={colorSettingsLabel}
+                        presetColors={presetColors}
+                        recentColors={recentColors}
+                        className="Color-module__picker"
+                    />
+                )}
             </>
         );
     },
@@ -135,7 +149,7 @@ export const ColorPicker = memo(
                             <UIColorPicker.Root ref={ref}>
                                 <ColorPickerComponent
                                     color={hexColor}
-                                    name={name}
+                                    name={name || (typeof title === 'string' && title)}
                                     onChange={onChange}
                                     saveColor={saveColor}
                                     cancelLabel={cancelLabel}
@@ -146,6 +160,7 @@ export const ColorPicker = memo(
                                     presetColors={presetColors}
                                     recentColors={recentColors}
                                     setColor={api.setValue}
+                                    disabled={disabled}
                                 />
                             </UIColorPicker.Root>
                         )}

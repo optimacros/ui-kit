@@ -1,4 +1,41 @@
-.material-icons {
-  font-size: 1.5rem;
-  line-height: 1;
+[data-scope='menu'],
+[data-scope='select'] {
+  &[data-part='content'] {
+    padding: 4px 0;
+    border-radius: 3px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0
+      rgba(0, 0, 0, 0.12);
+    background-clip: padding-box;
+    font-size: 1.2rem;
+    max-height: calc(100vh - 20px);
+  }
+
+  &[data-part='item'],
+  &[data-part='trigger-item'] {
+    padding: 12px 24px 12px 16px;
+    font-size: 12px;
+  }
+}
+
+[class*='ContextTableTabButtons__RightToolbarButtons'] {
+  display: flex;
+  align-items: center;
+}
+
+[data-scope='button'][data-part='root'][data-tag='button-menu'] {
+  &[data-variant='neutral'] {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-button-menu-primary-on-default);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--color-button-neutral-default-hover);
+      background: transparent;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.3;
+  }
 }

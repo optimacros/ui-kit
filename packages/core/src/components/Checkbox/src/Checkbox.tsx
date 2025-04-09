@@ -1,24 +1,6 @@
 import { PropsWithChildren } from 'react';
-import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
-import * as machine from '@zag-js/checkbox';
-
-export type Schema = Zag.ModuleSchema<typeof machine>;
-
-export const {
-    RootProvider,
-    useApi,
-    splitProps,
-    Api,
-    select,
-    slice,
-    useFeatureFlags,
-    useProxySelector,
-    useSelector,
-    useState,
-} = createMachineContext<Schema, machine.Api>({
-    id: 'checkbox',
-    machine,
-});
+import { forward, styled } from '@optimacros-ui/store';
+import { RootProvider, Schema, splitProps, useApi } from './state';
 
 export type RootProps = PropsWithChildren<Partial<Schema['props']>>;
 

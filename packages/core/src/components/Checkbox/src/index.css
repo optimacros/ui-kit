@@ -57,6 +57,7 @@
   transition-timing-function: var(--animation-curve-default);
   font-family: var(--preferred-font);
   box-sizing: border-box;
+  flex-shrink: 0;
 
   &:focus-visible {
     --ring-color: var(--color-theme-primary-default);

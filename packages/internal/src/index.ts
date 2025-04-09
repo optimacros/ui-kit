@@ -45,3 +45,6 @@ export * from './WSTabs';
 export { FontIcon, type FontIconProps } from '@optimacros-ui/font-icon';
 export { default as InputMask } from 'react-input-mask';
 export { default as SplitPane } from 'react-split-pane';
+
+export * from '@optimacros-ui/themes';
+export * from '@optimacros-ui/kit-store';

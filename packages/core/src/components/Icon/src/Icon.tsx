@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
-import { isValidIconName } from '@optimacros-ui/themes';
+import { getIconName, IconName, isValidIconName } from '@optimacros-ui/themes';
 import { forward, styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
 import { UiKit } from '@optimacros-ui/kit-store';
+import { iconValueParser } from '@optimacros-ui/kit-internal';
 
 export interface IconProps {
     value: string | ReactNode;
@@ -16,9 +17,12 @@ export interface IconProps {
 }
 
 export const Icon = forward<IconProps, 'svg'>(function Icon(
-    { value, rotate, size, variant, style, ...rest },
+    { value: valueProp, rotate, size, variant, style, ...rest },
     ref,
 ) {
+    // TODO remove
+    const value = iconValueParser(valueProp);
+
     const iconsSrc = UiKit.useProxySelector((state) => state.iconsSrc);
 
     const iconProps = {
@@ -37,7 +41,7 @@ export const Icon = forward<IconProps, 'svg'>(function Icon(
     if (typeof value === 'string') {
         return isValidIconName(value) ? (
             <svg width="1em" height="1em" fill="currentColor" {...rest} {...iconProps} ref={ref}>
-                <use href={`${iconsSrc}#${value}`} />
+                <use href={`${iconsSrc}#${getIconName(value as IconName)}`} />
             </svg>
         ) : (
             //@ts-ignore
