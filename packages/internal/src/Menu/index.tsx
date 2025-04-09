@@ -15,11 +15,22 @@ interface IMenuItem {
     onClick?: MouseEventHandler<HTMLLIElement>;
     children?: React.ReactNode;
     disabled?: boolean;
+    eventKey?: any;
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
     (
-        { label, title, value, children, onClick, id, className: classNameProp, ...restProps },
+        {
+            label,
+            title,
+            value,
+            children,
+            onClick,
+            id,
+            className: classNameProp,
+            eventKey,
+            ...restProps
+        },
         ref,
     ) => {
         const generatedKey = useId();
@@ -58,6 +69,7 @@ export const SubMenu = ({
     children: Array<ReactNode>;
     parent?: ReturnType<typeof MenuComponent.useState>;
     className?: string;
+    hoverable?: boolean;
 }) => {
     const parent = MenuComponent.useState();
     const generatedKey = useId();
@@ -77,10 +89,12 @@ export const SubMenu = ({
 
     const className = clsx(classNameProp, 'menuItem');
 
+    const { hoverable, ...restRest } = rest;
+
     return (
         <>
             <MenuComponent.TriggerItem
-                {...rest}
+                {...restRest}
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
