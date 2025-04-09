@@ -26,11 +26,13 @@ export const MenuItem = forward<IMenuItem, 'li'>(
 
         const className = clsx(classNameProp, 'menuItem');
 
+        const { eventKey, ...restRestProps } = restProps;
+
         return (
             <MenuComponent.Item
                 onClick={onClick}
                 key={id ?? value ?? generatedKey}
-                {...restProps}
+                {...restRestProps}
                 value={value ?? generatedKey}
                 ref={ref}
                 className={className}
@@ -77,10 +79,12 @@ export const SubMenu = ({
 
     const className = clsx(classNameProp, 'menuItem');
 
+    const { hoverable, ...restRest } = rest;
+
     return (
         <>
             <MenuComponent.TriggerItem
-                {...rest}
+                {...restRest}
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
