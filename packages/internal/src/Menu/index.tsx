@@ -50,12 +50,14 @@ export const SubMenu = ({
     value,
     children,
     parent: parentMenu,
+    className: classNameProp,
 }: {
     label?: string;
     title?: ReactNode;
     value?: string;
     children: Array<ReactNode>;
     parent?: ReturnType<typeof MenuComponent.useState>;
+    className?: string;
 }) => {
     const parent = MenuComponent.useState();
     const generatedKey = useId();
@@ -73,12 +75,15 @@ export const SubMenu = ({
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
 
+    const className = clsx(classNameProp, 'menuItem');
+
     return (
         <>
             <MenuComponent.TriggerItem
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
+                className={className}
             >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
@@ -96,8 +101,16 @@ export const SubMenu = ({
                             c.props.label ||
                             c.props.title ||
                             `${generatedKey}${i}`;
+
+                        const className = clsx(c.props.className, 'menuItem');
+
                         return (
-                            <MenuComponent.SubMenuItem {...c.props} value={value} key={value}>
+                            <MenuComponent.SubMenuItem
+                                {...c.props}
+                                className={className}
+                                value={value}
+                                key={value}
+                            >
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
                         );
