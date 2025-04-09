@@ -34,35 +34,41 @@ export interface TooltipProps extends PropsWithChildren {
     value?: any;
     checked?: boolean;
     name?: string;
+    portalled?: boolean;
 }
 
-type TooltipContentProps = Pick<TooltipProps, 'tooltip' | 'theme' | 'tooltipPosition'>;
+type TooltipContentProps = Pick<
+    TooltipProps,
+    'tooltip' | 'theme' | 'tooltipPosition' | 'portalled'
+>;
 
-const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltipPosition }) => {
-    const api = UITooltip.useApi();
+const TooltipContent = memo<TooltipContentProps>(
+    ({ tooltip, theme = {}, tooltipPosition, portalled }) => {
+        const api = UITooltip.useApi();
 
-    if (!tooltip) {
-        return null;
-    }
+        if (!tooltip) {
+            return null;
+        }
 
-    const positionClass = `tooltip${tooltipPosition.charAt(0).toUpperCase() + tooltipPosition.slice(1)}`;
+        const positionClass = `tooltip${tooltipPosition.charAt(0).toUpperCase() + tooltipPosition.slice(1)}`;
 
-    const cn = clsx(theme?.tooltip, api.open && theme?.tooltipActive, theme?.[positionClass]);
+        const cn = clsx(theme?.tooltip, api.open && theme?.tooltipActive, theme?.[positionClass]);
 
-    return (
-        <UITooltip.Content
-            data-tag="internal"
-            as="span"
-            data-react-toolbox="tooltip"
-            className={cn}
-            portalled
-        >
-            <Text.Paragraph as="span" className={theme?.tooltipInner}>
-                {tooltip}
-            </Text.Paragraph>
-        </UITooltip.Content>
-    );
-});
+        return (
+            <UITooltip.Content
+                data-tag="internal"
+                as="span"
+                data-react-toolbox="tooltip"
+                className={cn}
+                portalled={portalled}
+            >
+                <Text.Paragraph as="span" className={theme?.tooltipInner}>
+                    {tooltip}
+                </Text.Paragraph>
+            </UITooltip.Content>
+        );
+    },
+);
 
 export const Tooltip = memo(
     forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
@@ -83,6 +89,7 @@ export const Tooltip = memo(
             value,
             checked,
             name,
+            portalled = true,
             ...rest
         } = props;
 
@@ -108,7 +115,11 @@ export const Tooltip = memo(
                 positioning={positioning}
             >
                 <styled.div ref={ref}>
-                    <TooltipContent tooltipPosition={tooltipPosition} {...rest} />
+                    <TooltipContent
+                        tooltipPosition={tooltipPosition}
+                        portalled={portalled}
+                        {...rest}
+                    />
 
                     <UITooltip.Trigger as="div" className={className}>
                         <RootElement
