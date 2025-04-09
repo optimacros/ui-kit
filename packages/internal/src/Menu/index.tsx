@@ -15,6 +15,7 @@ interface IMenuItem {
     onClick?: MouseEventHandler<HTMLLIElement>;
     children?: React.ReactNode;
     disabled?: boolean;
+    eventKey;
 }
 
 export const MenuItem = forward<IMenuItem, 'li'>(
@@ -60,6 +61,7 @@ export const SubMenu = ({
     children: Array<ReactNode>;
     parent?: ReturnType<typeof MenuComponent.useState>;
     className?: string;
+    hoverable?: boolean;
 }) => {
     const parent = MenuComponent.useState();
     const generatedKey = useId();
