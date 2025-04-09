@@ -136,6 +136,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                 tooltipPosition={tooltipPosition}
                 tooltipOffset={tooltipOffset}
                 theme={theme}
+                portalled={false}
             >
                 {children}
             </Tooltip>
