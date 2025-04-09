@@ -97,7 +97,6 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
             onChange?.(value[0]);
         };
 
-        const isOutput = !editable;
         const isInput = editable;
         const isMarkers = snaps;
 
@@ -126,11 +125,6 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
             >
                 <Slider.Container className={theme.container} ref={ref}>
                     {label && <Slider.Label>{label}</Slider.Label>}
-                    {isOutput && (
-                        <span style={{ marginLeft: '10px' }}>
-                            <Slider.Output />
-                        </span>
-                    )}
                     {isInput && (
                         <div style={{ maxWidth: '40px' }}>
                             <Input
