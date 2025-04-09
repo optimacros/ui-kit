@@ -19,7 +19,7 @@ export const Item = forward<menu.ItemProps, 'li'>(
         const props = api.getItemProps({ value, closeOnSelect, disabled, valueText });
 
         return (
-            <styled.li {...rest} {...props} ref={ref}>
+            <styled.li {...props} {...rest} ref={ref}>
                 {children}
             </styled.li>
         );
@@ -30,12 +30,12 @@ export const Item = forward<menu.ItemProps, 'li'>(
 );
 
 export const SubMenuItem = forward<menu.ItemProps, 'li'>(
-    ({ children, value, closeOnSelect, disabled, valueText, ...rest }, ref) => {
+    ({ children, value, closeOnSelect, disabled, valueText, onClick, ...rest }, ref) => {
         const subMenuApi = useSubmenuApi();
         const props = subMenuApi.getItemProps({ value, closeOnSelect, disabled, valueText });
 
         return (
-            <styled.li {...rest} ref={ref} {...props}>
+            <styled.li {...rest} ref={ref} {...props} onClick={onClick}>
                 {children}
             </styled.li>
         );

@@ -29,7 +29,6 @@ export const MenuItem = forward<IMenuItem, 'li'>(
         return (
             <MenuComponent.Item
                 onClick={onClick}
-                id={id ?? value ?? generatedKey}
                 key={id ?? value ?? generatedKey}
                 {...restProps}
                 value={value ?? generatedKey}
@@ -51,6 +50,7 @@ export const SubMenu = ({
     children,
     parent: parentMenu,
     className: classNameProp,
+    ...rest
 }: {
     label?: string;
     title?: ReactNode;
@@ -80,6 +80,7 @@ export const SubMenu = ({
     return (
         <>
             <MenuComponent.TriggerItem
+                {...rest}
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}

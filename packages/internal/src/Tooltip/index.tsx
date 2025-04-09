@@ -55,6 +55,7 @@ const TooltipContent = memo<TooltipContentProps>(({ tooltip, theme = {}, tooltip
             as="span"
             data-react-toolbox="tooltip"
             className={cn}
+            portalled
         >
             <Text.Paragraph as="span" className={theme?.tooltipInner}>
                 {tooltip}
