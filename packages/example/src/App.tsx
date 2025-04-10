@@ -1,8 +1,16 @@
 //@ts-nocheck
-import { ProgressBar, Button, Icon, SliderScale, FontIcon } from '@optimacros-ui/kit-internal';
+import {
+    ProgressBar,
+    Button,
+    Icon,
+    SliderScale,
+    FontIcon,
+    UiKit,
+    THEMES,
+    ICONS_MAP,
+    ICONS_SETS,
+} from '@optimacros-ui/kit-internal';
 
-import { UiKit } from '@optimacros-ui/kit-store';
-import { THEMES, ICONS_MAP, ICONS_SETS } from '@optimacros-ui/themes';
 import { useState } from 'react';
 
 function App() {
