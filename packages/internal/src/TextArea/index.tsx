@@ -3,6 +3,7 @@ import type React from 'react';
 
 import { Field as FieldComponent } from '@optimacros-ui/field';
 import { forward } from '@optimacros-ui/store';
+import './styles.css';
 
 export type TextAreaProps = {
     value?: string;

@@ -4,6 +4,7 @@ import { Icon } from '@optimacros-ui/icon';
 import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 import { clsx } from '@optimacros-ui/utils';
+import './styles.css';
 
 export type ButtonMenuTheme = Partial<ButtonTheme> & {
     ButtonMenu?: string;
