@@ -1,19 +1,24 @@
 [data-scope='field'][data-tag='internal'] {
-  &[data-part='root'] {
-    padding: 14px 0;
+  & [data-tag='floating-top'] {
+    top: 0;
   }
 
-  [data-part='label'][data-tag='floating-top'] {
-    top: var(--spacing-1);
+  & [data-tag='floating-bottom'] {
+    bottom: 0;
   }
 
-  [data-part='input'] {
-    padding: 8px 0;
+  & [data-part='input'] {
+    padding: 8px 5px;
     font-size: 14px;
   }
+
   [data-part='label'],
   [data-part='error'],
   [data-part='hint'] {
     font-size: 12px;
+  }
+
+  &[data-part='root'] {
+    padding: 16px 0;
   }
 }

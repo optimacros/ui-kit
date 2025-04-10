@@ -3,6 +3,7 @@ import type React from 'react';
 
 import { Field as FieldComponent } from '@optimacros-ui/field';
 import { forward } from '@optimacros-ui/store';
+import './styles.css';
 
 export type TextAreaProps = {
     value?: string;
@@ -26,26 +27,26 @@ const getStatus = (error: boolean, readOnly: boolean) => {
 };
 
 export const TextArea = forward<TextAreaProps, HTMLTextAreaElement>(
-    ({ value, error, label, className, classNameContainer, id, readonly }, ref) => {
+    ({ value, error, label, className, classNameContainer, id, readonly, ...rest }, ref) => {
         const generatedId = useId();
 
         return (
             <FieldComponent.Root
                 status={getStatus(!!error, readonly)}
                 className={classNameContainer}
+                data-tag="internal"
             >
                 {label && (
-                    <FieldComponent.FloatingLabel htmlFor={id ?? generatedId}>
-                        {label}
-                    </FieldComponent.FloatingLabel>
+                    <FieldComponent.Label htmlFor={id ?? generatedId}>{label}</FieldComponent.Label>
                 )}
                 <FieldComponent.TextArea
+                    {...rest}
                     ref={ref}
                     id={id ?? generatedId}
                     value={value}
                     className={className}
                 />
-                <FieldComponent.FloatingError>{error}</FieldComponent.FloatingError>
+                <FieldComponent.Error>{error}</FieldComponent.Error>
             </FieldComponent.Root>
         );
     },

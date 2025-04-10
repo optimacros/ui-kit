@@ -12,6 +12,7 @@
   text-align: start;
   flex-grow: 1;
   width: 100%;
+
   &:focus {
     border-color: var(--color-field-primary-border-active);
     color: var(--color-field-primary-default);
@@ -33,6 +34,14 @@
   &:focus ~ [data-part='hint'][data-tag='floating-bottom'] {
     display: block;
     opacity: 1;
+  }
+  &[data-tag='textarea'] {
+    padding: 8px;
+    border: var(--color-field-primary-border-default) var(--spacing-px) solid;
+    &:disabled {
+      border: var(--color-field-primary-border-disabled) var(--spacing-px) dashed;
+      color: var(--color-field-primary-disabled);
+    }
   }
 }
 
@@ -141,6 +150,7 @@
   &[data-part='root'] {
     position: relative;
     padding: var(--spacing-5) 0;
+
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

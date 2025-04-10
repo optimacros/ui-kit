@@ -62,7 +62,7 @@ export const Popover = memo<PopoverProps>(
         const isColorsPanel = presetColors || recentColors;
 
         return (
-            <UIColorPicker.PopoverPortal className={className}>
+            <UIColorPicker.PopoverPortal className={className} portalled>
                 <UIColorPicker.Area />
                 <UIColorPicker.ChannelSlider />
 

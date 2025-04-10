@@ -1,0 +1,9 @@
+[data-scope='field'][data-tag='internal'] {
+  & [data-part='input'][data-tag='textarea'] {
+    outline: none;
+    padding: 8px;
+    width: 450px;
+    min-height: 350px;
+    margin: 6px 0;
+  }
+}
