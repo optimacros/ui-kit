@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.10 (2025-04-10)</small>
+
+* chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
+* chore(core): removed import ([79fa226](https://gitlab.optimacros.com/fe/ui-kit/commit/79fa226))
+* chore(package): added webpack + updated modules ([f59e1d5](https://gitlab.optimacros.com/fe/ui-kit/commit/f59e1d5))
+* chore(package): update zag ([978a2e8](https://gitlab.optimacros.com/fe/ui-kit/commit/978a2e8))
+* chore(rebase): rebase fix ([e6372a8](https://gitlab.optimacros.com/fe/ui-kit/commit/e6372a8))
+* chore(release): 2.0.4 ([0791517](https://gitlab.optimacros.com/fe/ui-kit/commit/0791517))
+* chore(release): version update ([46fc23e](https://gitlab.optimacros.com/fe/ui-kit/commit/46fc23e))
+* chore(ui-kit): migrate components ([3437b2d](https://gitlab.optimacros.com/fe/ui-kit/commit/3437b2d))
+* chore(update-version): release ([76a0181](https://gitlab.optimacros.com/fe/ui-kit/commit/76a0181))
+* chore(update-version): upd to 2.0.5 ([7e410c4](https://gitlab.optimacros.com/fe/ui-kit/commit/7e410c4))
+* chore(version): release ([0f329dd](https://gitlab.optimacros.com/fe/ui-kit/commit/0f329dd))
+* chore(version): upd ([8b3c375](https://gitlab.optimacros.com/fe/ui-kit/commit/8b3c375))
+* chore(version): update ([cbb5d90](https://gitlab.optimacros.com/fe/ui-kit/commit/cbb5d90))
+* chore(version): update ([22d96ca](https://gitlab.optimacros.com/fe/ui-kit/commit/22d96ca))
+* chore(version): update ([532ff3b](https://gitlab.optimacros.com/fe/ui-kit/commit/532ff3b))
+* chore(version): update ([cb4eb3f](https://gitlab.optimacros.com/fe/ui-kit/commit/cb4eb3f))
+* chore(zagjs): update ([1f6165b](https://gitlab.optimacros.com/fe/ui-kit/commit/1f6165b))
+* test(core/sidebar): fix and improve ([04fdb50](https://gitlab.optimacros.com/fe/ui-kit/commit/04fdb50))
+* test(core/sidebar): fix play ([4b36924](https://gitlab.optimacros.com/fe/ui-kit/commit/4b36924))
+* test(core/sidebar): refactor, add tests ([6f97b97](https://gitlab.optimacros.com/fe/ui-kit/commit/6f97b97))
+* test(core/sidebar): update tests ([d5206a8](https://gitlab.optimacros.com/fe/ui-kit/commit/d5206a8))
+* fix: sidebar ([4c3753e](https://gitlab.optimacros.com/fe/ui-kit/commit/4c3753e))
+* fix: typings ([cdc95b0](https://gitlab.optimacros.com/fe/ui-kit/commit/cdc95b0))
+* fix: typings ([f313846](https://gitlab.optimacros.com/fe/ui-kit/commit/f313846))
+* fix(build-namings): changed namings, fixed build ([744e9c2](https://gitlab.optimacros.com/fe/ui-kit/commit/744e9c2))
+* fix(build): fixed ([b6531ba](https://gitlab.optimacros.com/fe/ui-kit/commit/b6531ba))
+* fix(sidebar): open state ([acb79b9](https://gitlab.optimacros.com/fe/ui-kit/commit/acb79b9))
+* fix(storybook): build ([a28792d](https://gitlab.optimacros.com/fe/ui-kit/commit/a28792d))
+* fix(ts): fixed typescript errors ([64c25bd](https://gitlab.optimacros.com/fe/ui-kit/commit/64c25bd))
+* feat: add image snapshot testing ([bf2073b](https://gitlab.optimacros.com/fe/ui-kit/commit/bf2073b))
+* feat(packages): migration to individual components ([2fbb32f](https://gitlab.optimacros.com/fe/ui-kit/commit/2fbb32f))
+* feat(sidebar): add default props ([a79e40b](https://gitlab.optimacros.com/fe/ui-kit/commit/a79e40b))
+* feat(sidebar): improve stories ([85545e5](https://gitlab.optimacros.com/fe/ui-kit/commit/85545e5))
+* feat(sidebar): upd context ([ad0a71a](https://gitlab.optimacros.com/fe/ui-kit/commit/ad0a71a))
+* feat(state-context): added functionality ([864f6e4](https://gitlab.optimacros.com/fe/ui-kit/commit/864f6e4))
+* feat(store): update method name ([125e901](https://gitlab.optimacros.com/fe/ui-kit/commit/125e901))
+* feat(styles): migration ([bfb7849](https://gitlab.optimacros.com/fe/ui-kit/commit/bfb7849))
+* feat(type-check): refactor ([62a00d8](https://gitlab.optimacros.com/fe/ui-kit/commit/62a00d8))
+* refactor(sidebar): migrate styles, improve docs ([451c6a3](https://gitlab.optimacros.com/fe/ui-kit/commit/451c6a3))
+* Перенести компоненты из ui-kit layout в ui-kit-core ([0284809](https://gitlab.optimacros.com/fe/ui-kit/commit/0284809))
+
+
+
+
+
 ## <small>2.0.9 (2025-03-28)</small>
 
 * chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))

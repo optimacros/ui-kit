@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/font-icon",
     "private": false,
-    "version": "2.0.9",
+    "version": "2.0.10",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",

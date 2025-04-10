@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/kit-legacy",
     "private": false,
-    "version": "2.0.9",
+    "version": "2.0.10",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
