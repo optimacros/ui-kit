@@ -21,4 +21,8 @@
   &[data-part='root'] {
     padding: 16px 0;
   }
+  
+  [data-scope='field'][data-part='error'] {
+    color: var(--color-field-primary-label-error) !important;
+  }
 }
