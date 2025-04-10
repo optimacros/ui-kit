@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/calendar",
     "private": false,
-    "version": "2.0.10",
+    "version": "2.0.11",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -12,11 +12,11 @@
     },
     "dependencies": {
         "@internationalized/date": "3.5.4",
-        "@optimacros-ui/button": "^2.0.10",
-        "@optimacros-ui/menu": "^2.0.10",
-        "@optimacros-ui/store": "^2.0.10",
-        "@optimacros-ui/types": "^2.0.10",
-        "@optimacros-ui/utils": "^2.0.10",
+        "@optimacros-ui/button": "^2.0.11",
+        "@optimacros-ui/menu": "^2.0.11",
+        "@optimacros-ui/store": "^2.0.11",
+        "@optimacros-ui/types": "^2.0.11",
+        "@optimacros-ui/utils": "^2.0.11",
         "@zag-js/date-picker": "1.2.1",
         "react": "18.2.0"
     }
