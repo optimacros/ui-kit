@@ -50,6 +50,7 @@
   }
 
   &[data-part='textarea'] {
+    margin: var(--spacing-1-5) 0;
     border: var(--spacing-px) solid var(--color-field-primary-border-default);
   }
 
