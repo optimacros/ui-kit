@@ -1,5 +1,6 @@
 import { Loader } from '@optimacros-ui/loader';
 import { forward } from '@optimacros-ui/store';
+import './styles.css';
 
 interface ProgressBar {
     start: () => void;
@@ -23,29 +24,27 @@ export const ProgressBars = forward<ProgressBarsProps, 'div'>(({ state }, ref) =
     }
 
     const { progressBars, currentIndex } = state;
+    const progressBar = progressBars.find((_, index) => index === currentIndex);
+    const { currentValue, maxValue } = progressBar;
 
     return (
-        <div ref={ref}>
-            {progressBars.map((progressBar: ProgressBar, index: number) => {
-                const { currentValue, maxValue } = progressBar;
-                const needRenderMessage = index === currentIndex;
-                const progress = `${Math.floor((currentValue * 100) / maxValue)}%`;
-
-                return (
-                    <div key={index}>
-                        {needRenderMessage && (
-                            <Loader.Root max={maxValue} value={currentValue}>
-                                <Loader.Label>
-                                    {currentValue} / {maxValue} ({progress})
-                                </Loader.Label>
-                                <Loader.LinearTrack>
-                                    <Loader.LinearRange />
-                                </Loader.LinearTrack>
-                            </Loader.Root>
-                        )}
-                    </div>
-                );
-            })}
+        <div ref={ref} data-tag="internal">
+            {progressBar && (
+                <div data-part="container">
+                    <Loader.Root value={null}>
+                        <Loader.Label>
+                            <span>
+                                {currentValue} / {maxValue} (
+                                {Math.floor((currentValue * 100) / maxValue)}
+                                %)
+                            </span>
+                        </Loader.Label>
+                        <Loader.LinearTrack>
+                            <Loader.LinearRange />
+                        </Loader.LinearTrack>
+                    </Loader.Root>
+                </div>
+            )}
         </div>
     );
 });
