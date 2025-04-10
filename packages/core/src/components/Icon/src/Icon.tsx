@@ -3,7 +3,6 @@ import { getIconName, IconName, isValidIconName } from '@optimacros-ui/themes';
 import { forward, styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
 import { UiKit } from '@optimacros-ui/kit-store';
-import { iconValueParser } from '@optimacros-ui/kit-internal';
 
 export interface IconProps {
     value: string | ReactNode;
@@ -17,13 +16,10 @@ export interface IconProps {
 }
 
 export const Icon = forward<IconProps, 'svg'>(function Icon(
-    { value: valueProp, rotate, size, variant, style, ...rest },
+    { value, rotate, size, variant, style, ...rest },
     ref,
 ) {
-    // TODO remove
-    const value = iconValueParser(valueProp);
-
-    const iconsSrc = UiKit.useProxySelector((state) => state.iconsSrc);
+    const { iconsSrc } = UiKit.useState();
 
     const iconProps = {
         'data-scope': 'icon',
