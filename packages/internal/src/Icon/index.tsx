@@ -1,20 +1,48 @@
 import { Icon as BaseIcon, type IconProps as BaseProps } from '@optimacros-ui/icon';
 import { hasIn } from 'lodash-es';
 import { isObject } from '@optimacros-ui/utils';
-import { ComponentProps } from 'react';
+import { ComponentProps, useLayoutEffect, useRef } from 'react';
 
 export type IconProps = Omit<ComponentProps<typeof BaseIcon>, 'value'> & {
     value: BaseProps['value'] | { name: string; fill: string; opacity: number };
 };
 
 export const Icon = ({ value, ...rest }: IconProps) => {
+    const ref = useRef<HTMLElement>(null);
+
+    useLayoutEffect(() => {
+        if (ref.current.nodeName !== 'svg') {
+            return;
+        }
+
+        let valueString = null;
+
+        if (isObject(value) && hasIn(value, 'name')) {
+            // @ts-ignore
+            valueString = value.name;
+        } else if (typeof value === 'string') {
+            valueString = value;
+        }
+
+        if (!valueString) {
+            return;
+        }
+
+        ref.current.setAttribute('data-react-toolbox', 'font-icon');
+
+        const title = document.createElement('title');
+        title.textContent = valueString;
+
+        ref.current.append(title);
+    }, [ref.current]);
+
     if (isObject(value) && hasIn(value, 'name')) {
         //@ts-ignore
-        return <BaseIcon value={value.name} {...value} {...rest} />;
+        return <BaseIcon value={value.name} {...value} {...rest} ref={ref} />;
     }
 
     //@ts-ignore
-    return <BaseIcon value={value} {...rest} />;
+    return <BaseIcon value={value} {...rest} ref={ref} />;
 };
 
 export const WSIcon = ({ value, ...rest }: IconProps) => {
