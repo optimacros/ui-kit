@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/badge",
     "private": false,
-    "version": "2.0.10",
+    "version": "2.0.11",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -11,10 +11,10 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros-ui/store": "^2.0.10",
-        "@optimacros-ui/tabs": "^2.0.10",
-        "@optimacros-ui/types": "^2.0.10",
-        "@optimacros-ui/utils": "^2.0.10",
+        "@optimacros-ui/store": "^2.0.11",
+        "@optimacros-ui/tabs": "^2.0.11",
+        "@optimacros-ui/types": "^2.0.11",
+        "@optimacros-ui/utils": "^2.0.11",
         "react": "18.2.0"
     }
 }
