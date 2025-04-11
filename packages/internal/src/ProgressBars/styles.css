@@ -1,0 +1,44 @@
+[data-tag='internal'] [data-part='container'] {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  min-height: 10px;
+  border: 1px var(--primary-color) solid;
+
+  [data-scope='progress'] {
+    height: 100%;
+
+    & [data-part='range'] {
+      &[data-state='indeterminate'] {
+        animation: fill-bar 2s linear forwards;
+        transform-origin: left center;
+      }
+    }
+
+    &[data-part='label'],
+    &[data-part='label-container'] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 40%;
+      z-index: 2;
+      margin: 0;
+      height: 100%;
+    }
+  }
+}
+
+@keyframes fill-bar {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

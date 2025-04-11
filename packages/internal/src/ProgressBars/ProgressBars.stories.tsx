@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { ProgressBars } from '@optimacros-ui/kit-internal';
 
+const Wrapper = ({ children }: { children }) => (
+    <div style={{ position: 'relative', height: '20px' }}>{children}</div>
+);
+
 const meta: Meta<typeof ProgressBars> = {
     title: 'UI Kit internal/ProgressBars',
     component: ProgressBars,
@@ -52,18 +56,27 @@ export const Basic: Story = {
         },
     },
     tags: ['skip-test-runner'],
+    render: (args) => (
+        <Wrapper>
+            <ProgressBars {...args} />
+        </Wrapper>
+    ),
 };
 
 const StateProgressBars = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % progressBars.length);
+        if (currentIndex >= progressBars.length - 1) {
+            return;
+        }
+
+        const timeout = setTimeout(() => {
+            setCurrentIndex((prevIndex) => prevIndex + 1);
         }, 500);
 
-        return () => clearInterval(interval);
-    }, []);
+        return () => clearTimeout(timeout);
+    }, [currentIndex]);
 
     const state = {
         currentProgressBar: progressBars[currentIndex],
@@ -71,7 +84,11 @@ const StateProgressBars = () => {
         currentIndex,
     };
 
-    return <ProgressBars state={state} />;
+    return (
+        <Wrapper>
+            <ProgressBars state={state} />
+        </Wrapper>
+    );
 };
 
 export const MultipleProgressBar: Story = {
