@@ -1,5 +1,6 @@
 import { Loader } from '@optimacros-ui/loader';
 import { forward } from '@optimacros-ui/store';
+import { observer } from 'mobx-react';
 import './styles.css';
 
 interface ProgressBar {
@@ -18,7 +19,7 @@ interface ProgressBarsProps {
     className?: string;
 }
 
-export const ProgressBars = forward<ProgressBarsProps, 'div'>(({ state }, ref) => {
+export const ProgressBarsComponent = forward<ProgressBarsProps, 'div'>(({ state }, ref) => {
     if (!state || !state.currentProgressBar) {
         return null;
     }
@@ -31,7 +32,7 @@ export const ProgressBars = forward<ProgressBarsProps, 'div'>(({ state }, ref) =
         <div ref={ref} data-tag="internal">
             {progressBar && (
                 <div data-part="container">
-                    <Loader.Root value={null}>
+                    <Loader.Root value={currentValue === 0 ? null : currentValue}>
                         <Loader.Label>
                             <span>
                                 {currentValue} / {maxValue} (
@@ -48,3 +49,5 @@ export const ProgressBars = forward<ProgressBarsProps, 'div'>(({ state }, ref) =
         </div>
     );
 });
+
+export const ProgressBars = observer(ProgressBarsComponent);
