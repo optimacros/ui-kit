@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import type React from 'react';
 import { Icon } from '@optimacros-ui/icon';
-import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
+import { Button, ButtonTheme, MenuTrigger, Menu, MenuProps } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 import { clsx } from '@optimacros-ui/utils';
 import './styles.css';
@@ -27,6 +27,8 @@ type Props = {
     dataName?: string;
     classNameDropdownContainer?: string;
     closeOnSelect?: boolean;
+    portalled?: boolean;
+    positioning?: MenuProps['positioning'];
 } & Partial<TooltipProps>;
 
 export type ButtonMenuProps = React.PropsWithChildren<Props>;
@@ -54,6 +56,8 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
         label,
         uppercase,
         className,
+        portalled,
+        positioning,
         ...otherProps
     } = props;
 
@@ -125,6 +129,8 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
             renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
             ref={ref}
+            portalled={portalled}
+            positioning={positioning}
         >
             {children}
         </Menu>

@@ -25,7 +25,7 @@ export const MenuItem = forward<IMenuItem, 'li'>(
             title,
             value,
             children,
-            onClick,
+            onClick = (e) => console.log(e),
             id,
             className: classNameProp,
             eventKey,
@@ -35,13 +35,13 @@ export const MenuItem = forward<IMenuItem, 'li'>(
     ) => {
         const generatedKey = useId();
 
-        const className = clsx(classNameProp, 'menuItem');
+        const className = clsx(classNameProp, 'menuItem rc-dropdown-menu-item');
 
         return (
             <MenuComponent.Item
-                onClick={onClick}
                 key={id ?? value ?? generatedKey}
                 {...restProps}
+                onClick={onClick}
                 value={value ?? generatedKey}
                 ref={ref}
                 className={className}
@@ -87,7 +87,7 @@ export const SubMenu = ({
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
 
-    const className = clsx(classNameProp, 'menuItem');
+    const className = clsx(classNameProp, 'menuItem rc-dropdown-menu-submenu');
 
     const { hoverable, ...restRest } = rest;
 
@@ -144,10 +144,11 @@ export type MenuProps = {
     children: ReactNode;
     renderTrigger?: () => ReactNode;
     onlyContent?: boolean;
+    portalled?: boolean;
 } & MenuComponent.Props;
 
 export const Menu = forward<MenuProps, 'div'>((props, ref) => {
-    const { children, renderTrigger, onlyContent, ...rest } = props;
+    const { children, renderTrigger, onlyContent, portalled = true, ...rest } = props;
 
     if (onlyContent) {
         return (
@@ -161,7 +162,8 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
         <div data-scope="menu" data-part="root">
             <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
                 {renderTrigger?.()}
-                <MenuComponent.Positioner portalled>
+
+                <MenuComponent.Positioner portalled={portalled}>
                     <MenuComponent.Content className="menu-content" ref={ref}>
                         {children}
                     </MenuComponent.Content>

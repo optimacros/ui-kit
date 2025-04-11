@@ -13,10 +13,10 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 };
 
 export const Item = forward<menu.ItemProps, 'li'>(
-    ({ valueText, children, closeOnSelect, disabled, value, ...rest }, ref) => {
+    ({ valueText, children, closeOnSelect, disabled, value, onClick, ...rest }, ref) => {
         const api = useApi();
 
-        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText });
+        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText, onClick });
 
         return (
             <styled.li {...props} {...rest} ref={ref}>
