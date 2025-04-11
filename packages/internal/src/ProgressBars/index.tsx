@@ -18,7 +18,7 @@ interface ProgressBarsProps {
     className?: string;
 }
 
-const ProgressBarsComponent = forward<ProgressBarsProps, 'div'>(({ state }, ref) => {
+const ProgressBarsComponent = forward<ProgressBarsProps, 'div'>(({ state, className }, ref) => {
     if (!state || !state.currentProgressBar) {
         return null;
     }
@@ -26,27 +26,24 @@ const ProgressBarsComponent = forward<ProgressBarsProps, 'div'>(({ state }, ref)
     const { progressBars, currentIndex } = state;
 
     return (
-        <div ref={ref}>
-            {progressBars.map((progressBar: ProgressBar, index: number) => {
-                const { currentValue, maxValue } = progressBar;
-                const needRenderMessage = index === currentIndex;
-                const progress = `${Math.floor((currentValue * 100) / maxValue)}%`;
+        <div ref={ref} className={className}>
+            {progressBars
+                .filter((_, index) => index === currentIndex)
+                .map((progressBar, index) => {
+                    const { currentValue, maxValue } = progressBar;
+                    const progress = `${Math.floor((currentValue * 100) / maxValue)}%`;
 
-                return (
-                    <div key={index}>
-                        {needRenderMessage && (
-                            <Loader.Root max={maxValue} value={currentValue}>
-                                <Loader.Label>
-                                    {currentValue} / {maxValue} ({progress})
-                                </Loader.Label>
-                                <Loader.LinearTrack>
-                                    <Loader.LinearRange />
-                                </Loader.LinearTrack>
-                            </Loader.Root>
-                        )}
-                    </div>
-                );
-            })}
+                    return (
+                        <Loader.Root key={index} max={maxValue} value={currentValue}>
+                            <Loader.Label>
+                                {currentValue} / {maxValue} ({progress})
+                            </Loader.Label>
+                            <Loader.LinearTrack>
+                                <Loader.LinearRange />
+                            </Loader.LinearTrack>
+                        </Loader.Root>
+                    );
+                })}
         </div>
     );
 });
