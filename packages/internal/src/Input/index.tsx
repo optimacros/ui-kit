@@ -131,7 +131,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
         return (
             <Field.Root
                 {...elementProps}
-                status={oneLineError ? 'default' : getStatus(Boolean(error), readOnly, false)}
+                status={getStatus(Boolean(error), readOnly, false)}
                 className={cn}
                 data-tag="internal"
             >
@@ -182,7 +182,9 @@ export const Input = forward<InputProps, HTMLInputElement>(
                 )}
                 {hint && <Field.FloatingHint className={theme.hint}>{hint}</Field.FloatingHint>}
                 {error && (
-                    <Field.FloatingError className={theme.error}>{error}</Field.FloatingError>
+                    <Field.FloatingError className={clsx(theme.error, 'FieldError')}>
+                        {error}
+                    </Field.FloatingError>
                 )}
             </Field.Root>
         );

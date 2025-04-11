@@ -62,7 +62,7 @@ const TooltipContent = memo<TooltipContentProps>(
                 className={cn}
                 portalled={portalled}
             >
-                <Text.Paragraph as="span" className={theme?.tooltipInner}>
+                <Text.Paragraph as="span" className="tooltipTheme-module__tooltipInner">
                     {tooltip}
                 </Text.Paragraph>
             </UITooltip.Content>
