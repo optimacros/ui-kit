@@ -1,0 +1,8 @@
+[data-scope='icon'][data-part='root'][data-style-tag='internal'] {
+  &[data-tag='container'] {
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

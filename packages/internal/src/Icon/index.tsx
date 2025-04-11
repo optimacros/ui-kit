@@ -3,6 +3,8 @@ import { hasIn } from 'lodash-es';
 import { isObject } from '@optimacros-ui/utils';
 import { ComponentProps } from 'react';
 
+import './styles.css';
+
 export type IconProps = Omit<ComponentProps<typeof BaseIcon>, 'value'> & {
     value: BaseProps['value'] | { name: string; fill: string; opacity: number };
 };
@@ -10,11 +12,11 @@ export type IconProps = Omit<ComponentProps<typeof BaseIcon>, 'value'> & {
 export const Icon = ({ value, ...rest }: IconProps) => {
     if (isObject(value) && hasIn(value, 'name')) {
         //@ts-ignore
-        return <BaseIcon value={value.name} {...value} {...rest} />;
+        return <BaseIcon value={value.name} {...value} {...rest} data-style-tag="internal" />;
     }
 
     //@ts-ignore
-    return <BaseIcon value={value} {...rest} />;
+    return <BaseIcon value={value} {...rest} data-style-tag="internal" />;
 };
 
 export const WSIcon = ({ value, ...rest }: IconProps) => {
