@@ -3,5 +3,14 @@
     /* нет spacing 0.5rem (16/2=8пх), есть только 0.4 и 0.6 */
     /* TODO добавить в flex возможность передать кастомный гэп */
     gap: 8px;
+
+    & > [data-scope='button'] {
+      display: inline-block;
+      text-transform: uppercase !important;
+    }
+
+    & > [data-scope='button']:last-child {
+      margin: 0;
+    }
   }
 }
