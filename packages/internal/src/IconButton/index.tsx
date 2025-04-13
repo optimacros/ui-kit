@@ -92,6 +92,7 @@ const IconButtonComponent = forward<IconBtnProps, 'button'>(
                     {...rest}
                     ref={ref}
                     data-style-tag="internal"
+                    data-react-toolbox="button"
                 />
                 {portalRoot &&
                     createPortal(<Text.Span data-tag2="icon-name">{icon}</Text.Span>, portalRoot)}
