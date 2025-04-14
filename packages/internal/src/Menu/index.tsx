@@ -87,7 +87,11 @@ export const SubMenu = ({
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
 
-    const className = clsx(classNameProp, 'menuItem rc-dropdown-menu-submenu');
+    const className = clsx(
+        classNameProp,
+        'menuItem rc-dropdown-menu-submenu',
+        menu.api.open && 'active',
+    );
 
     const { hoverable, ...restRest } = rest;
 
