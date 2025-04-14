@@ -98,14 +98,15 @@ export const Checked: Story = {
 };
 
 export const Disabled: Story = {
-    render: () => (
+    args: { disabled: true },
+    render: (props) => (
         <Flex direction="column" gap="2">
-            <RadioButton name="disabled" value="option1" label="Disabled Unchecked" disabled />
+            <RadioButton {...props} name="disabled" value="option1" label="Disabled Unchecked" />
             <RadioButton
+                {...props}
                 name="disabled"
                 value="option2"
                 label="Disabled Checked"
-                disabled
                 checked
             />
         </Flex>
