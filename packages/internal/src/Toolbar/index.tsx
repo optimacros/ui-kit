@@ -27,7 +27,6 @@ const getAlign = (align: AlignProp) => {
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
     ({ align, className, children, ...rest }, ref) => (
         <UIToolbar.Root
-        
             className={className}
             ref={ref}
             data-tag="internal"

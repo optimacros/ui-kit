@@ -25,7 +25,7 @@ export const MenuItem = forward<IMenuItem, 'li'>(
             title,
             value,
             children,
-            onClick = (e) => console.log(e),
+            onClick,
             id,
             className: classNameProp,
             eventKey,
