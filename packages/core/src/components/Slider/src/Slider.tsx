@@ -23,6 +23,13 @@ const connect = ((api, { prop }) => {
         min: prop('min'),
         max: prop('max'),
         step: prop('step'),
+        getRootProps() {
+            return {
+                ...api.getRootProps(),
+                value: api.value,
+                name: prop('name'),
+            };
+        },
     };
 }) satisfies Zag.ConnectApi<Schema, slider.Api>;
 
@@ -181,5 +188,26 @@ export const Thumb = forward<PropsWithChildren, 'div'>(
     },
     {
         displayName: 'Thumb',
+    },
+);
+
+export const HiddenInputs = forward<PropsWithChildren, 'input'>(
+    ({ children, ...rest }, ref) => {
+        const api = useApi();
+
+        return (
+            <>
+                {map(api.value, (_, index) => (
+                    <styled.input
+                        {...rest}
+                        key={'hidden-input-' + index}
+                        {...api.getHiddenInputProps({ index })}
+                    />
+                ))}
+            </>
+        );
+    },
+    {
+        displayName: 'HiddenInputs',
     },
 );

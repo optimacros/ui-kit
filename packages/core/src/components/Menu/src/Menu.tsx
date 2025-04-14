@@ -19,7 +19,7 @@ export const Item = forward<menu.ItemProps, 'li'>(
         const props = api.getItemProps({ value, closeOnSelect, disabled, valueText, onClick });
 
         return (
-            <styled.li {...props} {...rest} ref={ref}>
+            <styled.li {...props} {...rest} ref={ref} aria-disabled={disabled}>
                 {children}
             </styled.li>
         );
