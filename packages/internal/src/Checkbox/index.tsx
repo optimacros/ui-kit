@@ -5,6 +5,8 @@ import { Tooltip } from '@optimacros-ui/kit-internal';
 import { Checkbox as CheckboxCore } from '@optimacros-ui/checkbox';
 import { clsx, isUndefined } from '@optimacros-ui/utils';
 
+import './style.css';
+
 export type CheckboxTheme = {
     field?: string;
     text?: string;
@@ -138,6 +140,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
                 onCheckedChange={(e) => onChange?.(e.checked, {})}
                 className={theme.field}
                 data-react-toolbox="checkbox"
+                data-style-tag="internal"
                 {...rest}
             >
                 <CheckboxContent

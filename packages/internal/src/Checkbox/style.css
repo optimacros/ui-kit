@@ -1,0 +1,30 @@
+[data-scope='checkbox'][data-part='root'][data-style-tag='internal'] {
+  &[disabled] {
+    & [data-part='box-control'] {
+      border-color: var(--Checkbox-color-disabled) !important;
+      padding-top: 0;
+
+      &[data-state='checked'] {
+        background-color: var(--Checkbox-color-disabled) !important;
+
+        &:after {
+          animation: none !important;
+          border-color: var(--Checkbox-color);
+        }
+      }
+
+      & * {
+        cursor: default;
+      }
+    }
+
+    & > [data-part='label'] {
+      color: var(--Checkbox-color-disabled) !important;
+    }
+  }
+
+  & [data-part='box-control'] {
+    width: 18px;
+    height: 18px;
+  }
+}
