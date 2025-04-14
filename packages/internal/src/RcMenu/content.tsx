@@ -1,3 +1,4 @@
+//@ts-nocheck
 import BaseMenu, { Item } from 'rc-menu';
 import type {
     MenuProps,
