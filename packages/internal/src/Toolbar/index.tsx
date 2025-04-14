@@ -26,12 +26,13 @@ const getAlign = (align: AlignProp) => {
 
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
     ({ align, className, children }, ref) => (
-        <UIToolbar.Root className={className} ref={ref} data-tag="internal">
-            <Flex
-                justify={getAlign(align)}
-                data-role="toolbar-content"
-                style={align === 'rightInRow' && { marginTop: 0 }}
-            >
+        <UIToolbar.Root
+            className={className}
+            ref={ref}
+            data-tag="internal"
+            style={align === 'rightInRow' && { marginTop: 0 }}
+        >
+            <Flex justify={getAlign(align)} data-role="toolbar-content">
                 {children}
             </Flex>
         </UIToolbar.Root>

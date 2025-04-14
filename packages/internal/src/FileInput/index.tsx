@@ -6,6 +6,8 @@ import { Text } from '@optimacros-ui/text';
 import { adaptAcceptParam } from '@optimacros-ui/utils';
 import { forward } from '@optimacros-ui/store';
 
+import './style.css';
+
 interface FileInputProps {
     state: {
         reset?: () => void;
@@ -43,6 +45,7 @@ export const FileInput = forward<FileInputProps, HTMLInputElement>(
                 onReset={reset}
                 //@ts-ignore
                 acceptedFiles={file ? [file] : []}
+                data-style-tag="internal"
             >
                 <FileUpload.HiddenInput ref={ref} />
                 <FileUpload.Api>

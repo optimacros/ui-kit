@@ -136,6 +136,7 @@ export const Button = forward<
 
         return (
             <ButtonComponent
+                data-react-toolbox="button"
                 data-style-tag="internal"
                 variant={getVariant(primary, accent, bordered, gray, neutral)}
                 float={getFloatStyles(raised, floating)}

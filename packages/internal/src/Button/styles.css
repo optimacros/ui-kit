@@ -9,6 +9,16 @@
   display: inline-flex;
   letter-spacing: 0;
 
+  &[disabled] {
+    background: transparent;
+    color: var(--Button-disabled-color);
+
+    &:hover {
+      background: transparent;
+      border-color: transparent;
+    }
+  }
+
   & svg[data-scope='icon'] {
     width: 1rem;
     height: 1rem;

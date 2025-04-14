@@ -30,20 +30,20 @@ const progressBars = [
     {
         start: () => {},
         stop: () => {},
-        currentValue: 30,
+        currentValue: 13,
         maxValue: 100,
     },
     {
         start: () => {},
         stop: () => {},
-        currentValue: 60,
-        maxValue: 100,
+        currentValue: 1,
+        maxValue: 1,
     },
     {
         start: () => {},
         stop: () => {},
-        currentValue: 90,
-        maxValue: 100,
+        currentValue: 13,
+        maxValue: 50,
     },
 ];
 
