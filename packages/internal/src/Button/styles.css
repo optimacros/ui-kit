@@ -19,6 +19,20 @@
     }
   }
 
+  &[data-variant='accent'][disabled][data-float='flat'] {
+    background: var(--Button-disabled-bg);
+    color: var(--Button-disabled-color);
+
+    &:hover {
+      background: var(--Button-disabled-bg-hover);
+      border-color: transparent;
+    }
+  }
+
+  [data-variant='bordered'][disabled][data-float='flat'] {
+    opacity: 0.5;
+  }
+
   & svg[data-scope='icon'] {
     width: 1rem;
     height: 1rem;
