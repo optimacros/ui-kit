@@ -12,8 +12,8 @@
         "build:wsfe": "tsup --config ./tsup.wsfe.ts --watch"
     },
     "dependencies": {
-        "@zag-js/core": "1.2.1",
-        "@zag-js/react": "1.2.1",
+        "@zag-js/core": "1.9.3",
+        "@zag-js/react": "1.9.3",
         "immutable": "4.3.5",
         "mobx": "6.9.0",
         "mobx-react": "7.6.0",

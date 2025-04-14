@@ -15,8 +15,8 @@
         "@optimacros-ui/store": "^2.0.11",
         "@optimacros-ui/types": "^2.0.11",
         "@optimacros-ui/utils": "^2.0.11",
-        "@zag-js/menu": "1.2.1",
-        "@zag-js/react": "1.2.1",
+        "@zag-js/menu": "1.9.3",
+        "@zag-js/react": "1.9.3",
         "react": "18.2.0"
     }
 }

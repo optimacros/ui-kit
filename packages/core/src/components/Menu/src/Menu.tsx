@@ -13,13 +13,13 @@ export const Indicator = ({ children }: { children: ReactNode }) => {
 };
 
 export const Item = forward<menu.ItemProps, 'li'>(
-    ({ valueText, children, closeOnSelect, disabled, value, ...rest }, ref) => {
+    ({ valueText, children, closeOnSelect, disabled, value, onClick, ...rest }, ref) => {
         const api = useApi();
 
-        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText });
+        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText, onClick });
 
         return (
-            <styled.li {...props} {...rest} ref={ref}>
+            <styled.li {...props} {...rest} ref={ref} aria-disabled={disabled}>
                 {children}
             </styled.li>
         );
@@ -33,7 +33,6 @@ export const SubMenuItem = forward<menu.ItemProps, 'li'>(
     ({ children, value, closeOnSelect, disabled, valueText, onClick, ...rest }, ref) => {
         const subMenuApi = useSubmenuApi();
         const props = subMenuApi.getItemProps({ value, closeOnSelect, disabled, valueText });
-
         return (
             <styled.li {...rest} ref={ref} {...props} onClick={onClick}>
                 {children}
@@ -58,7 +57,7 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
 
 export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest }, ref) => {
     return (
-        <styled.li {...rest} title={rest.valueText} ref={ref}>
+        <styled.li {...rest} title={rest.valueText} ref={ref} role="menuitem">
             {children}
         </styled.li>
     );
