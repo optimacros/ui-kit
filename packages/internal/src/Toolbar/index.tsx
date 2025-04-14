@@ -30,7 +30,7 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
             className={className}
             ref={ref}
             data-tag="internal"
-            style={align === 'rightInRow' && { marginTop: 0 }}
+            style={{ marginTop: align === 'rightInRow' ? 0 : undefined }}
         >
             <Flex justify={getAlign(align)} data-role="toolbar-content">
                 {children}

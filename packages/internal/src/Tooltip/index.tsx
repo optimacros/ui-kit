@@ -131,6 +131,7 @@ export const Tooltip = memo(
                                 value,
                                 checked,
                                 ...composedComponentProps,
+                                ...rest,
                             }}
                             onClick={onClick}
                             onMouseEnter={onMouseEnter}
