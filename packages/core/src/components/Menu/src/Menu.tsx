@@ -33,7 +33,6 @@ export const SubMenuItem = forward<menu.ItemProps, 'li'>(
     ({ children, value, closeOnSelect, disabled, valueText, onClick, ...rest }, ref) => {
         const subMenuApi = useSubmenuApi();
         const props = subMenuApi.getItemProps({ value, closeOnSelect, disabled, valueText });
-
         return (
             <styled.li {...rest} ref={ref} {...props} onClick={onClick}>
                 {children}
@@ -58,7 +57,7 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
 
 export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest }, ref) => {
     return (
-        <styled.li {...rest} title={rest.valueText} ref={ref}>
+        <styled.li {...rest} title={rest.valueText} ref={ref} role="menuitem">
             {children}
         </styled.li>
     );

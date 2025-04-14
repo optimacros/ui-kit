@@ -61,6 +61,7 @@ export const SubMenu = ({
     children,
     parent: parentMenu,
     className: classNameProp,
+    hoverable = true,
     ...rest
 }: {
     label?: string;
@@ -82,7 +83,7 @@ export const SubMenu = ({
             overlap: false,
             offset: { mainAxis: 4 },
         },
-        hoverable: true,
+        hoverable,
     });
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
@@ -93,12 +94,10 @@ export const SubMenu = ({
         menu.api.open && 'active',
     );
 
-    const { hoverable, ...restRest } = rest;
-
     return (
         <>
             <MenuComponent.TriggerItem
-                {...restRest}
+                {...rest}
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
