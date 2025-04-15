@@ -15,6 +15,10 @@ export const parseHex = (color: string | ColorFormat | ColorPicker.ValueChangeDe
         return color.valueAsString as string;
     }
 
+    if (has(color, 'value') && typeof color.value === 'string') {
+        return color.value;
+    }
+
     return null;
 };
 
