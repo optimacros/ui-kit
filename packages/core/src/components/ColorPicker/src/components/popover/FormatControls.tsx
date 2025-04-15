@@ -1,4 +1,4 @@
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { useApi } from '../../exports';
 import { Flex } from '@optimacros-ui/flex';
 
@@ -8,31 +8,31 @@ export const HSL = forward<{}, 'div'>(
 
         return (
             <Flex {...props} ref={ref}>
-                <div>
-                    <input {...api.getChannelInputProps({ channel: 'hue' })} />
+                <styled.div>
+                    <styled.input {...api.getChannelInputProps({ channel: 'hue' })} />
                     <span>H</span>
-                </div>
-                <div>
-                    <input
+                </styled.div>
+                <styled.div>
+                    <styled.input
                         {...api.getChannelInputProps({
                             channel: 'saturation',
                         })}
                     />
                     <span>S</span>
-                </div>
-                <div>
-                    <input
+                </styled.div>
+                <styled.div>
+                    <styled.input
                         {...api.getChannelInputProps({
                             channel: 'lightness',
                         })}
                     />
                     <span>L</span>
-                </div>
+                </styled.div>
                 {!api.disableAlpha && (
-                    <div>
-                        <input {...api.getChannelInputProps({ channel: 'alpha' })} />
+                    <styled.div>
+                        <styled.input {...api.getChannelInputProps({ channel: 'alpha' })} />
                         <span>A</span>
-                    </div>
+                    </styled.div>
                 )}
             </Flex>
         );

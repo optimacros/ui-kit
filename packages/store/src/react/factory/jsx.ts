@@ -1,4 +1,4 @@
-import { capitalize, lowerCase, merge } from '@optimacros-ui/utils';
+import { capitalize, merge, dashCase } from '@optimacros-ui/utils';
 import {
     Children,
     ComponentPropsWithRef,
@@ -53,7 +53,14 @@ const withAsChild = (Component: ElementType) => {
         let cn = className;
 
         if (restProps['data-part'] && restProps['data-scope']) {
-            cn = `${lowerCase(restProps['data-scope'])} ${lowerCase(restProps['data-part'])}${className && ' ' + className}`;
+            const scope = dashCase(restProps['data-scope']);
+
+            const part = dashCase(restProps['data-part']);
+
+            cn = `${scope} ${part}${className && ' ' + className}`;
+
+            restProps['data-testid'] =
+                restProps['data-testid'] ?? (part !== 'root' ? `${scope}-${part}` : scope);
         }
 
         if (!asChild) {

@@ -1,4 +1,4 @@
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { useApi } from '../../exports';
 
 export const TransparencySlider = forward<{}, 'div'>(
@@ -6,19 +6,19 @@ export const TransparencySlider = forward<{}, 'div'>(
         const api = useApi();
 
         return (
-            <div {...api.getChannelSliderProps({ channel: 'alpha' })} ref={ref}>
-                <div {...api.getTransparencyGridProps({ size: '12px' })} />
-                <div
+            <styled.div {...api.getChannelSliderProps({ channel: 'alpha' })} ref={ref}>
+                <styled.div {...api.getTransparencyGridProps({ size: '12px' })} />
+                <styled.div
                     {...api.getChannelSliderTrackProps({
                         channel: 'alpha',
                     })}
                 />
-                <div
+                <styled.div
                     {...api.getChannelSliderThumbProps({
                         channel: 'alpha',
                     })}
                 />
-            </div>
+            </styled.div>
         );
     },
     { displayName: 'TransparencySlider' },

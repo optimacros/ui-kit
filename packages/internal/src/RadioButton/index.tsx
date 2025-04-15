@@ -66,6 +66,7 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                     data-part="item"
                     data-react-toolbox="radio-button"
                     {...state}
+                    data-testid="radio-button"
                 >
                     <div
                         {...others}
@@ -89,8 +90,8 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                             opacity: 0,
                             pointerEvents: 'none',
                         }}
-                        className={checked ? 'theme-module__checked' : undefined}
                         {...others}
+                        {...state}
                     />
                     {label && (
                         <span

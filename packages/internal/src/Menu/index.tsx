@@ -2,7 +2,7 @@ import { Children, MouseEventHandler, ReactElement, ReactNode, useId } from 'rea
 import type React from 'react';
 
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
 
 import './styles.css';
@@ -164,7 +164,7 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
     }
 
     return (
-        <div data-scope="menu" data-part="root">
+        <styled.div data-scope="menu" data-part="root">
             <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
                 {renderTrigger?.()}
 
@@ -178,7 +178,7 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
                     </MenuComponent.Content>
                 </MenuComponent.Positioner>
             </MenuComponent.Root>
-        </div>
+        </styled.div>
     );
 });
 

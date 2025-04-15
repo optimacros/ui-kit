@@ -1,4 +1,4 @@
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { PropsWithChildren, ReactNode } from 'react';
 import { Area, ChannelSlider, PopoverPortal, TransparencySlider, useApi } from '../../exports';
 import { HSB, HSL, RGB } from './FormatControls';
@@ -22,7 +22,9 @@ export const Popover = forward<PopoverProps, 'div'>(
 
                         {!api.disableAlpha && <TransparencySlider />}
                     </div>
-                    <button {...api.getEyeDropperTriggerProps()}>{eyeDropperIcon}</button>
+                    <styled.button {...api.getEyeDropperTriggerProps()}>
+                        {eyeDropperIcon}
+                    </styled.button>
                 </div>
 
                 {api.format.startsWith('hsl') && <HSL />}
