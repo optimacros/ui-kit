@@ -118,18 +118,18 @@ export const Swatches = forward<SwatchesProps, 'div'>(
         const api = useApi();
 
         return (
-            <div {...rest} ref={ref} {...api.getSwatchGroupProps()}>
+            <styled.div {...rest} ref={ref} {...api.getSwatchGroupProps()}>
                 {children}
 
                 {presets.map((preset) => (
-                    <button key={preset} {...api.getSwatchTriggerProps({ value: preset })}>
-                        <div>
-                            <div {...api.getTransparencyGridProps({ size: '4px' })} />
-                            <div {...api.getSwatchProps({ value: preset })} title={preset} />
-                        </div>
-                    </button>
+                    <styled.button key={preset} {...api.getSwatchTriggerProps({ value: preset })}>
+                        <styled.div>
+                            <styled.div {...api.getTransparencyGridProps({ size: '4px' })} />
+                            <styled.div {...api.getSwatchProps({ value: preset })} title={preset} />
+                        </styled.div>
+                    </styled.button>
                 ))}
-            </div>
+            </styled.div>
         );
     },
     { displayName: 'Swatches' },
