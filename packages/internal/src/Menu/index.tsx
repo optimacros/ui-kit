@@ -148,10 +148,18 @@ export type MenuProps = {
     renderTrigger?: () => ReactNode;
     onlyContent?: boolean;
     portalled?: boolean;
+    contentClassName?: string;
 } & MenuComponent.Props;
 
 export const Menu = forward<MenuProps, 'div'>((props, ref) => {
-    const { children, renderTrigger, onlyContent, portalled = true, ...rest } = props;
+    const {
+        children,
+        renderTrigger,
+        onlyContent,
+        portalled = true,
+        contentClassName,
+        ...rest
+    } = props;
 
     if (onlyContent) {
         return (
@@ -167,7 +175,10 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
                 {renderTrigger?.()}
 
                 <MenuComponent.Positioner portalled={portalled}>
-                    <MenuComponent.Content className="menu-content" ref={ref}>
+                    <MenuComponent.Content
+                        className={clsx('menu-content', contentClassName)}
+                        ref={ref}
+                    >
                         {children}
                     </MenuComponent.Content>
                 </MenuComponent.Positioner>
