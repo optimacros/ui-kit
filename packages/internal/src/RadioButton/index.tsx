@@ -53,7 +53,7 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
 
         const state = {
             'data-state': checked ? 'checked' : 'unchecked',
-            ...(disabled ? { 'data-disabled': true } : {}),
+            ...(disabled ? { 'data-disabled': true, className: 'disabled' } : {}),
         };
 
         return (

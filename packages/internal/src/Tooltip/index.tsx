@@ -35,6 +35,7 @@ export interface TooltipProps extends PropsWithChildren {
     checked?: boolean;
     name?: string;
     portalled?: boolean;
+    disabled?: boolean;
 }
 
 type TooltipContentProps = Pick<
@@ -90,6 +91,7 @@ export const Tooltip = memo(
             checked,
             name,
             portalled = true,
+            disabled,
             ...rest
         } = props;
 
@@ -130,6 +132,7 @@ export const Tooltip = memo(
                                 onChange,
                                 value,
                                 checked,
+                                disabled,
                                 ...composedComponentProps,
                             }}
                             onClick={onClick}

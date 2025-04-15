@@ -4,10 +4,6 @@
   & [data-disabled] {
     cursor: auto;
     opacity: 0.6;
-
-    &::before {
-      display: none;
-    }
   }
 }
 
@@ -59,10 +55,14 @@
     &:before {
       background-color: var(--color-radio-group-primary-control-checked);
     }
-  }
 
-  &[data-state='checked'][data-disabled]:before {
-    background-color: var(--color-radio-group-primary-control-border-disabled);
+    &[data-disabled] {
+      border-color: var(--color-radio-group-primary-control-border-disabled);
+
+      &:before {
+        background-color: var(--color-radio-group-primary-control-border-disabled);
+      }
+    }
   }
 }
 
