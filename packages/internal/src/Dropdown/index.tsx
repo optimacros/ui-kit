@@ -76,9 +76,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         // Во-2х, тесты в сценарии выбора пункта в меню ждут появления-пропадания лоадера над меню. При первом открытии дропдауна с меню, все данные загружаются и сохраняются. При последующих открытиях, лоадер не появляется (данные-то есть) = тест не видит лоадер = фейл
         const content = (open: boolean) => (
             <>
-                <Menu.Trigger as="div">{children}</Menu.Trigger>
+                <Menu.Trigger as="div" data-testid="dropdown-trigger">
+                    {children}
+                </Menu.Trigger>
                 <Menu.Positioner>
-                    <Menu.Content className="dropdown">
+                    <Menu.Content className="dropdown" data-testid="dropdown">
                         {open ? <>{renderOverlay?.({ onlyContent: true }) ?? overlay}</> : null}
                     </Menu.Content>
                 </Menu.Positioner>

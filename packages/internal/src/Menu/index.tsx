@@ -35,8 +35,6 @@ export const MenuItem = forward<IMenuItem, 'li'>(
     ) => {
         const generatedKey = useId();
 
-        const className = clsx(classNameProp, 'menuItem rc-dropdown-menu-item');
-
         return (
             <MenuComponent.Item
                 key={id ?? value ?? generatedKey}
@@ -44,7 +42,8 @@ export const MenuItem = forward<IMenuItem, 'li'>(
                 onClick={onClick}
                 value={value ?? generatedKey}
                 ref={ref}
-                className={className}
+                className={classNameProp}
+                data-testid="menu-item"
             >
                 {label || title || children}
             </MenuComponent.Item>
@@ -79,7 +78,7 @@ export const SubMenu = ({
         id: generatedKey,
         closeOnSelect: false,
         positioning: {
-            fitViewport: false,
+            fitViewport: true,
             overlap: false,
             offset: { mainAxis: 4 },
         },
@@ -88,11 +87,7 @@ export const SubMenu = ({
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
 
-    const className = clsx(
-        classNameProp,
-        'menuItem rc-dropdown-menu-submenu',
-        menu.api.open && 'active',
-    );
+    const className = clsx(classNameProp, menu.api.open && 'active');
 
     return (
         <>
@@ -102,11 +97,12 @@ export const SubMenu = ({
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
                 className={className}
+                data-testid="menu-item"
             >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
-            <MenuComponent.SubMenuContent menu={menu}>
+            <MenuComponent.SubMenuContent menu={menu} data-testid="submenu">
                 {childrenArr.map((c, i) => {
                     //@ts-ignore
                     if (c.type.displayName === 'SubMenu') {
@@ -120,14 +116,12 @@ export const SubMenu = ({
                             c.props.title ||
                             `${generatedKey}${i}`;
 
-                        const className = clsx(c.props.className, 'menuItem');
-
                         return (
                             <MenuComponent.SubMenuItem
                                 {...c.props}
-                                className={className}
                                 value={value}
                                 key={value}
+                                data-testid="menu-item"
                             >
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
@@ -178,6 +172,7 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
                     <MenuComponent.Content
                         className={clsx('menu-content', contentClassName)}
                         ref={ref}
+                        data-testid="menu"
                     >
                         {children}
                     </MenuComponent.Content>
