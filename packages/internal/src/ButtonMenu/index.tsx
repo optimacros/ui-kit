@@ -149,7 +149,9 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
             portalled={portalled}
             positioning={positioning}
             contentClassName={
-                visible && dataName === 'visualObjects' ? 'ContextMenu-module__Container' : null
+                (visible && dataName === 'visualObjects') || dataName === 'viewButton'
+                    ? 'ContextMenu-module__Container'
+                    : null
             }
             data-testid="button-menu"
         >
