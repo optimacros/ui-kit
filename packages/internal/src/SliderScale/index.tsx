@@ -123,8 +123,13 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
                 onFocusChange={() => {}}
                 {...rest}
             >
-                <Slider.Container className={className} ref={ref} name={rest.name}>
-                    {label && <Slider.Label>{label}</Slider.Label>}
+                <Slider.Container
+                    className={className}
+                    ref={ref}
+                    name={rest.name}
+                    data-testid="slider-scale"
+                >
+                    {label && <Slider.Label data-testid="slider-scale-label">{label}</Slider.Label>}
                     {isInput && (
                         <div style={{ maxWidth: '40px' }}>
                             <Input
@@ -132,15 +137,20 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
                                 max={max}
                                 min={min}
                                 className={theme.input}
+                                data-testid="slider-scale-input"
                             />
                         </div>
                     )}
-                    <Slider.Control>
-                        <Slider.Track>
-                            {isMarkers && <Slider.Markers />}
-                            <Slider.Range />
+                    <Slider.Control data-testid="slider-scale-control">
+                        <Slider.Track data-testid="slider-scale-track">
+                            {isMarkers && <Slider.Markers data-testid="slider-scale-markers" />}
+                            <Slider.Range data-testid="slider-scale-range" />
                         </Slider.Track>
-                        <Slider.Thumb onMouseDown={onDragStart} className={theme.knob} />
+                        <Slider.Thumb
+                            onMouseDown={onDragStart}
+                            className={theme.knob}
+                            data-testid="slider-scale-thumb"
+                        />
                     </Slider.Control>
                     <Slider.HiddenInputs data-testid={'slider-value'} />
                 </Slider.Container>
