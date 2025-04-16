@@ -2,6 +2,7 @@ import { clsx } from '@optimacros-ui/utils';
 import React from 'react';
 
 import styles from './Layout.module.css';
+import { styled } from '@optimacros-ui/store';
 
 interface Props {
     width?: number;
@@ -24,8 +25,14 @@ export const Layout: React.FC<Props> = (props) => {
     );
 
     return (
-        <div {...otherProps} className={className} style={style}>
+        <styled.div
+            {...otherProps}
+            className={className}
+            style={style}
+            data-scope="layout"
+            data-part="root"
+        >
             {props.children}
-        </div>
+        </styled.div>
     );
 };
