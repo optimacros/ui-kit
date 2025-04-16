@@ -33,7 +33,11 @@ export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
             style={align === 'rightInRow' ? { marginTop: 0 } : null}
             {...rest}
         >
-            <Flex justify={getAlign(align)} data-role="toolbar-content">
+            <Flex
+                justify={getAlign(align)}
+                data-role="toolbar-content"
+                data-testid="toolbar-content"
+            >
                 {children}
             </Flex>
         </UIToolbar.Root>
