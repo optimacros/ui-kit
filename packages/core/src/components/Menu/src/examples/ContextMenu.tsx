@@ -6,12 +6,12 @@ import { menuItems } from '../mock';
 export const ContextMenu = (props: Props) => {
     return (
         <Menu.Root {...props}>
-            <Menu.ContextTrigger asChild data-testid="trigger">
+            <Menu.ContextTrigger asChild>
                 <Button>Click me</Button>
             </Menu.ContextTrigger>
             <Menu.Positioner>
-                <Menu.Content data-testid="menu-content">
-                    <Menu.List data-testid="menu-list">
+                <Menu.Content>
+                    <Menu.List>
                         {menuItems.map((v) => (
                             <Menu.Item {...v} key={v.value}>
                                 {v.valueText}
