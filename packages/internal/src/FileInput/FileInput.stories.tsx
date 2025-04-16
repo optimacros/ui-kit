@@ -46,6 +46,7 @@ export const Default: Story = {
             },
             reset: () => {},
         },
+        filePreview: true,
     },
 };
 
