@@ -84,17 +84,25 @@ const SnackbarComponent = memo(
 
             return (
                 <>
-                    <Toast.Group ref={ref}>
+                    <Toast.Group ref={ref} data-testid="snackbar-container">
                         {({ toast, index, parent }) => (
                             <Toast.Root
                                 {...toast}
                                 index={index}
                                 parent={parent}
                                 className={rootClassName}
+                                data-testid="snackbar-item"
                             >
-                                <Toast.Content className={theme?.snackbar}>
+                                <Toast.Content
+                                    className={theme?.snackbar}
+                                    data-testid="snackbar-item-content"
+                                >
                                     {!isNil(label) && (
-                                        <Text.Paragraph as="span" className={theme?.label}>
+                                        <Text.Paragraph
+                                            as="span"
+                                            className={theme?.label}
+                                            data-testid="snackbar-item-content-label"
+                                        >
                                             {label}
                                         </Text.Paragraph>
                                     )}
@@ -103,7 +111,10 @@ const SnackbarComponent = memo(
                                 </Toast.Content>
 
                                 {!!action && Button && (
-                                    <Toast.CloseTrigger asChild>
+                                    <Toast.CloseTrigger
+                                        asChild
+                                        data-testid="snackbar-item-close-trigger"
+                                    >
                                         <Button
                                             onClick={onClick}
                                             className={theme?.button}
