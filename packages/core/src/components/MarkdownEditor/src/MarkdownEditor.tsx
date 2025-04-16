@@ -68,7 +68,7 @@ export const EditComponent = forward<{}, HTMLTextAreaElement>(
 
 export const Edit = forward<{}, HTMLTextAreaElement>(
     (props, ref) => (
-        <Tabs.Content value={MarkdownEditorMode.EDIT}>
+        <Tabs.Content value={MarkdownEditorMode.EDIT} data-testid="markdown-editor-tab-edit">
             <EditComponent {...props} ref={ref} />
         </Tabs.Content>
     ),
@@ -100,7 +100,7 @@ export const PreviewComponent = forward<{}, 'div'>(
 
 export const Preview = forward<{}, 'div'>(
     (props, ref) => (
-        <Tabs.Content value={MarkdownEditorMode.PREVIEW}>
+        <Tabs.Content value={MarkdownEditorMode.PREVIEW} data-testid="markdown-editor-tab-preview">
             <PreviewComponent {...props} ref={ref} />
         </Tabs.Content>
     ),
@@ -109,7 +109,7 @@ export const Preview = forward<{}, 'div'>(
 
 export const Split = forward<{}, 'div'>(
     (props, ref) => (
-        <Tabs.Content value={MarkdownEditorMode.SPLIT}>
+        <Tabs.Content value={MarkdownEditorMode.SPLIT} data-testid="markdown-editor-tab-split">
             <styled.div {...props} ref={ref} data-scope="markdown-editor" data-part="split">
                 <EditComponent />
                 <PreviewComponent />

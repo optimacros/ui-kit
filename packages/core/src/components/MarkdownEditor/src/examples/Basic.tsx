@@ -29,9 +29,9 @@ export const Basic = (props: MarkdownEditor.MarkdownEditorProps) => {
                     </MarkdownEditor.Tabs.Trigger>
                 </MarkdownEditor.Tabs.List>
 
-                <MarkdownEditor.Edit data-testid="edit-tab" />
-                <MarkdownEditor.Preview data-testid="preview-tab" />
-                <MarkdownEditor.Split data-testid="split-tab" />
+                <MarkdownEditor.Edit />
+                <MarkdownEditor.Preview />
+                <MarkdownEditor.Split />
             </MarkdownEditor.Root>
         </Flex>
     );

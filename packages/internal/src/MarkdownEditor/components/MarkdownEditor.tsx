@@ -99,18 +99,21 @@ export const MarkdownEditor = memo(
                         <MDE.Tabs.Trigger
                             value={MDE.MarkdownEditorMode.EDIT}
                             key={MDE.MarkdownEditorMode.EDIT}
+                            data-testid="markdown-editor-tab-trigger-edit"
                         >
                             {editTabLabel}
                         </MDE.Tabs.Trigger>
                         <MDE.Tabs.Trigger
                             value={MDE.MarkdownEditorMode.PREVIEW}
                             key={MDE.MarkdownEditorMode.PREVIEW}
+                            data-testid="markdown-editor-tab-trigger-preview"
                         >
                             {previewTabLabel}
                         </MDE.Tabs.Trigger>
                         <MDE.Tabs.Trigger
                             value={MDE.MarkdownEditorMode.SPLIT}
                             key={MDE.MarkdownEditorMode.SPLIT}
+                            data-testid="markdown-editor-tab-trigger-split"
                         >
                             {splitTabLabel}
                         </MDE.Tabs.Trigger>
@@ -120,6 +123,7 @@ export const MarkdownEditor = memo(
                         width={500}
                         height={height}
                         minConstraints={[150, 150]}
+                        data-testid="markdown-editor-resizable"
                     >
                         <>
                             <MDE.Edit ref={ref} />
