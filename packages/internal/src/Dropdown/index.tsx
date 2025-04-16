@@ -3,6 +3,7 @@ import type React from 'react';
 import { Menu } from '@optimacros-ui/menu';
 import type { DropdownProps as RCDropdownProps } from '../../node_modules/rc-dropdown/lib';
 import { MenuProps } from '../Menu';
+import { styled } from '@optimacros-ui/store';
 
 interface Props extends RCDropdownProps {
     disabled?: boolean;
@@ -80,7 +81,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                     {children}
                 </Menu.Trigger>
                 <Menu.Positioner>
-                    <Menu.Content className="dropdown" data-testid="dropdown">
+                    <Menu.Content className="dropdown" data-testid="dropdown-content">
                         {open ? <>{renderOverlay?.({ onlyContent: true }) ?? overlay}</> : null}
                     </Menu.Content>
                 </Menu.Positioner>
@@ -89,23 +90,29 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         return (
             <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange} hoverable>
-                <div ref={ref} data-scope="menu" data-part="container">
+                <styled.div
+                    ref={ref}
+                    data-scope="menu"
+                    data-part="container"
+                    data-testid="dropdown"
+                >
                     <Menu.Api>
                         {(api) => {
                             return isHoverTrigger ? (
-                                <div
+                                <styled.div
                                     style={{ width: 'fit-content' }}
                                     onMouseEnter={() => handleMouseEnter(api)}
                                     onMouseLeave={(e) => handleMouseLeave(e, api)}
+                                    data-testid="dropdown-hover"
                                 >
                                     {content(api.open)}
-                                </div>
+                                </styled.div>
                             ) : (
                                 content(api.open)
                             );
                         }}
                     </Menu.Api>
-                </div>
+                </styled.div>
             </Menu.Root>
         );
     },
