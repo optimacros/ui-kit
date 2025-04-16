@@ -43,7 +43,7 @@ type TooltipContentProps = Pick<
 >;
 
 const TooltipContent = memo<TooltipContentProps>(
-    ({ tooltip, theme = {}, tooltipPosition, portalled }) => {
+    ({ tooltip, theme = {}, tooltipPosition, portalled, ...rest }) => {
         const api = UITooltip.useApi();
 
         if (!tooltip) {
@@ -61,6 +61,7 @@ const TooltipContent = memo<TooltipContentProps>(
                 data-react-toolbox="tooltip"
                 className={cn}
                 portalled={portalled}
+                {...rest}
             >
                 {tooltip}
             </UITooltip.Content>
