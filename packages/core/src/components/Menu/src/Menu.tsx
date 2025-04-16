@@ -9,7 +9,7 @@ export { RootProvider as Root };
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
 
-    return <span {...api.getIndicatorProps()}>{children}</span>;
+    return <styled.span {...api.getIndicatorProps()}>{children}</styled.span>;
 };
 
 export const Item = forward<menu.ItemProps, 'li'>(
@@ -45,11 +45,11 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
     ({ menu: machine, children, ...rest }, ref) => {
         return (
             <SubMenuContext.Provider value={machine}>
-                <div {...machine.api.getPositionerProps()} data-tag="sub-menu">
-                    <div {...machine.api.getContentProps()} ref={ref} {...rest}>
+                <styled.div {...machine.api.getPositionerProps()} data-tag="sub-menu">
+                    <styled.div {...machine.api.getContentProps()} ref={ref} {...rest}>
                         <List>{children}</List>
-                    </div>
-                </div>
+                    </styled.div>
+                </styled.div>
             </SubMenuContext.Provider>
         );
     },
@@ -66,7 +66,7 @@ export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest },
 export const Separator = () => {
     const api = useApi();
 
-    return <hr {...api.getSeparatorProps()} />;
+    return <styled.hr {...api.getSeparatorProps()} />;
 };
 
 export const OptionItem = ({
@@ -77,9 +77,9 @@ export const OptionItem = ({
     const api = useApi();
 
     return (
-        <div key={item.value} {...api.getOptionItemProps(item)}>
+        <styled.div key={item.value} {...api.getOptionItemProps(item)}>
             {item.valueText}
-        </div>
+        </styled.div>
     );
 };
 

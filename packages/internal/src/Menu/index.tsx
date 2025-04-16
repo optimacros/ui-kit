@@ -157,9 +157,9 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
 
     if (onlyContent) {
         return (
-            <div data-scope="menu" data-part="root">
+            <styled.div data-scope="menu" data-part="content">
                 {children}
-            </div>
+            </styled.div>
         );
     }
 
@@ -172,7 +172,6 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
                     <MenuComponent.Content
                         className={clsx('menu-content', contentClassName)}
                         ref={ref}
-                        data-testid="menu"
                     >
                         {children}
                     </MenuComponent.Content>

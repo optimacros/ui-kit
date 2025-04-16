@@ -33,14 +33,14 @@ export const Content = ({
 }: { children: ReactNode; as?: string; className?: string; portalled?: boolean }) => {
     const api = useApi();
     const Component = api.open && (
-        <div {...api.getPositionerProps()} {...rest}>
-            <div {...api.getContentProps()}>
-                <span className={className}>{children}</span>
-            </div>
-            <div {...api.getArrowProps()}>
-                <div {...api.getArrowTipProps()} />
-            </div>
-        </div>
+        <styled.div {...api.getPositionerProps()} {...rest}>
+            <styled.div {...api.getContentProps()} className={className}>
+                {children}
+            </styled.div>
+            <styled.div {...api.getArrowProps()}>
+                <styled.div {...api.getArrowTipProps()} />
+            </styled.div>
+        </styled.div>
     );
 
     return portalled ? <Portal>{Component}</Portal> : Component;
