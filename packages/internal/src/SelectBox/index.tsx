@@ -4,7 +4,7 @@ import { Icon } from '@optimacros-ui/icon';
 import { IconButton } from '@optimacros-ui/icon-button';
 import { Select } from '@optimacros-ui/select';
 import { Flex } from '@optimacros-ui/flex';
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import type { InputTheme } from '../Input';
 import { clsx, isUndefined } from '@optimacros-ui/utils';
 import './styles.css';
@@ -136,9 +136,14 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                     >
                         <Select.HiddenInput ref={ref}>
                             {items.map((option) => (
-                                <option key={option.value} value={option.value}>
+                                <styled.option
+                                    key={option.value}
+                                    value={option.value}
+                                    data-scope="select"
+                                    data-part="option-hidden"
+                                >
                                     {option.label}
-                                </option>
+                                </styled.option>
                             ))}
                         </Select.HiddenInput>
 
@@ -147,17 +152,18 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                 {(api) => (
                                     <>
                                         {label && (
-                                            <div
+                                            <styled.div
                                                 data-scope="field"
                                                 data-part="label"
                                                 data-margin={isLabelPositionLeft ? 'none' : ''}
                                             >
                                                 {label}
-                                            </div>
+                                            </styled.div>
                                         )}
                                         <Field.Root
                                             status={getStatus(api.disabled, Boolean(error))}
                                             required={required}
+                                            data-testid="select-field"
                                         >
                                             <Select.Trigger>
                                                 <Field.TriggerInput
@@ -170,7 +176,14 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                                         <Icon value="arrow_drop_down" />
                                                     </Field.Icon>
                                                 </Field.TriggerInput>
-                                                {error && <span>{error}</span>}
+                                                {error && (
+                                                    <styled.span
+                                                        data-scope="field"
+                                                        data-part="error"
+                                                    >
+                                                        {error}
+                                                    </styled.span>
+                                                )}
                                             </Select.Trigger>
                                         </Field.Root>
                                     </>
@@ -208,9 +221,14 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                     >
                         <Select.HiddenInput ref={ref}>
                             {items.map((option) => (
-                                <option key={option.value} value={option.value}>
+                                <styled.option
+                                    key={option.value}
+                                    value={option.value}
+                                    data-scope="select-box"
+                                    data-part="option-hidden"
+                                >
                                     {option.label}
-                                </option>
+                                </styled.option>
                             ))}
                         </Select.HiddenInput>
 
@@ -221,7 +239,11 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                     {(api) =>
                                         api.value.map((value, i) => {
                                             return (
-                                                <div key={i}>
+                                                <styled.div
+                                                    key={i}
+                                                    data-scope="field"
+                                                    data-part="selected-value"
+                                                >
                                                     {value}
                                                     <Select.ItemDeleteTrigger
                                                         item={{ value }}
@@ -233,7 +255,7 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                                             icon="close"
                                                         />
                                                     </Select.ItemDeleteTrigger>
-                                                </div>
+                                                </styled.div>
                                             );
                                         })
                                     }
@@ -244,13 +266,13 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                     {(api) => (
                                         <>
                                             {label && (
-                                                <div
+                                                <styled.div
                                                     data-scope="field"
                                                     data-part="label"
                                                     data-margin={isLabelPositionLeft ? 'none' : ''}
                                                 >
                                                     {label}
-                                                </div>
+                                                </styled.div>
                                             )}
                                             <Field.Root
                                                 status={getStatus(api.disabled, Boolean(error))}
@@ -271,7 +293,14 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                                     </Field.TriggerInput>
                                                 </Select.Trigger>
 
-                                                {error && <span>{error}</span>}
+                                                {error && (
+                                                    <styled.span
+                                                        data-scope="field"
+                                                        data-part="error"
+                                                    >
+                                                        {error}
+                                                    </styled.span>
+                                                )}
                                             </Field.Root>
                                         </>
                                     )}
@@ -286,13 +315,16 @@ export const SelectBox = forward<SelectBoxProps, HTMLSelectElement>(
                                         <Select.Item item={item} key={`select-${item.value}`}>
                                             {({ selected }) => (
                                                 <>
-                                                    <div>
+                                                    <styled.div
+                                                        data-scope="select"
+                                                        data-part="selected-item"
+                                                    >
                                                         {selected ? (
                                                             <Icon value="check_box" />
                                                         ) : (
                                                             <Icon value="check_box_outline_blank" />
                                                         )}
-                                                    </div>
+                                                    </styled.div>
                                                     <Select.ItemLabel>
                                                         {item.label}
                                                     </Select.ItemLabel>

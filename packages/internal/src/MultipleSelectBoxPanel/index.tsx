@@ -2,7 +2,7 @@ import { Button } from '@optimacros-ui/button';
 import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { SelectBox, type SelectBoxProps as BaseSelectBoxProps } from '@optimacros-ui/kit-internal';
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 
 export interface Item {
     value: string | number;
@@ -85,10 +85,20 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLSelec
         const correctValue = !value ? [] : [value];
 
         return (
-            <div data-scope="select" data-part="root">
-                <Flex direction="column" align="start" wrap="nowrap">
-                    <Flex direction="row">{renderItems()}</Flex>
-                    <Flex direction="column">
+            <styled.div data-scope="multiple-select-box-panel" data-part="root">
+                <Flex
+                    direction="column"
+                    align="start"
+                    wrap="nowrap"
+                    data-testid="multiple-select-box-panel-container"
+                >
+                    <Flex direction="row" data-testid="multiple-select-box-panel-items-containier">
+                        {renderItems()}
+                    </Flex>
+                    <Flex
+                        direction="column"
+                        data-testid="multiple-select-box-panel-items-containier-inner"
+                    >
                         <SelectBox
                             // TODO: Handle the select update
                             key={correctSource.length}
@@ -96,21 +106,29 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLSelec
                             source={correctSource}
                             value={correctValue}
                             onChange={handleChange}
+                            data-testid="multiple-select-box-panel-select-box"
                         />
-                        <select
+                        <styled.select
                             ref={ref}
                             value={selectedItems.map((selectItem) => String(selectItem.value))}
                             multiple
                             style={{ display: 'none' }}
+                            data-scope="multiple-select-box-panel"
+                            data-part="select-hidden"
                         >
                             {selectedItems.map((option) => (
-                                <option key={option.value} value={option.value}>
+                                <styled.option
+                                    key={option.value}
+                                    value={option.value}
+                                    data-scope="multiple-select-box-panel"
+                                    data-part="select-hidden-option"
+                                >
                                     {option.label}
-                                </option>
+                                </styled.option>
                             ))}
-                        </select>
+                        </styled.select>
                         <Button
-                            data-scope="select"
+                            data-scope="multiple-select-box-panel"
                             data-part="add-trigger"
                             disabled={disabledSelect}
                             onClick={onAddItem}
@@ -120,7 +138,7 @@ export const MultipleSelectBoxPanel = forward<IMultipleSelectBoxPanel, HTMLSelec
                         </Button>
                     </Flex>
                 </Flex>
-            </div>
+            </styled.div>
         );
     },
 );
