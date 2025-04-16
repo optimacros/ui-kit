@@ -63,7 +63,7 @@ export const Chip = forward<ChipProps, 'div'>(
             }
 
             return (
-                <ChipComponent.Icon onClick={onDeleteClick}>
+                <ChipComponent.Icon onClick={onDeleteClick} data-testid="chip-delete-trigger">
                     <Icon value="cancel" className={theme.deleteIcon} />
                 </ChipComponent.Icon>
             );
@@ -74,7 +74,7 @@ export const Chip = forward<ChipProps, 'div'>(
         return (
             <ChipComponent.Root {...other} className={cn} ref={ref} data-tag="internal">
                 {children}
-                <Flex data-tag="controls" align="center">
+                <Flex data-tag="controls" align="center" data-testid="chip-controls">
                     {settingsDialog && settingsDialog}
                     {deletable && renderDeleteIcon()}
                 </Flex>
