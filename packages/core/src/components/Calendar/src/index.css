@@ -34,6 +34,10 @@
   }
 
   &[data-part='content'] {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    background-color: var(--color-calendar-primary-header-on-default);
     width: var(--spacing-80);
     font-size: var(--spacing-6);
     height: var(--spacing-96);
@@ -83,6 +87,7 @@
   }
 
   &[data-part='footer'] {
+    background-color: var(--color-calendar-primary-header-on-default);
     flex-grow: 0;
     padding: var(--spacing-2);
     text-align: right;

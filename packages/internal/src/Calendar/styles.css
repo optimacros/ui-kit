@@ -1,0 +1,6 @@
+[data-scope='date-picker'][data-part='content'][data-style-tag='internal'] {
+  [data-part='view-control'],
+  [data-part='table'] {
+    font-size: 13px;
+  }
+}

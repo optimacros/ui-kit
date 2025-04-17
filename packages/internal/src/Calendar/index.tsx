@@ -4,6 +4,8 @@ import { Calendar as CalendarComponent } from '@optimacros-ui/calendar';
 import { IconButton } from '../IconButton';
 import { Button } from '@optimacros-ui/button';
 
+import './styles.css';
+
 interface CalendarProps {
     active?: boolean;
     autoOk?: boolean;
@@ -56,7 +58,11 @@ const Content = forwardRef<HTMLDivElement, CalendarProps>(
         }, [value]);
 
         return (
-            <CalendarComponent.Content className={theme.wrapper} ref={ref}>
+            <CalendarComponent.Content
+                className={theme.wrapper}
+                ref={ref}
+                data-style-tag="internal"
+            >
                 <CalendarComponent.Header className={theme.header}>
                     <CalendarComponent.HeaderYears className={theme.yearsDisplay} />
                     <CalendarComponent.HeaderMonths className={theme.date} />
