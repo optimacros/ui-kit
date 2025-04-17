@@ -53,11 +53,7 @@ export const RadioGroupContent = forward<{ content: any[] }, HTMLInputElement>(
                             key={value}
                             data-react-toolbox="radio-button"
                         >
-                            <RadioGroupComponent.Control
-                                value={value}
-                                ref={ref}
-                                data-testid="radio-button"
-                            />
+                            <RadioGroupComponent.Control value={value} ref={ref} />
                             <RadioGroupComponent.Text value={value}>
                                 {label}
                             </RadioGroupComponent.Text>

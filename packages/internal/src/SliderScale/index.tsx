@@ -103,9 +103,6 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
         const className = clsx(
             theme.slider,
             theme.container,
-            'Theme-module__slider',
-            'sliderTheme-module__container',
-            'sliderTheme-module__slider',
             {
                 [theme.editable]: editable,
                 [theme.disabled]: rest.disabled,
@@ -145,7 +142,7 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
                         </Slider.Track>
                         <Slider.Thumb onMouseDown={onDragStart} className={theme.knob} />
                     </Slider.Control>
-                    <Slider.HiddenInputs />
+                    <Slider.HiddenInputs data-testid={'slider-value'} />
                 </Slider.Container>
             </Slider.Root>
         );

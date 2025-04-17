@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import type React from 'react';
 
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 
 export interface RadioButtonProps {
     checked?: boolean;
@@ -57,8 +57,13 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
         };
 
         return (
-            <div data-scope="radio-group" data-part="root" {...state} className={theme.field}>
-                <label
+            <styled.div
+                data-scope="radio-group"
+                data-part="root"
+                {...state}
+                className={theme.field}
+            >
+                <styled.label
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
@@ -66,9 +71,8 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                     data-part="item"
                     data-react-toolbox="radio-button"
                     {...state}
-                    data-testid="radio-button"
                 >
-                    <div
+                    <styled.div
                         {...others}
                         role="radio"
                         aria-checked={checked}
@@ -78,7 +82,7 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                         className={theme.input}
                         {...state}
                     />
-                    <input
+                    <styled.input
                         type="radio"
                         checked={checked}
                         disabled={disabled}
@@ -94,18 +98,18 @@ export const RadioButton = forward<RadioButtonProps, HTMLInputElement>(
                         {...state}
                     />
                     {label && (
-                        <span
+                        <styled.span
                             data-scope="radio-group"
                             data-part="text"
                             className={theme.text}
                             {...state}
                         >
                             {label || placeholder}
-                        </span>
+                        </styled.span>
                     )}
                     {children}
-                </label>
-            </div>
+                </styled.label>
+            </styled.div>
         );
     },
     { displayName: 'RadioButton' },

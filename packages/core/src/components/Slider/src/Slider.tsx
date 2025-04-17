@@ -28,6 +28,15 @@ const connect = ((api, { prop }) => {
                 ...api.getRootProps(),
                 value: api.value,
                 name: prop('name'),
+                'data-min': prop('min'),
+                'data-max': prop('max'),
+                'data-value': api.value,
+            };
+        },
+        getThumbProps(params) {
+            return {
+                ...api.getThumbProps(params),
+                'data-value': api.getThumbValue(params.index),
             };
         },
     };

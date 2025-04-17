@@ -1,6 +1,60 @@
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Dropdown, Button, Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 import { Flex } from '@optimacros-ui/flex';
+import { useCallback, useRef, useSyncExternalStore } from 'react';
+
+const defaultFocusHistory = [document.activeElement];
+
+const useFocusHistory = ({
+    maxHistoryItems = 15,
+    formatBeforeSave,
+}: {
+    maxHistoryItems?: number;
+    formatBeforeSave?: (element: Element | null) => Element | null;
+}) => {
+    const historyRef = useRef<Array<Element | null>>(defaultFocusHistory);
+    const getSnapshot = useCallback(() => historyRef.current, []);
+    const subscribe = useCallback((onChange: () => void) => {
+        const controller = new AbortController();
+
+        const { signal } = controller;
+
+        const trackFocus = (event: FocusEvent) => {
+            const { target } = event;
+            const history = historyRef.current;
+            const prevFocusedElement = history[0];
+            const { activeElement } = document;
+
+            if (prevFocusedElement !== activeElement) {
+                const focusedElement = (() => {
+                    const gridContainer = formatBeforeSave
+                        ? formatBeforeSave(target as Element | null)
+                        : activeElement;
+
+                    return gridContainer ?? activeElement;
+                })();
+                //@ts-ignore
+                focusedElement.focus();
+                historyRef.current.unshift(focusedElement);
+                historyRef.current = historyRef.current.slice(0, maxHistoryItems);
+                onChange();
+            }
+        };
+        const listenerParams = { signal, capture: true };
+
+        document.body.addEventListener('focus', trackFocus, listenerParams);
+
+        return () => {
+            historyRef.current = [];
+            controller.abort();
+        };
+    }, []);
+
+    const focusHistory = useSyncExternalStore(subscribe, getSnapshot);
+
+    return focusHistory;
+};
+
 const argTypes: Partial<ArgTypes> = {
     disabled: {
         control: 'boolean',
@@ -208,4 +262,20 @@ export const Disabled: Story = {
         overlay: <OverlayComponent />,
         disabled: true,
     },
+};
+
+export const LoopingFocus = (args) => {
+    useFocusHistory({
+        formatBeforeSave(element: Element | null) {
+            return document?.querySelector('.infinite_focus') ?? null;
+        },
+    });
+
+    return (
+        <>
+            {/* @ts-ignore*/}
+            <Dropdown {...TriggerClick.args} />
+            <Button className="infinite_focus">infinite focus button</Button>
+        </>
+    );
 };

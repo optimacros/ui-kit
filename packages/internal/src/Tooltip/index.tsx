@@ -12,7 +12,6 @@ import {
 import { TooltipPosition, TooltipTheme } from './models';
 import { RootElement } from './components/RootElement';
 import { clsx, includes, isNumber } from '@optimacros-ui/utils';
-import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
 import { styled } from '@optimacros-ui/store';
 import './styles.css';
@@ -63,9 +62,7 @@ const TooltipContent = memo<TooltipContentProps>(
                 className={cn}
                 portalled={portalled}
             >
-                <Text.Paragraph as="span" className="tooltipTheme-module__tooltipInner">
-                    {tooltip}
-                </Text.Paragraph>
+                {tooltip}
             </UITooltip.Content>
         );
     },

@@ -162,3 +162,7 @@ export const ContextMenu: Story = {
     render: examples.ContextMenu,
     play: scenarios.contextMenu,
 };
+
+export const LoopingFocus: Story = {
+    render: examples.LoopingFocus,
+};
