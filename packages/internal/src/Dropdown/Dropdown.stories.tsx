@@ -33,7 +33,7 @@ const useFocusHistory = ({
 
                     return gridContainer ?? activeElement;
                 })();
-
+                //@ts-ignore
                 focusedElement.focus();
                 historyRef.current.unshift(focusedElement);
                 historyRef.current = historyRef.current.slice(0, maxHistoryItems);
@@ -273,11 +273,8 @@ export const LoopingFocus = (args) => {
 
     return (
         <>
-            <Dropdown
-                {...TriggerClick.args}
-                onInteractOutside={(e) => console.log(e)}
-                onFocusOutside={(e) => console.log(e)}
-            />
+            {/* @ts-ignore*/}
+            <Dropdown {...TriggerClick.args} />
             <Button className="infinite_focus">infinite focus button</Button>
         </>
     );
