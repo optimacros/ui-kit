@@ -109,7 +109,6 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                     tooltipDelay={tooltipDelay}
                     tooltipPosition={tooltipPosition}
                     tooltipOffset={tooltipOffset}
-                    data-testid="button-menu-tooltip"
                 >
                     {renderContent()}
                 </Tooltip>

@@ -73,16 +73,16 @@ export const Loader = forward<LoaderProps, 'div'>(
                     <LoaderComponent.Circle className={theme.circle} data-testid="loader-circle">
                         <LoaderComponent.CircleTrack
                             className={theme.path}
-                            data-testid="loader-circle-track"
+                            data-testid="loader-track"
                         />
-                        <LoaderComponent.CircleRange data-testid="loader-circle-range" />
+                        <LoaderComponent.CircleRange data-testid="loader-range" />
                     </LoaderComponent.Circle>
                 ) : (
                     <LoaderComponent.LinearTrack
                         className={theme.buffer}
-                        data-testid="loader-linear-track"
+                        data-testid="loader-track"
                     >
-                        <LoaderComponent.LinearRange data-testid="loader-linear-range" />
+                        <LoaderComponent.LinearRange data-testid="loader-range" />
                     </LoaderComponent.LinearTrack>
                 )}
             </LoaderComponent.Root>

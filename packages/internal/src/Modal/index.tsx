@@ -53,27 +53,13 @@ const ModalContent = memo(
             const Container = nonDraggable ? UIModal.Content : UIModal.DraggableContent;
 
             return (
-                <Container ref={containerRef} data-testid="modal">
-                    <Flex
-                        direction="column"
-                        style={{ overflow: 'hidden' }}
-                        ref={ref}
-                        data-testid="modal-content"
-                    >
-                        <UIModal.Header
-                            className={headerClassName}
-                            data-testid="modal-content-header"
-                        >
-                            <UIModal.Title data-testid="modal-content-header-title">
-                                {title}
-                            </UIModal.Title>
+                <Container ref={containerRef}>
+                    <Flex direction="column" style={{ overflow: 'hidden' }} ref={ref}>
+                        <UIModal.Header className={headerClassName}>
+                            <UIModal.Title>{title}</UIModal.Title>
 
                             {!!customHeaderButton && (
-                                <Flex
-                                    data-scope="dialog"
-                                    data-part="custom-header-container"
-                                    data-testid="modal-content-header-custom-button-wrap"
-                                >
+                                <Flex data-scope="dialog" data-part="custom-header-container">
                                     {customHeaderButton}
                                 </Flex>
                             )}
@@ -85,10 +71,7 @@ const ModalContent = memo(
                             )}
                         </UIModal.Header>
 
-                        <UIModal.ScrollContainer
-                            className={contentClassName}
-                            data-testid="modal-content-scroll-container"
-                        >
+                        <UIModal.ScrollContainer className={contentClassName}>
                             {children}
                         </UIModal.ScrollContainer>
                     </Flex>

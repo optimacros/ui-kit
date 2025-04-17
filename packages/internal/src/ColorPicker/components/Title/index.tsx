@@ -29,14 +29,10 @@ export const Title = memo<Props>(({ title, tooltip, tooltipPosition }) => {
 
     if (tooltip) {
         return (
-            <Tooltip.Root positioning={positioning} data-testid="color-picker-title-tooltip">
-                <Tooltip.Trigger as="div" data-testid="color-picker-title-tooltip">
-                    {content}
-                </Tooltip.Trigger>
+            <Tooltip.Root positioning={positioning}>
+                <Tooltip.Trigger as="div">{content}</Tooltip.Trigger>
 
-                <Tooltip.Content data-testid="color-picker-title-tooltip-content">
-                    {tooltip}
-                </Tooltip.Content>
+                <Tooltip.Content>{tooltip}</Tooltip.Content>
             </Tooltip.Root>
         );
     }

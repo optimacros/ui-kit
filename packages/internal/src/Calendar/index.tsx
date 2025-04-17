@@ -56,79 +56,41 @@ const Content = forwardRef<HTMLDivElement, CalendarProps>(
         }, [value]);
 
         return (
-            <CalendarComponent.Content className={theme.wrapper} ref={ref} data-testid="calendar">
-                <CalendarComponent.Header className={theme.header} data-testid="calendar-header">
-                    <CalendarComponent.HeaderYears
-                        className={theme.yearsDisplay}
-                        data-testid="calendar-header-years"
-                    />
-                    <CalendarComponent.HeaderMonths
-                        className={theme.date}
-                        data-testid="calendar-header-months"
-                    />
+            <CalendarComponent.Content className={theme.wrapper} ref={ref}>
+                <CalendarComponent.Header className={theme.header}>
+                    <CalendarComponent.HeaderYears className={theme.yearsDisplay} />
+                    <CalendarComponent.HeaderMonths className={theme.date} />
                 </CalendarComponent.Header>
-                <CalendarComponent.DaysViewControl
-                    className={theme.navigation}
-                    data-testid="calendar-days-view-control"
-                >
-                    <CalendarComponent.DaysPrevTrigger
-                        className={theme.button}
-                        asChild
-                        data-testid="calendar-days-prev-trigger"
-                    >
+                <CalendarComponent.DaysViewControl className={theme.navigation}>
+                    <CalendarComponent.DaysPrevTrigger className={theme.button} asChild>
                         <IconButton icon="chevron_left" float="flat" variant="primary" />
                     </CalendarComponent.DaysPrevTrigger>
-                    <CalendarComponent.DaysRangeText
-                        className={theme.monthsDisplay}
-                        data-testid="calendar-days-range-text"
-                    />
-                    <CalendarComponent.DaysNextTrigger
-                        className={theme.button}
-                        asChild
-                        data-testid="calendar-days-next-trigger"
-                    >
+                    <CalendarComponent.DaysRangeText className={theme.monthsDisplay} />
+                    <CalendarComponent.DaysNextTrigger className={theme.button} asChild>
                         <IconButton icon="chevron_right" float="flat" variant="primary" />
                     </CalendarComponent.DaysNextTrigger>
                 </CalendarComponent.DaysViewControl>
-                <CalendarComponent.YearsViewControl data-testid="calendar-years-view-control">
-                    <CalendarComponent.YearsPrevTrigger
-                        className={theme.button}
-                        asChild
-                        data-testid="calendar-years-prev-trigger"
-                    >
+                <CalendarComponent.YearsViewControl>
+                    <CalendarComponent.YearsPrevTrigger className={theme.button} asChild>
                         <IconButton icon="chevron_left" float="flat" variant="primary" />
                     </CalendarComponent.YearsPrevTrigger>
-                    <CalendarComponent.YearsRangeText
-                        className={theme.yearsDisplay}
-                        data-testid="calendar-years-range-text"
-                    />
-                    <CalendarComponent.YearsNextTrigger
-                        className={theme.button}
-                        asChild
-                        data-testid="calendar-years-next-trigger"
-                    >
+                    <CalendarComponent.YearsRangeText className={theme.yearsDisplay} />
+                    <CalendarComponent.YearsNextTrigger className={theme.button} asChild>
                         <IconButton icon="chevron_right" float="flat" variant="primary" />
                     </CalendarComponent.YearsNextTrigger>
                 </CalendarComponent.YearsViewControl>
-                <CalendarComponent.YearsTable
-                    className={theme.calendarWrapper}
-                    data-testid="calendar-years-table"
-                >
-                    <CalendarComponent.YearsTableBody data-testid="calendar-years-table" />
+                <CalendarComponent.YearsTable className={theme.calendarWrapper}>
+                    <CalendarComponent.YearsTableBody />
                 </CalendarComponent.YearsTable>
-                <CalendarComponent.DaysTable
-                    className={theme.calendarWrapper}
-                    data-testid="calendar-days-table"
-                >
-                    <CalendarComponent.DaysTableHead data-testid="calendar-days-table-head" />
-                    <CalendarComponent.DaysTableBody data-testid="calendar-days-table-body" />
+                <CalendarComponent.DaysTable className={theme.calendarWrapper}>
+                    <CalendarComponent.DaysTableHead />
+                    <CalendarComponent.DaysTableBody />
                 </CalendarComponent.DaysTable>
-                <CalendarComponent.Footer data-testid="calendar-footer">
+                <CalendarComponent.Footer>
                     <CalendarComponent.DismissButton
                         onDismiss={onDismiss}
                         className={theme.button}
                         asChild
-                        data-testid="calendar-footer-dismiss-button"
                     >
                         <Button variant="primary">{cancelLabel}</Button>
                     </CalendarComponent.DismissButton>
@@ -136,7 +98,6 @@ const Content = forwardRef<HTMLDivElement, CalendarProps>(
                         onSelect={onSelect}
                         className={theme.button}
                         asChild
-                        data-testid="calendar-footer-success-button"
                     >
                         <Button variant="primary">{okLabel}</Button>
                     </CalendarComponent.SuccessButton>

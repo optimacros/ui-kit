@@ -43,7 +43,7 @@ export const TextArea = forward<TextAreaProps, HTMLTextAreaElement>(
                     </FieldComponent.Label>
                 )}
                 <FieldComponent.TextArea
-                    data-testid="textarea-textarea"
+                    data-testid="textarea-input"
                     {...rest}
                     ref={ref}
                     id={id ?? generatedId}

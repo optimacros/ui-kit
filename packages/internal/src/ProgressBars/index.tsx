@@ -32,19 +32,14 @@ export const ProgressBarsComponent = forward<ProgressBarsProps, 'div'>(({ state 
         <styled.div ref={ref} data-tag="internal" data-scope="progress-bars" data-part="root">
             {progressBar && (
                 <styled.div data-scope="progress-bars" data-part="container">
-                    <Loader.Root
-                        value={currentValue === 0 ? null : currentValue}
-                        data-testid="progress-bars-active-bar"
-                    >
-                        <Loader.Label data-testid="progress-bars-label-wrap">
-                            <styled.span data-scope="progress-bars" data-part="label">
-                                {currentValue} / {maxValue} (
-                                {Math.floor((currentValue * 100) / maxValue)}
-                                %)
-                            </styled.span>
+                    <Loader.Root value={currentValue === 0 ? null : currentValue}>
+                        <Loader.Label as="span">
+                            {currentValue} / {maxValue} (
+                            {Math.floor((currentValue * 100) / maxValue)}
+                            %)
                         </Loader.Label>
-                        <Loader.LinearTrack data-testid="progress-bars-active-bar-track">
-                            <Loader.LinearRange data-testid="progress-bars-active-bar-range" />
+                        <Loader.LinearTrack>
+                            <Loader.LinearRange />
                         </Loader.LinearTrack>
                     </Loader.Root>
                 </styled.div>

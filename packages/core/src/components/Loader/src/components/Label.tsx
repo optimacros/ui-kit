@@ -8,9 +8,7 @@ export const Label = forward<React.PropsWithChildren, 'div'>(
 
         return (
             <styled.div {...rest} {...api.getLabelProps()} ref={ref}>
-                <styled.div data-scope="progress" data-part="label-container">
-                    {children}
-                </styled.div>
+                {children}
             </styled.div>
         );
     },

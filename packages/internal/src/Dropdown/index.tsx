@@ -94,7 +94,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                     ref={ref}
                     data-scope="menu"
                     data-part="container"
-                    data-testid="dropdown"
+                    data-testid="dropdown-container"
                 >
                     <Menu.Api>
                         {(api) => {
