@@ -3,6 +3,7 @@ import { ProgressBar } from '../Loader';
 
 import styles from './LocalLoader.module.css';
 import { clsx } from '@optimacros-ui/utils';
+import { styled } from '@optimacros-ui/store';
 
 interface Props {
     centered?: boolean;
@@ -12,9 +13,14 @@ interface Props {
 export class LocalLoader extends PureComponent<Props> {
     render() {
         return (
-            <div className={this.classes} style={this.style}>
+            <styled.div
+                className={this.classes}
+                style={this.style}
+                data-scope="local-loader"
+                data-part="root"
+            >
                 <ProgressBar theme={styles} type="circular" {...this.props} />
-            </div>
+            </styled.div>
         );
     }
 

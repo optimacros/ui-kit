@@ -50,7 +50,7 @@ const Input = ({ min, max, defaultValue, className }) => {
     }, [value]);
 
     return (
-        <Field.Root id="slider-scale-input">
+        <Field.Root data-testid="slider-input-root">
             <Field.Input
                 type="number"
                 max={max}
@@ -66,6 +66,7 @@ const Input = ({ min, max, defaultValue, className }) => {
                 }}
                 className={className}
                 data-arrows-hidden
+                data-testid="slider-input"
             />
         </Field.Root>
     );

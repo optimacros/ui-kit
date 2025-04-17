@@ -43,7 +43,6 @@ export const MenuItem = forward<IMenuItem, 'li'>(
                 value={value ?? generatedKey}
                 ref={ref}
                 className={classNameProp}
-                data-testid="menu-item"
             >
                 {label || title || children}
             </MenuComponent.Item>
@@ -97,12 +96,11 @@ export const SubMenu = ({
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
                 className={className}
-                data-testid="menu-item"
             >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
-            <MenuComponent.SubMenuContent menu={menu} data-testid="submenu">
+            <MenuComponent.SubMenuContent menu={menu}>
                 {childrenArr.map((c, i) => {
                     //@ts-ignore
                     if (c.type.displayName === 'SubMenu') {
@@ -117,12 +115,7 @@ export const SubMenu = ({
                             `${generatedKey}${i}`;
 
                         return (
-                            <MenuComponent.SubMenuItem
-                                {...c.props}
-                                value={value}
-                                key={value}
-                                data-testid="menu-item"
-                            >
+                            <MenuComponent.SubMenuItem {...c.props} value={value} key={value}>
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
                         );
@@ -164,7 +157,7 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
     }
 
     return (
-        <styled.div data-scope="menu" data-part="root">
+        <styled.div data-scope="menu" data-part="root" data-testid={rest['data-testid']}>
             <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
                 {renderTrigger?.()}
 

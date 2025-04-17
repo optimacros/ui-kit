@@ -57,19 +57,12 @@ export const FileInput = forward<FileInputProps, HTMLInputElement>(
                                 style={{ display: 'block' }}
                             >
                                 <FileUpload.ItemGroupHeader>
-                                    <FileUpload.ItemGroupHeader>
-                                        <Text.Title as="h3">Name</Text.Title>
-                                        <Text.Title as="h3">Size</Text.Title>
-                                    </FileUpload.ItemGroupHeader>
-                                    <FileUpload.ClearTrigger as="div">
-                                        <IconButton
-                                            icon="close"
-                                            variant="bordered"
-                                            size="xs"
-                                            squared
-                                        />
-                                    </FileUpload.ClearTrigger>
+                                    <Text.Title as="h3">Name</Text.Title>
+                                    <Text.Title as="h3">Size</Text.Title>
                                 </FileUpload.ItemGroupHeader>
+                                <FileUpload.ClearTrigger as="div">
+                                    <IconButton icon="close" variant="bordered" size="xs" squared />
+                                </FileUpload.ClearTrigger>
                                 <FileUpload.ItemGroup>
                                     {(file) => <FileUpload.ItemInfo file={file} />}
                                 </FileUpload.ItemGroup>

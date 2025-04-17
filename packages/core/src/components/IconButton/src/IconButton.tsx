@@ -12,7 +12,7 @@ export interface IconButtonProps extends ButtonProps {
 export const IconButton = forward<IconButtonProps, 'button'>(
     ({ children, icon, iconProps, fontIcon, ...rest }, ref) => {
         return (
-            <Button {...rest} data-tag="icon-button" ref={ref}>
+            <Button {...rest} data-tag="icon-button" data-testid="icon-button" ref={ref}>
                 {fontIcon && typeof icon === 'string' ? (
                     <FontIcon {...(iconProps && iconProps)} value={icon} />
                 ) : (

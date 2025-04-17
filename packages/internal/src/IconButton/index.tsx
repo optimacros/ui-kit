@@ -138,6 +138,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                 tooltipOffset={tooltipOffset}
                 theme={theme}
                 portalled={false}
+                data-testid="icon-button-tooltip"
             >
                 {children}
             </Tooltip>

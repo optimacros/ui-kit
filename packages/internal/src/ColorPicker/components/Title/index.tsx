@@ -20,7 +20,11 @@ export const Title = memo<Props>(({ title, tooltip, tooltipPosition }) => {
     }, [tooltipPosition]);
 
     const content = useMemo(() => {
-        return <Text.Paragraph as="span">{title}</Text.Paragraph>;
+        return (
+            <Text.Paragraph as="span" data-testid="color-picker-title">
+                {title}
+            </Text.Paragraph>
+        );
     }, [title]);
 
     if (tooltip) {

@@ -31,6 +31,13 @@ export const connect = ((api, service) => {
     return {
         ...api,
         acceptedFiles: service.context.get('acceptedFiles'),
+        getHiddenInputProps: () => {
+            return {
+                ...api.getHiddenInputProps(),
+                'data-scope': 'file-input',
+                'data-part': 'hidden-input',
+            };
+        },
     };
 }) satisfies Zag.ConnectApi<Schema, zagMachine.Api<Zag.PropTypes>>;
 

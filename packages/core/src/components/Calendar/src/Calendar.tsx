@@ -138,7 +138,7 @@ export const YearsViewControl = forward<{}, 'div'>(({ children, ...other }, ref)
 
     return (
         <styled.div {...other} {...api.getVisibility('year')} ref={ref}>
-            <div {...api.getViewControlProps({ view: 'year' })}>{children}</div>
+            <styled.div {...api.getViewControlProps({ view: 'year' })}>{children}</styled.div>
         </styled.div>
     );
 });
@@ -187,14 +187,14 @@ export const YearsTableBody = forward<{}, 'tbody'>((props, ref) => {
                 <tr key={row} {...api.getTableRowProps({ view: 'year' })}>
                     {years.map((year, index) => (
                         <td key={index} {...api.getYearTableCellProps(year)}>
-                            <div
+                            <styled.div
                                 {...api.getYearTableCellTriggerProps({
                                     ...year,
                                     columns: 4,
                                 })}
                             >
                                 {year.label}
-                            </div>
+                            </styled.div>
                         </td>
                     ))}
                 </tr>

@@ -35,18 +35,22 @@ export const TextArea = forward<TextAreaProps, HTMLTextAreaElement>(
                 status={getStatus(!!error, readonly)}
                 className={classNameContainer}
                 data-tag="internal"
+                data-testid="textarea"
             >
                 {label && (
-                    <FieldComponent.Label htmlFor={id ?? generatedId}>{label}</FieldComponent.Label>
+                    <FieldComponent.Label htmlFor={id ?? generatedId} data-testid="textarea-label">
+                        {label}
+                    </FieldComponent.Label>
                 )}
                 <FieldComponent.TextArea
+                    data-testid="textarea-input"
                     {...rest}
                     ref={ref}
                     id={id ?? generatedId}
                     value={value}
                     className={className}
                 />
-                <FieldComponent.Error>{error}</FieldComponent.Error>
+                <FieldComponent.Error data-testid="textarea-error">{error}</FieldComponent.Error>
             </FieldComponent.Root>
         );
     },

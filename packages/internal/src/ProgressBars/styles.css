@@ -1,4 +1,4 @@
-[data-tag='internal'] [data-part='container'] {
+[data-scope='progress-bars'][data-part='container'] {
   position: absolute;
   z-index: 1;
   top: 0;
@@ -29,7 +29,7 @@
       font-size: 12px;
       position: absolute;
       top: 0;
-      left: 40%;
+      left: 45%;
       z-index: 2;
       margin: 0;
       height: 100%;

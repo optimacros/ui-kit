@@ -134,14 +134,19 @@ export const Input = forward<InputProps, HTMLInputElement>(
                 status={getStatus(Boolean(error), readOnly, false)}
                 className={cn}
                 data-tag="internal"
+                data-testid="input"
             >
                 {icon && (
-                    <Field.FloatingIcon>
+                    <Field.FloatingIcon data-testid="input-icon">
                         <Icon value={icon} className={theme.icon} />
                     </Field.FloatingIcon>
                 )}
                 {labelText && (
-                    <Field.FloatingLabel htmlFor={fieldId as string} className={theme.label}>
+                    <Field.FloatingLabel
+                        htmlFor={fieldId as string}
+                        className={theme.label}
+                        data-testid="input-label"
+                    >
                         {labelText}
                     </Field.FloatingLabel>
                 )}
@@ -156,6 +161,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         name={name}
                         className={theme.inputElement}
                         onKeyDown={onKeyDown}
+                        data-testid="input-textarea"
                     />
                 ) : (
                     <Field.Input
@@ -171,6 +177,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         className={theme.inputElement}
                         ref={ref}
                         onKeyDown={onKeyDown}
+                        data-testid="input-input"
                     />
                 )}
                 {maxLength && (
@@ -178,11 +185,19 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         length={length}
                         maxLength={maxLength}
                         className={theme.counter}
+                        data-testid="input-counter"
                     />
                 )}
-                {hint && <Field.FloatingHint className={theme.hint}>{hint}</Field.FloatingHint>}
+                {hint && (
+                    <Field.FloatingHint className={theme.hint} data-testid="input-hint">
+                        {hint}
+                    </Field.FloatingHint>
+                )}
                 {error && (
-                    <Field.FloatingError className={clsx(theme.error, 'FieldError')}>
+                    <Field.FloatingError
+                        className={clsx(theme.error, 'FieldError')}
+                        data-testid="input-error"
+                    >
                         {error}
                     </Field.FloatingError>
                 )}

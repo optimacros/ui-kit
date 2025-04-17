@@ -155,6 +155,7 @@ export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNo
         const api = useApi();
 
         return (
+            // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
             <styled.label {...rest} ref={ref} {...api.getItemGroupLabelProps({ htmlFor })}>
                 {children}
             </styled.label>
