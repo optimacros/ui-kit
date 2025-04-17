@@ -35,7 +35,11 @@ export const SearchContainer = memo(
             const cn = clsx(styles.SearchContainer, style);
 
             return (
-                <Field.Root data-role="search-container" className={cn}>
+                <Field.Root
+                    data-role="search-container"
+                    className={cn}
+                    data-testid="search-container"
+                >
                     <Field.Input
                         ref={ref}
                         name={name}
@@ -47,9 +51,14 @@ export const SearchContainer = memo(
                         className={styles.InputElement}
                         type="text"
                         autoFocus
+                        data-testid="search-container-input"
                     />
                     {!!showIcon && (
-                        <Field.FloatingIcon onClick={onClose} position="right">
+                        <Field.FloatingIcon
+                            onClick={onClose}
+                            position="right"
+                            data-testid="search-container-clear-trigger"
+                        >
                             <Icon value="close" className={styles.CloseIcon} />
                         </Field.FloatingIcon>
                     )}

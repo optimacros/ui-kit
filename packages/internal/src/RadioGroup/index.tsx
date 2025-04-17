@@ -26,24 +26,42 @@ export const RadioGroup = forward<RadioGroupProps, HTMLInputElement>(
                     className={cn}
                     onValueChange={({ value }: { value: string }) => onChange?.(value)}
                 >
-                    {content.map((component) => {
-                        const isComponent = isValidElement(component);
-
-                        const propsSource = isComponent ? component?.props : component;
-
-                        const { label, value } = propsSource;
-
-                        return (
-                            <RadioGroupComponent.Item value={value} key={value}>
-                                <RadioGroupComponent.Control value={value} ref={ref} />
-                                <RadioGroupComponent.Text value={value}>
-                                    {label}
-                                </RadioGroupComponent.Text>
-                            </RadioGroupComponent.Item>
-                        );
-                    })}
+                    <RadioGroupContent content={content} ref={ref} />
                 </RadioGroupComponent.Root>
             </>
         );
     },
 );
+RadioGroup.displayName = 'RadioGroup';
+
+export const RadioGroupContent = forward<{ content: any[] }, HTMLInputElement>(
+    ({ content }, ref) => {
+        const { value: apiValue } = RadioGroupComponent.useApi();
+
+        return (
+            <>
+                {content.map((component) => {
+                    const isComponent = isValidElement(component);
+
+                    const propsSource = isComponent ? component?.props : component;
+
+                    const { label, value } = propsSource;
+
+                    return (
+                        <RadioGroupComponent.Item
+                            value={value}
+                            key={value}
+                            data-react-toolbox="radio-button"
+                        >
+                            <RadioGroupComponent.Control value={value} ref={ref} />
+                            <RadioGroupComponent.Text value={value}>
+                                {label}
+                            </RadioGroupComponent.Text>
+                        </RadioGroupComponent.Item>
+                    );
+                })}
+            </>
+        );
+    },
+);
+RadioGroupContent.displayName = 'RadioGroupContent';

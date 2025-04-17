@@ -34,7 +34,7 @@ const Content = memo(
         className?: string;
     }) => {
         return (
-            <Flex className={className}>
+            <Flex className={className} data-testid="tabs-content-container">
                 {tabs.map((tab) => (
                     <UITabs.Content value={tab.value} key={tab.value}>
                         {tab.children}
@@ -97,7 +97,7 @@ const TabsContent = memo<TabsContentProps>(({ tabs, active, meta: tabsMeta }) =>
                 })}
             </UITabs.List>
 
-            <Flex>
+            <Flex data-testid="tabs-tabs-container">
                 {tabs.map((tab) => (
                     <UITabs.Content value={tab.value} key={tab.value}>
                         {tabsMeta[tab.value].children}

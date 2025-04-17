@@ -14,7 +14,12 @@ export const Root = forward<RootProps, 'div'>(
         return (
             <ToastContext.RootProvider {...context} parent={parent}>
                 {({ api }) => (
-                    <styled.div className={className} {...api.getRootProps()} ref={ref}>
+                    <styled.div
+                        className={className}
+                        {...api.getRootProps()}
+                        ref={ref}
+                        data-testid={context['data-testid']}
+                    >
                         <styled.span {...api.getGhostBeforeProps()} />
                         {children}
                         <styled.span {...api.getGhostAfterProps()} />

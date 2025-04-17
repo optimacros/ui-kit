@@ -1,8 +1,9 @@
 import { forwardRef, ReactElement, useEffect } from 'react';
 import type React from 'react';
 import { Menu } from '@optimacros-ui/menu';
-import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
+import type { DropdownProps as RCDropdownProps } from '../../node_modules/rc-dropdown/lib';
 import { MenuProps } from '../Menu';
+import { styled } from '@optimacros-ui/store';
 
 interface Props extends RCDropdownProps {
     disabled?: boolean;
@@ -76,9 +77,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         // Во-2х, тесты в сценарии выбора пункта в меню ждут появления-пропадания лоадера над меню. При первом открытии дропдауна с меню, все данные загружаются и сохраняются. При последующих открытиях, лоадер не появляется (данные-то есть) = тест не видит лоадер = фейл
         const content = (open: boolean) => (
             <>
-                <Menu.Trigger as="div">{children}</Menu.Trigger>
+                <Menu.Trigger as="div" data-testid="dropdown-trigger">
+                    {children}
+                </Menu.Trigger>
                 <Menu.Positioner>
-                    <Menu.Content className="dropdown">
+                    <Menu.Content className="dropdown" data-testid="dropdown-content">
                         {open ? <>{renderOverlay?.({ onlyContent: true }) ?? overlay}</> : null}
                     </Menu.Content>
                 </Menu.Positioner>
@@ -87,23 +90,29 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         return (
             <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange} hoverable>
-                <div ref={ref} data-scope="menu" data-part="container">
+                <styled.div
+                    ref={ref}
+                    data-scope="menu"
+                    data-part="container"
+                    data-testid="dropdown-container"
+                >
                     <Menu.Api>
                         {(api) => {
                             return isHoverTrigger ? (
-                                <div
+                                <styled.div
                                     style={{ width: 'fit-content' }}
                                     onMouseEnter={() => handleMouseEnter(api)}
                                     onMouseLeave={(e) => handleMouseLeave(e, api)}
+                                    data-testid="dropdown-hover"
                                 >
                                     {content(api.open)}
-                                </div>
+                                </styled.div>
                             ) : (
                                 content(api.open)
                             );
                         }}
                     </Menu.Api>
-                </div>
+                </styled.div>
             </Menu.Root>
         );
     },

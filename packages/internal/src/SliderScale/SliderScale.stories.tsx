@@ -95,6 +95,7 @@ type Story = StoryObj<typeof SliderScale>;
 export const Basic: Story = {
     args: {
         label: 'Basic Slider',
+        name: 'Basic',
     },
 };
 

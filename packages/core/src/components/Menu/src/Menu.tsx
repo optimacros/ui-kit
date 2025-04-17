@@ -9,17 +9,17 @@ export { RootProvider as Root };
 export const Indicator = ({ children }: { children: ReactNode }) => {
     const api = useApi();
 
-    return <span {...api.getIndicatorProps()}>{children}</span>;
+    return <styled.span {...api.getIndicatorProps()}>{children}</styled.span>;
 };
 
 export const Item = forward<menu.ItemProps, 'li'>(
-    ({ valueText, children, closeOnSelect, disabled, value, ...rest }, ref) => {
+    ({ valueText, children, closeOnSelect, disabled, value, onClick, ...rest }, ref) => {
         const api = useApi();
 
-        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText });
+        const props = api.getItemProps({ value, closeOnSelect, disabled, valueText, onClick });
 
         return (
-            <styled.li {...props} {...rest} ref={ref}>
+            <styled.li {...props} {...rest} ref={ref} aria-disabled={disabled}>
                 {children}
             </styled.li>
         );
@@ -33,7 +33,6 @@ export const SubMenuItem = forward<menu.ItemProps, 'li'>(
     ({ children, value, closeOnSelect, disabled, valueText, onClick, ...rest }, ref) => {
         const subMenuApi = useSubmenuApi();
         const props = subMenuApi.getItemProps({ value, closeOnSelect, disabled, valueText });
-
         return (
             <styled.li {...rest} ref={ref} {...props} onClick={onClick}>
                 {children}
@@ -46,11 +45,11 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
     ({ menu: machine, children, ...rest }, ref) => {
         return (
             <SubMenuContext.Provider value={machine}>
-                <div {...machine.api.getPositionerProps()} data-tag="sub-menu">
-                    <div {...machine.api.getContentProps()} ref={ref} {...rest}>
+                <styled.div {...machine.api.getPositionerProps()} data-tag="sub-menu">
+                    <styled.div {...machine.api.getContentProps()} ref={ref} {...rest}>
                         <List>{children}</List>
-                    </div>
-                </div>
+                    </styled.div>
+                </styled.div>
             </SubMenuContext.Provider>
         );
     },
@@ -58,7 +57,7 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
 
 export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest }, ref) => {
     return (
-        <styled.li {...rest} title={rest.valueText} ref={ref}>
+        <styled.li {...rest} title={rest.valueText} ref={ref} role="menuitem">
             {children}
         </styled.li>
     );
@@ -67,7 +66,7 @@ export const TriggerItem = forward<menu.ItemProps, 'li'>(({ children, ...rest },
 export const Separator = () => {
     const api = useApi();
 
-    return <hr {...api.getSeparatorProps()} />;
+    return <styled.hr {...api.getSeparatorProps()} />;
 };
 
 export const OptionItem = ({
@@ -78,9 +77,9 @@ export const OptionItem = ({
     const api = useApi();
 
     return (
-        <div key={item.value} {...api.getOptionItemProps(item)}>
+        <styled.div key={item.value} {...api.getOptionItemProps(item)}>
             {item.valueText}
-        </div>
+        </styled.div>
     );
 };
 
@@ -156,6 +155,7 @@ export const GroupLabel = forward<menu.ItemGroupLabelProps & { children: ReactNo
         const api = useApi();
 
         return (
+            // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
             <styled.label {...rest} ref={ref} {...api.getItemGroupLabelProps({ htmlFor })}>
                 {children}
             </styled.label>

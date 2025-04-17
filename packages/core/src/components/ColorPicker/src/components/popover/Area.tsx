@@ -1,4 +1,4 @@
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { useApi } from '../../exports';
 
 export const Area = forward<{}, 'div'>(
@@ -6,10 +6,10 @@ export const Area = forward<{}, 'div'>(
         const api = useApi();
 
         return (
-            <div {...api.getAreaProps()} ref={ref}>
-                <div {...api.getAreaBackgroundProps()} />
-                <div {...api.getAreaThumbProps()} />
-            </div>
+            <styled.div {...api.getAreaProps()} ref={ref}>
+                <styled.div {...api.getAreaBackgroundProps()} />
+                <styled.div {...api.getAreaThumbProps()} />
+            </styled.div>
         );
     },
     { displayName: 'Area' },

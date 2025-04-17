@@ -1,5 +1,5 @@
 import type React from 'react';
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 
 export type FontIconProps = {
     value: string;
@@ -13,7 +13,7 @@ export const FontIcon = forward<FontIconProps, 'span'>((props, ref) => {
     const { alt = '', className = '', value, ...other } = props;
 
     return (
-        <span
+        <styled.span
             {...other}
             data-react-toolbox="font-icon"
             data-scope="font-icon"
@@ -23,6 +23,6 @@ export const FontIcon = forward<FontIconProps, 'span'>((props, ref) => {
             ref={ref}
         >
             {value}
-        </span>
+        </styled.span>
     );
 });

@@ -19,8 +19,9 @@ export const TabButton = memo<Props>(
             title={value}
             onContextMenu={onHeaderContextMenu}
             onDoubleClick={onDoubleClick}
+            data-testid="tabs-tab-button"
         >
-            <Flex>
+            <Flex data-testid="tabs-tab-button-inner">
                 {!!icon && <Icon value={icon} />}
                 {value}
                 {!isNaN(counter) && <Counter counter={counter} maxCounter={maxCounter} />}

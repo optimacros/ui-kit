@@ -1,4 +1,4 @@
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { PropsWithChildren } from 'react';
 import { useApi } from '../../exports';
 import { Portal } from '@zag-js/react';
@@ -13,11 +13,11 @@ export const PopoverPortal = forward<PropsWithChildren & { portalled?: boolean }
         const classNameContent = clsx(classNameContentProp, className);
 
         const Component = (
-            <div {...rest} ref={ref} {...api.getPositionerProps()}>
-                <div {...restContentProps} className={classNameContent}>
-                    <div>{children}</div>
-                </div>
-            </div>
+            <styled.div {...rest} ref={ref} {...api.getPositionerProps()}>
+                <styled.div {...restContentProps} className={classNameContent}>
+                    <styled.div>{children}</styled.div>
+                </styled.div>
+            </styled.div>
         );
         return portalled ? <Portal>{Component}</Portal> : Component;
     },

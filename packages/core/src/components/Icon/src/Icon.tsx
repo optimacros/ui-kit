@@ -36,9 +36,16 @@ export const Icon = forward<IconProps, 'svg'>(function Icon(
 
     if (typeof value === 'string') {
         return isValidIconName(value) ? (
-            <svg width="1em" height="1em" fill="currentColor" {...rest} {...iconProps} ref={ref}>
+            <styled.svg
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                {...rest}
+                {...iconProps}
+                ref={ref}
+            >
                 <use href={`${iconsSrc}#${getIconName(value as IconName)}`} />
-            </svg>
+            </styled.svg>
         ) : (
             //@ts-ignore
             <FontIcon {...rest} {...iconProps} value={value} ref={ref} />

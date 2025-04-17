@@ -50,7 +50,7 @@ const Input = ({ min, max, defaultValue, className }) => {
     }, [value]);
 
     return (
-        <Field.Root id="slider-scale-input">
+        <Field.Root data-testid="slider-input-root">
             <Field.Input
                 type="number"
                 max={max}
@@ -66,6 +66,7 @@ const Input = ({ min, max, defaultValue, className }) => {
                 }}
                 className={className}
                 data-arrows-hidden
+                data-testid="slider-input"
             />
         </Field.Root>
     );
@@ -102,6 +103,7 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
 
         const className = clsx(
             theme.slider,
+            theme.container,
             {
                 [theme.editable]: editable,
                 [theme.disabled]: rest.disabled,
@@ -120,10 +122,9 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
                 max={max}
                 step={step}
                 onFocusChange={() => {}}
-                className={className}
                 {...rest}
             >
-                <Slider.Container className={theme.container} ref={ref}>
+                <Slider.Container className={className} ref={ref} name={rest.name}>
                     {label && <Slider.Label>{label}</Slider.Label>}
                     {isInput && (
                         <div style={{ maxWidth: '40px' }}>
@@ -142,6 +143,7 @@ export const SliderScale = forwardRef<HTMLDivElement, SliderProps>(
                         </Slider.Track>
                         <Slider.Thumb onMouseDown={onDragStart} className={theme.knob} />
                     </Slider.Control>
+                    <Slider.HiddenInputs data-testid={'slider-value'} />
                 </Slider.Container>
             </Slider.Root>
         );

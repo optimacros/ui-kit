@@ -9,11 +9,11 @@ import { Spacer } from '../../../Spacer/src/Spacer';
 export const Group = (props: Props) => {
     return (
         <Menu.Root {...props}>
-            <Menu.Trigger asChild data-testid="trigger">
-                <Button data-testid="trigger">Click me</Button>
+            <Menu.Trigger asChild>
+                <Button>Click me</Button>
             </Menu.Trigger>
             <Menu.Positioner>
-                <Menu.Content data-testid="menu-content">
+                <Menu.Content>
                     <Flex direction="column">
                         <Menu.Group id="first">
                             <Menu.GroupLabel htmlFor="first">first</Menu.GroupLabel>

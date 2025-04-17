@@ -1,10 +1,11 @@
 import { forwardRef } from 'react';
 import type React from 'react';
 import { Icon } from '@optimacros-ui/icon';
-import { Button, ButtonTheme, MenuTrigger, Menu } from '@optimacros-ui/kit-internal';
+import { Button, ButtonTheme, MenuTrigger, Menu, MenuProps } from '@optimacros-ui/kit-internal';
 import { Tooltip, TooltipProps } from '@optimacros-ui/kit-internal';
 import { clsx } from '@optimacros-ui/utils';
 import './styles.css';
+import { styled } from '@optimacros-ui/store';
 
 export type ButtonMenuTheme = Partial<ButtonTheme> & {
     ButtonMenu?: string;
@@ -27,6 +28,8 @@ type Props = {
     dataName?: string;
     classNameDropdownContainer?: string;
     closeOnSelect?: boolean;
+    portalled?: boolean;
+    positioning?: MenuProps['positioning'];
 } & Partial<TooltipProps>;
 
 export type ButtonMenuProps = React.PropsWithChildren<Props>;
@@ -54,6 +57,8 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
         label,
         uppercase,
         className,
+        portalled,
+        positioning,
         ...otherProps
     } = props;
 
@@ -64,10 +69,20 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
         const renderContent = () => {
             return (
                 <>
-                    {!showOnlyIcon && <div className={theme.buttonText}>{label}</div>}
-                    <div className={theme.buttonIcon}>
+                    {!showOnlyIcon && (
+                        <styled.div
+                            className={theme.buttonText}
+                            data-testid="button-menu-button-label"
+                        >
+                            {label}
+                        </styled.div>
+                    )}
+                    <styled.div
+                        className={theme.buttonIcon}
+                        data-testid="button-menu-button-icon-wrap"
+                    >
                         <Icon value={iconValue} />
-                    </div>
+                    </styled.div>
                 </>
             );
         };
@@ -84,6 +99,7 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                         'data-name': dataName,
                         'data-tag': 'button-menu',
                         disabled: disabled,
+                        'data-testid': 'button-menu-button',
                     }}
                     theme={theme}
                     onClick={onClick}
@@ -111,6 +127,7 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
                 className={btnClassName}
                 disabled={disabled}
                 data-tag="button-menu"
+                data-testid="button-menu-button"
             >
                 {renderContent()}
             </Button>
@@ -122,9 +139,19 @@ export const ButtonMenu = forwardRef<HTMLDivElement, ButtonMenuProps>((props, re
             closeOnSelect={closeOnSelect}
             disabled={disabled}
             open={visible}
-            renderTrigger={() => <MenuTrigger as="div">{renderButton()}</MenuTrigger>}
+            renderTrigger={() => (
+                <MenuTrigger as="div" data-testid="button-menu-trigger">
+                    {renderButton()}
+                </MenuTrigger>
+            )}
             onOpenChange={(state) => onVisibleChange && onVisibleChange(state.open)}
             ref={ref}
+            portalled={portalled}
+            positioning={positioning}
+            contentClassName={
+                visible && dataName === 'visualObjects' ? 'ContextMenu-module__Container' : null
+            }
+            data-testid="button-menu"
         >
             {children}
         </Menu>

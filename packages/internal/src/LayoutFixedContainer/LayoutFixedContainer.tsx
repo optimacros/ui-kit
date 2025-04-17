@@ -2,6 +2,7 @@ import { clsx } from '@optimacros-ui/utils';
 import { ReactElement } from 'react';
 
 import styles from './LayoutFixedContainer.module.css';
+import { styled } from '@optimacros-ui/store';
 
 interface Props {
     children?: ReactElement | null;
@@ -19,9 +20,15 @@ const LayoutFixedContainer = (props: Props) => {
     const classNameInner = clsx(styles.ContainerInner, props.classNameInnerContainer);
 
     return (
-        <div className={className}>
-            <div className={classNameInner}>{props.children}</div>
-        </div>
+        <styled.div className={className} data-scope="layout-fixed-container" data-part="root">
+            <styled.div
+                className={classNameInner}
+                data-scope="layout-fixed-container"
+                data-part="inner"
+            >
+                {props.children}
+            </styled.div>
+        </styled.div>
     );
 };
 

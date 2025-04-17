@@ -12,7 +12,6 @@ import {
 import { TooltipPosition, TooltipTheme } from './models';
 import { RootElement } from './components/RootElement';
 import { clsx, includes, isNumber } from '@optimacros-ui/utils';
-import { Text } from '@optimacros-ui/text';
 import { tooltipPositionMapping } from './settings';
 import { styled } from '@optimacros-ui/store';
 import './styles.css';
@@ -35,6 +34,7 @@ export interface TooltipProps extends PropsWithChildren {
     checked?: boolean;
     name?: string;
     portalled?: boolean;
+    disabled?: boolean;
 }
 
 type TooltipContentProps = Pick<
@@ -43,7 +43,7 @@ type TooltipContentProps = Pick<
 >;
 
 const TooltipContent = memo<TooltipContentProps>(
-    ({ tooltip, theme = {}, tooltipPosition, portalled }) => {
+    ({ tooltip, theme = {}, tooltipPosition, portalled, ...rest }) => {
         const api = UITooltip.useApi();
 
         if (!tooltip) {
@@ -61,10 +61,9 @@ const TooltipContent = memo<TooltipContentProps>(
                 data-react-toolbox="tooltip"
                 className={cn}
                 portalled={portalled}
+                {...rest}
             >
-                <Text.Paragraph as="span" className="tooltipTheme-module__tooltipInner">
-                    {tooltip}
-                </Text.Paragraph>
+                {tooltip}
             </UITooltip.Content>
         );
     },
@@ -90,6 +89,7 @@ export const Tooltip = memo(
             checked,
             name,
             portalled = true,
+            disabled,
             ...rest
         } = props;
 
@@ -130,6 +130,7 @@ export const Tooltip = memo(
                                 onChange,
                                 value,
                                 checked,
+                                disabled,
                                 ...composedComponentProps,
                                 ...rest,
                             }}

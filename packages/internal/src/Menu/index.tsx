@@ -2,7 +2,7 @@ import { Children, MouseEventHandler, ReactElement, ReactNode, useId } from 'rea
 import type React from 'react';
 
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
 
 import './styles.css';
@@ -35,16 +35,14 @@ export const MenuItem = forward<IMenuItem, 'li'>(
     ) => {
         const generatedKey = useId();
 
-        const className = clsx(classNameProp, 'menuItem');
-
         return (
             <MenuComponent.Item
-                onClick={onClick}
                 key={id ?? value ?? generatedKey}
                 {...restProps}
+                onClick={onClick}
                 value={value ?? generatedKey}
                 ref={ref}
-                className={className}
+                className={classNameProp}
             >
                 {label || title || children}
             </MenuComponent.Item>
@@ -61,6 +59,7 @@ export const SubMenu = ({
     children,
     parent: parentMenu,
     className: classNameProp,
+    hoverable = true,
     ...rest
 }: {
     label?: string;
@@ -78,23 +77,21 @@ export const SubMenu = ({
         id: generatedKey,
         closeOnSelect: false,
         positioning: {
-            fitViewport: false,
+            fitViewport: true,
             overlap: false,
             offset: { mainAxis: 4 },
         },
-        hoverable: true,
+        hoverable,
     });
 
     const childrenArr = Children.toArray(children) as Array<ReactElement>;
 
-    const className = clsx(classNameProp, 'menuItem');
-
-    const { hoverable, ...restRest } = rest;
+    const className = clsx(classNameProp, menu.api.open && 'active');
 
     return (
         <>
             <MenuComponent.TriggerItem
-                {...restRest}
+                {...rest}
                 {...menu.props}
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
@@ -117,15 +114,8 @@ export const SubMenu = ({
                             c.props.title ||
                             `${generatedKey}${i}`;
 
-                        const className = clsx(c.props.className, 'menuItem');
-
                         return (
-                            <MenuComponent.SubMenuItem
-                                {...c.props}
-                                className={className}
-                                value={value}
-                                key={value}
-                            >
+                            <MenuComponent.SubMenuItem {...c.props} value={value} key={value}>
                                 {c.props.children || c.props.label || c.props.title}
                             </MenuComponent.SubMenuItem>
                         );
@@ -144,30 +134,43 @@ export type MenuProps = {
     children: ReactNode;
     renderTrigger?: () => ReactNode;
     onlyContent?: boolean;
+    portalled?: boolean;
+    contentClassName?: string;
 } & MenuComponent.Props;
 
 export const Menu = forward<MenuProps, 'div'>((props, ref) => {
-    const { children, renderTrigger, onlyContent, ...rest } = props;
+    const {
+        children,
+        renderTrigger,
+        onlyContent,
+        portalled = true,
+        contentClassName,
+        ...rest
+    } = props;
 
     if (onlyContent) {
         return (
-            <div data-scope="menu" data-part="root">
+            <styled.div data-scope="menu" data-part="content">
                 {children}
-            </div>
+            </styled.div>
         );
     }
 
     return (
-        <div data-scope="menu" data-part="root">
+        <styled.div data-scope="menu" data-part="root" data-testid={rest['data-testid']}>
             <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
                 {renderTrigger?.()}
-                <MenuComponent.Positioner portalled>
-                    <MenuComponent.Content className="menu-content" ref={ref}>
+
+                <MenuComponent.Positioner portalled={portalled}>
+                    <MenuComponent.Content
+                        className={clsx('menu-content', contentClassName)}
+                        ref={ref}
+                    >
                         {children}
                     </MenuComponent.Content>
                 </MenuComponent.Positioner>
             </MenuComponent.Root>
-        </div>
+        </styled.div>
     );
 });
 

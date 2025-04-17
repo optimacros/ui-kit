@@ -1,7 +1,7 @@
 import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { ColorPicker as UIColorPicker } from '@optimacros-ui/color-picker';
 import { Flex } from '@optimacros-ui/flex';
-
+import { styled } from '@optimacros-ui/store';
 export const HexInput = memo(() => {
     const api = UIColorPicker.useApi();
 
@@ -33,7 +33,7 @@ export const HexInput = memo(() => {
 
     return (
         <Flex direction="column" gap={1} align="center">
-            <input
+            <styled.input
                 data-scope="color-picker"
                 data-part="channel-input"
                 value={inputValue}

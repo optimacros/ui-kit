@@ -48,6 +48,7 @@ export {
     mapEntries,
     memo,
     sleep,
+    dash as dashCase,
 } from 'radash';
 
 export * from './arrays';

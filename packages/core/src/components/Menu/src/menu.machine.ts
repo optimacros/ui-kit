@@ -3,7 +3,7 @@ import { omit, Orientation, OrientationString } from '@optimacros-ui/utils';
 import * as zagMenu from '@zag-js/menu';
 import { UiKit } from '@optimacros-ui/kit-store';
 import { normalizeProps, useMachine } from '@zag-js/react';
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, MouseEventHandler, useContext, useEffect } from 'react';
 
 export type Schema = Zag.ExtendModuleSchema<
     typeof zagMenu,
@@ -61,10 +61,18 @@ const connect = ((api, service) => {
                 'data-disabled': service.prop('disabled') ?? undefined,
             };
         },
-        getItemProps(props: zagMenu.ItemProps) {
+        getItemProps({
+            onClick,
+            ...rest
+        }: zagMenu.ItemProps & { onClick?: MouseEventHandler<any> }) {
+            const itemProps = api.getItemProps(rest);
             return {
-                ...api.getItemProps(props),
-                title: props.valueText,
+                ...itemProps,
+                onClick: (e) => {
+                    onClick?.(e);
+                    itemProps.onClick?.(e);
+                },
+                title: rest.valueText,
             };
         },
         setParentNode: (parent: typeof service) => {
@@ -73,7 +81,6 @@ const connect = ((api, service) => {
         },
         getTriggerItemProps(childApi: zagMenu.Api) {
             const props = api.getTriggerItemProps(childApi);
-
             if (!service.prop('hoverable')) {
                 return {
                     ...omit(props, ['onPointerDown', 'onPointerLeave', 'onPointerMove']),
@@ -83,6 +90,7 @@ const connect = ((api, service) => {
 
             return {
                 ...props,
+
                 'data-disabled': props['data-disabled'] === true ? true : undefined,
             } as Record<string, any>;
         },
@@ -123,10 +131,8 @@ export function useSubmenu(parent: ReturnType<typeof useState>, props: Partial<S
         if (!isEnabled) {
             console.warn('submenu feature is disabled');
         } else {
-            setTimeout(() => {
-                parent.api.setChild(service);
-                api.setParent(parent.service);
-            });
+            parent.api.setChild(service);
+            api.setParent(parent.service);
         }
     }, []);
 

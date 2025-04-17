@@ -148,6 +148,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     theme={theme}
+                    dataName={rest['data-name']}
                 >
                     {children}
                 </CheckboxContent>
@@ -160,8 +161,8 @@ CheckboxComponent.displayName = 'CheckboxComponent';
 
 const CheckboxContent = forwardRef<
     HTMLInputElement,
-    React.PropsWithChildren<Partial<InitialProps>>
->(({ children, label, onMouseEnter, onMouseLeave, theme }, ref) => {
+    React.PropsWithChildren<Partial<InitialProps>> & { dataName?: string }
+>(({ children, label, onMouseEnter, onMouseLeave, theme, dataName }, ref) => {
     const api = CheckboxCore.useApi();
 
     const boxCN = clsx({
@@ -176,9 +177,14 @@ const CheckboxContent = forwardRef<
                 ref={ref}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
+                data-name={dataName}
             />
             {label && (
-                <CheckboxCore.Label className={theme.text} data-react-toolbox="label">
+                <CheckboxCore.Label
+                    className={theme.text}
+                    data-react-toolbox="label"
+                    data-name={dataName}
+                >
                     {label}
                 </CheckboxCore.Label>
             )}

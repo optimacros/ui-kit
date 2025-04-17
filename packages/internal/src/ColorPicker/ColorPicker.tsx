@@ -63,7 +63,7 @@ const ColorPickerComponent = memo<ColorPickerComponentProps>(
         return (
             <>
                 <UIColorPicker.Control>
-                    <Flex>
+                    <Flex data-testid="color-picker-control-inner">
                         <UIColorPicker.Trigger data-name={name}>
                             <UIColorPicker.TransparencyGrid />
                             <UIColorPicker.Swatch {...swatchProps} />
@@ -139,6 +139,7 @@ export const ColorPicker = memo(
                     data-style-tag="internal"
                     data-tag="color-picker-root"
                     data-disabled={disabled}
+                    data-testid="color-picker"
                 >
                     {!!title && (
                         <Title title={title} tooltip={tooltip} tooltipPosition={tooltipPosition} />
@@ -146,7 +147,7 @@ export const ColorPicker = memo(
 
                     <UIColorPicker.RootProvider format="rgba" disabled={disabled}>
                         {({ api }) => (
-                            <UIColorPicker.Root ref={ref}>
+                            <UIColorPicker.Root ref={ref} data-testid="color-picker-component">
                                 <ColorPickerComponent
                                     color={hexColor}
                                     name={name || (typeof title === 'string' && title)}

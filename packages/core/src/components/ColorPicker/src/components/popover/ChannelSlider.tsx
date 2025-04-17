@@ -1,4 +1,4 @@
-import { forward } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { useApi } from '../../exports';
 
 export const ChannelSlider = forward<{}, 'div'>(
@@ -6,18 +6,18 @@ export const ChannelSlider = forward<{}, 'div'>(
         const api = useApi();
 
         return (
-            <div {...api.getChannelSliderProps({ channel: 'hue' })} ref={ref}>
-                <div
+            <styled.div {...api.getChannelSliderProps({ channel: 'hue' })} ref={ref}>
+                <styled.div
                     {...api.getChannelSliderTrackProps({
                         channel: 'hue',
                     })}
                 />
-                <div
+                <styled.div
                     {...api.getChannelSliderThumbProps({
                         channel: 'hue',
                     })}
                 />
-            </div>
+            </styled.div>
         );
     },
     { displayName: 'ChannelSlider' },
