@@ -123,6 +123,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                 [theme.hidden]: type === 'hidden',
                 [theme.withIcon]: icon,
             },
+            'Input-module__input',
             className,
         );
 
