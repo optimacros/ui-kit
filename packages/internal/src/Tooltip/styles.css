@@ -10,7 +10,7 @@
     padding: 8px;
     background-color: #3b3b3b;
     color: #ffffff;
-    z-index: var(--z-index-higher);
+    z-index: 9999;
     word-wrap: break-word;
 
     [data-scope='text'][data-tag='paragraph'],

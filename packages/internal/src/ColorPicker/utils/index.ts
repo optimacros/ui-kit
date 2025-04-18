@@ -3,6 +3,10 @@ import { ColorPicker } from '@optimacros-ui/color-picker';
 import { has } from '@optimacros-ui/utils';
 
 export const parseHex = (color: string | ColorFormat | ColorPicker.ValueChangeDetails): string => {
+    if (color === '') {
+        return undefined;
+    }
+
     if (typeof color === 'string') {
         return color;
     }
@@ -13,6 +17,10 @@ export const parseHex = (color: string | ColorFormat | ColorPicker.ValueChangeDe
 
     if (has(color, 'valueAsString')) {
         return color.valueAsString as string;
+    }
+
+    if (has(color, 'value') && typeof color.value === 'string') {
+        return color.value;
     }
 
     return null;

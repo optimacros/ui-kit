@@ -18,7 +18,7 @@ interface ColorPickerComponentProps extends Omit<ColorPickerProps, 'title'> {
 
 const ColorPickerComponent = memo<ColorPickerComponentProps>(
     ({
-        color,
+        color = '#ffffff',
         name,
         onChange,
         saveColor,

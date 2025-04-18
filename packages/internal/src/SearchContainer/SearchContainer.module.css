@@ -24,11 +24,6 @@
     }
   }
 
-  & [data-scope='field'][data-part='icon'][data-tag='floating'][data-position='right'] {
-    left: unset;
-    right: unset;
-  }
-
   & [data-scope='field'][data-part='icon'][data-tag='floating'] {
     position: unset;
     top: unset;
