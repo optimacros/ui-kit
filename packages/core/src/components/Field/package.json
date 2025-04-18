@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/field",
     "private": false,
-    "version": "2.0.11",
+    "version": "2.0.12",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -11,9 +11,9 @@
         "build": "tsup --config ./tsup.config.ts"
     },
     "dependencies": {
-        "@optimacros-ui/store": "^2.0.11",
-        "@optimacros-ui/types": "^2.0.11",
-        "@optimacros-ui/utils": "^2.0.11",
+        "@optimacros-ui/store": "^2.0.12",
+        "@optimacros-ui/types": "^2.0.12",
+        "@optimacros-ui/utils": "^2.0.12",
         "@zag-js/number-input": "1.9.3",
         "@zag-js/pin-input": "1.9.3",
         "react": "18.2.0"
