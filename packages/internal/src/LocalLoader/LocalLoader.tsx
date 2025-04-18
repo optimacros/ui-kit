@@ -30,6 +30,7 @@ export class LocalLoader extends PureComponent<Props> {
         return clsx({
             [styles.Container]: true,
             [styles.Container_centered]: centered,
+            'LocalLoader-module__Container': true,
         });
     }
 
