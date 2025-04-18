@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/backdroap",
     "private": false,
-    "version": "2.0.11",
+    "version": "2.0.12",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
