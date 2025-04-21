@@ -10,8 +10,8 @@
     cursor: pointer;
     padding: 2px;
     border-radius: 2px;
-    border: 1px solid #c1c1c1;
-    color: #c1c1c1;
+    border: 1px solid var(--color-grey-400);
+    color: var(--color-grey-400);
     opacity: 0.3;
     position: absolute;
     right: 0;
