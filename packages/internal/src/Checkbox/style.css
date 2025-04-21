@@ -1,15 +1,15 @@
 [data-scope='checkbox'][data-part='root'][data-style-tag='internal'] {
   &[disabled] {
     & [data-part='box-control'] {
-      border-color: #d8d8d8 !important;
+      border-color: var(--color-grey-300);
       padding-top: 0;
 
       &[data-state='checked'] {
-        background-color: #d8d8d8 !important;
+        background-color: var(--color-grey-300);
 
         &:after {
-          animation: none !important;
-          border-color: #c1c1c1;
+          animation: none;
+          border-color: var(--color-grey-400);
         }
       }
 
@@ -19,7 +19,7 @@
     }
 
     & > [data-part='label'] {
-      color: #d8d8d8 !important;
+      color: var(--color-grey-300);
     }
   }
 

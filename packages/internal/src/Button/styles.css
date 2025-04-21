@@ -11,7 +11,7 @@
 
   &[disabled] {
     background: transparent;
-    color: #c9c9c9;
+    color: var(--color-grey-400);
 
     &:hover {
       background: transparent;
@@ -21,7 +21,7 @@
 
   &[data-variant='accent'][disabled][data-float='flat'] {
     background: var(--color-theme-gray-50);
-    color: #c9c9c9;
+    color: var(--color-grey-400);
 
     &:hover {
       background: var(--color-theme-gray-50);
