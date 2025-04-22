@@ -1,6 +1,7 @@
 import { startsWith, kebabCase } from '@optimacros-ui/utils';
 export const ICONS_MAP = {
     action: 'action',
+    abc: 'abc',
     'add-abc': 'add-abc',
     'add-bold': 'add-bold',
     'add-comment': 'add-comment',
