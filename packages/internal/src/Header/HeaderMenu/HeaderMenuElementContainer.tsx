@@ -6,6 +6,7 @@ import { Icon } from '../../Icon';
 import styles from './HeaderMenu.module.css';
 import { Flex } from '@optimacros-ui/flex';
 import { FontIcon } from '@optimacros-ui/font-icon';
+import { styled } from '@optimacros-ui/store';
 
 interface Props {
     isFirstLevel: boolean;
@@ -23,18 +24,26 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
         });
 
         return (
-            <div
+            <styled.div
                 className={className}
                 //@ts-ignore
                 disabled={element.disabled}
                 onClick={this._onClick}
+                data-scope="header"
+                data-part="menu-item-container"
             >
                 {this.renderIcon(element)}
 
-                <div className={styles.Element_Title}>{element.title}</div>
+                <styled.div
+                    data-scope="header"
+                    data-part="menu-item-container-title"
+                    className={styles.Element_Title}
+                >
+                    {element.title}
+                </styled.div>
 
                 {this.renderArrowIcon()}
-            </div>
+            </styled.div>
         );
     }
 
@@ -45,14 +54,22 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
 
         if (['add', 'dashboard', 'list'].includes(element.icon)) {
             return (
-                <Flex justify="center" className={styles.Element_IconContainer}>
+                <Flex
+                    justify="center"
+                    className={styles.Element_IconContainer}
+                    data-testid="header-menu-item-icon-container"
+                >
                     <FontIcon className={styles.Element_Icon} value={element.icon} />
                 </Flex>
             );
         }
 
         return (
-            <Flex justify="center" className={styles.Element_IconContainer}>
+            <Flex
+                justify="center"
+                className={styles.Element_IconContainer}
+                data-testid="header-menu-item-icon-container"
+            >
                 <Icon className={styles.Element_Icon} value={element.icon} />
             </Flex>
         );
@@ -67,9 +84,9 @@ export default class HeaderMenuElementContainer extends React.Component<Props> {
         }
 
         return (
-            <div>
+            <styled.div data-scope="header" data-part="menu-item-arrow-icon">
                 <Icon className={styles.Element_Arrow} value="navigate_next" />
-            </div>
+            </styled.div>
         );
     }
 

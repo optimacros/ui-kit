@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Component } from 'react';
 
 import { HeaderMenuElement } from './HeaderMenuElement';
+import { styled } from '@optimacros-ui/store';
 
 import styles from './HeaderMenu.module.css';
 
@@ -16,9 +17,11 @@ export class HeaderMenu extends Component<{
         }
 
         return (
-            <div className={styles.Container}>
-                <ul className={styles.Menu}>{this.renderList()}</ul>
-            </div>
+            <styled.div data-scope="header" data-part="menu-container" className={styles.Container}>
+                <styled.ul data-scope="header" data-part="menu" className={styles.Menu}>
+                    {this.renderList()}
+                </styled.ul>
+            </styled.div>
         );
     }
 

@@ -2,6 +2,7 @@ import { clsx } from '@optimacros-ui/utils';
 import * as _ from '@optimacros-ui/utils';
 import { observer } from 'mobx-react';
 import { Component, createRef, type RefObject } from 'react';
+import { styled } from '@optimacros-ui/store';
 
 import HeaderMenuElementContainer from './HeaderMenuElementContainer';
 import HeaderSubMenu from './HeaderSubMenu';
@@ -41,21 +42,29 @@ export class HeaderMenuElement extends Component<Props> {
             [styles.MenuItem_parent]: element.isParent,
             'HeaderMenu-module__MenuItem': true, // для тестов
         });
+        const testId = element.isParent
+            ? 'header-menu-item-parent'
+            : element.isChild
+              ? 'header-menu-item-child'
+              : 'header-menu-item';
 
         return (
-            <li
+            <styled.li
                 ref={this._node}
                 className={className}
                 title={element.title}
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
+                data-scope="header"
+                data-part="menu-item"
+                data-testid={testId}
             >
                 <HeaderMenuElementContainer
                     element={element}
                     isFirstLevel={this.props.firstLevel}
                 />
                 {this.renderSubMenu()}
-            </li>
+            </styled.li>
         );
     }
 
