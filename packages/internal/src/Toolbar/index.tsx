@@ -8,6 +8,7 @@ type AlignProp = 'left' | 'center' | 'right' | 'rightInRow';
 
 export interface ToolbarProps extends PropsWithChildren {
     align?: AlignProp;
+    small?: boolean;
     className?: string;
 }
 
@@ -24,13 +25,23 @@ const getAlign = (align: AlignProp) => {
     }
 };
 
+const getMarginTop = (rightInRow: boolean, small: boolean) => {
+    if (small) {
+        return '20px';
+    } else if (rightInRow) {
+        return 0;
+    }
+
+    return null;
+};
+
 export const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
-    ({ align, className, children, ...rest }, ref) => (
+    ({ align, className, children, small = false, ...rest }, ref) => (
         <UIToolbar.Root
             className={className}
             ref={ref}
             data-tag="internal"
-            style={align === 'rightInRow' ? { marginTop: 0 } : null}
+            style={{ marginTop: getMarginTop(align === 'rightInRow', small) }}
             {...rest}
         >
             <Flex
