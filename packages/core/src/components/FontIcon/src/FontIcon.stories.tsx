@@ -54,7 +54,7 @@ export const Basic: Story = {
 
 export const CustomStyles: Story = {
     args: {
-        value: 'not_accessible',
+        value: 'lock',
         alt: 'close icon',
         title: 'close',
         className: 'className',

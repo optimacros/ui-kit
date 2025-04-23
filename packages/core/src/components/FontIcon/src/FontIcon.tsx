@@ -15,6 +15,7 @@ export const FontIcon = forward<FontIconProps, 'span'>((props, ref) => {
     return (
         <styled.span
             {...other}
+            data-value={value}
             data-react-toolbox="font-icon"
             data-scope="font-icon"
             data-part="root"
