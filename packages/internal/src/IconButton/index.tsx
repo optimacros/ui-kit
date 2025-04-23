@@ -127,7 +127,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                     theme,
                     ...otherProps,
                     ref,
-                    'data-label': label,
+                    'data-label': otherProps['data-label'] || label,
                 }}
                 onClick={onClick}
                 onMouseEnter={onMouseEnter}
