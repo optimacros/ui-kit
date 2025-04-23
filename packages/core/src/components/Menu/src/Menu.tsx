@@ -46,7 +46,12 @@ export const SubMenuContent = forward<{ menu: ReturnType<typeof useState> }, 'di
         return (
             <SubMenuContext.Provider value={machine}>
                 <styled.div {...machine.api.getPositionerProps()} data-tag="sub-menu">
-                    <styled.div {...machine.api.getContentProps()} ref={ref} {...rest}>
+                    <styled.div
+                        {...machine.api.getContentProps()}
+                        ref={ref}
+                        data-testid="sub-menu-content"
+                        {...rest}
+                    >
                         <List>{children}</List>
                     </styled.div>
                 </styled.div>

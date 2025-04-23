@@ -6,6 +6,7 @@ import { FontIcon, Input } from '../../index';
 import { HeaderMenuElement } from './HeaderMenuElement';
 
 import styles from './HeaderMenu.module.css';
+import { styled } from '@optimacros-ui/store';
 
 const HEADER_MENU_OFFSET_SUBMENU = 2;
 const HEADER_MENU_OFFSET_FROM_WINDOW = 20;
@@ -52,18 +53,25 @@ export default class HeaderSubMenu extends Component<Props> {
         }
 
         return (
-            <div
+            <styled.div
                 ref={this._rootMenuNode}
                 className={styles.SubMenu}
                 //@ts-ignore
                 onMouseLeave={this._onMouseLeave}
+                data-scope="header"
+                data-part="sub-menu"
             >
                 {this.renderSearch()}
 
-                <ul className={styles.SubMenuScrollList} id={element.type}>
+                <styled.ul
+                    data-scope="header"
+                    data-part="sub-menu-scroll-list"
+                    className={styles.SubMenuScrollList}
+                    id={element.type}
+                >
                     {this.renderList()}
-                </ul>
-            </div>
+                </styled.ul>
+            </styled.div>
         );
     }
 
@@ -73,10 +81,15 @@ export default class HeaderSubMenu extends Component<Props> {
         }
 
         return (
-            <div className={styles.Search}>
-                <div aria-hidden="true" className={styles.HiddenPlaceholder}>
+            <styled.div data-scope="header" data-part="search" className={styles.Search}>
+                <styled.div
+                    data-scope="header"
+                    data-part="hidden-placeholder"
+                    aria-hidden="true"
+                    className={styles.HiddenPlaceholder}
+                >
                     {this.props.element.placeholder || 'Search'}
-                </div>
+                </styled.div>
 
                 <Input
                     name="search"
@@ -95,7 +108,7 @@ export default class HeaderSubMenu extends Component<Props> {
                         onClick={this.onClearSearch}
                     />
                 )}
-            </div>
+            </styled.div>
         );
     }
 

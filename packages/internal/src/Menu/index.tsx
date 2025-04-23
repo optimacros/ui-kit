@@ -96,11 +96,12 @@ export const SubMenu = ({
                 value={value || (typeof title === 'string' && title) || label || generatedKey}
                 key={generatedKey}
                 className={className}
+                data-testid="menu-trigger-item"
             >
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
-            {menu.api.open && (
+            {
                 <MenuComponent.SubMenuContent menu={menu}>
                     {childrenArr.map((c, i) => {
                         //@ts-ignore
@@ -124,7 +125,7 @@ export const SubMenu = ({
                         return c;
                     })}
                 </MenuComponent.SubMenuContent>
-            )}
+            }
         </>
     );
 };
@@ -175,12 +176,6 @@ Menu.displayName = 'Menu';
 
 const MenuContent = forwardRef<HTMLDivElement, Partial<MenuProps>>(
     ({ portalled, contentClassName, children }, ref) => {
-        const api = MenuComponent.useApi();
-
-        if (!api.open) {
-            return null;
-        }
-
         return (
             <MenuComponent.Positioner portalled={portalled}>
                 <MenuComponent.Content className={clsx('menu-content', contentClassName)} ref={ref}>
