@@ -1,4 +1,4 @@
-import { Children, MouseEventHandler, ReactElement, ReactNode, useId } from 'react';
+import { Children, forwardRef, MouseEventHandler, ReactElement, ReactNode, useId } from 'react';
 import type React from 'react';
 
 import { Menu as MenuComponent } from '@optimacros-ui/menu';
@@ -100,29 +100,31 @@ export const SubMenu = ({
                 {label || title}
                 <FontIcon value="arrow_right" data-tag="submenu-icon" />
             </MenuComponent.TriggerItem>
-            <MenuComponent.SubMenuContent menu={menu}>
-                {childrenArr.map((c, i) => {
-                    //@ts-ignore
-                    if (c.type.displayName === 'SubMenu') {
-                        return <SubMenu {...c.props} parent={menu} />;
-                    }
-                    //@ts-ignore
-                    if (c.type.displayName === 'MenuItem') {
-                        const value =
-                            c.props.value ||
-                            c.props.label ||
-                            c.props.title ||
-                            `${generatedKey}${i}`;
+            {menu.api.open && (
+                <MenuComponent.SubMenuContent menu={menu}>
+                    {childrenArr.map((c, i) => {
+                        //@ts-ignore
+                        if (c.type.displayName === 'SubMenu') {
+                            return <SubMenu {...c.props} parent={menu} />;
+                        }
+                        //@ts-ignore
+                        if (c.type.displayName === 'MenuItem') {
+                            const value =
+                                c.props.value ||
+                                c.props.label ||
+                                c.props.title ||
+                                `${generatedKey}${i}`;
 
-                        return (
-                            <MenuComponent.SubMenuItem {...c.props} value={value} key={value}>
-                                {c.props.children || c.props.label || c.props.title}
-                            </MenuComponent.SubMenuItem>
-                        );
-                    }
-                    return c;
-                })}
-            </MenuComponent.SubMenuContent>
+                            return (
+                                <MenuComponent.SubMenuItem {...c.props} value={value} key={value}>
+                                    {c.props.children || c.props.label || c.props.title}
+                                </MenuComponent.SubMenuItem>
+                            );
+                        }
+                        return c;
+                    })}
+                </MenuComponent.SubMenuContent>
+            )}
         </>
     );
 };
@@ -161,17 +163,30 @@ export const Menu = forward<MenuProps, 'div'>((props, ref) => {
             <MenuComponent.Root closeOnSelect={false} open hoverable {...rest}>
                 {renderTrigger?.()}
 
-                <MenuComponent.Positioner portalled={portalled}>
-                    <MenuComponent.Content
-                        className={clsx('menu-content', contentClassName)}
-                        ref={ref}
-                    >
-                        {children}
-                    </MenuComponent.Content>
-                </MenuComponent.Positioner>
+                <MenuContent portalled={portalled} contentClassName={contentClassName} ref={ref}>
+                    {children}
+                </MenuContent>
             </MenuComponent.Root>
         </styled.div>
     );
 });
 
 Menu.displayName = 'Menu';
+
+const MenuContent = forwardRef<HTMLDivElement, Partial<MenuProps>>(
+    ({ portalled, contentClassName, children }, ref) => {
+        const api = MenuComponent.useApi();
+
+        if (!api.open) {
+            return null;
+        }
+
+        return (
+            <MenuComponent.Positioner portalled={portalled}>
+                <MenuComponent.Content className={clsx('menu-content', contentClassName)} ref={ref}>
+                    {children}
+                </MenuComponent.Content>
+            </MenuComponent.Positioner>
+        );
+    },
+);
