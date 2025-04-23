@@ -80,7 +80,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 <Menu.Trigger as="div" data-testid="dropdown-trigger">
                     {children}
                 </Menu.Trigger>
-                <Menu.Positioner>
+                <Menu.Positioner portalled>
                     <Menu.Content className="dropdown" data-testid="dropdown-content">
                         {open ? <>{renderOverlay?.({ onlyContent: true }) ?? overlay}</> : null}
                     </Menu.Content>
@@ -89,7 +89,15 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         );
 
         return (
-            <Menu.Root {...otherProps} open={visible} onOpenChange={handleVisibleChange} hoverable>
+            <Menu.Root
+                {...otherProps}
+                open={visible}
+                onOpenChange={handleVisibleChange}
+                hoverable
+                onFocusOutside={(e) => {
+                    e.preventDefault();
+                }}
+            >
                 <styled.div
                     ref={ref}
                     data-scope="menu"
