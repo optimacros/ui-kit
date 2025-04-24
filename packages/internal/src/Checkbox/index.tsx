@@ -89,6 +89,7 @@ export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
                 composedComponent={CheckboxComponent}
                 composedComponentProps={{
                     ...rest,
+                    className,
                     onClick,
                     onMouseEnter,
                     onMouseLeave,
@@ -124,6 +125,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
             onMouseLeave,
             onClick,
             theme = {},
+            className,
             ...rest
         },
         ref,
@@ -136,7 +138,7 @@ const CheckboxComponent = forward<React.PropsWithChildren<InitialProps>, HTMLInp
                 disabled={disabled}
                 //@ts-ignore
                 onCheckedChange={(e) => onChange?.(e.checked, {})}
-                className={theme.field}
+                className={theme.field ? `${theme.field} ${className}` : className}
                 data-react-toolbox="checkbox"
                 {...rest}
             >
