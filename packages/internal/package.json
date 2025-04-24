@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/kit-internal",
     "private": false,
-    "version": "2.0.12",
+    "version": "2.0.13",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -25,7 +25,7 @@
         "react-split-pane": "0.1.87"
     },
     "devDependencies": {
-        "@optimacros-ui/kit-legacy": "^2.0.12",
+        "@optimacros-ui/kit-legacy": "^2.0.13",
         "rc-dropdown": "4.2.1"
     }
 }
