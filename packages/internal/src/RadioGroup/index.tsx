@@ -45,16 +45,21 @@ export const RadioGroupContent = forward<{ content: any[] }, HTMLInputElement>(
 
                     const propsSource = isComponent ? component?.props : component;
 
-                    const { label, value } = propsSource;
+                    const { label, value, disabled } = propsSource;
 
                     return (
                         <RadioGroupComponent.Item
                             value={value}
                             key={value}
+                            disabled={disabled}
                             data-react-toolbox="radio-button"
                         >
-                            <RadioGroupComponent.Control value={value} ref={ref} />
-                            <RadioGroupComponent.Text value={value}>
+                            <RadioGroupComponent.Control
+                                value={value}
+                                ref={ref}
+                                disabled={disabled}
+                            />
+                            <RadioGroupComponent.Text value={value} disabled={disabled}>
                                 {label}
                             </RadioGroupComponent.Text>
                         </RadioGroupComponent.Item>
