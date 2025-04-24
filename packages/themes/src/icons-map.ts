@@ -105,7 +105,7 @@ export const ICONS_MAP = {
     'saved-view': 'saved-view',
     'scatter-plot': 'scatter-plot-chart',
     'scatter-plot-chart': 'scatter-plot-chart',
-    settings: 'settings',
+    // settings: 'settings',
     show: 'show',
     'slider-control-element': 'slider-control-element',
     'stock-chart': 'stock-chart',
