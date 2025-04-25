@@ -119,6 +119,7 @@ export const Tooltip = memo(
                 openDelay={tooltipDelay}
                 closeDelay={tooltipDelay}
                 positioning={positioning}
+                disabled={disabled}
             >
                 <styled.div ref={ref}>
                     <TooltipContent
