@@ -111,6 +111,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
             tooltipDelay,
             tooltipPosition,
             tooltipOffset,
+            tooltipPositioning,
             onClick,
             onMouseEnter,
             onMouseLeave,
@@ -136,6 +137,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                 tooltipDelay={tooltipDelay}
                 tooltipPosition={tooltipPosition}
                 tooltipOffset={tooltipOffset}
+                tooltipPositioning={tooltipPositioning}
                 theme={theme}
                 portalled
             >

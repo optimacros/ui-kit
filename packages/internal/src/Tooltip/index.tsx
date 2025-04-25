@@ -28,6 +28,7 @@ export interface TooltipProps extends PropsWithChildren {
     tooltipDelay?: number;
     tooltipPosition?: TooltipPosition;
     tooltipOffset?: number;
+    tooltipPositioning?: Partial<UITooltip.PositioningOptions>;
     label?: string;
     onChange?: any;
     value?: any;
@@ -82,6 +83,7 @@ export const Tooltip = memo(
             tooltipDelay = 0,
             tooltipPosition = 'top',
             tooltipOffset = 0,
+            tooltipPositioning,
             className,
             label,
             onChange,
@@ -94,6 +96,10 @@ export const Tooltip = memo(
         } = props;
 
         const positioning = useMemo(() => {
+            if (tooltipPositioning) {
+                return tooltipPositioning;
+            }
+
             const p: Partial<UITooltip.PositioningOptions> = {
                 placement: tooltipPositionMapping[tooltipPosition],
             };
@@ -106,7 +112,7 @@ export const Tooltip = memo(
             }
 
             return p;
-        }, [tooltipPosition, tooltipOffset]);
+        }, [tooltipPosition, tooltipOffset, tooltipPositioning]);
 
         return (
             <UITooltip.Root
