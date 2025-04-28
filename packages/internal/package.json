@@ -22,7 +22,9 @@
         "react-dom": "18.2.0",
         "react-input-mask": "2.0.4",
         "react-resizable": "3.0.5",
-        "react-split-pane": "0.1.87"
+        "react-split-pane": "0.1.87",
+        "rc-dropdown": "2.4.1",
+        "rc-menu": "7.4.23"
     },
     "devDependencies": {
         "@optimacros-ui/kit-legacy": "^2.0.13",
