@@ -23,7 +23,7 @@ export enum THEMES {
 }
 
 export const importMap = Object.values(THEMES).reduce((acc, v) => {
-    acc[v] = () => import(`./assets/color-schemes/${v}.css`);
+    acc[v] = () => import(`./assets/color-schemes/${v}.css?raw`);
 
     return acc;
 }, {});

@@ -1,6 +1,11 @@
 import { createReactStore } from '@optimacros-ui/store';
 import { type ReactNode, useEffect, useState as useRState } from 'react';
-import { getColorSchemeImport, getSpriteImport, ICONS_SETS, THEMES } from '@optimacros-ui/themes';
+import {
+    getColorSchemeImport,
+    ICONS_SETS,
+    THEMES,
+    useDynamicSpriteImport,
+} from '@optimacros-ui/themes';
 
 function appendStylesToHead({ id, value }: { id: string; value: string }) {
     const head = document.head;
@@ -93,9 +98,9 @@ const ThemeImport = () => {
     useEffect(() => {
         if (!iconsSet) return;
 
-        const importSrc = getSpriteImport(iconsSet);
+        // const importSrc = getSpriteImport(iconsSet);
 
-        importSrc().then((v) => setIconsSrc(v.default));
+        // importSrc().then((v) => setIconsSrc(v.default));
 
         updateHeadAttributes({ iconsSet });
     }, [iconsSet]);
@@ -127,7 +132,7 @@ export const Provider = ({
     children: ReactNode;
 }) => {
     const [iconsSrc, setIconsSrc] = useRState('');
-
+    const { Sprite } = useDynamicSpriteImport(iconsSet);
     return (
         <BaseProvider
             state={{
@@ -141,6 +146,12 @@ export const Provider = ({
                 setIconsSrc(iconsSrc);
             }}
         >
+            <div
+                dangerouslySetInnerHTML={{ __html: Sprite }}
+                style={{ display: 'none' }}
+                id="ui-kit-sprite"
+            />
+
             <ThemeImport />
             {children}
         </BaseProvider>

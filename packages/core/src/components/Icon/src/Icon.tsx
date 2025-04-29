@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { getIconName, IconName, isValidIconName } from '@optimacros-ui/themes';
 import { forward, styled } from '@optimacros-ui/store';
 import { FontIcon } from '@optimacros-ui/font-icon';
-import { UiKit } from '@optimacros-ui/kit-store';
 
 export interface IconProps {
     value: string | ReactNode;
@@ -19,8 +18,6 @@ export const Icon = forward<IconProps, 'svg'>(function Icon(
     { value, rotate, size, variant, style, ...rest },
     ref,
 ) {
-    const { iconsSrc } = UiKit.useState();
-
     const iconProps = {
         'data-scope': 'icon',
         'data-part': 'root',
@@ -44,7 +41,7 @@ export const Icon = forward<IconProps, 'svg'>(function Icon(
                 {...iconProps}
                 ref={ref}
             >
-                <use href={`${iconsSrc}#${getIconName(value as IconName)}`} />
+                <use href={`#${getIconName(value as IconName)}`} />
             </styled.svg>
         ) : (
             //@ts-ignore

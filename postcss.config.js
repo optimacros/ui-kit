@@ -15,7 +15,7 @@ module.exports = {
         //         'custom-media-queries': true,
         //     },
         // },
-        // 'postcss-nested': {},
+        'postcss-nested': {},
         // 'postcss-normalize': {},
         // 'postcss-color-function': {},
         // 'postcss-calc': {},

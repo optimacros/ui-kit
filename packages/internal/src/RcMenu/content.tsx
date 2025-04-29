@@ -1,3 +1,4 @@
+//@ts-nocheck
 import BaseMenu, { Item } from 'rc-menu';
 import type {
     MenuProps,
@@ -36,7 +37,11 @@ export const Menu = (props: MenuProps): JSX.Element => {
 };
 
 export const MenuItem = (props: MenuItemProps): JSX.Element => {
-    return <Item {...props}>{props.label || props.title || props.children}</Item>;
+    return (
+        <Item {...props} title={props.title || props.label}>
+            {props.label || props.title || props.children}
+        </Item>
+    );
 };
 
 interface DropDownBaseProps extends RCDropdownProps {

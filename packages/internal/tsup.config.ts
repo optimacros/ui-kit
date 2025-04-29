@@ -9,4 +9,5 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
     ...conf,
     publicDir: path.resolve(__dirname, '../themes/src/assets'),
+    splitting: false,
 });
