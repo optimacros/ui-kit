@@ -22,12 +22,13 @@ interface RootProps {
     status?: FieldStatus;
     collapsed?: boolean;
     required?: boolean;
+    disabled?: boolean;
 }
 
 export type Props = ComponentProps<typeof Root>;
 
 export const Root = forward<RootProps, 'div'>(
-    ({ collapsed, status = 'default', required = false, ...rest }, ref) => (
+    ({ collapsed, status = 'default', disabled = false, required = false, ...rest }, ref) => (
         <styled.div
             {...rest}
             ref={ref}
@@ -36,7 +37,7 @@ export const Root = forward<RootProps, 'div'>(
             data-collapsed={collapsed}
             data-status={status}
             data-required={required}
-            data-disabled={required}
+            data-disabled={disabled}
         />
     ),
 );

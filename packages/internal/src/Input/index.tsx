@@ -163,6 +163,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         className={theme.inputElement}
                         onKeyDown={onKeyDown}
                         data-testid="input-textarea"
+                        disabled={disabled}
                     />
                 ) : (
                     <Field.Input
