@@ -8,8 +8,8 @@
     "types": "dist/index.d.ts",
     "files": ["dist"],
     "scripts": {
-        "build": "tsup --config ./tsup.config.ts",
-        "build:wsfe": "tsup --config ./tsup.wsfe.ts --watch"
+        "build": "vite build",
+        "build:wsfe": "vite build -- --IS_WS_FE=true"
     },
     "dependencies": {
         "@zag-js/core": "1.9.3",
@@ -22,10 +22,18 @@
         "react-dom": "18.2.0",
         "react-input-mask": "2.0.4",
         "react-resizable": "3.0.5",
-        "react-split-pane": "0.1.87"
+        "react-split-pane": "0.1.87",
+        "rc-dropdown": "2.4.1",
+        "rc-menu": "7.4.23",
+        "lodash-es": "4.17.21",
+        "radash": "12.1.0",
+        "marked": "15.0.7"
     },
     "devDependencies": {
         "@optimacros-ui/kit-legacy": "^2.0.13",
-        "rc-dropdown": "4.2.1"
+        "rc-dropdown": "4.2.1",
+        "vite-plugin-dynamic-import": "1.6.0",
+        "vite-plugin-libcss": "1.1.1",
+        "vite-plugin-svg-sprite": "0.6.2"
     }
 }

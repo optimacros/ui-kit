@@ -7,12 +7,12 @@ import type {
     MenuItemGroupProps,
     DividerProps,
 } from 'rc-menu';
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import { clsx, mergeStyles } from '@optimacros-ui/utils';
 import { Button, ButtonTheme } from '../Button';
 import { FontIcon } from '@optimacros-ui/font-icon';
 import { Tooltip, TooltipProps } from '../Tooltip';
-
+import type { KeyboardEvent, PropsWithChildren, ReactNode, JSX } from 'react';
 import buttonMenuTheme from './ButtonMenu.module.css';
 
 import './rc-menu.css';
@@ -28,20 +28,26 @@ import type { DropdownProps as RCDropdownProps } from 'rc-dropdown';
 import { KEY_CODES } from '@optimacros-ui/utils';
 
 import styles from './Dropdown.module.css';
+import { ReactElement } from 'react';
 
 export type { MenuProps, SubMenuProps, MenuItemProps, MenuItemGroupProps, DividerProps };
 
-export const Menu = (props: MenuProps): React.JSX.Element => {
+export const Menu = (props: MenuProps): JSX.Element => {
     return <BaseMenu selectable={false} {...props} />;
 };
 
-export const MenuItem = (props: MenuItemProps): React.JSX.Element => {
-    return <Item {...props}>{props.title || props.children}</Item>;
+export const MenuItem = (props: MenuItemProps): JSX.Element => {
+    return (
+        <Item {...props} title={props.title || props.label}>
+            {props.label || props.title || props.children}
+        </Item>
+    );
 };
 
 interface DropDownBaseProps extends RCDropdownProps {
     disabled?: boolean;
     closeOnSelect?: boolean;
+    renderOverlay?: (props: any) => ReactElement;
 }
 
 type State = {
@@ -49,10 +55,10 @@ type State = {
     lastVisible: boolean;
 };
 
-export type DropdownProps = React.PropsWithChildren<DropDownBaseProps>;
+export type DropdownProps = PropsWithChildren<DropDownBaseProps>;
 
-export class Dropdown extends React.PureComponent<DropdownProps, State> {
-    constructor(props: React.PropsWithChildren<DropDownBaseProps>) {
+export class Dropdown extends PureComponent<DropdownProps, State> {
+    constructor(props: PropsWithChildren<DropDownBaseProps>) {
         super(props);
 
         this.state = {
@@ -68,7 +74,7 @@ export class Dropdown extends React.PureComponent<DropdownProps, State> {
     }
 
     static getDerivedStateFromProps(
-        props: React.PropsWithChildren<DropDownBaseProps>,
+        props: PropsWithChildren<DropDownBaseProps>,
         state: State,
     ): State | null {
         const isVisible = props.visible ?? false;
@@ -80,8 +86,8 @@ export class Dropdown extends React.PureComponent<DropdownProps, State> {
         return null;
     }
 
-    render(): React.ReactNode {
-        const { visible, onVisibleChange, ...otherProps } = this.props;
+    render(): ReactNode {
+        const { visible, onVisibleChange, overlay, renderOverlay, ...otherProps } = this.props;
 
         if (this.props.disabled) {
             return this.props.children;
@@ -96,6 +102,7 @@ export class Dropdown extends React.PureComponent<DropdownProps, State> {
                     visible={this.state.visible}
                     onVisibleChange={this.onVisibleChange}
                     onOverlayClick={this.onOverlayClick}
+                    overlay={overlay ?? renderOverlay?.(otherProps)}
                     {...otherProps}
                     destroyPopupOnHide
                     overlayClassName={overlayClassName}
@@ -118,7 +125,7 @@ export class Dropdown extends React.PureComponent<DropdownProps, State> {
         }
     };
 
-    private onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    private onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         if (!this.state.visible && event.keyCode === KEY_CODES.SPACE) {
             event.preventDefault();
             event.stopPropagation();
@@ -147,16 +154,16 @@ export type ButtonMenuBaseProps = {
     onVisibleChange?: (visible: boolean) => void;
     visible?: boolean;
     theme?: ButtonMenuTheme;
-    icon?: string | React.JSX.Element;
+    icon?: string | JSX.Element;
     dataName?: string;
     classNameDropdownContainer?: string;
     closeOnSelect?: boolean;
 } & Partial<TooltipProps>;
 
-export type ButtonMenuProps = React.PropsWithChildren<ButtonMenuBaseProps>;
+export type ButtonMenuProps = PropsWithChildren<ButtonMenuBaseProps>;
 
 export class ButtonMenu extends PureComponent<ButtonMenuProps> {
-    render(): React.JSX.Element {
+    render(): JSX.Element {
         return (
             <Dropdown
                 //@ts-ignore
@@ -173,7 +180,7 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
         );
     }
 
-    renderMenu(): React.JSX.Element {
+    renderMenu(): JSX.Element {
         const { menuRootContainerClassName } = this.props;
         const theme = mergeStyles(this.props.theme, buttonMenuTheme);
         const className = clsx(menuRootContainerClassName, theme.MenuRootContainerClassName);
@@ -181,7 +188,7 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
         return <Menu className={className}>{this.props.children}</Menu>;
     }
 
-    renderButton(): React.JSX.Element {
+    renderButton(): JSX.Element {
         const {
             onClick,
             onMouseEnter,
@@ -190,7 +197,7 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
             tooltipDelay,
             tooltipPosition,
             tooltipOffset,
-            theme,
+            theme = {},
             showOnlyIcon,
             arrowUp,
             dataName,
@@ -202,6 +209,7 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
             uppercase,
             label,
             closeOnSelect,
+            children,
             ...otherProps
         } = this.props;
 
@@ -229,8 +237,8 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
                         ...otherProps,
                         'data-label': label,
                         'data-name': dataName,
+                        className: updatedClassName,
                     }}
-                    className={updatedClassName}
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
@@ -265,7 +273,7 @@ export class ButtonMenu extends PureComponent<ButtonMenuProps> {
         classNameText: string,
         classNameIcon: string,
         iconValue: string,
-    ): React.JSX.Element => {
+    ): JSX.Element => {
         return (
             <>
                 {!this.props.showOnlyIcon && (

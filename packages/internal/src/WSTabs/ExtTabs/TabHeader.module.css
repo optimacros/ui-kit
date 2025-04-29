@@ -72,7 +72,7 @@
     align-items: center;
     max-width: 100%;
     color: var(--tab-header-button-color);
-    font-size: 1.3rem;
+    font-size: 0.8125rem;
     line-height: 22px;
     white-space: nowrap;
     text-overflow: ellipsis;

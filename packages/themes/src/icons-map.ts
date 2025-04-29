@@ -1,4 +1,5 @@
 import { startsWith, kebabCase } from '@optimacros-ui/utils';
+import { FC, SVGProps, useEffect, useRef, useState } from 'react';
 export const ICONS_MAP = {
     action: 'action',
     add: 'add',
@@ -105,7 +106,7 @@ export const ICONS_MAP = {
     'saved-view': 'saved-view',
     'scatter-plot': 'scatter-plot-chart',
     'scatter-plot-chart': 'scatter-plot-chart',
-    settings: 'settings',
+    // settings: 'settings',
     show: 'show',
     'slider-control-element': 'slider-control-element',
     'stock-chart': 'stock-chart',
@@ -156,7 +157,7 @@ export enum ICONS_SETS {
 }
 
 const spriteMap = Object.values(ICONS_SETS).reduce((acc, v) => {
-    acc[v] = () => import(`./assets/icons/${v}/sprite/index.svg`);
+    acc[v] = () => import(`./assets/icons/${v}/sprite/index.svg?raw`);
 
     return acc;
 }, {});
@@ -164,3 +165,63 @@ const spriteMap = Object.values(ICONS_SETS).reduce((acc, v) => {
 export const getSpriteImport = (iconsSet: ICONS_SETS) => {
     return spriteMap[iconsSet];
 };
+
+export const getIconImport = (iconsSet: ICONS_SETS, iconName: string) => {
+    return import(`./assets/icons/${iconsSet}/svg-icons/${iconName}.svg`);
+};
+
+export function useDynamicSvgImport(iconsSet: ICONS_SETS, iconName: string) {
+    const importedIconRef = useRef<FC<SVGProps<SVGElement>>>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<unknown>();
+    const [icon, setIcon] = useState(null);
+    useEffect(() => {
+        setLoading(true);
+
+        const importSvgIcon = async (): Promise<void> => {
+            // please make sure all your svg icons are placed in the same directory
+            // if we want that part to be configurable then instead of iconName we will send iconPath as prop
+            try {
+                if (iconName) {
+                    await getIconImport(iconsSet, iconName).then((v) => setIcon(v.default));
+                }
+            } catch (err) {
+                setError(err);
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        importSvgIcon();
+    }, [iconName]);
+
+    return { error, loading, SvgIcon: icon };
+}
+
+export function useDynamicSpriteImport(iconsSet: ICONS_SETS) {
+    const importedIconRef = useRef<string>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<unknown>();
+
+    useEffect(() => {
+        setLoading(true);
+
+        const importSvgIcon = async (): Promise<void> => {
+            // please make sure all your svg icons are placed in the same directory
+            // if we want that part to be configurable then instead of iconName we will send iconPath as prop
+            try {
+                importedIconRef.current = await getSpriteImport(iconsSet)().then((v) => v.default);
+            } catch (err) {
+                setError(err);
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        importSvgIcon();
+    }, [iconsSet]);
+
+    return { error, loading, Sprite: importedIconRef.current };
+}

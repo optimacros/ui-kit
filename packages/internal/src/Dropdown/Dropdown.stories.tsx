@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { Dropdown, Button, Menu, MenuItem, SubMenu } from '@optimacros-ui/kit-internal';
 import { Flex } from '@optimacros-ui/flex';
