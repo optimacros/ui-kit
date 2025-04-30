@@ -32,26 +32,28 @@ export const Root = forward<RootProps, 'div'>(({ children, ...context }, ref) =>
     </RootProvider>
 ));
 
-export const Item = forward<{ value: string }, 'label'>(({ value, ...rest }, ref) => {
-    const api = useApi();
-    const apiItemProps = api.getItemProps({ value });
+export const Item = forward<{ value: string; disabled?: boolean }, 'label'>(
+    ({ value, disabled, ...rest }, ref) => {
+        const api = useApi();
+        const apiItemProps = api.getItemProps({ value, disabled });
 
-    return (
-        <styled.label
-            {...rest}
-            {...apiItemProps}
-            data-scope="radio-group"
-            data-part="item"
-            ref={ref}
-            key={`item-${value}`}
-        />
-    );
-});
+        return (
+            <styled.label
+                {...rest}
+                {...apiItemProps}
+                data-scope="radio-group"
+                data-part="item"
+                ref={ref}
+                key={`item-${value}`}
+            />
+        );
+    },
+);
 
-export const Control = forward<{ value: string }, 'input'>(({ value, ...rest }, ref) => {
+export const Control = forward<{ value: string }, 'input'>(({ value, disabled, ...rest }, ref) => {
     const api = useApi();
-    const apiItemControlProps = api.getItemControlProps({ value });
-    const apiHiddenInputProps = api.getItemHiddenInputProps({ value });
+    const apiItemControlProps = api.getItemControlProps({ value, disabled });
+    const apiHiddenInputProps = api.getItemHiddenInputProps({ value, disabled });
 
     return (
         <styled.div {...rest} {...apiItemControlProps} data-scope="radio-group" data-part="control">
@@ -60,19 +62,21 @@ export const Control = forward<{ value: string }, 'input'>(({ value, ...rest }, 
     );
 });
 
-export const Text = forward<{ value: string }, 'span'>(({ value, ...rest }, ref) => {
-    const api = useApi();
-    const apiItemTextProps = api.getItemTextProps({ value });
+export const Text = forward<{ value: string; disabled?: boolean }, 'span'>(
+    ({ value, disabled, ...rest }, ref) => {
+        const api = useApi();
+        const apiItemTextProps = api.getItemTextProps({ value, disabled });
 
-    return (
-        <styled.span
-            {...rest}
-            {...apiItemTextProps}
-            data-scope="radio-group"
-            data-part="text"
-            ref={ref}
-        />
-    );
-});
+        return (
+            <styled.span
+                {...rest}
+                {...apiItemTextProps}
+                data-scope="radio-group"
+                data-part="text"
+                ref={ref}
+            />
+        );
+    },
+);
 
 export type { ValueChangeDetails } from '@zag-js/radio-group';
