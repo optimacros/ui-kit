@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode, MouseEvent, PointerEvent } from 'react';
+import { ComponentProps, ReactNode, MouseEvent } from 'react';
 import * as tooltip from '@zag-js/tooltip';
 import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
@@ -60,26 +60,12 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, .
         onMouseEnter: (e: MouseEvent) => {
             onPointerMove({ ...e, pointerType: 'mouse' });
         },
-        // Костыль для 2970 сценария
-        // Проблема была вызвана предыдущим костылем
-        // Получается так, что закрытие предыдущего тултипа (по поинтер событиям) случается слишком поздно и новый (по маус событиям) не открывается
+        // Костыль для костыля - поинтерлив срабатывает позже мауслива (???) и маусентер не может открыть новый тултип т.к. еще открыт старый
         onMouseLeave: (e: MouseEvent) => {
             onPointerLeave({ ...e, pointerType: 'mouse' });
         },
-        onPointerMove: (e: PointerEvent) => {
-            if (e.pointerType === 'mouse') {
-                return;
-            }
-
-            onPointerMove(e);
-        },
-        onPointerLeave: (e: PointerEvent) => {
-            if (e.pointerType === 'mouse') {
-                return;
-            }
-
-            onPointerLeave(e);
-        },
+        onPointerMove,
+        onPointerLeave,
     };
 
     return (
