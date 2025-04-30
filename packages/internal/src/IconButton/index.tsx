@@ -111,10 +111,12 @@ export const IconButton = forward<IconButtonProps, 'button'>(
             tooltipDelay,
             tooltipPosition,
             tooltipOffset,
+            tooltipPositioning,
             onClick,
             onMouseEnter,
             onMouseLeave,
             className,
+            disabled,
             ...otherProps
         },
         ref,
@@ -125,6 +127,7 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                 composedComponentProps={{
                     className,
                     theme,
+                    disabled,
                     ...otherProps,
                     ref,
                     'data-label': otherProps['data-label'] || label,
@@ -136,7 +139,9 @@ export const IconButton = forward<IconButtonProps, 'button'>(
                 tooltipDelay={tooltipDelay}
                 tooltipPosition={tooltipPosition}
                 tooltipOffset={tooltipOffset}
+                tooltipPositioning={tooltipPositioning}
                 theme={theme}
+                disabled={disabled}
                 portalled
             >
                 {children}

@@ -69,6 +69,7 @@ export const ICONS_MAP = {
     'keyboard-double-arrow-right': 'keyboard-double-arrow-right',
     'keyboard-double-arrow-up': 'keyboard-double-arrow-up',
     'keyboard-double-arrow': 'keyboard-double-arrow',
+    'keyboard-double-arrow-down': 'keyboard-double-arrow-down',
     'line-chart': 'line-chart',
     lines: 'lines',
     list: 'list',

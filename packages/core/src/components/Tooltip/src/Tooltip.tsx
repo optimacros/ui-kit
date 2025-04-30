@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps, ReactNode, MouseEvent } from 'react';
 import * as tooltip from '@zag-js/tooltip';
 import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
@@ -49,8 +49,27 @@ export const Content = ({
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
     const api = useApi();
 
+    const { onPointerMove, onPointerLeave, ...restProps } = api.getTriggerProps();
+
+    const apiProps2 = {
+        ...restProps,
+
+        // TODO: фз, мб придумать что...
+        // Костыль для 3231 сценария
+        // Получается так, что кнопки пагинации сменяются под курсором. На новой кнопке не срабатывает pointerMove и тултип не открывается
+        onMouseEnter: (e: MouseEvent) => {
+            onPointerMove({ ...e, pointerType: 'mouse' });
+        },
+        // Костыль для костыля - поинтерлив срабатывает позже мауслива (???) и маусентер не может открыть новый тултип т.к. еще открыт старый
+        onMouseLeave: (e: MouseEvent) => {
+            onPointerLeave({ ...e, pointerType: 'mouse' });
+        },
+        onPointerMove,
+        onPointerLeave,
+    };
+
     return (
-        <styled.button {...rest} {...api.getTriggerProps()} ref={ref}>
+        <styled.button {...rest} {...apiProps2} ref={ref}>
             {children}
         </styled.button>
     );

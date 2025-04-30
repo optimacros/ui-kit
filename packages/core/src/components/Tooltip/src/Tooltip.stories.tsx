@@ -51,6 +51,16 @@ const argTypes: Partial<ArgTypes> = {
         description: `Function called when the tooltip is opened..`,
         table: { type: { summary: '(details: OpenChangeDetails) => void' } },
     },
+    closeOnPointerDown: {
+        control: 'boolean',
+        description: `Whether to close the tooltip on pointerdown`,
+        table: { defaultValue: { summary: 'true' } },
+    },
+    closeOnClick: {
+        control: 'boolean',
+        description: `Whether the tooltip should close on click`,
+        table: { defaultValue: { summary: 'true' } },
+    },
 };
 
 const meta: Meta<typeof Tooltip.Root> = {
