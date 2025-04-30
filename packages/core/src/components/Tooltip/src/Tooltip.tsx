@@ -49,7 +49,7 @@ export const Content = ({
 export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, ...rest }, ref) => {
     const api = useApi();
 
-    const { onPointerMove, ...restProps } = api.getTriggerProps();
+    const { onPointerMove, onPointerLeave, ...restProps } = api.getTriggerProps();
 
     const apiProps2 = {
         ...restProps,
@@ -60,12 +60,25 @@ export const Trigger = forward<{ children: ReactNode }, 'button'>(({ children, .
         onMouseEnter: (e: MouseEvent) => {
             onPointerMove({ ...e, pointerType: 'mouse' });
         },
+        // Костыль для 2970 сценария
+        // Проблема была вызвана предыдущим костылем
+        // Получается так, что закрытие предыдущего тултипа (по поинтер событиям) случается слишком поздно и новый (по маус событиям) не открывается
+        onMouseLeave: (e: MouseEvent) => {
+            onPointerLeave({ ...e, pointerType: 'mouse' });
+        },
         onPointerMove: (e: PointerEvent) => {
             if (e.pointerType === 'mouse') {
                 return;
             }
 
             onPointerMove(e);
+        },
+        onPointerLeave: (e: PointerEvent) => {
+            if (e.pointerType === 'mouse') {
+                return;
+            }
+
+            onPointerLeave(e);
         },
     };
 
