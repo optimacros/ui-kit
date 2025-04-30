@@ -56,6 +56,7 @@ const ColorPickerComponent = memo<ColorPickerComponentProps>(
 
         const handleOk = () => {
             const color = convertToObject(api.value.toString('hex'));
+            color.hex = color.hex.toLowerCase();
             onChange(color);
             saveColor?.(color.hex);
         };
