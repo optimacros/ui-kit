@@ -2,7 +2,7 @@ import { clsx, isEmpty } from '@optimacros-ui/utils';
 import React from 'react';
 
 import { Icon } from '../../Icon';
-
+import { observer } from 'mobx-react';
 import styles from './HeaderMenu.module.css';
 import { Flex } from '@optimacros-ui/flex';
 import { FontIcon } from '@optimacros-ui/font-icon';
@@ -12,7 +12,7 @@ interface Props {
     isFirstLevel: boolean;
     element: any;
 }
-
+@observer
 export default class HeaderMenuElementContainer extends React.Component<Props> {
     render() {
         const { element } = this.props;

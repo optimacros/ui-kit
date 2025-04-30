@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.0.14 (2025-04-30)</small>
+
+* chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
+* chore(imgflexicon): tsc ([d86e73b](https://gitlab.optimacros.com/fe/ui-kit/commit/d86e73b))
+* chore(package): added webpack + updated modules ([f59e1d5](https://gitlab.optimacros.com/fe/ui-kit/commit/f59e1d5))
+* chore(release): 2.0.4 ([0791517](https://gitlab.optimacros.com/fe/ui-kit/commit/0791517))
+* chore(release): version update ([46fc23e](https://gitlab.optimacros.com/fe/ui-kit/commit/46fc23e))
+* chore(update-version): release ([76a0181](https://gitlab.optimacros.com/fe/ui-kit/commit/76a0181))
+* chore(update-version): upd to 2.0.5 ([7e410c4](https://gitlab.optimacros.com/fe/ui-kit/commit/7e410c4))
+* chore(version): release ([0f329dd](https://gitlab.optimacros.com/fe/ui-kit/commit/0f329dd))
+* chore(version): up ([64ca125](https://gitlab.optimacros.com/fe/ui-kit/commit/64ca125))
+* chore(version): up ([f502be4](https://gitlab.optimacros.com/fe/ui-kit/commit/f502be4))
+* chore(version): upd ([b3c2616](https://gitlab.optimacros.com/fe/ui-kit/commit/b3c2616))
+* chore(version): upd ([8b3c375](https://gitlab.optimacros.com/fe/ui-kit/commit/8b3c375))
+* chore(version): update ([bb6bd75](https://gitlab.optimacros.com/fe/ui-kit/commit/bb6bd75))
+* chore(version): update ([cbb5d90](https://gitlab.optimacros.com/fe/ui-kit/commit/cbb5d90))
+* chore(version): update ([22d96ca](https://gitlab.optimacros.com/fe/ui-kit/commit/22d96ca))
+* chore(version): update ([532ff3b](https://gitlab.optimacros.com/fe/ui-kit/commit/532ff3b))
+* chore(version): update ([cb4eb3f](https://gitlab.optimacros.com/fe/ui-kit/commit/cb4eb3f))
+* feat(core/flex): remove default gap ([999899b](https://gitlab.optimacros.com/fe/ui-kit/commit/999899b))
+* feat(flex): add flex ([4dbe0a3](https://gitlab.optimacros.com/fe/ui-kit/commit/4dbe0a3))
+* feat(flex): pass style prop ([c583e36](https://gitlab.optimacros.com/fe/ui-kit/commit/c583e36))
+* feat(grid): added grid ([c270cbd](https://gitlab.optimacros.com/fe/ui-kit/commit/c270cbd))
+* feat(internal-stories): added ([dd4408b](https://gitlab.optimacros.com/fe/ui-kit/commit/dd4408b))
+* feat(list): upd ([4a51ea9](https://gitlab.optimacros.com/fe/ui-kit/commit/4a51ea9))
+* feat(popover): updated context ([c401ffc](https://gitlab.optimacros.com/fe/ui-kit/commit/c401ffc))
+* feat(theme): added ui theme provider ([1551d35](https://gitlab.optimacros.com/fe/ui-kit/commit/1551d35))
+* feat(visually-hidden): added ([4ed5560](https://gitlab.optimacros.com/fe/ui-kit/commit/4ed5560))
+* test(core/flex): add test ([678f9a8](https://gitlab.optimacros.com/fe/ui-kit/commit/678f9a8))
+* test(core/header): update story ([e0b3386](https://gitlab.optimacros.com/fe/ui-kit/commit/e0b3386))
+* test(core/popover): add tests ([ab3650c](https://gitlab.optimacros.com/fe/ui-kit/commit/ab3650c))
+* fix: test ([4772671](https://gitlab.optimacros.com/fe/ui-kit/commit/4772671))
+* fix(build): fixed ([b6531ba](https://gitlab.optimacros.com/fe/ui-kit/commit/b6531ba))
+* fix(core/flex): make children prop optional ([1ddda68](https://gitlab.optimacros.com/fe/ui-kit/commit/1ddda68))
+
+
+
+
+
 ## <small>2.0.13 (2025-04-24)</small>
 
 * chore: update version ([832f363](https://gitlab.optimacros.com/fe/ui-kit/commit/832f363))
