@@ -4,7 +4,8 @@
   position: relative;
   gap: var(--spacing-2);
 
-  max-width: fit-content;
+  width: fit-content;
+  max-width: 100%;
   white-space: nowrap;
   box-sizing: border-box;
   font-family: var(--preferred-font);
@@ -106,6 +107,8 @@
   color: var(--color-checkbox-primary-label-default);
   font-size: var(--text-sm);
   line-height: var(--text-sm-line--height);
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &[data-disabled='true'] {
     cursor: auto;

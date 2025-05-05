@@ -1,6 +1,6 @@
 import { ComponentProps, useState } from 'react';
 import { Meta, StoryObj, ArgTypes } from '@storybook/react';
-import { Button, Field } from '@optimacros-ui/kit';
+import { Button, Field, Flex } from '@optimacros-ui/kit';
 import { Tooltip } from '@optimacros-ui/tooltip';
 import { Checkbox } from './index';
 import { CheckedChangeDetails } from '@zag-js/checkbox';
@@ -127,10 +127,19 @@ export const Label: Story = {
     args: {},
     render: (props) => {
         return (
-            <Checkbox.Root {...props}>
-                <Checkbox.BoxControl />
-                <Checkbox.Label>Option</Checkbox.Label>
-            </Checkbox.Root>
+            <Flex direction="column" gap={4} style={{ width: 200 }}>
+                <Checkbox.Root {...props}>
+                    <Checkbox.BoxControl />
+                    <Checkbox.Label>Option</Checkbox.Label>
+                </Checkbox.Root>
+
+                <Checkbox.Root {...props}>
+                    <Checkbox.BoxControl />
+                    <Checkbox.Label>
+                        LOONG LOOOOOONG LABEL LOOOOOOOOOOOOOOOOOOOOOOOOOOOOONG
+                    </Checkbox.Label>
+                </Checkbox.Root>
+            </Flex>
         );
     },
 };
