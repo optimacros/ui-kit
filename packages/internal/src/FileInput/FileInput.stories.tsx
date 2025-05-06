@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FileInput } from '.';
 import { useState, useCallback } from 'react';
+import { fn } from '@storybook/test';
 
 const meta: Meta<typeof FileInput> = {
     title: 'Ui Kit internal/FileInput',
@@ -29,22 +30,23 @@ const meta: Meta<typeof FileInput> = {
             description: 'Value of the file input',
         },
     },
+    args: {
+        onChange: fn(),
+    },
     decorators: [(Story) => <Story />],
 };
 
 export default meta;
 type Story = StoryObj<typeof FileInput>;
 
+const file = new File(['text content'], 'text.txt', { type: 'text/plain' });
+
 // Basic file input
 export const Default: Story = {
     args: {
         state: {
-            file: {
-                lastModified: Date.now(),
-                name: 'example.txt',
-                size: 1024,
-            },
-            reset: () => {},
+            file,
+            reset: fn(),
         },
         filePreview: true,
     },
@@ -55,12 +57,8 @@ export const CustomLabel: Story = {
     args: {
         labelUploadNewFile: 'Choose a new file',
         state: {
-            file: {
-                lastModified: Date.now(),
-                name: 'document.pdf',
-                size: 2048,
-            },
-            reset: () => {},
+            file,
+            reset: fn(),
         },
     },
 };
@@ -70,12 +68,8 @@ export const WithPreview: Story = {
     args: {
         filePreview: true,
         state: {
-            file: {
-                lastModified: Date.now(),
-                name: 'image.jpg',
-                size: 5120,
-            },
-            reset: () => {},
+            file,
+            reset: fn(),
         },
     },
 };
@@ -84,20 +78,12 @@ export const WithPreview: Story = {
 export const InteractiveWithReset: Story = {
     render: () => {
         const [fileState, setFileState] = useState({
-            file: {
-                lastModified: Date.now(),
-                name: 'document.pdf',
-                size: 2048,
-            },
+            file,
         });
 
         const handleReset = useCallback(() => {
             setFileState({
-                file: {
-                    lastModified: 0,
-                    name: '',
-                    size: 0,
-                },
+                file,
             });
         }, []);
 
@@ -125,16 +111,15 @@ export const InteractiveWithReset: Story = {
     },
 };
 
+const getImgFile = (size = 1024) =>
+    new File([new ArrayBuffer(size)], 'img.jpg', { type: 'image/jpeg' });
+
 // File size validator
 export const WithSizeValidation: Story = {
     render: () => {
         const MAX_SIZE = 5 * 1024 * 1024; // 5MB
         const [fileState, setFileState] = useState({
-            file: {
-                lastModified: Date.now(),
-                name: 'large-file.zip',
-                size: 6 * 1024 * 1024, // 6MB
-            },
+            file: getImgFile(6 * 1024 * 1024),
         });
         const [error, setError] = useState<string | null>(null);
 
@@ -190,21 +175,13 @@ export const MultipleFileStates: Story = {
             {
                 id: 1,
                 state: {
-                    file: {
-                        lastModified: Date.now(),
-                        name: 'document1.pdf',
-                        size: 1024,
-                    },
+                    file,
                 },
             },
             {
                 id: 2,
                 state: {
-                    file: {
-                        lastModified: Date.now(),
-                        name: 'image1.jpg',
-                        size: 2048,
-                    },
+                    file: getImgFile(2048),
                 },
             },
         ]);
