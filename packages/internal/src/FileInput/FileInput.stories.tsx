@@ -97,11 +97,7 @@ export const InteractiveWithReset: Story = {
                     labelUploadNewFile="Upload new file"
                     onChange={({ target }) =>
                         setFileState(() => ({
-                            file: {
-                                name: target.files?.[0]?.name,
-                                size: target.files?.[0]?.size,
-                                lastModified: target.files?.[0]?.lastModified,
-                            },
+                            file: target.files?.[0],
                         }))
                     }
                     filePreview
@@ -149,11 +145,7 @@ export const WithSizeValidation: Story = {
                     labelUploadNewFile="Upload file (max 5MB)"
                     onChange={({ target }) =>
                         setFileState(() => ({
-                            file: {
-                                name: target.files?.[0]?.name,
-                                size: target.files?.[0]?.size,
-                                lastModified: target.files?.[0]?.lastModified,
-                            },
+                            file: target.files?.[0],
                         }))
                     }
                 />
@@ -213,11 +205,7 @@ export const MultipleFileStates: Story = {
                                         {
                                             id: file.id,
                                             state: {
-                                                file: {
-                                                    name: target.files?.[0]?.name,
-                                                    size: target.files?.[0]?.size,
-                                                    lastModified: target.files?.[0]?.lastModified,
-                                                },
+                                                file: target.files?.[0],
                                             },
                                             reset: () => handleReset(file.id),
                                         },
