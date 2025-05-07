@@ -36,6 +36,7 @@ export interface TooltipProps extends PropsWithChildren {
     name?: string;
     portalled?: boolean;
     disabled?: boolean;
+    closeOnEscape?: boolean;
 }
 
 type TooltipContentProps = Pick<
@@ -92,6 +93,7 @@ export const Tooltip = memo(
             name,
             portalled = true,
             disabled,
+            closeOnEscape,
             ...rest
         } = props;
 
@@ -122,6 +124,7 @@ export const Tooltip = memo(
                 disabled={disabled}
                 closeOnPointerDown={false}
                 closeOnClick={false}
+                closeOnEscape={closeOnEscape}
             >
                 <styled.div ref={ref}>
                     <TooltipContent
