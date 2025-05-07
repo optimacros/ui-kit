@@ -26,4 +26,5 @@
 
 [data-scope='tooltip'][data-part='trigger'] {
   width: fit-content;
+  max-width: 100%;
 }
