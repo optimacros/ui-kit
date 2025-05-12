@@ -80,6 +80,7 @@ export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
     ) => {
         return tooltipLabel ? (
             <Tooltip
+                // TODO убрать
                 className={className}
                 theme={theme}
                 tooltip={tooltipLabel}
@@ -89,6 +90,7 @@ export const Checkbox = forward<CheckboxProps, HTMLInputElement>(
                 composedComponent={CheckboxComponent}
                 composedComponentProps={{
                     ...rest,
+                    className,
                     onClick,
                     onMouseEnter,
                     onMouseLeave,
