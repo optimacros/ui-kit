@@ -1,7 +1,7 @@
 {
     "name": "@optimacros-ui/kit-internal",
     "private": false,
-    "version": "2.0.14",
+    "version": "2.0.15",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "type": "module",
@@ -30,7 +30,7 @@
         "react-split-pane": "0.1.87"
     },
     "devDependencies": {
-        "@optimacros-ui/kit-legacy": "^2.0.14",
+        "@optimacros-ui/kit-legacy": "^2.0.15",
         "rc-dropdown": "4.2.1",
         "vite-plugin-dynamic-import": "1.6.0",
         "vite-plugin-libcss": "1.1.1",
