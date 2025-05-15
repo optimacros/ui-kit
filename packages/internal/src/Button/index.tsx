@@ -4,9 +4,11 @@ import { Button as ButtonComponent, type ButtonProps } from '@optimacros-ui/butt
 import { Icon } from '@optimacros-ui/icon';
 import { Flex } from '@optimacros-ui/flex';
 import { forward } from '@optimacros-ui/store';
-import { clsx } from '@optimacros-ui/utils';
+import { clsx, omit } from '@optimacros-ui/utils';
 
 import './styles.css';
+
+const unwantedProps = ['toolbarRef'];
 
 export type ThemeButtonProps = {
     button: string;
@@ -151,7 +153,7 @@ export const Button = forward<
                 ref={ref}
                 type={type}
                 className={cn}
-                {...rest}
+                {...omit(rest, unwantedProps)}
             >
                 {icon ? (
                     <Flex direction={btnContentDirection} align="center" gap={2}>
