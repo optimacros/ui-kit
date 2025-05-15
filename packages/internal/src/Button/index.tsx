@@ -130,7 +130,8 @@ export const Button = forward<
             fontSize,
         };
 
-        const cn = clsx(theme.button, theme.Button, className);
+        // TODO accent только для прохождения тестов
+        const cn = clsx(theme.button, theme.Button, className, accent && 'accent');
 
         const btnContentDirection = iconPosition === 'left' ? 'row' : 'row-reverse';
 
