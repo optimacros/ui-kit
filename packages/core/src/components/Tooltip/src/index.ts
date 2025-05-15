@@ -1,3 +1,3 @@
 import './index.css';
 
-export * as Tooltip from './Tooltip';
+export * as Tooltip from './exports';
