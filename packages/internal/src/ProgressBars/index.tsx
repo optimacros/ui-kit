@@ -28,15 +28,15 @@ export const ProgressBarsComponent = forward<ProgressBarsProps, 'div'>(({ state 
     const progressBar = progressBars.find((_, index) => index === currentIndex);
     const { currentValue, maxValue } = progressBar;
 
+    const percentValue = Math.floor((currentValue * 100) / maxValue);
+
     return (
         <styled.div ref={ref} data-tag="internal" data-scope="progress-bars" data-part="root">
             {progressBar && (
                 <styled.div data-scope="progress-bars" data-part="container">
-                    <Loader.Root value={currentValue === 0 ? null : currentValue}>
+                    <Loader.Root value={currentValue === 0 ? null : currentValue} max={maxValue}>
                         <Loader.Label as="span">
-                            {currentValue} / {maxValue} (
-                            {Math.floor((currentValue * 100) / maxValue)}
-                            %)
+                            {currentValue} / {maxValue} ({percentValue}%)
                         </Loader.Label>
                         <Loader.LinearTrack>
                             <Loader.LinearRange />
