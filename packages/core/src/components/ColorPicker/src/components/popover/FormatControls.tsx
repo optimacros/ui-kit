@@ -1,6 +1,13 @@
 import { forward, styled } from '@optimacros-ui/store';
 import { useApi } from '../../exports';
 import { Flex } from '@optimacros-ui/flex';
+import { FC, PropsWithChildren } from 'react';
+
+export const ChannelInputContainer: FC<PropsWithChildren> = ({ children, ...rest }) => (
+    <Flex direction="column" gap={2} justify="center" align="center" {...rest}>
+        {children}
+    </Flex>
+);
 
 export const HSL = forward<{}, 'div'>(
     (props, ref) => {
@@ -8,31 +15,31 @@ export const HSL = forward<{}, 'div'>(
 
         return (
             <Flex {...props} ref={ref}>
-                <styled.div>
+                <ChannelInputContainer>
                     <styled.input {...api.getChannelInputProps({ channel: 'hue' })} />
                     <span>H</span>
-                </styled.div>
-                <styled.div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <styled.input
                         {...api.getChannelInputProps({
                             channel: 'saturation',
                         })}
                     />
                     <span>S</span>
-                </styled.div>
-                <styled.div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <styled.input
                         {...api.getChannelInputProps({
                             channel: 'lightness',
                         })}
                     />
                     <span>L</span>
-                </styled.div>
+                </ChannelInputContainer>
                 {!api.disableAlpha && (
-                    <styled.div>
+                    <ChannelInputContainer>
                         <styled.input {...api.getChannelInputProps({ channel: 'alpha' })} />
                         <span>A</span>
-                    </styled.div>
+                    </ChannelInputContainer>
                 )}
             </Flex>
         );
@@ -46,23 +53,23 @@ export const RGB = forward<{}, 'div'>(
 
         return (
             <Flex {...props} ref={ref}>
-                <div>
+                <ChannelInputContainer>
                     <input {...api.getChannelInputProps({ channel: 'red' })} />
                     <span>R</span>
-                </div>
-                <div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <input {...api.getChannelInputProps({ channel: 'green' })} />
                     <span>G</span>
-                </div>
-                <div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <input {...api.getChannelInputProps({ channel: 'blue' })} />
                     <span>B</span>
-                </div>
+                </ChannelInputContainer>
                 {!api.disableAlpha && (
-                    <div>
+                    <ChannelInputContainer>
                         <input {...api.getChannelInputProps({ channel: 'alpha' })} />
                         <span>A</span>
-                    </div>
+                    </ChannelInputContainer>
                 )}
             </Flex>
         );
@@ -76,31 +83,31 @@ export const HSB = forward<{}, 'div'>(
 
         return (
             <Flex {...props} ref={ref}>
-                <div>
+                <ChannelInputContainer>
                     <input {...api.getChannelInputProps({ channel: 'hue' })} />
                     <span>H</span>
-                </div>
-                <div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <input
                         {...api.getChannelInputProps({
                             channel: 'saturation',
                         })}
                     />
                     <span>S</span>
-                </div>
-                <div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <input
                         {...api.getChannelInputProps({
                             channel: 'brightness',
                         })}
                     />
                     <span>B</span>
-                </div>
+                </ChannelInputContainer>
                 {!api.disableAlpha && (
-                    <div>
+                    <ChannelInputContainer>
                         <input {...api.getChannelInputProps({ channel: 'alpha' })} />
                         <span>A</span>
-                    </div>
+                    </ChannelInputContainer>
                 )}
             </Flex>
         );
@@ -114,31 +121,31 @@ export const HEX = forward<{}, 'div'>(
 
         return (
             <Flex {...props} ref={ref}>
-                <div>
+                <ChannelInputContainer>
                     <input {...api.getChannelInputProps({ channel: 'hue' })} />
                     <span>H</span>
-                </div>
-                <div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <input
                         {...api.getChannelInputProps({
                             channel: 'saturation',
                         })}
                     />
                     <span>S</span>
-                </div>
-                <div>
+                </ChannelInputContainer>
+                <ChannelInputContainer>
                     <input
                         {...api.getChannelInputProps({
                             channel: 'brightness',
                         })}
                     />
                     <span>B</span>
-                </div>
+                </ChannelInputContainer>
                 {!api.disableAlpha && (
-                    <div>
+                    <ChannelInputContainer>
                         <input {...api.getChannelInputProps({ channel: 'alpha' })} />
                         <span>A</span>
-                    </div>
+                    </ChannelInputContainer>
                 )}
             </Flex>
         );

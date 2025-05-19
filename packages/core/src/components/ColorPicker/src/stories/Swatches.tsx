@@ -10,12 +10,10 @@ export const Swatches = (props) => {
     const [finalValue, setFinalValue] = useState('#005599');
 
     const handleValueChange = ({ value }: ValueChangeDetails) => {
-        console.info(value);
         setCurrentValue(value.toString('hex'));
     };
 
     const handleValueChangeEnd = ({ value }: ValueChangeDetails) => {
-        console.info(value);
         setFinalValue(value.toString('hex'));
     };
 
