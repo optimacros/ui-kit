@@ -46,7 +46,13 @@ export const Popover = memo<PopoverProps>(
             handleCancel();
         };
 
-        const SettingsBtn = <IconButton onClick={handleSettingsOk} icon="settings" />;
+        const SettingsBtn = (
+            <IconButton
+                onClick={handleSettingsOk}
+                icon="settings"
+                data-label={colorSettingsLabel}
+            />
+        );
 
         const Toolbar = (
             <Flex gap={3}>
