@@ -8,7 +8,7 @@ import { clsx, omit } from '@optimacros-ui/utils';
 
 import './styles.css';
 
-const unwantedProps = ['toolbarRef'];
+const unwantedProps = ['toolbarRef', 'tab', 'view'];
 
 export type ThemeButtonProps = {
     button: string;
