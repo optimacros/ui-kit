@@ -65,7 +65,7 @@ export const Popover = memo<PopoverProps>(
             </Flex>
         );
 
-        const isColorsPanel = presetColors || recentColors;
+        const isColorsPanel = !!presetColors?.length || !!recentColors?.length;
 
         return (
             <UIColorPicker.PopoverPortal className={className} portalled>
@@ -79,22 +79,22 @@ export const Popover = memo<PopoverProps>(
 
                 {isColorsPanel && (
                     <Flex direction="column" gap={3}>
-                        {presetColors && (
+                        {!!presetColors?.length && (
                             <>
                                 <Divider
                                     orientation={Orientation.Horizontal}
                                     style={{ width: '100%' }}
                                 />
-                                <ColorPicker.Swatches presets={presetColors} />
+                                <ColorPicker.Swatches presets={presetColors} data-name="preset" />
                             </>
                         )}
-                        {recentColors && (
+                        {!!recentColors?.length && (
                             <>
                                 <Divider
                                     orientation={Orientation.Horizontal}
                                     style={{ width: '100%' }}
                                 />
-                                <ColorPicker.Swatches presets={recentColors} />
+                                <ColorPicker.Swatches presets={recentColors} data-name="recent" />
                             </>
                         )}
                     </Flex>
