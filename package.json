@@ -38,7 +38,7 @@
     "react-resizable": "1.7.5",
     "react-transition-group": "4.0.1",
     "tinycolor2": "1.6.0",
-    "ui-kit-core": "github:optimacros/ui-kit-core#1.1.1"
+    "ui-kit-core": "github:optimacros/ui-kit-core#FW-2019-v9.300"
   },
   "devDependencies": {
     "@storybook/addon-actions": "8.0.9",
