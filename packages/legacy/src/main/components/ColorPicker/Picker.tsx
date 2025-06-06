@@ -7,6 +7,7 @@ import { Toolbar, Button, IconButton } from 'ui-kit-core';
 import CustomPicker from './CustomPicker';
 
 import style from './Color.module.css';
+import tinycolor from 'tinycolor2';
 
 interface Props {
     color: string | object;
@@ -33,7 +34,7 @@ export default class Picker extends React.Component<Props> {
         colorSettingsLabel: 'Color Settings',
         recentColorsLabel: 'Recent colors',
         showSettings: false,
-        color: '#000000',
+        color: '#00000000',
     };
 
     state = {
@@ -104,21 +105,12 @@ export default class Picker extends React.Component<Props> {
     _onSelectColor = (color) => {
         this.setState({
             color,
-            background: color.hex,
+            background: tinycolor(color.rgb).toHex8(),
         });
     };
 
     _onChangeColor = () => {
         const hasColor = !_.isEmpty(this.state.color);
-        const isValidColor = this._isValidColor(this.state.background);
-
-        if (!isValidColor) {
-            if (this.props.onShowError) {
-                this.props.onShowError();
-            }
-
-            return;
-        }
 
         if (this.props.onChange && hasColor && isValidColor) {
             this.props.onChange(this.state.color);
@@ -132,11 +124,4 @@ export default class Picker extends React.Component<Props> {
             this.props.onCloseMenu();
         }
     };
-
-    _isValidColor(color) {
-        const regExp = /^#[0-9A-F]{6}$/i;
-        const stringValue = _.toString(color);
-
-        return regExp.test(stringValue);
-    }
 }

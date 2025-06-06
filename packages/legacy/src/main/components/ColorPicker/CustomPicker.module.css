@@ -85,7 +85,7 @@
 
 .rgbContainer {
   display: grid;
-  grid-template-columns: repeat(3, 30px);
+  grid-template-columns: repeat(4, 30px);
   gap: 4px;
 }
 
