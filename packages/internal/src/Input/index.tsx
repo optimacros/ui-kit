@@ -88,6 +88,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
             onKeyDown,
             className,
             onChange,
+            onFocus,
             id,
             readOnly = false,
             autoFocus,
@@ -159,6 +160,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         defaultValue={defaultValue}
                         autoFocus={autoFocus}
                         onChange={onChange}
+                        onFocus={onFocus}
                         name={name}
                         className={theme.inputElement}
                         onKeyDown={onKeyDown}
@@ -176,6 +178,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         value={fieldValue}
                         defaultValue={defaultValue}
                         onChange={(e) => onChange?.(e.target.value, e)}
+                        onFocus={onFocus}
                         className={theme.inputElement}
                         ref={ref}
                         onKeyDown={onKeyDown}

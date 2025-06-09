@@ -1,5 +1,5 @@
 import { ChangeEvent, memo, useMemo } from 'react';
-import { ColorPicker as UIColorPicker } from '@optimacros-ui/color-picker';
+import { ColorPicker, ColorPicker as UIColorPicker } from '@optimacros-ui/color-picker';
 import { Flex } from '@optimacros-ui/flex';
 import { styled } from '@optimacros-ui/store';
 
@@ -47,18 +47,18 @@ export const RGBInput = memo(() => {
 
     return (
         <Flex gap="1">
-            <div>
+            <ColorPicker.ChannelInputContainer>
                 <styled.input {...redInputProps} />
                 <span>R</span>
-            </div>
-            <div>
+            </ColorPicker.ChannelInputContainer>
+            <ColorPicker.ChannelInputContainer>
                 <styled.input {...greenInputProps} />
                 <span>G</span>
-            </div>
-            <div>
+            </ColorPicker.ChannelInputContainer>
+            <ColorPicker.ChannelInputContainer>
                 <styled.input {...blueInputProps} />
                 <span>B</span>
-            </div>
+            </ColorPicker.ChannelInputContainer>
         </Flex>
     );
 });

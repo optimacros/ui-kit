@@ -1,26 +1,7 @@
 import { ComponentProps, ReactNode, MouseEvent } from 'react';
-import * as tooltip from '@zag-js/tooltip';
-import { createMachineContext, forward, styled, Zag } from '@optimacros-ui/store';
+import { forward, styled } from '@optimacros-ui/store';
 import { Portal } from '@zag-js/react';
-
-export type Schema = Zag.ModuleSchema<typeof tooltip>;
-
-export const {
-    useApi,
-    Api,
-    RootProvider: Root,
-    splitProps,
-    useProxySelector,
-    useSelector,
-    State,
-    select,
-    slice,
-    useFeatureFlags,
-    useState,
-} = createMachineContext<Schema, tooltip.Api>({
-    id: 'Tooltip',
-    machine: tooltip,
-});
+import { Root, useApi } from './state';
 
 export type RootProps = ComponentProps<typeof Root>;
 
