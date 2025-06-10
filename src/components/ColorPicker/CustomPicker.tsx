@@ -2,11 +2,7 @@
 import _ from 'lodash'
 import React from 'react'
 import { CustomPicker } from 'react-color'
-import {
-    Saturation,
-    EditableInput,
-    Hue,
-} from 'react-color/lib/components/common'
+import { Saturation, EditableInput, Hue, Alpha } from 'react-color/lib/components/common'
 import tinyColor from 'tinycolor2'
 
 import style from './CustomPicker.module.css'
@@ -15,7 +11,7 @@ const inputStyles = {
     hex: {
         input: {
             textAlign: 'center',
-            width: '60px',
+            width: '70px',
             border: 'none',
             boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
             padding: '4px',
@@ -48,19 +44,21 @@ export const toState = (data, oldHue: number): State => {
     const hsv = color.toHsv()
     const rgb = color.toRgb()
     const hex = color.toHex()
+    const hex8 = color.toHex8()
 
     if (hsl.s === 0) {
         hsl.h = oldHue || 0
         hsv.h = oldHue || 0
     }
 
-    const transparent = hex === '000000' && rgb.a === 0
+    const transparent = hex8 === '00000000'
 
     return {
         hsl,
-        hex: transparent
+        hex: `#${hex}`,
+        hex8: transparent
             ? 'transparent'
-            : `#${hex}`,
+            : `#${hex8}`,
         rgb,
         hsv,
         oldHue: data.h || oldHue || hsl.h,
@@ -68,11 +66,11 @@ export const toState = (data, oldHue: number): State => {
     }
 }
 
-type HexColor = string
+type HexColor = string;
 
 interface Props {
     color: string;
-    onChange: (color: HexColor) => void;
+    onChange: (color: RgbColor) => void;
     presetColors?: string[];
     recentColors?: string[];
 }
@@ -82,9 +80,9 @@ enum ColorsBlock {
     recent = 'recent',
 }
 
-type RgbName = 'r' | 'g' | 'b'
+type RgbName = 'r' | 'g' | 'b';
 
-type RgbColor = Record<RgbName, number>
+type RgbColor = Record<RgbName, number>;
 
 interface State {
     hex: HexColor | 'transparent';
@@ -128,9 +126,22 @@ class CustomColorPicker extends React.Component<Props, State> {
                         />
                     </div>
 
-                    <div
-                        className={style.previewSwatch}
+                    <div className={style.previewSwatch}
                         style={{ background: this.state.hex }}
+                    />
+
+                    <div className={style.hue}>
+                        <Alpha
+                            hsl={this.state.hsl}
+                            rgb={this.state.rgb}
+                            pointer={CustomSlider}
+                            onChange={this.onChangeColor}
+                            direction="horizontal"
+                        />
+                    </div>
+
+                    <div className={style.previewSwatch}
+                        style={{ background: this.state.hex8 }}
                     />
                 </div>
 
@@ -151,14 +162,14 @@ class CustomColorPicker extends React.Component<Props, State> {
                 {this.renderRgbInput('r')}
                 {this.renderRgbInput('g')}
                 {this.renderRgbInput('b')}
+                {this.renderRgbInput('a')}
             </div>
         )
     }
 
     renderRgbInput(element: RgbName) {
         return (
-            <div
-                className={style.inputContainer}
+            <div className={style.inputContainer}
                 data-name={element}
             >
                 <EditableInput
@@ -167,28 +178,23 @@ class CustomColorPicker extends React.Component<Props, State> {
                     style={inputStyles.rgb}
                 />
 
-                <div className={style.caption}>
-                    {_.toUpper(element)}
-                </div>
+                <div className={style.caption}>{_.toUpper(element)}</div>
             </div>
         )
     }
 
     renderHexInput() {
         return (
-            <div
-                className={style.inputContainer}
+            <div className={style.inputContainer}
                 data-name="hex"
             >
                 <EditableInput
                     style={inputStyles.hex}
-                    value={_.replace(this.state.hex, '#', '')}
+                    value={this.state.hex8}
                     onChange={this.props.onChange}
                 />
 
-                <div className={style.caption}>
-                    Hex
-                </div>
+                <div className={style.caption}>Hex</div>
             </div>
         )
     }
@@ -214,8 +220,7 @@ class CustomColorPicker extends React.Component<Props, State> {
             <div>
                 <div className={style.divider} />
 
-                <div
-                    className={style.swatches}
+                <div className={style.swatches}
                     data-name={colorBlock}
                 >
                     {colors.map((color, index) => (
@@ -236,7 +241,7 @@ class CustomColorPicker extends React.Component<Props, State> {
         const colors = toState(data, data.h || this.state.oldHue)
 
         this.setState(colors)
-        this.props.onChange(colors.hex)
+        this.props.onChange(colors.rgb)
     }
 
     handleInputChange(value: string, key: RgbName) {
@@ -248,9 +253,9 @@ class CustomColorPicker extends React.Component<Props, State> {
         const color = toState(newColor, this.state.oldHue)
 
         this.setState(color)
-        this.props.onChange(color.hex)
+        this.props.onChange(color.rgb)
     }
 }
 /* eslint-disable */
-export default CustomPicker(CustomColorPicker)
+export default CustomPicker(CustomColorPicker);
 /* eslint-enable */
