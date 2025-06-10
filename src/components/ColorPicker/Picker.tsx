@@ -38,7 +38,6 @@ export default class Picker extends React.Component<Props> {
     }
 
     state = {
-        background: this.props.color,
         color: {
             hex: this.props.color,
         },
@@ -52,7 +51,7 @@ export default class Picker extends React.Component<Props> {
                 <div className={style.colorPicker}>
                     <CustomPicker
                         width="200px"
-                        color={this.state.background}
+                        color={this.state.color}
                         onChange={this._onSelectColor}
                         disableAlpha={this.props.disableAlpha}
                         presetColors={this.props.presetColors}
@@ -107,9 +106,10 @@ export default class Picker extends React.Component<Props> {
     }
 
     _onSelectColor = (color) => {
+        const hex = `#${tinycolor(color.rgb).toHex8()}`
+
         this.setState({
-            color,
-            background: tinycolor(color.rgb).toHex8(),
+            color: { ...color, hex },
         })
     }
 

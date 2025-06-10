@@ -11,7 +11,7 @@ const inputStyles = {
     hex: {
         input: {
             textAlign: 'center',
-            width: '70px',
+            width: '80px',
             border: 'none',
             boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
             padding: '4px',
@@ -162,7 +162,6 @@ class CustomColorPicker extends React.Component<Props, State> {
                 {this.renderRgbInput('r')}
                 {this.renderRgbInput('g')}
                 {this.renderRgbInput('b')}
-                {this.renderRgbInput('a')}
             </div>
         )
     }
@@ -238,10 +237,10 @@ class CustomColorPicker extends React.Component<Props, State> {
     }
 
     onChangeColor = (data) => {
-        const colors = toState(data, data.h || this.state.oldHue)
+        const color = toState(data, data.h || this.state.oldHue)
 
-        this.setState(colors)
-        this.props.onChange(colors.rgb)
+        this.setState(color)
+        this.props.onChange(color.rgb)
     }
 
     handleInputChange(value: string, key: RgbName) {
