@@ -106,10 +106,12 @@ export default class Picker extends React.Component<Props> {
     }
 
     _onSelectColor = (color) => {
-        const hex = `#${tinycolor(color.rgb).toHex8()}`
+        const fullColor = tinycolor(color.rgb)
+        /* eslint-disable-next-line multiline-ternary */
+        const hex = this.props.disableAlpha ? fullColor.toHex() : fullColor.toHex8()
 
         this.setState({
-            color: { ...color, hex },
+            color: { ...color, hex: `#${hex}` },
         })
     }
 

@@ -1,4 +1,5 @@
 // @ts-nocheck
+/* eslint-disable multiline-ternary */
 import _ from 'lodash'
 import React from 'react'
 import { CustomPicker } from 'react-color'
@@ -51,14 +52,13 @@ export const toState = (data, oldHue: number): State => {
         hsv.h = oldHue || 0
     }
 
-    const transparent = hex8 === '00000000'
+    const correctHex = hex === '000000' && rgb.a === 0 ? 'transparent' : `#${hex}`
+    const correctHex8 = hex8 === '00000000' ? 'transparent' : `#${hex8}`
 
     return {
         hsl,
-        hex: `#${hex}`,
-        hex8: transparent
-            ? 'transparent'
-            : `#${hex8}`,
+        hex: correctHex,
+        hex8: correctHex8,
         rgb,
         hsv,
         oldHue: data.h || oldHue || hsl.h,
@@ -73,6 +73,7 @@ interface Props {
     onChange: (color: RgbColor) => void;
     presetColors?: string[];
     recentColors?: string[];
+    disableAlpha?: boolean;
 }
 
 enum ColorsBlock {
@@ -105,8 +106,10 @@ class CustomColorPicker extends React.Component<Props, State> {
     }
 
     render() {
+        const maxHeight = this.props.disableAlpha ? 320 : 340
+
         return (
-            <div className={style.container}>
+            <div className={style.container} style={{ maxHeight }}>
                 <div className={style.saturation}>
                     <Saturation
                         hsl={this.state.hsl}
@@ -130,19 +133,7 @@ class CustomColorPicker extends React.Component<Props, State> {
                         style={{ background: this.state.hex }}
                     />
 
-                    <div className={style.hue}>
-                        <Alpha
-                            hsl={this.state.hsl}
-                            rgb={this.state.rgb}
-                            pointer={CustomSlider}
-                            onChange={this.onChangeColor}
-                            direction="horizontal"
-                        />
-                    </div>
-
-                    <div className={style.previewSwatch}
-                        style={{ background: this.state.hex8 }}
-                    />
+                    {this.renderAlpha()}
                 </div>
 
                 <div className={style.customInputs}>
@@ -166,6 +157,30 @@ class CustomColorPicker extends React.Component<Props, State> {
         )
     }
 
+    renderAlpha() {
+        if (this.props.disableAlpha) {
+            return
+        }
+
+        return (
+            <React.Fragment>
+                <div className={style.hue}>
+                    <Alpha
+                        hsl={this.state.hsl}
+                        rgb={this.state.rgb}
+                        pointer={CustomSlider}
+                        onChange={this.onChangeColor}
+                        direction="horizontal"
+                    />
+                </div>
+
+                <div className={style.previewSwatch}
+                    style={{ background: this.state.hex8 }}
+                />
+            </React.Fragment>
+        )
+    }
+
     renderRgbInput(element: RgbName) {
         return (
             <div className={style.inputContainer}
@@ -183,13 +198,15 @@ class CustomColorPicker extends React.Component<Props, State> {
     }
 
     renderHexInput() {
+        const value = this.props.disableAlpha ? this.state.hex : this.state.hex8
+        
         return (
             <div className={style.inputContainer}
                 data-name="hex"
             >
                 <EditableInput
                     style={inputStyles.hex}
-                    value={this.state.hex8}
+                    value={value}
                     onChange={this.props.onChange}
                 />
 
