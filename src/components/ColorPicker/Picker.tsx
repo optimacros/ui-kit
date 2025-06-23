@@ -5,7 +5,7 @@ import React from 'react'
 import tinycolor from 'tinycolor2'
 import { Toolbar, Button, IconButton } from 'ui-kit-core'
 
-import CustomPicker from './CustomPicker'
+import CustomPicker, { ColorState } from './CustomPicker'
 
 import style from './Color.module.css'
 
@@ -27,20 +27,18 @@ interface Props {
     innerRef?: any;
 }
 
-export default class Picker extends React.Component<Props> {
+export default class Picker extends React.Component<Props, ColorState> {
     static defaultProps = {
         cancelLabel: 'Cancel',
         applyLabel: 'Ok',
         colorSettingsLabel: 'Color Settings',
         recentColorsLabel: 'Recent colors',
         showSettings: false,
-        color: '#00000000',
+        color: '#000000',
     }
 
     state = {
-        color: {
-            hex: this.props.color,
-        },
+        hex: this.props.color,
     }
 
     render() {
@@ -51,7 +49,7 @@ export default class Picker extends React.Component<Props> {
                 <div className={style.colorPicker}>
                     <CustomPicker
                         width="200px"
-                        color={this.state.color}
+                        color={this.state}
                         onChange={this._onSelectColor}
                         disableAlpha={this.props.disableAlpha}
                         presetColors={this.props.presetColors}
@@ -59,7 +57,8 @@ export default class Picker extends React.Component<Props> {
                         recentColorsLabel={this.props.recentColorsLabel}
                     />
 
-                    <Toolbar align="left"
+                    <Toolbar 
+                        align="left"
                         className={style.toolbar}
                     >
                         {this.props.showSettings && (
@@ -107,27 +106,42 @@ export default class Picker extends React.Component<Props> {
 
     _onSelectColor = (color) => {
         const fullColor = tinycolor(color.rgb)
-        /* eslint-disable-next-line multiline-ternary */
-        const hex = this.props.disableAlpha ? fullColor.toHex() : fullColor.toHex8()
+        const hex = this.props.disableAlpha 
+            ? fullColor.toHex() 
+            : fullColor.toHex8()
 
-        this.setState({
-            color: { ...color, hex: `#${hex}` },
-        })
+        this.setState({ ...color, hex: `#${hex}` })
     }
 
     _onChangeColor = () => {
-        const hasColor = !_.isEmpty(this.state.color)
+        const hasColor = !_.isEmpty(this.state)
+        const isValidColor = this._isValidColor(this.state.hex)
 
-        if (this.props.onChange && hasColor) {
-            this.props.onChange(this.state.color)
+        if (!isValidColor) {
+            if (this.props.onShowError) {
+                this.props.onShowError()
+            }
+
+            return
+        }
+
+        if (this.props.onChange && hasColor && isValidColor) {
+            this.props.onChange(this.state)
 
             if (this.props.saveColor) {
-                this.props.saveColor(this.state.color.hex as string)
+                this.props.saveColor(this.state.hex)
             }
         }
 
         if (this.props.onCloseMenu) {
             this.props.onCloseMenu()
         }
+    }
+
+    _isValidColor(color) {
+        const regExp = /^#[0-9A-F]{6,8}$/i
+        const stringValue = _.toString(color)
+
+        return regExp.test(stringValue)
     }
 }

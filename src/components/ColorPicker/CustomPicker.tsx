@@ -12,7 +12,7 @@ const inputStyles = {
     hex: {
         input: {
             textAlign: 'center',
-            width: '80px',
+            width: '70px',
             border: 'none',
             boxShadow: 'rgb(204, 204, 204) 0px 0px 0px 1px inset',
             padding: '4px',
@@ -37,7 +37,7 @@ const CustomPointer = () => {
     return <div className={style.pointer} />
 }
 
-export const toState = (data, oldHue: number): State => {
+export const toState = (data, oldHue: number): ColorState => {
     const color = data.hex
         ? tinyColor(data.hex)
         : tinyColor(data)
@@ -52,8 +52,8 @@ export const toState = (data, oldHue: number): State => {
         hsv.h = oldHue || 0
     }
 
-    const correctHex = hex === '000000' && rgb.a === 0 ? 'transparent' : `#${hex}`
-    const correctHex8 = hex8 === '00000000' ? 'transparent' : `#${hex8}`
+    const correctHex = hex === '000000' && rgb.a === 0 ? 'transparent' : hex
+    const correctHex8 = hex8 === '00000000' ? 'transparent' : hex8
 
     return {
         hsl,
@@ -85,8 +85,9 @@ type RgbName = 'r' | 'g' | 'b';
 
 type RgbColor = Record<RgbName, number>;
 
-interface State {
+export interface ColorState {
     hex: HexColor | 'transparent';
+    hex8: HexColor | 'transparent';
     rgb: RgbColor;
     hsl: any;
     hsv: any;
@@ -94,14 +95,14 @@ interface State {
     source: string;
 }
 
-class CustomColorPicker extends React.Component<Props, State> {
+class CustomColorPicker extends React.Component<Props, ColorState> {
     constructor(props: Props) {
         super(props)
 
         this.state = toState(props.color, 0)
     }
 
-    static getDerivedStateFromProps(props: Props, state: State) {
+    static getDerivedStateFromProps(props: Props, state: ColorState) {
         return toState(props.color, state.oldHue)
     }
 
@@ -130,7 +131,7 @@ class CustomColorPicker extends React.Component<Props, State> {
                     </div>
 
                     <div className={style.previewSwatch}
-                        style={{ background: this.state.hex }}
+                        style={{ background: `#${this.state.hex}` }}
                     />
 
                     {this.renderAlpha()}
@@ -175,7 +176,7 @@ class CustomColorPicker extends React.Component<Props, State> {
                 </div>
 
                 <div className={style.previewSwatch}
-                    style={{ background: this.state.hex8 }}
+                    style={{ background: `#${this.state.hex8}` }}
                 />
             </React.Fragment>
         )
