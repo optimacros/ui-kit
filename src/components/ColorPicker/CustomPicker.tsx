@@ -165,7 +165,7 @@ class CustomColorPicker extends React.Component<Props, ColorState> {
 
         return (
             <React.Fragment>
-                <div className={style.hue}>
+                <div className={style.alpha}>
                     <Alpha
                         hsl={this.state.hsl}
                         rgb={this.state.rgb}

@@ -32,7 +32,7 @@
     margin-bottom: 4px;
 }
 
-.hue {
+.hue, .alpha {
     min-height: 10px;
     position: relative;
     margin: 2px 0;
