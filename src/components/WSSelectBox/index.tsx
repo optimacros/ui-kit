@@ -1,6 +1,6 @@
 import { action } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useMemo } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 import { SelectBox as BaseSelectBox } from 'ui-kit-core'
 import type { InputTheme } from 'ui-kit-core/dist/components/Input'
 import type { SelectBoxProps as BaseSelectBoxProps } from 'ui-kit-core/dist/components/SelectBox'
@@ -16,7 +16,7 @@ export interface SelectBoxProps extends Omit<BaseSelectBoxProps, 'source'> {
     source?: { [key: string]: string | number }[];
 }
 
-export const WSSelectBox = observer((props: SelectBoxProps): React.JSX.Element => {
+export const WSSelectBox = observer(forwardRef(function WSSelectBox(props: SelectBoxProps, ref): React.JSX.Element {
     const { options, source, onChange, value, ...restProps } = props
 
     const theme = useMemo(
@@ -64,6 +64,8 @@ export const WSSelectBox = observer((props: SelectBoxProps): React.JSX.Element =
 
     return (
         <BaseSelectBox
+            // @ts-expect-error: BaseSelectBox is class component
+            ref={ref}
             {...restProps}
             source={correctSource}
             theme={theme}
@@ -71,4 +73,4 @@ export const WSSelectBox = observer((props: SelectBoxProps): React.JSX.Element =
             onChange={action(handleChange)}
         />
     )
-})
+}))
