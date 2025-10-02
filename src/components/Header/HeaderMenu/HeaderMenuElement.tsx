@@ -46,7 +46,7 @@ export class HeaderMenuElement extends React.Component<Props> {
             <li
                 ref={this._node}
                 className={className}
-                title={element.title}
+                title={element.tooltip || element.title}
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
             >
