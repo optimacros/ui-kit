@@ -1,9 +1,20 @@
+import { useCallback, useState } from 'react';
 import { Field } from '..';
 
+const debounceSettings = { onChange: 2000 };
+
 export const Debounce = (props: Field.Props) => {
-    const handleChange = () => {
+    const [value, setValue] = useState('');
+
+    const handleChange = useCallback(() => {
         alert('2s debounced onChange cb fired');
-    };
+
+        setValue('qwe');
+    }, []);
+
+    const handleKeyDown = useCallback(() => {
+        alert('onKeyDown is not debounced');
+    }, [value]);
 
     return (
         <div>
@@ -16,6 +27,7 @@ export const Debounce = (props: Field.Props) => {
                     data-testid="input"
                     debounce={2000}
                     onChange={handleChange}
+                    value={value}
                 />
                 <Field.FloatingHint data-testid="hint">hint do this</Field.FloatingHint>
             </Field.Root>
@@ -27,8 +39,10 @@ export const Debounce = (props: Field.Props) => {
                 <Field.Input
                     id="base"
                     data-testid="input"
-                    debounce={{ onChange: 2000 }}
+                    debounce={debounceSettings}
                     onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    value={value}
                 />
                 <Field.FloatingHint data-testid="hint">hint do this</Field.FloatingHint>
             </Field.Root>
