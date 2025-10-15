@@ -1,7 +1,6 @@
 import {
     ChangeEvent,
     ComponentProps,
-    HTMLAttributes,
     KeyboardEvent,
     useCallback,
     useImperativeHandle,
@@ -10,20 +9,10 @@ import {
 import { isNull } from '@optimacros-ui/utils';
 import { forward, styled } from '@optimacros-ui/store';
 import { useAutoResize } from './useAutoresize';
+import { generateCallbacksFromProps } from './state';
+import { RootProps, InputProps, MultilineProps, TextAreaProps } from './models';
 export * as PinInput from './PinInput';
 export * as NumberInput from './NumberInput';
-
-export interface InputProps
-    extends Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'onKeyPress'> {}
-
-export type FieldStatus = 'error' | 'readonly' | 'warning' | 'default';
-
-interface RootProps {
-    status?: FieldStatus;
-    collapsed?: boolean;
-    required?: boolean;
-    disabled?: boolean;
-}
 
 export type Props = ComponentProps<typeof Root>;
 
@@ -43,7 +32,9 @@ export const Root = forward<RootProps, 'div'>(
 );
 
 export const Input = forward<InputProps, 'input'>((props, ref) => {
-    return <styled.input {...props} data-scope="field" data-part="input" ref={ref} />;
+    const propsWithCallbacks = generateCallbacksFromProps(props);
+
+    return <styled.input {...propsWithCallbacks} data-scope="field" data-part="input" ref={ref} />;
 });
 
 /**
@@ -66,10 +57,12 @@ export const TriggerInput = forward<{ value?: string | number }, 'button'>(
     },
 );
 
-export const TextArea = forward<{}, 'textarea'>((props, ref) => {
+export const TextArea = forward<TextAreaProps, 'textarea'>((props, ref) => {
+    const propsWithCallbacks = generateCallbacksFromProps(props);
+
     return (
         <styled.textarea
-            {...props}
+            {...propsWithCallbacks}
             data-scope="field"
             data-part="input"
             data-tag="textarea"
@@ -78,77 +71,72 @@ export const TextArea = forward<{}, 'textarea'>((props, ref) => {
     );
 });
 
-export const Multiline = forward<
-    {
-        onChange?: (
-            value: string,
-            event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-        ) => void;
+export const Multiline = forward<MultilineProps, 'textarea'>(
+    ({ onChange, maxLength, rows, onKeyDown, onKeyPress, ...rest }, externalRef) => {
+        const internalRef = useRef<HTMLTextAreaElement>(null);
+
+        useImperativeHandle(externalRef, () => internalRef.current);
+
+        const handleChange = useCallback(
+            (event: ChangeEvent<HTMLTextAreaElement>): void => {
+                const target = event.target;
+                const valueFromEvent = target.value;
+
+                const haveToTrim = maxLength && target.value.length > maxLength;
+                const value = haveToTrim ? valueFromEvent.substring(0, maxLength) : valueFromEvent;
+
+                if (onChange) {
+                    onChange(value, event);
+                }
+            },
+            [maxLength, onChange, maxLength],
+        );
+
+        const handleKeyPress = useCallback(
+            (event: KeyboardEvent<HTMLTextAreaElement>): void => {
+                if (maxLength) {
+                    const target = event.target as HTMLInputElement;
+
+                    if (isNull(target.selectionEnd) || isNull(target.selectionStart)) {
+                        return;
+                    }
+
+                    const isReplacing = target.selectionEnd - target.selectionStart;
+
+                    if (!isReplacing && target.value.length === maxLength) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        return;
+                    }
+                }
+
+                if (onKeyPress) {
+                    onKeyPress(event);
+                }
+
+                if (onKeyDown) {
+                    onKeyDown(event);
+                }
+            },
+            [onKeyPress, onKeyDown, maxLength],
+        );
+
+        useAutoResize(internalRef.current, rows ?? 1);
+
+        // TODO use TextArea
+        return (
+            <styled.textarea
+                {...rest}
+                data-scope="field"
+                data-part="textarea"
+                ref={internalRef}
+                onChange={handleChange}
+                onKeyDown={handleKeyPress}
+            />
+        );
     },
-    'textarea'
->(({ onChange, maxLength, rows, onKeyDown, onKeyPress, ...rest }, externalRef) => {
-    const internalRef = useRef<HTMLTextAreaElement>(null);
-
-    useImperativeHandle(externalRef, () => internalRef.current);
-
-    const handleChange = useCallback(
-        (event: ChangeEvent<HTMLTextAreaElement>): void => {
-            const target = event.target;
-            const valueFromEvent = target.value;
-
-            const haveToTrim = maxLength && target.value.length > maxLength;
-            const value = haveToTrim ? valueFromEvent.substring(0, maxLength) : valueFromEvent;
-
-            if (onChange) {
-                onChange(value, event);
-            }
-        },
-        [maxLength, onChange, maxLength],
-    );
-
-    const handleKeyPress = useCallback(
-        (event: KeyboardEvent<HTMLTextAreaElement>): void => {
-            if (maxLength) {
-                const target = event.target as HTMLInputElement;
-
-                if (isNull(target.selectionEnd) || isNull(target.selectionStart)) {
-                    return;
-                }
-
-                const isReplacing = target.selectionEnd - target.selectionStart;
-
-                if (!isReplacing && target.value.length === maxLength) {
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    return;
-                }
-            }
-
-            if (onKeyPress) {
-                onKeyPress(event);
-            }
-
-            if (onKeyDown) {
-                onKeyDown(event);
-            }
-        },
-        [onKeyPress, onKeyDown, maxLength],
-    );
-
-    useAutoResize(internalRef.current, rows ?? 1);
-
-    return (
-        <styled.textarea
-            {...rest}
-            data-scope="field"
-            data-part="textarea"
-            ref={internalRef}
-            onChange={handleChange}
-            onKeyDown={handleKeyPress}
-        />
-    );
-});
+);
 
 export const Icon = forward<{ position?: string }, 'div'>((props, ref) => {
     return (
