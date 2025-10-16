@@ -63,6 +63,10 @@ export const Required: Story = {
     render: stories.Basic,
 };
 
+export const Debounce: Story = {
+    render: stories.Debounce,
+};
+
 export const Disabled: Story = {
     render: (props) => {
         return (

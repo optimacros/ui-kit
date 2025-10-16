@@ -1,3 +1,3 @@
 import './index.css';
 
-export * as Field from './Field';
+export * as Field from './exports';

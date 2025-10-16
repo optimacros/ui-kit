@@ -49,6 +49,7 @@ export interface InputProps
     className?: string;
     readonly?: boolean;
     id?: string;
+    debounce?: Field.DebounceSettings;
 }
 
 const getStatus = (error: boolean, readOnly: boolean, warning: boolean) => {
@@ -95,6 +96,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
             name: nameProp,
             placeholder,
             theme = {},
+            debounce,
             ...others
         },
         ref,
@@ -183,6 +185,7 @@ export const Input = forward<InputProps, HTMLInputElement>(
                         ref={ref}
                         onKeyDown={onKeyDown}
                         data-testid="input-input"
+                        debounce={debounce}
                     />
                 )}
                 {maxLength && (

@@ -73,6 +73,10 @@ const meta: Meta<typeof Input> = {
             control: 'boolean',
             description: 'Make input readonly',
         },
+        debounce: {
+            control: 'number',
+            description: 'Sets callback debounce',
+        },
     },
 };
 
@@ -149,6 +153,17 @@ export const Readonly: Story = {
 export const Placeholder: Story = {
     args: {
         placeholder: 'Placeholder',
+    },
+};
+
+export const Debounce: Story = {
+    args: {
+        label: 'With 2s debounce',
+        placeholder: 'Enter text...',
+        debounce: 2000,
+        onChange: () => {
+            alert('onchange fired');
+        },
     },
 };
 
