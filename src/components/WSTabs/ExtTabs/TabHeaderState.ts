@@ -15,9 +15,9 @@ export class TabHeaderState {
 
     @observable countScrollableTabs = 0
 
-    @observable.ref tabsScrollerNode = null
+    @observable.ref tabsScrollerNode: HTMLDivElement = null
 
-    @observable.shallow scrollableTabsNodes = []
+    @observable.ref scrollableTabsNodes: HTMLDivElement[] = []
 
     @observable activeTab = 0
 
@@ -81,12 +81,16 @@ export class TabHeaderState {
         this._scrollLeft = this.tabsScrollerNode.scrollLeft
     }
 
-    @action setTabsScrollerNode(node) {
+    @action setTabsScrollerNode(node: HTMLDivElement) {
         this.tabsScrollerNode = node
     }
 
-    @action setScrollableTabsNodes(nodes) {
-        this.scrollableTabsNodes = nodes
+    @action setScrollableTabsNodes = () => {
+        if (!this.tabsScrollerNode?.childElementCount) {
+            this.scrollableTabsNodes = []
+        } else {
+            this.scrollableTabsNodes = [...this.tabsScrollerNode.children]
+        }
     }
 
     @action scrollToActiveTab() {
@@ -117,9 +121,9 @@ export class TabHeaderState {
 
         return _.reduce(
             this.scrollableTabsNodes,
-            (result, { current }, index) => {
-                if (current && this.scrollableTabsChildren[index]) {
-                    const { width: tabWidth } = current.getBoundingClientRect()
+            (result, node, index) => {
+                if (node && this.scrollableTabsChildren[index]) {
+                    const { width: tabWidth } = node.getBoundingClientRect()
                     const position = index + this.countFixedTabs
                     const {
                         [index]: { props: childrenTabProps },
@@ -172,10 +176,6 @@ export class TabHeaderState {
     }
 
     @computed get _scrollableTabsWidth() {
-        return _.map(this.scrollableTabsNodes, ({ current }) => {
-            return current
-                ? _.round(current.getBoundingClientRect().width)
-                : 0
-        })
+        return _.map(this.scrollableTabsNodes, (node) => _.round(node.getBoundingClientRect().width))
     }
 }

@@ -53,14 +53,11 @@ export class WSTabHeader extends Component<Props> {
         super(props)
 
         this._state = new TabHeaderState()
-        this._scrollableTabsNodes = []
         this._dragTarget = null
         this._space = 10
     }
 
     _state: TabHeaderState
-
-    _scrollableTabsNodes: React.ReactNode
 
     _dragTarget: HTMLElement | null
 
@@ -73,7 +70,7 @@ export class WSTabHeader extends Component<Props> {
         // setTimeout для получения верных значений getBoundingClientRect
         // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
         setTimeout(() => {
-            this._state.setScrollableTabsNodes(this._scrollableTabsNodes)
+            this._state.setScrollableTabsNodes()
             this._state.scrollToActiveTab()
         }, 100)
 
@@ -97,7 +94,7 @@ export class WSTabHeader extends Component<Props> {
             // setTimeout для получения верных значений getBoundingClientRect
             // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
             setTimeout(() => {
-                this._state.setScrollableTabsNodes(this._scrollableTabsNodes)
+                this._state.setScrollableTabsNodes()
                 this._state.scrollToActiveTab()
             }, 100)
         }
@@ -223,12 +220,6 @@ export class WSTabHeader extends Component<Props> {
                     : event => this._onHeaderContextMenu(event, tab),
             }
 
-            if (isScrollableTabs) {
-                this._scrollableTabsNodes[index] =
-                    this._scrollableTabsNodes[index] || React.createRef()
-                tabButtonInnerProps.ref = this._scrollableTabsNodes[index]
-            }
-
             return (
                 <div
                     key={index}
@@ -333,7 +324,7 @@ export class WSTabHeader extends Component<Props> {
         }
     }
 
-    _setTabsScrollerNode = node => {
+    _setTabsScrollerNode = (node: HTMLDivElement) => {
         this._state.setTabsScrollerNode(node)
     }
 
