@@ -7,9 +7,9 @@ export class TabHeaderState {
         makeObservable(this)
     }
 
-    @observable.shallow fixedTabsChildren = []
+    @observable.ref fixedTabsChildren = []
 
-    @observable.shallow scrollableTabsChildren = []
+    @observable.ref scrollableTabsChildren = []
 
     @observable countFixedTabs = 0
 
@@ -25,11 +25,20 @@ export class TabHeaderState {
 
     @observable _scrollLeft = 0
 
-    @action setActiveTab(index: number) {
+    // eslint-disable-next-line no-undef
+    private scrollTimer: NodeJS.Timeout = null
+
+    onUnmount = () => {
+        if (this.scrollTimer) {
+            clearTimeout(this.scrollTimer)
+        }
+    }
+
+    @action setActiveTab = (index: number) => {
         this.activeTab = index
     }
 
-    @action setTabsChildren(children = []) {
+    @action setTabsChildren = (children = []) => {
         const _fixedTabsChildren = []
         const _scrollableTabsChildren = []
 
@@ -49,13 +58,13 @@ export class TabHeaderState {
         this.countScrollableTabs = _.size(this.scrollableTabsChildren)
     }
 
-    @action scrollToTab(index: number, toRight = false) {
+    @action scrollToTab = (index: number, toRight = false) => {
         if (!this.tabsScrollerNode) {
             return
         }
 
         if (index >= 0) {
-            setTimeout(
+            this.scrollTimer = setTimeout(
                 action(() => {
                     this.tabsScrollerNode.scrollLeft = this._scrollableTabsOffsetsLeft[index]
 
@@ -77,11 +86,11 @@ export class TabHeaderState {
         }
     }
 
-    @action setScrollLeft() {
+    @action setScrollLeft = () => {
         this._scrollLeft = this.tabsScrollerNode.scrollLeft
     }
 
-    @action setTabsScrollerNode(node: HTMLDivElement) {
+    @action setTabsScrollerNode = (node: HTMLDivElement) => {
         this.tabsScrollerNode = node
     }
 
@@ -93,7 +102,7 @@ export class TabHeaderState {
         }
     }
 
-    @action scrollToActiveTab() {
+    @action scrollToActiveTab = () => {
         if (this.tabsScrollerNode) {
             const { width: tabsScrollerWidth } = this.tabsScrollerNode.getBoundingClientRect()
             const position = this.activeTab - this.countFixedTabs

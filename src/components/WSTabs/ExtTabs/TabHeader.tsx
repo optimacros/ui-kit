@@ -2,14 +2,12 @@
 import classNames from 'classnames'
 import _ from 'lodash'
 import { observer } from 'mobx-react'
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 
 import { TabHeaderState } from './TabHeaderState'
 import { KEY_CODES } from '../../../constants'
 import { mergeStyles } from '../../../utils'
-import { WSButtonMenu as ButtonMenu } from '../../WSButtonMenu'
 import { WSIcon as Icon } from '../../WSIcon'
-import { MenuItem } from '../../WSMenu'
 
 import styles from './TabHeader.module.css'
 
@@ -63,16 +61,13 @@ export class WSTabHeader extends Component<Props> {
 
     _space: number
 
+    private setNodesTimerRef = createRef<NodeJS.Timeout>()
+
     componentDidMount() {
         this._state.setActiveTab(this.props.active)
         this._state.setTabsChildren(this.props.children)
 
-        // setTimeout для получения верных значений getBoundingClientRect
-        // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
-        setTimeout(() => {
-            this._state.setScrollableTabsNodes()
-            this._state.scrollToActiveTab()
-        }, 100)
+        this.setNodes()
 
         if (this.props.draggable) {
             window.addEventListener('mousemove', this._onMouseMove)
@@ -85,18 +80,19 @@ export class WSTabHeader extends Component<Props> {
             window.removeEventListener('mousemove', this._onMouseMove)
             window.removeEventListener('mouseup', this._onMouseUp)
         }
+
+        if (this.setNodesTimerRef.current) {
+            clearTimeout(this.setNodesTimerRef.current)
+        }
+
+        this._state.onUnmount()
     }
 
     componentDidUpdate(prevProps: Props) {
         if (!_.isEqual(prevProps.children, this.props.children)) {
             this._state.setTabsChildren(this.props.children)
 
-            // setTimeout для получения верных значений getBoundingClientRect
-            // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
-            setTimeout(() => {
-                this._state.setScrollableTabsNodes()
-                this._state.scrollToActiveTab()
-            }, 100)
+            this.setNodes()
         }
 
         if (this.props.active != prevProps.active) {
@@ -110,6 +106,15 @@ export class WSTabHeader extends Component<Props> {
             this._dragTarget.offsetLeft =
                 tabsScrollerNode.children[this._dragTarget.index].offsetLeft
         }
+    }
+
+    private setNodes = () => {
+        // setTimeout для получения верных значений getBoundingClientRect
+        // т.к. componentDidMount() срабатывает чуть раньше, DOM елементы полностью отрисуются браузером
+        this.setNodesTimerRef.current = setTimeout(() => {
+            this._state.setScrollableTabsNodes()
+            this._state.scrollToActiveTab()
+        }, 100)
     }
 
     render() {
@@ -167,7 +172,7 @@ export class WSTabHeader extends Component<Props> {
                 return null
             }
 
-            const { dataName, disabled, nonDraggable, title, label } = tab.props
+            const { dataName, disabled, nonDraggable, title, label, className: classNameProp, counter, icon } = tab.props
 
             const isDisabled = disabled || false
 
@@ -185,7 +190,7 @@ export class WSTabHeader extends Component<Props> {
                     [theme.TabButton__draggable]: isDraggableTab,
                     [theme.TabButton__disabled]: isDisabled,
                 },
-                tab.props.className,
+                classNameProp,
             )
 
             styleContainer.zIndex = countScrollableTabs - index
@@ -196,7 +201,7 @@ export class WSTabHeader extends Component<Props> {
                 style.transform = `translateX(${this._dragTarget.moveX})`
             }
 
-            if (tab.props.nonDraggable) {
+            if (nonDraggable) {
                 style.transform = 'translateX(0)'
             }
 
@@ -210,14 +215,12 @@ export class WSTabHeader extends Component<Props> {
                 style: style,
                 onClick: isDisabled
                     ? null
-                    : this._switchTab.bind(this, position),
+                    : () => this._switchTab(position),
                 onMouseDown:
                     isDisabled || !isScrollableTabs
                         ? null
                         : event => this._onMouseDown(event, index),
-                onContextMenu: isDisabled
-                    ? null
-                    : event => this._onHeaderContextMenu(event, tab),
+                onContextMenu: this._getContextMenuHandler(tab)
             }
 
             return (
@@ -236,9 +239,12 @@ export class WSTabHeader extends Component<Props> {
                                 ? elementTitle
                                 : null}
                         >
-                            {this.renderIcon(tab)}
+                            {!!icon && <Icon
+                                className={styles.Icon}
+                                value={icon}
+                            />}
                             {elementTitle}
-                            {this.renderCounter(tab)}
+                            {!!counter && this.renderCounter(counter)}
                         </div>
                     </div>
                 </div>
@@ -246,25 +252,10 @@ export class WSTabHeader extends Component<Props> {
         })
     }
 
-    renderCounter(tab) {
+    renderCounter(counter) {
         const theme = mergeStyles(this.props.theme, styles)
 
-        if (!tab.props.counter) {
-            return null
-        }
-
-        return <span className={theme.TabButtonCounter}>{tab.props.counter}</span>
-    }
-
-    renderIcon = tab => {
-        if (tab.props.icon) {
-            return (
-                <Icon
-                    className={styles.Icon}
-                    value={tab.props.icon}
-                />
-            )
-        }
+        return <span className={theme.TabButtonCounter}>{counter}</span>
     }
 
     renderDropdown() {
@@ -328,7 +319,7 @@ export class WSTabHeader extends Component<Props> {
         this._state.setTabsScrollerNode(node)
     }
 
-    _switchTab(index) {
+    _switchTab = (index) => {
         if (this.props.active != index) {
             this.props.onTabSwitch(index)
         } else {
@@ -349,9 +340,11 @@ export class WSTabHeader extends Component<Props> {
         this._state.setScrollLeft()
     }
 
-    _onHeaderContextMenu = (event, tab) => {
-        if (tab.props.onHeaderContextMenu) {
-            tab.props.onHeaderContextMenu(event)
+    _getContextMenuHandler = (tab) => {
+        const { disabled, onHeaderContextMenu } = tab.props
+
+        if (!disabled && onHeaderContextMenu) {
+            return onHeaderContextMenu
         }
     }
 
@@ -421,7 +414,7 @@ export class WSTabHeader extends Component<Props> {
         }
     }
 
-    isDraggable(index) {
+    isDraggable = (index) => {
         return !this.props.children[index].props.nonDraggable
     }
 }
