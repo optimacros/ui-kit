@@ -43,7 +43,8 @@ export class WSTabContent extends Component<Props> {
 
             return (
                 <div
-                    key={`panel-${index}`}
+                    // @ts-ignore
+                    key={`panel-${panel?.props?.id || index}`}
                     className={theme.TabContent_Inner}
                 >
                     {panel}

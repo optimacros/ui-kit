@@ -172,7 +172,7 @@ export class WSTabHeader extends Component<Props> {
                 return null
             }
 
-            const { dataName, disabled, nonDraggable, title, label, className: classNameProp, counter, icon } = tab.props
+            const { dataName, disabled, nonDraggable, title, label, className: classNameProp, counter, icon, id } = tab.props
 
             const isDisabled = disabled || false
 
@@ -225,7 +225,7 @@ export class WSTabHeader extends Component<Props> {
 
             return (
                 <div
-                    key={index}
+                    key={id || index}
                     className={className}
                     data-name={dataName}
                     style={styleContainer}
