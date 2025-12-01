@@ -207,7 +207,7 @@ class SliderComponent extends Component<SliderProps, State> {
     }
 
     renderInput() {
-        const { Input, editable, theme, disabled, value } = this.props
+        const { Input, editable, theme, disabled, value, name } = this.props
 
         if (!editable || !Input) {
             return
@@ -218,6 +218,7 @@ class SliderComponent extends Component<SliderProps, State> {
                 innerRef={(node) => {
                     this.inputNode = node
                 }}
+                name={name}
                 className={theme.input}
                 disabled={disabled}
                 onFocus={this.handleInputFocus}
