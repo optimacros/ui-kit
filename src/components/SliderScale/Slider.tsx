@@ -215,9 +215,7 @@ class SliderComponent extends Component<SliderProps, State> {
 
         return (
             <Input
-                innerRef={(node) => {
-                    this.inputNode = node
-                }}
+                ref={this.inputNode}
                 name={name}
                 className={theme.input}
                 disabled={disabled}
