@@ -7,7 +7,9 @@ import React, { Component, createRef } from 'react'
 import { TabHeaderState } from './TabHeaderState'
 import { KEY_CODES } from '../../../constants'
 import { mergeStyles } from '../../../utils'
+import { WSButtonMenu as ButtonMenu } from '../../WSButtonMenu'
 import { WSIcon as Icon } from '../../WSIcon'
+import { MenuItem } from '../../WSMenu'
 
 import styles from './TabHeader.module.css'
 
