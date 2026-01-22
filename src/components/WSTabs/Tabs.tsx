@@ -23,7 +23,7 @@ export class WSTabs extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        this._setCorrectActiveTab(this.props, this.state)
+        this._setCorrectActiveTab()
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -32,17 +32,13 @@ export class WSTabs extends React.Component<Props, State> {
 
     static getDerivedStateFromProps(props: Props, state: State) {
         if (!_.isArray(props.children)) {
-            return false
+            return null
         }
 
         const children = _.compact(props.children)
         const currentTab = children[state.activeTab]
 
         if (!currentTab || currentTab.props.disabled) {
-            if (!_.isArray(props.children)) {
-                return null
-            }
-
             const activeTab = _.findIndex(
                 children,
                 child => child && !!child.props.disabled == false,
@@ -63,13 +59,9 @@ export class WSTabs extends React.Component<Props, State> {
                 onTabSwitch={this._onTabSwitch}
                 {...otherProps}
             >
-                {this.renderContent()}
+                {this.getTabs()}
             </ExtTabs>
         )
-    }
-
-    renderContent() {
-        return this.getTabs()
     }
 
     _onTabSwitch = (index: number) => {
@@ -77,7 +69,7 @@ export class WSTabs extends React.Component<Props, State> {
             this.props.onChange(index)
         }
 
-        this._setActiveTab(index)
+        this.setState({ activeTab: index })
     }
 
     _setTab(prevProps: Props) {
@@ -98,36 +90,38 @@ export class WSTabs extends React.Component<Props, State> {
         return _.compact(this.props.children)
     }
 
-    _setCorrectActiveTab(props, state) {
-        if (this._currentTabIsDisabled(props, state)) {
-            const activeTab = this._getFirstNonDisabledTab(props)
+    _setCorrectActiveTab() {
+        if (this._currentTabIsDisabled()) {
+            const activeTab = this._getFirstNonDisabledTab()
 
             this.setState({ activeTab })
         }
     }
 
-    _currentTabIsDisabled(props, state) {
-        if (!_.isArray(props.children)) {
+    _currentTabIsDisabled() {
+        const { children } = this.props
+
+        if (!_.isArray(children)) {
             return false
         }
 
-        const children = _.compact(props.children)
-        const currentTab = children[state.activeTab]
+        const { activeTab } = this.state
+
+        const validChildren = _.compact(children)
+        const currentTab = validChildren[activeTab]
 
         return !currentTab || currentTab.props.disabled
     }
 
-    _getFirstNonDisabledTab(props) {
-        if (!_.isArray(props.children)) {
+    _getFirstNonDisabledTab() {
+        const { children } = this.props
+
+        if (!_.isArray(children)) {
             return null
         }
 
-        const children = _.compact(props.children)
+        const validChildren = _.compact(children)
 
-        return _.findIndex(children, child => child && !!child.props.disabled == false)
-    }
-
-    _setActiveTab(activeTab: number) {
-        this.setState({ activeTab })
+        return _.findIndex(validChildren, child => !!child.props.disabled == false)
     }
 }

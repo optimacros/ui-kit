@@ -7,17 +7,17 @@ export class TabHeaderState {
         makeObservable(this)
     }
 
-    @observable.shallow fixedTabsChildren = []
+    @observable.ref fixedTabsChildren = []
 
-    @observable.shallow scrollableTabsChildren = []
+    @observable.ref scrollableTabsChildren = []
 
     @observable countFixedTabs = 0
 
     @observable countScrollableTabs = 0
 
-    @observable.ref tabsScrollerNode = null
+    @observable.ref tabsScrollerNode: HTMLDivElement = null
 
-    @observable.shallow scrollableTabsNodes = []
+    @observable.ref scrollableTabsNodes: HTMLDivElement[] = []
 
     @observable activeTab = 0
 
@@ -25,11 +25,20 @@ export class TabHeaderState {
 
     @observable _scrollLeft = 0
 
-    @action setActiveTab(index: number) {
+    // eslint-disable-next-line no-undef
+    private scrollTimer: NodeJS.Timeout = null
+
+    onUnmount = () => {
+        if (this.scrollTimer) {
+            clearTimeout(this.scrollTimer)
+        }
+    }
+
+    @action setActiveTab = (index: number) => {
         this.activeTab = index
     }
 
-    @action setTabsChildren(children = []) {
+    @action setTabsChildren = (children = []) => {
         const _fixedTabsChildren = []
         const _scrollableTabsChildren = []
 
@@ -49,13 +58,13 @@ export class TabHeaderState {
         this.countScrollableTabs = _.size(this.scrollableTabsChildren)
     }
 
-    @action scrollToTab(index: number, toRight = false) {
+    @action scrollToTab = (index: number, toRight = false) => {
         if (!this.tabsScrollerNode) {
             return
         }
 
         if (index >= 0) {
-            setTimeout(
+            this.scrollTimer = setTimeout(
                 action(() => {
                     this.tabsScrollerNode.scrollLeft = this._scrollableTabsOffsetsLeft[index]
 
@@ -77,19 +86,23 @@ export class TabHeaderState {
         }
     }
 
-    @action setScrollLeft() {
+    @action setScrollLeft = () => {
         this._scrollLeft = this.tabsScrollerNode.scrollLeft
     }
 
-    @action setTabsScrollerNode(node) {
+    @action setTabsScrollerNode = (node: HTMLDivElement) => {
         this.tabsScrollerNode = node
     }
 
-    @action setScrollableTabsNodes(nodes) {
-        this.scrollableTabsNodes = nodes
+    @action setScrollableTabsNodes = () => {
+        if (!this.tabsScrollerNode?.childElementCount) {
+            this.scrollableTabsNodes = []
+        } else {
+            this.scrollableTabsNodes = [...this.tabsScrollerNode.children]
+        }
     }
 
-    @action scrollToActiveTab() {
+    @action scrollToActiveTab = () => {
         if (this.tabsScrollerNode) {
             const { width: tabsScrollerWidth } = this.tabsScrollerNode.getBoundingClientRect()
             const position = this.activeTab - this.countFixedTabs
@@ -117,9 +130,9 @@ export class TabHeaderState {
 
         return _.reduce(
             this.scrollableTabsNodes,
-            (result, { current }, index) => {
-                if (current && this.scrollableTabsChildren[index]) {
-                    const { width: tabWidth } = current.getBoundingClientRect()
+            (result, node, index) => {
+                if (node && this.scrollableTabsChildren[index]) {
+                    const { width: tabWidth } = node.getBoundingClientRect()
                     const position = index + this.countFixedTabs
                     const {
                         [index]: { props: childrenTabProps },
@@ -172,10 +185,6 @@ export class TabHeaderState {
     }
 
     @computed get _scrollableTabsWidth() {
-        return _.map(this.scrollableTabsNodes, ({ current }) => {
-            return current
-                ? _.round(current.getBoundingClientRect().width)
-                : 0
-        })
+        return _.map(this.scrollableTabsNodes, (node) => _.round(node.getBoundingClientRect().width))
     }
 }
