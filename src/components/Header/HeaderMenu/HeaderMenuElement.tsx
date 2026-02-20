@@ -62,7 +62,7 @@ export class HeaderMenuElement extends React.Component<Props> {
     renderSubMenu() {
         const { element } = this.props
 
-        if (!this.state.showMenu || _.isEmpty(element.children)) {
+        if (!this.state.showMenu || _.isEmpty(element.children) || element.disabled) {
             return null
         }
 
