@@ -92,6 +92,7 @@ https://optimacros.myjetbrains.com/youtrack/issue/OM-1575
 
   &__disabled {
     cursor: auto;
+    pointer-events: none;
 
     & > * {
       opacity: 0.4;
